@@ -46,6 +46,7 @@ BaseApplication::~BaseApplication(void)
 {
     if (mTrayMgr) delete mTrayMgr;
     if (mCameraMan) delete mCameraMan;
+	if (mICEMenu) delete mICEMenu;
 
     //Remove ourself as a Window listener
     Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
@@ -110,7 +111,13 @@ void BaseApplication::createFrameListener(void)
     mWindow->getCustomAttribute("WINDOW", &windowHnd);
     windowHndStr << windowHnd;
     pl.insert(std::make_pair(std::string("WINDOW"), windowHndStr.str()));
-
+	#if defined OIS_WIN32_PLATFORM
+		pl.insert(std::make_pair(std::string("w32_mouse"), std::string("DISCL_FOREGROUND" )));
+		pl.insert(std::make_pair(std::string("w32_mouse"), std::string("DISCL_NONEXCLUSIVE")));
+	#elif defined OIS_LINUX_PLATFORM
+		pl.insert(std::make_pair(std::string("x11_mouse_grab"), std::string("false")));
+		pl.insert(std::make_pair(std::string("x11_mouse_hide"), std::string("false")));
+	#endif
     mInputManager = OIS::InputManager::createInputSystem( pl );
 
     mKeyboard = static_cast<OIS::Keyboard*>(mInputManager->createInputObject( OIS::OISKeyboard, true ));
@@ -245,19 +252,30 @@ bool BaseApplication::setup(void)
     createFrameListener();
 
     // Create the scene
-    createScene();
-
+    //createScene(); -> now the scene most be create into WORLD or LEVEL class 
+	mICEMenu = new ICEMenu(); 
+	// these parameters except the viewport most be into resource or wherever  
+	mICEMenu->setupHikari("..\\..\\media", "menu.swf", mCamera->getViewport(), 1024, 768);
     return true;
 };
 //-------------------------------------------------------------------------------------
 bool BaseApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
+	//TODO: CORE STATE MACHINE
     if(mWindow->isClosed())
         return false;
 
     if(mShutDown)
         return false;
+	
+	if(mICEMenu->getState() == ICEMenu::EXIT){
+		return false;
+	}
 
+	if(mICEMenu->getState() == ICEMenu::MENU){
+		mICEMenu->update();
+	}
+	//------------------------------------------------------------
     //Need to capture/update each device
     mKeyboard->capture();
     mMouse->capture();
@@ -372,34 +390,37 @@ bool BaseApplication::keyPressed( const OIS::KeyEvent &arg )
         mShutDown = true;
     }
 
-    mCameraMan->injectKeyDown(arg);
+    //mCameraMan->injectKeyDown(arg);
     return true;
 }
 
 bool BaseApplication::keyReleased( const OIS::KeyEvent &arg )
 {
-    mCameraMan->injectKeyUp(arg);
+   // mCameraMan->injectKeyUp(arg); //not here
     return true;
 }
 
 bool BaseApplication::mouseMoved( const OIS::MouseEvent &arg )
 {
     if (mTrayMgr->injectMouseMove(arg)) return true;
-    mCameraMan->injectMouseMove(arg);
+    //mCameraMan->injectMouseMove(arg);//not here
+	mICEMenu->mouseMoved(arg);
     return true;
 }
 
 bool BaseApplication::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
     if (mTrayMgr->injectMouseDown(arg, id)) return true;
-    mCameraMan->injectMouseDown(arg, id);
+    //mCameraMan->injectMouseDown(arg, id);//not here
+	mICEMenu->mouseDown(id);
     return true;
 }
 
 bool BaseApplication::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
     if (mTrayMgr->injectMouseUp(arg, id)) return true;
-    mCameraMan->injectMouseUp(arg, id);
+    //mCameraMan->injectMouseUp(arg, id); //not here
+	mICEMenu->mouseUp(id);
     return true;
 }
 
