@@ -46,7 +46,6 @@ BaseApplication::~BaseApplication(void)
 {
     if (mTrayMgr) delete mTrayMgr;
     if (mCameraMan) delete mCameraMan;
-	if (mICEMenu) delete mICEMenu;
 
     //Remove ourself as a Window listener
     Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
@@ -253,12 +252,13 @@ bool BaseApplication::setup(void)
 
     // Create the scene
     //createScene(); -> now the scene most be create into WORLD or LEVEL class 
-	mICEMenu = new ICEMenu(); 
 	// these parameters except the viewport most be into resource or wherever  
-	mICEMenu->setupHikari("..\\..\\media", "menu.swf", mCamera->getViewport(), 1024, 768);
+	if(!mICEMenu->instance()->setupHikari("..\\..\\media", "menu.swf", mCamera->getViewport(), 1024, 768)) return false;
+
     return true;
 };
 //-------------------------------------------------------------------------------------
+
 bool BaseApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
 	//TODO: CORE STATE MACHINE
@@ -267,13 +267,19 @@ bool BaseApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 
     if(mShutDown)
         return false;
-	
-	if(mICEMenu->getState() == ICEMenu::EXIT){
-		return false;
-	}
 
-	if(mICEMenu->getState() == ICEMenu::MENU){
-		mICEMenu->update();
+	//Game state
+	switch(mICEMenu->instance()->getState()){
+		case ICEMenu::MENU:
+			mICEMenu->instance()->update();
+			break;
+		case ICEMenu::CONTINUE:
+			break;
+		case ICEMenu::PLAY:
+			break;
+		case ICEMenu::EXIT:
+			return false;
+			break;
 	}
 	//------------------------------------------------------------
     //Need to capture/update each device
@@ -390,6 +396,11 @@ bool BaseApplication::keyPressed( const OIS::KeyEvent &arg )
         mShutDown = true;
     }
 
+
+	 if (arg.key == OIS::KC_P)
+    {
+        mICEMenu->instance()->setState(ICEMenu::MENU);
+    }
     //mCameraMan->injectKeyDown(arg);
     return true;
 }
@@ -404,7 +415,7 @@ bool BaseApplication::mouseMoved( const OIS::MouseEvent &arg )
 {
     if (mTrayMgr->injectMouseMove(arg)) return true;
     //mCameraMan->injectMouseMove(arg);//not here
-	mICEMenu->mouseMoved(arg);
+	if(mICEMenu->instance()->getState() == ICEMenu::MENU) mICEMenu->instance()->mouseMoved(arg);
     return true;
 }
 
@@ -412,7 +423,7 @@ bool BaseApplication::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButton
 {
     if (mTrayMgr->injectMouseDown(arg, id)) return true;
     //mCameraMan->injectMouseDown(arg, id);//not here
-	mICEMenu->mouseDown(id);
+	if(mICEMenu->instance()->getState() == ICEMenu::MENU) mICEMenu->instance()->mouseDown(id);
     return true;
 }
 
@@ -420,7 +431,7 @@ bool BaseApplication::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButto
 {
     if (mTrayMgr->injectMouseUp(arg, id)) return true;
     //mCameraMan->injectMouseUp(arg, id); //not here
-	mICEMenu->mouseUp(id);
+	if(mICEMenu->instance()->getState() == ICEMenu::MENU) mICEMenu->instance()->mouseUp(id);
     return true;
 }
 

@@ -1,23 +1,39 @@
 #include "ICEMenu.h"
 
+ICEMenu* ICEMenu::pinstance = 0;
+
+ICEMenu* ICEMenu::instance(){
+	if (pinstance == 0)
+          pinstance = new ICEMenu;
+        return pinstance;
+}
+
+
 ICEMenu::ICEMenu(void){
-	mMENUSTATE = MENU;
+
 }
 
 ICEMenu::~ICEMenu(void){
-   if (hikariMgr) delete hikariMgr;
+   
 }
 
-void ICEMenu::setupHikari(char* path, char* name, Ogre::Viewport* mViewport, int wight, int height)
+bool ICEMenu::setupHikari(char* path, char* name, Ogre::Viewport* mViewport, int wight, int height)
 {
-	hikariMgr = new Hikari::HikariManager(path); //"..\\..\\media"
-	hikariMenu = hikariMgr->createFlashOverlay("menu", mViewport, wight, height, Hikari::Position(Hikari::Center));
-	hikariMenu->load(name); //"menu.swf"
-	hikariMenu->setTransparent(false, true);
-	hikariMenu->bind("menuExitClick", Hikari::FlashDelegate(this, &ICEMenu::menuExitClick));
-	hikariMenu->bind("menuPlayClick", Hikari::FlashDelegate(this, &ICEMenu::menuPlayClick));
-	hikariMenu->bind("menuContinueClick", Hikari::FlashDelegate(this, &ICEMenu::menuContinueClick));
-	ShowCursor(true);
+	mMENUSTATE = MENU;
+	try{
+		hikariMgr = new Hikari::HikariManager(path); //"..\\..\\media"
+		hikariMenu = hikariMgr->createFlashOverlay("menu", mViewport, wight, height, Hikari::Position(Hikari::Center));
+		hikariMenu->load(name); //"menu.swf"
+		hikariMenu->setTransparent(false, true);
+		hikariMenu->bind("menuExitClick", Hikari::FlashDelegate(this, &ICEMenu::menuExitClick));
+		hikariMenu->bind("menuPlayClick", Hikari::FlashDelegate(this, &ICEMenu::menuPlayClick));
+		hikariMenu->bind("menuContinueClick", Hikari::FlashDelegate(this, &ICEMenu::menuContinueClick));
+		ShowCursor(true);
+		return true;
+	}catch(char* ex) {
+		return false;
+	}
+	
 }
 
 Hikari::FlashValue ICEMenu::menuExitClick(Hikari::FlashControl* caller, const Hikari::Arguments& args)
@@ -30,6 +46,7 @@ Hikari::FlashValue ICEMenu::menuPlayClick(Hikari::FlashControl* caller, const Hi
 {
 	ShowCursor(false);
 	mMENUSTATE = PLAY;
+	hikariMenu->callFunction("inGame",Hikari::Args(true));
 	hikariMenu->hide();
 	return FLASH_VOID;
 }
@@ -37,6 +54,7 @@ Hikari::FlashValue ICEMenu::menuPlayClick(Hikari::FlashControl* caller, const Hi
 Hikari::FlashValue ICEMenu::menuContinueClick(Hikari::FlashControl* caller, const Hikari::Arguments& args)
 {
 	ShowCursor(false);
+	hikariMenu->callFunction("inGame",Hikari::Args(true));
 	mMENUSTATE = CONTINUE;
 	hikariMenu->hide();
 	return FLASH_VOID;
@@ -46,11 +64,21 @@ ICEMenu::MENUSTATE ICEMenu::getState(){
 	return mMENUSTATE;
 }
 
-void ICEMenu::showMenu(){
-	ShowCursor(true);
-	mMENUSTATE = MENU;
-	hikariMenu->show();
+void ICEMenu::setState(ICEMenu::MENUSTATE state){
+	mMENUSTATE =state;
+	switch(state){
+		case MENU:
+			ShowCursor(true);
+			hikariMenu->show();
+			break;
+		case PLAY:
+		case CONTINUE:
+			ShowCursor(false);
+			hikariMenu->hide();
+			break;	
+	}
 }
+
 
 void ICEMenu::mouseMoved(const OIS::MouseEvent &arg){
 	hikariMgr->injectMouseMove(arg.state.X.abs, arg.state.Y.abs) || hikariMgr->injectMouseWheel(arg.state.Z.rel);

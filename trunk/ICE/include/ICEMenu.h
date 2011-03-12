@@ -9,30 +9,31 @@
 class ICEMenu
 {
 public:
-	//CONSTRUCTOR
-	ICEMenu(void);
-	~ICEMenu(void);
-
 	//MENU STATES
 	enum MENUSTATE{
 		MENU,
 		PLAY,
 		CONTINUE,
+		GAMEOVER,
 		EXIT
 	};
-	
+	static ICEMenu* instance();
+	~ICEMenu();
+
 	//Methods
-	void setupHikari(char* path, char* name, Ogre::Viewport* mViewport, int wight, int height);
+	bool setupHikari(char* path, char* name, Ogre::Viewport* mViewport, int wight, int height);
 	void update();
 	MENUSTATE getState();
-	void showMenu();
+	void setState(ICEMenu::MENUSTATE state);
 
 	//IOS
 	void mouseMoved(const OIS::MouseEvent &arg);
 	void mouseDown(OIS::MouseButtonID id);
 	void mouseUp(OIS::MouseButtonID id);
-
+protected:
+	  ICEMenu();
 private:
+	static ICEMenu* pinstance;
 	MENUSTATE mMENUSTATE;
 	Hikari::HikariManager* hikariMgr;
 	Hikari::FlashControl  *hikariMenu;
