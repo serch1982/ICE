@@ -34,4 +34,4 @@ protected:
     virtual void createScene(void);
 };
 
-#endif // #ifndef __ICE_h_
+#endif // #ifndef __ICE_H_
