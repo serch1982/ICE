@@ -26,9 +26,9 @@ bool icePlayer::initialize(Ogre::SceneManager* sceneManager, Ogre::SceneNode* no
 	shipPlaneNode = playerNode->createChildSceneNode();
 	shipNode = shipPlaneNode->createChildSceneNode();
 
-	mesh = sceneManager->createEntity("shipMesh", "razor.mesh");
-	mesh->setCastShadows(true);
-	node->attachObject(mesh);
+	Ogre::Entity* mesh2 = sceneManager->createEntity("shipMesh", "razor.mesh");
+	mesh2->setCastShadows(true);
+	shipNode->attachObject(mesh2);
 
 	//Ogre::ParticleSystem* smoke1 = sceneManager->createParticleSystem("Smoke1", "Smoke2");
 	//Ogre::ParticleSystem* smoke2 = sceneManager->createParticleSystem("Smoke2", "Smoke2");
@@ -75,7 +75,7 @@ void icePlayer::updateShipPosition(Ogre::Real frameTime)
 	//lookAt
 	Ogre::Real x = cursorNode->getPosition().x - shipNode->getPosition().x;
 	Ogre::Real y = cursorNode->getPosition().y - shipNode->getPosition().y;
-	Ogre::Real z = cursorNode->getPosition().z;
+	Ogre::Real z = cursorPlaneNode->getPosition().z;
 
 	shipNode->resetOrientation();
 	shipNode->yaw(Ogre::Radian(atan(x/z)));
