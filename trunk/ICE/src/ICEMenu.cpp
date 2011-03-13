@@ -21,7 +21,7 @@ bool ICEMenu::setupHikari(char* path, char* name, Ogre::Viewport* mViewport, int
 {
 	mMENUSTATE = MENU;
 	try{
-		hikariMgr = new Hikari::HikariManager(path); //"..\\..\\media"
+		hikariMgr = new Hikari::HikariManager(path); //".\\media"
 		hikariMenu = hikariMgr->createFlashOverlay("menu", mViewport, wight, height, Hikari::Position(Hikari::Center));
 		hikariMenu->load(name); //"menu.swf"
 		hikariMenu->setTransparent(false, true);

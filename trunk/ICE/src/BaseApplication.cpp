@@ -253,7 +253,7 @@ bool BaseApplication::setup(void)
     // Create the scene
     createScene(); //-> now the scene most be create into WORLD or LEVEL class 
 	// these parameters except the viewport most be into resource or wherever  
-	if(!mICEMenu->instance()->setupHikari("..\\..\\media", "menu.swf", mCamera->getViewport(), 1024, 768)) return false;
+	if(!mICEMenu->instance()->setupHikari(".\\media", "menu.swf", mCamera->getViewport(), 1024, 768)) return false;
 
     return true;
 };
