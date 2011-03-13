@@ -211,11 +211,11 @@ void BaseApplication::loadResources(void)
 void BaseApplication::go(void)
 {
 #ifdef _DEBUG
-    mResourcesCfg = "resources_d.cfg";
-    mPluginsCfg = "plugins_d.cfg";
+    mResourcesCfg = "iceResources_d.cfg";
+    mPluginsCfg = "icePlugins_d.cfg";
 #else
-    mResourcesCfg = "resources.cfg";
-    mPluginsCfg = "plugins.cfg";
+    mResourcesCfg = "iceResources.cfg";
+    mPluginsCfg = "icePlugins.cfg";
 #endif
 
     if (!setup())
@@ -251,7 +251,7 @@ bool BaseApplication::setup(void)
     createFrameListener();
 
     // Create the scene
-    //createScene(); -> now the scene most be create into WORLD or LEVEL class 
+    createScene(); //-> now the scene most be create into WORLD or LEVEL class 
 	// these parameters except the viewport most be into resource or wherever  
 	if(!mICEMenu->instance()->setupHikari("..\\..\\media", "menu.swf", mCamera->getViewport(), 1024, 768)) return false;
 
