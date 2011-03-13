@@ -57,6 +57,12 @@
     <ClInclude Include="include\iceBicho.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\iceTrajectory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\iceTrajectoryStep.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ICE.cpp">
@@ -78,6 +84,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\iceBicho.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\iceTrajectory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\iceTrajectoryStep.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

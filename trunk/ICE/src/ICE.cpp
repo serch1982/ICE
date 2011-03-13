@@ -50,6 +50,42 @@ void ICE::createScene(void)
     // Create a light
     Ogre::Light* l = mSceneMgr->createLight("MainLight");
     l->setPosition(20,80,50);*/
+
+
+	int jur = 1000;
+	int j = 0;
+	mTrajectory.addStep(iceTrajectoryStep(Ogre::Vector3(0,300,0),Ogre::Degree(0),5*j++));
+	mTrajectory.addStep(iceTrajectoryStep(Ogre::Vector3(jur*j,300,0),Ogre::Degree(20),5*j++));
+	mTrajectory.addStep(iceTrajectoryStep(Ogre::Vector3(jur*j,500,jur*2),Ogre::Degree(-20),5*j++));
+	mTrajectory.addStep(iceTrajectoryStep(Ogre::Vector3(jur*j,500,0),Ogre::Degree(0),5*j++));
+	mTrajectory.addStep(iceTrajectoryStep(Ogre::Vector3(jur*j,300,-jur*2),Ogre::Degree(0),5*j++));
+	mTrajectory.addStep(iceTrajectoryStep(Ogre::Vector3(jur*j,500,jur*2),Ogre::Degree(-20),5*j++));
+	mTrajectory.addStep(iceTrajectoryStep(Ogre::Vector3(jur*j,500,0),Ogre::Degree(0),5*j++));
+	mTrajectory.addStep(iceTrajectoryStep(Ogre::Vector3(jur*j,300,-jur*2),Ogre::Degree(0),5*j++));
+
+	//Putting elements in the scene
+	//icePlayer play (mSceneMgr,mSceneMgr->getRootSceneNode());
+	//player = &play;
+	mPlayer.initialize(mSceneMgr,mSceneMgr->getRootSceneNode()->createChildSceneNode());
+	mPlayer.setCamera(mCamera);
+	mTrajectory.loadSteps(mSceneMgr,mPlayer.playerNode);
+}
+
+bool ICE::frameRenderingQueued(const Ogre::FrameEvent& evt)
+{
+    bool ret = BaseApplication::frameRenderingQueued(evt);
+ 
+	mTrajectory.addTime(evt.timeSinceLastFrame);
+	mPlayer.updateShipPosition(evt.timeSinceLastFrame);
+
+    return ret;
+}
+
+bool ICE::mouseMoved( const OIS::MouseEvent &arg )
+{
+	bool ret = BaseApplication::mouseMoved(arg);
+	mPlayer.processMouseMoved(arg);
+    return ret;
 }
 
 

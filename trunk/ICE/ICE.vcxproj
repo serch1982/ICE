@@ -124,6 +124,8 @@
     <ClInclude Include="include\iceLevel.h" />
     <ClInclude Include="include\ICEMenu.h" />
     <ClInclude Include="include\icePlayer.h" />
+    <ClInclude Include="include\iceTrajectory.h" />
+    <ClInclude Include="include\iceTrajectoryStep.h" />
     <ClInclude Include="include\scene\DotSceneLoader.h" />
     <ClInclude Include="include\scene\rapidxml.hpp" />
     <ClInclude Include="include\scene\rapidxml_iterators.hpp" />
@@ -138,6 +140,8 @@
     <ClCompile Include="src\iceLevel.cpp" />
     <ClCompile Include="src\ICEMenu.cpp" />
     <ClCompile Include="src\icePlayer.cpp" />
+    <ClCompile Include="src\iceTrajectory.cpp" />
+    <ClCompile Include="src\iceTrajectoryStep.cpp" />
     <ClCompile Include="src\scene\DotSceneLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
