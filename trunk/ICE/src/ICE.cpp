@@ -67,7 +67,7 @@ void ICE::createScene(void)
 	//icePlayer play (mSceneMgr,mSceneMgr->getRootSceneNode());
 	//player = &play;
 	mPlayer.initialize(mSceneMgr,mSceneMgr->getRootSceneNode()->createChildSceneNode());
-	mPlayer.setCamera(mCamera);
+	mPlayer.setCamera(mCameras[1]);
 	mTrajectory.loadSteps(mSceneMgr,mPlayer.playerNode);
 }
 
@@ -75,7 +75,8 @@ bool ICE::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
     bool ret = BaseApplication::frameRenderingQueued(evt);
  
-	mTrajectory.addTime(evt.timeSinceLastFrame);
+	if (mICEMenu->instance()->getState() != ICEMenu::GOD)
+		mTrajectory.addTime(evt.timeSinceLastFrame);
 	mPlayer.updateShipPosition(evt.timeSinceLastFrame);
 
     return ret;

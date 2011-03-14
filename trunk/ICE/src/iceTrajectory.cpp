@@ -47,10 +47,10 @@ void iceTrajectory::loadSteps(Ogre::SceneManager* sceneManager, Ogre::SceneNode*
 		Ogre::SceneNode* debugNode = sceneManager->getRootSceneNode()->createChildSceneNode(steps[i].position);
 		char name[100];
 		sprintf(name,"key %d",i);
-		Ogre::Entity* mesh = sceneManager->createEntity(name, "fish.mesh");
+		Ogre::Entity* mesh = sceneManager->createEntity(name, "razor.mesh");
 		debugNode->attachObject(mesh);
-		debugNode->scale(40,40,40);
-		debugNode->rotate(Ogre::Quaternion(Ogre::Degree(90),Ogre::Vector3::UNIT_Y) * rotation);
+		//debugNode->scale(40,40,40);
+		debugNode->rotate(/*Ogre::Quaternion(Ogre::Degree(90),Ogre::Vector3::UNIT_Y) * */rotation);
 	}
 
 	track->setUseShortestRotationPath(true);

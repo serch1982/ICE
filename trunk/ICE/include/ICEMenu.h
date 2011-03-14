@@ -13,6 +13,7 @@ public:
 	enum MENUSTATE{
 		MENU,
 		PLAY,
+		GOD,
 		CONTINUE,
 		GAMEOVER,
 		EXIT
