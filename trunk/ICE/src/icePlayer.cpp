@@ -26,7 +26,7 @@ bool icePlayer::initialize(Ogre::SceneManager* sceneManager, Ogre::SceneNode* no
 	shipPlaneNode = playerNode->createChildSceneNode();
 	shipNode = shipPlaneNode->createChildSceneNode();
 
-	Ogre::Entity* mesh2 = sceneManager->createEntity("shipMesh", "razor.mesh");
+	Ogre::Entity* mesh2 = sceneManager->createEntity("shipMesh", "nave.mesh");
 	mesh2->setCastShadows(true);
 	shipNode->attachObject(mesh2);
 

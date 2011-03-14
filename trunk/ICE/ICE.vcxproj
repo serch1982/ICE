@@ -145,6 +145,7 @@
     <ClCompile Include="src\scene\DotSceneLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
     <None Include="docs\ReadMe.txt" />
     <None Include="res\ICE.ico" />
   </ItemGroup>

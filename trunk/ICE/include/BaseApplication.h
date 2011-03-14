@@ -80,6 +80,10 @@ protected:
     virtual void windowClosed(Ogre::RenderWindow* rw);
 
 	void setCurrentCamera(unsigned int cameraIndex);
+	void updateCameras(const Ogre::FrameEvent& evt);
+
+	int deltaCam;
+	int deltaCenitalCam;
 
     Ogre::Root *mRoot;
     vector<Ogre::Camera*> mCameras;

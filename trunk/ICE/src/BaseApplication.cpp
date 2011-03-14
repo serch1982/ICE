@@ -37,7 +37,9 @@ BaseApplication::BaseApplication(void)
     mShutDown(false),
     mInputManager(0),
     mMouse(0),
-    mKeyboard(0)
+    mKeyboard(0),
+	deltaCam(100),
+	deltaCenitalCam(10)
 {
 }
 
@@ -98,60 +100,50 @@ void BaseApplication::createCamera(void)
 
 	//GOD CAM
     // Position it at 500 in Z direction
-    mCameras[0]->setPosition(Ogre::Vector3(0,0,80));
+    mCameras[0]->setPosition(Ogre::Vector3(0,150,80));
     // Look back along -Z
-    mCameras[0]->lookAt(Ogre::Vector3(0,0,-300));
+    mCameras[0]->lookAt(Ogre::Vector3(0,150,-300));
     mCameras[0]->setNearClipDistance(5);
 
     mCameraMan = new OgreBites::SdkCameraMan(mCameras[0]);   // create a default camera controller
 
 	//CAM 2
-	// Position it at 500 in Z direction
-    mCameras[2]->setPosition(Ogre::Vector3(0,0,80));
-    // Look back along -Z
-    mCameras[2]->lookAt(Ogre::Vector3(0,0,-300));
+    mCameras[2]->setPosition(Ogre::Vector3(-260,650,590));
+    mCameras[2]->lookAt(Ogre::Vector3(-260,0,590));
     mCameras[2]->setNearClipDistance(5);
 	
 	//CAM 3
-	// Position it at 500 in Z direction
-    mCameras[3]->setPosition(Ogre::Vector3(0,0,80));
-    // Look back along -Z
-    mCameras[3]->lookAt(Ogre::Vector3(0,0,-300));
+    mCameras[3]->setPosition(Ogre::Vector3(-400,10,-500));
+    mCameras[3]->lookAt(Ogre::Vector3(-200,10,-500));
     mCameras[3]->setNearClipDistance(5);
 	
 	//CAM 4
-	// Position it at 500 in Z direction
-    mCameras[4]->setPosition(Ogre::Vector3(0,0,80));
-    // Look back along -Z
-    mCameras[4]->lookAt(Ogre::Vector3(0,0,-300));
+	mCameras[4]->setPosition(Ogre::Vector3(0,1000,0));
+    mCameras[4]->lookAt(Ogre::Vector3(0,0,0));
     mCameras[4]->setNearClipDistance(5);
+	mCameras[4]->setDirection(Ogre::Vector3::NEGATIVE_UNIT_Y);
+    /*mCameras[4]->setPosition(Ogre::Vector3(-506,174,-410));
+    mCameras[4]->lookAt(Ogre::Vector3(-270,68,-137));
+    mCameras[4]->setNearClipDistance(5);*/
 	
 	//CAM 5
-	// Position it at 500 in Z direction
-    mCameras[5]->setPosition(Ogre::Vector3(0,0,80));
-    // Look back along -Z
-    mCameras[5]->lookAt(Ogre::Vector3(0,0,-300));
+    mCameras[5]->setPosition(Ogre::Vector3(-880,5,612));
+    mCameras[5]->lookAt(Ogre::Vector3(-227,10,880));
     mCameras[5]->setNearClipDistance(5);
 	
 	//CAM 6
-	// Position it at 500 in Z direction
-    mCameras[6]->setPosition(Ogre::Vector3(0,0,80));
-    // Look back along -Z
-    mCameras[6]->lookAt(Ogre::Vector3(0,0,-300));
+    mCameras[6]->setPosition(Ogre::Vector3(492,10,462));
+    mCameras[6]->lookAt(Ogre::Vector3(-161,10,218));
     mCameras[6]->setNearClipDistance(5);
 	
 	//CAM 7
-	// Position it at 500 in Z direction
-    mCameras[7]->setPosition(Ogre::Vector3(0,0,80));
-    // Look back along -Z
-    mCameras[7]->lookAt(Ogre::Vector3(0,0,-300));
+    mCameras[7]->setPosition(Ogre::Vector3(-168,10,684));
+    mCameras[7]->lookAt(Ogre::Vector3(-142,10,520));
     mCameras[7]->setNearClipDistance(5);
 	
 	//CAM 8
-	// Position it at 500 in Z direction
-    mCameras[8]->setPosition(Ogre::Vector3(400,10,-300));
-    // Look back along -Z
-    mCameras[8]->lookAt(Ogre::Vector3(400,10,-600));
+    mCameras[8]->setPosition(Ogre::Vector3(302,10,-115));
+    mCameras[8]->lookAt(Ogre::Vector3(302,10,-100));
     mCameras[8]->setNearClipDistance(5);
 
 	mCurrentCamera = mCameras[1];
@@ -336,8 +328,8 @@ bool BaseApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 			mICEMenu->instance()->update();
 			break;
 		case ICEMenu::CONTINUE:
-			break;
 		case ICEMenu::PLAY:
+			updateCameras(evt);
 			break;
 		case ICEMenu::GOD:
 			break;
@@ -470,10 +462,12 @@ bool BaseApplication::keyPressed( const OIS::KeyEvent &arg )
 	}
 	else if (arg.key == OIS::KC_2)
 	{
+		mICEMenu->instance()->setState(ICEMenu::PLAY);
 		setCurrentCamera(2);
 	}
 	else if (arg.key == OIS::KC_3)
 	{
+		mICEMenu->instance()->setState(ICEMenu::PLAY);
 		setCurrentCamera(3);
 	}
 	else if (arg.key == OIS::KC_4)
@@ -577,4 +571,25 @@ void BaseApplication::setCurrentCamera(unsigned int cameraIndex)
 {
 	mCurrentCamera = mCameras[cameraIndex];
 	mWindow->getViewport(0)->setCamera(mCurrentCamera);
+}
+
+void BaseApplication::updateCameras(const Ogre::FrameEvent& evt)
+{
+	Ogre::Vector3 vPos;
+	if( mCurrentCamera->getName() == "Camera 3" ){
+		vPos = mCurrentCamera->getPosition();
+		if( vPos[2] > 770 && deltaCam > 0 )
+			deltaCam = -deltaCam;
+		else if( vPos[2] < -500 && deltaCam < 0 )
+			deltaCam = -deltaCam;
+		mCurrentCamera->move( Ogre::Vector3(0.0f,0.0f,deltaCam * evt.timeSinceLastFrame ));
+
+	}else if( mCurrentCamera->getName() == "Camera 2" ){
+		vPos = mCurrentCamera->getPosition();
+		if( vPos[0] > 320 && deltaCenitalCam > 0 )
+			deltaCenitalCam = -deltaCenitalCam;
+		else if( vPos[0] < -260 && deltaCenitalCam < 0 )
+			deltaCenitalCam = -deltaCenitalCam;
+		mCurrentCamera->move( Ogre::Vector3(deltaCenitalCam * evt.timeSinceLastFrame,0.0f,0.0f ));
+	}
 }

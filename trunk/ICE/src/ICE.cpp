@@ -37,7 +37,10 @@ void ICE::createScene(void)
 
     // Create a light
     Ogre::Light* l = mSceneMgr->createLight("MainLight");
-    l->setPosition(20,80,50);
+	l->setType( Ogre::Light::LT_DIRECTIONAL);
+	l->setDirection( -1, 1, -1 );
+	l->setDiffuseColour(1.0, 1.0, 1.0);
+	l->setSpecularColour(1.0, 1.0, 1.0);
 
     /*Ogre::Entity* ogreHead = mSceneMgr->createEntity("Head", "ogrehead.mesh");
 
