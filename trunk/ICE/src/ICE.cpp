@@ -75,9 +75,10 @@ bool ICE::frameRenderingQueued(const Ogre::FrameEvent& evt)
 {
     bool ret = BaseApplication::frameRenderingQueued(evt);
  
+	
+	mTrajectory.addTime(evt.timeSinceLastFrame);
 	if (mICEMenu->instance()->getState() != ICEMenu::GOD)
-		mTrajectory.addTime(evt.timeSinceLastFrame);
-	mPlayer.updateShipPosition(evt.timeSinceLastFrame);
+		mPlayer.updateShipPosition(evt.timeSinceLastFrame);
 
     return ret;
 }
