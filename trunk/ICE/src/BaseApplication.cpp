@@ -96,6 +96,7 @@ void BaseApplication::createCamera(void)
 		mCameras.push_back(mSceneMgr->createCamera(camName));
 	}
 
+	//GOD CAM
     // Position it at 500 in Z direction
     mCameras[0]->setPosition(Ogre::Vector3(0,0,80));
     // Look back along -Z
@@ -103,6 +104,56 @@ void BaseApplication::createCamera(void)
     mCameras[0]->setNearClipDistance(5);
 
     mCameraMan = new OgreBites::SdkCameraMan(mCameras[0]);   // create a default camera controller
+
+	//CAM 2
+	// Position it at 500 in Z direction
+    mCameras[2]->setPosition(Ogre::Vector3(0,0,80));
+    // Look back along -Z
+    mCameras[2]->lookAt(Ogre::Vector3(0,0,-300));
+    mCameras[2]->setNearClipDistance(5);
+	
+	//CAM 3
+	// Position it at 500 in Z direction
+    mCameras[3]->setPosition(Ogre::Vector3(0,0,80));
+    // Look back along -Z
+    mCameras[3]->lookAt(Ogre::Vector3(0,0,-300));
+    mCameras[3]->setNearClipDistance(5);
+	
+	//CAM 4
+	// Position it at 500 in Z direction
+    mCameras[4]->setPosition(Ogre::Vector3(0,0,80));
+    // Look back along -Z
+    mCameras[4]->lookAt(Ogre::Vector3(0,0,-300));
+    mCameras[4]->setNearClipDistance(5);
+	
+	//CAM 5
+	// Position it at 500 in Z direction
+    mCameras[5]->setPosition(Ogre::Vector3(0,0,80));
+    // Look back along -Z
+    mCameras[5]->lookAt(Ogre::Vector3(0,0,-300));
+    mCameras[5]->setNearClipDistance(5);
+	
+	//CAM 6
+	// Position it at 500 in Z direction
+    mCameras[6]->setPosition(Ogre::Vector3(0,0,80));
+    // Look back along -Z
+    mCameras[6]->lookAt(Ogre::Vector3(0,0,-300));
+    mCameras[6]->setNearClipDistance(5);
+	
+	//CAM 7
+	// Position it at 500 in Z direction
+    mCameras[7]->setPosition(Ogre::Vector3(0,0,80));
+    // Look back along -Z
+    mCameras[7]->lookAt(Ogre::Vector3(0,0,-300));
+    mCameras[7]->setNearClipDistance(5);
+	
+	//CAM 8
+	// Position it at 500 in Z direction
+    mCameras[8]->setPosition(Ogre::Vector3(400,10,-300));
+    // Look back along -Z
+    mCameras[8]->lookAt(Ogre::Vector3(400,10,-600));
+    mCameras[8]->setNearClipDistance(5);
+
 	mCurrentCamera = mCameras[1];
 }
 //-------------------------------------------------------------------------------------
@@ -444,25 +495,21 @@ bool BaseApplication::keyPressed( const OIS::KeyEvent &arg )
 	else if (arg.key == OIS::KC_8)
 	{
 		setCurrentCamera(8);
+	}else if (arg.key == OIS::KC_Z){
+		bool bSkyBox = mSceneMgr->isSkyBoxEnabled();
+		mSceneMgr->setSkyBox( !bSkyBox, "cielo", 20000.0f, false, Ogre::Quaternion::IDENTITY, "level1" );
 	}
-	else if (arg.key == OIS::KC_9)
-	{
-		setCurrentCamera(9);
-	}
-
-
-	 if (arg.key == OIS::KC_P)
-    {
-        mICEMenu->instance()->setState(ICEMenu::MENU);
-    }
-    if (mICEMenu->instance()->getState() == ICEMenu::GOD)
+    else if (arg.key == OIS::KC_P){
+		mICEMenu->instance()->setState(ICEMenu::MENU);
+    }else if (mICEMenu->instance()->getState() == ICEMenu::GOD){
 		mCameraMan->injectKeyDown(arg);
+	}
     return true;
 }
 
 bool BaseApplication::keyReleased( const OIS::KeyEvent &arg )
 {
-    if (mICEMenu->instance()->getState() == ICEMenu::GOD)
+	if (mICEMenu->instance()->getState() == ICEMenu::GOD)
 		mCameraMan->injectKeyUp(arg); //not here
     return true;
 }
@@ -472,7 +519,8 @@ bool BaseApplication::mouseMoved( const OIS::MouseEvent &arg )
     if (mTrayMgr->injectMouseMove(arg)) return true;
 	if (mICEMenu->instance()->getState() == ICEMenu::GOD)
 		mCameraMan->injectMouseMove(arg);//not here
-	if(mICEMenu->instance()->getState() == ICEMenu::MENU) mICEMenu->instance()->mouseMoved(arg);
+	else if(mICEMenu->instance()->getState() == ICEMenu::MENU)
+		mICEMenu->instance()->mouseMoved(arg);
     return true;
 }
 
@@ -481,7 +529,8 @@ bool BaseApplication::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButton
     if (mTrayMgr->injectMouseDown(arg, id)) return true;
     if (mICEMenu->instance()->getState() == ICEMenu::GOD)
 		mCameraMan->injectMouseDown(arg, id);//not here
-	if(mICEMenu->instance()->getState() == ICEMenu::MENU) mICEMenu->instance()->mouseDown(id);
+	else if(mICEMenu->instance()->getState() == ICEMenu::MENU) 
+		mICEMenu->instance()->mouseDown(id);
     return true;
 }
 
@@ -490,7 +539,8 @@ bool BaseApplication::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButto
     if (mTrayMgr->injectMouseUp(arg, id)) return true;
     if (mICEMenu->instance()->getState() == ICEMenu::GOD)
 		mCameraMan->injectMouseUp(arg, id); //not here
-	if(mICEMenu->instance()->getState() == ICEMenu::MENU) mICEMenu->instance()->mouseUp(id);
+	else if(mICEMenu->instance()->getState() == ICEMenu::MENU) 
+		mICEMenu->instance()->mouseUp(id);
     return true;
 }
 
