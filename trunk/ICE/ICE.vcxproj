@@ -118,7 +118,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="include\BaseApplication.h" />
+    <ClInclude Include="include\Core.h" />
     <ClInclude Include="include\ICE.h" />
     <ClInclude Include="include\iceBicho.h" />
     <ClInclude Include="include\iceLevel.h" />
@@ -134,7 +134,7 @@
     <ClInclude Include="res\Resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\BaseApplication.cpp" />
+    <ClCompile Include="src\Core.cpp" />
     <ClCompile Include="src\ICE.cpp" />
     <ClCompile Include="src\iceBicho.cpp" />
     <ClCompile Include="src\iceLevel.cpp" />

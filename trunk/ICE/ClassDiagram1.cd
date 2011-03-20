@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="BaseApplication">
+  <Class Name="CORE">
     <Position X="1" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -8,7 +8,7 @@
     </Compartments>
     <TypeIdentifier>
       <HashCode>EigKAEAAAABAEAwJCAAQAQIAQCApADAQgMABSDIIQQA=</HashCode>
-      <FileName>include\BaseApplication.h</FileName>
+      <FileName>include\CORE.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ICE">

@@ -55,7 +55,6 @@ void icePlayer::setCamera(Ogre::Camera* camera)
 void icePlayer::processMouseMoved(const OIS::MouseEvent &arg)
 {
 	cursorNode->translate(-arg.state.X.rel,-arg.state.Y.rel,0);
-
 }
 
 void icePlayer::updateShipPosition(Ogre::Real frameTime)

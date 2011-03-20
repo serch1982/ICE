@@ -24,9 +24,6 @@
     <ClInclude Include="include\ICE.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\BaseApplication.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="res\Resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -63,12 +60,12 @@
     <ClInclude Include="include\iceTrajectoryStep.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Core.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ICE.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\BaseApplication.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\ICEMenu.cpp">
@@ -90,6 +87,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\iceTrajectoryStep.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
