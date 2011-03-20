@@ -52,11 +52,11 @@
       <FileName>include\iceTrajectory.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="iceTrajectoryStep" Collapsed="true">
+  <Class Name="iceStep" Collapsed="true">
     <Position X="6" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAABAAIAAAAAAAAQAAAAIAAAAAAACAAAAAAAAAAAAAA=</HashCode>
-      <FileName>include\iceTrajectoryStep.h</FileName>
+      <FileName>include\iceStep.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ICEMenu">

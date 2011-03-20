@@ -65,23 +65,43 @@ void ICE::createScene(void)
     l->setPosition(20,80,50);*/
 
 
-	float jur = 1000.0f;
-	float j = 0.0f;
-	mTrajectory.addStep(iceTrajectoryStep(Ogre::Vector3(0.0f,300.0f,0.0f),Ogre::Degree(0.0f),5*j++));
-	mTrajectory.addStep(iceTrajectoryStep(Ogre::Vector3(jur*j,300.0f,0.0f),Ogre::Degree(20.0f),5*j++));
-	mTrajectory.addStep(iceTrajectoryStep(Ogre::Vector3(jur*j,500.0f,jur*2),Ogre::Degree(-20.0f),5*j++));
-	mTrajectory.addStep(iceTrajectoryStep(Ogre::Vector3(jur*j,500.0f,0),Ogre::Degree(0.0f),5*j++));
-	mTrajectory.addStep(iceTrajectoryStep(Ogre::Vector3(jur*j,300.0f,-jur*2),Ogre::Degree(0.0f),5*j++));
-	mTrajectory.addStep(iceTrajectoryStep(Ogre::Vector3(jur*j,500.0f,jur*2),Ogre::Degree(-20.0f),5*j++));
-	mTrajectory.addStep(iceTrajectoryStep(Ogre::Vector3(jur*j,500.0f,0),Ogre::Degree(0.0f),5*j++));
-	mTrajectory.addStep(iceTrajectoryStep(Ogre::Vector3(jur*j,300.0f,-jur*2),Ogre::Degree(0.0f),5*j++));
+
+	int jur = 1000;
+	int j = 0;
+	vector<iceStep> steps;
+	//steps.push_back(iceStep(Ogre::Vector3(0,300,0),Ogre::Degree(0),5*j++));
+	//steps.push_back(iceStep(Ogre::Vector3(jur*j,300,0),Ogre::Degree(20),5*j++));
+	//steps.push_back(iceStep(Ogre::Vector3(jur*j,500,jur*2),Ogre::Degree(-20),5*j++));
+	//steps.push_back(iceStep(Ogre::Vector3(jur*j,500,0),Ogre::Degree(0),5*j++));
+	//steps.push_back(iceStep(Ogre::Vector3(jur*j,300,-jur*2),Ogre::Degree(0),5*j++));
+	//steps.push_back(iceStep(Ogre::Vector3(jur*j,500,jur*2),Ogre::Degree(-20),5*j++));
+	//steps.push_back(iceStep(Ogre::Vector3(jur*j,500,0),Ogre::Degree(0),5*j++));
+	//steps.push_back(iceStep(Ogre::Vector3(jur*j,300,-jur*2),Ogre::Degree(0),5*j++));
+
+	steps.push_back(iceStep(Ogre::Vector3( -907, 535 , -667),Ogre::Degree(0),5*j++));
+	steps.push_back(iceStep(Ogre::Vector3( -739, 407 , -713),Ogre::Degree(0),5*j++));
+	steps.push_back(iceStep(Ogre::Vector3( -483, 252 , -559),Ogre::Degree(0),5*j++));
+	steps.push_back(iceStep(Ogre::Vector3( -326, 120 , -289),Ogre::Degree(0),5*j++));
+	steps.push_back(iceStep(Ogre::Vector3( -186,  48 ,  -6 ),Ogre::Degree(0),5*j++));
+	steps.push_back(iceStep(Ogre::Vector3( -4  ,  54 , 237 ),Ogre::Degree(0),5*j++));
+	steps.push_back(iceStep(Ogre::Vector3(  8  ,  52 , 511 ),Ogre::Degree(0),5*j++));
+	steps.push_back(iceStep(Ogre::Vector3(  7  , 90  , 706 ),Ogre::Degree(-20),5*j++));
+	steps.push_back(iceStep(Ogre::Vector3( -60 , 171 ,993  ),Ogre::Degree(-40),5*j++));
+	steps.push_back(iceStep(Ogre::Vector3(  100, 238 ,1274 ),Ogre::Degree(-40),5*j++));
+	steps.push_back(iceStep(Ogre::Vector3( 314 , 121 ,966  ),Ogre::Degree(-20),5*j++));
+	steps.push_back(iceStep(Ogre::Vector3(302  , 71  , 95  ),Ogre::Degree(0),5*j++));
+	steps.push_back(iceStep(Ogre::Vector3( 440 , 68  , -107),Ogre::Degree(0),5*j++));
+	steps.push_back(iceStep(Ogre::Vector3(1526 , 95  , 102 ),Ogre::Degree(0),5*j++));
+	steps.push_back(iceStep(Ogre::Vector3(1527 , 95  , 102 ),Ogre::Degree(0),5*j++));
+
 
 	//Putting elements in the scene
 	//icePlayer play (mSceneMgr,mSceneMgr->getRootSceneNode());
 	//player = &play;
 	mPlayer.initialize(mSceneMgr,mSceneMgr->getRootSceneNode()->createChildSceneNode());
 	mPlayer.setCamera(mGodCam);
-	mTrajectory.loadSteps(mSceneMgr,mPlayer.playerNode);
+	mTrajectory.init(mSceneMgr,mPlayer.playerNode);
+	mTrajectory.loadSteps(steps);
 }
 
 bool ICE::keyPressed( const OIS::KeyEvent &arg ){

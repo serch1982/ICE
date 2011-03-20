@@ -57,7 +57,7 @@
     <ClInclude Include="include\iceTrajectory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\iceTrajectoryStep.h">
+    <ClInclude Include="include\iceStep.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Core.h">
@@ -86,7 +86,7 @@
     <ClCompile Include="src\iceTrajectory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\iceTrajectoryStep.cpp">
+    <ClCompile Include="src\iceStep.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Core.cpp">

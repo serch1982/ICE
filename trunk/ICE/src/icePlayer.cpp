@@ -29,6 +29,7 @@ bool icePlayer::initialize(Ogre::SceneManager* sceneManager, Ogre::SceneNode* no
 	Ogre::Entity* mesh2 = sceneManager->createEntity("shipMesh", "nave.mesh");
 	mesh2->setCastShadows(true);
 	shipNode->attachObject(mesh2);
+	//shipNode->scale(0.2,0.2,0.2);
 
 	//Ogre::ParticleSystem* smoke1 = sceneManager->createParticleSystem("Smoke1", "Smoke2");
 	//Ogre::ParticleSystem* smoke2 = sceneManager->createParticleSystem("Smoke2", "Smoke2");
@@ -54,7 +55,7 @@ void icePlayer::setCamera(Ogre::Camera* camera)
 
 void icePlayer::processMouseMoved(const OIS::MouseEvent &arg)
 {
-	cursorNode->translate(-arg.state.X.rel,-arg.state.Y.rel,0);
+	cursorNode->translate((Ogre::Real)-arg.state.X.rel,(Ogre::Real)-arg.state.Y.rel,0);
 }
 
 void icePlayer::updateShipPosition(Ogre::Real frameTime)

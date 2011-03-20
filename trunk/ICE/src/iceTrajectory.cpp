@@ -3,7 +3,8 @@
 
 iceTrajectory::iceTrajectory(void)
 {
-	duration = 0;
+	mDuration = 0;
+	mCurrentTime = 0;
 }
 
 
@@ -11,51 +12,112 @@ iceTrajectory::~iceTrajectory(void)
 {
 }
 
-void iceTrajectory::addStep(iceTrajectoryStep step)
+void iceTrajectory::loadSteps(vector<iceStep> p_vSteps)
 {
-	steps.push_back(step);
-	duration = max(duration,step.time);
-}
+	mTrack.setAutoCalculate(false);
+	mSteps = p_vSteps;
 
-void iceTrajectory::addTime(Ogre::Real time)
-{
-	animState->addTime(time);
-}
-
-void iceTrajectory::loadSteps(Ogre::SceneManager* sceneManager, Ogre::SceneNode* node)
-{
-	Ogre::Animation* anim = sceneManager->createAnimation("Trajectory", duration);
-	anim->setInterpolationMode(Ogre::Animation::IM_SPLINE);
-	anim->setRotationInterpolationMode(Ogre::Animation::RIM_SPHERICAL);
-
-    Ogre::NodeAnimationTrack* track = anim->createNodeTrack(0, node);
-    // Setup keyframes
-
-	Ogre::Vector3 initialDirection = node->getOrientation() * Ogre::Vector3::UNIT_Z;
-	for (unsigned int i=0;i<steps.size()-1;i++)
+	//DEBUG {
+		Ogre::SceneNode* sDebugTrajectorySteps = mSceneManager->getSceneNode("DebugTrajectorySteps");
+	//} DEBUG
+	for (unsigned int i=0; i<mSteps.size(); i++)
 	{
-		Ogre::TransformKeyFrame* key = track->createNodeKeyFrame(steps[i].time);
-		key->setTranslate(steps[i].position);
+		mTrack.addPoint(mSteps[i].getPosition());
+		//DEBUG {
+			Ogre::SceneNode* sDebugNode = sDebugTrajectorySteps->createChildSceneNode(mSteps[i].getPosition());
+			char name[100];
+			sprintf(name,"key %d",i);
+			Ogre::Entity* mesh = mSceneManager->createEntity(name, "razor.mesh");
+			sDebugNode->attachObject(mesh);
+			//debugNode->scale(40,40,40);
+			//sDebugNode->rotate(rotation);
+		//} DEBUG
+	}
+	mDuration = mSteps[mSteps.size()-1].getTime();
+	mTrack.recalcTangents();
 
 
-		Ogre::Quaternion rotation = initialDirection.getRotationTo(steps[i+1].position - steps[i].position);
-		rotation = rotation * Ogre::Quaternion(steps[i].rollAngle,Ogre::Vector3::UNIT_Z);
-		key->setRotation(rotation);
-		//key->setRotation(Ogre::Quaternion(Ogre::Degree((-90*i)%360),Ogre::Vector3::UNIT_Y));
+	//DEBUG	
+	
+		//Ogre::Quaternion rotation = initialDirection.getRotationTo(steps[i+1].position - steps[i].position);
+		//rotation = rotation * Ogre::Quaternion(steps[i].rollAngle,Ogre::Vector3::UNIT_Z);
 
-		//DEBUG
-		Ogre::SceneNode* debugNode = sceneManager->getRootSceneNode()->createChildSceneNode(steps[i].position);
-		char name[100];
-		sprintf(name,"key %d",i);
-		Ogre::Entity* mesh = sceneManager->createEntity(name, "razor.mesh");
-		debugNode->attachObject(mesh);
-		//debugNode->scale(40,40,40);
-		debugNode->rotate(/*Ogre::Quaternion(Ogre::Degree(90),Ogre::Vector3::UNIT_Y) * */rotation);
+
+
+}
+
+void iceTrajectory::addTime(Ogre::Real p_fTime)
+{
+	mCurrentTime += p_fTime;
+	if (mDuration < mCurrentTime + LOCOMOTIVE_ADVANCE)
+		mCurrentTime = 0;
+	Ogre::Real fInterpolation = getInterpolationByTime(mCurrentTime);
+	Ogre::Real fLocomotiveInterpolation = getInterpolationByTime(mCurrentTime + LOCOMOTIVE_ADVANCE);
+
+	Ogre::Vector3 sNewPosition = mTrack.interpolate(fInterpolation);
+	Ogre::Vector3 sLocomotivePosition = mTrack.interpolate(fLocomotiveInterpolation);
+
+	mNode->setPosition(sNewPosition);
+	mLocomotiveNode->setPosition(sLocomotivePosition);
+	//mNode->lookAt(sLocomotivePosition,Ogre::Node::TransformSpace::TS_WORLD,Ogre::Vector3::UNIT_Z);
+
+	Ogre::Radian fInterpolatedRoll = getInterpolatedRollByTime(mCurrentTime);
+	Ogre::Radian fCurrentRoll = mNode->getOrientation().getRoll();
+
+	//mNode->rotate(Ogre::Vector3::UNIT_Z,fInterpolatedRoll-fCurrentRoll,Ogre::Node::TransformSpace::TS_WORLD);
+
+}
+
+void iceTrajectory::init(Ogre::SceneManager* p_spSceneManager, Ogre::SceneNode* p_psNode)
+{
+	mSceneManager = p_spSceneManager;
+	mNode = p_psNode;
+	mCurrentTime = 0;
+	mLocomotiveNode = mNode->getParentSceneNode()->createChildSceneNode();
+	mNode->setAutoTracking(true,mLocomotiveNode,Ogre::Vector3::UNIT_Z);
+
+	//DEBUG {	
+	mSceneManager->getRootSceneNode()->createChildSceneNode("DebugTrajectorySteps");
+	//} DEBUG
+}
+
+unsigned int iceTrajectory::getCurrentStepIndexByTime(Ogre::Real p_fTime)
+{
+	unsigned int iCurrentStepIndex = 0;
+	for(unsigned int i=0;i<mSteps.size();i++)
+	{
+		if (mSteps[i].getTime() > p_fTime)
+		{
+			iCurrentStepIndex = i-1;
+			break;
+		}
 	}
 
-	track->setUseShortestRotationPath(true);
+	return iCurrentStepIndex;
+}
 
-    // Create a new animation state to track this
-    animState = sceneManager->createAnimationState("Trajectory");
-	animState->setEnabled(true);
+Ogre::Real iceTrajectory::getInterpolationByTime(Ogre::Real p_fTime)
+{
+	unsigned int iCurrentStepIndex = getCurrentStepIndexByTime(p_fTime);
+
+	Ogre::Real fTimeToNextStep = mSteps[iCurrentStepIndex+1].getTime() - mSteps[iCurrentStepIndex].getTime();
+	Ogre::Real fTimeElapsedFromCurrentStep = p_fTime - mSteps[iCurrentStepIndex].getTime();
+	Ogre::Real fCurrentStepInterpolation = fTimeElapsedFromCurrentStep/fTimeToNextStep;
+
+	return (Ogre::Real)(iCurrentStepIndex + fCurrentStepInterpolation)/mSteps.size();
+}
+
+Ogre::Radian iceTrajectory::getInterpolatedRollByTime(Ogre::Real p_fTime)
+{
+	unsigned int iCurrentStepIndex = getCurrentStepIndexByTime(p_fTime);
+
+	Ogre::Real fTimeToNextStep = mSteps[iCurrentStepIndex+1].getTime() - mSteps[iCurrentStepIndex].getTime();
+	Ogre::Real fTimeElapsedFromCurrentStep = p_fTime - mSteps[iCurrentStepIndex].getTime();
+	Ogre::Real fCurrentStepInterpolation = fTimeElapsedFromCurrentStep/fTimeToNextStep;
+
+	return  mSteps[iCurrentStepIndex].getRollAngle() +
+		    ( mSteps[iCurrentStepIndex+1].getRollAngle() - 
+			  mSteps[iCurrentStepIndex].getRollAngle()
+			)*fCurrentStepInterpolation;
+
 }
