@@ -34,6 +34,13 @@ public:
     ICE(void);
     virtual ~ICE(void);
 
+	static ICE* getInstance();
+	//Deleting the instance
+	static void deleteInstance(){
+		if( pinstance != NULL ) 
+			delete pinstance;
+	}
+
 protected:
 	virtual bool setup();
     virtual void createScene(void);
@@ -52,10 +59,26 @@ protected:
 	//void updateCameras(const Ogre::FrameEvent& evt);
 
 private:
+
+	//Singleton
+	static ICE* pinstance;
+
 	ICEMenu* mIceMenu;
 	iceLevel mLevel;
 	icePlayer mPlayer;
 	iceTrajectory mTrajectory;
+
+	//Game States
+	enum STATE{
+		MENU,
+		PLAY,
+		PAUSE,
+		LOAD,
+		GAME_OVER,
+		GOD
+	} eState;
+
+	int m_iCurrentLevel;
 };
 
 #endif // #ifndef __ICE_H_
