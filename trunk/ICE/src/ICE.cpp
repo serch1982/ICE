@@ -253,7 +253,13 @@ bool ICE::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
     return true;
 }
 
+void ICE::setState( STATE peState){
+	eState = peState;
+}
 
+int ICE::getState(){
+	return eState;
+}
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 #define WIN32_LEAN_AND_MEAN

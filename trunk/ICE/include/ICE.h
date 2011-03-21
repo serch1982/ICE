@@ -40,6 +40,19 @@ public:
 		if( pinstance != NULL ) 
 			delete pinstance;
 	}
+	
+
+	//Game States
+	enum STATE{
+		MENU,
+		PLAY,
+		PAUSE,
+		LOAD,
+		GAME_OVER,
+		GOD
+	};
+	void setState( STATE peState );
+	int getState();
 
 protected:
 	virtual bool setup();
@@ -68,15 +81,7 @@ private:
 	icePlayer mPlayer;
 	iceTrajectory mTrajectory;
 
-	//Game States
-	enum STATE{
-		MENU,
-		PLAY,
-		PAUSE,
-		LOAD,
-		GAME_OVER,
-		GOD
-	} eState;
+	STATE eState;
 
 	int m_iCurrentLevel;
 };
