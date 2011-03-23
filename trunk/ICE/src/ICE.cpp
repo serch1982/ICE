@@ -186,10 +186,6 @@ bool ICE::frameRenderingQueued(const Ogre::FrameEvent& evt)
     if(mShutDown)
         return false;
 	
-	Ogre::stringstream strState;
-	strState << "eState: " << eState << "\n";
-	Ogre::Log* pLog = Ogre::LogManager::getSingletonPtr()->getLog ( "Ogre.log" );
-	pLog->logMessage( strState.str() );
 	//Game state
 	switch( eState ){
 		case MENU:
@@ -213,6 +209,7 @@ bool ICE::frameRenderingQueued(const Ogre::FrameEvent& evt)
 			// Ending Condition.
 			break;
 		case GOD:
+			// God mode
 			break;
 		case EXIT:
 			return false;
@@ -274,6 +271,11 @@ bool ICE::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 
 void ICE::setState( STATE peState){
 	eState = peState;
+
+	Ogre::stringstream strState;
+	strState << "eState: " << eState << "\n";
+	Ogre::Log* pLog = Ogre::LogManager::getSingletonPtr()->getLog ( "Ogre.log" );
+	pLog->logMessage( strState.str() );
 }
 
 int ICE::getState(){
