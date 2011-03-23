@@ -221,7 +221,6 @@ bool ICE::frameRenderingQueued(const Ogre::FrameEvent& evt)
 			break;
 	}
 
-	
 	mTrajectory.addTime(evt.timeSinceLastFrame);
 	if( eState != GOD )
 		mPlayer.updateShipPosition(evt.timeSinceLastFrame);
