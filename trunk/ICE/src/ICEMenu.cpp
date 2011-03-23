@@ -1,4 +1,5 @@
 #include "ICEMenu.h"
+#include "ICE.h"
 
 ICEMenu* ICEMenu::pinstance = 0;
 
@@ -19,7 +20,8 @@ ICEMenu::~ICEMenu(void){
 
 bool ICEMenu::setupHikari(char* path, char* name, Ogre::Viewport* mViewport, int wight, int height)
 {
-	mMENUSTATE = MENU;
+	ICE* pIce = ICE::getInstance();
+	pIce->setState( ICE::MENU );
 	try{
 		hikariMgr = new Hikari::HikariManager(path); //".\\media"
 		hikariMenu = hikariMgr->createFlashOverlay("menu", mViewport, wight, height, Hikari::Position(Hikari::Center));
@@ -38,14 +40,16 @@ bool ICEMenu::setupHikari(char* path, char* name, Ogre::Viewport* mViewport, int
 
 Hikari::FlashValue ICEMenu::menuExitClick(Hikari::FlashControl* caller, const Hikari::Arguments& args)
 {
-	mMENUSTATE = EXIT;
+	ICE* pIce = ICE::getInstance();
+	pIce->setState( ICE::EXIT );
 	return FLASH_VOID;
 }
 
 Hikari::FlashValue ICEMenu::menuPlayClick(Hikari::FlashControl* caller, const Hikari::Arguments& args)
 {
 	ShowCursor(false);
-	mMENUSTATE = PLAY;
+	ICE* pIce = ICE::getInstance();
+	pIce->setState( ICE::PLAY );
 	hikariMenu->callFunction("inGame",Hikari::Args(true));
 	hikariMenu->hide();
 	return FLASH_VOID;
@@ -55,30 +59,21 @@ Hikari::FlashValue ICEMenu::menuContinueClick(Hikari::FlashControl* caller, cons
 {
 	ShowCursor(false);
 	hikariMenu->callFunction("inGame",Hikari::Args(true));
-	mMENUSTATE = CONTINUE;
+	ICE* pIce = ICE::getInstance();
+	pIce->setState( ICE::CONTINUE );
 	hikariMenu->hide();
 	return FLASH_VOID;
 }
 
-ICEMenu::MENUSTATE ICEMenu::getState(){
-	return mMENUSTATE;
+void ICEMenu::show(){
+	ShowCursor(true);
+	hikariMenu->show();
 }
 
-void ICEMenu::setState(ICEMenu::MENUSTATE state){
-	mMENUSTATE =state;
-	switch(state){
-		case MENU:
-			ShowCursor(true);
-			hikariMenu->show();
-			break;
-		case PLAY:
-		case CONTINUE:
-			ShowCursor(false);
-			hikariMenu->hide();
-			break;	
-	}
+void ICEMenu::hide(){
+	ShowCursor(false);
+	hikariMenu->hide();
 }
-
 
 void ICEMenu::mouseMoved(const OIS::MouseEvent &arg){
 	hikariMgr->injectMouseMove(arg.state.X.abs, arg.state.Y.abs) || hikariMgr->injectMouseWheel(arg.state.Z.rel);

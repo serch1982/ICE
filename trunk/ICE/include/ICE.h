@@ -46,10 +46,12 @@ public:
 	enum STATE{
 		MENU,
 		PLAY,
+		CONTINUE,
 		PAUSE,
 		LOAD,
 		GAME_OVER,
-		GOD
+		GOD,
+		EXIT
 	};
 	void setState( STATE peState );
 	int getState();
