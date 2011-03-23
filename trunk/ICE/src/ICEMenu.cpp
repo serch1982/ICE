@@ -48,9 +48,9 @@ Hikari::FlashValue ICEMenu::menuExitClick(Hikari::FlashControl* caller, const Hi
 Hikari::FlashValue ICEMenu::menuPlayClick(Hikari::FlashControl* caller, const Hikari::Arguments& args)
 {
 	ShowCursor(false);
+	hikariMenu->callFunction("inGame",Hikari::Args(true));
 	ICE* pIce = ICE::getInstance();
 	pIce->setState( ICE::PLAY );
-	hikariMenu->callFunction("inGame",Hikari::Args(true));
 	hikariMenu->hide();
 	return FLASH_VOID;
 }

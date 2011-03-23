@@ -186,6 +186,11 @@ bool ICE::frameRenderingQueued(const Ogre::FrameEvent& evt)
     if(mShutDown)
         return false;
 	
+	Ogre::stringstream strState;
+	strState << "pInstance: " << this << "\n";
+	strState << "FRAME RENDERING QUEUED eState: " << eState;
+	Ogre::Log* pLog = Ogre::LogManager::getSingletonPtr()->getLog ( "Ogre.log" );
+	pLog->logMessage( strState.str() );
 	//Game state
 	switch( eState ){
 		case MENU:
@@ -200,7 +205,7 @@ bool ICE::frameRenderingQueued(const Ogre::FrameEvent& evt)
 			break;
 		case CONTINUE:
 			//The main idea is to come back playing from a PAUSE state
-			eState = PLAY;
+			//eState = PLAY;
 			break;
 		case LOAD:
 			// Load resources from a level and change state to play
@@ -212,9 +217,20 @@ bool ICE::frameRenderingQueued(const Ogre::FrameEvent& evt)
 			// God mode
 			break;
 		case EXIT:
-			return false;
+			{	
+				Ogre::stringstream strState;
+				strState << "eState: " << eState << "\n";
+				Ogre::Log* pLog = Ogre::LogManager::getSingletonPtr()->getLog ( "Ogre.log" );
+				pLog->logMessage( strState.str() );
+			}
 			break;
 		default:
+			{	
+				Ogre::stringstream strState;
+				strState << "DEFAULT eState: " << eState << "\n";
+				Ogre::Log* pLog = Ogre::LogManager::getSingletonPtr()->getLog ( "Ogre.log" );
+				pLog->logMessage( strState.str() );
+			}
 			break;
 	}
 
@@ -273,7 +289,9 @@ void ICE::setState( STATE peState){
 	eState = peState;
 
 	Ogre::stringstream strState;
-	strState << "eState: " << eState << "\n";
+	strState << "\n";
+	strState << "setState pINSTANCE: " << this << "\n";
+	strState << "eState: " << eState << "\tpState:" << peState << "\n";
 	Ogre::Log* pLog = Ogre::LogManager::getSingletonPtr()->getLog ( "Ogre.log" );
 	pLog->logMessage( strState.str() );
 }
