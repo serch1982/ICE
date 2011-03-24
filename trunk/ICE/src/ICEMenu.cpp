@@ -1,5 +1,5 @@
 #include "ICEMenu.h"
-#include "ICE.h"
+#include "iceState.h"
 
 ICEMenu* ICEMenu::pinstance = 0;
 
@@ -20,8 +20,7 @@ ICEMenu::~ICEMenu(void){
 
 bool ICEMenu::setupHikari(char* path, char* name, Ogre::Viewport* mViewport, int wight, int height)
 {
-	ICE* pIce = ICE::getInstance();
-	pIce->setState( ICE::MENU );
+	iceState::getInstance()->setState( iceState::MENU );
 	try{
 		hikariMgr = new Hikari::HikariManager(path); //".\\media"
 		hikariMenu = hikariMgr->createFlashOverlay("menu", mViewport, wight, height, Hikari::Position(Hikari::Center));
@@ -40,8 +39,7 @@ bool ICEMenu::setupHikari(char* path, char* name, Ogre::Viewport* mViewport, int
 
 Hikari::FlashValue ICEMenu::menuExitClick(Hikari::FlashControl* caller, const Hikari::Arguments& args)
 {
-	ICE* pIce = ICE::getInstance();
-	pIce->setState( ICE::EXIT );
+	iceState::getInstance()->setState( iceState::EXIT );
 	return FLASH_VOID;
 }
 
@@ -49,8 +47,7 @@ Hikari::FlashValue ICEMenu::menuPlayClick(Hikari::FlashControl* caller, const Hi
 {
 	ShowCursor(false);
 	hikariMenu->callFunction("inGame",Hikari::Args(true));
-	ICE* pIce = ICE::getInstance();
-	pIce->setState( ICE::PLAY );
+	iceState::getInstance()->setState( iceState::PLAY );
 	hikariMenu->hide();
 	return FLASH_VOID;
 }
@@ -59,8 +56,7 @@ Hikari::FlashValue ICEMenu::menuContinueClick(Hikari::FlashControl* caller, cons
 {
 	ShowCursor(false);
 	hikariMenu->callFunction("inGame",Hikari::Args(true));
-	ICE* pIce = ICE::getInstance();
-	pIce->setState( ICE::CONTINUE );
+	iceState::getInstance()->setState( iceState::CONTINUE );
 	hikariMenu->hide();
 	return FLASH_VOID;
 }

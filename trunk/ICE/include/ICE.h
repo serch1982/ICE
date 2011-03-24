@@ -34,28 +34,6 @@ public:
     ICE(void);
     virtual ~ICE(void);
 
-	static ICE* getInstance();
-	//Deleting the instance
-	static void deleteInstance(){
-		if( pinstance != NULL ) 
-			delete pinstance;
-	}
-	
-
-	//Game States
-	enum STATE{
-		MENU,
-		PLAY,
-		CONTINUE,
-		PAUSE,
-		LOAD,
-		GAME_OVER,
-		GOD,
-		EXIT
-	};
-	void setState( STATE peState );
-	int getState();
-
 protected:
 	virtual bool setup();
     virtual void createScene(void);
@@ -75,15 +53,10 @@ protected:
 
 private:
 
-	//Singleton
-	static ICE* pinstance;
-
 	ICEMenu* mIceMenu;
 	iceLevel mLevel;
 	icePlayer mPlayer;
 	iceTrajectory mTrajectory;
-
-	STATE eState;
 
 	int m_iCurrentLevel;
 };
