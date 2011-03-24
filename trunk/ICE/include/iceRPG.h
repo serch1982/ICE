@@ -16,18 +16,18 @@ public:
 	//getters
 	unsigned int getLevel(void);
 	unsigned int getExperience(void);
-	unsigned int getMaxLife(void);
-	unsigned int getCurrentLife(void);
-	unsigned int getArmor(void);
-	unsigned int getAttack(void);
-	unsigned int getAccuracy(void);
-	unsigned int getManiobrability(void);
-	unsigned int getCadence(void);
+	Ogre::Real getMaxLife(void);
+	Ogre::Real getCurrentLife(void);
+	Ogre::Real getArmor(void);
+	Ogre::Real getAttack(void);
+	Ogre::Real getAccuracy(void);
+	Ogre::Real getManiobrability(void);
+	//unsigned int getCadence(void);
 	unsigned int getLuck(void);
 	unsigned int getWeaponLevel(unsigned int p_iWeapon);
 	unsigned int getShieldLevel(void);
-	unsigned int getMaxShieldEnergy(void);
-	unsigned int getCurrentShieldEnergy(void);
+	Ogre::Real getMaxShieldEnergy(void);
+	Ogre::Real getCurrentShieldEnergy(void);
 
 	//setters
 	void setLevel(unsigned int p_iLevel);
@@ -37,15 +37,27 @@ public:
 	//other methods
 	void levelUp(void);
 	void addExperience(unsigned int p_iExperience);
-	void addDamage(unsigned int p_iDamage); //Raw damage, the enemy attack
-	void addLife(unsigned int p_iLife);
+	//void addDamage(Ogre::Real p_iDamage); //Raw damage, the enemy attack
+	void addLife(Ogre::Real p_iLife);
 
 	bool isAlive(void);
-	void updateTime(Ogre::Real p_fFrameTime);
+	void updateRPG(Ogre::Real p_fFrameTime);
+	void shot(void);
+	void addDamage(Ogre::Real p_iDamage, bool p_bCritic);
 
-	virtual void createShotEntity(int p_iWeapon, Ogre::Vector3 p_sDirection, unsigned int p_iDamage) =0; //this method must be overridden
+	//this methods must be overridden
+	virtual void createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation, Ogre::Real p_iDamage, bool p_bCritic) =0; 
+	virtual void showReceivedDamage(Ogre::Real p_iDamage, bool p_bCritical) =0;
+	virtual void showShieldDamage(Ogre::Real p_iDamage, bool p_bCritical) =0;
+	virtual void showFail(void) =0;
+	virtual void showLevelUp(void) =0;
 
 protected:
+	bool isCritic(void);
+	bool isFail(void);
+	Ogre::Real getModifierByLuck(Ogre::Real p_fMin, Ogre::Real p_fMax);
+	Ogre::Real randn_notrig(Ogre::Real mu=0.0, Ogre::Real sigma=1.0);
+
 	//attributes
 	unsigned int mLevel;
 	unsigned int mExperience;
@@ -54,12 +66,13 @@ protected:
 	unsigned int mBaseAttack;
 	unsigned int mBaseAccuracy;
 	unsigned int mBaseManiobrability;
-	unsigned int mBaseCadence;
+	//unsigned int mBaseCadence;
 	unsigned int mBaseLuck;
-	unsigned int mCurrentLife;
+	Ogre::Real mCurrentLife;
 	unsigned int mWeaponLevel[3];
+	Ogre::Real mWeaponBaseCadence[3];
 	unsigned int mShieldLevel;
-	unsigned int mShieldEnergy;
+	Ogre::Real mShieldEnergy;
 	unsigned int mCurrentWeapon;
 
 	Ogre::Real mTimeSinceLastShot;
