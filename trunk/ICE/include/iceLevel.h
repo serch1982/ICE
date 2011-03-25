@@ -2,6 +2,7 @@
 #define __ICE_LEVEL_H__
 
 #include <OgreSceneManager.h>
+#include <OgreLog.h>
 
 class iceLevel
 {
@@ -17,6 +18,8 @@ class iceLevel
 
 	private:
 		int id;
+
+		Ogre::Log* mLog;
 };
 
 #endif

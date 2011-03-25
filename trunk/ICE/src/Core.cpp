@@ -246,7 +246,7 @@ bool CORE::setup(void)
     createFrameListener();
 
     // Create the scene
-    createScene(); //-> now the scene most be create into WORLD or LEVEL class 
+    //createScene(); //-> now the scene most be create into WORLD or LEVEL class 
 	// these parameters except the viewport most be into resource or wherever  
 
     return true;

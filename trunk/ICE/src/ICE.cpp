@@ -36,6 +36,10 @@ bool ICE::setup()
 	if( CORE::setup() ){
 		if(!mIceMenu->instance()->setupHikari(".\\media", "menu.swf", mCurrentCamera->getViewport(), 1024, 768))
 			return false;
+		mGameLog = Ogre::LogManager::getSingleton().createLog("iceLog.log", false, false, false );
+		mGameLog->logMessage( "Sistema: Log creado" );
+
+		createScene();
 	}
 
 	return true;
@@ -194,6 +198,7 @@ bool ICE::frameRenderingQueued(const Ogre::FrameEvent& evt)
 			//eState = PLAY;
 			break;
 		case iceState::LOAD:
+			//mLevel.createScene(mSceneMgr,m_iCurrentLevel);
 			// Load resources from a level and change state to play
 			break;
 		case iceState::GAME_OVER:
