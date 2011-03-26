@@ -32,11 +32,12 @@ void iceChivatos::setupChivato(Ogre::RenderWindow* mWindow, OIS::Mouse* mMouse,O
     items.push_back("cam.oX");
     items.push_back("cam.oY");
     items.push_back("cam.oZ");
-    items.push_back("Poly Mode");   
+    items.push_back("Poly Mode");
+	items.push_back("test LUA");  
 	/*
 		here you can add your custom chivato like items.push_back("mycustomchivato"); 
 	*/
-    mDetailsPanel = mTrayMgr->createParamsPanel(OgreBites::TL_NONE, "DetailsPanel", 200, items);
+    mDetailsPanel = mTrayMgr->createParamsPanel(OgreBites::TL_NONE, "DetailsPanel", items.size() * 25, items);
 
 #ifdef OGRE_DEBUG_MODE  
     mDetailsPanel->show();

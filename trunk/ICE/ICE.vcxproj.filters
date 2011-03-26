@@ -31,6 +31,12 @@
     <Filter Include="Source Files\RPG">
       <UniqueIdentifier>{2f0fcbfe-6344-4a79-a23a-d57156ec2426}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\hLua">
+      <UniqueIdentifier>{0f98e269-fa6e-48b3-b87c-b4340cb813de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Lua">
+      <UniqueIdentifier>{2aa5c55f-e822-4401-ba5c-74da15215375}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ICE.h">
@@ -84,6 +90,9 @@
     <ClInclude Include="include\iceStep.h">
       <Filter>Header Files\hWorld</Filter>
     </ClInclude>
+    <ClInclude Include="include\iceLuaLogic.h">
+      <Filter>Header Files\hLua</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ICE.cpp">
@@ -121,6 +130,9 @@
     </ClCompile>
     <ClCompile Include="src\iceBicho.cpp">
       <Filter>Source Files\RPG</Filter>
+    </ClCompile>
+    <ClCompile Include="src\iceLuaLogic.cpp">
+      <Filter>Source Files\Lua</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
