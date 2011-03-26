@@ -6,7 +6,7 @@
 //-------------------------------------------------------------------------------------
 ICE::ICE(void)
 {
-	m_iCurrentLevel = -1;
+	m_iCurrentLevel = 1;
 }
 //-------------------------------------------------------------------------------------
 ICE::~ICE(void)
@@ -17,13 +17,16 @@ bool ICE::setup()
 {
 	if( CORE::setup() ){
 		
+		// Creating de Game Log
 		mGameLog = Ogre::LogManager::getSingleton().createLog("iceLog.log", false, false, false );
 		mGameLog->logMessage( "Sistema: Log creado" );
 
+		// Setup the Ice Menu
 		if(!mIceMenu->instance()->setupHikari(".\\media", "menu.swf", mCurrentCamera->getViewport(), 1024, 768))
 			return false;
 
-		createScene();
+		// creating the scene
+		//createScene();
 	}
 
 	return true;
@@ -32,68 +35,13 @@ bool ICE::setup()
 //-------------------------------------------------------------------------------------
 void ICE::createScene(void)
 {
-	mLevel.createScene( mSceneMgr );
-
-	// Set ambient light
-    mSceneMgr->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
-
-    // Create a light
-    Ogre::Light* l = mSceneMgr->createLight("MainLight");
-	l->setType( Ogre::Light::LT_DIRECTIONAL);
-	l->setDirection( -1, 1, -1 );
-	l->setDiffuseColour(1.0, 1.0, 1.0);
-	l->setSpecularColour(1.0, 1.0, 1.0);
-
-    /*Ogre::Entity* ogreHead = mSceneMgr->createEntity("Head", "ogrehead.mesh");
-
-    Ogre::SceneNode* headNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
-    headNode->attachObject(ogreHead);
-
-    // Set ambient light
-    mSceneMgr->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
-
-    // Create a light
-    Ogre::Light* l = mSceneMgr->createLight("MainLight");
-    l->setPosition(20,80,50);*/
-
-
-
-	int jur = 1000;
-	int j = 0;
-	vector<iceStep> steps;
-	//steps.push_back(iceStep(Ogre::Vector3(0,300,0),Ogre::Degree(0),5*j++));
-	//steps.push_back(iceStep(Ogre::Vector3(jur*j,300,0),Ogre::Degree(20),5*j++));
-	//steps.push_back(iceStep(Ogre::Vector3(jur*j,500,jur*2),Ogre::Degree(-20),5*j++));
-	//steps.push_back(iceStep(Ogre::Vector3(jur*j,500,0),Ogre::Degree(0),5*j++));
-	//steps.push_back(iceStep(Ogre::Vector3(jur*j,300,-jur*2),Ogre::Degree(0),5*j++));
-	//steps.push_back(iceStep(Ogre::Vector3(jur*j,500,jur*2),Ogre::Degree(-20),5*j++));
-	//steps.push_back(iceStep(Ogre::Vector3(jur*j,500,0),Ogre::Degree(0),5*j++));
-	//steps.push_back(iceStep(Ogre::Vector3(jur*j,300,-jur*2),Ogre::Degree(0),5*j++));
-
-	steps.push_back(iceStep(Ogre::Vector3( -907, 535 , -667),Ogre::Degree(0),5*j++));
-	steps.push_back(iceStep(Ogre::Vector3( -739, 407 , -713),Ogre::Degree(0),5*j++));
-	steps.push_back(iceStep(Ogre::Vector3( -483, 252 , -559),Ogre::Degree(0),5*j++));
-	steps.push_back(iceStep(Ogre::Vector3( -326, 120 , -289),Ogre::Degree(0),5*j++));
-	steps.push_back(iceStep(Ogre::Vector3( -186,  48 ,  -6 ),Ogre::Degree(0),5*j++));
-	steps.push_back(iceStep(Ogre::Vector3( -4  ,  54 , 237 ),Ogre::Degree(0),5*j++));
-	steps.push_back(iceStep(Ogre::Vector3(  8  ,  52 , 511 ),Ogre::Degree(0),5*j++));
-	steps.push_back(iceStep(Ogre::Vector3(  7  , 90  , 706 ),Ogre::Degree(-20),5*j++));
-	steps.push_back(iceStep(Ogre::Vector3( -60 , 171 ,993  ),Ogre::Degree(-40),5*j++));
-	steps.push_back(iceStep(Ogre::Vector3(  100, 238 ,1274 ),Ogre::Degree(-40),5*j++));
-	steps.push_back(iceStep(Ogre::Vector3( 314 , 121 ,966  ),Ogre::Degree(-20),5*j++));
-	steps.push_back(iceStep(Ogre::Vector3(302  , 71  , 95  ),Ogre::Degree(0),5*j++));
-	steps.push_back(iceStep(Ogre::Vector3( 440 , 68  , -107),Ogre::Degree(0),5*j++));
-	steps.push_back(iceStep(Ogre::Vector3(1526 , 95  , 102 ),Ogre::Degree(0),5*j++));
-	steps.push_back(iceStep(Ogre::Vector3(1527 , 95  , 102 ),Ogre::Degree(0),5*j++));
-
-
 	//Putting elements in the scene
-	//icePlayer play (mSceneMgr,mSceneMgr->getRootSceneNode());
-	//player = &play;
-	mPlayer.initialize(mSceneMgr,mSceneMgr->getRootSceneNode()->createChildSceneNode());
+	mPlayer.initialize(mSceneMgr,mSceneMgr->getRootSceneNode()->createChildSceneNode("icePlayer"));
 	mPlayer.setCamera(mGodCam);
-	mTrajectory.init(mSceneMgr,mPlayer.playerNode);
-	mTrajectory.loadSteps(steps);
+
+	//Loading the level
+	mLevel.createScene( mSceneMgr, m_iCurrentLevel );
+
 }
 
 bool ICE::keyPressed( const OIS::KeyEvent &arg ){
@@ -173,16 +121,20 @@ bool ICE::frameRenderingQueued(const Ogre::FrameEvent& evt)
 			mIceMenu->instance()->update();
 			break;
 		case iceState::PLAY:
-			// Begin the LEVEL
+			// Playing the game
+			update(evt.timeSinceLastFrame);
 			break;
 		case iceState::PAUSE:
 			mIceMenu->instance()->update();
 			break;
 		case iceState::CONTINUE:
 			//The main idea is to come back playing from a PAUSE state
-			//eState = PLAY;
+			iceState::getInstance()->setState( iceState::PLAY );
 			break;
-		case iceState::LOAD:
+		case iceState::LOAD_LEVEL:
+			mSceneMgr->clearScene();
+			createScene();
+			iceState::getInstance()->setState( iceState::PLAY );
 			//mLevel.createScene(mSceneMgr,m_iCurrentLevel);
 			// Load resources from a level and change state to play
 			break;
@@ -199,11 +151,12 @@ bool ICE::frameRenderingQueued(const Ogre::FrameEvent& evt)
 			break;
 	}
 
-	mTrajectory.addTime(evt.timeSinceLastFrame);
-	if( iceState::getInstance()->getState() != iceState::GOD )
-		mPlayer.updateShipPosition(evt.timeSinceLastFrame);
-
     return true;
+}
+
+void ICE::update( Ogre::Real p_timeSinceLastFrame ){
+	mLevel.update(p_timeSinceLastFrame);
+	mPlayer.updateShipPosition(p_timeSinceLastFrame);
 }
 
 bool ICE::mouseMoved( const OIS::MouseEvent &arg )
@@ -215,8 +168,8 @@ bool ICE::mouseMoved( const OIS::MouseEvent &arg )
 	else if( iceState::getInstance()->getState() == iceState::MENU || 
 		iceState::getInstance()->getState() == iceState::PAUSE )
 		mIceMenu->instance()->mouseMoved(arg);
-
-	mPlayer.processMouseMoved(arg);
+	else if( iceState::getInstance()->getState() == iceState::PLAY )
+		mPlayer.processMouseMoved(arg);
     return ret;
 }
 

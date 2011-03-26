@@ -59,10 +59,11 @@ private:
 	ICEMenu* mIceMenu;
 	iceLevel mLevel;
 	icePlayer mPlayer;
-	iceTrajectory mTrajectory;
 	Ogre::Log* mGameLog;
 
 	int m_iCurrentLevel;
+
+	void update( Ogre::Real p_timeSinceLastFrame );
 };
 
 #endif // #ifndef __ICE_H_

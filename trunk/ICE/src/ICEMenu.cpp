@@ -47,7 +47,7 @@ Hikari::FlashValue ICEMenu::menuPlayClick(Hikari::FlashControl* caller, const Hi
 {
 	ShowCursor(false);
 	hikariMenu->callFunction("inGame",Hikari::Args(true));
-	iceState::getInstance()->setState( iceState::PLAY );
+	iceState::getInstance()->setState( iceState::LOAD_LEVEL );
 	hikariMenu->hide();
 	return FLASH_VOID;
 }

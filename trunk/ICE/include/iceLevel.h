@@ -3,6 +3,7 @@
 
 #include <OgreSceneManager.h>
 #include <OgreLog.h>
+#include "iceTrajectory.h"
 
 class iceLevel
 {
@@ -12,14 +13,17 @@ class iceLevel
 
 		bool initialize();
 		void finalize();
-		void update();
+		void update(Ogre::Real p_timeSinceLastFrame);
 
-		bool createScene( Ogre::SceneManager* a_SceneMgr );
+		bool createScene( Ogre::SceneManager* p_SceneMgr, int p_iCurrentLevel );
+		//bool cleanScene( Ogre::SceneManager* p_SceneMgr );
 
 	private:
 		int id;
 
 		Ogre::Log* mLog;
+
+		iceTrajectory mTrajectory;
 };
 
 #endif
