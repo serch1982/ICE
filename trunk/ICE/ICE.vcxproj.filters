@@ -13,11 +13,23 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\scene">
-      <UniqueIdentifier>{c44b307c-1460-4189-9a90-a94fc867a489}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\scene">
       <UniqueIdentifier>{ec764f22-0cbd-4ef5-b467-35d3713e9a63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\hScene">
+      <UniqueIdentifier>{c44b307c-1460-4189-9a90-a94fc867a489}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\hWorld">
+      <UniqueIdentifier>{99290bc8-43ae-43e6-981a-c5353cba4128}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\hRPG">
+      <UniqueIdentifier>{54e1696d-ff44-4614-b182-d28c4df70c5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\World">
+      <UniqueIdentifier>{874679be-492d-4f88-9814-e4f9e77db93b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\RPG">
+      <UniqueIdentifier>{2f0fcbfe-6344-4a79-a23a-d57156ec2426}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -31,43 +43,46 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\scene\DotSceneLoader.h">
-      <Filter>Header Files\scene</Filter>
+      <Filter>Header Files\hScene</Filter>
     </ClInclude>
     <ClInclude Include="include\scene\rapidxml.hpp">
-      <Filter>Header Files\scene</Filter>
+      <Filter>Header Files\hScene</Filter>
     </ClInclude>
     <ClInclude Include="include\scene\rapidxml_iterators.hpp">
-      <Filter>Header Files\scene</Filter>
+      <Filter>Header Files\hScene</Filter>
     </ClInclude>
     <ClInclude Include="include\scene\rapidxml_print.hpp">
-      <Filter>Header Files\scene</Filter>
+      <Filter>Header Files\hScene</Filter>
     </ClInclude>
     <ClInclude Include="include\scene\rapidxml_utils.hpp">
-      <Filter>Header Files\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="include\icePlayer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\iceLevel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\iceBicho.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\iceTrajectory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\iceStep.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\hScene</Filter>
     </ClInclude>
     <ClInclude Include="include\Core.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\iceRPG.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\iceState.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\iceChivatos.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\iceLevel.h">
+      <Filter>Header Files\hWorld</Filter>
+    </ClInclude>
+    <ClInclude Include="include\iceBicho.h">
+      <Filter>Header Files\hRPG</Filter>
+    </ClInclude>
+    <ClInclude Include="include\icePlayer.h">
+      <Filter>Header Files\hRPG</Filter>
+    </ClInclude>
+    <ClInclude Include="include\iceRPG.h">
+      <Filter>Header Files\hRPG</Filter>
+    </ClInclude>
+    <ClInclude Include="include\iceTrajectory.h">
+      <Filter>Header Files\hWorld</Filter>
+    </ClInclude>
+    <ClInclude Include="include\iceStep.h">
+      <Filter>Header Files\hWorld</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -80,29 +95,32 @@
     <ClCompile Include="src\scene\DotSceneLoader.cpp">
       <Filter>Source Files\scene</Filter>
     </ClCompile>
-    <ClCompile Include="src\icePlayer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\iceLevel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\iceBicho.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\iceTrajectory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\iceStep.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Core.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\iceRPG.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\iceState.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\iceChivatos.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\iceLevel.cpp">
+      <Filter>Source Files\World</Filter>
+    </ClCompile>
+    <ClCompile Include="src\iceTrajectory.cpp">
+      <Filter>Source Files\World</Filter>
+    </ClCompile>
+    <ClCompile Include="src\iceStep.cpp">
+      <Filter>Source Files\World</Filter>
+    </ClCompile>
+    <ClCompile Include="src\icePlayer.cpp">
+      <Filter>Source Files\RPG</Filter>
+    </ClCompile>
+    <ClCompile Include="src\iceRPG.cpp">
+      <Filter>Source Files\RPG</Filter>
+    </ClCompile>
+    <ClCompile Include="src\iceBicho.cpp">
+      <Filter>Source Files\RPG</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -34,10 +34,12 @@ ICE::~ICE(void)
 bool ICE::setup()
 {
 	if( CORE::setup() ){
-		if(!mIceMenu->instance()->setupHikari(".\\media", "menu.swf", mCurrentCamera->getViewport(), 1024, 768))
-			return false;
+		
 		mGameLog = Ogre::LogManager::getSingleton().createLog("iceLog.log", false, false, false );
 		mGameLog->logMessage( "Sistema: Log creado" );
+
+		if(!mIceMenu->instance()->setupHikari(".\\media", "menu.swf", mCurrentCamera->getViewport(), 1024, 768))
+			return false;
 
 		createScene();
 	}

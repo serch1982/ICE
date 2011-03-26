@@ -121,6 +121,7 @@
     <ClInclude Include="include\Core.h" />
     <ClInclude Include="include\ICE.h" />
     <ClInclude Include="include\iceBicho.h" />
+    <ClInclude Include="include\iceChivatos.h" />
     <ClInclude Include="include\iceLevel.h" />
     <ClInclude Include="include\ICEMenu.h" />
     <ClInclude Include="include\icePlayer.h" />
@@ -139,6 +140,7 @@
     <ClCompile Include="src\Core.cpp" />
     <ClCompile Include="src\ICE.cpp" />
     <ClCompile Include="src\iceBicho.cpp" />
+    <ClCompile Include="src\iceChivatos.cpp" />
     <ClCompile Include="src\iceLevel.cpp" />
     <ClCompile Include="src\ICEMenu.cpp" />
     <ClCompile Include="src\icePlayer.cpp" />
