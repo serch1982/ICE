@@ -5,6 +5,8 @@
 #include <OgreEntity.h>
 #include <OgreSceneManager.h>
 #include <OgreAnimation.h>
+#include <OgreLog.h>
+#include "iceChivatos.h"
 
 using namespace std;
 
@@ -25,6 +27,8 @@ class iceTrajectory
 		Ogre::Real mDuration;
 		Ogre::Real mCurrentTime;
 		Ogre::SceneManager* mSceneManager;
+
+		Ogre::Log* mLog;
 
 	//methods
 	public:
