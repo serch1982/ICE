@@ -42,7 +42,8 @@ bool icePlayer::initialize(Ogre::SceneManager* sceneManager, Ogre::SceneNode* no
 	cameraPlaneNode = playerNode->createChildSceneNode(Ogre::Vector3(0.0,0.0,-500.0));
 	cameraNode = cameraPlaneNode->createChildSceneNode(Ogre::Vector3(0.0,/*10*/0.0,0.0));
 
-	setCamera( sceneManager->createCamera( "PlayerCam" ) );
+	if( !sceneManager->hasCamera("PlayerCam") )
+		setCamera( sceneManager->createCamera( "PlayerCam" ) );
 
 	return true;
 }

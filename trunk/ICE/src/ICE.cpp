@@ -80,11 +80,10 @@ bool ICE::frameRenderingQueued(const Ogre::FrameEvent& evt)
 			iceState::getInstance()->setState( iceState::PLAY );
 			break;
 		case iceState::LOAD_LEVEL:
+			// Load resources from a level and change state to play
 			mSceneMgr->clearScene();
 			createScene();
 			iceState::getInstance()->setState( iceState::PLAY );
-			//mLevel.createScene(mSceneMgr,m_iCurrentLevel);
-			// Load resources from a level and change state to play
 			break;
 		case iceState::GAME_OVER:
 			// Ending Condition.
@@ -113,53 +112,51 @@ bool ICE::keyPressed( const OIS::KeyEvent &arg ){
 	if( !CORE::keyPressed(arg) )
 		return false;
 
-	if (arg.key == OIS::KC_0)
-	{
+	//Changing cameras
+	if (arg.key == OIS::KC_0){
+		//GodCam
 		iceState::getInstance()->setState( iceState::GOD );
 		setCurrentCamera( mGodCam );
-	}
-	else if (arg.key == OIS::KC_1)
-	{
+	}else if (arg.key == OIS::KC_1){
+		//PlayerCam
 		iceState::getInstance()->setState( iceState::PLAY );
 		setCurrentCamera( mPlayer.getCamera() );
-	}
-	else if (arg.key == OIS::KC_2)
-	{
+	}else if (arg.key == OIS::KC_2){
+		// Level Cam 0
 		iceState::getInstance()->setState( iceState::PLAY );
-		//setCurrentCamera(2);
-	}
-	else if (arg.key == OIS::KC_3)
-	{
+		setCurrentCamera( mLevel.getCamera( 0 ) );
+	}else if (arg.key == OIS::KC_3){
+		// Level Cam 1
 		iceState::getInstance()->setState( iceState::PLAY );
-		//setCurrentCamera(3);
-	}
-	else if (arg.key == OIS::KC_4)
-	{
-		//setCurrentCamera(4);
-	}
-	else if (arg.key == OIS::KC_5)
-	{
-		//setCurrentCamera(5);
-	}
-	else if (arg.key == OIS::KC_6)
-	{
-		//setCurrentCamera(6);
-	}
-	else if (arg.key == OIS::KC_7)
-	{
-		//setCurrentCamera(7);
-		iceChivatos::instance()->updateChivato(8,Ogre::StringConverter::toString(  iceLuaLogic::instance()->testFromOgre()));
-	}
-	else if (arg.key == OIS::KC_8)
-	{
-		//setCurrentCamera(8);
+		setCurrentCamera( mLevel.getCamera( 1 ) );
+	}else if (arg.key == OIS::KC_4){
+		// Level Cam 2
+		iceState::getInstance()->setState( iceState::PLAY );
+		setCurrentCamera( mLevel.getCamera( 2 ) );
+	}else if (arg.key == OIS::KC_5){
+		// Level Cam 3
+		iceState::getInstance()->setState( iceState::PLAY );
+		setCurrentCamera( mLevel.getCamera( 3 ) );
+	}else if (arg.key == OIS::KC_6){
+		// Level Cam 4
+		iceState::getInstance()->setState( iceState::PLAY );
+		setCurrentCamera( mLevel.getCamera( 4 ) );
+	}else if (arg.key == OIS::KC_7){
+		// Level Cam 5
+		iceState::getInstance()->setState( iceState::PLAY );
+		setCurrentCamera( mLevel.getCamera( 5 ) );
+	}else if (arg.key == OIS::KC_8){
+		// Level Cam 6
+		iceState::getInstance()->setState( iceState::PLAY );
+		setCurrentCamera( mLevel.getCamera( 6 ) );
 	}else if (arg.key == OIS::KC_Z){
 		bool bSkyBox = mSceneMgr->isSkyBoxEnabled();
 		mSceneMgr->setSkyBox( !bSkyBox, "cielo", 20000.0f, false, Ogre::Quaternion::IDENTITY, "level1" );
-	}
-    else if (arg.key == OIS::KC_P){
+	}else if (arg.key == OIS::KC_P){
 		iceState::getInstance()->setState( iceState::PAUSE );
 		mIceMenu->instance()->show();
+	}else if( arg.key == OIS::KC_L){
+		iceChivatos::instance()->updateChivato(8,Ogre::StringConverter::toString(  iceLuaLogic::instance()->testFromOgre()));
 	}else if ( iceState::getInstance()->getState() == iceState::GOD ){
 		mCameraMan->injectKeyDown(arg);
 	}
@@ -251,41 +248,3 @@ extern "C" {
 }
 #endif
 
-
-
-/*
-	//CAM 2
-    mCameras[2]->setPosition(Ogre::Vector3(-260,650,590));
-    mCameras[2]->lookAt(Ogre::Vector3(-260,0,590));
-    mCameras[2]->setNearClipDistance(5);
-	
-	//CAM 3
-    mCameras[3]->setPosition(Ogre::Vector3(-400,10,-500));
-    mCameras[3]->lookAt(Ogre::Vector3(-200,10,-500));
-    mCameras[3]->setNearClipDistance(5);
-	
-	//CAM 4
-	mCameras[4]->setPosition(Ogre::Vector3(0,1000,0));
-    mCameras[4]->lookAt(Ogre::Vector3(0,0,0));
-    mCameras[4]->setNearClipDistance(5);
-	mCameras[4]->setDirection(Ogre::Vector3::NEGATIVE_UNIT_Y);
-	
-	//CAM 5
-    mCameras[5]->setPosition(Ogre::Vector3(-880,5,612));
-    mCameras[5]->lookAt(Ogre::Vector3(-227,10,880));
-    mCameras[5]->setNearClipDistance(5);
-	
-	//CAM 6
-    mCameras[6]->setPosition(Ogre::Vector3(492,10,462));
-    mCameras[6]->lookAt(Ogre::Vector3(-161,10,218));
-    mCameras[6]->setNearClipDistance(5);
-	
-	//CAM 7
-    mCameras[7]->setPosition(Ogre::Vector3(-168,10,684));
-    mCameras[7]->lookAt(Ogre::Vector3(-142,10,520));
-    mCameras[7]->setNearClipDistance(5);
-	
-	//CAM 8
-    mCameras[8]->setPosition(Ogre::Vector3(302,10,-115));
-    mCameras[8]->lookAt(Ogre::Vector3(302,10,-100));
-    mCameras[8]->setNearClipDistance(5);*/

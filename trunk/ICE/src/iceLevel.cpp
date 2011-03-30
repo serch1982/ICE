@@ -6,6 +6,8 @@
 #include <stdlib.h>
 #include <vector>
 
+#define NUM_CAMS 7
+
 iceLevel::iceLevel(){
 
 }
@@ -80,6 +82,24 @@ bool iceLevel::createScene( Ogre::SceneManager* p_SceneMgr, int m_iCurrentLevel 
 	l->setDiffuseColour(1.0, 1.0, 1.0);
 	l->setSpecularColour(1.0, 1.0, 1.0);
 
+	//Creating the CamVector
+	stringstream strCamName;
+	for( int i = 0; i < NUM_CAMS; i++ ){
+		strCamName << "Camera " << i;
+		// If this camera doesn't exist
+		if( p_SceneMgr->hasCamera( strCamName.str() ) == false ){
+			mvCameras.push_back( p_SceneMgr->createCamera( strCamName.str() ) );
+		}else{
+		// If this camera exists from other level
+			mvCameras.push_back( p_SceneMgr->getCamera( strCamName.str() ) );
+		}
+
+		strCamName.clear();
+	}
+
+	// Setting camera parameters
+	setCameras();
+
 	strMessage.clear();
 	strMessage << "LEVEL: Level " << m_iCurrentLevel << " loaded.";
 	mLog->logMessage( strMessage.str() );
@@ -87,6 +107,49 @@ bool iceLevel::createScene( Ogre::SceneManager* p_SceneMgr, int m_iCurrentLevel 
 	return true;
 }
 
+void iceLevel::setCameras(){
+
+	//CAM 0
+	mvCameras[0]->setPosition(Ogre::Vector3(-260,650,590));
+	mvCameras[0]->lookAt(Ogre::Vector3(-260,0,590));
+	mvCameras[0]->setNearClipDistance(5);
+	
+	//CAM 1
+	mvCameras[1]->setPosition(Ogre::Vector3(-400,10,-500));
+	mvCameras[1]->lookAt(Ogre::Vector3(-200,10,-500));
+	mvCameras[1]->setNearClipDistance(5);
+	
+	//CAM 2
+	mvCameras[2]->setPosition(Ogre::Vector3(0,1000,0));
+	mvCameras[2]->lookAt(Ogre::Vector3(0,0,0));
+	mvCameras[2]->setNearClipDistance(5);
+	mvCameras[2]->setDirection(Ogre::Vector3::NEGATIVE_UNIT_Y);
+	
+	//CAM 3
+	mvCameras[3]->setPosition(Ogre::Vector3(-880,5,612));
+	mvCameras[3]->lookAt(Ogre::Vector3(-227,10,880));
+	mvCameras[3]->setNearClipDistance(5);
+
+	//CAM 4
+	mvCameras[4]->setPosition(Ogre::Vector3(492,10,462));
+	mvCameras[4]->lookAt(Ogre::Vector3(-161,10,218));
+	mvCameras[4]->setNearClipDistance(5);
+
+	//CAM 5
+	mvCameras[5]->setPosition(Ogre::Vector3(-168,10,684));
+	mvCameras[5]->lookAt(Ogre::Vector3(-142,10,520));
+	mvCameras[5]->setNearClipDistance(5);
+	
+	//CAM 6
+	mvCameras[6]->setPosition(Ogre::Vector3(302,10,-115));
+	mvCameras[6]->lookAt(Ogre::Vector3(302,10,-100));
+	mvCameras[6]->setNearClipDistance(5);
+
+}
+
+Ogre::Camera* iceLevel::getCamera( int p_iIndex ){
+	return mvCameras[ p_iIndex ];
+}
 /*bool iceLevel::clearScene( Ogre::SceneManager* p_SceneMgr ){
 	std::stringstream strMessage;
 	strMessage << "LEVEL: Clearing level";
