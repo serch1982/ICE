@@ -335,12 +335,6 @@ void CORE::windowClosed(Ogre::RenderWindow* rw)
     }
 }
 
-/*void CORE::setCurrentCamera(unsigned int cameraIndex)
-{
-	mCurrentCamera = mCameras[cameraIndex];
-	mWindow->getViewport(0)->setCamera(mCurrentCamera);
-}*/
-
 /*void CORE::updateCameras(const Ogre::FrameEvent& evt)
 {
 	Ogre::Vector3 vPos;

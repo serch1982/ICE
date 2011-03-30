@@ -17,6 +17,7 @@ class icePlayer
 		~icePlayer();
 		bool initialize(Ogre::SceneManager* sceneManager, Ogre::SceneNode* node);
 		void setCamera(Ogre::Camera* camera);
+		Ogre::Camera* getCamera();
 		void processMouseMoved(const OIS::MouseEvent &arg);
 		void updateShipPosition(Ogre::Real frameTime);
 

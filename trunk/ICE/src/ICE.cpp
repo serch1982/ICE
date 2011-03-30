@@ -37,11 +37,75 @@ void ICE::createScene(void)
 {
 	//Putting elements in the scene
 	mPlayer.initialize(mSceneMgr,mSceneMgr->getRootSceneNode()->createChildSceneNode("icePlayer"));
-	mPlayer.setCamera(mGodCam);
+	//mPlayer.setCamera(mGodCam);
 
 	//Loading the level
 	mLevel.createScene( mSceneMgr, m_iCurrentLevel );
 
+	setCurrentCamera( mPlayer.getCamera() );
+}
+
+//Change de current camera by p_pNewCamera
+void ICE::setCurrentCamera( Ogre::Camera* p_pNewCamera ){
+	mCurrentCamera = p_pNewCamera;
+	mWindow->getViewport(0)->setCamera(mCurrentCamera);
+}
+
+bool ICE::frameRenderingQueued(const Ogre::FrameEvent& evt)
+{
+    if( !CORE::frameRenderingQueued(evt))
+		return false;
+	
+    if(mWindow->isClosed())
+        return false;
+
+    if(mShutDown)
+        return false;
+	
+	//Game state
+	switch( iceState::getInstance()->getState() ){
+		case iceState::MENU:
+			// Update the MENU
+			mIceMenu->instance()->update();
+			break;
+		case iceState::PLAY:
+			// Playing the game
+			update(evt.timeSinceLastFrame);
+			break;
+		case iceState::PAUSE:
+			mIceMenu->instance()->update();
+			break;
+		case iceState::CONTINUE:
+			//The main idea is to come back playing from a PAUSE state
+			iceState::getInstance()->setState( iceState::PLAY );
+			break;
+		case iceState::LOAD_LEVEL:
+			mSceneMgr->clearScene();
+			createScene();
+			iceState::getInstance()->setState( iceState::PLAY );
+			//mLevel.createScene(mSceneMgr,m_iCurrentLevel);
+			// Load resources from a level and change state to play
+			break;
+		case iceState::GAME_OVER:
+			// Ending Condition.
+			break;
+		case iceState::GOD:
+			// God mode
+			mCameraMan->frameRenderingQueued(evt);
+			break;
+		case iceState::EXIT:
+			return false;
+			break;
+		default:
+			break;
+	}
+
+    return true;
+}
+
+void ICE::update( Ogre::Real p_timeSinceLastFrame ){
+	mLevel.update(p_timeSinceLastFrame);
+	mPlayer.updateShipPosition(p_timeSinceLastFrame);
 }
 
 bool ICE::keyPressed( const OIS::KeyEvent &arg ){
@@ -52,12 +116,12 @@ bool ICE::keyPressed( const OIS::KeyEvent &arg ){
 	if (arg.key == OIS::KC_0)
 	{
 		iceState::getInstance()->setState( iceState::GOD );
-		//setCurrentCamera(0);
+		setCurrentCamera( mGodCam );
 	}
 	else if (arg.key == OIS::KC_1)
 	{
 		iceState::getInstance()->setState( iceState::PLAY );
-		//setCurrentCamera(1);
+		setCurrentCamera( mPlayer.getCamera() );
 	}
 	else if (arg.key == OIS::KC_2)
 	{
@@ -103,61 +167,15 @@ bool ICE::keyPressed( const OIS::KeyEvent &arg ){
 	return true;
 }
 
-bool ICE::frameRenderingQueued(const Ogre::FrameEvent& evt)
+bool ICE::keyReleased( const OIS::KeyEvent &arg )
 {
-    if( !CORE::frameRenderingQueued(evt))
-		return false;
-	
-    if(mWindow->isClosed())
-        return false;
+	CORE::keyReleased( arg );
 
-    if(mShutDown)
-        return false;
-	
-	//Game state
-	switch( iceState::getInstance()->getState() ){
-		case iceState::MENU:
-			// Update the MENU
-			mIceMenu->instance()->update();
-			break;
-		case iceState::PLAY:
-			// Playing the game
-			update(evt.timeSinceLastFrame);
-			break;
-		case iceState::PAUSE:
-			mIceMenu->instance()->update();
-			break;
-		case iceState::CONTINUE:
-			//The main idea is to come back playing from a PAUSE state
-			iceState::getInstance()->setState( iceState::PLAY );
-			break;
-		case iceState::LOAD_LEVEL:
-			mSceneMgr->clearScene();
-			createScene();
-			iceState::getInstance()->setState( iceState::PLAY );
-			//mLevel.createScene(mSceneMgr,m_iCurrentLevel);
-			// Load resources from a level and change state to play
-			break;
-		case iceState::GAME_OVER:
-			// Ending Condition.
-			break;
-		case iceState::GOD:
-			// God mode
-			break;
-		case iceState::EXIT:
-			return false;
-			break;
-		default:
-			break;
-	}
-
+	if ( iceState::getInstance()->getState() == iceState::GOD)
+		mCameraMan->injectKeyUp(arg);
     return true;
 }
 
-void ICE::update( Ogre::Real p_timeSinceLastFrame ){
-	mLevel.update(p_timeSinceLastFrame);
-	mPlayer.updateShipPosition(p_timeSinceLastFrame);
-}
 
 bool ICE::mouseMoved( const OIS::MouseEvent &arg )
 {
@@ -171,15 +189,6 @@ bool ICE::mouseMoved( const OIS::MouseEvent &arg )
 	else if( iceState::getInstance()->getState() == iceState::PLAY )
 		mPlayer.processMouseMoved(arg);
     return ret;
-}
-
-bool ICE::keyReleased( const OIS::KeyEvent &arg )
-{
-	CORE::keyReleased( arg );
-
-	if ( iceState::getInstance()->getState() == iceState::GOD)
-		mCameraMan->injectKeyUp(arg); //not here
-    return true;
 }
 
 bool ICE::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )

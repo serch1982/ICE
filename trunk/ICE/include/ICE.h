@@ -51,7 +51,7 @@ protected:
     virtual bool mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
     virtual bool mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id );
 
-	//void setCurrentCamera(unsigned int cameraIndex);
+	void setCurrentCamera( Ogre::Camera* p_pNewCamera );
 	//void updateCameras(const Ogre::FrameEvent& evt);
 
 private:
