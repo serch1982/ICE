@@ -1,7 +1,7 @@
-#ifndef ___BULLET_H__
-#define ___BULLET_H__
+#ifndef ___ICEBULLET_H__
+#define ___ICEBULLET_H__
 
-#include "BaseApplication.h"
+#include <OgreFrameListener.h>
 #include <OgreVector3.h>
 #include <OgreSceneNode.h>
 #include <OgreNode.h>

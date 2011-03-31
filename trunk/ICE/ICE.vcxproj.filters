@@ -93,6 +93,9 @@
     <ClInclude Include="include\iceLuaLogic.h">
       <Filter>Header Files\hLua</Filter>
     </ClInclude>
+    <ClInclude Include="include\iceBullet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ICE.cpp">
@@ -133,6 +136,9 @@
     </ClCompile>
     <ClCompile Include="src\iceLuaLogic.cpp">
       <Filter>Source Files\Lua</Filter>
+    </ClCompile>
+    <ClCompile Include="src\iceBullet.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
