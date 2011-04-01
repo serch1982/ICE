@@ -104,7 +104,7 @@ bool ICE::frameRenderingQueued(const Ogre::FrameEvent& evt)
 
 void ICE::update( Ogre::Real p_timeSinceLastFrame ){
 	mLevel.update(p_timeSinceLastFrame);
-	mPlayer.updateShipPosition(p_timeSinceLastFrame);
+	mPlayer.update(p_timeSinceLastFrame);
 }
 
 bool ICE::keyPressed( const OIS::KeyEvent &arg ){

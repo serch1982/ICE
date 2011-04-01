@@ -47,9 +47,9 @@ bool iceLevel::createScene( Ogre::SceneManager* p_SceneMgr, int m_iCurrentLevel 
 	//steps.push_back(iceStep(Ogre::Vector3(jur*j,300,-jur*2),Ogre::Degree(0),5*j++));
 
 	steps.push_back(iceStep(Ogre::Vector3( -907, 535 , -667),Ogre::Degree(0),5*j++));
-	steps.push_back(iceStep(Ogre::Vector3( -739, 407 , -713),Ogre::Degree(90),5*j++));
-	steps.push_back(iceStep(Ogre::Vector3( -483, 252 , -559),Ogre::Degree(180),5*j++));
-	steps.push_back(iceStep(Ogre::Vector3( -326, 120 , -289),Ogre::Degree(270),5*j++));
+	steps.push_back(iceStep(Ogre::Vector3( -739, 407 , -713),Ogre::Degree(0),5*j++));
+	steps.push_back(iceStep(Ogre::Vector3( -483, 252 , -559),Ogre::Degree(0),5*j++));
+	steps.push_back(iceStep(Ogre::Vector3( -326, 120 , -289),Ogre::Degree(0),5*j++));
 	steps.push_back(iceStep(Ogre::Vector3( -186,  48 ,  -6 ),Ogre::Degree(0),5*j++));
 	steps.push_back(iceStep(Ogre::Vector3( -4  ,  54 , 237 ),Ogre::Degree(0),5*j++));
 	steps.push_back(iceStep(Ogre::Vector3(  8  ,  52 , 511 ),Ogre::Degree(0),5*j++));

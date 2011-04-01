@@ -1,7 +1,7 @@
 #include "iceBullet.h"
 
 
-Bullet::Bullet(void)
+iceBullet::iceBullet(void)
 	:
 	mbActive(false),						
 	miWeapon(0),						
@@ -12,11 +12,11 @@ Bullet::Bullet(void)
 	miCountDown(Ogre::Real(MAX_TIME_ACTIVE))
 {
 }
-Bullet::~Bullet(void)
+iceBullet::~iceBullet(void)
 {
 
 }
-void Bullet::Set(Ogre::SceneNode* shipNode, Ogre::SceneNode* bulletNode, int p_iWeapon, Ogre::Real p_iDamage, bool p_bCritic)
+void iceBullet::set(Ogre::SceneNode* shipNode, Ogre::SceneNode* bulletNode, int p_iWeapon, Ogre::Real p_iDamage, bool p_bCritic)
 {
 	if (!mbActive) 
 	{
@@ -42,7 +42,7 @@ void Bullet::Set(Ogre::SceneNode* shipNode, Ogre::SceneNode* bulletNode, int p_i
 
 
 }
-void Bullet::Update(Ogre::SceneNode* bulletNode, const Ogre::FrameEvent& evt)
+void iceBullet::update(Ogre::SceneNode* bulletNode, const Ogre::FrameEvent& evt)
 {	
 	/*Translate bullet*/
 	if ((mbActive)&&(miCountDown>0))

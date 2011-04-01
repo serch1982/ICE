@@ -10,14 +10,14 @@
 #define SPEED	100				// Bullet's speed
 #define MAX_TIME_ACTIVE	  10	// Maximum time that the bullet can fly without having been crashed
 
-class Bullet
+class iceBullet
 {
 public:
-	Bullet(void);
-	virtual ~Bullet(void);
+	iceBullet(void);
+	virtual ~iceBullet(void);
 
-	void Set(Ogre::SceneNode* shipNode, Ogre::SceneNode* bulletNode,int p_iWeapon, Ogre::Real p_iDamage, bool p_bCritic);
-	void Update( Ogre::SceneNode* bulletNode, const Ogre::FrameEvent& evt);
+	void set(Ogre::SceneNode* shipNode, Ogre::SceneNode* bulletNode,int p_iWeapon, Ogre::Real p_iDamage, bool p_bCritic);
+	void update( Ogre::SceneNode* bulletNode, const Ogre::FrameEvent& evt);
 		
 protected:
 	bool mbActive;						// Bullet has been shooted and is now into the scene.
@@ -29,9 +29,5 @@ protected:
 	
 	Ogre::Vector3 mvPosition;			// Bullet's world position vector
 	Ogre::Quaternion msOrientation;		// Bullet's world direction quaternion
-	
-
-	
-
 };
 #endif

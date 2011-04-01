@@ -45,6 +45,8 @@ bool icePlayer::initialize(Ogre::SceneManager* sceneManager, Ogre::SceneNode* no
 	if( !sceneManager->hasCamera("PlayerCam") )
 		setCamera( sceneManager->createCamera( "PlayerCam" ) );
 
+	//TODO: Inicializar los bullets
+
 	return true;
 }
 
@@ -94,7 +96,31 @@ void icePlayer::finalize()
 
 }
 
-void icePlayer::update()
+void icePlayer::update(Ogre::Real p_timeSinceLastFrame)
 {
+	updateShipPosition(p_timeSinceLastFrame);
+	
+	//TODO: update los bullets activos
 
+}
+
+void icePlayer::createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation, Ogre::Real p_iDamage, bool p_bCritic)
+{
+	//TODO: Activar el primer bullet libre
+}
+
+void icePlayer::showReceivedDamage(Ogre::Real p_iDamage, bool p_bCritical)
+{
+}
+
+void icePlayer::showShieldDamage(Ogre::Real p_iDamage, bool p_bCritical)
+{
+}
+
+void icePlayer::showFail(void)
+{
+}
+
+void icePlayer::showLevelUp(void)
+{
 }
