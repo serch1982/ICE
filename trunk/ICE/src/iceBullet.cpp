@@ -6,50 +6,71 @@ iceBullet::iceBullet(void)
 	mbActive(false),						
 	miWeapon(0),						
 	miDamage(Ogre::Real(0)),				
-	mbCritic(false),						
+	mbCritic(false),
+	miSpeed(100),
+	miCountDown(Ogre::Real(MAX_TIME_ACTIVE)),
 	mvPosition(Ogre::Vector3(0,0,0)),
-	msOrientation(Ogre::Quaternion(0,0,0,0)),
-	miCountDown(Ogre::Real(MAX_TIME_ACTIVE))
+	msOrientation(Ogre::Quaternion(0,0,0,0))
 {
 }
 iceBullet::~iceBullet(void)
 {
 
 }
-void iceBullet::set(Ogre::SceneNode* shipNode, Ogre::SceneNode* bulletNode, int p_iWeapon, Ogre::Real p_iDamage, bool p_bCritic)
+void iceBullet::Set(Ogre::SceneManager* sceneMgr,Ogre::SceneNode* shipNode, Ogre::SceneNode* bulletNode,
+				 int p_iWeapon, Ogre::Real p_iDamage, bool p_bCritic)
 {
 	if (!mbActive) 
 	{
 		/*Activate bullet*/
-		mbActive = true;
+		mbActive = true;		
 
 		/* Initialize class atributes values */
 		miWeapon = p_iWeapon;
 		miDamage = p_iDamage;
 		mbCritic = p_bCritic;
+		msbulletNode = bulletNode->createChildSceneNode();
+
+		/*Set bullet's entity depending on the weapons' type*/
+		/*Set bullet's speed dependig on the weapon's type*/
+		if (p_iWeapon == 0)
+		{			
+			Ogre::Entity* Weapon1 = sceneMgr->createEntity("sphere.mesh");
+			msbulletNode->attachObject(Weapon1);
+			msbulletNode->scale(.05,.05,.2);
+			miSpeed = 100;			
+		}
+
+		if (p_iWeapon == 1)
+		{			
+			Ogre::Entity* Weapon2 = sceneMgr->createEntity("sphere.mesh");
+			msbulletNode->attachObject(Weapon2);
+			msbulletNode->scale(.05,.05,.2);
+			miSpeed = 150;			
+		}			
 
 		/*Set bullets initial orientation*/
 		msOrientation = shipNode->_getDerivedOrientation();
-		bulletNode->setOrientation(msOrientation);
+		msbulletNode->setOrientation(msOrientation);
 		
 		/*Set bullets initial position*/
 		mvPosition = shipNode->_getDerivedPosition();
-		bulletNode->setPosition(mvPosition);
-		bulletNode->translate(0,0,60,Ogre::Node::TS_LOCAL);	
+		msbulletNode->setPosition(mvPosition);
+		msbulletNode->translate(0,0,60,Ogre::Node::TS_LOCAL);	
 		
 
 	}
 
 
 }
-void iceBullet::update(Ogre::SceneNode* bulletNode, const Ogre::FrameEvent& evt)
+void iceBullet::Update(Ogre::Real timeSinceLastFrame)
 {	
 	/*Translate bullet*/
 	if ((mbActive)&&(miCountDown>0))
 	{
-		bulletNode->translate(0,0,evt.timeSinceLastFrame*SPEED,Ogre::Node::TS_LOCAL);
-			/*evt.TimeSinceLastFrame  gives the time in seconds */
-		miCountDown = miCountDown - evt.timeSinceLastFrame;		
+		/*evt.TimeSinceLastFrame  gives the time in seconds */
+		msbulletNode->translate(0,0,timeSinceLastFrame * miSpeed,Ogre::Node::TS_LOCAL);		
+		miCountDown = miCountDown - timeSinceLastFrame;		
 	}
 	if (miCountDown<=0)
 	{
@@ -57,7 +78,7 @@ void iceBullet::update(Ogre::SceneNode* bulletNode, const Ogre::FrameEvent& evt)
 	}
 	
 	/*Update bullet's atributes*/
-	mvPosition = bulletNode->_getDerivedPosition();			// Will refresh bullet's position relative to the root scene node
-	msOrientation = bulletNode->_getDerivedOrientation();	// Idem with bullet's orientation
+	mvPosition = msbulletNode->_getDerivedPosition();		// Will refresh bullet's position relative to the root scene node
+	msOrientation = msbulletNode->_getDerivedOrientation();	// Idem with bullet's orientation
 
 }
