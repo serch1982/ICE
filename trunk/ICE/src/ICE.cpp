@@ -209,6 +209,8 @@ bool ICE::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 	else if( iceState::getInstance()->getState() == iceState::MENU ||
 		iceState::getInstance()->getState() == iceState::PAUSE ) 
 		mIceMenu->instance()->mouseUp(id);
+	else if( iceState::getInstance()->getState() == iceState::PLAY )
+		mPlayer.shot();
     return true;
 }
 
