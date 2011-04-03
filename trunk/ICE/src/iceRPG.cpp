@@ -212,6 +212,8 @@ void iceRPG::updateRPG(Ogre::Real p_fFrameTime)
 
 void iceRPG::shot(void)
 {
+	goto borram;
+
 	Ogre::Real fTimeBetweenShots =mWeaponLevel[mCurrentWeapon] / mWeaponBaseCadence[mCurrentWeapon];
 	fTimeBetweenShots += getModifierByLuck(-fTimeBetweenShots/10,fTimeBetweenShots/10);
 		
@@ -256,6 +258,8 @@ void iceRPG::shot(void)
 		mTimeSinceLastShot = 0.0;
 	}
 
+borram:
+	createShotEntity(0,Ogre::Quaternion(0,0,0,0),0,false);
 }
 
 void iceRPG::addDamage(Ogre::Real p_iDamage, bool p_bCritic)
