@@ -13,6 +13,7 @@
 #include "iceRPG.h"
 #include "iceBullet.h"
 
+#define MAX_BULLETS_PER_WEAPON	  4	// Maximum number of bullets active at the same time per weapon
 using namespace std;
 
 class icePlayer : public iceRPG
@@ -38,10 +39,10 @@ class icePlayer : public iceRPG
 		virtual void showFail(void);
 		virtual void showLevelUp(void);
 public:
-		Ogre::SceneNode *playerNode, *cursorPlaneNode, *shipPlaneNode, *cameraPlaneNode, *cursorNode, *shipNode, *cameraNode;
+		Ogre::SceneNode *playerNode, *cursorPlaneNode, *shipPlaneNode, *cameraPlaneNode, *cursorNode, *shipNode, *cameraNode, *mainBulletNode;
 		Ogre::Real shipMaxVelocity;
 		Ogre::Camera* playerCamera;
-		vector<iceBullet> mBullets;
+		vector<iceBullet> mvBullets;
 };
 
 #endif
