@@ -31,7 +31,7 @@ void iceBullet::CreateEntities(Ogre::SceneManager* sceneMgr, Ogre::SceneNode* bu
 			msbulletNode->attachObject(Shot_MachineGun);
 			msbulletNode->setVisible(false);
 			msbulletNode->scale(.05,.05,.2);
-			miSpeed = 150;			
+			miSpeed = 650;			
 		}
 		if (p_iWeapon == 1)
 		{			
@@ -39,7 +39,7 @@ void iceBullet::CreateEntities(Ogre::SceneManager* sceneMgr, Ogre::SceneNode* bu
 			msbulletNode->attachObject(Shot_ShotGun);
 			msbulletNode->setVisible(false);
 			msbulletNode->scale(.05,.05,.2);
-			miSpeed = 100;			
+			miSpeed = 600;			
 		}			
 		if (p_iWeapon == 2)
 		{			
@@ -47,7 +47,7 @@ void iceBullet::CreateEntities(Ogre::SceneManager* sceneMgr, Ogre::SceneNode* bu
 			msbulletNode->attachObject(Shot_MisileLauncher);
 			msbulletNode->setVisible(false);
 			msbulletNode->scale(.05,.05,.2);
-			miSpeed = 200;			
+			miSpeed = 700;			
 		}		
 }
 bool iceBullet::Set(Ogre::SceneNode* shipNode,Ogre::Real p_iDamage, bool p_bCritic)
@@ -81,20 +81,22 @@ bool iceBullet::Set(Ogre::SceneNode* shipNode,Ogre::Real p_iDamage, bool p_bCrit
 void iceBullet::Update(Ogre::Real timeSinceLastFrame)
 {	
 	/*Translate bullet*/
-	if ((mbActive)&&(miCountDown>0))
+	if (mbActive)
 	{
 		/*evt.TimeSinceLastFrame  gives the time in seconds */
 		msbulletNode->translate(0,0,timeSinceLastFrame * miSpeed,Ogre::Node::TS_LOCAL);		
-		miCountDown = miCountDown - timeSinceLastFrame;		
+		miCountDown = miCountDown - timeSinceLastFrame;
+
+		/*Update bullet's atributes*/
+		mvPosition = msbulletNode->_getDerivedPosition();		// Will refresh bullet's position relative to the root scene node
+		msOrientation = msbulletNode->_getDerivedOrientation();	// Idem with bullet's orientation
 	}
-	if (miCountDown<=0)
+	/*Deactivate bullet and reset its life time to its initial value*/
+	if ((mbActive)&&(miCountDown<=0))
 	{
+		miCountDown = MAX_TIME_ACTIVE;
 		mbActive = false;
 		msbulletNode->setVisible(false);
-	}
-	
-	/*Update bullet's atributes*/
-	mvPosition = msbulletNode->_getDerivedPosition();		// Will refresh bullet's position relative to the root scene node
-	msOrientation = msbulletNode->_getDerivedOrientation();	// Idem with bullet's orientation
+	}	
 
 }
