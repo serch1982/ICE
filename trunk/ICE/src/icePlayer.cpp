@@ -48,26 +48,32 @@ bool icePlayer::initialize(Ogre::SceneManager* sceneManager, Ogre::SceneNode* no
 	// Initialize bullets
 	
 	mainBulletNode = sceneManager->getRootSceneNode()->createChildSceneNode("bulletMainNode",Ogre::Vector3( 0, 0, 0 ));		
-	iceBullet b;
+	//iceBullet b;
 
 	/*Create Machineguns*/
-	int i = 1;
-	for(i = 1; i < MAX_BULLETS_PER_WEAPON + 1; i++)
+	int i = 0;
+	//for(i = 1; i < MAX_BULLETS_PER_WEAPON + 1; i++)
+	for(i = 0; i < MAX_BULLETS_PER_WEAPON; i++)
 	{		
-		b.CreateEntities(sceneManager,mainBulletNode,MACHINEGUN);				
-		mvBullets.push_back(b);	
+		mvBullets[i].CreateEntities(sceneManager,mainBulletNode,MACHINEGUN);				
+		//b.CreateEntities(sceneManager,mainBulletNode,MACHINEGUN);				
+		//mvBullets.push_back(b);	
 	}	
 	/*Create Shotguns*/
-	for (i = 1; i < MAX_BULLETS_PER_WEAPON + 1; i++)
+	//for (i = 1; i < MAX_BULLETS_PER_WEAPON + 1; i++)
+	for(i = MAX_BULLETS_PER_WEAPON; i < 2*MAX_BULLETS_PER_WEAPON; i++)
 	{		
-		b.CreateEntities(sceneManager,mainBulletNode,SHOTGUN);				
-		mvBullets.push_back(b);	
+		mvBullets[i].CreateEntities(sceneManager,mainBulletNode,SHOTGUN);				
+		//b.CreateEntities(sceneManager,mainBulletNode,SHOTGUN);				
+		//mvBullets.push_back(b);	
 	}
 	/*Create MisileLaunchers*/
-	for (i = 1; i < MAX_BULLETS_PER_WEAPON + 1 ; i++)
+	//for (i = 1; i < MAX_BULLETS_PER_WEAPON + 1 ; i++)
+	for(i = 2*MAX_BULLETS_PER_WEAPON; i < 3*MAX_BULLETS_PER_WEAPON; i++)
 	{		
-		b.CreateEntities(sceneManager,mainBulletNode,MISILE_LAUNCHER);				
-		mvBullets.push_back(b);	
+		mvBullets[i].CreateEntities(sceneManager,mainBulletNode,MISILE_LAUNCHER);				
+		//b.CreateEntities(sceneManager,mainBulletNode,MISILE_LAUNCHER);				
+		//mvBullets.push_back(b);	
 	}
 
 
@@ -124,9 +130,10 @@ void icePlayer::update(Ogre::Real p_timeSinceLastFrame)
 {
 	updateShipPosition(p_timeSinceLastFrame);
 	
-	// Update active bullets
+	/* Update active bullets*/
 	int i=0;
-	for(i = 0; i<mvBullets.size();i++)
+	//for(i = 0; i<mvBullets.size();i++)
+	for(i=0;i<30-1;i++)
 	{
 		mvBullets[i].Update(p_timeSinceLastFrame);	
 	}
@@ -134,15 +141,24 @@ void icePlayer::update(Ogre::Real p_timeSinceLastFrame)
 
 void icePlayer::createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation, Ogre::Real p_iDamage, bool p_bCritic)
 {
-	// Activate the first free bullet
+	/* Activate the first free bullet*/
 	int i = 0;
-	for(i = 0; i<mvBullets.size();i++)
+	bool bFreeBullet = false;
+	while(!bFreeBullet)
 	{
 		if(mvBullets[i].Set(shipNode,0,false))
 		{
-			break;
+			bFreeBullet = true;
+			
+		}else
+		{
+			//if(i<mvBullets.size())
+			if (i<30)
+			{
+				i++;
+			}
 		}
-	}
+	}	
 }
 
 void icePlayer::showReceivedDamage(Ogre::Real p_iDamage, bool p_bCritical)
