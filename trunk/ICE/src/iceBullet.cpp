@@ -2,7 +2,7 @@
 
 
 iceBullet::iceBullet(void)
-	:
+:
 	mbActive(false),						
 	miWeapon(0),						
 	miDamage(Ogre::Real(0)),				
@@ -17,37 +17,50 @@ iceBullet::~iceBullet(void)
 {
 
 }
-void iceBullet::Set(Ogre::SceneManager* sceneMgr,Ogre::SceneNode* shipNode, Ogre::SceneNode* bulletNode,
-				 int p_iWeapon, Ogre::Real p_iDamage, bool p_bCritic)
+void iceBullet::CreateEntities(Ogre::SceneManager* sceneMgr, Ogre::SceneNode* bulletNode, int p_iWeapon)
 {
-	if (!mbActive) 
-	{
-		/*Activate bullet*/
-		mbActive = true;		
-
 		/* Initialize class atributes values */
-		miWeapon = p_iWeapon;
-		miDamage = p_iDamage;
-		mbCritic = p_bCritic;
+		miWeapon = p_iWeapon;		
 		msbulletNode = bulletNode->createChildSceneNode();
 
 		/*Set bullet's entity depending on the weapons' type*/
 		/*Set bullet's speed dependig on the weapon's type*/
 		if (p_iWeapon == 0)
 		{			
-			Ogre::Entity* Weapon1 = sceneMgr->createEntity("sphere.mesh");
-			msbulletNode->attachObject(Weapon1);
-			msbulletNode->scale(.05,.05,.2);
-			miSpeed = 100;			
-		}
-
-		if (p_iWeapon == 1)
-		{			
-			Ogre::Entity* Weapon2 = sceneMgr->createEntity("sphere.mesh");
-			msbulletNode->attachObject(Weapon2);
+			Ogre::Entity* Shot_MachineGun = sceneMgr->createEntity("sphere.mesh");
+			msbulletNode->attachObject(Shot_MachineGun);
+			msbulletNode->setVisible(false);
 			msbulletNode->scale(.05,.05,.2);
 			miSpeed = 150;			
+		}
+		if (p_iWeapon == 1)
+		{			
+			Ogre::Entity* Shot_ShotGun = sceneMgr->createEntity("sphere.mesh");
+			msbulletNode->attachObject(Shot_ShotGun);
+			msbulletNode->setVisible(false);
+			msbulletNode->scale(.05,.05,.2);
+			miSpeed = 100;			
 		}			
+		if (p_iWeapon == 2)
+		{			
+			Ogre::Entity* Shot_MisileLauncher = sceneMgr->createEntity("sphere.mesh");
+			msbulletNode->attachObject(Shot_MisileLauncher);
+			msbulletNode->setVisible(false);
+			msbulletNode->scale(.05,.05,.2);
+			miSpeed = 200;			
+		}		
+}
+bool iceBullet::Set(Ogre::SceneNode* shipNode,Ogre::Real p_iDamage, bool p_bCritic)
+{
+	if (!mbActive) 
+	{
+		/*Activate bullet*/
+		mbActive = true;
+		msbulletNode->setVisible(true);
+
+		/* Initialize class atributes values */
+		miDamage = p_iDamage;
+		mbCritic = p_bCritic;
 
 		/*Set bullets initial orientation*/
 		msOrientation = shipNode->_getDerivedOrientation();
@@ -56,11 +69,13 @@ void iceBullet::Set(Ogre::SceneManager* sceneMgr,Ogre::SceneNode* shipNode, Ogre
 		/*Set bullets initial position*/
 		mvPosition = shipNode->_getDerivedPosition();
 		msbulletNode->setPosition(mvPosition);
-		msbulletNode->translate(0,0,60,Ogre::Node::TS_LOCAL);	
-		
+		msbulletNode->translate(0,0,60,Ogre::Node::TS_LOCAL);
 
+		return true;
+	}else
+	{
+		return false;
 	}
-
 
 }
 void iceBullet::Update(Ogre::Real timeSinceLastFrame)
@@ -75,6 +90,7 @@ void iceBullet::Update(Ogre::Real timeSinceLastFrame)
 	if (miCountDown<=0)
 	{
 		mbActive = false;
+		msbulletNode->setVisible(false);
 	}
 	
 	/*Update bullet's atributes*/
