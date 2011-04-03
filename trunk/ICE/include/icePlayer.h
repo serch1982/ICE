@@ -13,7 +13,7 @@
 #include "iceRPG.h"
 #include "iceBullet.h"
 
-#define MAX_BULLETS_PER_WEAPON	  4	// Maximum number of bullets active at the same time per weapon
+#define MAX_BULLETS_PER_WEAPON	  10	// Maximum number of bullets active at the same time per weapon
 using namespace std;
 
 class icePlayer : public iceRPG
