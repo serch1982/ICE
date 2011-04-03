@@ -14,11 +14,12 @@
 class iceBullet
 {
 public:
-	iceBullet(void);
+iceBullet(void);
+	
 	virtual ~iceBullet(void);
 
-	void Set(Ogre::SceneManager* sceneMgr, Ogre::SceneNode* shipNode, Ogre::SceneNode* bulletNode,
-			 int p_iWeapon, Ogre::Real p_iDamage, bool p_bCritic);
+	void CreateEntities(Ogre::SceneManager* sceneMgr, Ogre::SceneNode* bulletNode, int p_iWeapon);
+	bool Set(Ogre::SceneNode* shipNode,Ogre::Real p_iDamage, bool p_bCritic);	/* Returns true when a bullet is set to active status*/
 	
 	void Update(Ogre::Real timeSinceLastFrame);
 
