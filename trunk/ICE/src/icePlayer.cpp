@@ -38,14 +38,38 @@ bool icePlayer::initialize(Ogre::SceneManager* sceneManager, Ogre::SceneNode* no
 	//Ogre::SceneNode* smokeNode2 = node->createChildSceneNode(Ogre::Vector3(-17.0,10.0,-70.0));
 	//smokeNode2->attachObject(smoke2);
 
-	//init camera
+	// Init camera
 	cameraPlaneNode = playerNode->createChildSceneNode(Ogre::Vector3(0.0,0.0,-500.0));
 	cameraNode = cameraPlaneNode->createChildSceneNode(Ogre::Vector3(0.0,/*10*/0.0,0.0));
 
 	if( !sceneManager->hasCamera("PlayerCam") )
 		setCamera( sceneManager->createCamera( "PlayerCam" ) );
 
-	//TODO: Inicializar los bullets
+	// Initialize bullets
+	
+	mainBulletNode = sceneManager->getRootSceneNode()->createChildSceneNode("bulletMainNode",Ogre::Vector3( 0, 0, 0 ));		
+	iceBullet b;
+
+	/*Create Machineguns*/
+	int i = 1;
+	for(i = 1; i < MAX_BULLETS_PER_WEAPON + 1; i++)
+	{		
+		b.CreateEntities(sceneManager,mainBulletNode,MACHINEGUN);				
+		mvBullets.push_back(b);	
+	}	
+	/*Create Shotguns*/
+	for (i = 1; i < MAX_BULLETS_PER_WEAPON + 1; i++)
+	{		
+		b.CreateEntities(sceneManager,mainBulletNode,SHOTGUN);				
+		mvBullets.push_back(b);	
+	}
+	/*Create MisileLaunchers*/
+	for (i = 1; i < MAX_BULLETS_PER_WEAPON + 1 ; i++)
+	{		
+		b.CreateEntities(sceneManager,mainBulletNode,MISILE_LAUNCHER);				
+		mvBullets.push_back(b);	
+	}
+
 
 	return true;
 }
@@ -100,13 +124,25 @@ void icePlayer::update(Ogre::Real p_timeSinceLastFrame)
 {
 	updateShipPosition(p_timeSinceLastFrame);
 	
-	//TODO: update los bullets activos
-
+	// Update active bullets
+	int i=0;
+	for(i = 0; i<mvBullets.size();i++)
+	{
+		mvBullets[i].Update(p_timeSinceLastFrame);	
+	}
 }
 
 void icePlayer::createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation, Ogre::Real p_iDamage, bool p_bCritic)
 {
-	//TODO: Activar el primer bullet libre
+	// Activate the first free bullet
+	int i = 0;
+	for(i = 0; i<mvBullets.size();i++)
+	{
+		if(mvBullets[i].Set(shipNode,0,false))
+		{
+			break;
+		}
+	}
 }
 
 void icePlayer::showReceivedDamage(Ogre::Real p_iDamage, bool p_bCritical)
