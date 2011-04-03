@@ -42,7 +42,8 @@ public:
 		Ogre::SceneNode *playerNode, *cursorPlaneNode, *shipPlaneNode, *cameraPlaneNode, *cursorNode, *shipNode, *cameraNode, *mainBulletNode;
 		Ogre::Real shipMaxVelocity;
 		Ogre::Camera* playerCamera;
-		vector<iceBullet> mvBullets;
+		//vector<iceBullet> mvBullets;
+		iceBullet mvBullets[30];
 };
 
 #endif
