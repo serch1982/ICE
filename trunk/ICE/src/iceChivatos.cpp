@@ -25,15 +25,18 @@ void iceChivatos::setupChivato(Ogre::RenderWindow* mWindow, OIS::Mouse* mMouse,O
 
 	// my chivatos
     Ogre::StringVector items;
-    items.push_back("cam.pX");
-    items.push_back("cam.pY");
-    items.push_back("cam.pZ");
-    items.push_back("cam.oW");
-    items.push_back("cam.oX");
-    items.push_back("cam.oY");
-    items.push_back("cam.oZ");
-    items.push_back("Poly Mode");
-	items.push_back("test LUA");
+    items.push_back("cam.pX");					// 0
+    items.push_back("cam.pY");					// 1
+    items.push_back("cam.pZ");					// 2
+    items.push_back("cam.oW");					// 3
+    items.push_back("cam.oX");					// 4
+    items.push_back("cam.oY");					// 5
+    items.push_back("cam.oZ");					// 6
+    items.push_back("Poly Mode");				// 7
+	items.push_back("test LUA");				// 8
+	items.push_back("Machinegun Ammo");			// 9
+	items.push_back("Shotgun Ammo");			// 10
+	items.push_back("Misile launcher Ammo");	// 11
 	/*
 		here you can add your custom chivato like items.push_back("mycustomchivato"); 
 	*/

@@ -45,37 +45,34 @@ bool icePlayer::initialize(Ogre::SceneManager* sceneManager, Ogre::SceneNode* no
 	if( !sceneManager->hasCamera("PlayerCam") )
 		setCamera( sceneManager->createCamera( "PlayerCam" ) );
 
-	// Initialize bullets
+
+	//Pau * INITIALIZE BULLETS *----------------------------------------------------------------------------------------//
 	
 	mainBulletNode = sceneManager->getRootSceneNode()->createChildSceneNode("bulletMainNode",Ogre::Vector3( 0, 0, 0 ));		
-	//iceBullet b;
-
+	
 	/*Create Machineguns*/
 	int i = 0;
-	//for(i = 1; i < MAX_BULLETS_PER_WEAPON + 1; i++)
-	for(i = 0; i < MAX_BULLETS_PER_WEAPON; i++)
+	
+	for(i = 0; i < MACHINEGUN_RELOAD; i++)
 	{		
-		mvBullets[i].CreateEntities(sceneManager,mainBulletNode,MACHINEGUN);				
-		//b.CreateEntities(sceneManager,mainBulletNode,MACHINEGUN);				
-		//mvBullets.push_back(b);	
+		mvMachinegunBullets[i].CreateEntities(sceneManager,mainBulletNode,MACHINEGUN);
+		iceChivatos::instance()->updateChivato(9,Ogre::StringConverter::toString(mMachinegunAmmo));
 	}	
-	/*Create Shotguns*/
-	//for (i = 1; i < MAX_BULLETS_PER_WEAPON + 1; i++)
-	for(i = MAX_BULLETS_PER_WEAPON; i < 2*MAX_BULLETS_PER_WEAPON; i++)
+	
+	/*Create Shotguns*/	
+	for(i = 0; i < SHOTGUN_RELOAD; i++)
 	{		
-		mvBullets[i].CreateEntities(sceneManager,mainBulletNode,SHOTGUN);				
-		//b.CreateEntities(sceneManager,mainBulletNode,SHOTGUN);				
-		//mvBullets.push_back(b);	
+		mvShotgunBullets[i].CreateEntities(sceneManager,mainBulletNode,SHOTGUN);
+		iceChivatos::instance()->updateChivato(10,Ogre::StringConverter::toString(mShotgunAmmo));
 	}
-	/*Create MisileLaunchers*/
-	//for (i = 1; i < MAX_BULLETS_PER_WEAPON + 1 ; i++)
-	for(i = 2*MAX_BULLETS_PER_WEAPON; i < 3*MAX_BULLETS_PER_WEAPON; i++)
-	{		
-		mvBullets[i].CreateEntities(sceneManager,mainBulletNode,MISILE_LAUNCHER);				
-		//b.CreateEntities(sceneManager,mainBulletNode,MISILE_LAUNCHER);				
-		//mvBullets.push_back(b);	
+	
+	/*Create MisileLaunchers*/	
+	for(i = 0; i < MISILE_LAUNCHER_RELOAD; i++)
+	{
+		mvMisilLauncherBullets[i].CreateEntities(sceneManager,mainBulletNode,MISILE_LAUNCHER);
+		iceChivatos::instance()->updateChivato(11,Ogre::StringConverter::toString(mMisileLauncherAmmo));
 	}
-
+	//----------------------------------------------------------------------------------------------------------------------------//
 
 	return true;
 }
@@ -130,35 +127,93 @@ void icePlayer::update(Ogre::Real p_timeSinceLastFrame)
 {
 	updateShipPosition(p_timeSinceLastFrame);
 	
-	/* Update active bullets*/
+	//Pau * UPDATE ACTIVE BULLETS *-----------------------------------------------------------------------//
+	
 	int i=0;
-	//for(i = 0; i<mvBullets.size();i++)
-	for(i=0;i<30-1;i++)
+	
+	for(i = 0; i < MACHINEGUN_RELOAD; i++)
 	{
-		mvBullets[i].Update(p_timeSinceLastFrame);	
+		mvMachinegunBullets[i].Update(p_timeSinceLastFrame);
 	}
+	for(i = 0; i < SHOTGUN_RELOAD; i++)
+	{
+		mvShotgunBullets[i].Update(p_timeSinceLastFrame);
+	}
+	for(i = 0; i < MISILE_LAUNCHER_RELOAD; i++)
+	{
+		mvMisilLauncherBullets[i].Update(p_timeSinceLastFrame);
+	}
+	//-------------------------------------------------------------------------------------------------//
 }
 
 void icePlayer::createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation, Ogre::Real p_iDamage, bool p_bCritic)
 {
-	/* Activate the first free bullet*/
+	//Pau * ACTIVATE THE FIRST FREE BULLET OF THE CURRENT WEAPON*-------------------------------------------------------------//
+	
 	int i = 0;
-	bool bFreeBullet = false;
-	while(!bFreeBullet)
+	bool bFreeBulletFound = false;
+	
+	switch(p_iWeapon)
 	{
-		if(mvBullets[i].Set(shipNode,0,false))
-		{
-			bFreeBullet = true;
-			
-		}else
-		{
-			//if(i<mvBullets.size())
-			if (i<30)
+		case MACHINEGUN:
+		
+			while((!bFreeBulletFound)&&(mMachinegunAmmo>0))
 			{
-				i++;
+				if(mvMachinegunBullets[i].Set(shipNode,p_iDamage,p_bCritic))
+				{
+					bFreeBulletFound = true;
+					mMachinegunAmmo --;
+					iceChivatos::instance()->updateChivato(9,Ogre::StringConverter::toString(mMachinegunAmmo));
+				}else
+				{		
+					if (i<MACHINEGUN_RELOAD)
+					{
+						i++;
+					}
+				}
 			}
-		}
-	}	
+			break;
+	
+		case SHOTGUN:
+		
+			while(!bFreeBulletFound)
+			{
+				if(mvShotgunBullets[i].Set(shipNode,p_iDamage,p_bCritic))
+				{
+					bFreeBulletFound = true;
+					mShotgunAmmo--;
+					iceChivatos::instance()->updateChivato(10,Ogre::StringConverter::toString(mShotgunAmmo));
+				}else
+				{		
+					if (i<SHOTGUN_RELOAD)
+					{
+						i++;
+					}
+				}
+			}
+			break;
+
+		case MISILE_LAUNCHER:
+		
+			while(!bFreeBulletFound)
+			{
+				if(mvMisilLauncherBullets[i].Set(shipNode,p_iDamage,p_bCritic))
+				{
+					bFreeBulletFound = true;
+					mMisileLauncherAmmo --;
+					iceChivatos::instance()->updateChivato(11,Ogre::StringConverter::toString(mMisileLauncherAmmo));
+				}else
+				{		
+					if (i<MISILE_LAUNCHER_RELOAD)
+					{
+						i++;
+					}
+				}
+			}
+			break;
+	}
+	//-------------------------------------------------------------------------------------------------//
+
 }
 
 void icePlayer::showReceivedDamage(Ogre::Real p_iDamage, bool p_bCritical)

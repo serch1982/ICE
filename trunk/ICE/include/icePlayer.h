@@ -12,8 +12,9 @@
 #include <OISMouse.h>
 #include "iceRPG.h"
 #include "iceBullet.h"
+#include "iceChivatos.h"
 
-#define MAX_BULLETS_PER_WEAPON	  10	// Maximum number of bullets active at the same time per weapon
+
 using namespace std;
 
 class icePlayer : public iceRPG
@@ -39,11 +40,21 @@ class icePlayer : public iceRPG
 		virtual void showFail(void);
 		virtual void showLevelUp(void);
 public:
-		Ogre::SceneNode *playerNode, *cursorPlaneNode, *shipPlaneNode, *cameraPlaneNode, *cursorNode, *shipNode, *cameraNode, *mainBulletNode;
+		Ogre::SceneNode *playerNode, *cursorPlaneNode, *shipPlaneNode, *cameraPlaneNode, *cursorNode, *shipNode, *cameraNode; 
 		Ogre::Real shipMaxVelocity;
 		Ogre::Camera* playerCamera;
-		//vector<iceBullet> mvBullets;
-		iceBullet mvBullets[30];
+		
+		//Pau * BULLETS------------------------------------------------//
+		
+		/*Bullet's Father node: son of the root's node and placed in absolute 0,0,0 coordinates.
+		  Every bullet is gonna be son of the mainBulletNode*/
+		Ogre::SceneNode *mainBulletNode;
+
+		/*Bullet vectors depending on the weapon kind*/
+		iceBullet mvMachinegunBullets[MACHINEGUN_RELOAD];
+		iceBullet mvShotgunBullets[SHOTGUN_RELOAD];
+		iceBullet mvMisilLauncherBullets[MISILE_LAUNCHER_RELOAD];
+		//--------------------------------------------------------------//
 };
 
 #endif

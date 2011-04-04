@@ -7,6 +7,9 @@ iceRPG::iceRPG(void)
 	mExperience = 0;
 	mBaseLife = 10;
 	mBaseArmor = 1;
+	mMachinegunAmmo = MACHINEGUN_RELOAD;
+	mShotgunAmmo = SHOTGUN_RELOAD;
+	mMisileLauncherAmmo = MISILE_LAUNCHER_RELOAD;
 	mBaseAttack = 1;
 	mBaseAccuracy = 1;
 	mBaseManiobrability = 1;
