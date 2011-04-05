@@ -217,10 +217,10 @@ void iceRPG::shot(void)
 {
 	goto borram;
 
-	Ogre::Real fTimeBetweenShots =mWeaponLevel[mCurrentWeapon] / mWeaponBaseCadence[mCurrentWeapon];
+	Ogre::Real fTimeBetweenShots = mWeaponLevel[mCurrentWeapon] / mWeaponBaseCadence[mCurrentWeapon];
 	fTimeBetweenShots += getModifierByLuck(-fTimeBetweenShots/10,fTimeBetweenShots/10);
 		
-	if (mTimeSinceLastShot < fTimeBetweenShots)
+	if (mTimeSinceLastShot > fTimeBetweenShots)
 	{
 		unsigned int iBulletsPerShot = 1;
 		if (mCurrentWeapon == SHOTGUN)

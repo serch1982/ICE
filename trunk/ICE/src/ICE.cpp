@@ -70,6 +70,7 @@ bool ICE::frameRenderingQueued(const Ogre::FrameEvent& evt)
 			break;
 		case iceState::PLAY:
 			// Playing the game
+			ShowCursor(false);
 			update(evt.timeSinceLastFrame);
 			break;
 		case iceState::PAUSE:

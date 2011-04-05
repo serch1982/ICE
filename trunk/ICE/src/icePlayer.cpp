@@ -12,15 +12,15 @@ icePlayer::~icePlayer(){
 bool icePlayer::initialize(Ogre::SceneManager* sceneManager, Ogre::SceneNode* node)
 {
 	playerNode = node;
-	shipMaxVelocity = 200;
+	shipMaxVelocity = 20;
 
 	//Init cursor
-	cursorPlaneNode = playerNode->createChildSceneNode(Ogre::Vector3(0.0,0.0,500.0));	
+	cursorPlaneNode = playerNode->createChildSceneNode(Ogre::Vector3(0.0,0.0,400.0));	
 	cursorNode = cursorPlaneNode->createChildSceneNode();
 	
 	Ogre::Entity* mesh = sceneManager->createEntity("cursorMesh", "sphere.mesh");
 	cursorNode->attachObject(mesh);
-	cursorNode->scale(0.1,0.1,0.1);
+	cursorNode->scale(0.01,0.01,0.01);
 
 	//Init Ship
 	shipPlaneNode = playerNode->createChildSceneNode();
@@ -29,7 +29,7 @@ bool icePlayer::initialize(Ogre::SceneManager* sceneManager, Ogre::SceneNode* no
 	Ogre::Entity* mesh2 = sceneManager->createEntity("shipMesh", "nave.mesh");
 	mesh2->setCastShadows(true);
 	shipNode->attachObject(mesh2);
-	//shipNode->scale(0.2,0.2,0.2);
+	shipNode->scale(0.04,0.09,0.09);
 
 	//Ogre::ParticleSystem* smoke1 = sceneManager->createParticleSystem("Smoke1", "Smoke2");
 	//Ogre::ParticleSystem* smoke2 = sceneManager->createParticleSystem("Smoke2", "Smoke2");
@@ -39,7 +39,7 @@ bool icePlayer::initialize(Ogre::SceneManager* sceneManager, Ogre::SceneNode* no
 	//smokeNode2->attachObject(smoke2);
 
 	// Init camera
-	cameraPlaneNode = playerNode->createChildSceneNode(Ogre::Vector3(0.0,0.0,-500.0));
+	cameraPlaneNode = playerNode->createChildSceneNode(Ogre::Vector3(0.0,0.0,-300.0));
 	cameraNode = cameraPlaneNode->createChildSceneNode(Ogre::Vector3(0.0,/*10*/0.0,0.0));
 
 	if( !sceneManager->hasCamera("PlayerCam") )
@@ -72,7 +72,10 @@ bool icePlayer::initialize(Ogre::SceneManager* sceneManager, Ogre::SceneNode* no
 		mvMisilLauncherBullets[i].CreateEntities(sceneManager,mainBulletNode,MISILE_LAUNCHER);
 		iceChivatos::instance()->updateChivato(11,Ogre::StringConverter::toString(mMisileLauncherAmmo));
 	}
+
+	iceCounters::instance();
 	//----------------------------------------------------------------------------------------------------------------------------//
+
 
 	return true;
 }
@@ -83,6 +86,7 @@ void icePlayer::setCamera(Ogre::Camera* camera)
 	playerCamera = camera;
 	cameraNode->attachObject(camera);
 	camera->lookAt(cursorNode->convertLocalToWorldPosition(cursorNode->getPosition()));
+	camera->setFOVy(Ogre::Degree(10));
 }
 
 Ogre::Camera* icePlayer::getCamera(){
@@ -91,7 +95,7 @@ Ogre::Camera* icePlayer::getCamera(){
 
 void icePlayer::processMouseMoved(const OIS::MouseEvent &arg)
 {
-	cursorNode->translate((Ogre::Real)-arg.state.X.rel,(Ogre::Real)-arg.state.Y.rel,0);
+	cursorNode->translate(((Ogre::Real)-arg.state.X.rel)/30,((Ogre::Real)-arg.state.Y.rel)/30,0);
 }
 
 void icePlayer::updateShipPosition(Ogre::Real frameTime)

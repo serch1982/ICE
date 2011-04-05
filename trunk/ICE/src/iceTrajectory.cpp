@@ -37,7 +37,7 @@ void iceTrajectory::loadSteps(vector<iceStep> p_vSteps)
 			sprintf(name,"key %d",i);
 			Ogre::Entity* mesh = mSceneManager->createEntity(name, "sphere.mesh");
 			sDebugNode->attachObject(mesh);
-			sDebugNode->scale(0.05,0.05,0.05);
+			sDebugNode->scale(0.005,0.005,0.005);
 	}
 	//} DEBUG
 }
@@ -83,12 +83,12 @@ void iceTrajectory::init(Ogre::SceneManager* p_spSceneManager, Ogre::SceneNode* 
 	mSceneManager->getRootSceneNode()->createChildSceneNode("DebugTrajectorySteps");
 	Ogre::Entity* mesh = mSceneManager->createEntity("locomotive", "sphere.mesh");
 	mLocomotiveNode->attachObject(mesh);
-	mLocomotiveNode->scale(0.1,0.1,0.1);
+	mLocomotiveNode->scale(0.01,0.01,0.01);
 
 	Ogre::SceneNode* playerCenter = mNode->createChildSceneNode();
 	Ogre::Entity* mesh2 = mSceneManager->createEntity("player_center", "razor.mesh");
 	playerCenter->attachObject(mesh2);
-	playerCenter->scale(0.3,0.3,0.3);
+	playerCenter->scale(0.03,0.03,0.03);
 	//} DEBUG
 }
 

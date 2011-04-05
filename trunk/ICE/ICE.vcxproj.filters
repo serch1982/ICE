@@ -96,6 +96,9 @@
     <ClInclude Include="include\iceBullet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\iceCounters.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ICE.cpp">
@@ -138,6 +141,9 @@
       <Filter>Source Files\Lua</Filter>
     </ClCompile>
     <ClCompile Include="src\iceBullet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\iceCounters.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

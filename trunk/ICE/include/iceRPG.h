@@ -1,5 +1,6 @@
 #pragma once
 #include <OgreVector3.h>
+#include "iceCounters.h"
 
 #define MACHINEGUN	0
 #define SHOTGUN		1
