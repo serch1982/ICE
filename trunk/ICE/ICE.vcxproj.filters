@@ -69,9 +69,6 @@
     <ClInclude Include="include\iceState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\iceChivatos.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\iceLevel.h">
       <Filter>Header Files\hWorld</Filter>
     </ClInclude>
@@ -99,6 +96,9 @@
     <ClInclude Include="include\iceCounters.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\iceDebugScreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ICE.cpp">
@@ -114,9 +114,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\iceState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\iceChivatos.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\iceLevel.cpp">
@@ -144,6 +141,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\iceCounters.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\iceDebugScreen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

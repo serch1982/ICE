@@ -6,7 +6,7 @@
 #include <OgreSceneManager.h>
 #include <OgreAnimation.h>
 #include <OgreLog.h>
-#include "iceChivatos.h"
+#include "iceDebugScreen.h"
 
 using namespace std;
 

@@ -56,21 +56,21 @@ bool icePlayer::initialize(Ogre::SceneManager* sceneManager, Ogre::SceneNode* no
 	for(i = 0; i < MACHINEGUN_RELOAD; i++)
 	{		
 		mvMachinegunBullets[i].CreateEntities(sceneManager,mainBulletNode,MACHINEGUN);
-		iceChivatos::instance()->updateChivato(9,Ogre::StringConverter::toString(mMachinegunAmmo));
+		iceDebugScreen::instance()->updateChivato(9,Ogre::StringConverter::toString(mMachinegunAmmo));
 	}	
 	
 	/*Create Shotguns*/	
 	for(i = 0; i < SHOTGUN_RELOAD; i++)
 	{		
 		mvShotgunBullets[i].CreateEntities(sceneManager,mainBulletNode,SHOTGUN);
-		iceChivatos::instance()->updateChivato(10,Ogre::StringConverter::toString(mShotgunAmmo));
+		iceDebugScreen::instance()->updateChivato(10,Ogre::StringConverter::toString(mShotgunAmmo));
 	}
 	
 	/*Create MisileLaunchers*/	
 	for(i = 0; i < MISILE_LAUNCHER_RELOAD; i++)
 	{
 		mvMisilLauncherBullets[i].CreateEntities(sceneManager,mainBulletNode,MISILE_LAUNCHER);
-		iceChivatos::instance()->updateChivato(11,Ogre::StringConverter::toString(mMisileLauncherAmmo));
+		iceDebugScreen::instance()->updateChivato(11,Ogre::StringConverter::toString(mMisileLauncherAmmo));
 	}
 
 	iceCounters::instance();
@@ -167,7 +167,7 @@ void icePlayer::createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation,
 				{
 					bFreeBulletFound = true;
 					mMachinegunAmmo --;
-					iceChivatos::instance()->updateChivato(9,Ogre::StringConverter::toString(mMachinegunAmmo));
+					iceDebugScreen::instance()->updateChivato(9,Ogre::StringConverter::toString(mMachinegunAmmo));
 				}else
 				{		
 					if (i<MACHINEGUN_RELOAD)
@@ -186,7 +186,7 @@ void icePlayer::createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation,
 				{
 					bFreeBulletFound = true;
 					mShotgunAmmo--;
-					iceChivatos::instance()->updateChivato(10,Ogre::StringConverter::toString(mShotgunAmmo));
+					iceDebugScreen::instance()->updateChivato(10,Ogre::StringConverter::toString(mShotgunAmmo));
 				}else
 				{		
 					if (i<SHOTGUN_RELOAD)
@@ -205,7 +205,7 @@ void icePlayer::createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation,
 				{
 					bFreeBulletFound = true;
 					mMisileLauncherAmmo --;
-					iceChivatos::instance()->updateChivato(11,Ogre::StringConverter::toString(mMisileLauncherAmmo));
+					iceDebugScreen::instance()->updateChivato(11,Ogre::StringConverter::toString(mMisileLauncherAmmo));
 				}else
 				{		
 					if (i<MISILE_LAUNCHER_RELOAD)

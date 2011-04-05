@@ -111,8 +111,8 @@ void CORE::createFrameListener(void)
     //Register as a Window listener
     Ogre::WindowEventUtilities::addWindowEventListener(mWindow, this);
 
-	iceChivatos::instance()->setupChivato(mWindow, mMouse,this,this); 
-	iceChivatos::instance()->updateChivato(7, "Solid");
+	iceDebugScreen::instance()->setupChivato(mWindow, mMouse,this,this); 
+	iceDebugScreen::instance()->updateChivato(7, "Solid");
 
     mRoot->addFrameListener(this);
 }
@@ -221,31 +221,31 @@ bool CORE::frameRenderingQueued(const Ogre::FrameEvent& evt)
     mKeyboard->capture();
     mMouse->capture();
 
-	iceChivatos::instance()->updateFrameEvent(evt);
-    iceChivatos::instance()->updateChivato( 0, Ogre::StringConverter::toString(mCurrentCamera->getDerivedPosition().x));
-    iceChivatos::instance()->updateChivato( 1, Ogre::StringConverter::toString(mCurrentCamera->getDerivedPosition().y));
-    iceChivatos::instance()->updateChivato( 2, Ogre::StringConverter::toString(mCurrentCamera->getDerivedPosition().z));
-    iceChivatos::instance()->updateChivato( 3, Ogre::StringConverter::toString(mCurrentCamera->getDerivedOrientation().w));
-    iceChivatos::instance()->updateChivato( 4, Ogre::StringConverter::toString(mCurrentCamera->getDerivedOrientation().x));
-    iceChivatos::instance()->updateChivato( 5, Ogre::StringConverter::toString(mCurrentCamera->getDerivedOrientation().y));
-    iceChivatos::instance()->updateChivato( 6, Ogre::StringConverter::toString(mCurrentCamera->getDerivedOrientation().z));
+	iceDebugScreen::instance()->updateFrameEvent(evt);
+    iceDebugScreen::instance()->updateChivato( 0, Ogre::StringConverter::toString(mCurrentCamera->getDerivedPosition().x));
+    iceDebugScreen::instance()->updateChivato( 1, Ogre::StringConverter::toString(mCurrentCamera->getDerivedPosition().y));
+    iceDebugScreen::instance()->updateChivato( 2, Ogre::StringConverter::toString(mCurrentCamera->getDerivedPosition().z));
+    iceDebugScreen::instance()->updateChivato( 3, Ogre::StringConverter::toString(mCurrentCamera->getDerivedOrientation().w));
+    iceDebugScreen::instance()->updateChivato( 4, Ogre::StringConverter::toString(mCurrentCamera->getDerivedOrientation().x));
+    iceDebugScreen::instance()->updateChivato( 5, Ogre::StringConverter::toString(mCurrentCamera->getDerivedOrientation().y));
+    iceDebugScreen::instance()->updateChivato( 6, Ogre::StringConverter::toString(mCurrentCamera->getDerivedOrientation().z));
 
     return true;
 }
 //-------------------------------------------------------------------------------------
 bool CORE::keyPressed( const OIS::KeyEvent &arg )
 {
-    if (iceChivatos::instance()->isDialogVisible()) return true;   // don't process any more keys if dialog is up
+    if (iceDebugScreen::instance()->isDialogVisible()) return true;   // don't process any more keys if dialog is up
 
     if (arg.key == OIS::KC_F)   //show chivatos and stats
     {
-		iceChivatos::instance()->showChivatos();
-		iceChivatos::instance()->showFrameStats();
+		iceDebugScreen::instance()->showChivatos();
+		iceDebugScreen::instance()->showFrameStats();
     }
 	if (arg.key == OIS::KC_G)   //show chivatos and stats
     {
-        iceChivatos::instance()->hideChivatos();
-		iceChivatos::instance()->hideFrameStats();
+        iceDebugScreen::instance()->hideChivatos();
+		iceDebugScreen::instance()->hideFrameStats();
     }
     else if (arg.key == OIS::KC_R)   // cycle polygon rendering mode
     {
@@ -268,7 +268,7 @@ bool CORE::keyPressed( const OIS::KeyEvent &arg )
         }
 
         mCurrentCamera->setPolygonMode(pm);		
-		iceChivatos::instance()->updateChivato(7, newVal);
+		iceDebugScreen::instance()->updateChivato(7, newVal);
     }
     else if(arg.key == OIS::KC_F5)   // refresh all textures
     {

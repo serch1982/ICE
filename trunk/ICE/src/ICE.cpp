@@ -157,7 +157,7 @@ bool ICE::keyPressed( const OIS::KeyEvent &arg ){
 		iceState::getInstance()->setState( iceState::PAUSE );
 		mIceMenu->instance()->show();
 	}else if( arg.key == OIS::KC_L){
-		iceChivatos::instance()->updateChivato(8,Ogre::StringConverter::toString(  iceLuaLogic::instance()->testFromOgre()));
+		iceDebugScreen::instance()->updateChivato(8,Ogre::StringConverter::toString(  iceLuaLogic::instance()->testFromOgre()));
 	}else if ( iceState::getInstance()->getState() == iceState::GOD ){
 		mCameraMan->injectKeyDown(arg);
 	}

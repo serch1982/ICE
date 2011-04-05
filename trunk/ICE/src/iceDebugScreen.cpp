@@ -1,23 +1,23 @@
-#include "iceChivatos.h"
+#include "iceDebugScreen.h"
 
-iceChivatos* iceChivatos::pinstance = 0;
-iceChivatos* iceChivatos::instance(){
+iceDebugScreen* iceDebugScreen::pinstance = 0;
+iceDebugScreen* iceDebugScreen::instance(){
 	if (pinstance == 0)
-          pinstance = new iceChivatos;
+          pinstance = new iceDebugScreen;
         return pinstance;
 }
 
 
-iceChivatos::iceChivatos(void){
+iceDebugScreen::iceDebugScreen(void){
 
 }
 
-iceChivatos::~iceChivatos(void){
+iceDebugScreen::~iceDebugScreen(void){
    if (mTrayMgr) delete mTrayMgr;
 }
 
 
-void iceChivatos::setupChivato(Ogre::RenderWindow* mWindow, OIS::Mouse* mMouse,Ogre::WindowEventListener* winListener, OgreBites::SdkTrayListener* sdkListener){
+void iceDebugScreen::setupChivato(Ogre::RenderWindow* mWindow, OIS::Mouse* mMouse,Ogre::WindowEventListener* winListener, OgreBites::SdkTrayListener* sdkListener){
 	Ogre::WindowEventUtilities::addWindowEventListener(mWindow, winListener);
 
     mTrayMgr = new OgreBites::SdkTrayManager("InterfaceName", mWindow, mMouse, sdkListener);
@@ -55,7 +55,7 @@ void iceChivatos::setupChivato(Ogre::RenderWindow* mWindow, OIS::Mouse* mMouse,O
 }
 
 
-void iceChivatos::updateChivato( int paramNumber, Ogre::String paramValue){
+void iceDebugScreen::updateChivato( int paramNumber, Ogre::String paramValue){
     if (!mTrayMgr->isDialogVisible())
     {
         if (mDetailsPanel->isVisible()) 
@@ -67,27 +67,27 @@ void iceChivatos::updateChivato( int paramNumber, Ogre::String paramValue){
     }
 }
 
-void iceChivatos::updateFrameEvent(const Ogre::FrameEvent& evt){
+void iceDebugScreen::updateFrameEvent(const Ogre::FrameEvent& evt){
 	mTrayMgr->frameRenderingQueued(evt);
 }
 
 
-void iceChivatos::showFrameStats(){
+void iceDebugScreen::showFrameStats(){
     mTrayMgr->showFrameStats(OgreBites::TL_BOTTOMLEFT);
 }
 
-void iceChivatos::hideFrameStats(){
+void iceDebugScreen::hideFrameStats(){
     mTrayMgr->hideFrameStats();
 }
 
-void iceChivatos::hideChivatos(){
+void iceDebugScreen::hideChivatos(){
     mDetailsPanel->hide();
 }
 
-void iceChivatos::showChivatos(){
+void iceDebugScreen::showChivatos(){
     mDetailsPanel->show();
 }
 
-bool iceChivatos::isDialogVisible(){
+bool iceDebugScreen::isDialogVisible(){
     return mTrayMgr->isDialogVisible();
 }

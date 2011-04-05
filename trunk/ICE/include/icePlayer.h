@@ -12,7 +12,7 @@
 #include <OISMouse.h>
 #include "iceRPG.h"
 #include "iceBullet.h"
-#include "iceChivatos.h"
+#include "iceDebugScreen.h"
 
 
 using namespace std;
