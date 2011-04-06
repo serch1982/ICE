@@ -13,7 +13,7 @@
 #include "iceRPG.h"
 #include "iceBullet.h"
 #include "iceDebugScreen.h"
-
+#include <OgreLog.h>
 
 using namespace std;
 
@@ -38,11 +38,17 @@ class icePlayer : public iceRPG
 		virtual void showReceivedDamage(Ogre::Real p_iDamage, bool p_bCritical);
 		virtual void showShieldDamage(Ogre::Real p_iDamage, bool p_bCritical);
 		virtual void showFail(void);
-		virtual void showLevelUp(void);
-public:
+		virtual void showLevelUp(unsigned int p_iLevel);
+
+		
+	public:
+		//Redefinidas para tener en cuenta los logros
+		void setWeaponLevel(unsigned int p_iWeapon,unsigned int p_iLevel);
+
 		Ogre::SceneNode *playerNode, *cursorPlaneNode, *shipPlaneNode, *cameraPlaneNode, *cursorNode, *shipNode, *cameraNode; 
 		Ogre::Real shipMaxVelocity;
 		Ogre::Camera* playerCamera;
+		Ogre::Log* mLog;
 		
 		//Pau * BULLETS------------------------------------------------//
 		

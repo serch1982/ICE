@@ -24,8 +24,8 @@ public:
 	//getters
 	unsigned int getLevel(void);
 	unsigned int getExperience(void);
-	Ogre::Real getMaxLife(void);
-	Ogre::Real getCurrentLife(void);
+	unsigned int getMaxLife(void);
+	unsigned int getCurrentLife(void);
 	Ogre::Real getArmor(void);
 	Ogre::Real getAttack(void);
 	Ogre::Real getAccuracy(void);
@@ -34,13 +34,14 @@ public:
 	unsigned int getLuck(void);
 	unsigned int getWeaponLevel(unsigned int p_iWeapon);
 	unsigned int getShieldLevel(void);
-	Ogre::Real getMaxShieldEnergy(void);
-	Ogre::Real getCurrentShieldEnergy(void);
+	unsigned int getMaxShieldEnergy(void);
+	unsigned int getCurrentShieldEnergy(void);
 
 	//setters
 	void setLevel(unsigned int p_iLevel);
 	void setExperience(unsigned int p_iExperience);
 	void setCurrentWeapon(unsigned int p_iWeapon);
+	virtual void setWeaponLevel(unsigned int p_iWeapon,unsigned int p_iLevel);
 
 	//other methods
 	void levelUp(void);
@@ -51,14 +52,14 @@ public:
 	bool isAlive(void);
 	void updateRPG(Ogre::Real p_fFrameTime);
 	void shot(void);
-	void addDamage(Ogre::Real p_iDamage, bool p_bCritic);
+	void addDamage(unsigned int p_iDamage, bool p_bCritic);
 
 	//this methods must be overridden
 	virtual void createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation, Ogre::Real p_iDamage, bool p_bCritic) =0; 
 	virtual void showReceivedDamage(Ogre::Real p_iDamage, bool p_bCritical) =0;
 	virtual void showShieldDamage(Ogre::Real p_iDamage, bool p_bCritical) =0;
 	virtual void showFail(void) =0;
-	virtual void showLevelUp(void) =0;
+	virtual void showLevelUp(unsigned int p_iLevel) =0;
 
 protected:
 	bool isCritic(void);
@@ -80,11 +81,11 @@ protected:
 	unsigned int mBaseManiobrability;
 	//unsigned int mBaseCadence;
 	unsigned int mBaseLuck;
-	Ogre::Real mCurrentLife;
+	unsigned int mCurrentLife;
 	unsigned int mWeaponLevel[3];
 	Ogre::Real mWeaponBaseCadence[3];
 	unsigned int mShieldLevel;
-	Ogre::Real mShieldEnergy;
+	unsigned int mShieldEnergy;
 	unsigned int mCurrentWeapon;
 
 	Ogre::Real mTimeSinceLastShot;

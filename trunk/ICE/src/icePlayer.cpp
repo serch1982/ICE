@@ -77,6 +77,8 @@ bool icePlayer::initialize(Ogre::SceneManager* sceneManager, Ogre::SceneNode* no
 	//----------------------------------------------------------------------------------------------------------------------------//
 
 
+	mLog = Ogre::LogManager::getSingletonPtr()->getLog( "iceLog.log" );
+
 	return true;
 }
 
@@ -130,6 +132,7 @@ void icePlayer::finalize()
 void icePlayer::update(Ogre::Real p_timeSinceLastFrame)
 {
 	updateShipPosition(p_timeSinceLastFrame);
+	addExperience(1000);
 	
 	//Pau * UPDATE ACTIVE BULLETS *-----------------------------------------------------------------------//
 	
@@ -222,6 +225,7 @@ void icePlayer::createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation,
 
 void icePlayer::showReceivedDamage(Ogre::Real p_iDamage, bool p_bCritical)
 {
+	iceCounters::instance()->addReceivedDamage(p_iDamage);
 }
 
 void icePlayer::showShieldDamage(Ogre::Real p_iDamage, bool p_bCritical)
@@ -230,8 +234,20 @@ void icePlayer::showShieldDamage(Ogre::Real p_iDamage, bool p_bCritical)
 
 void icePlayer::showFail(void)
 {
+	iceCounters::instance()->addBulletEvaded();
 }
 
-void icePlayer::showLevelUp(void)
+void icePlayer::showLevelUp(unsigned int p_iLevel)
 {
+	stringstream strMessage;
+	strMessage << "LEVEL UP (" << p_iLevel << ")";
+	mLog->logMessage( strMessage.str() );
+	iceCounters::instance()->setPlayerLevel(p_iLevel);
+
+}
+
+void icePlayer::setWeaponLevel(unsigned int p_iWeapon,unsigned int p_iLevel)
+{
+	iceRPG::setWeaponLevel(p_iWeapon, p_iLevel);
+	iceCounters::instance()->setWeaponLevel(p_iWeapon, p_iLevel);
 }

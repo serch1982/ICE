@@ -44,12 +44,12 @@ unsigned int iceRPG::getExperience(void)
 	return mExperience;
 }
 
-Ogre::Real iceRPG::getMaxLife(void)
+unsigned int iceRPG::getMaxLife(void)
 {
-	return Ogre::Real(mBaseLife * mLevel);
+	return mBaseLife * mLevel;
 }
 
-Ogre::Real iceRPG::getCurrentLife(void)
+unsigned int iceRPG::getCurrentLife(void)
 {
 	return mCurrentLife;
 }
@@ -94,11 +94,11 @@ unsigned int iceRPG::getShieldLevel(void)
 	return mShieldLevel;
 }
 
-Ogre::Real iceRPG::getMaxShieldEnergy(void)
+unsigned int iceRPG::getMaxShieldEnergy(void)
 {
 	return getMaxLife() * mShieldLevel / 10;
 }
-Ogre::Real iceRPG::getCurrentShieldEnergy(void)
+unsigned int iceRPG::getCurrentShieldEnergy(void)
 {
 	return mShieldEnergy;
 }
@@ -124,6 +124,11 @@ void iceRPG::setCurrentWeapon(unsigned int p_iWeapon)
 	mCurrentWeapon = p_iWeapon;
 }
 
+void iceRPG::setWeaponLevel(unsigned int p_iWeapon,unsigned int p_iLevel)
+{
+	mWeaponLevel[p_iWeapon] = p_iLevel;
+}
+
 //other methods
 void iceRPG::levelUp(void)
 {
@@ -134,36 +139,30 @@ void iceRPG::levelUp(void)
 
 	//Las armas empiezan a estar disponibles a partir de cierto nivel
 	//De momento harcoded:
-	
-	switch(mLevel)
-	{
-		case 1:
-			mWeaponLevel[MACHINEGUN] = 1;
-		case 10:
-			mWeaponLevel[SHOTGUN] = 1;
-		case 15:
-			mShieldLevel = 1;
-		case 20:
-			mWeaponLevel[MISILE_LAUNCHER] = 1;
-		case 30:
-			mWeaponLevel[MACHINEGUN] = 2;
-		case 40:
-			mWeaponLevel[SHOTGUN] = 2;
-		case 45:
-			mShieldLevel = 2;
-		case 50:
-			mWeaponLevel[MISILE_LAUNCHER] = 2;
-		case 60:
-			mWeaponLevel[MACHINEGUN] = 3;
-		case 65:
-			mShieldLevel = 3;
-		case 70:
-			mWeaponLevel[SHOTGUN] = 3;
-		case 80:
-			mWeaponLevel[MISILE_LAUNCHER] = 3;
-	}
-	showLevelUp();
+	showLevelUp(mLevel);
 
+	if (mLevel == 10)
+		setWeaponLevel(SHOTGUN,1);
+	if (mLevel == 15)
+		mShieldLevel = 1;
+	if (mLevel == 20)
+		setWeaponLevel(MISILE_LAUNCHER,1);
+	if (mLevel == 30)
+		setWeaponLevel(MACHINEGUN,2);
+	if (mLevel == 40)
+		setWeaponLevel(SHOTGUN,2);
+	if (mLevel == 45)
+		mShieldLevel = 2;
+	if (mLevel == 50)
+		setWeaponLevel(MISILE_LAUNCHER,2);
+	if (mLevel == 60)
+		setWeaponLevel(MACHINEGUN,3);
+	if (mLevel == 65)
+		mShieldLevel = 3;
+	if (mLevel == 70)
+		setWeaponLevel(SHOTGUN,3);
+	if (mLevel == 80)
+		setWeaponLevel(MISILE_LAUNCHER,3);
 }
 void iceRPG::addExperience(unsigned int p_iExperience)
 {
@@ -265,7 +264,7 @@ borram:
 	createShotEntity(0,Ogre::Quaternion(0,0,0,0),0,false);
 }
 
-void iceRPG::addDamage(Ogre::Real p_iDamage, bool p_bCritic)
+void iceRPG::addDamage(unsigned int p_iDamage, bool p_bCritic)
 {
 	if(isFail() && !p_bCritic)
 	{

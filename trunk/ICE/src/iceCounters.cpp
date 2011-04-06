@@ -41,21 +41,25 @@ iceCounters::iceCounters(void)
 	mAchievementsName[22] = "Ninja";
 
 	mPlayerLevel = 0;
-	mWeaponLevel[3] = (0,0,0);
 	mMaxLevelCompleted = 0;
 	mCriticalHits = 0;
 	mBulletsEvaded = 0;
 
 	mCurrentLevel = 0;
 	mReceivedDamage = 0;
-	mProducedDamageByWeapon[3] = (0,0,0);
-	mEnemiesKilledByWeapon[3] = (0,0,0);
-	mProducedDamageByHability[3] = (0,0,0);
-	mEnemiesKilledByHability[3] = (0,0,0);
-	mHabilitiesUsed[3] = (0,0,0); 
 	mCurrentHits = 0;
 	mMaxHits = 0;
 
+	for (unsigned int i=0;i<3;i++)
+	{
+		mWeaponLevel[i] = 0;
+		mProducedDamageByWeapon[i] = 0;
+		mEnemiesKilledByWeapon[i] = 0;
+		mProducedDamageByHability[i] = 0;
+		mEnemiesKilledByHability[i] = 0;
+		mHabilitiesUsed[i] = 0; 
+
+	}
 }
 
 iceCounters::~iceCounters(void)
@@ -73,6 +77,10 @@ void iceCounters::activateAchievement(unsigned int p_iAchievementIndex)
 
 void iceCounters::showAchievement(unsigned int p_iAchievementIndex)
 {
+	mLog = Ogre::LogManager::getSingletonPtr()->getLog( "iceLog.log" );
+	stringstream strMessage;
+	strMessage << "New Achievement(" << p_iAchievementIndex << "): " << mAchievementsName[p_iAchievementIndex];
+	mLog->logMessage( strMessage.str() );
 }
 
 void iceCounters::levelCompleted(void)
@@ -114,13 +122,19 @@ void iceCounters::newLevel(unsigned int p_iLevel)
 {
 	mCurrentLevel = p_iLevel;
 	mReceivedDamage = 0;
-	mProducedDamageByWeapon[3] = (0,0,0);
-	mEnemiesKilledByWeapon[3] = (0,0,0);
-	mProducedDamageByHability[3] = (0,0,0);
-	mEnemiesKilledByHability[3] = (0,0,0);
-	mHabilitiesUsed[3] = (0,0,0); 
 	mCurrentHits = 0;
 	mMaxHits = 0;
+
+
+	for (unsigned int i=0;i<3;i++)
+	{
+		mProducedDamageByWeapon[i] = 0;
+		mEnemiesKilledByWeapon[i] = 0;
+		mProducedDamageByHability[i] = 0;
+		mEnemiesKilledByHability[i] = 0;
+		mHabilitiesUsed[i] = 0; 
+
+	}
 }
 
 void iceCounters::addReceivedDamage(unsigned int p_iDamage)
@@ -138,7 +152,7 @@ void iceCounters::setPlayerLevel(unsigned int p_iPlayerLevel)
 		activateAchievement(12);
 	if(mPlayerLevel >= 60)
 		activateAchievement(13);
-	if(mPlayerLevel = 99)
+	if(mPlayerLevel == 99)
 		activateAchievement(14);
 }
 
@@ -146,7 +160,7 @@ void iceCounters::setWeaponLevel(unsigned int p_iWeapon, unsigned int p_iWeaponL
 {
 	mWeaponLevel[p_iWeapon] = p_iWeaponLevel;
 	if (mWeaponLevel[p_iWeapon] == 3)
-		activateAchievement(14 + p_iWeapon);
+		activateAchievement(15 + p_iWeapon);
 }
 
 void iceCounters::addCriticalHit(void)
