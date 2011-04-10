@@ -13,7 +13,7 @@ public:
 	~ICEMenu();
 
 	//Methods
-	bool setupHikari(char* path, char* name, Ogre::Viewport* mViewport, int wight, int height);
+	bool setupHikari(char* path, char* name, Ogre::Viewport* mViewport);
 	void update();
 	void show();
 	void hide();
@@ -33,7 +33,7 @@ private:
 	Hikari::FlashValue menuPlayClick(Hikari::FlashControl* caller, const Hikari::Arguments& args);
 	Hikari::FlashValue menuContinueClick(Hikari::FlashControl* caller, const Hikari::Arguments& args);
 
-	
+	Ogre::Log* mGameLog;
 };
 
 #endif

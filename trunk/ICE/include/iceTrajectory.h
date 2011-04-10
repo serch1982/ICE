@@ -32,7 +32,7 @@ class iceTrajectory
 
 	//methods
 	public:
-		void loadSteps(vector<iceStep> p_vSteps);
+		void loadSteps(std::vector<iceStep> p_vSteps);
 		void addTime(Ogre::Real p_fTime);
 		void init(Ogre::SceneManager* p_spSceneManager, Ogre::SceneNode* p_psNode);
 

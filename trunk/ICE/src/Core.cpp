@@ -164,7 +164,7 @@ void CORE::loadResources(void)
     Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 }
 //-------------------------------------------------------------------------------------
-void CORE::go(void)
+void CORE::go(char* rootPath)
 {
 #ifdef _DEBUG
     mResourcesCfg = "iceResources_d.cfg";
@@ -173,6 +173,7 @@ void CORE::go(void)
     mResourcesCfg = "iceResources.cfg";
     mPluginsCfg = "icePlugins.cfg";
 #endif
+	pathRoot = rootPath;
 
     if (!setup())
         return;
@@ -192,6 +193,8 @@ bool CORE::setup(void)
     bool carryOn = configure();
     if (!carryOn) return false;
 
+	loadingBar.start(mWindow, 3,2, 0.99);
+
     chooseSceneManager();
     createCamera();
     createViewports();
@@ -209,7 +212,7 @@ bool CORE::setup(void)
     // Create the scene
     //createScene(); //-> now the scene most be create into WORLD or LEVEL class 
 	// these parameters except the viewport most be into resource or wherever  
-
+	loadingBar.finish();
     return true;
 };
 

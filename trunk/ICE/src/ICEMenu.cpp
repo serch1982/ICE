@@ -11,19 +11,19 @@ ICEMenu* ICEMenu::instance(){
 
 
 ICEMenu::ICEMenu(void){
-
+	mGameLog = Ogre::LogManager::getSingleton().createLog("iceLog.log", false, false, false );
 }
 
 ICEMenu::~ICEMenu(void){
    
 }
 
-bool ICEMenu::setupHikari(char* path, char* name, Ogre::Viewport* mViewport, int wight, int height)
+bool ICEMenu::setupHikari(char* path, char* name, Ogre::Viewport* mViewport)
 {
 	iceState::getInstance()->setState( iceState::MENU );
 	try{
-		hikariMgr = new Hikari::HikariManager(path); //".\\media"
-		hikariMenu = hikariMgr->createFlashOverlay("menu", mViewport, wight, height, Hikari::Position(Hikari::Center));
+		hikariMgr = new Hikari::HikariManager(path);
+		hikariMenu = hikariMgr->createFlashOverlay("menu", mViewport, mViewport->getActualWidth(), mViewport->getActualHeight(), Hikari::Position(Hikari::Center));
 		hikariMenu->load(name); //"menu.swf"
 		hikariMenu->setTransparent(false, true);
 		hikariMenu->bind("menuExitClick", Hikari::FlashDelegate(this, &ICEMenu::menuExitClick));
@@ -32,6 +32,7 @@ bool ICEMenu::setupHikari(char* path, char* name, Ogre::Viewport* mViewport, int
 		ShowCursor(true);
 		return true;
 	}catch(char* ex) {
+		mGameLog->logMessage(ex);
 		return false;
 	}
 	

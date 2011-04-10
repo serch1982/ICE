@@ -31,10 +31,10 @@
     <Filter Include="Source Files\RPG">
       <UniqueIdentifier>{2f0fcbfe-6344-4a79-a23a-d57156ec2426}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\hLua">
+    <Filter Include="Header Files\hLogic">
       <UniqueIdentifier>{0f98e269-fa6e-48b3-b87c-b4340cb813de}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Lua">
+    <Filter Include="Source Files\Logic">
       <UniqueIdentifier>{2aa5c55f-e822-4401-ba5c-74da15215375}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -87,9 +87,6 @@
     <ClInclude Include="include\iceStep.h">
       <Filter>Header Files\hWorld</Filter>
     </ClInclude>
-    <ClInclude Include="include\iceLuaLogic.h">
-      <Filter>Header Files\hLua</Filter>
-    </ClInclude>
     <ClInclude Include="include\iceBullet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -98,6 +95,12 @@
     </ClInclude>
     <ClInclude Include="include\iceDebugScreen.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\iceLoadingBar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\iceLogicLua.h">
+      <Filter>Header Files\hLogic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -134,9 +137,6 @@
     <ClCompile Include="src\iceBicho.cpp">
       <Filter>Source Files\RPG</Filter>
     </ClCompile>
-    <ClCompile Include="src\iceLuaLogic.cpp">
-      <Filter>Source Files\Lua</Filter>
-    </ClCompile>
     <ClCompile Include="src\iceBullet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -145,6 +145,9 @@
     </ClCompile>
     <ClCompile Include="src\iceDebugScreen.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\iceLogicLua.cpp">
+      <Filter>Source Files\Logic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

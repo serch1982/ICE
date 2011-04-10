@@ -1,7 +1,6 @@
 #include "ICE.h"
 #include "iceState.h"
-#include <OgreLogManager.h>
-#include <stdlib.h>
+
 
 //-------------------------------------------------------------------------------------
 ICE::ICE(void)
@@ -22,8 +21,12 @@ bool ICE::setup()
 		mGameLog->logMessage( "Sistema: Log creado" );
 
 		// Setup the Ice Menu
-		if(!mIceMenu->instance()->setupHikari(".\\media", "menu.swf", mCurrentCamera->getViewport(), 1024, 768))
+		if(!mIceMenu->instance()->setupHikari(".\\media", "menu.swf", mCurrentCamera->getViewport()))
 			return false;
+
+		//load lua logic ----> temporally location
+		std::string path = std::string(pathRoot) + "\\logiclua.lua";
+		iceLogicLua::instance()->RunFile(path.c_str());  
 
 		// creating the scene
 		//createScene();
@@ -157,7 +160,7 @@ bool ICE::keyPressed( const OIS::KeyEvent &arg ){
 		iceState::getInstance()->setState( iceState::PAUSE );
 		mIceMenu->instance()->show();
 	}else if( arg.key == OIS::KC_L){
-		iceDebugScreen::instance()->updateChivato(8,Ogre::StringConverter::toString(  iceLuaLogic::instance()->testFromOgre()));
+		iceDebugScreen::instance()->updateChivato(8,Ogre::StringConverter::toString(  iceLogicLua::instance()->testfunctionlua(100)));
 	}else if ( iceState::getInstance()->getState() == iceState::GOD ){
 		mCameraMan->injectKeyDown(arg);
 	}
@@ -228,16 +231,22 @@ extern "C" {
 #endif
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
+	#include <direct.h>
+    #define GetCurrentDir _getcwd
     INT WINAPI WinMain( HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT )
 #else
+	#include <unistd.h>
+    #define GetCurrentDir getcwd
     int main(int argc, char *argv[])
 #endif
     {
         // Create application object
         ICE app;
-
+		
         try {
-            app.go();
+			char root_path[1024];
+			GetCurrentDir(root_path, 1023);
+            app.go(root_path);
         } catch( Ogre::Exception& e ) {
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
             MessageBox( NULL, e.getFullDescription().c_str(), "An exception has occured!", MB_OK | MB_ICONERROR | MB_TASKMODAL);

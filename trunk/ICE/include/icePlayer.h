@@ -15,6 +15,7 @@
 #include "iceDebugScreen.h"
 #include <OgreLog.h>
 
+
 using namespace std;
 
 class icePlayer : public iceRPG
