@@ -1,6 +1,7 @@
 #ifndef __ICE_PLAYER_H__
 #define __ICE_PLAYER_H__
 
+#include "iceTrajectoryFollower.h"
 #include <vector>
 #include <OgreSceneNode.h>
 #include <OgreEntity.h>
@@ -18,22 +19,22 @@
 
 using namespace std;
 
-class icePlayer : public iceRPG
+class icePlayer : public iceTrajectoryFollower, public iceRPG
 {
 	public:
 		icePlayer();
 		~icePlayer();
-		bool initialize(Ogre::SceneManager* sceneManager, Ogre::SceneNode* node);
+		bool initialize(Ogre::SceneManager* p_psSceneManager, Ogre::SceneNode* p_psNode);
 		void setCamera(Ogre::Camera* camera);
 		Ogre::Camera* getCamera();
 		void processMouseMoved(const OIS::MouseEvent &arg);
-		void updateShipPosition(Ogre::Real frameTime);
+		void update(Ogre::Real p_timeSinceLastFrame);
 
 		void finalize();
-		void update(Ogre::Real p_timeSinceLastFrame);
 
 	protected:
 
+		void updateShipPosition(Ogre::Real frameTime);
 		//iceRPG
 		virtual void createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation, Ogre::Real p_iDamage, bool p_bCritic); 
 		virtual void showReceivedDamage(Ogre::Real p_iDamage, bool p_bCritical);
@@ -46,7 +47,7 @@ class icePlayer : public iceRPG
 		//Redefinidas para tener en cuenta los logros
 		void setWeaponLevel(unsigned int p_iWeapon,unsigned int p_iLevel);
 
-		Ogre::SceneNode *playerNode, *cursorPlaneNode, *shipPlaneNode, *cameraPlaneNode, *cursorNode, *shipNode, *cameraNode; 
+		Ogre::SceneNode *cursorPlaneNode, *shipPlaneNode, *cameraPlaneNode, *cursorNode, *shipNode, *cameraNode; 
 		Ogre::Real shipMaxVelocity;
 		Ogre::Camera* playerCamera;
 		Ogre::Log* mLog;

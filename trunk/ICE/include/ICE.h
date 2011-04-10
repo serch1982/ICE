@@ -7,7 +7,10 @@
 #include "../res/resource.h"
 #endif
 
-#include "iceLevel.h"
+#include "icePhase.h"
+#include "icePhase1.h"
+#include "icePhase2.h"
+#include "icePhase3.h"
 #include "icePlayer.h"
 #include "iceTrajectory.h"
 #include "ICEMenu.h"
@@ -43,11 +46,11 @@ protected:
 private:
 
 	ICEMenu* mIceMenu;
-	iceLevel mLevel;
+	std::vector<icePhase*> mPhases;
 	icePlayer mPlayer;
 	Ogre::Log* mGameLog;
 
-	int m_iCurrentLevel;
+	int m_iCurrentPhase;
 
 	void update( Ogre::Real p_timeSinceLastFrame );
 };

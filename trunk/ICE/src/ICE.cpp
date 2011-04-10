@@ -5,11 +5,13 @@
 //-------------------------------------------------------------------------------------
 ICE::ICE(void)
 {
-	m_iCurrentLevel = 1;
+
 }
 //-------------------------------------------------------------------------------------
 ICE::~ICE(void)
 {
+	for(unsigned int i=0;i<mPhases.size();i++)
+		delete mPhases[i];
 }
 
 bool ICE::setup()
@@ -24,12 +26,16 @@ bool ICE::setup()
 		if(!mIceMenu->instance()->setupHikari(".\\media", "menu.swf", mCurrentCamera->getViewport()))
 			return false;
 
+		mPhases.resize(3);
+		mPhases[0] = new icePhase1();
+		mPhases[1] = new icePhase2();
+		mPhases[2] = new icePhase3();
+
+		m_iCurrentPhase = 0;
+
 		//load lua logic ----> temporally location
 		std::string path = std::string(pathRoot) + "\\logiclua.lua";
 		iceLogicLua::instance()->RunFile(path.c_str());  
-
-		// creating the scene
-		//createScene();
 	}
 
 	return true;
@@ -43,7 +49,7 @@ void ICE::createScene(void)
 	//mPlayer.setCamera(mGodCam);
 
 	//Loading the level
-	mLevel.createScene( mSceneMgr, m_iCurrentLevel );
+	mPhases[m_iCurrentPhase]->createScene( mSceneMgr, &mPlayer );
 
 	setCurrentCamera( mPlayer.getCamera() );
 }
@@ -83,6 +89,11 @@ bool ICE::frameRenderingQueued(const Ogre::FrameEvent& evt)
 			//The main idea is to come back playing from a PAUSE state
 			iceState::getInstance()->setState( iceState::PLAY );
 			break;
+		case iceState::NEXT_LEVEL:
+			// Load resources from a level and change state to play
+			m_iCurrentPhase++;
+			iceState::getInstance()->setState( iceState::LOAD_LEVEL );
+			break;
 		case iceState::LOAD_LEVEL:
 			// Load resources from a level and change state to play
 			mSceneMgr->clearScene();
@@ -107,7 +118,7 @@ bool ICE::frameRenderingQueued(const Ogre::FrameEvent& evt)
 }
 
 void ICE::update( Ogre::Real p_timeSinceLastFrame ){
-	mLevel.update(p_timeSinceLastFrame);
+	mPhases[m_iCurrentPhase]->update(p_timeSinceLastFrame);
 	mPlayer.update(p_timeSinceLastFrame);
 }
 
@@ -128,31 +139,31 @@ bool ICE::keyPressed( const OIS::KeyEvent &arg ){
 	}else if (arg.key == OIS::KC_2){
 		// Level Cam 0
 		iceState::getInstance()->setState( iceState::PLAY );
-		setCurrentCamera( mLevel.getCamera( 0 ) );
+		setCurrentCamera( mPhases[m_iCurrentPhase]->getCamera( 0 ) );
 	}else if (arg.key == OIS::KC_3){
 		// Level Cam 1
 		iceState::getInstance()->setState( iceState::PLAY );
-		setCurrentCamera( mLevel.getCamera( 1 ) );
+		setCurrentCamera( mPhases[m_iCurrentPhase]->getCamera( 1 ) );
 	}else if (arg.key == OIS::KC_4){
 		// Level Cam 2
 		iceState::getInstance()->setState( iceState::PLAY );
-		setCurrentCamera( mLevel.getCamera( 2 ) );
+		setCurrentCamera( mPhases[m_iCurrentPhase]->getCamera( 2 ) );
 	}else if (arg.key == OIS::KC_5){
 		// Level Cam 3
 		iceState::getInstance()->setState( iceState::PLAY );
-		setCurrentCamera( mLevel.getCamera( 3 ) );
+		setCurrentCamera( mPhases[m_iCurrentPhase]->getCamera( 3 ) );
 	}else if (arg.key == OIS::KC_6){
 		// Level Cam 4
 		iceState::getInstance()->setState( iceState::PLAY );
-		setCurrentCamera( mLevel.getCamera( 4 ) );
+		setCurrentCamera( mPhases[m_iCurrentPhase]->getCamera( 4 ) );
 	}else if (arg.key == OIS::KC_7){
 		// Level Cam 5
 		iceState::getInstance()->setState( iceState::PLAY );
-		setCurrentCamera( mLevel.getCamera( 5 ) );
+		setCurrentCamera( mPhases[m_iCurrentPhase]->getCamera( 5 ) );
 	}else if (arg.key == OIS::KC_8){
 		// Level Cam 6
 		iceState::getInstance()->setState( iceState::PLAY );
-		setCurrentCamera( mLevel.getCamera( 6 ) );
+		setCurrentCamera( mPhases[m_iCurrentPhase]->getCamera( 6 ) );
 	}else if (arg.key == OIS::KC_Z){
 		bool bSkyBox = mSceneMgr->isSkyBoxEnabled();
 		mSceneMgr->setSkyBox( !bSkyBox, "cielo", 20000.0f, false, Ogre::Quaternion::IDENTITY, "level1" );

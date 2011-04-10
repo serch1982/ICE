@@ -120,19 +120,25 @@
   <ItemGroup>
     <ClInclude Include="include\Core.h" />
     <ClInclude Include="include\ICE.h" />
-    <ClInclude Include="include\iceBicho.h" />
+    <ClInclude Include="include\iceEnemy.h" />
     <ClInclude Include="include\iceBullet.h" />
     <ClInclude Include="include\iceDebugScreen.h" />
     <ClInclude Include="include\iceCounters.h" />
-    <ClInclude Include="include\iceLevel.h" />
+    <ClInclude Include="include\icePhase.h" />
+    <ClInclude Include="include\iceLocomotiveTrajectory.h" />
     <ClInclude Include="include\iceLoadingBar.h" />
     <ClInclude Include="include\iceLogicLua.h" />
     <ClInclude Include="include\ICEMenu.h" />
+    <ClInclude Include="include\icePhase1.h" />
+    <ClInclude Include="include\icePhase2.h" />
+    <ClInclude Include="include\icePhase3.h" />
     <ClInclude Include="include\icePlayer.h" />
     <ClInclude Include="include\iceRPG.h" />
     <ClInclude Include="include\iceState.h" />
     <ClInclude Include="include\iceTrajectory.h" />
     <ClInclude Include="include\iceStep.h" />
+    <ClInclude Include="include\iceTrajectoryFollower.h" />
+    <ClInclude Include="include\scene\ConfigScriptLoader.h" />
     <ClInclude Include="include\scene\DotSceneLoader.h" />
     <ClInclude Include="include\scene\rapidxml.hpp" />
     <ClInclude Include="include\scene\rapidxml_iterators.hpp" />
@@ -143,18 +149,24 @@
   <ItemGroup>
     <ClCompile Include="src\Core.cpp" />
     <ClCompile Include="src\ICE.cpp" />
-    <ClCompile Include="src\iceBicho.cpp" />
+    <ClCompile Include="src\iceEnemy.cpp" />
     <ClCompile Include="src\iceBullet.cpp" />
     <ClCompile Include="src\iceDebugScreen.cpp" />
     <ClCompile Include="src\iceCounters.cpp" />
-    <ClCompile Include="src\iceLevel.cpp" />
+    <ClCompile Include="src\icePhase.cpp" />
+    <ClCompile Include="src\iceLocomotiveTrajectory.cpp" />
     <ClCompile Include="src\iceLogicLua.cpp" />
     <ClCompile Include="src\ICEMenu.cpp" />
+    <ClCompile Include="src\icePhase1.cpp" />
+    <ClCompile Include="src\icePhase2.cpp" />
+    <ClCompile Include="src\icePhase3.cpp" />
     <ClCompile Include="src\icePlayer.cpp" />
     <ClCompile Include="src\iceRPG.cpp" />
     <ClCompile Include="src\iceState.cpp" />
     <ClCompile Include="src\iceTrajectory.cpp" />
     <ClCompile Include="src\iceStep.cpp" />
+    <ClCompile Include="src\iceTrajectoryFollower.cpp" />
+    <ClCompile Include="src\scene\ConfigScriptLoader.cpp" />
     <ClCompile Include="src\scene\DotSceneLoader.cpp" />
   </ItemGroup>
   <ItemGroup>

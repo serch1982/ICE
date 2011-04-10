@@ -5,75 +5,71 @@ icePlayer::icePlayer()
 
 }
 
-icePlayer::~icePlayer(){
+icePlayer::~icePlayer()
+{
 
 }
 
-bool icePlayer::initialize(Ogre::SceneManager* sceneManager, Ogre::SceneNode* node)
+bool icePlayer::initialize(Ogre::SceneManager* p_psSceneManager, Ogre::SceneNode* p_psNode)
 {
-	playerNode = node;
+	iceTrajectoryFollower::initialize(p_psSceneManager,p_psNode);
 	shipMaxVelocity = 20;
 
 	//Init cursor
-	cursorPlaneNode = playerNode->createChildSceneNode(Ogre::Vector3(0.0,0.0,400.0));	
+	cursorPlaneNode = mNode->createChildSceneNode(Ogre::Vector3(0.0,0.0,100.0));	
 	cursorNode = cursorPlaneNode->createChildSceneNode();
 	
-	Ogre::Entity* mesh = sceneManager->createEntity("cursorMesh", "sphere.mesh");
+	Ogre::Entity* mesh = mSceneManager->createEntity("cursorMesh", "sphere.mesh");
 	cursorNode->attachObject(mesh);
 	cursorNode->scale(0.01,0.01,0.01);
 
 	//Init Ship
-	shipPlaneNode = playerNode->createChildSceneNode();
+	shipPlaneNode = mNode->createChildSceneNode();
 	shipNode = shipPlaneNode->createChildSceneNode();
 
-	Ogre::Entity* mesh2 = sceneManager->createEntity("shipMesh", "nave.mesh");
+	Ogre::Entity* mesh2 = mSceneManager->createEntity("shipMesh", "nave.mesh");
 	mesh2->setCastShadows(true);
 	shipNode->attachObject(mesh2);
 	shipNode->scale(0.04,0.09,0.09);
 
-	//Ogre::ParticleSystem* smoke1 = sceneManager->createParticleSystem("Smoke1", "Smoke2");
-	//Ogre::ParticleSystem* smoke2 = sceneManager->createParticleSystem("Smoke2", "Smoke2");
-	//Ogre::SceneNode* smokeNode1 = node->createChildSceneNode(Ogre::Vector3(5.0,10.0,-70.0));
-	//smokeNode1->attachObject(smoke1);
-	//Ogre::SceneNode* smokeNode2 = node->createChildSceneNode(Ogre::Vector3(-17.0,10.0,-70.0));
-	//smokeNode2->attachObject(smoke2);
-
 	// Init camera
-	cameraPlaneNode = playerNode->createChildSceneNode(Ogre::Vector3(0.0,0.0,-300.0));
+	cameraPlaneNode = mNode->createChildSceneNode(Ogre::Vector3(0.0,0.0,-300.0));
 	cameraNode = cameraPlaneNode->createChildSceneNode(Ogre::Vector3(0.0,/*10*/0.0,0.0));
 
-	if( !sceneManager->hasCamera("PlayerCam") )
-		setCamera( sceneManager->createCamera( "PlayerCam" ) );
+	if( mSceneManager->hasCamera("PlayerCam") )
+		setCamera( mSceneManager->getCamera("PlayerCam") );
+	else
+		setCamera( mSceneManager->createCamera( "PlayerCam" ) );
 
 
 	//Pau * INITIALIZE BULLETS *----------------------------------------------------------------------------------------//
 	
-	mainBulletNode = sceneManager->getRootSceneNode()->createChildSceneNode("bulletMainNode",Ogre::Vector3( 0, 0, 0 ));		
+	mainBulletNode = mSceneManager->getRootSceneNode()->createChildSceneNode("bulletMainNode",Ogre::Vector3( 0, 0, 0 ));		
 	
 	/*Create Machineguns*/
 	int i = 0;
 	
 	for(i = 0; i < MACHINEGUN_RELOAD; i++)
 	{		
-		mvMachinegunBullets[i].CreateEntities(sceneManager,mainBulletNode,MACHINEGUN);
+		mvMachinegunBullets[i].CreateEntities(mSceneManager,mainBulletNode,MACHINEGUN);
 		iceDebugScreen::instance()->updateChivato(9,Ogre::StringConverter::toString(mMachinegunAmmo));
 	}	
 	
 	/*Create Shotguns*/	
 	for(i = 0; i < SHOTGUN_RELOAD; i++)
 	{		
-		mvShotgunBullets[i].CreateEntities(sceneManager,mainBulletNode,SHOTGUN);
+		mvShotgunBullets[i].CreateEntities(mSceneManager,mainBulletNode,SHOTGUN);
 		iceDebugScreen::instance()->updateChivato(10,Ogre::StringConverter::toString(mShotgunAmmo));
 	}
 	
 	/*Create MisileLaunchers*/	
 	for(i = 0; i < MISILE_LAUNCHER_RELOAD; i++)
 	{
-		mvMisilLauncherBullets[i].CreateEntities(sceneManager,mainBulletNode,MISILE_LAUNCHER);
+		mvMisilLauncherBullets[i].CreateEntities(mSceneManager,mainBulletNode,MISILE_LAUNCHER);
 		iceDebugScreen::instance()->updateChivato(11,Ogre::StringConverter::toString(mMisileLauncherAmmo));
 	}
 
-	iceCounters::instance();
+	//iceCounters::instance();
 	//----------------------------------------------------------------------------------------------------------------------------//
 
 
@@ -104,7 +100,8 @@ void icePlayer::updateShipPosition(Ogre::Real frameTime)
 {
 	//updatePosition
 	Ogre::Vector3 targetPosition = cursorNode->getPosition();
-	Ogre::Real maxMovement = shipMaxVelocity * frameTime;
+	//Ogre::Real maxMovement = shipMaxVelocity * frameTime;
+	Ogre::Real maxMovement = getManiobrability() * frameTime;
 	targetPosition.z = 0;
 	Ogre::Vector3 translation = targetPosition - shipNode->getPosition();
 	if (translation.squaredLength() > maxMovement)
@@ -131,7 +128,9 @@ void icePlayer::finalize()
 
 void icePlayer::update(Ogre::Real p_timeSinceLastFrame)
 {
+	iceTrajectoryFollower::update(p_timeSinceLastFrame);
 	updateShipPosition(p_timeSinceLastFrame);
+	iceRPG::update(p_timeSinceLastFrame);
 	addExperience(1000);
 	
 	//Pau * UPDATE ACTIVE BULLETS *-----------------------------------------------------------------------//

@@ -20,6 +20,7 @@ class iceState
 		CONTINUE,
 		PAUSE,
 		LOAD_LEVEL,
+		NEXT_LEVEL,
 		GAME_OVER,
 		GOD,
 		EXIT

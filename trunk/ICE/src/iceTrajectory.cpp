@@ -5,6 +5,8 @@ iceTrajectory::iceTrajectory(void)
 {
 	mDuration = 0;
 	mCurrentTime = 0;
+	mThereIsANodeToLookAt = false;
+	mLoop = false;
 }
 
 
@@ -12,9 +14,10 @@ iceTrajectory::~iceTrajectory(void)
 {
 }
 
-void iceTrajectory::loadSteps(vector<iceStep> p_vSteps)
+void iceTrajectory::loadSteps(std::vector<iceStep> p_vSteps, const bool p_bIsLoop)
 {
 	mTrack.setAutoCalculate(false);
+	mTrack.clear();
 	mSteps = p_vSteps;
 
 	//DEBUG {
@@ -24,8 +27,10 @@ void iceTrajectory::loadSteps(vector<iceStep> p_vSteps)
 	{
 		mTrack.addPoint(mSteps[i].getPosition());
 	}
+	mNode->setPosition(mSteps[0].getPosition());
 	mDuration = mSteps[mSteps.size()-1].getTime();
 	mTrack.recalcTangents();
+	mLoop = p_bIsLoop;
 
 	//DEBUG {
 	int numSpheres = 100;
@@ -46,29 +51,21 @@ void iceTrajectory::addTime(Ogre::Real p_fTime)
 {
 	mLog = Ogre::LogManager::getSingleton().getLog( "iceLog.log" );
 	mCurrentTime += p_fTime;
-	if (mDuration < mCurrentTime + LOCOMOTIVE_ADVANCE)
-		mCurrentTime = 0;
-	Ogre::Real fInterpolation = getInterpolationByTime(mCurrentTime);
-	Ogre::Real fLocomotiveInterpolation = getInterpolationByTime(mCurrentTime + LOCOMOTIVE_ADVANCE);
 
-	Ogre::Vector3 sNewPosition = mTrack.interpolate(fInterpolation);
-	Ogre::Vector3 sLocomotivePosition = mTrack.interpolate(fLocomotiveInterpolation);
+	if (mLoop && mCurrentTime >= mDuration)
+		mCurrentTime -= mDuration;
 
-	mNode->setPosition(sNewPosition);
-	mLocomotiveNode->setPosition(sLocomotivePosition);
-	mNode->resetOrientation();
+	if (mCurrentTime < mDuration)
+	{
+		Ogre::Real fInterpolation = getInterpolationByTime(mCurrentTime);
 
-	Ogre::Vector3 sDiference = sLocomotivePosition - sNewPosition;
-	Ogre::Real fDxz = sqrt(sDiference.x*sDiference.x + sDiference.z*sDiference.z);
+		Ogre::Vector3 sNewPosition = mTrack.interpolate(fInterpolation);
 
-	Ogre::Radian fYawAngle = Ogre::Radian(atan2(sDiference.x,sDiference.z));
-	Ogre::Radian fPitchAngle = Ogre::Radian(atan(-sDiference.y/fDxz));
+		mNode->setPosition(sNewPosition);
 
-	mNode->yaw(fYawAngle);
-	mNode->pitch(fPitchAngle);
-
-	Ogre::Radian fRollAngle = getInterpolatedRollByTime(mCurrentTime);
-	mNode->roll(fRollAngle);
+		if (mThereIsANodeToLookAt)
+			lookAt();
+	}
 }
 
 void iceTrajectory::init(Ogre::SceneManager* p_spSceneManager, Ogre::SceneNode* p_psNode)
@@ -76,20 +73,37 @@ void iceTrajectory::init(Ogre::SceneManager* p_spSceneManager, Ogre::SceneNode* 
 	mSceneManager = p_spSceneManager;
 	mNode = p_psNode;
 	mCurrentTime = 0;
-	mLocomotiveNode = mNode->getParentSceneNode()->createChildSceneNode();
-	//mNode->setAutoTracking(true,mLocomotiveNode,Ogre::Vector3::UNIT_Z);
 
-	//DEBUG {	
-	mSceneManager->getRootSceneNode()->createChildSceneNode("DebugTrajectorySteps");
-	Ogre::Entity* mesh = mSceneManager->createEntity("locomotive", "sphere.mesh");
-	mLocomotiveNode->attachObject(mesh);
-	mLocomotiveNode->scale(0.01,0.01,0.01);
+	//DEBUG {
+	if(!mSceneManager->hasSceneNode("DebugTrajectorySteps"))
+		mSceneManager->getRootSceneNode()->createChildSceneNode("DebugTrajectorySteps");
 
 	Ogre::SceneNode* playerCenter = mNode->createChildSceneNode();
 	Ogre::Entity* mesh2 = mSceneManager->createEntity("player_center", "razor.mesh");
 	playerCenter->attachObject(mesh2);
 	playerCenter->scale(0.03,0.03,0.03);
 	//} DEBUG
+}
+
+void iceTrajectory::setNodeToLookAt(Ogre::SceneNode* p_psNodeToLookAt)
+{
+	mNodeToLookAt = p_psNodeToLookAt;
+	mThereIsANodeToLookAt = true;
+}
+
+void iceTrajectory::reset(void)
+{
+	mCurrentTime = 0;
+}
+
+void iceTrajectory::setLoop(bool p_bLoop)
+{
+	mLoop = p_bLoop;
+}
+
+bool iceTrajectory::hasEnded(void)
+{
+	return !mLoop && mCurrentTime >= mDuration;
 }
 
 unsigned int iceTrajectory::getCurrentStepIndexByTime(Ogre::Real p_fTime)
@@ -118,26 +132,16 @@ Ogre::Real iceTrajectory::getInterpolationByTime(Ogre::Real p_fTime)
 	return (Ogre::Real)(iCurrentStepIndex + fCurrentStepInterpolation)/mSteps.size();
 }
 
-Ogre::Radian iceTrajectory::getInterpolatedRollByTime(Ogre::Real p_fTime)
+void iceTrajectory::lookAt(void)
 {
-	unsigned int iCurrentStepIndex = getCurrentStepIndexByTime(p_fTime);
+	mNode->resetOrientation();
 
-	Ogre::Real fTimeToNextStep = mSteps[iCurrentStepIndex+1].getTime() - mSteps[iCurrentStepIndex].getTime();
-	Ogre::Real fTimeElapsedFromCurrentStep = p_fTime - mSteps[iCurrentStepIndex].getTime();
-	Ogre::Real fCurrentStepInterpolation = fTimeElapsedFromCurrentStep/fTimeToNextStep;
+	Ogre::Vector3 sDiference = mNodeToLookAt->_getDerivedPosition() - mNode->_getDerivedPosition();
+	Ogre::Real fDxz = sqrt(sDiference.x*sDiference.x + sDiference.z*sDiference.z);
 
-	Ogre::Radian fStartAngle = mSteps[iCurrentStepIndex].getRollAngle();
-	Ogre::Radian fEndAngle = mSteps[iCurrentStepIndex+1].getRollAngle();
-	Ogre::Radian fDiference = fEndAngle - fStartAngle;
+	Ogre::Radian fYawAngle = Ogre::Radian(atan2(sDiference.x,sDiference.z));
+	Ogre::Radian fPitchAngle = Ogre::Radian(atan(-sDiference.y/fDxz));
 
-	if (fDiference.valueDegrees() > 180)
-	{
-		fDiference -= Ogre::Degree(360);
-	}
-	else if (fDiference.valueDegrees() < -180)
-	{
-		fDiference += Ogre::Degree(360);
-	}
-
-	return  fStartAngle + fDiference*fCurrentStepInterpolation;
+	mNode->yaw(fYawAngle);
+	mNode->pitch(fPitchAngle);
 }

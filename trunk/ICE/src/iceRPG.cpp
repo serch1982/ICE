@@ -203,7 +203,7 @@ bool iceRPG::isAlive(void)
 	return (mCurrentLife > 0);
 }
 
-void iceRPG::updateRPG(Ogre::Real p_fFrameTime)
+void iceRPG::update(Ogre::Real p_fFrameTime)
 {
 	mTimeSinceLastShot += p_fFrameTime;
 	if(mShieldEnergy < getMaxShieldEnergy())

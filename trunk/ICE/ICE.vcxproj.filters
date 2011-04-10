@@ -69,20 +69,11 @@
     <ClInclude Include="include\iceState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\iceLevel.h">
-      <Filter>Header Files\hWorld</Filter>
-    </ClInclude>
-    <ClInclude Include="include\iceBicho.h">
-      <Filter>Header Files\hRPG</Filter>
-    </ClInclude>
     <ClInclude Include="include\icePlayer.h">
       <Filter>Header Files\hRPG</Filter>
     </ClInclude>
     <ClInclude Include="include\iceRPG.h">
       <Filter>Header Files\hRPG</Filter>
-    </ClInclude>
-    <ClInclude Include="include\iceTrajectory.h">
-      <Filter>Header Files\hWorld</Filter>
     </ClInclude>
     <ClInclude Include="include\iceStep.h">
       <Filter>Header Files\hWorld</Filter>
@@ -102,6 +93,33 @@
     <ClInclude Include="include\iceLogicLua.h">
       <Filter>Header Files\hLogic</Filter>
     </ClInclude>
+    <ClInclude Include="include\scene\ConfigScriptLoader.h">
+      <Filter>Header Files\hWorld</Filter>
+    </ClInclude>
+    <ClInclude Include="include\iceLocomotiveTrajectory.h">
+      <Filter>Header Files\hRPG</Filter>
+    </ClInclude>
+    <ClInclude Include="include\icePhase.h">
+      <Filter>Header Files\hWorld</Filter>
+    </ClInclude>
+    <ClInclude Include="include\icePhase3.h">
+      <Filter>Header Files\hWorld</Filter>
+    </ClInclude>
+    <ClInclude Include="include\icePhase1.h">
+      <Filter>Header Files\hWorld</Filter>
+    </ClInclude>
+    <ClInclude Include="include\icePhase2.h">
+      <Filter>Header Files\hWorld</Filter>
+    </ClInclude>
+    <ClInclude Include="include\iceTrajectory.h">
+      <Filter>Header Files\hRPG</Filter>
+    </ClInclude>
+    <ClInclude Include="include\iceTrajectoryFollower.h">
+      <Filter>Header Files\hRPG</Filter>
+    </ClInclude>
+    <ClInclude Include="include\iceEnemy.h">
+      <Filter>Header Files\hRPG</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ICE.cpp">
@@ -119,12 +137,6 @@
     <ClCompile Include="src\iceState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\iceLevel.cpp">
-      <Filter>Source Files\World</Filter>
-    </ClCompile>
-    <ClCompile Include="src\iceTrajectory.cpp">
-      <Filter>Source Files\World</Filter>
-    </ClCompile>
     <ClCompile Include="src\iceStep.cpp">
       <Filter>Source Files\World</Filter>
     </ClCompile>
@@ -132,9 +144,6 @@
       <Filter>Source Files\RPG</Filter>
     </ClCompile>
     <ClCompile Include="src\iceRPG.cpp">
-      <Filter>Source Files\RPG</Filter>
-    </ClCompile>
-    <ClCompile Include="src\iceBicho.cpp">
       <Filter>Source Files\RPG</Filter>
     </ClCompile>
     <ClCompile Include="src\iceBullet.cpp">
@@ -148,6 +157,33 @@
     </ClCompile>
     <ClCompile Include="src\iceLogicLua.cpp">
       <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene\ConfigScriptLoader.cpp">
+      <Filter>Source Files\World</Filter>
+    </ClCompile>
+    <ClCompile Include="src\icePhase.cpp">
+      <Filter>Source Files\World</Filter>
+    </ClCompile>
+    <ClCompile Include="src\icePhase3.cpp">
+      <Filter>Source Files\World</Filter>
+    </ClCompile>
+    <ClCompile Include="src\icePhase1.cpp">
+      <Filter>Source Files\World</Filter>
+    </ClCompile>
+    <ClCompile Include="src\icePhase2.cpp">
+      <Filter>Source Files\World</Filter>
+    </ClCompile>
+    <ClCompile Include="src\iceEnemy.cpp">
+      <Filter>Source Files\RPG</Filter>
+    </ClCompile>
+    <ClCompile Include="src\iceLocomotiveTrajectory.cpp">
+      <Filter>Source Files\RPG</Filter>
+    </ClCompile>
+    <ClCompile Include="src\iceTrajectory.cpp">
+      <Filter>Source Files\RPG</Filter>
+    </ClCompile>
+    <ClCompile Include="src\iceTrajectoryFollower.cpp">
+      <Filter>Source Files\RPG</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
