@@ -13,10 +13,11 @@ class icePhase1 : public icePhase
 		void update(Ogre::Real p_timeSinceLastFrame);
 
 		bool createScene(Ogre::SceneManager* p_SceneMgr, icePlayer* p_psPlayer );
+		bool isPhaseEnded(void);
 
 	private:
 		void setCameras(void);
-		bool isPhaseEnded(void);
+
 		iceEnemy mEnemy;
 };
 

@@ -80,7 +80,10 @@ bool ICE::frameRenderingQueued(const Ogre::FrameEvent& evt)
 		case iceState::PLAY:
 			// Playing the game
 			ShowCursor(false);
-			update(evt.timeSinceLastFrame);
+			if(mPhases[m_iCurrentPhase]->isPhaseEnded())
+				iceState::getInstance()->setState(iceState::NEXT_LEVEL);
+			else
+				update(evt.timeSinceLastFrame);
 			break;
 		case iceState::PAUSE:
 			mIceMenu->instance()->update();

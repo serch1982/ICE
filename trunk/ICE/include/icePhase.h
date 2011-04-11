@@ -23,10 +23,10 @@ class icePhase
 		virtual bool createScene( Ogre::SceneManager* p_SceneMgr, icePlayer* p_psPlayer );
 		Ogre::Camera* getCamera( int p_iIndex );
 		bool clearScene(void);
+		virtual bool isPhaseEnded(void) = 0;
 
 	protected:
 		virtual void setCameras(void) = 0;
-		virtual bool isPhaseEnded(void) = 0;
 
 		Ogre::Log* mLog;
 		vector<Ogre::Camera*> mvCameras;

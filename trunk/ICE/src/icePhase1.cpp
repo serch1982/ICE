@@ -22,10 +22,6 @@ icePhase1::~icePhase1()
 void icePhase1::update( Ogre::Real p_timeSinceLastFrame)
 {
 	mEnemy.update(p_timeSinceLastFrame);
-	if(isPhaseEnded())
-	{
-		iceState::getInstance()->setState(iceState::NEXT_LEVEL);
-	}
 }
 
 bool icePhase1::createScene( Ogre::SceneManager* p_SceneMgr, icePlayer* p_psPlayer )
