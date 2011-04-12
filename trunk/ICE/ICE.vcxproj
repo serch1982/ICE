@@ -124,6 +124,7 @@
     <ClInclude Include="include\iceBullet.h" />
     <ClInclude Include="include\iceDebugScreen.h" />
     <ClInclude Include="include\iceCounters.h" />
+    <ClInclude Include="include\iceHUD.h" />
     <ClInclude Include="include\icePhase.h" />
     <ClInclude Include="include\iceLocomotiveTrajectory.h" />
     <ClInclude Include="include\iceLoadingBar.h" />
@@ -153,6 +154,7 @@
     <ClCompile Include="src\iceBullet.cpp" />
     <ClCompile Include="src\iceDebugScreen.cpp" />
     <ClCompile Include="src\iceCounters.cpp" />
+    <ClCompile Include="src\iceHUD.cpp" />
     <ClCompile Include="src\icePhase.cpp" />
     <ClCompile Include="src\iceLocomotiveTrajectory.cpp" />
     <ClCompile Include="src\iceLogicLua.cpp" />

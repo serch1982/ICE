@@ -13,12 +13,13 @@
 #include "icePhase3.h"
 #include "icePlayer.h"
 #include "iceTrajectory.h"
-#include "ICEMenu.h"
+#include "iceMenu.h"
 #include "iceLogicLua.h"
 #include <string>
 #include <OgreLog.h>
 #include <OgreLogManager.h>
 #include <stdlib.h>
+#include "iceHUD.h"
 
 class ICE : public CORE
 {
@@ -44,8 +45,6 @@ protected:
 	//void updateCameras(const Ogre::FrameEvent& evt);
 
 private:
-
-	ICEMenu* mIceMenu;
 	std::vector<icePhase*> mPhases;
 	icePlayer mPlayer;
 	Ogre::Log* mGameLog;

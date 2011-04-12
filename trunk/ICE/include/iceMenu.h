@@ -1,16 +1,16 @@
-#ifndef __ICEMenu_h_
-#define __ICEMenu_h_
 
+#ifndef __iceMenu_h_
+#define __iceMenu_h_
 
 #include "Hikari.h"
 #include <OgreViewport.h>
 #include <OISMouse.h>
 
-class ICEMenu
+class iceMenu
 {
 public:
-	static ICEMenu* instance();
-	~ICEMenu();
+	static iceMenu* getInstance();
+	~iceMenu();
 
 	//Methods
 	bool setupHikari(char* path, char* name, Ogre::Viewport* mViewport);
@@ -22,10 +22,12 @@ public:
 	void mouseMoved(const OIS::MouseEvent &arg);
 	void mouseDown(OIS::MouseButtonID id);
 	void mouseUp(OIS::MouseButtonID id);
+
+	Hikari::HikariManager* getHikariManager();
 protected:
-	  ICEMenu();
+	  iceMenu();
 private:
-	static ICEMenu* pinstance;
+	static iceMenu* pinstance;
 	Hikari::HikariManager* hikariMgr;
 	Hikari::FlashControl  *hikariMenu;
 

@@ -120,6 +120,9 @@
     <ClInclude Include="include\iceEnemy.h">
       <Filter>Header Files\hRPG</Filter>
     </ClInclude>
+    <ClInclude Include="include\iceHUD.h">
+      <Filter>Header Files\hWorld</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ICE.cpp">
@@ -184,6 +187,9 @@
     </ClCompile>
     <ClCompile Include="src\iceTrajectoryFollower.cpp">
       <Filter>Source Files\RPG</Filter>
+    </ClCompile>
+    <ClCompile Include="src\iceHUD.cpp">
+      <Filter>Source Files\World</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -23,7 +23,7 @@ bool ICE::setup()
 		mGameLog->logMessage( "Sistema: Log creado" );
 
 		// Setup the Ice Menu
-		if(!mIceMenu->instance()->setupHikari(".\\media", "menu.swf", mCurrentCamera->getViewport()))
+		if(!iceMenu::getInstance()->setupHikari(".\\media", "menu.swf", mCurrentCamera->getViewport()))
 			return false;
 
 		mPhases.resize(3);
@@ -36,6 +36,8 @@ bool ICE::setup()
 		//load lua logic ----> temporally location
 		std::string path = std::string(pathRoot) + "\\logiclua.lua";
 		iceLogicLua::instance()->RunFile(path.c_str());  
+
+		
 	}
 
 	return true;
@@ -52,6 +54,9 @@ void ICE::createScene(void)
 	mPhases[m_iCurrentPhase]->createScene( mSceneMgr, &mPlayer );
 
 	setCurrentCamera( mPlayer.getCamera() );
+
+	//set the HUD
+	iceHUD::getInstance()->setupHUD(".\\media", "HUD.swf", mCurrentCamera->getViewport());
 }
 
 //Change de current camera by p_pNewCamera
@@ -75,7 +80,7 @@ bool ICE::frameRenderingQueued(const Ogre::FrameEvent& evt)
 	switch( iceState::getInstance()->getState() ){
 		case iceState::MENU:
 			// Update the MENU
-			mIceMenu->instance()->update();
+			iceMenu::getInstance()->update();
 			break;
 		case iceState::PLAY:
 			// Playing the game
@@ -86,7 +91,8 @@ bool ICE::frameRenderingQueued(const Ogre::FrameEvent& evt)
 				update(evt.timeSinceLastFrame);
 			break;
 		case iceState::PAUSE:
-			mIceMenu->instance()->update();
+			iceMenu::getInstance()->update();
+			iceHUD::getInstance()->hide();
 			break;
 		case iceState::CONTINUE:
 			//The main idea is to come back playing from a PAUSE state
@@ -123,6 +129,9 @@ bool ICE::frameRenderingQueued(const Ogre::FrameEvent& evt)
 void ICE::update( Ogre::Real p_timeSinceLastFrame ){
 	mPhases[m_iCurrentPhase]->update(p_timeSinceLastFrame);
 	mPlayer.update(p_timeSinceLastFrame);
+	iceHUD::getInstance()->update();
+	iceHUD::getInstance()->setLife(100);
+	iceHUD::getInstance()->setWeapon("Rocket");
 }
 
 bool ICE::keyPressed( const OIS::KeyEvent &arg ){
@@ -172,7 +181,7 @@ bool ICE::keyPressed( const OIS::KeyEvent &arg ){
 		mSceneMgr->setSkyBox( !bSkyBox, "cielo", 20000.0f, false, Ogre::Quaternion::IDENTITY, "level1" );
 	}else if (arg.key == OIS::KC_P){
 		iceState::getInstance()->setState( iceState::PAUSE );
-		mIceMenu->instance()->show();
+		iceMenu::getInstance()->show();
 	}else if( arg.key == OIS::KC_L){
 		iceDebugScreen::instance()->updateChivato(8,Ogre::StringConverter::toString(  iceLogicLua::instance()->testfunctionlua(100)));
 	}else if ( iceState::getInstance()->getState() == iceState::GOD ){
@@ -200,7 +209,7 @@ bool ICE::mouseMoved( const OIS::MouseEvent &arg )
 		mCameraMan->injectMouseMove(arg);
 	else if( iceState::getInstance()->getState() == iceState::MENU || 
 		iceState::getInstance()->getState() == iceState::PAUSE )
-		mIceMenu->instance()->mouseMoved(arg);
+		iceMenu::getInstance()->mouseMoved(arg);
 	else if( iceState::getInstance()->getState() == iceState::PLAY )
 		mPlayer.processMouseMoved(arg);
     return ret;
@@ -214,7 +223,7 @@ bool ICE::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 		mCameraMan->injectMouseDown(arg, id);//not here
 	else if( iceState::getInstance()->getState() == iceState::MENU ||
 		iceState::getInstance()->getState() == iceState::PAUSE ) 
-		mIceMenu->instance()->mouseDown(id);
+		iceMenu::getInstance()->mouseDown(id);
     return true;
 }
 
@@ -226,7 +235,7 @@ bool ICE::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 		mCameraMan->injectMouseUp(arg, id); //not here
 	else if( iceState::getInstance()->getState() == iceState::MENU ||
 		iceState::getInstance()->getState() == iceState::PAUSE ) 
-		mIceMenu->instance()->mouseUp(id);
+		iceMenu::getInstance()->mouseUp(id);
 	else if( iceState::getInstance()->getState() == iceState::PLAY )
 		if (id==0)	
 		{
