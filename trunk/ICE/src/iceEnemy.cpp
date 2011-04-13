@@ -1,5 +1,7 @@
 #include "iceEnemy.h"
 
+Ogre::NameGenerator iceEnemy::mNameGenerator("Enemy_");
+
 iceEnemy::iceEnemy()
 {
 
@@ -28,9 +30,11 @@ void iceEnemy::setPlayer(icePlayer* p_psPlayer)
 bool iceEnemy::initialize(Ogre::SceneManager* p_psSceneManager, icePlayer* p_psPlayer)
 {
 	mPlayer = p_psPlayer;
-	iceTrajectoryFollower::initialize(p_psSceneManager,mPlayer->getNode()->createChildSceneNode("enemyNode"));
+	iceTrajectoryFollower::initialize(p_psSceneManager,mPlayer->getNode()->createChildSceneNode(mNameGenerator.generate()));
 
-	Ogre::Entity* mesh = mSceneManager->createEntity("enemy", "razor.mesh");
+	stringstream entityName;
+	entityName << "Entity_" << mNameGenerator.generate();
+	Ogre::Entity* mesh = mSceneManager->createEntity(entityName.str(), "razor.mesh");
 	mNode->attachObject(mesh);
 	mNode->scale(0.1,0.1,0.1);
 

@@ -42,6 +42,8 @@ bool icePhase1::createScene( Ogre::SceneManager* p_SceneMgr, icePlayer* p_psPlay
 	steps.push_back(iceStep(Ogre::Vector3( -483, 252 , -559),Ogre::Degree(0),5*j++));
 	steps.push_back(iceStep(Ogre::Vector3( -326, 120 , -289),Ogre::Degree(0),5*j++));
 		steps.push_back(iceStep(Ogre::Vector3( -326, 119 , -289),Ogre::Degree(0),5*j++));
+
+
 	//steps.push_back(iceStep(Ogre::Vector3( -186,  48 ,  -6 ),Ogre::Degree(0),5*j++));
 	//steps.push_back(iceStep(Ogre::Vector3( -4  ,  54 , 237 ),Ogre::Degree(0),5*j++));
 	//steps.push_back(iceStep(Ogre::Vector3(  8  ,  52 , 511 ),Ogre::Degree(0),5*j++));
@@ -53,6 +55,12 @@ bool icePhase1::createScene( Ogre::SceneManager* p_SceneMgr, icePlayer* p_psPlay
 	//steps.push_back(iceStep(Ogre::Vector3( 440 , 68  , -107),Ogre::Degree(0),5*j++));
 	//steps.push_back(iceStep(Ogre::Vector3(1526 , 95  , 102 ),Ogre::Degree(40),5*j++));
 	//steps.push_back(iceStep(Ogre::Vector3(1527 , 95  , 102 ),Ogre::Degree(0),5*j++));
+
+
+	//steps.push_back(iceStep(Ogre::Vector3( 500, 500 , -500),Ogre::Degree(0),10*j++));
+	//steps.push_back(iceStep(Ogre::Vector3( 500, 500 , -700),Ogre::Degree(0),10*j++));
+	//steps.push_back(iceStep(Ogre::Vector3( 500, 500 , -900),Ogre::Degree(0),10*j++));
+
 
 	mPlayer->setTrajectory(new iceLocomotiveTrajectory());
 
@@ -66,17 +74,16 @@ bool icePhase1::createScene( Ogre::SceneManager* p_SceneMgr, icePlayer* p_psPlay
 	//rootNode = ConfigScriptLoader::getSingleton().getConfigScript("entity", "Crate");
 
 	steps.push_back(iceStep(Ogre::Vector3( 30, 0 , 200),Ogre::Degree(0),j++));
-	steps.push_back(iceStep(Ogre::Vector3( 0, 30 , 200),Ogre::Degree(0),j++));
+	steps.push_back(iceStep(Ogre::Vector3( 0, 30 , 230),Ogre::Degree(0),j++));
 	steps.push_back(iceStep(Ogre::Vector3( -30, 0 , 200),Ogre::Degree(0),j++));
-	steps.push_back(iceStep(Ogre::Vector3( 0, -30 , 200),Ogre::Degree(0),j++));
+	steps.push_back(iceStep(Ogre::Vector3( 0, -30 , 170),Ogre::Degree(0),j++));
 	steps.push_back(iceStep(Ogre::Vector3( 30, 0 , 200),Ogre::Degree(0),j++));
-	steps.push_back(iceStep(Ogre::Vector3( 0, 30 , 200),Ogre::Degree(0),j++));
 
-	//mEnemy.initialize(mSceneManager,mPlayer);
-	//mEnemy.setTrajectory(new iceTrajectory());
-	//mEnemy.getTrajectory()->loadSteps(steps,true);
-	//mEnemy.getTrajectory()->setNodeToLookAt(mPlayer->shipNode);
-	//mEnemy.activate();
+	mEnemy.initialize(mSceneManager,mPlayer);
+	mEnemy.setTrajectory(new iceTrajectory());
+	mEnemy.getTrajectory()->loadSteps(steps,true);
+	mEnemy.getTrajectory()->setNodeToLookAt(mPlayer->shipNode);
+	mEnemy.activate();
 
 	// Creating a DotSceneLoader
 	DotSceneLoader pLoader;

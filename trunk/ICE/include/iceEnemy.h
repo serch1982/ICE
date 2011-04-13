@@ -39,6 +39,8 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG
 		virtual void showLevelUp(unsigned int p_iLevel);
 	
 	protected:
+		static Ogre::NameGenerator mNameGenerator;
+
 		STATE mState;
 		icePlayer* mPlayer;
 };

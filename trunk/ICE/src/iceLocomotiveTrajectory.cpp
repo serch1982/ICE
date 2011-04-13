@@ -19,7 +19,10 @@ iceLocomotiveTrajectory::~iceLocomotiveTrajectory(void)
 
 void iceLocomotiveTrajectory::addTime(Ogre::Real p_fTime)
 {	
-	Ogre::Real fLocomotiveInterpolation = getInterpolationByTime(mCurrentTime + LOCOMOTIVE_ADVANCE);
+	Ogre::Real fLocomotiveTime = mCurrentTime + LOCOMOTIVE_ADVANCE;
+	if (mLoop && fLocomotiveTime > mDuration)
+		fLocomotiveTime -= mDuration;
+	Ogre::Real fLocomotiveInterpolation = getInterpolationByTime(fLocomotiveTime);
 	Ogre::Vector3 sLocomotivePosition = mTrack.interpolate(fLocomotiveInterpolation);
 	mLocomotiveNode->setPosition(sLocomotivePosition);
 
@@ -33,6 +36,11 @@ void iceLocomotiveTrajectory::init(Ogre::SceneManager* p_spSceneManager, Ogre::S
 {
 	iceTrajectory::init(p_spSceneManager,p_psNode);
 	mLocomotiveNode = mNode->getParentSceneNode()->createChildSceneNode();
+	//DEBUG {
+	Ogre::Entity* sp = mSceneManager->createEntity("sphere.mesh");
+	mLocomotiveNode->attachObject(sp);
+	mLocomotiveNode->scale(0.01,0.01,0.01);
+	//} DEBUG
 	setNodeToLookAt(mLocomotiveNode);
 }
 

@@ -15,6 +15,8 @@ class iceTrajectory
 
 	//attributes
 	protected:
+		static Ogre::NameGenerator mNameGenerator;
+
 		Ogre::SimpleSpline mTrack;
 		std::vector<iceStep> mSteps;
 		Ogre::SceneNode* mNode;

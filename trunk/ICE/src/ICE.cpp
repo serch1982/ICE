@@ -126,9 +126,10 @@ bool ICE::frameRenderingQueued(const Ogre::FrameEvent& evt)
     return true;
 }
 
-void ICE::update( Ogre::Real p_timeSinceLastFrame ){
-	mPhases[m_iCurrentPhase]->update(p_timeSinceLastFrame);
+void ICE::update( Ogre::Real p_timeSinceLastFrame )
+{
 	mPlayer.update(p_timeSinceLastFrame);
+	mPhases[m_iCurrentPhase]->update(p_timeSinceLastFrame);
 	iceHUD::getInstance()->update();
 	iceHUD::getInstance()->setLife(100);
 	iceHUD::getInstance()->setWeapon("Rocket");

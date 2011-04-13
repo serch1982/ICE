@@ -1,5 +1,6 @@
 #include "iceTrajectory.h"
 
+Ogre::NameGenerator iceTrajectory::mNameGenerator("Trajectory_");
 
 iceTrajectory::iceTrajectory(void)
 {
@@ -33,39 +34,56 @@ void iceTrajectory::loadSteps(std::vector<iceStep> p_vSteps, const bool p_bIsLoo
 	mLoop = p_bIsLoop;
 
 	//DEBUG {
-	int numSpheres = 100;
+	int numSpheres = 300;
 
+	if(!Ogre::ResourceGroupManager::getSingleton().resourceGroupExists("debugger"))
+		Ogre::ResourceGroupManager::getSingleton().createResourceGroup("debugger");
+	Ogre::ManualObject* myManualObject =  mSceneManager->createManualObject();
+	Ogre::SceneNode* sDebugNode = mNode->getParentSceneNode()->createChildSceneNode();
+	Ogre::StringStream materialName;
+	materialName << "Material_"  << mNameGenerator.generate();
+	Ogre::MaterialPtr myManualObjectMaterial = Ogre::MaterialManager::getSingleton().create(materialName.str(),"debugger");
+
+	myManualObjectMaterial->setReceiveShadows(false); 
+	myManualObjectMaterial->getTechnique(0)->setLightingEnabled(true); 
+	myManualObjectMaterial->getTechnique(0)->getPass(0)->setDiffuse(0,0,1,0); 
+	myManualObjectMaterial->getTechnique(0)->getPass(0)->setAmbient(0,0,1); 
+	myManualObjectMaterial->getTechnique(0)->getPass(0)->setSelfIllumination(0,0,1); 
+	//myManualObjectMaterial->dispose();  // dispose pointer, not the material
+
+
+	myManualObject->begin(materialName.str(), Ogre::RenderOperation::OT_LINE_LIST); 
 	for (int i=0;i<numSpheres;i++)
 	{
-			Ogre::SceneNode* sDebugNode = sDebugTrajectorySteps->createChildSceneNode(mTrack.interpolate((float)i/numSpheres));
-			char name[50];
-			sprintf(name,"key %d",i);
-			Ogre::Entity* mesh = mSceneManager->createEntity(name, "sphere.mesh");
-			sDebugNode->attachObject(mesh);
-			sDebugNode->scale(0.005,0.005,0.005);
+			myManualObject->position(mTrack.interpolate((float)i/numSpheres));
 	}
+
+	myManualObject->end(); 
+ 
+	sDebugNode->attachObject(myManualObject);
 	//} DEBUG
 }
 
 void iceTrajectory::addTime(Ogre::Real p_fTime)
 {
 	mLog = Ogre::LogManager::getSingleton().getLog( "iceLog.log" );
+
+	if(mLoop && mCurrentTime == mDuration)
+		mCurrentTime = 0;
+
 	mCurrentTime += p_fTime;
 
-	if (mLoop && mCurrentTime >= mDuration)
-		mCurrentTime -= mDuration;
+	if (mCurrentTime > mDuration)
+		mCurrentTime = mDuration;
 
-	if (mCurrentTime < mDuration)
-	{
-		Ogre::Real fInterpolation = getInterpolationByTime(mCurrentTime);
+	Ogre::Real fInterpolation = getInterpolationByTime(mCurrentTime);
 
-		Ogre::Vector3 sNewPosition = mTrack.interpolate(fInterpolation);
+	Ogre::Vector3 sNewPosition = mTrack.interpolate(fInterpolation);
 
-		mNode->setPosition(sNewPosition);
+	mNode->setPosition(sNewPosition);
 
-		if (mThereIsANodeToLookAt)
-			lookAt();
-	}
+	if (mThereIsANodeToLookAt)
+		lookAt();
 }
 
 void iceTrajectory::init(Ogre::SceneManager* p_spSceneManager, Ogre::SceneNode* p_psNode)
@@ -79,7 +97,7 @@ void iceTrajectory::init(Ogre::SceneManager* p_spSceneManager, Ogre::SceneNode* 
 		mSceneManager->getRootSceneNode()->createChildSceneNode("DebugTrajectorySteps");
 
 	Ogre::SceneNode* playerCenter = mNode->createChildSceneNode();
-	Ogre::Entity* mesh2 = mSceneManager->createEntity("player_center", "razor.mesh");
+	Ogre::Entity* mesh2 = mSceneManager->createEntity(mNameGenerator.generate(), "razor.mesh");
 	playerCenter->attachObject(mesh2);
 	playerCenter->scale(0.03,0.03,0.03);
 	//} DEBUG
@@ -89,6 +107,7 @@ void iceTrajectory::setNodeToLookAt(Ogre::SceneNode* p_psNodeToLookAt)
 {
 	mNodeToLookAt = p_psNodeToLookAt;
 	mThereIsANodeToLookAt = true;
+	mNode->setInheritOrientation(false); //Si vamos a controlar a donde mira el nodo, mejor que no herede la orientacion del padre
 }
 
 void iceTrajectory::reset(void)
@@ -129,7 +148,13 @@ Ogre::Real iceTrajectory::getInterpolationByTime(Ogre::Real p_fTime)
 	Ogre::Real fTimeElapsedFromCurrentStep = p_fTime - mSteps[iCurrentStepIndex].getTime();
 	Ogre::Real fCurrentStepInterpolation = fTimeElapsedFromCurrentStep/fTimeToNextStep;
 
-	return (Ogre::Real)(iCurrentStepIndex + fCurrentStepInterpolation)/mSteps.size();
+	Ogre::Real interpolation = 0;
+	if(mLoop)
+		interpolation = (iCurrentStepIndex + fCurrentStepInterpolation)/(mSteps.size()-1);
+	else
+		interpolation = (iCurrentStepIndex + fCurrentStepInterpolation)/mSteps.size();
+
+	return interpolation;
 }
 
 void iceTrajectory::lookAt(void)
