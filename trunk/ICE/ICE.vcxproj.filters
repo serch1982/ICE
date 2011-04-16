@@ -37,6 +37,12 @@
     <Filter Include="Source Files\Logic">
       <UniqueIdentifier>{2aa5c55f-e822-4401-ba5c-74da15215375}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\hPhysics">
+      <UniqueIdentifier>{9bea6805-08b8-40b2-a180-1b123bc5cd15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Physics">
+      <UniqueIdentifier>{17d5bda3-e89c-4ff5-a167-0d27687944d9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ICE.h">
@@ -123,6 +129,9 @@
     <ClInclude Include="include\iceHUD.h">
       <Filter>Header Files\hWorld</Filter>
     </ClInclude>
+    <ClInclude Include="include\icePhysicsMgr.h">
+      <Filter>Header Files\hPhysics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ICE.cpp">
@@ -190,6 +199,9 @@
     </ClCompile>
     <ClCompile Include="src\iceHUD.cpp">
       <Filter>Source Files\World</Filter>
+    </ClCompile>
+    <ClCompile Include="src\icePhysicsMgr.cpp">
+      <Filter>Source Files\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

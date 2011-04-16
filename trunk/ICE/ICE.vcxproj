@@ -65,7 +65,7 @@
       <FloatingPointModel>Fast</FloatingPointModel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(OGRE_HOME)\include\OGRE\Terrain;include\HIKARI;include;$(OGRE_HOME)\include;$(OGRE_HOME)\include\OIS;$(OGRE_HOME)\include\OGRE;$(OGRE_HOME)\Samples\Common\include;$(OGRE_HOME)\boost_1_42;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(OGRE_HOME)\include\OGRE\Terrain;include\HIKARI;include;$(OGRE_HOME)\include;$(OGRE_HOME)\include\OIS;$(OGRE_HOME)\include\OGRE;$(OGRE_HOME)\Samples\Common\include;$(OGRE_HOME)\boost_1_42;include\Bullet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -74,7 +74,7 @@
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalLibraryDirectories>lib\Debug;$(OGRE_HOME)\lib\debug;$(OGRE_HOME)\boost_1_42\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>OgreMain_d.lib;OIS_d.lib;Hikari.lib;OgreTerrain_d.lib;lua5.1.lib;luabind_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>OgreMain_d.lib;OIS_d.lib;Hikari.lib;OgreTerrain_d.lib;lua5.1.lib;luabind_d.lib;OgreBulletCollisions_d.lib;OgreBulletDynamics_d.lib;BulletCollision.lib;BulletDynamics.lib;LinearMath.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Message>Copying exe to samples bin directory ...</Message>
@@ -101,7 +101,7 @@
       <StringPooling>true</StringPooling>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <FloatingPointModel>Fast</FloatingPointModel>
-      <AdditionalIncludeDirectories>$(OGRE_HOME)\include\OGRE\Terrain;include\HIKARI;include;$(OGRE_HOME)\include;$(OGRE_HOME)\include\OIS;$(OGRE_HOME)\include\OGRE;$(OGRE_HOME)\Samples\Common\include;$(OGRE_HOME)\boost_1_42;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(OGRE_HOME)\include\OGRE\Terrain;include\HIKARI;include;$(OGRE_HOME)\include;$(OGRE_HOME)\include\OIS;$(OGRE_HOME)\include\OGRE;$(OGRE_HOME)\Samples\Common\include;$(OGRE_HOME)\boost_1_42;include\Bullet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -110,7 +110,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>lib\Release;$(OGRE_HOME)\lib\release;$(OGRE_HOME)\boost_1_42\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>OgreMain.lib;OIS.lib;Hikari.lib;OgreTerrain.lib;lua5.1.lib;luabind.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>OgreMain.lib;OIS.lib;Hikari.lib;OgreTerrain.lib;lua5.1.lib;OgreBulletCollisions.lib;OgreBulletDynamics.lib;LinearMath.lib;BulletCollision.lib;BulletDynamics.lib;luabind.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Message>Copying exe to samples bin directory ...</Message>
@@ -133,6 +133,7 @@
     <ClInclude Include="include\icePhase1.h" />
     <ClInclude Include="include\icePhase2.h" />
     <ClInclude Include="include\icePhase3.h" />
+    <ClInclude Include="include\icePhysicsMgr.h" />
     <ClInclude Include="include\icePlayer.h" />
     <ClInclude Include="include\iceRPG.h" />
     <ClInclude Include="include\iceState.h" />
@@ -162,6 +163,7 @@
     <ClCompile Include="src\icePhase1.cpp" />
     <ClCompile Include="src\icePhase2.cpp" />
     <ClCompile Include="src\icePhase3.cpp" />
+    <ClCompile Include="src\icePhysicsMgr.cpp" />
     <ClCompile Include="src\icePlayer.cpp" />
     <ClCompile Include="src\iceRPG.cpp" />
     <ClCompile Include="src\iceState.cpp" />
