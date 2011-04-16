@@ -3,6 +3,14 @@
 
 #include "icePhase.h"
 #include "iceEnemy.h"
+#include "iceStep.h"
+
+#include <scene\DotSceneLoader.h>
+#include "scene/ConfigScriptLoader.h"
+#include <OgreQuaternion.h>
+#include <stdlib.h>
+#include <vector>
+#include "iceLogicLua.h"
 
 class icePhase1 : public icePhase
 {

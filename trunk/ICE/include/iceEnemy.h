@@ -12,16 +12,16 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG
 		~iceEnemy();
 
 		//Enemy States
-		enum STATE
+		enum ENEMYSTATE
 		{
-			STOPPED, //En realidad esta siguiendo la trayectoria del player
-			FOLLOWING_TRAJECTORY,
-			GOING_TO_PLAYER,
-			DEADING,
-			INACTIVE
+			STOPPED = 0, //En realidad esta siguiendo la trayectoria del player
+			FOLLOWING_TRAJECTORY = 1,
+			GOING_TO_PLAYER = 2,
+			DEADING = 3,
+			INACTIVE = 4
 		};
 
-		void setState(STATE p_iState);
+		void setState(ENEMYSTATE p_iState);
 		int getState(void);
 
 		void setPlayer(icePlayer* p_psPlayer);
@@ -41,7 +41,7 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG
 	protected:
 		static Ogre::NameGenerator mNameGenerator;
 
-		STATE mState;
+		ENEMYSTATE mState;
 		icePlayer* mPlayer;
 };
 

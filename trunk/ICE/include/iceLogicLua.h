@@ -9,22 +9,23 @@ extern "C" {
 	#include "LUA51\lauxlib.h"
 }
 
+#include "iceEnemy.h"
 #include "luabind\luabind.hpp"
 #include "luabind\operator.hpp"
 #include <Ogre.h>
 #include <sstream>
 #include <string>
 
-using namespace Ogre;
+
 
 class iceLogicLua
 {
 public:
-	static iceLogicLua* instance();
+	static iceLogicLua* getInstance();
 	~iceLogicLua();
 
 	int RunFile( const char *fname );
-	int testfunctionlua(int num);
+	void getEnemyLogicState(iceEnemy *enemy);
 	int RunSource( const char *source );
 protected:
 	  iceLogicLua();
@@ -39,6 +40,6 @@ private:
 	void ForceGarbageCollect();
 	bool FuncExist(const char *name );
 	
-	static Vector3 availableForLua(Vector3 &myvec);
+	bool enemyIsVisible();
 };
 #endif

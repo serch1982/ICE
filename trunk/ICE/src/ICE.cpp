@@ -35,7 +35,7 @@ bool ICE::setup()
 
 		//load lua logic ----> temporally location
 		std::string path = std::string(pathRoot) + "\\logiclua.lua";
-		iceLogicLua::instance()->RunFile(path.c_str());  
+		iceLogicLua::getInstance()->RunFile(path.c_str());  
 
 		
 	}
@@ -85,9 +85,9 @@ bool ICE::frameRenderingQueued(const Ogre::FrameEvent& evt)
 		case iceState::PLAY:
 			// Playing the game
 			ShowCursor(false);
-			if(mPhases[m_iCurrentPhase]->isPhaseEnded())
-				iceState::getInstance()->setState(iceState::NEXT_LEVEL);
-			else
+			//if(mPhases[m_iCurrentPhase]->isPhaseEnded())
+			//	iceState::getInstance()->setState(iceState::NEXT_LEVEL);
+			//else
 				update(evt.timeSinceLastFrame);
 			break;
 		case iceState::PAUSE:
@@ -130,6 +130,7 @@ void ICE::update( Ogre::Real p_timeSinceLastFrame )
 {
 	mPlayer.update(p_timeSinceLastFrame);
 	mPhases[m_iCurrentPhase]->update(p_timeSinceLastFrame);
+
 	iceHUD::getInstance()->update();
 	iceHUD::getInstance()->setLife(100);
 	iceHUD::getInstance()->setWeapon("Rocket");
@@ -184,7 +185,7 @@ bool ICE::keyPressed( const OIS::KeyEvent &arg ){
 		iceState::getInstance()->setState( iceState::PAUSE );
 		iceMenu::getInstance()->show();
 	}else if( arg.key == OIS::KC_L){
-		iceDebugScreen::instance()->updateChivato(8,Ogre::StringConverter::toString(  iceLogicLua::instance()->testfunctionlua(100)));
+
 	}else if ( iceState::getInstance()->getState() == iceState::GOD ){
 		mCameraMan->injectKeyDown(arg);
 	}

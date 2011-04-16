@@ -7,7 +7,7 @@
 
 iceLogicLua* iceLogicLua::pinstance = 0;
 
-iceLogicLua* iceLogicLua::instance(){
+iceLogicLua* iceLogicLua::getInstance(){
 	if (pinstance == 0)
           pinstance = new iceLogicLua;
         return pinstance;
@@ -17,7 +17,6 @@ iceLogicLua::iceLogicLua(void){
 	mGameLog = Ogre::LogManager::getSingleton().createLog("iceLog.log", false, false, false );
 	L = lua_open();	
 	luaL_openlibs(L);
-	//lua_baselibopen(L);
 	luabind::open(L);
 }
 
@@ -83,15 +82,10 @@ bool iceLogicLua::FuncExist(const char *name )
 	return false;
 }
 
-int iceLogicLua::testfunctionlua(int num){
-	if(FuncExist("test")){
-		 return luabind::call_function<int>(L, "test",num);
-	}else{
-		return 0;
-	}
-}
+
 
 void iceLogicLua::bindLuaObjects(){
+	using namespace Ogre;
 	luabind::module(L)
 	[
 		luabind::class_<Vector3>( "Vector3" )
@@ -118,7 +112,6 @@ void iceLogicLua::bindLuaObjects(){
 		.def("perpendicular", &Vector3::perpendicular )
 		.def("positionCloses", &Vector3::positionCloses )
 		.def("positionEquals", &Vector3::positionEquals )
-		//.def("ptr", &Vector3::ptr )
 		.def("randomDeviant", &Vector3::randomDeviant )
 		.def("reflect", &Vector3::reflect )
 		.def("squaredDistance", &Vector3::squaredDistance )
@@ -144,14 +137,38 @@ void iceLogicLua::bindLuaObjects(){
 		LUA_CONST( Vector3, UNIT_SCALE);
 	LUA_CONST_END;
 
-
-	luabind::module(L) [
-		luabind::def("availableForLua", &iceLogicLua::availableForLua)
+	//enemy class definition
+	luabind::module(L)
+	[
+		luabind::class_<iceEnemy>("iceEnemy")
+			.enum_("ENEMYSTATE")
+			[
+				luabind::value("STOPPED",0),
+				luabind::value("FOLLOWING_TRAJECTORY",1),
+				luabind::value("GOING_TO_PLAYER",2),
+				luabind::value("DEADING",3),
+				luabind::value("INACTIVE",4)
+			]
+		    .def("getState", (iceEnemy::ENEMYSTATE( iceEnemy::*)(void)) &iceEnemy::getState)
 	];
 
+	//methods to lua from this class
+	luabind::module(L) [
+		luabind::class_<iceLogicLua>("iceLogicLua")
+			.def("enemyIsVisible",(bool (iceLogicLua::*)(void)) &iceLogicLua::enemyIsVisible)
+	];
 }
 
-Vector3 iceLogicLua::availableForLua(Vector3 &myvec) {
-	myvec.x = 2000;
-	return myvec; 
+//most ask to the enemy weather or not is avaible to attack the player o something like that...
+bool iceLogicLua::enemyIsVisible() {
+	return true;
+}
+
+
+//call the method of lua with the enemy logic and change his ENEMYSTATE 
+void iceLogicLua::getEnemyLogicState(iceEnemy *enemy){
+	if(FuncExist("EnemyLogicState")){
+		iceEnemy::ENEMYSTATE state = luabind::call_function<iceEnemy::ENEMYSTATE>(L, "EnemyLogicState", enemy, this);
+		enemy->setState(state);
+	}
 }

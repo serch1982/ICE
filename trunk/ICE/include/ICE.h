@@ -14,7 +14,6 @@
 #include "icePlayer.h"
 #include "iceTrajectory.h"
 #include "iceMenu.h"
-#include "iceLogicLua.h"
 #include <string>
 #include <OgreLog.h>
 #include <OgreLogManager.h>

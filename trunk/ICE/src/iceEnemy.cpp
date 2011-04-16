@@ -12,7 +12,7 @@ iceEnemy::~iceEnemy()
 
 }
 
-void iceEnemy::setState(STATE p_iState)
+void iceEnemy::setState(ENEMYSTATE p_iState)
 {
 	mState = p_iState;
 }
@@ -51,6 +51,7 @@ void iceEnemy::finalize()
 void iceEnemy::update(Ogre::Real p_timeSinceLastFrame)
 {
 	iceRPG::update(p_timeSinceLastFrame);
+	
 	switch(mState)
 	{
 		case STOPPED:
