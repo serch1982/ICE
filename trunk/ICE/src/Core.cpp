@@ -1,5 +1,6 @@
 
 #include "CORE.h"
+#include "scene/ConfigScriptLoader.h"
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 #include "../res/resource.h"
@@ -131,6 +132,7 @@ void CORE::createViewports(void)
 //-------------------------------------------------------------------------------------
 void CORE::setupResources(void)
 {
+	new ConfigScriptLoader();
     // Load resource paths from config file
     Ogre::ConfigFile cf;
     cf.load(mResourcesCfg);

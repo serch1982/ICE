@@ -51,6 +51,7 @@ void ICE::createScene(void)
 	//mPlayer.setCamera(mGodCam);
 
 	//Loading the level
+	mPhases[m_iCurrentPhase]->initialize();
 	mPhases[m_iCurrentPhase]->createScene( mSceneMgr, &mPlayer );
 
 	setCurrentCamera( mPlayer.getCamera() );

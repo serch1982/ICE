@@ -28,7 +28,8 @@ ConfigScriptLoader::ConfigScriptLoader()
     //Register as a ScriptLoader
     mLoadOrder = 100.0f;
     mScriptPatterns.push_back("*.object");
-    ResourceGroupManager::getSingleton()._registerScriptLoader(this);
+	Ogre::ResourceGroupManager &r = ResourceGroupManager::getSingleton();
+    r._registerScriptLoader(this);
 }
 
 ConfigScriptLoader::~ConfigScriptLoader()

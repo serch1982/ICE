@@ -30,14 +30,30 @@ bool icePhase1::createScene( Ogre::SceneManager* p_SceneMgr, icePlayer* p_psPlay
 	int j = 0;
 	vector<iceStep> steps;
 
-	//ConfigNode *rootNode;
-	//rootNode = ConfigScriptLoader::getSingleton().getConfigScript("entity", "Crate");
+	ConfigNode *rootNode;
+	rootNode = ConfigScriptLoader::getSingleton().getConfigScript("entity", "steps");
+	int stepsNumber = rootNode->findChild("stepsNumber")->getValueI();
 
-	steps.push_back(iceStep(Ogre::Vector3( -907, 535 , -667),Ogre::Degree(0),5*j++));
-	steps.push_back(iceStep(Ogre::Vector3( -739, 407 , -713),Ogre::Degree(0),5*j++));
-	steps.push_back(iceStep(Ogre::Vector3( -483, 252 , -559),Ogre::Degree(0),5*j++));
-	steps.push_back(iceStep(Ogre::Vector3( -326, 120 , -289),Ogre::Degree(0),5*j++));
-		steps.push_back(iceStep(Ogre::Vector3( -326, 119 , -289),Ogre::Degree(0),5*j++));
+	for(int i=1;i<=stepsNumber;i++)
+	{
+		char stepName[10];
+		sprintf(stepName,"step%d",i);
+		ConfigNode* stepNode = rootNode->findChild(stepName);
+
+		Ogre::Real posX = stepNode->findChild("position")->getValueF(0);
+		Ogre::Real posY = stepNode->findChild("position")->getValueF(1);
+		Ogre::Real posZ = stepNode->findChild("position")->getValueF(2);
+
+		Ogre::Radian rollAngle = Ogre::Degree(stepNode->findChild("rollAngle")->getValueF());
+		Ogre::Real time = stepNode->findChild("time")->getValueF();
+		steps.push_back(iceStep(Ogre::Vector3(posX,posY,posZ),rollAngle,time));
+	}
+
+	//steps.push_back(iceStep(Ogre::Vector3( -907, 535 , -667),Ogre::Degree(0),5*j++));
+	//steps.push_back(iceStep(Ogre::Vector3( -739, 407 , -713),Ogre::Degree(0),5*j++));
+	//steps.push_back(iceStep(Ogre::Vector3( -483, 252 , -559),Ogre::Degree(0),5*j++));
+	//steps.push_back(iceStep(Ogre::Vector3( -326, 120 , -289),Ogre::Degree(0),5*j++));
+	//	steps.push_back(iceStep(Ogre::Vector3( -326, 119 , -289),Ogre::Degree(0),5*j++));
 
 
 	//steps.push_back(iceStep(Ogre::Vector3( -186,  48 ,  -6 ),Ogre::Degree(0),5*j++));

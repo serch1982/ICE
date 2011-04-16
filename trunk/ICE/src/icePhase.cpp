@@ -22,7 +22,6 @@ icePhase::~icePhase()
 
 bool icePhase::initialize()
 {
-	new ConfigScriptLoader();
 	return true;
 }
 
