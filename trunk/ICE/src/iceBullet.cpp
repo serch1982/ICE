@@ -30,7 +30,7 @@ void iceBullet::CreateEntities(Ogre::SceneManager* sceneMgr, Ogre::SceneNode* bu
 			Ogre::Entity* Shot_MachineGun = sceneMgr->createEntity("sphere.mesh");
 			msbulletNode->attachObject(Shot_MachineGun);
 			msbulletNode->setVisible(false);
-			msbulletNode->scale(.05,.05,.2);
+			msbulletNode->scale(.002,.002,.01);
 			miSpeed = 650;			
 		}
 		if (p_iWeapon == 1)
@@ -38,7 +38,7 @@ void iceBullet::CreateEntities(Ogre::SceneManager* sceneMgr, Ogre::SceneNode* bu
 			Ogre::Entity* Shot_ShotGun = sceneMgr->createEntity("sphere.mesh");
 			msbulletNode->attachObject(Shot_ShotGun);
 			msbulletNode->setVisible(false);
-			msbulletNode->scale(.05,.05,.2);
+			msbulletNode->scale(.004,.004,.02);
 			miSpeed = 600;			
 		}			
 		if (p_iWeapon == 2)
@@ -46,11 +46,11 @@ void iceBullet::CreateEntities(Ogre::SceneManager* sceneMgr, Ogre::SceneNode* bu
 			Ogre::Entity* Shot_MisileLauncher = sceneMgr->createEntity("sphere.mesh");
 			msbulletNode->attachObject(Shot_MisileLauncher);
 			msbulletNode->setVisible(false);
-			msbulletNode->scale(.05,.05,.2);
+			msbulletNode->scale(.008,.008,.04);
 			miSpeed = 700;			
 		}		
 }
-bool iceBullet::Set(Ogre::SceneNode* shipNode,Ogre::Real p_iDamage, bool p_bCritic)
+bool iceBullet::Set(Ogre::SceneNode* shipNode,Ogre::Real p_iDamage, bool p_bCritic,int p_iShotSide)
 {
 	if (!mbActive) 
 	{
@@ -69,9 +69,16 @@ bool iceBullet::Set(Ogre::SceneNode* shipNode,Ogre::Real p_iDamage, bool p_bCrit
 		/*Set bullets initial position*/
 		mvPosition = shipNode->_getDerivedPosition();
 		msbulletNode->setPosition(mvPosition);
-		msbulletNode->translate(0,0,60,Ogre::Node::TS_LOCAL);
-
+		if (p_iShotSide == 0)
+		{
+			msbulletNode->translate(-1,0,3,Ogre::Node::TS_LOCAL);
+		}
+		else
+		{
+			msbulletNode->translate(1,0,3,Ogre::Node::TS_LOCAL);
+		}
 		return true;
+
 	}else
 	{
 		return false;

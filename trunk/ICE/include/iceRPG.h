@@ -7,10 +7,8 @@
 #define MISILE_LAUNCHER	2
 #define MIN_DAMAGE 10
 
-//Pau * INITIAL AMMO PER WEAPON----------------------------------------------------//
-#define MACHINEGUN_RELOAD		  20	// Machinegun's ammo number per reload
-#define SHOTGUN_RELOAD			  15	// Machinegun's ammo number per reload
-#define MISILE_LAUNCHER_RELOAD	  10	// Machinegun's ammo number per reload
+//Pau * NUMBER OF BULLETS PER WEAPON-----------------------------------------------//
+#define BULLET_VECTOR_SIZE		  100
 //---------------------------------------------------------------------------------//
 
 
@@ -68,10 +66,6 @@ protected:
 	Ogre::Real randn_notrig(Ogre::Real mu=0.0, Ogre::Real sigma=1.0);
 
 	//attributes
-	unsigned int mMachinegunAmmo;		// Current machinegun ammo number
-	unsigned int mShotgunAmmo;			// Current shotgun ammo number
-	unsigned int mMisileLauncherAmmo;	// Current misile launcher ammo number
-
 	unsigned int mLevel;
 	unsigned int mExperience;
 	unsigned int mBaseLife;

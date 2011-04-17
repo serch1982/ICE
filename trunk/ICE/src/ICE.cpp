@@ -109,7 +109,7 @@ bool ICE::frameRenderingQueued(const Ogre::FrameEvent& evt)
 			//	iceState::getInstance()->setState(iceState::NEXT_LEVEL);
 			//else
 				update(evt.timeSinceLastFrame);
-			break;
+			//break;
 		case iceState::PAUSE:
 			iceMenu::getInstance()->update();
 			iceHUD::getInstance()->hide();
@@ -258,7 +258,7 @@ bool ICE::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 	else if( iceState::getInstance()->getState() == iceState::MENU ||
 		iceState::getInstance()->getState() == iceState::PAUSE ) 
 		iceMenu::getInstance()->mouseUp(id);
-	else if( iceState::getInstance()->getState() == iceState::PLAY )
+	else if( iceState::getInstance()->getState() == iceState::PLAY )		
 		if (id==0)	
 		{
 			mPlayer.shot();

@@ -6,10 +6,7 @@ iceRPG::iceRPG(void)
 	mLevel = 1;
 	mExperience = 0;
 	mBaseLife = 10;
-	mBaseArmor = 1;
-	mMachinegunAmmo = MACHINEGUN_RELOAD;
-	mShotgunAmmo = SHOTGUN_RELOAD;
-	mMisileLauncherAmmo = MISILE_LAUNCHER_RELOAD;
+	mBaseArmor = 1;	
 	mBaseAttack = 1;
 	mBaseAccuracy = 1;
 	mBaseManiobrability = 1;
@@ -261,7 +258,7 @@ void iceRPG::shot(void)
 	}
 
 borram:
-	createShotEntity(0,Ogre::Quaternion(0,0,0,0),0,false);
+	createShotEntity(mCurrentWeapon,Ogre::Quaternion(0,0,0,0),0,false);
 }
 
 void iceRPG::addDamage(unsigned int p_iDamage, bool p_bCritic)

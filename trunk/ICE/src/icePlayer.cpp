@@ -42,34 +42,30 @@ bool icePlayer::initialize(Ogre::SceneManager* p_psSceneManager, Ogre::SceneNode
 		setCamera( mSceneManager->createCamera( "PlayerCam" ) );
 
 
-	//Pau * INITIALIZE BULLETS *----------------------------------------------------------------------------------------//
+	//Pau * INITIALIZE BULLETS *----------------------------------------------------------------------------------------//	
 	
+	/* Create parent node of all bullets */
 	mainBulletNode = mSceneManager->getRootSceneNode()->createChildSceneNode("bulletMainNode",Ogre::Vector3( 0, 0, 0 ));		
 	
 	/*Create Machineguns*/
 	int i = 0;
 	
-	for(i = 0; i < MACHINEGUN_RELOAD; i++)
+	for(i = 0; i < BULLET_VECTOR_SIZE; i++)
 	{		
-		mvMachinegunBullets[i].CreateEntities(mSceneManager,mainBulletNode,MACHINEGUN);
-		iceDebugScreen::instance()->updateChivato(9,Ogre::StringConverter::toString(mMachinegunAmmo));
+		mvMachinegunBullets[i].CreateEntities(mSceneManager,mainBulletNode,MACHINEGUN);		
 	}	
 	
 	/*Create Shotguns*/	
-	for(i = 0; i < SHOTGUN_RELOAD; i++)
+	for(i = 0; i < BULLET_VECTOR_SIZE; i++)
 	{		
-		mvShotgunBullets[i].CreateEntities(mSceneManager,mainBulletNode,SHOTGUN);
-		iceDebugScreen::instance()->updateChivato(10,Ogre::StringConverter::toString(mShotgunAmmo));
+		mvShotgunBullets[i].CreateEntities(mSceneManager,mainBulletNode,SHOTGUN);		
 	}
 	
 	/*Create MisileLaunchers*/	
-	for(i = 0; i < MISILE_LAUNCHER_RELOAD; i++)
+	for(i = 0; i < BULLET_VECTOR_SIZE; i++)
 	{
 		mvMisilLauncherBullets[i].CreateEntities(mSceneManager,mainBulletNode,MISILE_LAUNCHER);
-		iceDebugScreen::instance()->updateChivato(11,Ogre::StringConverter::toString(mMisileLauncherAmmo));
-	}
-
-	//iceCounters::instance();
+	}	
 	//----------------------------------------------------------------------------------------------------------------------------//
 
 
@@ -94,6 +90,58 @@ Ogre::Camera* icePlayer::getCamera(){
 void icePlayer::processMouseMoved(const OIS::MouseEvent &arg)
 {
 	cursorNode->translate(((Ogre::Real)-arg.state.X.rel)/30,((Ogre::Real)-arg.state.Y.rel)/30,0);
+	
+	//Pau * CHANGE WEAPON WITH MOUSE WHEEL *-----------------------------------------------------------//	
+	static int iLastZ = 0;
+	int iCurrentZ = 0;
+	bool bWheelUp = false;
+	bool bWheelDown = false;
+
+	/* 1st. Check if wheel has been moved "up" or "down" */
+	iCurrentZ = arg.state.Z.abs;
+	
+	if (iCurrentZ > iLastZ)
+	{
+		bWheelUp = true;
+	}
+	if (iCurrentZ < iLastZ)
+	{
+		bWheelDown = true;
+	}
+
+	/* 2nd. Change weapon */
+	if (bWheelUp)
+	{
+		if (mCurrentWeapon < 2)
+		{
+			mCurrentWeapon ++;						
+		}
+	}
+	if (bWheelDown)
+	{
+		if (mCurrentWeapon > 0)
+		{
+			mCurrentWeapon --;			
+		}
+	}
+
+	/* 3rd. Save last mouse wheel Z position value */
+	iLastZ = iCurrentZ;
+
+	/* 4th. Show current weapon */
+	switch(mCurrentWeapon)
+	{
+		case  MACHINEGUN:
+			iceDebugScreen::instance()->updateChivato(9,"Machinegun");
+			break;
+		case SHOTGUN:
+			iceDebugScreen::instance()->updateChivato(9,"Shotgun");
+			break;
+		case MISILE_LAUNCHER:
+			iceDebugScreen::instance()->updateChivato(9,"Misile launcher");
+			break;
+	}
+	//-------------------------------------------------------------------------------------------------//
 }
 
 void icePlayer::updateShipPosition(Ogre::Real frameTime)
@@ -137,15 +185,15 @@ void icePlayer::update(Ogre::Real p_timeSinceLastFrame)
 	
 	int i=0;
 	
-	for(i = 0; i < MACHINEGUN_RELOAD; i++)
+	for(i = 0; i < BULLET_VECTOR_SIZE; i++)
 	{
 		mvMachinegunBullets[i].Update(p_timeSinceLastFrame);
 	}
-	for(i = 0; i < SHOTGUN_RELOAD; i++)
+	for(i = 0; i < BULLET_VECTOR_SIZE; i++)
 	{
 		mvShotgunBullets[i].Update(p_timeSinceLastFrame);
 	}
-	for(i = 0; i < MISILE_LAUNCHER_RELOAD; i++)
+	for(i = 0; i < BULLET_VECTOR_SIZE; i++)
 	{
 		mvMisilLauncherBullets[i].Update(p_timeSinceLastFrame);
 	}
@@ -158,21 +206,21 @@ void icePlayer::createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation,
 	
 	int i = 0;
 	bool bFreeBulletFound = false;
+	static int iShotSide = 0;	/* One shot is done from the left side of the ship, the next one from the right side, and so on */
 	
 	switch(p_iWeapon)
 	{
 		case MACHINEGUN:
 		
-			while((!bFreeBulletFound)&&(mMachinegunAmmo>0))
+			while(!bFreeBulletFound)
 			{
-				if(mvMachinegunBullets[i].Set(shipNode,p_iDamage,p_bCritic))
+				if(mvMachinegunBullets[i].Set(shipNode,p_iDamage,p_bCritic,iShotSide))
 				{
-					bFreeBulletFound = true;
-					mMachinegunAmmo --;
-					iceDebugScreen::instance()->updateChivato(9,Ogre::StringConverter::toString(mMachinegunAmmo));
+					bFreeBulletFound = true;					
+					
 				}else
 				{		
-					if (i<MACHINEGUN_RELOAD)
+					if (i<BULLET_VECTOR_SIZE)
 					{
 						i++;
 					}
@@ -184,14 +232,13 @@ void icePlayer::createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation,
 		
 			while(!bFreeBulletFound)
 			{
-				if(mvShotgunBullets[i].Set(shipNode,p_iDamage,p_bCritic))
+				if(mvShotgunBullets[i].Set(shipNode,p_iDamage,p_bCritic,iShotSide))
 				{
-					bFreeBulletFound = true;
-					mShotgunAmmo--;
-					iceDebugScreen::instance()->updateChivato(10,Ogre::StringConverter::toString(mShotgunAmmo));
+					bFreeBulletFound = true;					
+					
 				}else
 				{		
-					if (i<SHOTGUN_RELOAD)
+					if (i<BULLET_VECTOR_SIZE)
 					{
 						i++;
 					}
@@ -203,20 +250,31 @@ void icePlayer::createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation,
 		
 			while(!bFreeBulletFound)
 			{
-				if(mvMisilLauncherBullets[i].Set(shipNode,p_iDamage,p_bCritic))
+				if(mvMisilLauncherBullets[i].Set(shipNode,p_iDamage,p_bCritic,iShotSide))
 				{
-					bFreeBulletFound = true;
-					mMisileLauncherAmmo --;
-					iceDebugScreen::instance()->updateChivato(11,Ogre::StringConverter::toString(mMisileLauncherAmmo));
+					bFreeBulletFound = true;					
+					
 				}else
 				{		
-					if (i<MISILE_LAUNCHER_RELOAD)
+					if (i<BULLET_VECTOR_SIZE)
 					{
 						i++;
 					}
 				}
 			}
 			break;
+	}
+
+	/* Change next shot side */
+	if(bFreeBulletFound)
+	{
+		if(iShotSide == 0)
+		{
+			iShotSide = 1;
+		}else	
+		{
+			iShotSide = 0;
+		}
 	}
 	//-------------------------------------------------------------------------------------------------//
 

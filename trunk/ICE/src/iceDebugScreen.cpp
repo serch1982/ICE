@@ -34,9 +34,8 @@ void iceDebugScreen::setupChivato(Ogre::RenderWindow* mWindow, OIS::Mouse* mMous
     items.push_back("cam.oZ");					// 6
     items.push_back("Poly Mode");				// 7
 	items.push_back("test LUA");				// 8
-	items.push_back("Machinegun Ammo");			// 9
-	items.push_back("Shotgun Ammo");			// 10
-	items.push_back("Misile launcher Ammo");	// 11
+	items.push_back("Weapon");					// 9
+	
 	/*
 		here you can add your custom chivato like items.push_back("mycustomchivato"); 
 	*/

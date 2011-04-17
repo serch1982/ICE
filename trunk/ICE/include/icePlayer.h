@@ -59,9 +59,9 @@ class icePlayer : public iceTrajectoryFollower, public iceRPG
 		Ogre::SceneNode *mainBulletNode;
 
 		/*Bullet vectors depending on the weapon kind*/
-		iceBullet mvMachinegunBullets[MACHINEGUN_RELOAD];
-		iceBullet mvShotgunBullets[SHOTGUN_RELOAD];
-		iceBullet mvMisilLauncherBullets[MISILE_LAUNCHER_RELOAD];
+		iceBullet mvMachinegunBullets[BULLET_VECTOR_SIZE];
+		iceBullet mvShotgunBullets[BULLET_VECTOR_SIZE];
+		iceBullet mvMisilLauncherBullets[BULLET_VECTOR_SIZE];
 		//--------------------------------------------------------------//
 };
 

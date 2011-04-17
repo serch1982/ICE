@@ -19,7 +19,7 @@ iceBullet(void);
 	virtual ~iceBullet(void);
 
 	void CreateEntities(Ogre::SceneManager* sceneMgr, Ogre::SceneNode* bulletNode, int p_iWeapon);
-	bool Set(Ogre::SceneNode* shipNode,Ogre::Real p_iDamage, bool p_bCritic);	/* Returns true when a bullet is set to active status*/
+	bool Set(Ogre::SceneNode* shipNode,Ogre::Real p_iDamage, bool p_bCritic, int p_iShotSide);	/* Returns true when a bullet is set to active status*/
 	
 	void Update(Ogre::Real timeSinceLastFrame);
 
