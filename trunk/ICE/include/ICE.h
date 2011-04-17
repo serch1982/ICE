@@ -19,6 +19,7 @@
 #include <OgreLogManager.h>
 #include <stdlib.h>
 #include "iceHUD.h"
+#include "icePhysicsMgr.h"
 
 class ICE : public CORE
 {
@@ -30,7 +31,9 @@ protected:
 	virtual bool setup();
     virtual void createScene(void);
 	
+	virtual bool frameStarted( const Ogre::FrameEvent& evt);
 	virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
+	virtual bool frameEnded( const Ogre::FrameEvent& evt); 
 	
 	// OIS::KeyListener
     virtual bool keyPressed( const OIS::KeyEvent &arg );
@@ -44,11 +47,16 @@ protected:
 	//void updateCameras(const Ogre::FrameEvent& evt);
 
 private:
+	// Levels of the game
 	std::vector<icePhase*> mPhases;
+	// Player
 	icePlayer mPlayer;
+	// Game Log
 	Ogre::Log* mGameLog;
-
+	// Current level
 	int m_iCurrentPhase;
+	// Physical World
+	icePhysicsMgr* mPhysics;
 
 	void update( Ogre::Real p_timeSinceLastFrame );
 };

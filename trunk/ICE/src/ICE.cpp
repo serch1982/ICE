@@ -12,6 +12,8 @@ ICE::~ICE(void)
 {
 	for(unsigned int i=0;i<mPhases.size();i++)
 		delete mPhases[i];
+
+	delete mPhysics;
 }
 
 bool ICE::setup()
@@ -37,7 +39,8 @@ bool ICE::setup()
 		std::string path = std::string(pathRoot) + "\\logiclua.lua";
 		iceLogicLua::getInstance()->RunFile(path.c_str());  
 
-		
+		mPhysics = new icePhysicsMgr();
+		mPhysics->init( mSceneMgr );
 	}
 
 	return true;
@@ -56,6 +59,8 @@ void ICE::createScene(void)
 
 	setCurrentCamera( mPlayer.getCamera() );
 
+	mPhysics->setLevel( m_iCurrentPhase );
+	mPhysics->addPlayer( mPlayer );
 	//set the HUD
 	iceHUD::getInstance()->setupHUD(".\\media", "HUD.swf", mCurrentCamera->getViewport());
 }
@@ -64,6 +69,20 @@ void ICE::createScene(void)
 void ICE::setCurrentCamera( Ogre::Camera* p_pNewCamera ){
 	mCurrentCamera = p_pNewCamera;
 	mWindow->getViewport(0)->setCamera(mCurrentCamera);
+}
+
+bool ICE::frameStarted(const Ogre::FrameEvent& evt ){
+	if( iceState::getInstance()->getState() == iceState::PLAY ){
+		mPhysics->update( evt.timeSinceLastFrame );
+	}
+	return true;
+}
+
+bool ICE::frameEnded(const Ogre::FrameEvent& evt ){
+	if( iceState::getInstance()->getState() == iceState::PLAY ){
+		mPhysics->update( evt.timeSinceLastFrame );
+	}
+	return true;
 }
 
 bool ICE::frameRenderingQueued(const Ogre::FrameEvent& evt)

@@ -4,17 +4,30 @@
 #include "OgreBulletDynamicsRigidBody.h"
 #include "Ogre.h"
 #include <deque>
+#include "OgreAxisAlignedBox.h"
+#include "OgreSceneNode.h"
+#include "icePlayer.h"
 
 class icePhysicsMgr{
 
-	icePhysicsMgr( Ogre::SceneManager* p_SceneMgr, Ogre::Vector3 &gravityVector, Ogre::AxisAlignedBox &bounds );
+public:
 	icePhysicsMgr();
 	~icePhysicsMgr();
 
+	// init the world
+	void init( Ogre::SceneManager* p_SceneMgr, 
+		Ogre::Vector3 &gravityVector = Ogre::Vector3( 0,-9.81,0), 
+		Ogre::AxisAlignedBox &bounds = Ogre::AxisAlignedBox(
+								Ogre::Vector3 (-10000, -10000, -10000),
+								Ogre::Vector3 (10000,  10000,  10000)) );
 	// SetLevel
-	void setLevel();
+	void setLevel( int p_iCurrentPhase );
+	// Add player to physics world
+	void icePhysicsMgr::addPlayer( icePlayer& pPlayer );
 	// Reset Physics world
 	void reset();
+	// Update
+	void update( Ogre::Real time );
 
 private:
 	Ogre::SceneManager* mSceneMgr;
