@@ -8,7 +8,7 @@
 class iceDebugScreen
 {
 public:
-	static iceDebugScreen* instance();
+	static iceDebugScreen* getInstance();
 	~iceDebugScreen();
 
 	//Methods
@@ -20,6 +20,9 @@ public:
     void hideChivatos();
     void showChivatos();
     bool isDialogVisible();
+	void showCursor();
+	void hideCursor();  
+	void moveMouse(const OIS::MouseEvent &evt);
 protected:
 	iceDebugScreen();
 

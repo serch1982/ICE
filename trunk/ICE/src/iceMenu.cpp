@@ -29,7 +29,6 @@ bool iceMenu::setupHikari(char* path, char* name, Ogre::Viewport* mViewport)
 		hikariMenu->bind("menuExitClick", Hikari::FlashDelegate(this, &iceMenu::menuExitClick));
 		hikariMenu->bind("menuPlayClick", Hikari::FlashDelegate(this, &iceMenu::menuPlayClick));
 		hikariMenu->bind("menuContinueClick", Hikari::FlashDelegate(this, &iceMenu::menuContinueClick));
-		ShowCursor(true);
 		return true;
 	}catch(char* ex) {
 		mGameLog->logMessage(ex);
@@ -46,7 +45,6 @@ Hikari::FlashValue iceMenu::menuExitClick(Hikari::FlashControl* caller, const Hi
 
 Hikari::FlashValue iceMenu::menuPlayClick(Hikari::FlashControl* caller, const Hikari::Arguments& args)
 {
-	ShowCursor(false);
 	hikariMenu->callFunction("inGame",Hikari::Args(true));
 	iceState::getInstance()->setState( iceState::LOAD_LEVEL );
 	hikariMenu->hide();
@@ -55,7 +53,6 @@ Hikari::FlashValue iceMenu::menuPlayClick(Hikari::FlashControl* caller, const Hi
 
 Hikari::FlashValue iceMenu::menuContinueClick(Hikari::FlashControl* caller, const Hikari::Arguments& args)
 {
-	ShowCursor(false);
 	hikariMenu->callFunction("inGame",Hikari::Args(true));
 	iceState::getInstance()->setState( iceState::CONTINUE );
 	hikariMenu->hide();
@@ -63,12 +60,10 @@ Hikari::FlashValue iceMenu::menuContinueClick(Hikari::FlashControl* caller, cons
 }
 
 void iceMenu::show(){
-	ShowCursor(true);
 	hikariMenu->show();
 }
 
 void iceMenu::hide(){
-	ShowCursor(false);
 	hikariMenu->hide();
 }
 

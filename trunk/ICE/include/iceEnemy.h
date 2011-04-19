@@ -18,7 +18,8 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG
 			FOLLOWING_TRAJECTORY = 1,
 			GOING_TO_PLAYER = 2,
 			DEADING = 3,
-			INACTIVE = 4
+			DEAD = 4,
+			INACTIVE = 5
 		};
 
 		void setState(ENEMYSTATE p_iState);

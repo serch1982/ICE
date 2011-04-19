@@ -102,17 +102,18 @@ bool ICE::frameRenderingQueued(const Ogre::FrameEvent& evt)
 	//Game state
 	switch( iceState::getInstance()->getState() ){
 		case iceState::MENU:
+			iceDebugScreen::getInstance()->showCursor();
 			// Update the MENU
 			iceMenu::getInstance()->update();			
 			break;
 		case iceState::PLAY:
 			// Playing the game
-			ShowCursor(false);
-			//if(mPhases[m_iCurrentPhase]->isPhaseEnded())
-			//	iceState::getInstance()->setState(iceState::NEXT_LEVEL);
-			//else
+			iceDebugScreen::getInstance()->hideCursor();
+			if(mPhases[m_iCurrentPhase]->isPhaseEnded())
+				iceState::getInstance()->setState(iceState::NEXT_LEVEL);
+			else
 				update(evt.timeSinceLastFrame, m_bShooting);
-			//break;
+			break;
 		case iceState::PAUSE:
 			iceMenu::getInstance()->update();
 			iceHUD::getInstance()->hide();			
@@ -233,8 +234,10 @@ bool ICE::mouseMoved( const OIS::MouseEvent &arg )
 	if( iceState::getInstance()->getState() == iceState::GOD )
 		mCameraMan->injectMouseMove(arg);
 	else if( iceState::getInstance()->getState() == iceState::MENU || 
-		iceState::getInstance()->getState() == iceState::PAUSE )
+		iceState::getInstance()->getState() == iceState::PAUSE ){
+		iceDebugScreen::getInstance()->moveMouse(arg);
 		iceMenu::getInstance()->mouseMoved(arg);
+	}
 	else if( iceState::getInstance()->getState() == iceState::PLAY )
 		mPlayer.processMouseMoved(arg);
     return ret;

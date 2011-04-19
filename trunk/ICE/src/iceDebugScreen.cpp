@@ -1,7 +1,7 @@
 #include "iceDebugScreen.h"
 
 iceDebugScreen* iceDebugScreen::pinstance = 0;
-iceDebugScreen* iceDebugScreen::instance(){
+iceDebugScreen* iceDebugScreen::getInstance(){
 	if (pinstance == 0)
           pinstance = new iceDebugScreen;
         return pinstance;
@@ -21,7 +21,7 @@ void iceDebugScreen::setupChivato(Ogre::RenderWindow* mWindow, OIS::Mouse* mMous
 	Ogre::WindowEventUtilities::addWindowEventListener(mWindow, winListener);
 
     mTrayMgr = new OgreBites::SdkTrayManager("InterfaceName", mWindow, mMouse, sdkListener);
-    mTrayMgr->hideCursor();
+    mTrayMgr->showCursor();
 
 	// my chivatos
     Ogre::StringVector items;
@@ -89,4 +89,16 @@ void iceDebugScreen::showChivatos(){
 
 bool iceDebugScreen::isDialogVisible(){
     return mTrayMgr->isDialogVisible();
+}
+
+void iceDebugScreen::showCursor(){
+    mTrayMgr->showCursor();
+}
+
+void iceDebugScreen::hideCursor(){
+    mTrayMgr->hideCursor();
+}
+
+void iceDebugScreen::moveMouse(const OIS::MouseEvent &evt){
+	mTrayMgr->injectMouseMove(evt);
 }

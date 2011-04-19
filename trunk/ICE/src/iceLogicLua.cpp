@@ -147,7 +147,8 @@ void iceLogicLua::bindLuaObjects(){
 				luabind::value("FOLLOWING_TRAJECTORY",1),
 				luabind::value("GOING_TO_PLAYER",2),
 				luabind::value("DEADING",3),
-				luabind::value("INACTIVE",4)
+				luabind::value("DEAD",4),
+				luabind::value("INACTIVE",5)
 			]
 		    .def("getState", (iceEnemy::ENEMYSTATE( iceEnemy::*)(void)) &iceEnemy::getState)
 	];

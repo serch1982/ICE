@@ -11,6 +11,7 @@ iceHUD* iceHUD::getInstance(){
 
 
 iceHUD::iceHUD(void){
+	isLoad = false;
 	mGameLog = Ogre::LogManager::getSingleton().createLog("iceLog.log", false, false, false );
 }
 
@@ -21,10 +22,13 @@ iceHUD::~iceHUD(void){
 bool iceHUD::setupHUD(char* path, char* name, Ogre::Viewport* mViewport)
 {
 	try{
-		hikariMgrHUD = iceMenu::getInstance()->getHikariManager(); 
-		hikariHUD = hikariMgrHUD->createFlashOverlay("HUD", mViewport, mViewport->getActualWidth(), mViewport->getActualHeight(), Hikari::Position(Hikari::Center));
-		hikariHUD->load(name); 
-		hikariHUD->setTransparent(true, true);
+		if(!isLoad){
+			hikariMgrHUD = iceMenu::getInstance()->getHikariManager(); 
+			hikariHUD = hikariMgrHUD->createFlashOverlay("HUD", mViewport, mViewport->getActualWidth(), mViewport->getActualHeight(), Hikari::Position(Hikari::Center));
+			hikariHUD->load(name); 
+			hikariHUD->setTransparent(true, true);
+			isLoad = true;
+		}
 		return true;
 	}catch(char* ex) {
 		mGameLog->logMessage(ex);

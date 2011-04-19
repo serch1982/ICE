@@ -29,6 +29,7 @@ public:
 protected:
 	  iceHUD();
 private:
+	bool isLoad;
 	static iceHUD* pinstance;
 	Hikari::HikariManager *hikariMgrHUD;
 	Hikari::FlashControl  *hikariHUD;

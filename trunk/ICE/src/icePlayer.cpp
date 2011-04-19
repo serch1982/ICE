@@ -126,13 +126,13 @@ void icePlayer::changeWeapon(const OIS::MouseEvent &arg)
 	switch(mCurrentWeapon)
 	{
 		case  MACHINEGUN:
-			iceDebugScreen::instance()->updateChivato(9,"Machinegun");
+			iceDebugScreen::getInstance()->updateChivato(9,"Machinegun");
 			break;
 		case SHOTGUN:
-			iceDebugScreen::instance()->updateChivato(9,"Shotgun");
+			iceDebugScreen::getInstance()->updateChivato(9,"Shotgun");
 			break;
 		case MISILE_LAUNCHER:
-			iceDebugScreen::instance()->updateChivato(9,"Misile launcher");
+			iceDebugScreen::getInstance()->updateChivato(9,"Misile launcher");
 			break;
 	}
 	
