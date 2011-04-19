@@ -86,12 +86,10 @@ void icePlayer::setCamera(Ogre::Camera* camera)
 Ogre::Camera* icePlayer::getCamera(){
 	return playerCamera;
 }
-
-void icePlayer::processMouseMoved(const OIS::MouseEvent &arg)
+void icePlayer::changeWeapon(const OIS::MouseEvent &arg)
 {
-	cursorNode->translate(((Ogre::Real)-arg.state.X.rel)/30,((Ogre::Real)-arg.state.Y.rel)/30,0);
-	
-	//Pau * CHANGE WEAPON WITH MOUSE WHEEL *-----------------------------------------------------------//	
+	/* Pau * CHANGEWEAPON WITH MOUSE WHEEL */
+
 	static int iLastZ = 0;
 	int iCurrentZ = 0;
 	bool bWheelUp = false;
@@ -112,17 +110,13 @@ void icePlayer::processMouseMoved(const OIS::MouseEvent &arg)
 	/* 2nd. Change weapon */
 	if (bWheelUp)
 	{
-		if (mCurrentWeapon < 2)
-		{
-			mCurrentWeapon ++;						
-		}
+		if (mCurrentWeapon < 2)  {mCurrentWeapon ++;}
+		else if (mCurrentWeapon == 2) {mCurrentWeapon = 0;}
 	}
 	if (bWheelDown)
 	{
-		if (mCurrentWeapon > 0)
-		{
-			mCurrentWeapon --;			
-		}
+		if (mCurrentWeapon > 0)  {mCurrentWeapon --;}
+		else if (mCurrentWeapon == 0) {mCurrentWeapon = 2;}
 	}
 
 	/* 3rd. Save last mouse wheel Z position value */
@@ -141,7 +135,12 @@ void icePlayer::processMouseMoved(const OIS::MouseEvent &arg)
 			iceDebugScreen::instance()->updateChivato(9,"Misile launcher");
 			break;
 	}
-	//-------------------------------------------------------------------------------------------------//
+	
+}
+void icePlayer::processMouseMoved(const OIS::MouseEvent &arg)
+{
+	cursorNode->translate(((Ogre::Real)-arg.state.X.rel)/30,((Ogre::Real)-arg.state.Y.rel)/30,0);		
+	changeWeapon(arg); /* Pau * Change weapon with mouse wheel */
 }
 
 void icePlayer::updateShipPosition(Ogre::Real frameTime)
@@ -168,21 +167,8 @@ void icePlayer::updateShipPosition(Ogre::Real frameTime)
 	shipNode->yaw(Ogre::Radian(atan(x/z)));
 	shipNode->pitch(-Ogre::Radian(atan(y/z)));
 }
-
-void icePlayer::finalize()
+void icePlayer::updateActiveBullets(Ogre::Real p_timeSinceLastFrame)
 {
-
-}
-
-void icePlayer::update(Ogre::Real p_timeSinceLastFrame)
-{
-	iceTrajectoryFollower::update(p_timeSinceLastFrame);
-	updateShipPosition(p_timeSinceLastFrame);
-	iceRPG::update(p_timeSinceLastFrame);
-	addExperience(1000);
-	
-	//Pau * UPDATE ACTIVE BULLETS *-----------------------------------------------------------------------//
-	
 	int i=0;
 	
 	for(i = 0; i < BULLET_VECTOR_SIZE; i++)
@@ -197,7 +183,21 @@ void icePlayer::update(Ogre::Real p_timeSinceLastFrame)
 	{
 		mvMisilLauncherBullets[i].Update(p_timeSinceLastFrame);
 	}
-	//-------------------------------------------------------------------------------------------------//
+	
+}
+void icePlayer::finalize()
+{
+
+}
+
+void icePlayer::update(Ogre::Real p_timeSinceLastFrame,bool Shooting)
+{
+	iceTrajectoryFollower::update(p_timeSinceLastFrame);
+	updateShipPosition(p_timeSinceLastFrame);
+	iceRPG::update(p_timeSinceLastFrame);
+	addExperience(1000);	
+	if (Shooting){shot();}						/* Pau */
+	updateActiveBullets(p_timeSinceLastFrame);	/* Pau */
 }
 
 void icePlayer::createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation, Ogre::Real p_iDamage, bool p_bCritic)
@@ -220,9 +220,12 @@ void icePlayer::createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation,
 					
 				}else
 				{		
-					if (i<BULLET_VECTOR_SIZE)
+					if (i<BULLET_VECTOR_SIZE-1)
 					{
 						i++;
+					}else					
+					{
+						bFreeBulletFound = true;	/* All bullets have been shooted. Avoid game error */
 					}
 				}
 			}
@@ -238,9 +241,12 @@ void icePlayer::createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation,
 					
 				}else
 				{		
-					if (i<BULLET_VECTOR_SIZE)
+					if (i<BULLET_VECTOR_SIZE-1)
 					{
 						i++;
+					}else					
+					{
+						bFreeBulletFound = true;	/* All bullets have been shooted. Avoid game error */
 					}
 				}
 			}
@@ -256,9 +262,12 @@ void icePlayer::createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation,
 					
 				}else
 				{		
-					if (i<BULLET_VECTOR_SIZE)
+					if (i<BULLET_VECTOR_SIZE-1)
 					{
 						i++;
+					}else					
+					{
+						bFreeBulletFound = true;	/* All bullets have been shooted. Avoid game error */
 					}
 				}
 			}

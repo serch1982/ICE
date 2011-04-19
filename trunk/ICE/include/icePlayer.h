@@ -28,13 +28,15 @@ class icePlayer : public iceTrajectoryFollower, public iceRPG
 		void setCamera(Ogre::Camera* camera);
 		Ogre::Camera* getCamera();
 		void processMouseMoved(const OIS::MouseEvent &arg);
-		void update(Ogre::Real p_timeSinceLastFrame);
+		void update(Ogre::Real p_timeSinceLastFrame,bool Shooting);
 
 		void finalize();
 
 	protected:
 
 		void updateShipPosition(Ogre::Real frameTime);
+		void updateActiveBullets(Ogre::Real p_timeSinceLastFrame);
+		void changeWeapon(const OIS::MouseEvent &arg);
 		//iceRPG
 		virtual void createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation, Ogre::Real p_iDamage, bool p_bCritic); 
 		virtual void showReceivedDamage(Ogre::Real p_iDamage, bool p_bCritical);

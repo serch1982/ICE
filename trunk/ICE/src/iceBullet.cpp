@@ -31,7 +31,7 @@ void iceBullet::CreateEntities(Ogre::SceneManager* sceneMgr, Ogre::SceneNode* bu
 			msbulletNode->attachObject(Shot_MachineGun);
 			msbulletNode->setVisible(false);
 			msbulletNode->scale(.002,.002,.01);
-			miSpeed = 650;			
+			miSpeed = 1750;			
 		}
 		if (p_iWeapon == 1)
 		{			
@@ -39,7 +39,7 @@ void iceBullet::CreateEntities(Ogre::SceneManager* sceneMgr, Ogre::SceneNode* bu
 			msbulletNode->attachObject(Shot_ShotGun);
 			msbulletNode->setVisible(false);
 			msbulletNode->scale(.004,.004,.02);
-			miSpeed = 600;			
+			miSpeed = 1700;			
 		}			
 		if (p_iWeapon == 2)
 		{			
@@ -47,7 +47,7 @@ void iceBullet::CreateEntities(Ogre::SceneManager* sceneMgr, Ogre::SceneNode* bu
 			msbulletNode->attachObject(Shot_MisileLauncher);
 			msbulletNode->setVisible(false);
 			msbulletNode->scale(.008,.008,.04);
-			miSpeed = 700;			
+			miSpeed = 1800;			
 		}		
 }
 bool iceBullet::Set(Ogre::SceneNode* shipNode,Ogre::Real p_iDamage, bool p_bCritic,int p_iShotSide)

@@ -9,7 +9,7 @@
 #include <OgrePrerequisites.h>
 
 
-#define MAX_TIME_ACTIVE	  50	// Maximum time that the bullet can fly without having been crashed
+#define MAX_TIME_ACTIVE	  5	// Maximum time that the bullet can fly without having been crashed
 
 class iceBullet
 {

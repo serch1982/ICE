@@ -5,7 +5,7 @@
 //-------------------------------------------------------------------------------------
 ICE::ICE(void)
 {
-
+	m_bShooting = false;
 }
 //-------------------------------------------------------------------------------------
 ICE::~ICE(void)
@@ -95,12 +95,15 @@ bool ICE::frameRenderingQueued(const Ogre::FrameEvent& evt)
 
     if(mShutDown)
         return false;
+
+	// Pau * Shoot control
+	if (iceState::getInstance()->getState()!=iceState::PLAY) {m_bShooting = false;}
 	
 	//Game state
 	switch( iceState::getInstance()->getState() ){
 		case iceState::MENU:
 			// Update the MENU
-			iceMenu::getInstance()->update();
+			iceMenu::getInstance()->update();			
 			break;
 		case iceState::PLAY:
 			// Playing the game
@@ -108,33 +111,33 @@ bool ICE::frameRenderingQueued(const Ogre::FrameEvent& evt)
 			//if(mPhases[m_iCurrentPhase]->isPhaseEnded())
 			//	iceState::getInstance()->setState(iceState::NEXT_LEVEL);
 			//else
-				update(evt.timeSinceLastFrame);
+				update(evt.timeSinceLastFrame, m_bShooting);
 			//break;
 		case iceState::PAUSE:
 			iceMenu::getInstance()->update();
-			iceHUD::getInstance()->hide();
+			iceHUD::getInstance()->hide();			
 			break;
 		case iceState::CONTINUE:
 			//The main idea is to come back playing from a PAUSE state
-			iceState::getInstance()->setState( iceState::PLAY );
+			iceState::getInstance()->setState( iceState::PLAY );			
 			break;
 		case iceState::NEXT_LEVEL:
 			// Load resources from a level and change state to play
 			m_iCurrentPhase++;
-			iceState::getInstance()->setState( iceState::LOAD_LEVEL );
+			iceState::getInstance()->setState( iceState::LOAD_LEVEL );			
 			break;
 		case iceState::LOAD_LEVEL:
 			// Load resources from a level and change state to play
 			mSceneMgr->clearScene();
 			createScene();
-			iceState::getInstance()->setState( iceState::PLAY );
+			iceState::getInstance()->setState( iceState::PLAY );			
 			break;
 		case iceState::GAME_OVER:
-			// Ending Condition.
+			// Ending Condition.			
 			break;
 		case iceState::GOD:
 			// God mode
-			mCameraMan->frameRenderingQueued(evt);
+			mCameraMan->frameRenderingQueued(evt);			
 			break;
 		case iceState::EXIT:
 			return false;
@@ -146,9 +149,9 @@ bool ICE::frameRenderingQueued(const Ogre::FrameEvent& evt)
     return true;
 }
 
-void ICE::update( Ogre::Real p_timeSinceLastFrame )
+void ICE::update( Ogre::Real p_timeSinceLastFrame, bool Shooting )
 {
-	mPlayer.update(p_timeSinceLastFrame);
+	mPlayer.update(p_timeSinceLastFrame,Shooting);
 	mPhases[m_iCurrentPhase]->update(p_timeSinceLastFrame);
 
 	iceHUD::getInstance()->update();
@@ -246,6 +249,8 @@ bool ICE::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 	else if( iceState::getInstance()->getState() == iceState::MENU ||
 		iceState::getInstance()->getState() == iceState::PAUSE ) 
 		iceMenu::getInstance()->mouseDown(id);
+	else if( iceState::getInstance()->getState() == iceState::PLAY )		
+		if (id==0){m_bShooting = true;}
     return true;
 }
 
@@ -259,10 +264,8 @@ bool ICE::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 		iceState::getInstance()->getState() == iceState::PAUSE ) 
 		iceMenu::getInstance()->mouseUp(id);
 	else if( iceState::getInstance()->getState() == iceState::PLAY )		
-		if (id==0)	
-		{
-			mPlayer.shot();
-		}
+		if (id==0){m_bShooting = false;}
+
     return true;
 }
 

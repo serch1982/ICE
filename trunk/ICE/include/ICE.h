@@ -57,8 +57,10 @@ private:
 	int m_iCurrentPhase;
 	// Physical World
 	icePhysicsMgr* mPhysics;
+	// Shot mouse button status in iceState::PLAY
+	bool m_bShooting;
 
-	void update( Ogre::Real p_timeSinceLastFrame );
+	void update( Ogre::Real p_timeSinceLastFrame, bool Shooting );
 };
 
 #endif // #ifndef __ICE_H_
