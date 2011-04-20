@@ -23,6 +23,7 @@ void iceDebugScreen::setupChivato(Ogre::RenderWindow* mWindow, OIS::Mouse* mMous
     mTrayMgr = new OgreBites::SdkTrayManager("InterfaceName", mWindow, mMouse, sdkListener);
     mTrayMgr->showCursor();
 
+
 	// my chivatos
     Ogre::StringVector items;
     items.push_back("cam.pX");					// 0

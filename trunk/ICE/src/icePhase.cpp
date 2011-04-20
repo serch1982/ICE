@@ -2,7 +2,6 @@
 #include "iceStep.h"
 
 #include <scene\DotSceneLoader.h>
-#include "scene/ConfigScriptLoader.h"
 #include <OgreQuaternion.h>
 #include <stdlib.h>
 #include <vector>
@@ -16,8 +15,9 @@ icePhase::icePhase()
 
 icePhase::~icePhase()
 {
-	delete ConfigScriptLoader::getSingletonPtr();
-//	delete mTrajectory;
+	//Deleting enemies
+	for (unsigned int i=0;i<mEnemies.size();i++)
+		delete mEnemies[i];
 }
 
 bool icePhase::initialize()
@@ -25,8 +25,15 @@ bool icePhase::initialize()
 	return true;
 }
 
-void icePhase::finalize(){
+void icePhase::finalize()
+{
 
+}
+
+void icePhase::update(Ogre::Real p_timeSinceLastFrame)
+{
+	for (unsigned int i=0;i<mEnemies.size();i++)
+		mEnemies[i]->update(p_timeSinceLastFrame);
 }
 
 bool icePhase::createScene( Ogre::SceneManager* p_SceneMgr, icePlayer* p_psPlayer )

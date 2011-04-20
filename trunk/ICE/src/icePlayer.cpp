@@ -200,7 +200,8 @@ void icePlayer::update(Ogre::Real p_timeSinceLastFrame,bool Shooting)
 	updateActiveBullets(p_timeSinceLastFrame);	/* Pau */
 }
 
-void icePlayer::createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation, Ogre::Real p_iDamage, bool p_bCritic)
+void icePlayer::createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation, unsigned int p_iDamage, bool p_bCritic)
+
 {
 	//Pau * ACTIVATE THE FIRST FREE BULLET OF THE CURRENT WEAPON*-------------------------------------------------------------//
 	
@@ -289,12 +290,12 @@ void icePlayer::createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation,
 
 }
 
-void icePlayer::showReceivedDamage(Ogre::Real p_iDamage, bool p_bCritical)
+void icePlayer::showReceivedDamage(unsigned int p_iDamage, bool p_bCritical)
 {
 	iceCounters::instance()->addReceivedDamage(p_iDamage);
 }
 
-void icePlayer::showShieldDamage(Ogre::Real p_iDamage, bool p_bCritical)
+void icePlayer::showShieldDamage(unsigned int p_iDamage, bool p_bCritical)
 {
 }
 

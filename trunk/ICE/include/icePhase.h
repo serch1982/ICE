@@ -9,6 +9,7 @@
 #include <OgreCamera.h>
 #include <vector>
 #include "iceState.h"
+#include "iceEnemy.h"
 
 class icePhase
 {
@@ -18,7 +19,7 @@ class icePhase
 
 		bool initialize();
 		void finalize();
-		virtual void update(Ogre::Real p_timeSinceLastFrame) = 0;
+		virtual void update(Ogre::Real p_timeSinceLastFrame);
 
 		virtual bool createScene( Ogre::SceneManager* p_SceneMgr, icePlayer* p_psPlayer );
 		Ogre::Camera* getCamera( int p_iIndex );
@@ -32,6 +33,9 @@ class icePhase
 		vector<Ogre::Camera*> mvCameras;
 		Ogre::SceneManager* mSceneManager;
 		icePlayer* mPlayer;
+
+		//Enemies
+		vector<iceEnemy*> mEnemies;
 };
 
 #endif

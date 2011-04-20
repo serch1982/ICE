@@ -25,8 +25,6 @@ class icePhase1 : public icePhase
 
 	private:
 		void setCameras(void);
-
-		iceEnemy mEnemy;
 };
 
 #endif

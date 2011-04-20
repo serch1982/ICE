@@ -24,8 +24,8 @@ public:
 	unsigned int getExperience(void);
 	unsigned int getMaxLife(void);
 	unsigned int getCurrentLife(void);
-	Ogre::Real getArmor(void);
-	Ogre::Real getAttack(void);
+	unsigned int getArmor(void);
+	unsigned int getAttack(void);
 	Ogre::Real getAccuracy(void);
 	Ogre::Real getManiobrability(void);
 	//unsigned int getCadence(void);
@@ -44,8 +44,7 @@ public:
 	//other methods
 	void levelUp(void);
 	void addExperience(unsigned int p_iExperience);
-	//void addDamage(Ogre::Real p_iDamage); //Raw damage, the enemy attack
-	void addLife(Ogre::Real p_iLife);
+	void addLife(unsigned int p_iLife);
 
 	bool isAlive(void);
 	virtual void update(Ogre::Real p_fFrameTime);
@@ -53,9 +52,9 @@ public:
 	void addDamage(unsigned int p_iDamage, bool p_bCritic);
 
 	//this methods must be overridden
-	virtual void createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation, Ogre::Real p_iDamage, bool p_bCritic) =0; 
-	virtual void showReceivedDamage(Ogre::Real p_iDamage, bool p_bCritical) =0;
-	virtual void showShieldDamage(Ogre::Real p_iDamage, bool p_bCritical) =0;
+	virtual void createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation, unsigned int p_iDamage, bool p_bCritic) =0; 
+	virtual void showReceivedDamage(unsigned int p_iDamage, bool p_bCritical) =0;
+	virtual void showShieldDamage(unsigned int p_iDamage, bool p_bCritical) =0;
 	virtual void showFail(void) =0;
 	virtual void showLevelUp(unsigned int p_iLevel) =0;
 

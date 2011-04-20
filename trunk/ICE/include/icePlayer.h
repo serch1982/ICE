@@ -38,9 +38,9 @@ class icePlayer : public iceTrajectoryFollower, public iceRPG
 		void updateActiveBullets(Ogre::Real p_timeSinceLastFrame);
 		void changeWeapon(const OIS::MouseEvent &arg);
 		//iceRPG
-		virtual void createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation, Ogre::Real p_iDamage, bool p_bCritic); 
-		virtual void showReceivedDamage(Ogre::Real p_iDamage, bool p_bCritical);
-		virtual void showShieldDamage(Ogre::Real p_iDamage, bool p_bCritical);
+		virtual void createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation, unsigned int p_iDamage, bool p_bCritic); 
+		virtual void showReceivedDamage(unsigned int p_iDamage, bool p_bCritical);
+		virtual void showShieldDamage(unsigned int p_iDamage, bool p_bCritical);
 		virtual void showFail(void);
 		virtual void showLevelUp(unsigned int p_iLevel);
 

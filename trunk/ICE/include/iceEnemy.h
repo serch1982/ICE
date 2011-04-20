@@ -22,28 +22,42 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG
 			INACTIVE = 5
 		};
 
+		//Enemy Types
+		enum ENEMYTYPE
+		{
+			MINIMAGMATON = 0,
+			KAMIKAZE = 1,
+			INTELLIGENT = 2,
+			VOLCANO = 3,
+			MAGMATON = 4
+		};
+
 		void setState(ENEMYSTATE p_iState);
 		int getState(void);
 
 		void setPlayer(icePlayer* p_psPlayer);
 			
-		bool initialize(Ogre::SceneManager* p_psSceneManager, icePlayer* p_psPlayer);
+		bool initialize(Ogre::SceneManager* p_psSceneManager, icePlayer* p_psPlayer, Ogre::Real p_fActivationTime, const ENEMYTYPE p_Type = MINIMAGMATON, const bool p_isAttachedToPlayer = false);
 		void finalize();
 		void update(Ogre::Real p_timeSinceLastFrame);
 		void activate(void);
+		bool checkActivationTime(Ogre::Real p_timeSinceLastFrame);
 
 		//iceRPG
-		virtual void createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation, Ogre::Real p_iDamage, bool p_bCritic); 
-		virtual void showReceivedDamage(Ogre::Real p_iDamage, bool p_bCritical);
-		virtual void showShieldDamage(Ogre::Real p_iDamage, bool p_bCritical);
+		virtual void createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation, unsigned int p_iDamage, bool p_bCritic); 
+		virtual void showReceivedDamage(unsigned int p_iDamage, bool p_bCritical);
+		virtual void showShieldDamage(unsigned int p_iDamage, bool p_bCritical);
 		virtual void showFail(void);
 		virtual void showLevelUp(unsigned int p_iLevel);
 	
 	protected:
 		static Ogre::NameGenerator mNameGenerator;
 
+		ENEMYTYPE mType;
 		ENEMYSTATE mState;
 		icePlayer* mPlayer;
+		Ogre::Real mCurrentTime;
+		Ogre::Real mActivationTime;
 };
 
 #endif

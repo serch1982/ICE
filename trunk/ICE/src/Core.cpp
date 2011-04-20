@@ -27,7 +27,7 @@ CORE::CORE(void)
 CORE::~CORE(void)
 {
     if (mCameraMan) delete mCameraMan;
-
+	delete ConfigScriptLoader::getSingletonPtr();
 
     //Remove ourself as a Window listener
     Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);

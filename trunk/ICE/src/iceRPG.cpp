@@ -51,14 +51,14 @@ unsigned int iceRPG::getCurrentLife(void)
 	return mCurrentLife;
 }
 
-Ogre::Real iceRPG::getArmor(void)
+unsigned int iceRPG::getArmor(void)
 {
-	return Ogre::Real(mBaseArmor * mLevel / 5);
+	return mBaseArmor * mLevel / 5;
 }
 
-Ogre::Real iceRPG::getAttack(void)
+unsigned int iceRPG::getAttack(void)
 {
-	return Ogre::Real(mBaseAttack * mLevel / 3);
+	return mBaseAttack * mLevel / 3;
 }
 
 Ogre::Real iceRPG::getAccuracy(void)
@@ -174,21 +174,7 @@ void iceRPG::addExperience(unsigned int p_iExperience)
 	}	
 }
 
-//void iceRPG::addDamage(Ogre::Real p_iDamage)
-//{
-//	Ogre::Real iDamage = p_iDamage - getArmor();
-//	if (iDamage < MIN_DAMAGE)
-//		iDamage = MIN_DAMAGE;
-//
-//	if (iDamage < (int)mCurrentLife)
-//		mCurrentLife -= iDamage;
-//	else
-//	{
-//		mCurrentLife = 0;
-//	}
-//}
-
-void iceRPG::addLife(Ogre::Real p_iLife)
+void iceRPG::addLife(unsigned int p_iLife)
 {
 	mCurrentLife += p_iLife;
 	if (mCurrentLife > getMaxLife())
@@ -204,7 +190,7 @@ void iceRPG::update(Ogre::Real p_fFrameTime)
 {
 	mTimeSinceLastShot += p_fFrameTime;
 	if(mShieldEnergy < getMaxShieldEnergy())
-		mShieldEnergy += 10*mShieldLevel*p_fFrameTime;
+		mShieldEnergy += (unsigned int)(10*mShieldLevel*p_fFrameTime);
 	if(mShieldEnergy > getMaxShieldEnergy())
 		mShieldEnergy = getMaxShieldEnergy();
 }
@@ -224,7 +210,7 @@ void iceRPG::shot(void)
 
 		for (unsigned int i=0;i<iBulletsPerShot;i++)
 		{
-			Ogre::Real fBaseDamage = getAttack();
+			unsigned int fBaseDamage = getAttack();
 			Ogre::Radian fMaxDeviation = Ogre::Radian(1/getAccuracy());
 			bool bIsCritic = isCritic();
 			switch(mCurrentWeapon)
@@ -239,14 +225,14 @@ void iceRPG::shot(void)
 					fBaseDamage *= 10;
 					break;
 			}
-			Ogre::Real fDamage = 0.0;
+			unsigned int fDamage = 0;
 			if(bIsCritic)
 			{
 				fDamage = fBaseDamage * 2;
 				fMaxDeviation /= 2;
 			}
 			else
-				fDamage = fBaseDamage + getModifierByLuck(-fBaseDamage/10,fBaseDamage/10);
+				fDamage = fBaseDamage + (unsigned int)getModifierByLuck(-(Ogre::Real)fBaseDamage/10,(Ogre::Real)fBaseDamage/10);
 			
 			Ogre::Radian fDeviation = fMaxDeviation + Ogre::Radian(getModifierByLuck(-fMaxDeviation.valueRadians()/10,fMaxDeviation.valueRadians()/10));
 			Ogre::Quaternion sOrientation(fDeviation,Ogre::Vector3(Ogre::Math::SymmetricRandom(),Ogre::Math::SymmetricRandom(),0.0));

@@ -16,8 +16,8 @@ icePhase1::~icePhase1()
 void icePhase1::update( Ogre::Real p_timeSinceLastFrame)
 {
 	//call logic layer to change the state of the enemy
-	iceLogicLua::getInstance()->getEnemyLogicState(&mEnemy);
-	mEnemy.update(p_timeSinceLastFrame);
+	iceLogicLua::getInstance()->getEnemyLogicState(mEnemies[0]);
+	icePhase::update(p_timeSinceLastFrame);
 }
 
 bool icePhase1::createScene( Ogre::SceneManager* p_SceneMgr, icePlayer* p_psPlayer )
@@ -49,53 +49,83 @@ bool icePhase1::createScene( Ogre::SceneManager* p_SceneMgr, icePlayer* p_psPlay
 		steps.push_back(iceStep(Ogre::Vector3(posX,posY,posZ),rollAngle,time));
 	}
 
-	//steps.push_back(iceStep(Ogre::Vector3( -907, 535 , -667),Ogre::Degree(0),5*j++));
-	//steps.push_back(iceStep(Ogre::Vector3( -739, 407 , -713),Ogre::Degree(0),5*j++));
-	//steps.push_back(iceStep(Ogre::Vector3( -483, 252 , -559),Ogre::Degree(0),5*j++));
-	//steps.push_back(iceStep(Ogre::Vector3( -326, 120 , -289),Ogre::Degree(0),5*j++));
-	//	steps.push_back(iceStep(Ogre::Vector3( -326, 119 , -289),Ogre::Degree(0),5*j++));
-
-
-	//steps.push_back(iceStep(Ogre::Vector3( -186,  48 ,  -6 ),Ogre::Degree(0),5*j++));
-	//steps.push_back(iceStep(Ogre::Vector3( -4  ,  54 , 237 ),Ogre::Degree(0),5*j++));
-	//steps.push_back(iceStep(Ogre::Vector3(  8  ,  52 , 511 ),Ogre::Degree(0),5*j++));
-	//steps.push_back(iceStep(Ogre::Vector3(  7  , 90  , 706 ),Ogre::Degree(-0),5*j++));
-	//steps.push_back(iceStep(Ogre::Vector3( -60 , 171 ,993  ),Ogre::Degree(-35),5*j++));
-	//steps.push_back(iceStep(Ogre::Vector3(  100, 238 ,1274 ),Ogre::Degree(-40),5*j++));
-	//steps.push_back(iceStep(Ogre::Vector3( 314 , 121 ,966  ),Ogre::Degree(-35),5*j++));
-	//steps.push_back(iceStep(Ogre::Vector3(302  , 71  , 95  ),Ogre::Degree(-20),5*j++));
-	//steps.push_back(iceStep(Ogre::Vector3( 440 , 68  , -107),Ogre::Degree(0),5*j++));
-	//steps.push_back(iceStep(Ogre::Vector3(1526 , 95  , 102 ),Ogre::Degree(40),5*j++));
-	//steps.push_back(iceStep(Ogre::Vector3(1527 , 95  , 102 ),Ogre::Degree(0),5*j++));
-
-
-	//steps.push_back(iceStep(Ogre::Vector3( 500, 500 , -500),Ogre::Degree(0),10*j++));
-	//steps.push_back(iceStep(Ogre::Vector3( 500, 500 , -700),Ogre::Degree(0),10*j++));
-	//steps.push_back(iceStep(Ogre::Vector3( 500, 500 , -900),Ogre::Degree(0),10*j++));
-
-
 	mPlayer->setTrajectory(new iceLocomotiveTrajectory());
-
 	mPlayer->getTrajectory()->loadSteps(steps,false);
 
-	
-	j = 0;
-	steps.clear();
+	rootNode = ConfigScriptLoader::getSingleton().getConfigScript("entity", "enemies");
+	int enemiesNumber = rootNode->findChild("enemiesNumber")->getValueI();
 
-	//ConfigNode *rootNode;
-	//rootNode = ConfigScriptLoader::getSingleton().getConfigScript("entity", "Crate");
+	mEnemies.resize(enemiesNumber);
+	for(int i=1;i<=enemiesNumber;i++)
+	{
+		steps.clear();
+		char enemyName[10];
+		sprintf(enemyName,"enemy%d",i);
+		ConfigNode* enemyNode = rootNode->findChild(enemyName);
 
-	steps.push_back(iceStep(Ogre::Vector3( 30, 0 , 200),Ogre::Degree(0),j++));
-	steps.push_back(iceStep(Ogre::Vector3( 0, 30 , 230),Ogre::Degree(0),j++));
-	steps.push_back(iceStep(Ogre::Vector3( -30, 0 , 200),Ogre::Degree(0),j++));
-	steps.push_back(iceStep(Ogre::Vector3( 0, -30 , 170),Ogre::Degree(0),j++));
-	steps.push_back(iceStep(Ogre::Vector3( 30, 0 , 200),Ogre::Degree(0),j++));
+		iceEnemy::ENEMYTYPE enemyType;
 
-	mEnemy.initialize(mSceneManager,mPlayer);
-	mEnemy.setTrajectory(new iceTrajectory());
-	mEnemy.getTrajectory()->loadSteps(steps,true);
-	mEnemy.getTrajectory()->setNodeToLookAt(mPlayer->shipNode);
-	mEnemy.activate();
+		switch(enemyNode->findChild("enemyType")->getValueI())
+		{
+			case 0:
+				enemyType = iceEnemy::MINIMAGMATON;
+				break;
+			case 1:
+				enemyType = iceEnemy::KAMIKAZE;
+				break;
+			case 2:
+				enemyType = iceEnemy::INTELLIGENT;
+				break;
+			case 3:
+				enemyType = iceEnemy::VOLCANO;
+				break;
+			case 4:
+				enemyType = iceEnemy::MAGMATON;
+				break;
+			default:
+				enemyType = iceEnemy::MINIMAGMATON;
+				break;
+		}
+		Ogre::Real activationTime = enemyNode->findChild("activationTime")->getValueF();
+		bool isAttachedToPlayer = enemyNode->findChild("isAttachedToPlayer")->getValueI();
+
+		//Trajectory
+		ConfigNode* trajectoryNode = enemyNode->findChild("trajectory");
+
+		int stepsNumber = trajectoryNode->findChild("stepsNumber")->getValueI();
+
+		for(int j=1;j<=stepsNumber;j++)
+		{
+			char stepName[10];
+			sprintf(stepName,"step%d",j);
+			ConfigNode* stepNode = trajectoryNode->findChild(stepName);
+
+			Ogre::Real posX = stepNode->findChild("position")->getValueF(0);
+			Ogre::Real posY = stepNode->findChild("position")->getValueF(1);
+			Ogre::Real posZ = stepNode->findChild("position")->getValueF(2);
+
+			Ogre::Radian rollAngle = Ogre::Degree(stepNode->findChild("rollAngle")->getValueF());
+			Ogre::Real time = stepNode->findChild("time")->getValueF();
+			steps.push_back(iceStep(Ogre::Vector3(posX,posY,posZ),rollAngle,time));
+		}
+
+		mEnemies[i-1] = new iceEnemy();
+		mEnemies[i-1]->initialize(mSceneManager,mPlayer,activationTime,enemyType,isAttachedToPlayer);
+		mEnemies[i-1]->setTrajectory(new iceTrajectory());
+		mEnemies[i-1]->getTrajectory()->loadSteps(steps,true);
+		mEnemies[i-1]->getTrajectory()->setNodeToLookAt(mPlayer->shipNode);
+	}
+
+	//steps.push_back(iceStep(Ogre::Vector3( 30, 0 , 200),Ogre::Degree(0),j++));
+	//steps.push_back(iceStep(Ogre::Vector3( 0, 30 , 230),Ogre::Degree(0),j++));
+	//steps.push_back(iceStep(Ogre::Vector3( -30, 0 , 200),Ogre::Degree(0),j++));
+	//steps.push_back(iceStep(Ogre::Vector3( 0, -30 , 170),Ogre::Degree(0),j++));
+	//steps.push_back(iceStep(Ogre::Vector3( 30, 0 , 200),Ogre::Degree(0),j++));
+
+
+
+
+	//mMiniMagmatons[0]->activate();
 
 	// Creating a DotSceneLoader
 	DotSceneLoader pLoader;
