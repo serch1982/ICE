@@ -32,6 +32,9 @@ class icePlayer : public iceTrajectoryFollower, public iceRPG
 
 		void finalize();
 
+		void addXUserDeviation(int p_iXDeviation);
+		void addYUserDeviation(int p_iYDeviation);
+
 	protected:
 
 		void updateShipPosition(Ogre::Real frameTime);
@@ -53,6 +56,9 @@ class icePlayer : public iceTrajectoryFollower, public iceRPG
 		Ogre::Real shipMaxVelocity;
 		Ogre::Camera* playerCamera;
 		Ogre::Log* mLog;
+
+		int mXUserDeviation;
+		int mYUserDeviation;
 		
 		//Pau * BULLETS------------------------------------------------//
 		

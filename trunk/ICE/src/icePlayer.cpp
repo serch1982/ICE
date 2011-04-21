@@ -14,6 +14,8 @@ bool icePlayer::initialize(Ogre::SceneManager* p_psSceneManager, Ogre::SceneNode
 {
 	iceTrajectoryFollower::initialize(p_psSceneManager,p_psNode);
 	shipMaxVelocity = 20;
+	mXUserDeviation = 0;
+	mYUserDeviation = 0;
 
 	//Init cursor
 	cursorPlaneNode = mNode->createChildSceneNode(Ogre::Vector3(0.0,0.0,100.0));	
@@ -83,7 +85,8 @@ void icePlayer::setCamera(Ogre::Camera* camera)
 	camera->setFOVy(Ogre::Degree(10));
 }
 
-Ogre::Camera* icePlayer::getCamera(){
+Ogre::Camera* icePlayer::getCamera()
+{
 	return playerCamera;
 }
 void icePlayer::changeWeapon(const OIS::MouseEvent &arg)
@@ -139,7 +142,7 @@ void icePlayer::changeWeapon(const OIS::MouseEvent &arg)
 }
 void icePlayer::processMouseMoved(const OIS::MouseEvent &arg)
 {
-	cursorNode->translate(((Ogre::Real)-arg.state.X.rel)/30,((Ogre::Real)-arg.state.Y.rel)/30,0);		
+	cursorNode->translate(((Ogre::Real)-arg.state.X.rel)/20,((Ogre::Real)-arg.state.Y.rel)/20,0);		
 	changeWeapon(arg); /* Pau * Change weapon with mouse wheel */
 }
 
@@ -149,6 +152,8 @@ void icePlayer::updateShipPosition(Ogre::Real frameTime)
 	Ogre::Vector3 targetPosition = cursorNode->getPosition();
 	//Ogre::Real maxMovement = shipMaxVelocity * frameTime;
 	Ogre::Real maxMovement = getManiobrability() * frameTime;
+	targetPosition.x += -(Ogre::Real)mXUserDeviation*10;
+	targetPosition.y += (Ogre::Real)mYUserDeviation*10;
 	targetPosition.z = 0;
 	Ogre::Vector3 translation = targetPosition - shipNode->getPosition();
 	if (translation.squaredLength() > maxMovement)
@@ -188,6 +193,24 @@ void icePlayer::updateActiveBullets(Ogre::Real p_timeSinceLastFrame)
 void icePlayer::finalize()
 {
 
+}
+
+void icePlayer::addXUserDeviation(int p_iXDeviation)
+{
+	mXUserDeviation += p_iXDeviation;
+	if(mXUserDeviation < -1)
+		mXUserDeviation = -1;
+	if(mXUserDeviation > 1)
+		mXUserDeviation = 1;
+}
+
+void icePlayer::addYUserDeviation(int p_iYDeviation)
+{
+	mYUserDeviation += p_iYDeviation;
+	if(mYUserDeviation < -1)
+		mYUserDeviation = -1;
+	if(mYUserDeviation > 1)
+		mYUserDeviation = 1;
 }
 
 void icePlayer::update(Ogre::Real p_timeSinceLastFrame,bool Shooting)

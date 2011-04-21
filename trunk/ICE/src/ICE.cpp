@@ -210,8 +210,26 @@ bool ICE::keyPressed( const OIS::KeyEvent &arg ){
 		iceMenu::getInstance()->show();
 	}else if( arg.key == OIS::KC_L){
 
-	}else if ( iceState::getInstance()->getState() == iceState::GOD ){
+	}
+	else if ( iceState::getInstance()->getState() == iceState::GOD )
+	{
 		mCameraMan->injectKeyDown(arg);
+	}
+	else if( arg.key == OIS::KC_W)
+	{
+		mPlayer.addYUserDeviation(1);
+	}
+	else if( arg.key == OIS::KC_A)
+	{
+		mPlayer.addXUserDeviation(-1);
+	}
+	else if( arg.key == OIS::KC_S)
+	{
+		mPlayer.addYUserDeviation(-1);
+	}
+	else if( arg.key == OIS::KC_D)
+	{
+		mPlayer.addXUserDeviation(1);
 	}
 
 	return true;
@@ -223,6 +241,22 @@ bool ICE::keyReleased( const OIS::KeyEvent &arg )
 
 	if ( iceState::getInstance()->getState() == iceState::GOD)
 		mCameraMan->injectKeyUp(arg);
+	else if( arg.key == OIS::KC_W)
+	{
+		mPlayer.addYUserDeviation(-1);
+	}
+	else if( arg.key == OIS::KC_A)
+	{
+		mPlayer.addXUserDeviation(1);
+	}
+	else if( arg.key == OIS::KC_S)
+	{
+		mPlayer.addYUserDeviation(1);
+	}
+	else if( arg.key == OIS::KC_D)
+	{
+		mPlayer.addXUserDeviation(-1);
+	}
     return true;
 }
 
