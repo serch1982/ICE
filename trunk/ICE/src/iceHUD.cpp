@@ -11,16 +11,18 @@ iceHUD* iceHUD::getInstance(){
 
 
 iceHUD::iceHUD(void){
+	//mGameLog = Ogre::LogManager::getSingletonPtr()->getLog( "iceLog.log" );
 	isLoad = false;
-	mGameLog = Ogre::LogManager::getSingleton().createLog("iceLog.log", false, false, false );
 }
 
 iceHUD::~iceHUD(void){
    
 }
 
+
 bool iceHUD::setupHUD(char* path, char* name, Ogre::Viewport* mViewport)
 {
+	mGameLog = Ogre::LogManager::getSingletonPtr()->getLog( "iceLog.log" );
 	try{
 		if(!isLoad){
 			hikariMgrHUD = iceMenu::getInstance()->getHikariManager(); 

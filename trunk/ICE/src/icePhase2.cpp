@@ -59,10 +59,11 @@ bool icePhase2::createScene( Ogre::SceneManager* p_SceneMgr, icePlayer* p_psPlay
 
 	mPlayer->getTrajectory()->loadSteps(steps,false);
 
+	Ogre::SceneNode* level = p_SceneMgr->getRootSceneNode()->createChildSceneNode( "level2" );
 	// Creating a DotSceneLoader
 	DotSceneLoader pLoader;
 	// Loading a Level. Level1 by default.
-	pLoader.parseDotScene( "level1.scene","level1",p_SceneMgr );
+	pLoader.parseDotScene( "level1.scene","level1",p_SceneMgr,level,"level2_" );
 
 	mSceneManager->setSkyBox( true, "cielo", 20000.0f, false, Ogre::Quaternion::IDENTITY, "level1" ); 
 

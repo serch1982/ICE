@@ -27,6 +27,7 @@ public:
 	int RunFile( const char *fname );
 	void getEnemyLogicState(iceEnemy *enemy);
 	int RunSource( const char *source );
+	void setLog();
 protected:
 	  iceLogicLua();
 

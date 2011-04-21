@@ -11,16 +11,18 @@ iceMenu* iceMenu::getInstance(){
 
 
 iceMenu::iceMenu(void){
-	mGameLog = Ogre::LogManager::getSingleton().createLog("iceLog.log", false, false, false );
+	//mGameLog = Ogre::LogManager::getSingletonPtr()->getLog( "iceLog.log" );
 }
 
 iceMenu::~iceMenu(void){
    
 }
 
+
 bool iceMenu::setupHikari(char* path, char* name, Ogre::Viewport* mViewport)
 {
 	iceState::getInstance()->setState( iceState::MENU );
+	mGameLog = Ogre::LogManager::getSingletonPtr()->getLog( "iceLog.log" );
 	try{
 		hikariMgr = new Hikari::HikariManager(path);
 		hikariMenu = hikariMgr->createFlashOverlay("menu", mViewport, mViewport->getActualWidth(), mViewport->getActualHeight(), Hikari::Position(Hikari::Center));

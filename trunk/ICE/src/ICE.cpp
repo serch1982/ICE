@@ -13,7 +13,8 @@ ICE::~ICE(void)
 	for(unsigned int i=0;i<mPhases.size();i++)
 		delete mPhases[i];
 
-	delete mPhysics;
+	if( mPhysics )
+		delete mPhysics;
 }
 
 bool ICE::setup()
@@ -33,10 +34,12 @@ bool ICE::setup()
 		mPhases[1] = new icePhase2();
 		mPhases[2] = new icePhase3();
 
+		//Set the current phase
 		m_iCurrentPhase = 0;
 
 		//load lua logic ----> temporally location
 		std::string path = std::string(pathRoot) + "\\logiclua.lua";
+		iceLogicLua::getInstance()->setLog();
 		iceLogicLua::getInstance()->RunFile(path.c_str());  
 
 		mPhysics = new icePhysicsMgr();

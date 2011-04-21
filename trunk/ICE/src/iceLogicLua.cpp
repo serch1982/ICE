@@ -14,7 +14,7 @@ iceLogicLua* iceLogicLua::getInstance(){
 }
 
 iceLogicLua::iceLogicLua(void){
-	mGameLog = Ogre::LogManager::getSingleton().createLog("iceLog.log", false, false, false );
+	//mGameLog = Ogre::LogManager::getSingletonPtr()->getLog( "iceLog.log" );
 	L = lua_open();	
 	luaL_openlibs(L);
 	luabind::open(L);
@@ -22,6 +22,10 @@ iceLogicLua::iceLogicLua(void){
 
 iceLogicLua::~iceLogicLua(void){
    lua_close(L);
+}
+
+void iceLogicLua::setLog( ){
+	mGameLog = Ogre::LogManager::getSingletonPtr()->getLog( "iceLog.log" );
 }
 
 int iceLogicLua::RunFile( const char *fname )

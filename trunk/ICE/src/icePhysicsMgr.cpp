@@ -1,9 +1,13 @@
 #include "icePhysicsMgr.h"
 #include "OgreBulletCollisionsShape.h"
 #include <Shapes\OgreBulletCollisionsBoxShape.h>
+#include <stdlib.h>
+
 
 
 icePhysicsMgr::icePhysicsMgr(){
+	mShipCollidesWith = COL_WALL;
+	mWallCollidesWith = COL_SHIP;
 }
 
 icePhysicsMgr::~icePhysicsMgr(){
@@ -52,14 +56,105 @@ void icePhysicsMgr::init( Ogre::SceneManager* p_SceneMgr,
     mWorld->setShowDebugShapes(true);      
     Ogre::SceneNode *node = mSceneMgr->getRootSceneNode()->createChildSceneNode("debugDrawer", Ogre::Vector3::ZERO);
     node->attachObject(static_cast <Ogre::SimpleRenderable *> (mDebugDrawer));
+
+	// init LOG
+	mGameLog = Ogre::LogManager::getSingletonPtr()->getLog( "iceLog.log" );
+	mGameLog->logMessage( "FISICAS: init físicas" );
 }
 
 void icePhysicsMgr::setLevel( int p_iCurrentPhase ){
 
 	//TODO: 
-	//Find level root node
+	switch( p_iCurrentPhase ){
+	case 0:
+		setLevel1();
+		break;
+	case 1:
+		setLevel2();
+		break;
+	case 2:
+		setLevel3();
+		break;
+	default:
+		mGameLog->logMessage( "FÍSICAS: nivel no existente" );
+		break;
+	}
+}
 
+void icePhysicsMgr::setLevel1( ){
+	stringstream strMessage;
+	//Find level root node
+	Ogre::Node* playerNode = mSceneMgr->getRootSceneNode()->getChild( "level1" );
+	if( !playerNode ){
+		mGameLog->logMessage( "FISICAS: no se ha encontrado el nodo del nivel 1" );
+	}
+	 
+	// get the iterator
+	Ogre::SceneNode::ChildNodeIterator i = playerNode->getChildIterator();
+ 
+	// Iterate children
+	while (i.hasMoreElements()) {
+		// Get the child
+		Ogre::SceneNode* childNode = static_cast<Ogre::SceneNode*>(i.getNext());
+		childNode->showBoundingBox( true );
+		string sName = childNode->getName();
+		sName;
+
+		//Get the player mesh node
+		Ogre::MovableObject* movObj = childNode->getAttachedObject( 0 );
+		//Get the Ogre Bounding Box
+		Ogre::AxisAlignedBox buildingAxisBox = movObj->getBoundingBox();
+		//Get the size
+		Ogre::Vector3 sizeBox = buildingAxisBox.getSize();
+		//Resize the size (Bullet manual page 18 )
+		sizeBox /= 2.0f;
+		sizeBox *= 0.96f;
+
+		Ogre::Vector3 v3 = childNode->getPosition();
+
+		// Create a collision shape for buildings
+		OgreBulletCollisions::BoxCollisionShape *buildingBoxShape = new OgreBulletCollisions::BoxCollisionShape(sizeBox);
+		// and the Bullet rigid body
+		OgreBulletDynamics::RigidBody *buildingBody = 
+			new OgreBulletDynamics::RigidBody( childNode->getName(), mWorld, COL_WALL, mWallCollidesWith );
+		buildingBody->setStaticShape( childNode,
+             buildingBoxShape,
+             0.6f,         // dynamic body restitution
+             0.6f,         // dynamic body friction
+			 v3
+			);
+		mNumEntitiesInstanced++;            
+    
+		// push the created objects to the deques
+		mShapes.push_back(buildingBoxShape);
+		mBodies.push_back(buildingBody); 
+
+		mGameLog->logMessage( "FISICAS: Añadido el edificio " + childNode->getName() );
+	}
+}
+
+void icePhysicsMgr::setLevel2(){
+	//Find level root node
+	Ogre::Node* playerNode = mSceneMgr->getRootSceneNode()->getChild( "level2" );
+	if( !playerNode ){
+		mGameLog->logMessage( "FISICAS: no se ha encontrado el nodo del nivel 2" );
+	}
+	
 	//Iterate the tree
+	
+		//Create Collision Shape
+		//Add to the world
+}
+
+void icePhysicsMgr::setLevel3(){
+	//Find level root node
+	Ogre::Node* playerNode = mSceneMgr->getRootSceneNode()->getChild( "level3" );
+	if( !playerNode ){
+		mGameLog->logMessage( "FISICAS: no se ha encontrado el nodo del nivel 3" );
+	}
+	
+	//Iterate the tree
+	
 		//Create Collision Shape
 		//Add to the world
 }
@@ -76,21 +171,24 @@ void icePhysicsMgr::addPlayer( icePlayer& pPlayer ){
 	//Resize the size (Bullet manual page 18 )
 	sizeBox *= 0.96f;
 
-	Ogre::Vector3 v3 = pPlayer.shipNode->getPosition();
-	Ogre::Vector3 v32= pPlayer.shipPlaneNode->getPosition();
-	Ogre::Vector3 v33= pPlayer.shipPlaneNode->getParentSceneNode()->getPosition();
+	Ogre::Vector3 vPosition = pPlayer.shipNode->getPosition();
 
 	//Collision shape for player
 	OgreBulletCollisions::BoxCollisionShape *playerBoxShape = new OgreBulletCollisions::BoxCollisionShape(sizeBox);
     // and the Bullet rigid body
-    OgreBulletDynamics::RigidBody *playerBody = new OgreBulletDynamics::RigidBody( "playerBody", mWorld );
+    OgreBulletDynamics::RigidBody *playerBody = 
+		new OgreBulletDynamics::RigidBody( "playerBody", mWorld, COL_SHIP, mShipCollidesWith );
     playerBody->setShape( pPlayer.shipNode,
              playerBoxShape,
              0.6f,         // dynamic body restitution
              0.6f,         // dynamic body friction
              1.0f,         // dynamic bodymass
-			 pPlayer.shipNode->getPosition(),  // starting position of the box
-             Ogre::Quaternion(0,0,0,1));// orientation of the box
+			 vPosition  // starting position of the box
+             //Ogre::Quaternion(0,0,0,1));// orientation of the box
+			 );
+	// Sets kinematic propierties
+	playerBody->setKinematicObject( true );
+
     mNumEntitiesInstanced++;            
     
 	// push the created objects to the deques
@@ -99,7 +197,7 @@ void icePhysicsMgr::addPlayer( icePlayer& pPlayer ){
 }
 
 void icePhysicsMgr::update( Ogre::Real time ){
-	//mWorld->stepSimulation( time );
+	mWorld->stepSimulation( time );
 }
 
 

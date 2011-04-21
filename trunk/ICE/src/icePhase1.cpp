@@ -122,15 +122,16 @@ bool icePhase1::createScene( Ogre::SceneManager* p_SceneMgr, icePlayer* p_psPlay
 	//steps.push_back(iceStep(Ogre::Vector3( 0, -30 , 170),Ogre::Degree(0),j++));
 	//steps.push_back(iceStep(Ogre::Vector3( 30, 0 , 200),Ogre::Degree(0),j++));
 
-
-
-
 	//mMiniMagmatons[0]->activate();
 
+	//ConfigNode *rootNode;
+	//rootNode = ConfigScriptLoader::getSingleton().getConfigScript("entity", "Crate");
+
+	Ogre::SceneNode* level = p_SceneMgr->getRootSceneNode()->createChildSceneNode( "level1" );
 	// Creating a DotSceneLoader
 	DotSceneLoader pLoader;
 	// Loading a Level. Level1 by default.
-	pLoader.parseDotScene( "level1.scene","level1",p_SceneMgr );
+	pLoader.parseDotScene( "level1.scene","level1",p_SceneMgr,level,"level1_" );
 
 	mSceneManager->setSkyBox( true, "cielo", 20000.0f, false, Ogre::Quaternion::IDENTITY, "level1" ); 
 
