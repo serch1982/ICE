@@ -133,7 +133,7 @@ bool icePhase1::createScene( Ogre::SceneManager* p_SceneMgr, icePlayer* p_psPlay
 	// Loading a Level. Level1 by default.
 	pLoader.parseDotScene( "level1.scene","level1",p_SceneMgr,level,"level1_" );
 
-	mSceneManager->setSkyBox( true, "cielo", 20000.0f, false, Ogre::Quaternion::IDENTITY, "level1" ); 
+	mSceneManager->setSkyBox( true, "cielo", 20000.0f, true, Ogre::Quaternion::IDENTITY, "level1" ); 
 
 	// Set ambient light
     mSceneManager->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));

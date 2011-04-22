@@ -21,9 +21,11 @@ bool icePlayer::initialize(Ogre::SceneManager* p_psSceneManager, Ogre::SceneNode
 	cursorPlaneNode = mNode->createChildSceneNode(Ogre::Vector3(0.0,0.0,100.0));	
 	cursorNode = cursorPlaneNode->createChildSceneNode();
 	
-	Ogre::Entity* mesh = mSceneManager->createEntity("cursorMesh", "sphere.mesh");
-	cursorNode->attachObject(mesh);
-	cursorNode->scale(0.01,0.01,0.01);
+	Ogre::BillboardSet* cursorSet = p_psSceneManager->createBillboardSet();
+	cursorSet->setMaterialName("cursor");
+	Ogre::Billboard* cursorBillboard = cursorSet->createBillboard(0,0,0);
+	cursorNode->attachObject(cursorSet);	
+	cursorNode->scale(.05,.05,.05);	
 
 	//Init Ship
 	shipPlaneNode = mNode->createChildSceneNode();
@@ -238,7 +240,7 @@ void icePlayer::createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation,
 		
 			while(!bFreeBulletFound)
 			{
-				if(mvMachinegunBullets[i].Set(shipNode,p_iDamage,p_bCritic,iShotSide))
+				if(mvMachinegunBullets[i].Set(mSceneManager,shipNode,p_iDamage,p_bCritic,iShotSide))
 				{
 					bFreeBulletFound = true;					
 					
@@ -249,7 +251,7 @@ void icePlayer::createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation,
 						i++;
 					}else					
 					{
-						bFreeBulletFound = true;	/* All bullets have been shooted. Avoid game error */
+						bFreeBulletFound = true;	/* All bullets have been shooted. Avoid game BUG */
 					}
 				}
 			}
@@ -259,7 +261,7 @@ void icePlayer::createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation,
 		
 			while(!bFreeBulletFound)
 			{
-				if(mvShotgunBullets[i].Set(shipNode,p_iDamage,p_bCritic,iShotSide))
+				if(mvShotgunBullets[i].Set(mSceneManager,shipNode,p_iDamage,p_bCritic,iShotSide))
 				{
 					bFreeBulletFound = true;					
 					
@@ -270,7 +272,7 @@ void icePlayer::createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation,
 						i++;
 					}else					
 					{
-						bFreeBulletFound = true;	/* All bullets have been shooted. Avoid game error */
+						bFreeBulletFound = true;	/* All bullets have been shooted. Avoid game BUG */
 					}
 				}
 			}
@@ -280,7 +282,7 @@ void icePlayer::createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation,
 		
 			while(!bFreeBulletFound)
 			{
-				if(mvMisilLauncherBullets[i].Set(shipNode,p_iDamage,p_bCritic,iShotSide))
+				if(mvMisilLauncherBullets[i].Set(mSceneManager,shipNode,p_iDamage,p_bCritic,iShotSide))
 				{
 					bFreeBulletFound = true;					
 					
@@ -291,7 +293,7 @@ void icePlayer::createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation,
 						i++;
 					}else					
 					{
-						bFreeBulletFound = true;	/* All bullets have been shooted. Avoid game error */
+						bFreeBulletFound = true;	/* All bullets have been shooted. Avoid game BUG */
 					}
 				}
 			}

@@ -22,24 +22,32 @@ void iceBullet::CreateEntities(Ogre::SceneManager* sceneMgr, Ogre::SceneNode* bu
 		/* Initialize class atributes values */
 		miWeapon = p_iWeapon;		
 		msbulletNode = bulletNode->createChildSceneNode();
+		
 
 		/*Set bullet's entity depending on the weapons' type*/
 		/*Set bullet's speed dependig on the weapon's type*/
 		if (p_iWeapon == 0)
 		{			
-			Ogre::Entity* Shot_MachineGun = sceneMgr->createEntity("sphere.mesh");
-			msbulletNode->attachObject(Shot_MachineGun);
+			/*machinegunShot Billboard*/			
+			Ogre::BillboardSet* machinegunShotSet = sceneMgr->createBillboardSet();
+			machinegunShotSet->setMaterialName("machinegunShot");
+			Ogre::Billboard* machinegunShotBillboard = machinegunShotSet->createBillboard(0,0,0);
+			msbulletNode->attachObject(machinegunShotSet);
 			msbulletNode->setVisible(false);
-			msbulletNode->scale(.002,.002,.01);
-			miSpeed = 1750;			
+			msbulletNode->scale(.05,.05,.05);
+			miSpeed = 1750;
 		}
 		if (p_iWeapon == 1)
 		{			
-			Ogre::Entity* Shot_ShotGun = sceneMgr->createEntity("sphere.mesh");
-			msbulletNode->attachObject(Shot_ShotGun);
+			/*machinegunShot Billboard*/			
+			Ogre::BillboardSet* shotgunShotSet = sceneMgr->createBillboardSet();
+			shotgunShotSet->setMaterialName("shotgunShot");
+			Ogre::Billboard* shotgunShotBillboard = shotgunShotSet->createBillboard(0,0,0);
+			msbulletNode->attachObject(shotgunShotSet);
 			msbulletNode->setVisible(false);
-			msbulletNode->scale(.004,.004,.02);
-			miSpeed = 1700;			
+			msbulletNode->scale(.03,.03,.03);
+			miSpeed = 1700;
+			
 		}			
 		if (p_iWeapon == 2)
 		{			
@@ -50,7 +58,7 @@ void iceBullet::CreateEntities(Ogre::SceneManager* sceneMgr, Ogre::SceneNode* bu
 			miSpeed = 1800;			
 		}		
 }
-bool iceBullet::Set(Ogre::SceneNode* shipNode,Ogre::Real p_iDamage, bool p_bCritic,int p_iShotSide)
+bool iceBullet::Set(Ogre::SceneManager* sceneMgr, Ogre::SceneNode* shipNode,Ogre::Real p_iDamage, bool p_bCritic,int p_iShotSide)
 {
 	if (!mbActive) 
 	{
@@ -71,11 +79,11 @@ bool iceBullet::Set(Ogre::SceneNode* shipNode,Ogre::Real p_iDamage, bool p_bCrit
 		msbulletNode->setPosition(mvPosition);
 		if (p_iShotSide == 0)
 		{
-			msbulletNode->translate(-1,0,3,Ogre::Node::TS_LOCAL);
+			msbulletNode->translate(-1,0,0,Ogre::Node::TS_LOCAL);
 		}
 		else
 		{
-			msbulletNode->translate(1,0,3,Ogre::Node::TS_LOCAL);
+			msbulletNode->translate(1,0,0,Ogre::Node::TS_LOCAL);
 		}
 		return true;
 

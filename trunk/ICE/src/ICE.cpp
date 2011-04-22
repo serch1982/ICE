@@ -207,7 +207,7 @@ bool ICE::keyPressed( const OIS::KeyEvent &arg ){
 		setCurrentCamera( mPhases[m_iCurrentPhase]->getCamera( 6 ) );
 	}else if (arg.key == OIS::KC_Z){
 		bool bSkyBox = mSceneMgr->isSkyBoxEnabled();
-		mSceneMgr->setSkyBox( !bSkyBox, "cielo", 20000.0f, false, Ogre::Quaternion::IDENTITY, "level1" );
+		mSceneMgr->setSkyBox( !bSkyBox, "cielo", 20000.0f, true, Ogre::Quaternion::IDENTITY, "level1" );
 	}else if (arg.key == OIS::KC_P){
 		iceState::getInstance()->setState( iceState::PAUSE );
 		iceMenu::getInstance()->show();

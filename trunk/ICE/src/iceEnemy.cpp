@@ -46,7 +46,7 @@ bool iceEnemy::initialize(Ogre::SceneManager* p_psSceneManager, icePlayer* p_psP
 	switch(mType)
 	{
 		case MINIMAGMATON:
-			mesh = mSceneManager->createEntity(entityName.str(), "minimagmaton.mesh");
+			mesh = mSceneManager->createEntity(entityName.str(), "minimagmaton.mesh");			
 			break;
 		case KAMIKAZE:
 			mesh = mSceneManager->createEntity(entityName.str(), "kamikaze.mesh");
