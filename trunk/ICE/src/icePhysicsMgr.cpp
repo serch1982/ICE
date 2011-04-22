@@ -53,7 +53,8 @@ void icePhysicsMgr::init( Ogre::SceneManager* p_SceneMgr,
 
 	// enable it if you want to see the Bullet containers
     mWorld->setDebugDrawer(mDebugDrawer);
-    mWorld->setShowDebugShapes(true);      
+    mWorld->setShowDebugShapes(false);      
+	mWorld->setShowDebugContactPoints( false );
     Ogre::SceneNode *node = mSceneMgr->getRootSceneNode()->createChildSceneNode("debugDrawer", Ogre::Vector3::ZERO);
     node->attachObject(static_cast <Ogre::SimpleRenderable *> (mDebugDrawer));
 
@@ -140,10 +141,48 @@ void icePhysicsMgr::setLevel2(){
 		mGameLog->logMessage( "FISICAS: no se ha encontrado el nodo del nivel 2" );
 	}
 	
-	//Iterate the tree
-	
-		//Create Collision Shape
-		//Add to the world
+	// get the iterator
+	Ogre::SceneNode::ChildNodeIterator i = playerNode->getChildIterator();
+ 
+	// Iterate children
+	while (i.hasMoreElements()) {
+		// Get the child
+		Ogre::SceneNode* childNode = static_cast<Ogre::SceneNode*>(i.getNext());
+		childNode->showBoundingBox( true );
+		string sName = childNode->getName();
+		sName;
+
+		//Get the player mesh node
+		Ogre::MovableObject* movObj = childNode->getAttachedObject( 0 );
+		//Get the Ogre Bounding Box
+		Ogre::AxisAlignedBox buildingAxisBox = movObj->getBoundingBox();
+		//Get the size
+		Ogre::Vector3 sizeBox = buildingAxisBox.getSize();
+		//Resize the size (Bullet manual page 18 )
+		sizeBox /= 2.0f;
+		sizeBox *= 0.96f;
+
+		Ogre::Vector3 v3 = childNode->getPosition();
+
+		// Create a collision shape for buildings
+		OgreBulletCollisions::BoxCollisionShape *buildingBoxShape = new OgreBulletCollisions::BoxCollisionShape(sizeBox);
+		// and the Bullet rigid body
+		OgreBulletDynamics::RigidBody *buildingBody = 
+			new OgreBulletDynamics::RigidBody( childNode->getName(), mWorld, COL_WALL, mWallCollidesWith );
+		buildingBody->setStaticShape( childNode,
+             buildingBoxShape,
+             0.6f,         // dynamic body restitution
+             0.6f,         // dynamic body friction
+			 v3
+			);
+		mNumEntitiesInstanced++;            
+    
+		// push the created objects to the deques
+		mShapes.push_back(buildingBoxShape);
+		mBodies.push_back(buildingBody); 
+
+		mGameLog->logMessage( "FISICAS: Añadido el edificio " + childNode->getName() );
+	}
 }
 
 void icePhysicsMgr::setLevel3(){
@@ -153,10 +192,48 @@ void icePhysicsMgr::setLevel3(){
 		mGameLog->logMessage( "FISICAS: no se ha encontrado el nodo del nivel 3" );
 	}
 	
-	//Iterate the tree
-	
-		//Create Collision Shape
-		//Add to the world
+	// get the iterator
+	Ogre::SceneNode::ChildNodeIterator i = playerNode->getChildIterator();
+ 
+	// Iterate children
+	while (i.hasMoreElements()) {
+		// Get the child
+		Ogre::SceneNode* childNode = static_cast<Ogre::SceneNode*>(i.getNext());
+		childNode->showBoundingBox( true );
+		string sName = childNode->getName();
+		sName;
+
+		//Get the player mesh node
+		Ogre::MovableObject* movObj = childNode->getAttachedObject( 0 );
+		//Get the Ogre Bounding Box
+		Ogre::AxisAlignedBox buildingAxisBox = movObj->getBoundingBox();
+		//Get the size
+		Ogre::Vector3 sizeBox = buildingAxisBox.getSize();
+		//Resize the size (Bullet manual page 18 )
+		sizeBox /= 2.0f;
+		sizeBox *= 0.96f;
+
+		Ogre::Vector3 v3 = childNode->getPosition();
+
+		// Create a collision shape for buildings
+		OgreBulletCollisions::BoxCollisionShape *buildingBoxShape = new OgreBulletCollisions::BoxCollisionShape(sizeBox);
+		// and the Bullet rigid body
+		OgreBulletDynamics::RigidBody *buildingBody = 
+			new OgreBulletDynamics::RigidBody( childNode->getName(), mWorld, COL_WALL, mWallCollidesWith );
+		buildingBody->setStaticShape( childNode,
+             buildingBoxShape,
+             0.6f,         // dynamic body restitution
+             0.6f,         // dynamic body friction
+			 v3
+			);
+		mNumEntitiesInstanced++;            
+    
+		// push the created objects to the deques
+		mShapes.push_back(buildingBoxShape);
+		mBodies.push_back(buildingBody); 
+
+		mGameLog->logMessage( "FISICAS: Añadido el edificio " + childNode->getName() );
+	}
 }
 
 //TODO: Add player to physics world
@@ -169,6 +246,7 @@ void icePhysicsMgr::addPlayer( icePlayer& pPlayer ){
 	//Get the size
 	Ogre::Vector3 sizeBox = playerAxisBox.getSize();
 	//Resize the size (Bullet manual page 18 )
+	sizeBox /= 4.0f;
 	sizeBox *= 0.96f;
 
 	Ogre::Vector3 vPosition = pPlayer.shipNode->getPosition();
@@ -221,5 +299,12 @@ void icePhysicsMgr::reset(){
 	// clear deque
     mBodies.clear();
     mShapes.clear();
+	
+}
+
+void icePhysicsMgr::setShowDebug( bool p_bShow ){
+	
+	mWorld->setShowDebugShapes( p_bShow );
+	mWorld->setShowDebugContactPoints( p_bShow );
 
 }

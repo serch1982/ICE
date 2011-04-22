@@ -57,6 +57,8 @@ private:
 	int m_iCurrentPhase;
 	// Physical World
 	icePhysicsMgr* mPhysics;
+	// Show physical world
+	bool m_bShowPhysics;
 	// Shot mouse button status in iceState::PLAY
 	bool m_bShooting;
 

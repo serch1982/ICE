@@ -6,6 +6,8 @@
 ICE::ICE(void)
 {
 	m_bShooting = false;
+	m_bShowPhysics = false;
+	m_iCurrentPhase = 0;
 }
 //-------------------------------------------------------------------------------------
 ICE::~ICE(void)
@@ -100,7 +102,9 @@ bool ICE::frameRenderingQueued(const Ogre::FrameEvent& evt)
         return false;
 
 	// Pau * Shoot control
-	if (iceState::getInstance()->getState()!=iceState::PLAY) {m_bShooting = false;}
+	if (iceState::getInstance()->getState()!=iceState::PLAY){
+		m_bShooting = false;
+	}
 	
 	//Game state
 	switch( iceState::getInstance()->getState() ){
@@ -132,6 +136,7 @@ bool ICE::frameRenderingQueued(const Ogre::FrameEvent& evt)
 			break;
 		case iceState::LOAD_LEVEL:
 			// Load resources from a level and change state to play
+			mPhysics->reset();
 			mSceneMgr->clearScene();
 			createScene();
 			iceState::getInstance()->setState( iceState::PLAY );			
@@ -212,7 +217,8 @@ bool ICE::keyPressed( const OIS::KeyEvent &arg ){
 		iceState::getInstance()->setState( iceState::PAUSE );
 		iceMenu::getInstance()->show();
 	}else if( arg.key == OIS::KC_L){
-
+		m_bShowPhysics = !m_bShowPhysics;
+		mPhysics->setShowDebug( m_bShowPhysics );
 	}
 	else if ( iceState::getInstance()->getState() == iceState::GOD )
 	{
@@ -268,15 +274,15 @@ bool ICE::mouseMoved( const OIS::MouseEvent &arg )
 {
 	bool ret = CORE::mouseMoved(arg);
 
-	if( iceState::getInstance()->getState() == iceState::GOD )
+	if( iceState::getInstance()->getState() == iceState::GOD ){
 		mCameraMan->injectMouseMove(arg);
-	else if( iceState::getInstance()->getState() == iceState::MENU || 
+	}else if( iceState::getInstance()->getState() == iceState::MENU || 
 		iceState::getInstance()->getState() == iceState::PAUSE ){
 		iceDebugScreen::getInstance()->moveMouse(arg);
 		iceMenu::getInstance()->mouseMoved(arg);
-	}
-	else if( iceState::getInstance()->getState() == iceState::PLAY )
+	}else if( iceState::getInstance()->getState() == iceState::PLAY ){
 		mPlayer.processMouseMoved(arg);
+	}
     return ret;
 }
 
@@ -284,13 +290,15 @@ bool ICE::mousePressed( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
     CORE::mousePressed( arg, id );
 
-    if ( iceState::getInstance()->getState() == iceState::GOD)
+    if ( iceState::getInstance()->getState() == iceState::GOD){
 		mCameraMan->injectMouseDown(arg, id);//not here
-	else if( iceState::getInstance()->getState() == iceState::MENU ||
-		iceState::getInstance()->getState() == iceState::PAUSE ) 
-		iceMenu::getInstance()->mouseDown(id);
-	else if( iceState::getInstance()->getState() == iceState::PLAY )		
-		if (id==0){m_bShooting = true;}
+	}else if( iceState::getInstance()->getState() == iceState::MENU ||
+		iceState::getInstance()->getState() == iceState::PAUSE ){ 
+			iceMenu::getInstance()->mouseDown(id);
+	}else if( iceState::getInstance()->getState() == iceState::PLAY ){		
+		if (id==0)
+			m_bShooting = true;
+	}
     return true;
 }
 
@@ -298,14 +306,15 @@ bool ICE::mouseReleased( const OIS::MouseEvent &arg, OIS::MouseButtonID id )
 {
 	CORE::mouseReleased( arg, id );
 
-    if ( iceState::getInstance()->getState() == iceState::GOD)
+    if ( iceState::getInstance()->getState() == iceState::GOD){
 		mCameraMan->injectMouseUp(arg, id); //not here
-	else if( iceState::getInstance()->getState() == iceState::MENU ||
-		iceState::getInstance()->getState() == iceState::PAUSE ) 
+	}else if( iceState::getInstance()->getState() == iceState::MENU ||
+		iceState::getInstance()->getState() == iceState::PAUSE ){ 
 		iceMenu::getInstance()->mouseUp(id);
-	else if( iceState::getInstance()->getState() == iceState::PLAY )		
-		if (id==0){m_bShooting = false;}
-
+    }else if( iceState::getInstance()->getState() == iceState::PLAY ){		
+		if(id==0)
+			m_bShooting = false;
+	}
     return true;
 }
 

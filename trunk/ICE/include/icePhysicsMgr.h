@@ -34,6 +34,7 @@ public:
 	void reset();
 	// Update
 	void update( Ogre::Real time );
+	void setShowDebug( bool p_bShow );
 
 private:
 	enum collisiontypes {
