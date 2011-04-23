@@ -9,6 +9,7 @@
 #include <OgrePrerequisites.h>
 #include <OgreBillboard.h>
 #include <OgreBillboardSet.h>
+#include <OgreParticleSystemManager.h>
 
 #define MAX_TIME_ACTIVE	  5	// Maximum time that the bullet can fly without having been crashed
 
@@ -19,7 +20,7 @@ iceBullet(void);
 	
 	virtual ~iceBullet(void);
 
-	void CreateEntities(Ogre::SceneManager* sceneMgr, Ogre::SceneNode* bulletNode, int p_iWeapon);
+	void CreateEntities(Ogre::SceneManager* sceneMgr, Ogre::SceneNode* bulletNode, int p_iWeapon, int p_iBulletNumber);
 	bool Set(Ogre::SceneManager* sceneMgr, Ogre::SceneNode* shipNode,Ogre::Real p_iDamage, bool p_bCritic, int p_iShotSide);	/* Returns true when a bullet is set to active status*/
 	
 	void Update(Ogre::Real timeSinceLastFrame);

@@ -56,19 +56,19 @@ bool icePlayer::initialize(Ogre::SceneManager* p_psSceneManager, Ogre::SceneNode
 	
 	for(i = 0; i < BULLET_VECTOR_SIZE; i++)
 	{		
-		mvMachinegunBullets[i].CreateEntities(mSceneManager,mainBulletNode,MACHINEGUN);		
+		mvMachinegunBullets[i].CreateEntities(mSceneManager,mainBulletNode,MACHINEGUN,i);		
 	}	
 	
 	/*Create Shotguns*/	
 	for(i = 0; i < BULLET_VECTOR_SIZE; i++)
 	{		
-		mvShotgunBullets[i].CreateEntities(mSceneManager,mainBulletNode,SHOTGUN);		
+		mvShotgunBullets[i].CreateEntities(mSceneManager,mainBulletNode,SHOTGUN,i);		
 	}
 	
 	/*Create MisileLaunchers*/	
 	for(i = 0; i < BULLET_VECTOR_SIZE; i++)
 	{
-		mvMisilLauncherBullets[i].CreateEntities(mSceneManager,mainBulletNode,MISILE_LAUNCHER);
+		mvMisilLauncherBullets[i].CreateEntities(mSceneManager,mainBulletNode,MISILE_LAUNCHER,i);
 	}	
 	//----------------------------------------------------------------------------------------------------------------------------//
 

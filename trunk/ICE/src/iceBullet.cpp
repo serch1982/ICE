@@ -17,7 +17,7 @@ iceBullet::~iceBullet(void)
 {
 
 }
-void iceBullet::CreateEntities(Ogre::SceneManager* sceneMgr, Ogre::SceneNode* bulletNode, int p_iWeapon)
+void iceBullet::CreateEntities(Ogre::SceneManager* sceneMgr, Ogre::SceneNode* bulletNode, int p_iWeapon, int p_iBulletNumber)
 {
 		/* Initialize class atributes values */
 		miWeapon = p_iWeapon;		
@@ -51,11 +51,18 @@ void iceBullet::CreateEntities(Ogre::SceneManager* sceneMgr, Ogre::SceneNode* bu
 		}			
 		if (p_iWeapon == 2)
 		{			
+			/* Misile mesh */
 			Ogre::Entity* Shot_MisileLauncher = sceneMgr->createEntity("sphere.mesh");
 			msbulletNode->attachObject(Shot_MisileLauncher);
 			msbulletNode->setVisible(false);
-			msbulletNode->scale(.008,.008,.04);
-			miSpeed = 1800;			
+			msbulletNode->scale(.005,.005,.005);
+			miSpeed = 1800;	
+			
+			/* Misile particle system */			
+			Ogre::ParticleSystem* misilParticle = sceneMgr->createParticleSystem("MisilParticle" + Ogre::StringConverter::toString(p_iBulletNumber), "misilParticle");			
+			msbulletNode->attachObject(misilParticle);
+
+					
 		}		
 }
 bool iceBullet::Set(Ogre::SceneManager* sceneMgr, Ogre::SceneNode* shipNode,Ogre::Real p_iDamage, bool p_bCritic,int p_iShotSide)
