@@ -25,6 +25,7 @@ class icePhase
 		Ogre::Camera* getCamera( int p_iIndex );
 		bool clearScene(void);
 		virtual bool isPhaseEnded(void) = 0;
+		vector<iceEnemy*>& getEnemies();
 
 	protected:
 		virtual void setCameras(void) = 0;

@@ -91,6 +91,7 @@ Ogre::Camera* icePlayer::getCamera()
 {
 	return playerCamera;
 }
+
 void icePlayer::changeWeapon(const OIS::MouseEvent &arg)
 {
 	/* Pau * CHANGEWEAPON WITH MOUSE WHEEL */

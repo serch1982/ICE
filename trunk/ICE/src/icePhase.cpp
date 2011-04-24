@@ -78,3 +78,7 @@ bool icePhase::clearScene(){
 
 	return true;
 }
+
+vector<iceEnemy*>& icePhase::getEnemies(){
+	return mEnemies;
+}

@@ -62,7 +62,7 @@ private:
 	// Shot mouse button status in iceState::PLAY
 	bool m_bShooting;
 
-	void update( Ogre::Real p_timeSinceLastFrame, bool Shooting );
+	void update( Ogre::Real p_timeSinceLastFrame );
 };
 
 #endif // #ifndef __ICE_H_

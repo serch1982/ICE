@@ -13,6 +13,9 @@
 
 #define BIT(x) (1<<(x))
 
+// Tick Callback to get contact Information
+void physicsTickCallback(btDynamicsWorld *world, btScalar timeStep);
+
 class icePhysicsMgr{
 
 public:
@@ -30,6 +33,8 @@ public:
 
 	// Add player to physics world
 	void addPlayer( icePlayer& pPlayer );
+	// Add enemies to physics world
+	//void addEnemies( vector<Enemies *>& pEnemies );
 	// Reset Physics world
 	void reset();
 	// Update

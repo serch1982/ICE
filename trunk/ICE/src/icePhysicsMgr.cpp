@@ -49,18 +49,22 @@ void icePhysicsMgr::init( Ogre::SceneManager* p_SceneMgr,
 	// add Debug info display tool
     mDebugDrawer = new OgreBulletCollisions::DebugDrawer();
 	// we want to see the Bullet containers
-    mDebugDrawer->setDrawWireframe(true);
+    mDebugDrawer->setDrawWireframe(false);
+	mDebugDrawer->setDrawContactPoints(true);
 
 	// enable it if you want to see the Bullet containers
     mWorld->setDebugDrawer(mDebugDrawer);
     mWorld->setShowDebugShapes(false);      
-	mWorld->setShowDebugContactPoints( false );
+	mWorld->setShowDebugContactPoints( true );
     Ogre::SceneNode *node = mSceneMgr->getRootSceneNode()->createChildSceneNode("debugDrawer", Ogre::Vector3::ZERO);
     node->attachObject(static_cast <Ogre::SimpleRenderable *> (mDebugDrawer));
 
 	// init LOG
 	mGameLog = Ogre::LogManager::getSingletonPtr()->getLog( "iceLog.log" );
 	mGameLog->logMessage( "FISICAS: init físicas" );
+
+	mWorld->getBulletDynamicsWorld()->setInternalTickCallback(physicsTickCallback);
+	//mWorld->setInternalTickCallback(&icePhysicsMgr::physicsTickCallback);
 }
 
 void icePhysicsMgr::setLevel( int p_iCurrentPhase ){
@@ -236,7 +240,7 @@ void icePhysicsMgr::setLevel3(){
 	}
 }
 
-//TODO: Add player to physics world
+//Add player to physics world
 void icePhysicsMgr::addPlayer( icePlayer& pPlayer ){
 	
 	//Get the player mesh node
@@ -246,7 +250,7 @@ void icePhysicsMgr::addPlayer( icePlayer& pPlayer ){
 	//Get the size
 	Ogre::Vector3 sizeBox = playerAxisBox.getSize();
 	//Resize the size (Bullet manual page 18 )
-	sizeBox /= 4.0f;
+	sizeBox /= 3.0f;
 	sizeBox *= 0.96f;
 
 	Ogre::Vector3 vPosition = pPlayer.shipNode->getPosition();
@@ -306,5 +310,41 @@ void icePhysicsMgr::setShowDebug( bool p_bShow ){
 	
 	mWorld->setShowDebugShapes( p_bShow );
 	mWorld->setShowDebugContactPoints( p_bShow );
+
+}
+
+void physicsTickCallback(btDynamicsWorld *world, btScalar timeStep) {
+	stringstream strMessage;
+	strMessage << "the world just ticked by " << timeStep << " seconds";
+	char ptMsg[512];
+
+	Ogre::Log* GameLog = Ogre::LogManager::getSingletonPtr()->getLog( "iceLog.log" );
+    GameLog->logMessage( strMessage.str() );
+
+	int numManifolds = world->getDispatcher()->getNumManifolds();
+	for (int i=0;i<numManifolds;i++)
+	{
+		btPersistentManifold* contactManifold =  world->getDispatcher()->getManifoldByIndexInternal(i);
+		btCollisionObject* obA = static_cast<btCollisionObject*>(contactManifold->getBody0());
+		btCollisionObject* obB = static_cast<btCollisionObject*>(contactManifold->getBody1());
+	
+		int numContacts = contactManifold->getNumContacts();
+		for (int j=0;j<numContacts;j++)
+		{
+			btManifoldPoint& pt = contactManifold->getContactPoint(j);
+			if (pt.getDistance()<0.f)
+			{
+				const btVector3& ptA = pt.getPositionWorldOnA();
+				const btVector3& ptB = pt.getPositionWorldOnB();
+				const btVector3& normalOnB = pt.m_normalWorldOnB;
+
+				sprintf( ptMsg, "obAName: %s\tobBName: %s", obA->getCollisionShape()->getName(), obB->getCollisionShape()->getName() );
+				GameLog->logMessage( ptMsg );
+				sprintf( ptMsg, "ptA: X: %.3f\tY: %.3f\tZ: %.3f\tptB: X: %.3f\tY: %.3f\tZ: %.3f", 
+					ptA[0], ptA[1], ptA[2], ptB[0], ptB[1], ptB[2] );
+				GameLog->logMessage( ptMsg );
+			}
+		}
+	}
 
 }

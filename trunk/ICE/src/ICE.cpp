@@ -66,6 +66,8 @@ void ICE::createScene(void)
 
 	mPhysics->setLevel( m_iCurrentPhase );
 	mPhysics->addPlayer( mPlayer );
+	//mPhysics->addEnemies( mPhase[m_iCurrentPhase]->getEnemies() );
+	//mPhysics->addEnemies( mPhases[m_iCurrentPhase]->getEnemies() );
 	//set the HUD
 	iceHUD::getInstance()->setupHUD(".\\media", "HUD.swf", mCurrentCamera->getViewport());
 }
@@ -119,7 +121,7 @@ bool ICE::frameRenderingQueued(const Ogre::FrameEvent& evt)
 			if(mPhases[m_iCurrentPhase]->isPhaseEnded())
 				iceState::getInstance()->setState(iceState::NEXT_LEVEL);
 			else
-				update(evt.timeSinceLastFrame, m_bShooting);
+				update( evt.timeSinceLastFrame );
 			break;
 		case iceState::PAUSE:
 			iceMenu::getInstance()->update();
@@ -158,9 +160,9 @@ bool ICE::frameRenderingQueued(const Ogre::FrameEvent& evt)
     return true;
 }
 
-void ICE::update( Ogre::Real p_timeSinceLastFrame, bool Shooting )
+void ICE::update( Ogre::Real p_timeSinceLastFrame )
 {
-	mPlayer.update(p_timeSinceLastFrame,Shooting);
+	mPlayer.update(p_timeSinceLastFrame,m_bShooting);
 	mPhases[m_iCurrentPhase]->update(p_timeSinceLastFrame);
 
 	iceHUD::getInstance()->update();
