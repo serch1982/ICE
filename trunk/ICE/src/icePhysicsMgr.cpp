@@ -75,7 +75,8 @@ void icePhysicsMgr::setLevel( int p_iCurrentPhase ){
 		setLevel1();
 		break;
 	case 1:
-		setLevel2();
+		//setLevel2();
+		setLevel3();//Temporal
 		break;
 	case 2:
 		setLevel3();

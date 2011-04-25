@@ -79,6 +79,81 @@ bool icePhase::clearScene(){
 	return true;
 }
 
+vector<iceStep> icePhase::getStepsFromResources(ConfigNode* p_sStepsNode)
+{
+	vector<iceStep> steps;
+
+	int stepsNumber = p_sStepsNode->findChild("stepsNumber")->getValueI();
+	steps.resize(stepsNumber);
+
+	for(int i=0;i<stepsNumber;i++)
+	{
+		char stepName[10];
+		sprintf(stepName,"step%d",i+1);
+		ConfigNode* stepNode = p_sStepsNode->findChild(stepName);
+
+		Ogre::Real posX = stepNode->findChild("position")->getValueF(0);
+		Ogre::Real posY = stepNode->findChild("position")->getValueF(1);
+		Ogre::Real posZ = stepNode->findChild("position")->getValueF(2);
+
+		Ogre::Radian rollAngle = Ogre::Degree(stepNode->findChild("rollAngle")->getValueF());
+		Ogre::Real time = stepNode->findChild("time")->getValueF();
+		steps[i] = iceStep(Ogre::Vector3(posX,posY,posZ),rollAngle,time);
+	}
+
+	return steps;
+}
+
+void icePhase::loadEnemies(ConfigNode* p_sEnemiesNode)
+{
+	vector<iceStep> steps;
+	int enemiesNumber = p_sEnemiesNode->findChild("enemiesNumber")->getValueI();
+
+	mEnemies.resize(enemiesNumber);
+	for(int i=0;i<enemiesNumber;i++)
+	{
+		char enemyName[10];
+		sprintf(enemyName,"enemy%d",i+1);
+		ConfigNode* enemyNode = p_sEnemiesNode->findChild(enemyName);
+
+		iceEnemy::ENEMYTYPE enemyType;
+
+		switch(enemyNode->findChild("enemyType")->getValueI())
+		{
+			case 0:
+				enemyType = iceEnemy::MINIMAGMATON;
+				break;
+			case 1:
+				enemyType = iceEnemy::KAMIKAZE;
+				break;
+			case 2:
+				enemyType = iceEnemy::INTELLIGENT;
+				break;
+			case 3:
+				enemyType = iceEnemy::VOLCANO;
+				break;
+			case 4:
+				enemyType = iceEnemy::MAGMATON;
+				break;
+			default:
+				enemyType = iceEnemy::MINIMAGMATON;
+				break;
+		}
+		Ogre::Real activationTime = enemyNode->findChild("activationTime")->getValueF();
+		bool isAttachedToPlayer = enemyNode->findChild("isAttachedToPlayer")->getValueI();
+
+		//Trajectory
+		ConfigNode* trajectoryNode = enemyNode->findChild("trajectory");
+		steps = getStepsFromResources(trajectoryNode);
+
+		mEnemies[i] = new iceEnemy();
+		mEnemies[i]->initialize(mSceneManager,mPlayer,activationTime,enemyType,isAttachedToPlayer);
+		mEnemies[i]->setTrajectory(new iceTrajectory());
+		mEnemies[i]->getTrajectory()->loadSteps(steps,true);
+		mEnemies[i]->getTrajectory()->setNodeToLookAt(mPlayer->shipNode);
+	}
+}
+
 vector<iceEnemy*>& icePhase::getEnemies(){
 	return mEnemies;
 }

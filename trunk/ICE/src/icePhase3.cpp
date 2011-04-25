@@ -21,6 +21,7 @@ icePhase3::~icePhase3()
 
 void icePhase3::update( Ogre::Real p_timeSinceLastFrame)
 {
+	icePhase::update(p_timeSinceLastFrame);
 }
 
 bool icePhase3::createScene( Ogre::SceneManager* p_SceneMgr, icePlayer* p_psPlayer )
@@ -30,40 +31,25 @@ bool icePhase3::createScene( Ogre::SceneManager* p_SceneMgr, icePlayer* p_psPlay
 
 	icePhase::createScene(p_SceneMgr,p_psPlayer);
 
-	int jur = 1000;
-	int j = 0;
-	vector<iceStep> steps;
-
-	//ConfigNode *rootNode;
-	//rootNode = ConfigScriptLoader::getSingleton().getConfigScript("entity", "Crate");
-
-	//steps.push_back(iceStep(Ogre::Vector3( -907, 535 , -667),Ogre::Degree(0),5*j++));
-	//steps.push_back(iceStep(Ogre::Vector3( -739, 407 , -713),Ogre::Degree(0),5*j++));
-	//steps.push_back(iceStep(Ogre::Vector3( -483, 252 , -559),Ogre::Degree(0),5*j++));
-	//steps.push_back(iceStep(Ogre::Vector3( -326, 120 , -289),Ogre::Degree(0),5*j++));
-	steps.push_back(iceStep(Ogre::Vector3( -186,  48 ,  -6 ),Ogre::Degree(0),5*j++));
-	steps.push_back(iceStep(Ogre::Vector3( -4  ,  54 , 237 ),Ogre::Degree(0),5*j++));
-	steps.push_back(iceStep(Ogre::Vector3(  8  ,  52 , 511 ),Ogre::Degree(0),5*j++));
-	steps.push_back(iceStep(Ogre::Vector3(  7  , 90  , 706 ),Ogre::Degree(-0),5*j++));
-	steps.push_back(iceStep(Ogre::Vector3( -60 , 171 ,993  ),Ogre::Degree(-35),5*j++));
-	steps.push_back(iceStep(Ogre::Vector3(  100, 238 ,1274 ),Ogre::Degree(-40),5*j++));
-	steps.push_back(iceStep(Ogre::Vector3( 314 , 121 ,966  ),Ogre::Degree(-35),5*j++));
-	steps.push_back(iceStep(Ogre::Vector3(302  , 71  , 95  ),Ogre::Degree(-20),5*j++));
-	steps.push_back(iceStep(Ogre::Vector3( 440 , 68  , -107),Ogre::Degree(0),5*j++));
-	steps.push_back(iceStep(Ogre::Vector3(1526 , 95  , 102 ),Ogre::Degree(40),5*j++));
-	steps.push_back(iceStep(Ogre::Vector3(1527 , 95  , 102 ),Ogre::Degree(0),5*j++));
-
+	//Loading player trajectory
+	ConfigNode *rootNode = ConfigScriptLoader::getSingleton().getConfigScript("entity", "phase3Trajectory");
+	vector<iceStep> steps = getStepsFromResources(rootNode);
 	mPlayer->setTrajectory(new iceLocomotiveTrajectory());
+	mPlayer->getTrajectory()->loadSteps(steps,false);
 
-	mPlayer->getTrajectory()->loadSteps(steps,true);
+	//Loading enemies
+	rootNode = ConfigScriptLoader::getSingleton().getConfigScript("entity", "phase3Enemies");
+	loadEnemies(rootNode);
 
 	Ogre::SceneNode* level = p_SceneMgr->getRootSceneNode()->createChildSceneNode( "level3" );
 	// Creating a DotSceneLoader
 	DotSceneLoader pLoader;
 	// Loading a Level. Level1 by default.
-	pLoader.parseDotScene( "level1.scene","level1",p_SceneMgr,level,"level3_" );
 
-	mSceneManager->setSkyBox( true, "cielo", 20000.0f, true, Ogre::Quaternion::IDENTITY, "level1" ); 
+	pLoader.parseDotScene( "phase3.scene","phase3",p_SceneMgr,level,"level3_" );
+
+	mSceneManager->setSkyBox( true, "phase3SkyBox", 20000.0f, true, Ogre::Quaternion::IDENTITY, "phase3" ); 
+
 
 	// Set ambient light
     mSceneManager->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));

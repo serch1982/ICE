@@ -7,7 +7,6 @@
 #include <OgreBillboard.h>
 
 #include <scene\DotSceneLoader.h>
-#include "scene/ConfigScriptLoader.h"
 #include <OgreQuaternion.h>
 #include <stdlib.h>
 #include <vector>

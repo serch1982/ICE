@@ -3,6 +3,7 @@
 
 #include "icePlayer.h"
 #include "iceLocomotiveTrajectory.h"
+#include "scene/ConfigScriptLoader.h"
 
 #include <OgreSceneManager.h>
 #include <OgreLog.h>
@@ -29,6 +30,8 @@ class icePhase
 
 	protected:
 		virtual void setCameras(void) = 0;
+		vector<iceStep> getStepsFromResources(ConfigNode* p_sStepsNode);
+		void loadEnemies(ConfigNode* p_sEnemiesNode);
 
 		Ogre::Log* mLog;
 		vector<Ogre::Camera*> mvCameras;

@@ -37,7 +37,7 @@ bool icePlayer::initialize(Ogre::SceneManager* p_psSceneManager, Ogre::SceneNode
 	shipNode->scale(0.04,0.09,0.09);
 
 	// Init camera
-	cameraPlaneNode = mNode->createChildSceneNode(Ogre::Vector3(0.0,0.0,-300.0));
+	cameraPlaneNode = mNode->createChildSceneNode(Ogre::Vector3(0.0,0.0,-150.0));
 	cameraNode = cameraPlaneNode->createChildSceneNode(Ogre::Vector3(0.0,/*10*/0.0,0.0));
 
 	if( mSceneManager->hasCamera("PlayerCam") )

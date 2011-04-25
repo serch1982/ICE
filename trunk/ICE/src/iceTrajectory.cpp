@@ -34,7 +34,7 @@ void iceTrajectory::loadSteps(std::vector<iceStep> p_vSteps, const bool p_bIsLoo
 	mLoop = p_bIsLoop;
 
 	//DEBUG {
-	int numSpheres = 300;
+	int numSpheres = 3000;
 
 	if(!Ogre::ResourceGroupManager::getSingleton().resourceGroupExists("debugger"))
 		Ogre::ResourceGroupManager::getSingleton().createResourceGroup("debugger");
@@ -61,6 +61,14 @@ void iceTrajectory::loadSteps(std::vector<iceStep> p_vSteps, const bool p_bIsLoo
 	myManualObject->end(); 
  
 	sDebugNode->attachObject(myManualObject);
+
+	for (unsigned int i=0;i<mSteps.size(); i++)
+	{
+		Ogre::SceneNode* sStepNode = sDebugNode->createChildSceneNode(mSteps[i].getPosition());
+		Ogre::Entity* mesh = mSceneManager->createEntity("sphere.mesh");
+		sStepNode->attachObject(mesh);
+		sStepNode->scale(0.03,0.03,0.03);
+	}
 	//} DEBUG
 }
 

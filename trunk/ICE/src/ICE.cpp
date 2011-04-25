@@ -31,10 +31,10 @@ bool ICE::setup()
 		if(!iceMenu::getInstance()->setupHikari(".\\media", "menu.swf", mCurrentCamera->getViewport()))
 			return false;
 
-		mPhases.resize(3);
+		mPhases.resize(2);
 		mPhases[0] = new icePhase1();
-		mPhases[1] = new icePhase2();
-		mPhases[2] = new icePhase3();
+		//mPhases[1] = new icePhase2();
+		mPhases[1] = new icePhase3();
 
 		//Set the current phase
 		m_iCurrentPhase = 0;
@@ -132,16 +132,24 @@ bool ICE::frameRenderingQueued(const Ogre::FrameEvent& evt)
 			iceState::getInstance()->setState( iceState::PLAY );			
 			break;
 		case iceState::NEXT_LEVEL:
-			// Load resources from a level and change state to play
 			m_iCurrentPhase++;
-			iceState::getInstance()->setState( iceState::LOAD_LEVEL );			
+			if(m_iCurrentPhase<=1)
+				iceState::getInstance()->setState( iceState::LOAD_LEVEL );
+			else
+			{
+				mPhysics->reset();
+				mSceneMgr->clearScene();
+				if(!iceMenu::getInstance()->setupHikari(".\\media", "menu.swf", mCurrentCamera->getViewport()))
+					return false;
+				iceState::getInstance()->setState( iceState::MENU );
+			}
 			break;
 		case iceState::LOAD_LEVEL:
 			// Load resources from a level and change state to play
 			mPhysics->reset();
 			mSceneMgr->clearScene();
 			createScene();
-			iceState::getInstance()->setState( iceState::PLAY );			
+			iceState::getInstance()->setState( iceState::PLAY );
 			break;
 		case iceState::GAME_OVER:
 			// Ending Condition.			
@@ -221,8 +229,9 @@ bool ICE::keyPressed( const OIS::KeyEvent &arg ){
 	}else if( arg.key == OIS::KC_L){
 		m_bShowPhysics = !m_bShowPhysics;
 		mPhysics->setShowDebug( m_bShowPhysics );
-	}
-	else if ( iceState::getInstance()->getState() == iceState::GOD )
+	}else if( arg.key == OIS::KC_N){
+		iceState::getInstance()->setState(iceState::NEXT_LEVEL);
+	}else if ( iceState::getInstance()->getState() == iceState::GOD )
 	{
 		mCameraMan->injectKeyDown(arg);
 	}

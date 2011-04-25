@@ -27,107 +27,19 @@ bool icePhase1::createScene( Ogre::SceneManager* p_SceneMgr, icePlayer* p_psPlay
 
 	icePhase::createScene(p_SceneMgr,p_psPlayer);
 
-	int j = 0;
-	vector<iceStep> steps;
-
-	ConfigNode *rootNode;
-	rootNode = ConfigScriptLoader::getSingleton().getConfigScript("entity", "steps");
-	int stepsNumber = rootNode->findChild("stepsNumber")->getValueI();
-
-	for(int i=1;i<=stepsNumber;i++)
-	{
-		char stepName[10];
-		sprintf(stepName,"step%d",i);
-		ConfigNode* stepNode = rootNode->findChild(stepName);
-
-		Ogre::Real posX = stepNode->findChild("position")->getValueF(0);
-		Ogre::Real posY = stepNode->findChild("position")->getValueF(1);
-		Ogre::Real posZ = stepNode->findChild("position")->getValueF(2);
-
-		Ogre::Radian rollAngle = Ogre::Degree(stepNode->findChild("rollAngle")->getValueF());
-		Ogre::Real time = stepNode->findChild("time")->getValueF();
-		steps.push_back(iceStep(Ogre::Vector3(posX,posY,posZ),rollAngle,time));
-	}
-
+	//Loading player trajectory
+	ConfigNode *rootNode = ConfigScriptLoader::getSingleton().getConfigScript("entity", "phase1Trajectory");
+	vector<iceStep> steps = getStepsFromResources(rootNode);
 	mPlayer->setTrajectory(new iceLocomotiveTrajectory());
 	mPlayer->getTrajectory()->loadSteps(steps,false);
 
-	rootNode = ConfigScriptLoader::getSingleton().getConfigScript("entity", "enemies");
-	int enemiesNumber = rootNode->findChild("enemiesNumber")->getValueI();
-
-	mEnemies.resize(enemiesNumber);
-	for(int i=1;i<=enemiesNumber;i++)
-	{
-		steps.clear();
-		char enemyName[10];
-		sprintf(enemyName,"enemy%d",i);
-		ConfigNode* enemyNode = rootNode->findChild(enemyName);
-
-		iceEnemy::ENEMYTYPE enemyType;
-
-		switch(enemyNode->findChild("enemyType")->getValueI())
-		{
-			case 0:
-				enemyType = iceEnemy::MINIMAGMATON;
-				break;
-			case 1:
-				enemyType = iceEnemy::KAMIKAZE;
-				break;
-			case 2:
-				enemyType = iceEnemy::INTELLIGENT;
-				break;
-			case 3:
-				enemyType = iceEnemy::VOLCANO;
-				break;
-			case 4:
-				enemyType = iceEnemy::MAGMATON;
-				break;
-			default:
-				enemyType = iceEnemy::MINIMAGMATON;
-				break;
-		}
-		Ogre::Real activationTime = enemyNode->findChild("activationTime")->getValueF();
-		bool isAttachedToPlayer = enemyNode->findChild("isAttachedToPlayer")->getValueI();
-
-		//Trajectory
-		ConfigNode* trajectoryNode = enemyNode->findChild("trajectory");
-
-		int stepsNumber = trajectoryNode->findChild("stepsNumber")->getValueI();
-
-		for(int j=1;j<=stepsNumber;j++)
-		{
-			char stepName[10];
-			sprintf(stepName,"step%d",j);
-			ConfigNode* stepNode = trajectoryNode->findChild(stepName);
-
-			Ogre::Real posX = stepNode->findChild("position")->getValueF(0);
-			Ogre::Real posY = stepNode->findChild("position")->getValueF(1);
-			Ogre::Real posZ = stepNode->findChild("position")->getValueF(2);
-
-			Ogre::Radian rollAngle = Ogre::Degree(stepNode->findChild("rollAngle")->getValueF());
-			Ogre::Real time = stepNode->findChild("time")->getValueF();
-			steps.push_back(iceStep(Ogre::Vector3(posX,posY,posZ),rollAngle,time));
-		}
-
-		mEnemies[i-1] = new iceEnemy();
-		mEnemies[i-1]->initialize(mSceneManager,mPlayer,activationTime,enemyType,isAttachedToPlayer);
-		mEnemies[i-1]->setTrajectory(new iceTrajectory());
-		mEnemies[i-1]->getTrajectory()->loadSteps(steps,true);
-		mEnemies[i-1]->getTrajectory()->setNodeToLookAt(mPlayer->shipNode);
-	}
-
-	//steps.push_back(iceStep(Ogre::Vector3( 30, 0 , 200),Ogre::Degree(0),j++));
-	//steps.push_back(iceStep(Ogre::Vector3( 0, 30 , 230),Ogre::Degree(0),j++));
-	//steps.push_back(iceStep(Ogre::Vector3( -30, 0 , 200),Ogre::Degree(0),j++));
-	//steps.push_back(iceStep(Ogre::Vector3( 0, -30 , 170),Ogre::Degree(0),j++));
-	//steps.push_back(iceStep(Ogre::Vector3( 30, 0 , 200),Ogre::Degree(0),j++));
-
-	//mMiniMagmatons[0]->activate();
-
-	//ConfigNode *rootNode;
-	//rootNode = ConfigScriptLoader::getSingleton().getConfigScript("entity", "Crate");
+	//Loading enemies
+	rootNode = ConfigScriptLoader::getSingleton().getConfigScript("entity", "phase1Enemies");
+	loadEnemies(rootNode);
 
 	Ogre::SceneNode* level = p_SceneMgr->getRootSceneNode()->createChildSceneNode( "level1" );
+
+
 	// Creating a DotSceneLoader
 	DotSceneLoader pLoader;
 	// Loading a Level. Level1 by default.
