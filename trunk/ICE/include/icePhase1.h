@@ -4,6 +4,7 @@
 #include "icePhase.h"
 #include "iceEnemy.h"
 #include "iceStep.h"
+#include <OgreBillboard.h>
 
 #include <scene\DotSceneLoader.h>
 #include "scene/ConfigScriptLoader.h"

@@ -146,6 +146,24 @@ bool icePhase1::createScene( Ogre::SceneManager* p_SceneMgr, icePlayer* p_psPlay
 	l->setSpecularColour(1.0, 1.0, 1.0);
 
 	mLog->logMessage( "LEVEL: Phase 1 loaded." );
+
+	// Pau - Create an advertisement panel with texture animation FX ------------------------------------------------------------------//
+
+	Ogre::SceneNode* advPan1Node = mSceneManager->getRootSceneNode()->createChildSceneNode("advPan1Node",Ogre::Vector3( 240, 98, 290 ));		
+	Ogre::Entity* advPan1 = mSceneManager->createEntity("cube.mesh");			
+	advPan1Node->scale(3,3,.009);
+	advPan1Node->attachObject(advPan1);
+
+	Ogre::SceneNode* advPan1BillNode = advPan1Node->createChildSceneNode("advPan1BillboardNode",Ogre::Vector3( 0, 0, 0 ));		
+	Ogre::BillboardSet* advPan1Set = mSceneManager->createBillboardSet();
+	advPan1Set->setMaterialName("advertisementPanel1");
+	advPan1Set->setBillboardType(Ogre::BillboardType::BBT_PERPENDICULAR_COMMON);
+	Ogre::Billboard* advPan1Billboard = advPan1Set->createBillboard(0,0,0);
+	advPan1BillNode->scale(.18,.18,.18);
+	advPan1BillNode->translate(0,0,200,Ogre::Node::TS_LOCAL);
+	advPan1BillNode->attachObject(advPan1Set);
+
+	//---------------------------------------------------------------------------------------------------------------------------------//
 	
 	return true;
 }
