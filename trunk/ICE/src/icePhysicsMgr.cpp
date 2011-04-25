@@ -50,12 +50,12 @@ void icePhysicsMgr::init( Ogre::SceneManager* p_SceneMgr,
     mDebugDrawer = new OgreBulletCollisions::DebugDrawer();
 	// we want to see the Bullet containers
     mDebugDrawer->setDrawWireframe(false);
-	mDebugDrawer->setDrawContactPoints(true);
+	mDebugDrawer->setDrawContactPoints(false);
 
 	// enable it if you want to see the Bullet containers
     mWorld->setDebugDrawer(mDebugDrawer);
     mWorld->setShowDebugShapes(false);      
-	mWorld->setShowDebugContactPoints( true );
+	mWorld->setShowDebugContactPoints( false );
     Ogre::SceneNode *node = mSceneMgr->getRootSceneNode()->createChildSceneNode("debugDrawer", Ogre::Vector3::ZERO);
     node->attachObject(static_cast <Ogre::SimpleRenderable *> (mDebugDrawer));
 
