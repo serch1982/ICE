@@ -175,8 +175,8 @@ void ICE::update( Ogre::Real p_timeSinceLastFrame )
 	mPhases[m_iCurrentPhase]->update(p_timeSinceLastFrame);
 
 	iceHUD::getInstance()->update();
-	iceHUD::getInstance()->setLife(100);
-	iceHUD::getInstance()->setWeapon("Rocket");
+	iceHUD::getInstance()->setLife(mPlayer.getCurrentLife());
+	iceHUD::getInstance()->setWeapon(mPlayer.getCurrentWeaponName());
 }
 
 bool ICE::keyPressed( const OIS::KeyEvent &arg ){

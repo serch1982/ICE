@@ -35,6 +35,8 @@ class icePlayer : public iceTrajectoryFollower, public iceRPG
 		void addXUserDeviation(int p_iXDeviation);
 		void addYUserDeviation(int p_iYDeviation);
 		Ogre::Vector3 getPosition(void);
+
+		char* getCurrentWeaponName(void);
 	protected:
 
 		void updateShipPosition(Ogre::Real frameTime);

@@ -143,6 +143,22 @@ void icePlayer::changeWeapon(const OIS::MouseEvent &arg)
 	}
 	
 }
+
+char* icePlayer::getCurrentWeaponName(void){
+	switch(mCurrentWeapon)
+	{
+		case  MACHINEGUN:
+			return "Machinegun";
+		case SHOTGUN:
+			return "Shotgun";
+		case MISILE_LAUNCHER:
+			return "Misile launcher";
+		default:
+			return "";
+	}
+}
+
+
 void icePlayer::processMouseMoved(const OIS::MouseEvent &arg)
 {
 	cursorNode->translate(((Ogre::Real)-arg.state.X.rel)/20,((Ogre::Real)-arg.state.Y.rel)/20,0);		
