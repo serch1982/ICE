@@ -72,6 +72,11 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG
 		iceBullet mvMisilLauncherBullets[BULLET_VECTOR_SIZE];
 		void updateActiveBullets(Ogre::Real p_timeSinceLastFrame);
 
+		// Animations
+		Ogre::AnimationState* mAttack01;
+		Ogre::AnimationState* mAttack02;
+		bool mbAnimAttack;
+
 
 		Ogre::RaySceneQuery *mRaySceneQuery;
 };

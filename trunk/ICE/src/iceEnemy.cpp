@@ -60,6 +60,13 @@ bool iceEnemy::initialize(int id, Ogre::SceneManager* p_psSceneManager, icePlaye
 			break;
 		case MAGMATON:
 			mesh = mSceneManager->createEntity(entityName.str(), "magmaton.mesh");
+			mAttack01 = mesh->getAnimationState( "Attack1" );
+			mAttack02 = mesh->getAnimationState( "Attack2" );
+			mAttack01->setEnabled( true );
+			mAttack02->setEnabled( false );
+			mAttack01->setLoop( false );
+			mAttack02->setLoop( false );
+			mbAnimAttack = true;
 			break;
 	}
 	mNode->attachObject(mesh);
@@ -134,6 +141,25 @@ void iceEnemy::update(Ogre::Real p_timeSinceLastFrame)
 			//	mNode->setVisible(false);
 			//}
 			break;
+	}
+
+	// We are magmaton
+	if( mType == 4 ){
+		if( mbAnimAttack ){
+			mAttack01->addTime( p_timeSinceLastFrame );
+			if( mAttack01->hasEnded() ){
+				mAttack01->setEnabled( false );
+				mAttack02->setEnabled( true );
+				mbAnimAttack = !mbAnimAttack;
+			}
+		}else{
+			mAttack02->addTime( p_timeSinceLastFrame );
+			if( mAttack02->hasEnded() ){
+				mAttack02->setEnabled( false );
+				mAttack01->setEnabled( true );
+				mbAnimAttack = !mbAnimAttack;
+			}
+		}
 	}
 }
 

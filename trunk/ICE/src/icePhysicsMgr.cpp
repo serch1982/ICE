@@ -206,38 +206,39 @@ void icePhysicsMgr::setLevel3(){
 		Ogre::SceneNode* childNode = static_cast<Ogre::SceneNode*>(i.getNext());
 		childNode->showBoundingBox( true );
 		string sName = childNode->getName();
-		sName;
+		if( sName.find("cube") != -1 && childNode->numAttachedObjects() > 0 ){
 
-		//Get the player mesh node
-		Ogre::MovableObject* movObj = childNode->getAttachedObject( 0 );
-		//Get the Ogre Bounding Box
-		Ogre::AxisAlignedBox buildingAxisBox = movObj->getBoundingBox();
-		//Get the size
-		Ogre::Vector3 sizeBox = buildingAxisBox.getSize();
-		//Resize the size (Bullet manual page 18 )
-		sizeBox /= 2.0f;
-		sizeBox *= 0.96f;
+			//Get the player mesh node
+			Ogre::MovableObject* movObj = childNode->getAttachedObject( 0 );
+			//Get the Ogre Bounding Box
+			Ogre::AxisAlignedBox buildingAxisBox = movObj->getBoundingBox();
+			//Get the size
+			Ogre::Vector3 sizeBox = buildingAxisBox.getSize();
+			//Resize the size (Bullet manual page 18 )
+			sizeBox /= 2.0f;
+			sizeBox *= 0.96f;
 
-		Ogre::Vector3 v3 = childNode->getPosition();
+			Ogre::Vector3 v3 = childNode->getPosition();
 
-		// Create a collision shape for buildings
-		OgreBulletCollisions::BoxCollisionShape *buildingBoxShape = new OgreBulletCollisions::BoxCollisionShape(sizeBox);
-		// and the Bullet rigid body
-		OgreBulletDynamics::RigidBody *buildingBody = 
-			new OgreBulletDynamics::RigidBody( childNode->getName(), mWorld, COL_WALL, mWallCollidesWith );
-		buildingBody->setStaticShape( childNode,
-             buildingBoxShape,
-             0.6f,         // dynamic body restitution
-             0.6f,         // dynamic body friction
-			 v3
-			);
-		mNumEntitiesInstanced++;            
+			// Create a collision shape for buildings
+			OgreBulletCollisions::BoxCollisionShape *buildingBoxShape = new OgreBulletCollisions::BoxCollisionShape(sizeBox);
+			// and the Bullet rigid body
+			OgreBulletDynamics::RigidBody *buildingBody = 
+				new OgreBulletDynamics::RigidBody( childNode->getName(), mWorld, COL_WALL, mWallCollidesWith );
+			buildingBody->setStaticShape( childNode,
+				 buildingBoxShape,
+				 0.6f,         // dynamic body restitution
+				 0.6f,         // dynamic body friction
+				 v3
+				);
+			mNumEntitiesInstanced++;            
     
-		// push the created objects to the deques
-		mShapes.push_back(buildingBoxShape);
-		mBodies.push_back(buildingBody); 
+			// push the created objects to the deques
+			mShapes.push_back(buildingBoxShape);
+			mBodies.push_back(buildingBody); 
 
-		mGameLog->logMessage( "FISICAS: Añadido el edificio " + childNode->getName() );
+			mGameLog->logMessage( "FISICAS: Añadido el edificio " + childNode->getName() );
+		}
 	}
 }
 

@@ -14,7 +14,7 @@
 #define BIT(x) (1<<(x))
 
 // Tick Callback to get contact Information
-void physicsTickCallback(btDynamicsWorld *world, btScalar timeStep);
+static void physicsTickCallback(btDynamicsWorld *world, btScalar timeStep);
 
 class icePhysicsMgr{
 

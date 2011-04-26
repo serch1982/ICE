@@ -59,6 +59,11 @@ bool icePhase1::createScene( Ogre::SceneManager* p_SceneMgr, icePlayer* p_psPlay
 
 	mLog->logMessage( "LEVEL: Phase 1 loaded." );
 
+	//New Advert
+	//Ogre::SceneNode* advert = level->createChildSceneNode( "Advert", Ogre::Vector3( 234,86,292) );	
+	//Ogre::Entity* mesh2 = mSceneManager->createEntity("advert", "Advert.mesh");
+	//advert->attachObject(mesh2);
+	
 	// Pau - Create an advertisement panel with texture animation FX ------------------------------------------------------------------//
 
 	Ogre::SceneNode* advPan1Node = mSceneManager->getRootSceneNode()->createChildSceneNode("advPan1Node",Ogre::Vector3( 240, 98, 290 ));		

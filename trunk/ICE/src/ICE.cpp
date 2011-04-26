@@ -156,7 +156,8 @@ bool ICE::frameRenderingQueued(const Ogre::FrameEvent& evt)
 			break;
 		case iceState::GOD:
 			// God mode
-			mCameraMan->frameRenderingQueued(evt);			
+			mCameraMan->frameRenderingQueued(evt);	
+			update( evt.timeSinceLastFrame);
 			break;
 		case iceState::EXIT:
 			return false;
@@ -226,6 +227,9 @@ bool ICE::keyPressed( const OIS::KeyEvent &arg ){
 	}else if (arg.key == OIS::KC_P){
 		iceState::getInstance()->setState( iceState::PAUSE );
 		iceMenu::getInstance()->show();
+	}else if (arg.key == OIS::KC_O){
+		iceState::getInstance()->setState( iceState::PLAY );
+		iceMenu::getInstance()->hide();
 	}else if( arg.key == OIS::KC_L){
 		m_bShowPhysics = !m_bShowPhysics;
 		mPhysics->setShowDebug( m_bShowPhysics );
