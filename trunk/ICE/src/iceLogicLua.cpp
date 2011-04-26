@@ -141,6 +141,14 @@ void iceLogicLua::bindLuaObjects(){
 		LUA_CONST( Vector3, UNIT_SCALE);
 	LUA_CONST_END;
 
+
+	luabind::module(L)
+	[
+		luabind::class_<Real>( "Real" )
+		.def(tostring(luabind::self))
+		.def(luabind::constructor<>())
+	];
+
 	//enemy class definition
 	luabind::module(L)
 	[
@@ -149,31 +157,34 @@ void iceLogicLua::bindLuaObjects(){
 			[
 				luabind::value("STOPPED",0),
 				luabind::value("FOLLOWING_TRAJECTORY",1),
-				luabind::value("GOING_TO_PLAYER",2),
+				luabind::value("ATTACKING",2),
 				luabind::value("DEADING",3),
 				luabind::value("DEAD",4),
 				luabind::value("INACTIVE",5)
 			]
+			.enum_("ENEMYTYPE")
+			[
+				luabind::value("MINIMAGMATON",0),
+				luabind::value("KAMIKAZE",1),
+				luabind::value("SMART",2),
+				luabind::value("VOLCANO",3),
+				luabind::value("MAGMATON",4)
+			]
 		    .def("getState", (iceEnemy::ENEMYSTATE( iceEnemy::*)(void)) &iceEnemy::getState)
+		    .def("setState", (void(iceEnemy::*)(iceEnemy::ENEMYSTATE)) &iceEnemy::setState)
+			.def("getType", (iceEnemy::ENEMYTYPE( iceEnemy::*)(void)) &iceEnemy::getType)
+			.def("activate", (void( iceEnemy::*)(void)) &iceEnemy::activate)
+			.def("checkActivationTime", (bool( iceEnemy::*)(Ogre::Real)) &iceEnemy::checkActivationTime)
+			.def("isVisiblePlayerCam", (bool( iceEnemy::*)(void)) &iceEnemy::isVisiblePlayerCam)
+			.def("isVisibleWideCam", (bool( iceEnemy::*)(void)) &iceEnemy::isVisibleWideCam)
+			.def("rangeAttack", (float( iceEnemy::*)(void)) &iceEnemy::rangeAttack)
 	];
 
-	//methods to lua from this class
-	luabind::module(L) [
-		luabind::class_<iceLogicLua>("iceLogicLua")
-			.def("enemyIsVisible",(bool (iceLogicLua::*)(void)) &iceLogicLua::enemyIsVisible)
-	];
 }
-
-//most ask to the enemy weather or not is avaible to attack the player o something like that...
-bool iceLogicLua::enemyIsVisible() {
-	return true;
-}
-
 
 //call the method of lua with the enemy logic and change his ENEMYSTATE 
-void iceLogicLua::getEnemyLogicState(iceEnemy *enemy){
+void iceLogicLua::getEnemyLogicState(iceEnemy *enemy, Ogre::Real p_timeSinceLastFrame){
 	if(FuncExist("EnemyLogicState")){
-		iceEnemy::ENEMYSTATE state = luabind::call_function<iceEnemy::ENEMYSTATE>(L, "EnemyLogicState", enemy, this);
-		enemy->setState(state);
+		luabind::call_function<void>(L, "EnemyLogicState", enemy, p_timeSinceLastFrame);
 	}
 }

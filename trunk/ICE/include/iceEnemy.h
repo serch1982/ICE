@@ -4,6 +4,7 @@
 #include "iceTrajectoryFollower.h"
 #include "iceRPG.h"
 #include "icePlayer.h"
+#include "iceBullet.h"
 
 class iceEnemy : public iceTrajectoryFollower, public iceRPG
 {
@@ -16,7 +17,7 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG
 		{
 			STOPPED = 0, //En realidad esta siguiendo la trayectoria del player
 			FOLLOWING_TRAJECTORY = 1,
-			GOING_TO_PLAYER = 2,
+			ATTACKING = 2,
 			DEADING = 3,
 			DEAD = 4,
 			INACTIVE = 5
@@ -27,28 +28,32 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG
 		{
 			MINIMAGMATON = 0,
 			KAMIKAZE = 1,
-			INTELLIGENT = 2,
+			SMART = 2,
 			VOLCANO = 3,
 			MAGMATON = 4
 		};
 
 		void setState(ENEMYSTATE p_iState);
 		int getState(void);
+		ENEMYTYPE getType(void);
 
 		void setPlayer(icePlayer* p_psPlayer);
 			
-		bool initialize(Ogre::SceneManager* p_psSceneManager, icePlayer* p_psPlayer, Ogre::Real p_fActivationTime, const ENEMYTYPE p_Type = MINIMAGMATON, const bool p_isAttachedToPlayer = false);
+		bool initialize(int id, Ogre::SceneManager* p_psSceneManager, icePlayer* p_psPlayer, Ogre::Real p_fActivationTime, const ENEMYTYPE p_Type = MINIMAGMATON, const bool p_isAttachedToPlayer = false);
 		void finalize();
 		void update(Ogre::Real p_timeSinceLastFrame);
 		void activate(void);
 		bool checkActivationTime(Ogre::Real p_timeSinceLastFrame);
+		bool isVisiblePlayerCam();
+		bool isVisibleWideCam();
+		float rangeAttack();
 
-		//iceRPG
-		virtual void createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation, unsigned int p_iDamage, bool p_bCritic); 
-		virtual void showReceivedDamage(unsigned int p_iDamage, bool p_bCritical);
-		virtual void showShieldDamage(unsigned int p_iDamage, bool p_bCritical);
-		virtual void showFail(void);
-		virtual void showLevelUp(unsigned int p_iLevel);
+		////iceRPG
+		void createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation, unsigned int p_iDamage, bool p_bCritic);
+		void showReceivedDamage(unsigned int p_iDamage, bool p_bCritical);
+		void showShieldDamage(unsigned int p_iDamage, bool p_bCritical);
+		void showFail(void);
+		void showLevelUp(unsigned int p_iLevel);
 	
 	protected:
 		static Ogre::NameGenerator mNameGenerator;
@@ -58,6 +63,17 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG
 		icePlayer* mPlayer;
 		Ogre::Real mCurrentTime;
 		Ogre::Real mActivationTime;
+
+		Ogre::SceneNode* enemyNode, *enemyBulletNode;
+
+		/*Bullet vectors depending on the weapon kind*/
+		iceBullet mvMachinegunBullets[BULLET_VECTOR_SIZE];
+		iceBullet mvShotgunBullets[BULLET_VECTOR_SIZE];
+		iceBullet mvMisilLauncherBullets[BULLET_VECTOR_SIZE];
+		void updateActiveBullets(Ogre::Real p_timeSinceLastFrame);
+
+
+		Ogre::RaySceneQuery *mRaySceneQuery;
 };
 
 #endif

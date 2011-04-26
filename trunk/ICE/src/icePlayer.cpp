@@ -344,3 +344,7 @@ void icePlayer::setWeaponLevel(unsigned int p_iWeapon,unsigned int p_iLevel)
 	iceRPG::setWeaponLevel(p_iWeapon, p_iLevel);
 	iceCounters::instance()->setWeaponLevel(p_iWeapon, p_iLevel);
 }
+
+Ogre::Vector3 icePlayer::getPosition(void){
+	return shipNode->getPosition();
+}

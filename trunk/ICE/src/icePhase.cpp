@@ -127,7 +127,7 @@ void icePhase::loadEnemies(ConfigNode* p_sEnemiesNode)
 				enemyType = iceEnemy::KAMIKAZE;
 				break;
 			case 2:
-				enemyType = iceEnemy::INTELLIGENT;
+				enemyType = iceEnemy::SMART;
 				break;
 			case 3:
 				enemyType = iceEnemy::VOLCANO;
@@ -147,7 +147,7 @@ void icePhase::loadEnemies(ConfigNode* p_sEnemiesNode)
 		steps = getStepsFromResources(trajectoryNode);
 
 		mEnemies[i] = new iceEnemy();
-		mEnemies[i]->initialize(mSceneManager,mPlayer,activationTime,enemyType,isAttachedToPlayer);
+		mEnemies[i]->initialize(i, mSceneManager,mPlayer,activationTime,enemyType,isAttachedToPlayer);
 		mEnemies[i]->setTrajectory(new iceTrajectory());
 		mEnemies[i]->getTrajectory()->loadSteps(steps,true);
 		mEnemies[i]->getTrajectory()->setNodeToLookAt(mPlayer->shipNode);

@@ -16,7 +16,7 @@ icePhase1::~icePhase1()
 void icePhase1::update( Ogre::Real p_timeSinceLastFrame)
 {
 	//call logic layer to change the state of the enemy
-	iceLogicLua::getInstance()->getEnemyLogicState(mEnemies[0]);
+	iceLogicLua::getInstance()->getEnemyLogicState(mEnemies[0],p_timeSinceLastFrame );
 	icePhase::update(p_timeSinceLastFrame);
 }
 

@@ -25,7 +25,7 @@ public:
 	~iceLogicLua();
 
 	int RunFile( const char *fname );
-	void getEnemyLogicState(iceEnemy *enemy);
+	void getEnemyLogicState(iceEnemy *enemy, Ogre::Real p_timeSinceLastFrame);
 	int RunSource( const char *source );
 	void setLog();
 protected:
@@ -40,7 +40,6 @@ private:
 	int errorHandler();
 	void ForceGarbageCollect();
 	bool FuncExist(const char *name );
-	
-	bool enemyIsVisible();
+
 };
 #endif
