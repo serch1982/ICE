@@ -112,6 +112,7 @@ void iceEnemy::update(Ogre::Real p_timeSinceLastFrame)
 			iceTrajectoryFollower::update(p_timeSinceLastFrame);
 			break;
 		case ATTACKING:
+			iceRPG::update(p_timeSinceLastFrame);
 			shot();						
 			updateActiveBullets(p_timeSinceLastFrame);
 			iceTrajectoryFollower::update(p_timeSinceLastFrame);

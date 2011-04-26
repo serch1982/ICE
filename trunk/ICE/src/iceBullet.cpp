@@ -35,7 +35,7 @@ void iceBullet::CreateEntities(Ogre::SceneManager* sceneMgr, Ogre::SceneNode* bu
 			msbulletNode->attachObject(machinegunShotSet);
 			msbulletNode->setVisible(false);
 			msbulletNode->scale(.05,.05,.05);
-			miSpeed = 1750;
+			miSpeed = 500; //1750;
 		}
 		if (p_iWeapon == 1)
 		{			
