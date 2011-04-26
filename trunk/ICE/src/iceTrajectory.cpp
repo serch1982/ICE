@@ -22,7 +22,7 @@ void iceTrajectory::loadSteps(std::vector<iceStep> p_vSteps, const bool p_bIsLoo
 	mSteps = p_vSteps;
 
 	//DEBUG {
-		Ogre::SceneNode* sDebugTrajectorySteps = mSceneManager->getSceneNode("DebugTrajectorySteps");
+		//Ogre::SceneNode* sDebugTrajectorySteps = mSceneManager->getSceneNode("DebugTrajectorySteps");
 	//} DEBUG
 	for (unsigned int i=0; i<mSteps.size(); i++)
 	{
@@ -34,41 +34,41 @@ void iceTrajectory::loadSteps(std::vector<iceStep> p_vSteps, const bool p_bIsLoo
 	mLoop = p_bIsLoop;
 
 	//DEBUG {
-	int numSpheres = 3000;
+	//int numSpheres = 3000;
 
-	if(!Ogre::ResourceGroupManager::getSingleton().resourceGroupExists("debugger"))
-		Ogre::ResourceGroupManager::getSingleton().createResourceGroup("debugger");
-	Ogre::ManualObject* myManualObject =  mSceneManager->createManualObject();
-	Ogre::SceneNode* sDebugNode = mNode->getParentSceneNode()->createChildSceneNode();
-	Ogre::StringStream materialName;
-	materialName << "Material_"  << mNameGenerator.generate();
-	Ogre::MaterialPtr myManualObjectMaterial = Ogre::MaterialManager::getSingleton().create(materialName.str(),"debugger");
+	//if(!Ogre::ResourceGroupManager::getSingleton().resourceGroupExists("debugger"))
+	//	Ogre::ResourceGroupManager::getSingleton().createResourceGroup("debugger");
+	//Ogre::ManualObject* myManualObject =  mSceneManager->createManualObject();
+	//Ogre::SceneNode* sDebugNode = mNode->getParentSceneNode()->createChildSceneNode();
+	//Ogre::StringStream materialName;
+	//materialName << "Material_"  << mNameGenerator.generate();
+	//Ogre::MaterialPtr myManualObjectMaterial = Ogre::MaterialManager::getSingleton().create(materialName.str(),"debugger");
 
-	myManualObjectMaterial->setReceiveShadows(false); 
-	myManualObjectMaterial->getTechnique(0)->setLightingEnabled(true); 
-	myManualObjectMaterial->getTechnique(0)->getPass(0)->setDiffuse(0,0,1,0); 
-	myManualObjectMaterial->getTechnique(0)->getPass(0)->setAmbient(0,0,1); 
-	myManualObjectMaterial->getTechnique(0)->getPass(0)->setSelfIllumination(0,0,1); 
-	//myManualObjectMaterial->dispose();  // dispose pointer, not the material
+	//myManualObjectMaterial->setReceiveShadows(false); 
+	//myManualObjectMaterial->getTechnique(0)->setLightingEnabled(true); 
+	//myManualObjectMaterial->getTechnique(0)->getPass(0)->setDiffuse(0,0,1,0); 
+	//myManualObjectMaterial->getTechnique(0)->getPass(0)->setAmbient(0,0,1); 
+	//myManualObjectMaterial->getTechnique(0)->getPass(0)->setSelfIllumination(0,0,1); 
+	////myManualObjectMaterial->dispose();  // dispose pointer, not the material
 
 
-	myManualObject->begin(materialName.str(), Ogre::RenderOperation::OT_LINE_LIST); 
-	for (int i=0;i<numSpheres;i++)
-	{
-			myManualObject->position(mTrack.interpolate((float)i/numSpheres));
-	}
+	//myManualObject->begin(materialName.str(), Ogre::RenderOperation::OT_LINE_LIST); 
+	//for (int i=0;i<numSpheres;i++)
+	//{
+	//		myManualObject->position(mTrack.interpolate((float)i/numSpheres));
+	//}
 
-	myManualObject->end(); 
- 
-	sDebugNode->attachObject(myManualObject);
+	//myManualObject->end(); 
+ //
+	//sDebugNode->attachObject(myManualObject);
 
-	for (unsigned int i=0;i<mSteps.size(); i++)
-	{
-		Ogre::SceneNode* sStepNode = sDebugNode->createChildSceneNode(mSteps[i].getPosition());
-		Ogre::Entity* mesh = mSceneManager->createEntity("sphere.mesh");
-		sStepNode->attachObject(mesh);
-		sStepNode->scale(0.03,0.03,0.03);
-	}
+	//for (unsigned int i=0;i<mSteps.size(); i++)
+	//{
+	//	Ogre::SceneNode* sStepNode = sDebugNode->createChildSceneNode(mSteps[i].getPosition());
+	//	Ogre::Entity* mesh = mSceneManager->createEntity("sphere.mesh");
+	//	sStepNode->attachObject(mesh);
+	//	sStepNode->scale(0.03,0.03,0.03);
+	//}
 	//} DEBUG
 }
 
@@ -101,13 +101,13 @@ void iceTrajectory::init(Ogre::SceneManager* p_spSceneManager, Ogre::SceneNode* 
 	mCurrentTime = 0;
 
 	//DEBUG {
-	if(!mSceneManager->hasSceneNode("DebugTrajectorySteps"))
-		mSceneManager->getRootSceneNode()->createChildSceneNode("DebugTrajectorySteps");
+	//if(!mSceneManager->hasSceneNode("DebugTrajectorySteps"))
+	//	mSceneManager->getRootSceneNode()->createChildSceneNode("DebugTrajectorySteps");
 
-	Ogre::SceneNode* playerCenter = mNode->createChildSceneNode();
-	Ogre::Entity* mesh2 = mSceneManager->createEntity(mNameGenerator.generate(), "razor.mesh");
-	playerCenter->attachObject(mesh2);
-	playerCenter->scale(0.03,0.03,0.03);
+	//Ogre::SceneNode* playerCenter = mNode->createChildSceneNode();
+	//Ogre::Entity* mesh2 = mSceneManager->createEntity(mNameGenerator.generate(), "razor.mesh");
+	//playerCenter->attachObject(mesh2);
+	//playerCenter->scale(0.03,0.03,0.03);
 	//} DEBUG
 }
 

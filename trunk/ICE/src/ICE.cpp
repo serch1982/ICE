@@ -121,7 +121,7 @@ bool ICE::frameRenderingQueued(const Ogre::FrameEvent& evt)
 			if(mPhases[m_iCurrentPhase]->isPhaseEnded())
 				iceState::getInstance()->setState(iceState::NEXT_LEVEL);
 			else
-				update( evt.timeSinceLastFrame );
+				update( evt.timeSinceLastFrame);
 			break;
 		case iceState::PAUSE:
 			iceMenu::getInstance()->update();

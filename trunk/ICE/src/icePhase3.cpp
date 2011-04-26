@@ -22,6 +22,11 @@ icePhase3::~icePhase3()
 void icePhase3::update( Ogre::Real p_timeSinceLastFrame)
 {
 	icePhase::update(p_timeSinceLastFrame);
+	if(mPlayer->getTrajectory()->hasEnded())
+	{
+		mPlayer->setTrajectory(new iceLocomotiveTrajectory());
+		mPlayer->getTrajectory()->loadSteps(mEndTrajectorySteps,true);
+	}
 }
 
 bool icePhase3::createScene( Ogre::SceneManager* p_SceneMgr, icePlayer* p_psPlayer )
@@ -36,6 +41,10 @@ bool icePhase3::createScene( Ogre::SceneManager* p_SceneMgr, icePlayer* p_psPlay
 	vector<iceStep> steps = getStepsFromResources(rootNode);
 	mPlayer->setTrajectory(new iceLocomotiveTrajectory());
 	mPlayer->getTrajectory()->loadSteps(steps,false);
+
+	//Loading End Trajectory
+	rootNode = ConfigScriptLoader::getSingleton().getConfigScript("entity", "phase3TrajectoryEnd");
+	mEndTrajectorySteps = getStepsFromResources(rootNode);
 
 	//Loading enemies
 	rootNode = ConfigScriptLoader::getSingleton().getConfigScript("entity", "phase3Enemies");
@@ -108,5 +117,5 @@ void icePhase3::setCameras(){
 
 bool icePhase3::isPhaseEnded(void)
 {
-	return mPlayer->getTrajectory()->hasEnded();
+	return false;
 }

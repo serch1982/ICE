@@ -84,7 +84,7 @@ void icePlayer::setCamera(Ogre::Camera* camera)
 	playerCamera = camera;
 	cameraNode->attachObject(camera);
 	camera->lookAt(cursorNode->convertLocalToWorldPosition(cursorNode->getPosition()));
-	camera->setFOVy(Ogre::Degree(10));
+	camera->setFOVy(Ogre::Degree(20));
 }
 
 Ogre::Camera* icePlayer::getCamera()

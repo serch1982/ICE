@@ -15,6 +15,7 @@ class icePhase3 : public icePhase
 		bool isPhaseEnded(void);
 	private:
 		void setCameras(void);
+		vector<iceStep> mEndTrajectorySteps;
 
 };
 

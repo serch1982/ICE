@@ -3,7 +3,7 @@
 
 using namespace std;
 
-#define LOCOMOTIVE_ADVANCE 3.0f //Avance de la locomotora en segundos
+#define LOCOMOTIVE_ADVANCE 1.0f //Avance de la locomotora en segundos
 
 class iceLocomotiveTrajectory : public iceTrajectory
 {

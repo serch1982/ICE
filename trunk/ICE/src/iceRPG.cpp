@@ -15,9 +15,9 @@ iceRPG::iceRPG(void)
 	mWeaponLevel[MACHINEGUN] = 0;
 	mWeaponLevel[SHOTGUN] = 0;
 	mWeaponLevel[MISILE_LAUNCHER] = 0;
-	mWeaponBaseCadence[MACHINEGUN] = 7;
-	mWeaponBaseCadence[SHOTGUN] = 3;
-	mWeaponBaseCadence[MISILE_LAUNCHER] = 1;
+	mWeaponBaseCadence[MACHINEGUN] = 10;
+	mWeaponBaseCadence[SHOTGUN] = 5;
+	mWeaponBaseCadence[MISILE_LAUNCHER] = 2;
 	mShieldLevel = 0;
 	mShieldEnergy = 0;
 	mCurrentWeapon = MACHINEGUN;
@@ -197,9 +197,9 @@ void iceRPG::update(Ogre::Real p_fFrameTime)
 
 void iceRPG::shot(void)
 {
-	goto borram;
+	//goto borram;
 
-	Ogre::Real fTimeBetweenShots = mWeaponLevel[mCurrentWeapon] / mWeaponBaseCadence[mCurrentWeapon];
+	Ogre::Real fTimeBetweenShots = 1 / (mWeaponLevel[mCurrentWeapon] * mWeaponBaseCadence[mCurrentWeapon]);
 	fTimeBetweenShots += getModifierByLuck(-fTimeBetweenShots/10,fTimeBetweenShots/10);
 		
 	if (mTimeSinceLastShot > fTimeBetweenShots)
@@ -236,15 +236,16 @@ void iceRPG::shot(void)
 			
 			Ogre::Radian fDeviation = fMaxDeviation + Ogre::Radian(getModifierByLuck(-fMaxDeviation.valueRadians()/10,fMaxDeviation.valueRadians()/10));
 			Ogre::Quaternion sOrientation(fDeviation,Ogre::Vector3(Ogre::Math::SymmetricRandom(),Ogre::Math::SymmetricRandom(),0.0));
-
+			//Ogre::Quaternion sOrientation = Ogre::Quaternion::IDENTITY;
+			
 			createShotEntity(mCurrentWeapon,sOrientation,fDamage,bIsCritic);
 		}
 
 		mTimeSinceLastShot = 0.0;
 	}
 
-borram:
-	createShotEntity(mCurrentWeapon,Ogre::Quaternion(0,0,0,0),0,false);
+//borram:
+//	createShotEntity(mCurrentWeapon,Ogre::Quaternion(0,0,0,0),0,false);
 }
 
 void iceRPG::addDamage(unsigned int p_iDamage, bool p_bCritic)
