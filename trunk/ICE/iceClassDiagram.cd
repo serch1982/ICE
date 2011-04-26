@@ -1,0 +1,291 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CORE" Collapsed="true">
+    <Position X="7.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EikKAEgAIABQEAgJCAAQAUIAQAApACAQAMABQDIIQAA=</HashCode>
+      <FileName>include\Core.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ICE" Collapsed="true">
+    <Position X="7.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ECgIAAACAAAgAEgBQgAAAwAARBABAAAAAEAAACAEAAA=</HashCode>
+      <FileName>include\ICE.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iceBullet" Collapsed="true">
+    <Position X="10.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQQQAACAAAABQAACAACAAEAYAAAAAEAAAAAAAAAgQA=</HashCode>
+      <FileName>include\iceBullet.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iceDebugScreen" Collapsed="true">
+    <Position X="13.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAQCAAAAgQACEAqAABAAAAQEAQAAAACAAAAAQA=</HashCode>
+      <FileName>include\iceDebugScreen.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iceCounters" Collapsed="true">
+    <Position X="12" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>OAAqAAEQEACwHCAmkAAAACgAAABCQQoAgAAgAAAiQBg=</HashCode>
+      <FileName>include\iceCounters.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iceLoadingBar" Collapsed="true">
+    <Position X="17.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgACAAACgCQAAAAgAAAMARGAQgyAAAAACAAACRADBAg=</HashCode>
+      <FileName>include\iceLoadingBar.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iceMenu" Collapsed="true">
+    <Position X="12" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAQAAAQAAgAAAAABACABBUQAgAAAQABAAgBAgEAAA=</HashCode>
+      <FileName>include\ICEMenu.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iceState" Collapsed="true">
+    <Position X="15.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAIAAAAAAEAAAACAAAAAAAABAQAAAAAQAAAAAQ=</HashCode>
+      <FileName>include\iceState.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="nodeProperty" Collapsed="true">
+    <Position X="12" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAQAAAAAAAAAAAAAAAAAAAAAAAAAACAAYAAAAAAA=</HashCode>
+      <FileName>include\scene\DotSceneLoader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotSceneLoader" Collapsed="true">
+    <Position X="15.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AggDQBAgAAlgiEAIogAACBSACQKCAAERFQJBEICCCwA=</HashCode>
+      <FileName>include\scene\DotSceneLoader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iceHUD" Collapsed="true">
+    <Position X="15.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAQAgIAAAAAAACABAQQABAAAQAJAAQIABEAAA=</HashCode>
+      <FileName>include\iceHUD.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="icePhase" Collapsed="true">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>RAAIAAACAAAQAQAgEAEAQAAAgAAAAABABIRAAAAGAAA=</HashCode>
+      <FileName>include\icePhase.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="icePhase1" Collapsed="true">
+    <Position X="3" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>RAAIAAAAAACAAQAAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>include\icePhase1.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="icePhase2" Collapsed="true">
+    <Position X="5.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>RAAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>include\icePhase2.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="icePhase3" Collapsed="true">
+    <Position X="0.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>RAAIAAAAAAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>include\icePhase3.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iceStep" Collapsed="true">
+    <Position X="17.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAACEEAggA=</HashCode>
+      <FileName>include\iceStep.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConfigScriptLoader" Collapsed="true">
+    <Position X="13.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gABAAQQAEhAAAAAFQAAAAAwBAIRgAAAACABQAAAggAg=</HashCode>
+      <FileName>include\scene\ConfigScriptLoader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConfigNode" Collapsed="true">
+    <Position X="12" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAACRAEBAAAAECgIAEICBAAEAkAABAACI=</HashCode>
+      <FileName>include\scene\ConfigScriptLoader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iceEnemy" Collapsed="true">
+    <Position X="4.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>SQAAAAQCHYAAgAAUAAkCYJAIgQUAQAAACIAAAAEEAAc=</HashCode>
+      <FileName>include\iceEnemy.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iceLocomotiveTrajectory" Collapsed="true">
+    <Position X="0.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAEAAAAAQAAACAAAAAAAAAAIAAAAAAAgAAAA=</HashCode>
+      <FileName>include\iceLocomotiveTrajectory.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="icePlayer" Collapsed="true">
+    <Position X="4.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AUAAKCAAAoIIAAImEAEAAFEIgUUQwQAAAIAAAiQEAQA=</HashCode>
+      <FileName>include\icePlayer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iceRPG" Collapsed="true">
+    <Position X="7.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACBgCAAkACAAABgGIAEQJBQIAwRgSRAICEEqYAFOIAA=</HashCode>
+      <FileName>include\iceRPG.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iceTrajectory" Collapsed="true">
+    <Position X="0.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgQkIAAgAAAQEAAgQAAAgIAIAAIAEAAkIAgKAAA=</HashCode>
+      <FileName>include\iceTrajectory.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iceTrajectoryFollower" Collapsed="true">
+    <Position X="4.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAgABIABAAAIAFAgAGAAA=</HashCode>
+      <FileName>include\iceTrajectoryFollower.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iceLogicLua" Collapsed="true">
+    <Position X="10.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAICAAAAAAAAAAAAAACAAAAYAAAAASBAAACAsQAAAA=</HashCode>
+      <FileName>include\iceLogicLua.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="icePhysicsMgr" Collapsed="true">
+    <Position X="13.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ICAgAQAFAQAAABAIAACAAAAAQAABSAIAAAAAAAAEBAA=</HashCode>
+      <FileName>include\icePhysicsMgr.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ogre::SceneManager" Collapsed="true">
+    <Position X="15.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>+df2+f67v/3vZ39/ft/7+o7/73/+vV32+//+P3//v/w=</HashCode>
+      <FileName>c:\ogre3dsdk\include\ogre\ogrescenemanager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ogre::SceneNode" Collapsed="true">
+    <Position X="17.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AUBgBnxQEQgEKAEIAAkACgHhgKEAAIACIBAiAEFGkBA=</HashCode>
+      <FileName>c:\ogre3dsdk\include\ogre\ogrescenenode.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ogre::TerrainGroup" Collapsed="true">
+    <Position X="12" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QRKFAAIYAEgAoKYIQBxIgCJEBB5FIGTxCJAAgQAGHQA=</HashCode>
+      <FileName>c:\ogre3dsdk\include\ogre\terrain\ogreterraingroup.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ogre::TerrainGlobalOptions" Collapsed="true">
+    <Position X="10.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>YBwBAQBImLQAIkgACAAAAQYpwAwIgBiAGsMBgUQwFog=</HashCode>
+      <FileName>c:\ogre3dsdk\include\ogre\terrain\ogreterrain.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="rapidxml::parse_error" Collapsed="true">
+    <Position X="13.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgCAAAAAAAAAAYAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>include\scene\rapidxml.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="rapidxml::xml_node&lt;Ch&gt;" Collapsed="true">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABFIAAAYAIUgjEAAAAAEAEgAEoBADBAAAAgEBEQBAA=</HashCode>
+      <FileName>include\scene\rapidxml.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="rapidxml::xml_attribute&lt;Ch&gt;" Collapsed="true">
+    <Position X="2.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAgAABBAAAIAIIAAAAAAAAAAAAA=</HashCode>
+      <FileName>include\scene\rapidxml.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="rapidxml::xml_document&lt;Ch&gt;" Collapsed="true">
+    <Position X="0.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AkAgAAAASAQAAABAAAAAAAQCAAAAAgCAAEAYACAAKAA=</HashCode>
+      <FileName>include\scene\rapidxml.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="rapidxml::memory_pool&lt;Ch&gt;" Collapsed="true">
+    <Position X="5.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEEwABBQAAAAAAgAACAAQAAAAAQIAgIQAEAAAAQAAAA=</HashCode>
+      <FileName>include\scene\rapidxml.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="rapidxml::xml_base&lt;Ch&gt;" Collapsed="true">
+    <Position X="1.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAABEAAABAAAAAEAAAAAQUICIAABAAAAAAAAA=</HashCode>
+      <FileName>include\scene\rapidxml.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="rapidxml::node_iterator&lt;Ch&gt;" Collapsed="true">
+    <Position X="10.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAQAEAAwAAAAAAAAAgAAAgAAAAAAA=</HashCode>
+      <FileName>include\scene\rapidxml_iterators.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="rapidxml::attribute_iterator&lt;Ch&gt;" Collapsed="true">
+    <Position X="10.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQAEEAwAAAAAAAAAIAAAgAAAAAAA=</HashCode>
+      <FileName>include\scene\rapidxml_iterators.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="rapidxml::file&lt;Ch&gt;" Collapsed="true">
+    <Position X="17.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAABAAQAAAAAAA=</HashCode>
+      <FileName>include\scene\rapidxml_utils.hpp</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="rapidxml::internal::lookup_tables&lt;Dummy&gt;" Collapsed="true">
+    <Position X="10.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAgBBASAAAAAAgAAgAAAAAAAAFAABAAIA=</HashCode>
+      <FileName>include\scene\rapidxml.hpp</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="rapidxml::node_type" Collapsed="true">
+    <Position X="10.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEQDAACAgAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAACA=</HashCode>
+      <FileName>include\scene\rapidxml.hpp</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
