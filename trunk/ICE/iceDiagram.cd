@@ -1,0 +1,249 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="iceGame" Collapsed="true">
+    <Position X="14.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>wAQiAgICAgAQAEAgQAEQDBABAgAAQAAAAIAAAKQEAAg=</HashCode>
+      <FileName>include\iceGame.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iceState" Collapsed="true">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EGgAAAACAIAAAEAAAAAAAAVAAAAABEAAAEAAQKAEAAI=</HashCode>
+      <FileName>include\States\iceState.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iceStateManager" Collapsed="true">
+    <Position X="7.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ECgAAAAAAgjAAEAhCFVGAQCABpAAQgCAAEgAQjIMBBA=</HashCode>
+      <FileName>include\States\iceStateManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iceStateMenu" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EGgAAEAAAIAAACAAAAAAAAAEAAgAAEAAAEAoACAEAAA=</HashCode>
+      <FileName>include\States\iceStateMenu.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iceStatePause" Collapsed="true">
+    <Position X="5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EGgAAEAAAICAAAAAAAAAAAAEAAiAAEAAAEAgACAEAAA=</HashCode>
+      <FileName>include\States\iceStatePause.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iceStatePlay" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EGgAAAAAAKAAAAgAAABQCQAIAAAAAEEAAEAAAiAkAAA=</HashCode>
+      <FileName>include\States\iceStatePlay.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConfigScriptLoader" Collapsed="true">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gABAAQQAEhAAAAAFQAAAAAwBAIRgAAAACABQAAAggAg=</HashCode>
+      <FileName>include\Utils\ConfigScriptLoader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConfigNode" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAACRAEBAAAAECgIAEICBAAEAkAABAACI=</HashCode>
+      <FileName>include\Utils\ConfigScriptLoader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iceLoadingBar" Collapsed="true">
+    <Position X="11" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgACAAACgCQAAAAgAAAMARGAQgyAAAAACAAACRADBAg=</HashCode>
+      <FileName>include\Utils\iceLoadingBar.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iceSdkTray" Collapsed="true">
+    <Position X="11" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>DAAAAAAQAAAAAgQAAEAGAARABAAQEAQAAAAAAAEAAQA=</HashCode>
+      <FileName>include\Utils\iceSdkTray.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="nodeProperty" Collapsed="true">
+    <Position X="11" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAQAAAAAAAAAAAAAAAAAAAAAAAAAACAAYAAAAAAA=</HashCode>
+      <FileName>include\Scene\DotSceneLoader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DotSceneLoader" Collapsed="true">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AggDQBAgAAlgiEAIogAACBSACQKCAAERFQJBEICCCwA=</HashCode>
+      <FileName>include\Scene\DotSceneLoader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iceLogicLua" Collapsed="true">
+    <Position X="12.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAEAAAAACAAAAIAAAAASBAAACAsQAAAA=</HashCode>
+      <FileName>include\Logic\iceLogicLua.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iceBullet" Collapsed="true">
+    <Position X="12.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQQQAACAAAABQAACAACAAEAYAAAAAEAAAAAAAAAgQA=</HashCode>
+      <FileName>include\Entities\iceBullet.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iceEnemy" Collapsed="true">
+    <Position X="1.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>SQAAAAQCHYAAgAAUAAkCYJAIgQUAQAAACIAAAAEEAAc=</HashCode>
+      <FileName>include\Entities\iceEnemy.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="icePlayer" Collapsed="true">
+    <Position X="1.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IWAAKiAAAoIIAAImEAAAAFEIgUUQwQAAAAAACiQEAQA=</HashCode>
+      <FileName>include\Entities\icePlayer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iceRPG" Collapsed="true">
+    <Position X="4.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACBgCAAkACAAABgGIAEQJBQIAwRgSRAICEEqYgFOIAA=</HashCode>
+      <FileName>include\Entities\iceRPG.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iceLocomotiveTrajectory" Collapsed="true">
+    <Position X="4.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAEAAAAAQAAACAAAAAAAAAAIAAAAAAAgAAAA=</HashCode>
+      <FileName>include\Trajectory\iceLocomotiveTrajectory.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iceStep" Collapsed="true">
+    <Position X="9.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAACEEAggA=</HashCode>
+      <FileName>include\Trajectory\iceStep.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iceTrajectory" Collapsed="true">
+    <Position X="4.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgQkIAAgAAAQEAAgQAAAgIAIAAIAEAAkIAgKAAA=</HashCode>
+      <FileName>include\Trajectory\iceTrajectory.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iceTrajectoryFollower" Collapsed="true">
+    <Position X="1.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAgABIABAAAIAFAgAEAAA=</HashCode>
+      <FileName>include\Trajectory\iceTrajectoryFollower.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="icePlayerStats" Collapsed="true">
+    <Position X="9.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>OAAqAAEQEACwHCAmkAAAACgAAABCQQ4AAARgAAACQBg=</HashCode>
+      <FileName>include\Stats\icePlayerStats.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iceLevel" Collapsed="true">
+    <Position X="7.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AoABIAAAAIACAAAQAABISAEAAAAAAABAAAAEAAAAAAA=</HashCode>
+      <FileName>include\Level\iceLevel.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iceLevelManager" Collapsed="true">
+    <Position X="9.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAEgAAAEAAAAAAABADAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>include\Level\iceLevelManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iceMusic" Collapsed="true">
+    <Position X="14.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAIAAAgAECAEAAgAIAAAAAAACgAAQEAAAgAAIAIAA=</HashCode>
+      <FileName>include\Sound\iceMusic.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="p_iceMusic" Collapsed="true">
+    <Position X="12.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>include\Sound\iceMusic.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iceMusicManager" Collapsed="true">
+    <Position X="7.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEIAACEACAAAAAAABAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>include\Sound\iceMusicManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iceSound" Collapsed="true">
+    <Position X="12.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAIAAAAAACAEAAAEAAAAAAAACBAAQAAAAAAgIAAAA=</HashCode>
+      <FileName>include\Sound\iceSound.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="p_iceSound" Collapsed="true">
+    <Position X="14.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAACAAAA=</HashCode>
+      <FileName>include\Sound\iceSound.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iceSoundManager" Collapsed="true">
+    <Position X="14.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEIAAAEAAAAAAAAABAAAAAQAAAAgAAAABACA=</HashCode>
+      <FileName>include\Sound\iceSoundManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ogre::SceneManager" Collapsed="true">
+    <Position X="7.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>+df2+f67v/3vZ39/ft/7+o7/73/+vV32+//+P3//v/w=</HashCode>
+      <FileName>c:\ogre3dsdk\include\ogre\ogrescenemanager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ogre::SceneNode" Collapsed="true">
+    <Position X="9.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AUBgBnxQEQgEKAEIAAkACgHhgKEAAIACIBAiAEFGkBA=</HashCode>
+      <FileName>c:\ogre3dsdk\include\ogre\ogrescenenode.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ogre::TerrainGroup" Collapsed="true">
+    <Position X="12.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QRKFAAIYAEgAoKYIQBxIgCJEBB5FIGTxCJAAgQAGHQA=</HashCode>
+      <FileName>c:\ogre3dsdk\include\ogre\terrain\ogreterraingroup.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Ogre::TerrainGlobalOptions" Collapsed="true">
+    <Position X="11" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>YBwBAQBImLQAIkgACAAAAQYpwAwIgBiAGsMBgUQwFog=</HashCode>
+      <FileName>c:\ogre3dsdk\include\ogre\terrain\ogreterrain.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="ICEStateId" Collapsed="true">
+    <Position X="7.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAggAAEAAAAAAAAAAAAAAAQAAAAAAAAoAAAAAAAAAA=</HashCode>
+      <FileName>include\States\iceState.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

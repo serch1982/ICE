@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\States">
+      <UniqueIdentifier>{b885ffdf-93a0-4188-ad51-538d1b1693a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\States">
+      <UniqueIdentifier>{e3f14d5f-5255-4556-83ff-244c46e439f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Utils">
+      <UniqueIdentifier>{a47a8160-c13b-424d-90bc-4c3faa797dab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scene">
+      <UniqueIdentifier>{962c29d5-bc54-4d25-9b89-d1a166c4afb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scene">
+      <UniqueIdentifier>{85361163-0aa2-4752-b39a-720059283db4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utils">
+      <UniqueIdentifier>{a5260f49-4e2c-4fbd-8445-0eb054bb651d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Logic">
+      <UniqueIdentifier>{f1f7ed90-4a8a-4f2b-a18e-4a26b71083ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Entities">
+      <UniqueIdentifier>{0fe3e71a-bba6-4288-adfa-8b2a47aa08b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Entities">
+      <UniqueIdentifier>{11c078bc-9fbd-4dd6-b8e1-18d715d3eafe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Trajectory">
+      <UniqueIdentifier>{c9876051-23eb-45f9-9c09-64ed04292b98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Trajectory">
+      <UniqueIdentifier>{aa793c18-ac4d-4250-bf64-ea151dc7752e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Stats">
+      <UniqueIdentifier>{6ad14d39-37f0-4823-a68e-44d163f750eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Stats">
+      <UniqueIdentifier>{65cda852-6eed-473e-b633-1d4e4149ae72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Level">
+      <UniqueIdentifier>{fd2c545d-90cd-47f6-aab8-3829ba7173f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Level">
+      <UniqueIdentifier>{e079a243-a286-4790-be7f-3903534fa5c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Logic">
+      <UniqueIdentifier>{208dbf90-f549-4273-840c-789d098448fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Sound">
+      <UniqueIdentifier>{89713b00-41ef-4712-b1ec-4636dd078641}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Sound">
+      <UniqueIdentifier>{7b62f460-1ed2-4741-80a1-e5d5940f595b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\iceMain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\iceGame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utils\iceSdkTray.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\States\iceState.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="src\States\iceStateManager.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="src\States\iceStateMenu.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\DotSceneLoader.cpp">
+      <Filter>Source Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\States\iceStatePlay.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entities\icePlayer.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entities\iceRPG.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Trajectory\iceLocomotiveTrajectory.cpp">
+      <Filter>Source Files\Trajectory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Trajectory\iceStep.cpp">
+      <Filter>Source Files\Trajectory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Trajectory\iceTrajectory.cpp">
+      <Filter>Source Files\Trajectory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Trajectory\iceTrajectoryFollower.cpp">
+      <Filter>Source Files\Trajectory</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entities\iceBullet.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entities\iceEnemy.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Stats\icePlayerStats.cpp">
+      <Filter>Source Files\Stats</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Level\iceLevel.cpp">
+      <Filter>Source Files\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Level\iceLevelManager.cpp">
+      <Filter>Source Files\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utils\ConfigScriptLoader.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Logic\iceLogicLua.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="src\States\iceStatePause.cpp">
+      <Filter>Source Files\States</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sound\iceMusic.cpp">
+      <Filter>Source Files\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sound\iceMusicManager.cpp">
+      <Filter>Source Files\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sound\iceSound.cpp">
+      <Filter>Source Files\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Sound\iceSoundManager.cpp">
+      <Filter>Source Files\Sound</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\iceGame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\States\iceState.h">
+      <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="include\States\iceStateManager.h">
+      <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="include\States\iceStateMenu.h">
+      <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Utils\iceLoadingBar.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Utils\iceSdkTray.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Scene\DotSceneLoader.h">
+      <Filter>Header Files\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="include\States\iceStatePlay.h">
+      <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Entities\icePlayer.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Entities\iceRPG.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Trajectory\iceLocomotiveTrajectory.h">
+      <Filter>Header Files\Trajectory</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Trajectory\iceStep.h">
+      <Filter>Header Files\Trajectory</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Trajectory\iceTrajectory.h">
+      <Filter>Header Files\Trajectory</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Trajectory\iceTrajectoryFollower.h">
+      <Filter>Header Files\Trajectory</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Entities\iceBullet.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Entities\iceEnemy.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Stats\icePlayerStats.h">
+      <Filter>Header Files\Stats</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Level\iceLevel.h">
+      <Filter>Header Files\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Level\iceLevelManager.h">
+      <Filter>Header Files\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Utils\ConfigScriptLoader.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Logic\iceLogicLua.h">
+      <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="include\States\iceStatePause.h">
+      <Filter>Header Files\States</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Sound\iceMusic.h">
+      <Filter>Header Files\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Sound\iceMusicManager.h">
+      <Filter>Header Files\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Sound\iceSound.h">
+      <Filter>Header Files\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Sound\iceSoundManager.h">
+      <Filter>Header Files\Sound</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="iceResource.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="icon1.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="iceDiagram.cd" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{AC5BA757-0E16-4804-A347-2F3575DE7F04}</ProjectGuid>
+    <RootNamespace>ICE</RootNamespace>
+    <ProjectName>ICE</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IntDir>obj\$(Configuration)\</IntDir>
+    <OutDir>bin\$(Configuration)\</OutDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IntDir>obj\$(Configuration)\</IntDir>
+    <OutDir>bin\$(Configuration)\</OutDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <MinimalRebuild>true</MinimalRebuild>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>externals\SDL_mixer_1.2.11;externals;externals\rapidxml;externals\HIKARI;include;$(OGRE_HOME)\include;$(OGRE_HOME)\include\OIS;$(OGRE_HOME)\include\OGRE;$(OGRE_HOME)\Samples\Common\include;$(OGRE_HOME)\boost_1_42;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <EnablePREfast>false</EnablePREfast>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ProgramDatabaseFile>$(OutDir)/newICE.pdb</ProgramDatabaseFile>
+      <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
+      <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalLibraryDirectories>lib\debug;$(OGRE_HOME)\lib\debug;$(OGRE_HOME)\boost_1_42\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>OgreMain_d.lib;OIS_d.lib;Hikari.lib;OgreTerrain_d.lib;lua5.1.lib;luabind_d.lib;SDL_mixer.lib;SDL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Message>Copying exe to samples bin directory ...</Message>
+      <Command>copy "$(OutDir)\$(TargetFileName)" "$(OGRE_HOME)\Bin\$(Configuration)"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <OmitFramePointers>true</OmitFramePointers>
+      <StringPooling>true</StringPooling>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <AdditionalIncludeDirectories>externals\SDL_mixer_1.2.11;externals;externals\rapidxml;externals\HIKARI;include;$(OGRE_HOME)\include;$(OGRE_HOME)\include\OIS;$(OGRE_HOME)\include\OGRE;$(OGRE_HOME)\Samples\Common\include;$(OGRE_HOME)\boost_1_42;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
+      <AdditionalLibraryDirectories>lib\Release;$(OGRE_HOME)\lib\release;$(OGRE_HOME)\boost_1_42\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>OgreMain.lib;OIS.lib;Hikari.lib;OgreTerrain.lib;lua5.1.lib;luabind.lib;SDL_mixer.lib;SDL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Message>Copying exe to samples bin directory ...</Message>
+      <Command>copy "$(OutDir)\$(TargetFileName)" "$(OGRE_HOME)\Bin\$(Configuration)"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Entities\iceBullet.cpp" />
+    <ClCompile Include="src\Entities\iceEnemy.cpp" />
+    <ClCompile Include="src\Entities\icePlayer.cpp" />
+    <ClCompile Include="src\Entities\iceRPG.cpp" />
+    <ClCompile Include="src\iceGame.cpp" />
+    <ClCompile Include="src\iceMain.cpp" />
+    <ClCompile Include="src\Level\iceLevel.cpp" />
+    <ClCompile Include="src\Level\iceLevelManager.cpp" />
+    <ClCompile Include="src\Logic\iceLogicLua.cpp" />
+    <ClCompile Include="src\Scene\DotSceneLoader.cpp" />
+    <ClCompile Include="src\Sound\iceMusic.cpp" />
+    <ClCompile Include="src\Sound\iceMusicManager.cpp" />
+    <ClCompile Include="src\Sound\iceSound.cpp" />
+    <ClCompile Include="src\Sound\iceSoundManager.cpp" />
+    <ClCompile Include="src\States\iceState.cpp" />
+    <ClCompile Include="src\States\iceStateManager.cpp" />
+    <ClCompile Include="src\States\iceStateMenu.cpp" />
+    <ClCompile Include="src\States\iceStatePause.cpp" />
+    <ClCompile Include="src\States\iceStatePlay.cpp" />
+    <ClCompile Include="src\Stats\icePlayerStats.cpp" />
+    <ClCompile Include="src\Trajectory\iceLocomotiveTrajectory.cpp" />
+    <ClCompile Include="src\Trajectory\iceStep.cpp" />
+    <ClCompile Include="src\Trajectory\iceTrajectory.cpp" />
+    <ClCompile Include="src\Trajectory\iceTrajectoryFollower.cpp" />
+    <ClCompile Include="src\Utils\ConfigScriptLoader.cpp" />
+    <ClCompile Include="src\Utils\iceSdkTray.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Entities\iceBullet.h" />
+    <ClInclude Include="include\Entities\iceEnemy.h" />
+    <ClInclude Include="include\Entities\icePlayer.h" />
+    <ClInclude Include="include\Entities\iceRPG.h" />
+    <ClInclude Include="include\iceGame.h" />
+    <ClInclude Include="include\Level\iceLevel.h" />
+    <ClInclude Include="include\Level\iceLevelManager.h" />
+    <ClInclude Include="include\Logic\iceLogicLua.h" />
+    <ClInclude Include="include\Scene\DotSceneLoader.h" />
+    <ClInclude Include="include\Sound\iceMusic.h" />
+    <ClInclude Include="include\Sound\iceMusicManager.h" />
+    <ClInclude Include="include\Sound\iceSound.h" />
+    <ClInclude Include="include\Sound\iceSoundManager.h" />
+    <ClInclude Include="include\States\iceState.h" />
+    <ClInclude Include="include\States\iceStateManager.h" />
+    <ClInclude Include="include\States\iceStateMenu.h" />
+    <ClInclude Include="include\States\iceStatePause.h" />
+    <ClInclude Include="include\States\iceStatePlay.h" />
+    <ClInclude Include="include\Stats\icePlayerStats.h" />
+    <ClInclude Include="include\Trajectory\iceLocomotiveTrajectory.h" />
+    <ClInclude Include="include\Trajectory\iceStep.h" />
+    <ClInclude Include="include\Trajectory\iceTrajectory.h" />
+    <ClInclude Include="include\Trajectory\iceTrajectoryFollower.h" />
+    <ClInclude Include="include\Utils\ConfigScriptLoader.h" />
+    <ClInclude Include="include\Utils\iceLoadingBar.h" />
+    <ClInclude Include="include\Utils\iceSdkTray.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="iceResource.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="iceDiagram.cd" />
+    <None Include="icon1.ico" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
