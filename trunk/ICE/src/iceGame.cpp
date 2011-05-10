@@ -134,10 +134,12 @@ bool iceGame::initialiseOIS() {
 }
 
 bool iceGame::initialiseSDL() {
-	 _log->logMessage("iceGame::initialiseSDL()");
-    if (SDL_Init(SDL_INIT_AUDIO) < 0)
-		 _log->logMessage("iceGame::initialiseSDL() SDL_Init(SDL_INIT_AUDIO) ERROR");
-        return false;
+	 _log->logMessage("iceGame::initialiseSDL() begin");
+
+	 //doest works in release mode
+    //if (SDL_Init(SDL_INIT_AUDIO) < 0)
+	//	 _log->logMessage("iceGame::initialiseSDL() SDL_Init(SDL_INIT_AUDIO) ERROR");
+    //    return false;
 
     atexit(SDL_Quit);
 
@@ -148,7 +150,7 @@ bool iceGame::initialiseSDL() {
 
     Mix_AllocateChannels(32);
     atexit(Mix_CloseAudio);
-
+	_log->logMessage("iceGame::initialiseSDL() end ");
     return true;
 }
 
