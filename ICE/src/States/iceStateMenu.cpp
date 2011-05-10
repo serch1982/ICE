@@ -71,7 +71,7 @@ void iceStateMenu::clear() {
     if (_loaded) {
         _log->logMessage("iceStateMenu::clean()");
         _loaded = false;
-		_stateManager->getHikariMgr()->destroyFlashControl("menu");
+		_stateManager->getHikariMgr()->destroyAllControls();
 		_music->stop();
     }
 }
