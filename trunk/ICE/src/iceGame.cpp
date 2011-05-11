@@ -198,3 +198,9 @@ Ogre::Camera* iceGame::getCamera() {
     return _camera;
 }
 
+void iceGame::setCamera(Ogre::Camera* p_Camera)
+{
+	iceGame::_camera = p_Camera;
+	Ogre::RenderWindow* rw = iceGame::getRenderWindow();
+	rw->getViewport(0)->setCamera(iceGame::_camera);
+}

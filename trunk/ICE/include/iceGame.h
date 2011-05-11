@@ -47,7 +47,12 @@ class iceGame {
          *  @return current camera
          */
         static Ogre::Camera* getCamera();
-        
+
+        /**
+         *  @set current camera
+         */
+		static void setCamera(Ogre::Camera* p_Camera);    
+
     private:
 		//
         Ogre::Root* _root;
@@ -88,6 +93,7 @@ class iceGame {
         //configurations
         void configureSceneManager();
         void createCamera();
+
 };
 
 #endif 

@@ -83,6 +83,11 @@ void iceStateManager::loadResources() {
     // iterator
     Ogre::ConfigFile::SectionIterator sectionIterator = configFile.getSectionIterator();
 
+	//Ogitor {
+	Ogre::ResourceGroupManager::getSingleton().addResourceLocation(
+    "./media/level1/Terrain", "FileSystem", "General");
+	//} Ogitor
+
     while (sectionIterator.hasMoreElements()) {
         // get group name
         groupName = sectionIterator.peekNextKey();
@@ -206,16 +211,10 @@ bool iceStateManager::keyPressed(const OIS::KeyEvent &arg) {
         iceGame::getRenderWindow()->writeContentsToTimestampedFile("screenshot", ".jpg");
     }else if (arg.key == OIS::KC_F1)
     {
-        Ogre::Camera* cam = iceGame::getCamera();
-		cam = _godCamera;
-		Ogre::RenderWindow* rw = iceGame::getRenderWindow();
-		rw->getViewport(0)->setCamera(_godCamera);
+		iceGame::setCamera(_godCamera);
     }else if (arg.key == OIS::KC_F2)
     {
-        Ogre::Camera* cam = iceGame::getCamera();
-		cam = _oldCamera;
-		Ogre::RenderWindow* rw = iceGame::getRenderWindow();
-		rw->getViewport(0)->setCamera(_oldCamera);
+		iceGame::setCamera(_oldCamera);
     }
 	_sdkCameraMan->injectKeyDown(arg);
     return this->_currentState->keyPressed(arg);
