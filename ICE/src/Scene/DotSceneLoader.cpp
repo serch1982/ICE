@@ -1,8 +1,5 @@
 #include "Scene\DotSceneLoader.h"
 #include <Ogre.h>
-#include <Terrain/OgreTerrain.h>
-#include <Terrain/OgreTerrainGroup.h>
-#include <Terrain/OgreTerrainMaterialGeneratorA.h>
  
 #pragma warning(disable:4390)
 #pragma warning(disable:4305)
@@ -243,7 +240,7 @@ void DotSceneLoader::processTerrain(rapidxml::xml_node<>* XMLNode)
     mTerrainGroup = OGRE_NEW Ogre::TerrainGroup(mSceneMgr, Ogre::Terrain::ALIGN_X_Z, mapSize, worldSize);
     mTerrainGroup->setOrigin(Ogre::Vector3::ZERO);
  
-    mTerrainGroup->setResourceGroup("General");
+	mTerrainGroup->setResourceGroup(m_sGroupName);
  
     rapidxml::xml_node<>* pElement;
     rapidxml::xml_node<>* pPageElement;
@@ -260,9 +257,15 @@ void DotSceneLoader::processTerrain(rapidxml::xml_node<>* XMLNode)
         }
     }
     mTerrainGroup->loadAllTerrains(true);
+
+    Ogre::TerrainGroup::TerrainIterator ti = mTerrainGroup->getTerrainIterator();
+    while(ti.hasMoreElements())
+    {
+        Ogre::Terrain* t = ti.getNext()->instance;
+        initTerrainBlendMaps(t);
+    }
  
     mTerrainGroup->freeTemporaryResources();
-    //mTerrain->setPosition(mTerrainPosition);
 }
  
 void DotSceneLoader::processTerrainPage(rapidxml::xml_node<>* XMLNode)
@@ -270,11 +273,44 @@ void DotSceneLoader::processTerrainPage(rapidxml::xml_node<>* XMLNode)
     Ogre::String name = getAttrib(XMLNode, "name");
     int pageX = Ogre::StringConverter::parseInt(XMLNode->first_attribute("pageX")->value());
     int pageY = Ogre::StringConverter::parseInt(XMLNode->first_attribute("pageY")->value());
+
+	Ogre::String rg = mTerrainGroup->getResourceGroup();
  
     if (Ogre::ResourceGroupManager::getSingleton().resourceExists(mTerrainGroup->getResourceGroup(), name))
     {
         mTerrainGroup->defineTerrain(pageX, pageY, name);
     }
+}
+
+void DotSceneLoader::initTerrainBlendMaps(Ogre::Terrain* terrain)
+{
+    Ogre::TerrainLayerBlendMap* blendMap0 = terrain->getLayerBlendMap(1);
+    Ogre::TerrainLayerBlendMap* blendMap1 = terrain->getLayerBlendMap(2);
+    Ogre::Real minHeight0 = 70;
+    Ogre::Real fadeDist0 = 40;
+    Ogre::Real minHeight1 = 70;
+    Ogre::Real fadeDist1 = 15;
+    float* pBlend1 = blendMap1->getBlendPointer();
+    for (Ogre::uint16 y = 0; y < terrain->getLayerBlendMapSize(); ++y)
+    {
+        for (Ogre::uint16 x = 0; x < terrain->getLayerBlendMapSize(); ++x)
+        {
+            Ogre::Real tx, ty;
+ 
+            blendMap0->convertImageToTerrainSpace(x, y, &tx, &ty);
+            Ogre::Real height = terrain->getHeightAtTerrainPosition(tx, ty);
+            Ogre::Real val = (height - minHeight0) / fadeDist0;
+            val = Ogre::Math::Clamp(val, (Ogre::Real)0, (Ogre::Real)1);
+ 
+            val = (height - minHeight1) / fadeDist1;
+            val = Ogre::Math::Clamp(val, (Ogre::Real)0, (Ogre::Real)1);
+            *pBlend1++ = val;
+        }
+    }
+    blendMap0->dirty();
+    blendMap1->dirty();
+    blendMap0->update();
+    blendMap1->update();
 }
  
 void DotSceneLoader::processUserDataReference(rapidxml::xml_node<>* XMLNode, Ogre::SceneNode *pParent)
@@ -444,126 +480,155 @@ void DotSceneLoader::processNode(rapidxml::xml_node<>* XMLNode, Ogre::SceneNode 
 {
     // Construct the node's name
     Ogre::String name = m_sPrependNode + getAttrib(XMLNode, "name");
+
+	bool isAPlayerStep = false;
+
+	//Processing user data
+	rapidxml::xml_node<>* XMLEntity = XMLNode->first_node("entity");
+	if (XMLEntity)
+	{
+		rapidxml::xml_node<>* XMLUserData = XMLEntity->first_node("userData");
+		if (XMLUserData)
+		{
+			rapidxml::xml_node<>* XMLProperty = XMLUserData->first_node("property");
+			Ogre::String name = getAttrib(XMLProperty,"name");
+			if (name.compare("playerStateOrder"))
+			{
+				Ogre::Real playerStateOrder = getAttribReal(XMLProperty,"data");
+				Ogre::Vector3 position = parseVector3(XMLNode->first_node("position"));
+
+				if (mPlayerSteps.size() < playerStateOrder+1)
+					mPlayerSteps.resize(playerStateOrder+1);
+
+				mPlayerSteps[playerStateOrder] = iceStep(position,Ogre::Radian(0),playerStateOrder*10);
+				isAPlayerStep = true;
+			}
+		}
+	}
+
+
+	if (!isAPlayerStep)
+	{
+		// Create the scene node
+		Ogre::SceneNode *pNode;
+		if(name.empty())
+		{
+			// Let Ogre choose the name
+			if(pParent)
+				pNode = pParent->createChildSceneNode();
+			else
+				pNode = mAttachNode->createChildSceneNode();
+		}
+		else
+		{
+			// Provide the name
+			if(pParent)
+				pNode = pParent->createChildSceneNode(name);
+			else
+				pNode = mAttachNode->createChildSceneNode(name);
+		}
  
-    // Create the scene node
-    Ogre::SceneNode *pNode;
-    if(name.empty())
-    {
-        // Let Ogre choose the name
-        if(pParent)
-            pNode = pParent->createChildSceneNode();
-        else
-            pNode = mAttachNode->createChildSceneNode();
-    }
-    else
-    {
-        // Provide the name
-        if(pParent)
-            pNode = pParent->createChildSceneNode(name);
-        else
-            pNode = mAttachNode->createChildSceneNode(name);
-    }
+		// Process other attributes
+		Ogre::String id = getAttrib(XMLNode, "id");
+		bool isTarget = getAttribBool(XMLNode, "isTarget");
  
-    // Process other attributes
-    Ogre::String id = getAttrib(XMLNode, "id");
-    bool isTarget = getAttribBool(XMLNode, "isTarget");
+		rapidxml::xml_node<>* pElement;
  
-    rapidxml::xml_node<>* pElement;
+		// Process position (?)
+		pElement = XMLNode->first_node("position");
+		if(pElement)
+		{
+			pNode->setPosition(parseVector3(pElement));
+			pNode->setInitialState();
+		}
  
-    // Process position (?)
-    pElement = XMLNode->first_node("position");
-    if(pElement)
-    {
-        pNode->setPosition(parseVector3(pElement));
-        pNode->setInitialState();
-    }
+		// Process rotation (?)
+		pElement = XMLNode->first_node("rotation");
+		if(pElement)
+		{
+			pNode->setOrientation(parseQuaternion(pElement));
+			pNode->setInitialState();
+		}
  
-    // Process rotation (?)
-    pElement = XMLNode->first_node("rotation");
-    if(pElement)
-    {
-        pNode->setOrientation(parseQuaternion(pElement));
-        pNode->setInitialState();
-    }
+		// Process scale (?)
+		pElement = XMLNode->first_node("scale");
+		if(pElement)
+		{
+			pNode->setScale(parseVector3(pElement));
+			pNode->setInitialState();
+		}
  
-    // Process scale (?)
-    pElement = XMLNode->first_node("scale");
-    if(pElement)
-    {
-        pNode->setScale(parseVector3(pElement));
-        pNode->setInitialState();
-    }
+		// Process lookTarget (?)
+		pElement = XMLNode->first_node("lookTarget");
+		if(pElement)
+			processLookTarget(pElement, pNode);
  
-    // Process lookTarget (?)
-    pElement = XMLNode->first_node("lookTarget");
-    if(pElement)
-        processLookTarget(pElement, pNode);
+		// Process trackTarget (?)
+		pElement = XMLNode->first_node("trackTarget");
+		if(pElement)
+			processTrackTarget(pElement, pNode);
  
-    // Process trackTarget (?)
-    pElement = XMLNode->first_node("trackTarget");
-    if(pElement)
-        processTrackTarget(pElement, pNode);
+		// Process node (*)
+		pElement = XMLNode->first_node("node");
+		while(pElement)
+		{
+			processNode(pElement, pNode);
+			pElement = pElement->next_sibling("node");
+		}
  
-    // Process node (*)
-    pElement = XMLNode->first_node("node");
-    while(pElement)
-    {
-        processNode(pElement, pNode);
-        pElement = pElement->next_sibling("node");
-    }
+		// Process entity (*)
+		pElement = XMLNode->first_node("entity");
+		while(pElement)
+		{
+			processEntity(pElement, pNode);
+			pElement = pElement->next_sibling("entity");
+		}
  
-    // Process entity (*)
-    pElement = XMLNode->first_node("entity");
-    while(pElement)
-    {
-        processEntity(pElement, pNode);
-        pElement = pElement->next_sibling("entity");
-    }
+		// Process light (*)
+		//pElement = XMLNode->first_node("light");
+		//while(pElement)
+		//{
+		//    processLight(pElement, pNode);
+		//    pElement = pElement->next_sibling("light");
+		//}
  
-    // Process light (*)
-    //pElement = XMLNode->first_node("light");
-    //while(pElement)
-    //{
-    //    processLight(pElement, pNode);
-    //    pElement = pElement->next_sibling("light");
-    //}
+		// Process camera (*)
+		pElement = XMLNode->first_node("camera");
+		while(pElement)
+		{
+			processCamera(pElement, pNode);
+			pElement = pElement->next_sibling("camera");
+		}
  
-    // Process camera (*)
-    pElement = XMLNode->first_node("camera");
-    while(pElement)
-    {
-        processCamera(pElement, pNode);
-        pElement = pElement->next_sibling("camera");
-    }
+		// Process particleSystem (*)
+		pElement = XMLNode->first_node("particleSystem");
+		while(pElement)
+		{
+			processParticleSystem(pElement, pNode);
+			pElement = pElement->next_sibling("particleSystem");
+		}
  
-    // Process particleSystem (*)
-    pElement = XMLNode->first_node("particleSystem");
-    while(pElement)
-    {
-        processParticleSystem(pElement, pNode);
-        pElement = pElement->next_sibling("particleSystem");
-    }
+		// Process billboardSet (*)
+		pElement = XMLNode->first_node("billboardSet");
+		while(pElement)
+		{
+			processBillboardSet(pElement, pNode);
+			pElement = pElement->next_sibling("billboardSet");
+		}
  
-    // Process billboardSet (*)
-    pElement = XMLNode->first_node("billboardSet");
-    while(pElement)
-    {
-        processBillboardSet(pElement, pNode);
-        pElement = pElement->next_sibling("billboardSet");
-    }
+		// Process plane (*)
+		pElement = XMLNode->first_node("plane");
+		while(pElement)
+		{
+			processPlane(pElement, pNode);
+			pElement = pElement->next_sibling("plane");
+		}
  
-    // Process plane (*)
-    pElement = XMLNode->first_node("plane");
-    while(pElement)
-    {
-        processPlane(pElement, pNode);
-        pElement = pElement->next_sibling("plane");
-    }
- 
-    // Process userDataReference (?)
-    pElement = XMLNode->first_node("userDataReference");
-    if(pElement)
-        processUserDataReference(pElement, pNode);
+		// Process userDataReference (?)
+		pElement = XMLNode->first_node("userDataReference");
+		if(pElement)
+			processUserDataReference(pElement, pNode);
+	}
 }
  
 void DotSceneLoader::processLookTarget(rapidxml::xml_node<>* XMLNode, Ogre::SceneNode *pParent)
@@ -778,6 +843,8 @@ void DotSceneLoader::processFog(rapidxml::xml_node<>* XMLNode)
  
     // Setup the fog
     mSceneMgr->setFog(mode, colourDiffuse, expDensity, linearStart, linearEnd);
+	//mSceneMgr->setFog(Ogre::FOG_LINEAR, colourDiffuse,0,50,500);
+	//mSceneMgr->setFog(mode);
 }
  
 void DotSceneLoader::processSkyBox(rapidxml::xml_node<>* XMLNode)
@@ -998,4 +1065,9 @@ void DotSceneLoader::processUserDataReference(rapidxml::xml_node<>* XMLNode, Ogr
 {
     Ogre::String str = XMLNode->first_attribute("id")->value();
     pEntity->setUserAny(Ogre::Any(str));
+}
+
+std::vector<iceStep> DotSceneLoader::getPlayerSteps(void)
+{
+	return mPlayerSteps;
 }

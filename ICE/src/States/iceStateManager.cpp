@@ -83,11 +83,6 @@ void iceStateManager::loadResources() {
     // iterator
     Ogre::ConfigFile::SectionIterator sectionIterator = configFile.getSectionIterator();
 
-	//Ogitor {
-	Ogre::ResourceGroupManager::getSingleton().addResourceLocation(
-    "./media/level1/Terrain", "FileSystem", "General");
-	//} Ogitor
-
     while (sectionIterator.hasMoreElements()) {
         // get group name
         groupName = sectionIterator.peekNextKey();

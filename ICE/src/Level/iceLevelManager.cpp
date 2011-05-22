@@ -11,6 +11,7 @@ iceLevelManager::iceLevelManager(): _numLevels(0){
 	_levels.push_back(new iceLevel(1,"level1", "phase1Trajectory", "phase1Enemies"));
 	_levels.push_back(new iceLevel(2,"level1", "phase1Trajectory", "phase1Enemies"));
 	_numLevels = 2;
+	_dotSceneLoader = new DotSceneLoader();
 }
 
 iceLevelManager::~iceLevelManager() {
@@ -19,6 +20,7 @@ iceLevelManager::~iceLevelManager() {
     std::vector<iceLevel*>::iterator i;
     for (i = _levels.begin(); i != _levels.end(); ++i)
         delete (*i);
+	delete _dotSceneLoader;
 	_log->logMessage("iceLevelManager::~iceLevelManager()");
 }
 
@@ -44,4 +46,9 @@ iceLevel* iceLevelManager::getIceLevel(const int id) {
 
 int iceLevelManager::getNumLevels() const {
     return _numLevels;
+}
+
+DotSceneLoader* iceLevelManager::getDotSceneLoader()
+{
+	return _dotSceneLoader;
 }

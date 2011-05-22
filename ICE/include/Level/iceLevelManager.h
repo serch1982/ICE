@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <OGRE/Ogre.h>
+#include "Scene\DotSceneLoader.h"
 
 class iceLevel;
 
@@ -38,10 +39,16 @@ class iceLevelManager: public Ogre::Singleton<iceLevelManager> {
          *  @return total f number of levels
          */
         int getNumLevels() const;
+		    
+		/**
+         *  @return DotSceneLoader
+         */
+        DotSceneLoader* getDotSceneLoader();
     private:
         std::vector<iceLevel*> _levels;
         int _numLevels;
 		Ogre::Log* _log;
+		DotSceneLoader* _dotSceneLoader;
 };
 
 #endif  
