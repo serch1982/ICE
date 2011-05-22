@@ -4,7 +4,6 @@
 
 #include <vector>
 #include <OGRE/Ogre.h>
-#include "Scene\DotSceneLoader.h"
 #include "Entities\icePlayer.h"
 #include "Entities\iceEnemy.h"
 #include "Utils\ConfigScriptLoader.h"

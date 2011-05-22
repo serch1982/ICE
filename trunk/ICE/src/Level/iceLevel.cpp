@@ -18,35 +18,33 @@ void iceLevel::load(icePlayer& player, std::vector<iceEnemy*>& vectorEnemies) {
     if (!_loaded) {
         _loaded = true;
         
-		// Creating a DotSceneLoader
-		DotSceneLoader pLoader;
 		// Loading a Level
 		Ogre::SceneManager* sceneManager = iceGame::getSceneManager();
 		Ogre::SceneNode* level = sceneManager->getRootSceneNode()->createChildSceneNode( "root_" + _name );
 
-		pLoader.parseDotScene( _name + ".scene",_name,sceneManager, level, _name + "_" );
+		iceLevelManager::getSingletonPtr()->getDotSceneLoader()->parseDotScene( _name + ".scene",_name,sceneManager, level, _name + "_" );
 
-		//set the skybox
-		sceneManager->setSkyBox(true, "cielo", 20000.0f, true, Ogre::Quaternion::IDENTITY ); 
+		////set the skybox
+		//sceneManager->setSkyBox(true, "cielo", 20000.0f, true, Ogre::Quaternion::IDENTITY ); 
 
-		// Set ambient light
-		sceneManager->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
+		//// Set ambient light
+		//sceneManager->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
 
-		// Create a light
-		Ogre::Light* l = sceneManager->createLight("MainLight");
-		l->setType( Ogre::Light::LT_DIRECTIONAL);
-		l->setDirection( -1, 1, -1 );
-		l->setDiffuseColour(1.0, 1.0, 1.0);
-		l->setSpecularColour(1.0, 1.0, 1.0);
+		//// Create a light
+		//Ogre::Light* l = sceneManager->createLight("MainLight");
+		//l->setType( Ogre::Light::LT_DIRECTIONAL);
+		//l->setDirection( -1, 1, -1 );
+		//l->setDiffuseColour(1.0, 1.0, 1.0);
+		//l->setSpecularColour(1.0, 1.0, 1.0);
 
         //// song 
         //_song = SongManager::getSingleton().load(_musicName);
 
-		//set player trajectory
 		ConfigNode *rootNode = ConfigScriptLoader::getSingleton().getConfigScript("entity", _playerTrajName);
-		std::vector<iceStep> steps = getStepsFromResources(rootNode);
+		//std::vector<iceStep> steps = getStepsFromResources(rootNode);
 		player.setTrajectory(new iceLocomotiveTrajectory());
-		player.getTrajectory()->loadSteps(steps,false);
+		//player.getTrajectory()->loadSteps(steps,false);
+		player.getTrajectory()->loadSteps(iceLevelManager::getSingletonPtr()->getDotSceneLoader()->getPlayerSteps(),false);
 
 		//set enemies
 		rootNode = ConfigScriptLoader::getSingleton().getConfigScript("entity", "phase1Enemies");

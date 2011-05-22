@@ -156,7 +156,7 @@ bool iceGame::initialiseSDL() {
 
 void iceGame::configureSceneManager() {
     _log->logMessage("iceGame::configureSceneManager()");
-    _sceneManager = Ogre::Root::getSingleton().createSceneManager(Ogre::ST_EXTERIOR_FAR, "sceneManager");
+	_sceneManager = Ogre::Root::getSingleton().createSceneManager(Ogre::ST_EXTERIOR_REAL_FAR, "sceneManager");
 
     //shodow technique
     _sceneManager->setShadowTechnique(Ogre::SHADOWTYPE_NONE);

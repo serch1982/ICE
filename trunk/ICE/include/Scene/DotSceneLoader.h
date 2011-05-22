@@ -6,7 +6,12 @@
 #include <OgreVector3.h>
 #include <OgreQuaternion.h>
 #include <OgreResourceGroupManager.h>
+#include <Terrain/OgreTerrain.h>
+#include <Terrain/OgreTerrainGroup.h>
+#include <Terrain/OgreTerrainMaterialGeneratorA.h>
 #include <vector>
+
+#include "../Trajectory/iceStep.h"
  
 #include "rapidxml.hpp"
  
@@ -47,6 +52,8 @@
         std::vector<nodeProperty> nodeProperties;
         std::vector<Ogre::String> staticObjects;
         std::vector<Ogre::String> dynamicObjects;
+
+		std::vector<iceStep> getPlayerSteps(void);
  
     protected:
         void processScene(rapidxml::xml_node<>* XMLRoot);
@@ -56,6 +63,7 @@
         void processEnvironment(rapidxml::xml_node<>* XMLNode);
         void processTerrain(rapidxml::xml_node<>* XMLNode);
         void processTerrainPage(rapidxml::xml_node<>* XMLNode);
+		void initTerrainBlendMaps(Ogre::Terrain* terrain);
         void processBlendmaps(rapidxml::xml_node<>* XMLNode);
         void processUserDataReference(rapidxml::xml_node<>* XMLNode, Ogre::SceneNode *pParent = 0);
         void processUserDataReference(rapidxml::xml_node<>* XMLNode, Ogre::Entity *pEntity);
@@ -96,6 +104,10 @@
         Ogre::TerrainGroup* mTerrainGroup;
         Ogre::Vector3 mTerrainPosition;
         Ogre::Vector3 mLightDirection;
+
+
+		//ice
+		std::vector<iceStep> mPlayerSteps;
     };
  
 #endif // DOT_SCENELOADER_H
