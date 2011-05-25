@@ -43,8 +43,8 @@ void iceStateMenu::load() {
 			_log->logMessage(ex);
 		}
 
-		_music = iceMusicManager::getSingleton().load("music_1.mp3");
-		_music->play();
+		_music = iceMusicManager::getSingleton().load("menu.mp3");
+		_music->play( );
     }
 
 }

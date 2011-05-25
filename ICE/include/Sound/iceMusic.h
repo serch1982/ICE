@@ -51,6 +51,12 @@
          *  is a music is playing
          */
         static bool isPlaying();
+
+		/**
+		 *  set the volume and get the previous
+		 */
+		void setVolume( int vol );
+
     protected:
         /**
          *  load
@@ -72,6 +78,7 @@
         Mix_Music* _song;
         Ogre::String _path;
         size_t _size;
+		int prevVolume;
 };
 
 
