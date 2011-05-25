@@ -38,6 +38,14 @@ void iceMusic::stop() {
     Mix_HaltMusic();
 }
 
+void iceMusic::setVolume( int vol ){
+	prevVolume = Mix_VolumeMusic( vol );
+}
+
+/*void iceMusic::restoreVolume(){
+	prevVolume = Mix_VolumeMusic( prevVolume );
+}*/
+
 void iceMusic::fadeIn(int ms, int loop) {
     if (Mix_FadeInMusic(_song, ms, loop) == -1) {
             _log->logMessage("iceMusic::fadeIn() cannot play");

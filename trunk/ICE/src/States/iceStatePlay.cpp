@@ -33,6 +33,7 @@ void iceStatePlay::load() {
         // load level
         _level = iceLevelManager::getSingleton().getIceLevel(_levelID);
         _level->load(*_player, _mEnemies);
+		_music = iceMusicManager::getSingleton().load( _level->getMusicName() );
 
 		//hide cursor
 		iceSdkTray::getInstance()->hideCursor();
@@ -50,7 +51,8 @@ void iceStatePlay::load() {
 			_log->logMessage(ex);
 		}
 
-		
+		_music->play();
+
     }
 
 }
@@ -70,6 +72,9 @@ void iceStatePlay::clear() {
 
 		//destroy HUD
 		_stateManager->getHikariMgr()->destroyFlashControl("HUD");
+
+		// STop Music
+		_music->stop();
     }
 }
 
@@ -119,6 +124,8 @@ bool iceStatePlay::keyPressed(const OIS::KeyEvent &arg) {
 	if (arg.key == OIS::KC_P)
     {
         this->_nextICEStateId = Pause;
+		// Change the volume
+		//_music->setVolume( 1 );
     }
 	
     return true;
@@ -162,5 +169,6 @@ void iceStatePlay::setHUDWeapon(char* name){
 	_hikariHUD->callFunction("setWeapon", Hikari::Args(name));
 }
 
-
-
+/*void iceStatePlay::restoreVolume(){
+	_music->restoreVolume();
+}*/

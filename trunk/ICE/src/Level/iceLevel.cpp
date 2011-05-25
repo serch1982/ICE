@@ -37,8 +37,9 @@ void iceLevel::load(icePlayer& player, std::vector<iceEnemy*>& vectorEnemies) {
 		//l->setDiffuseColour(1.0, 1.0, 1.0);
 		//l->setSpecularColour(1.0, 1.0, 1.0);
 
-        //// song 
-        //_song = SongManager::getSingleton().load(_musicName);
+        //// song
+		_musicName = "level1.mp3";
+		//_song = SongManager::getSingleton().load(_musicName);
 
 		ConfigNode *rootNode = ConfigScriptLoader::getSingleton().getConfigScript("entity", _playerTrajName);
 		//std::vector<iceStep> steps = getStepsFromResources(rootNode);
@@ -145,4 +146,8 @@ std::vector<iceStep> iceLevel::getStepsFromResources(ConfigNode* p_sStepsNode)
 	}
 
 	return steps;
+}
+
+const Ogre::String& iceLevel::getMusicName() const{
+	return _musicName;
 }

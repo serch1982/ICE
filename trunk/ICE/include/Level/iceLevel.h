@@ -54,7 +54,11 @@ class iceLevel {
          */
         const Ogre::String& getName() const;
         
-        
+        /**
+		 *  @return music name
+		 */
+		const Ogre::String& getMusicName() const;
+
     private:
         //level
 		int _id;
