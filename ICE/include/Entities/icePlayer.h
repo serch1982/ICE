@@ -66,14 +66,16 @@ class icePlayer : public iceTrajectoryFollower, public iceRPG
 		
 		//Pau * BULLETS------------------------------------------------//
 		
+		vector<iceBullet*>* getAllBullets(void);
+
 		/*Bullet's Father node: son of the root's node and placed in absolute 0,0,0 coordinates.
 		  Every bullet is gonna be son of the mainBulletNode*/
 		Ogre::SceneNode *mainBulletNode;
 
 		/*Bullet vectors depending on the weapon kind*/
-		iceBullet mvMachinegunBullets[BULLET_VECTOR_SIZE];
-		iceBullet mvShotgunBullets[BULLET_VECTOR_SIZE];
-		iceBullet mvMisilLauncherBullets[BULLET_VECTOR_SIZE];
+		vector<iceBullet*> mvMachinegunBullets;
+		vector<iceBullet*> mvShotgunBullets;
+		vector<iceBullet*> mvMisilLauncherBullets;
 		//--------------------------------------------------------------//
 };
 

@@ -45,22 +45,28 @@ icePlayer::icePlayer():_isShooting(false)
 	
 	/*Create Machineguns*/
 	int i = 0;
+	mvMachinegunBullets.resize(BULLET_VECTOR_SIZE);
+	mvShotgunBullets.resize(BULLET_VECTOR_SIZE);
+	mvMisilLauncherBullets.resize(BULLET_VECTOR_SIZE);
 	
 	for(i = 0; i < BULLET_VECTOR_SIZE; i++)
-	{		
-		mvMachinegunBullets[i].CreateEntities(sceneManager,mainBulletNode,MACHINEGUN,i);		
+	{	
+		mvMachinegunBullets[i] = new iceBullet();
+		mvMachinegunBullets[i]->CreateEntities(sceneManager,mainBulletNode,MACHINEGUN,i);		
 	}	
 	
 	/*Create Shotguns*/	
 	for(i = 0; i < BULLET_VECTOR_SIZE; i++)
-	{		
-		mvShotgunBullets[i].CreateEntities(sceneManager,mainBulletNode,SHOTGUN,i);		
+	{	
+		mvShotgunBullets[i] = new iceBullet();
+		mvShotgunBullets[i]->CreateEntities(sceneManager,mainBulletNode,SHOTGUN,i);		
 	}
 	
 	/*Create MisileLaunchers*/	
 	for(i = 0; i < BULLET_VECTOR_SIZE; i++)
 	{
-		mvMisilLauncherBullets[i].CreateEntities(sceneManager,mainBulletNode,MISILE_LAUNCHER,i);
+		mvMisilLauncherBullets[i] = new iceBullet();
+		mvMisilLauncherBullets[i]->CreateEntities(sceneManager,mainBulletNode,MISILE_LAUNCHER,i);
 	}	
 	//----------------------------------------------------------------------------------------------------------------------------//
 
@@ -70,6 +76,12 @@ icePlayer::icePlayer():_isShooting(false)
 
 icePlayer::~icePlayer()
 {
+	for(unsigned int i=0;i<BULLET_VECTOR_SIZE;i++)
+	{
+		delete mvMachinegunBullets[i];
+		delete mvShotgunBullets[i];
+		delete mvMisilLauncherBullets[i];
+	}
 
 }
 
@@ -191,15 +203,15 @@ void icePlayer::updateActiveBullets(Ogre::Real p_timeSinceLastFrame)
 	
 	for(i = 0; i < BULLET_VECTOR_SIZE; i++)
 	{
-		mvMachinegunBullets[i].Update(p_timeSinceLastFrame);
+		mvMachinegunBullets[i]->Update(p_timeSinceLastFrame);
 	}
 	for(i = 0; i < BULLET_VECTOR_SIZE; i++)
 	{
-		mvShotgunBullets[i].Update(p_timeSinceLastFrame);
+		mvShotgunBullets[i]->Update(p_timeSinceLastFrame);
 	}
 	for(i = 0; i < BULLET_VECTOR_SIZE; i++)
 	{
-		mvMisilLauncherBullets[i].Update(p_timeSinceLastFrame);
+		mvMisilLauncherBullets[i]->Update(p_timeSinceLastFrame);
 	}
 	
 }
@@ -248,7 +260,7 @@ void icePlayer::createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation,
 		
 			while(!bFreeBulletFound)
 			{
-				if(mvMachinegunBullets[i].Set(sceneManager,shipNode,p_iDamage,p_bCritic,iShotSide))
+				if(mvMachinegunBullets[i]->Set(sceneManager,shipNode,p_iDamage,p_bCritic,iShotSide))
 				{
 					bFreeBulletFound = true;					
 					
@@ -269,7 +281,7 @@ void icePlayer::createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation,
 		
 			while(!bFreeBulletFound)
 			{
-				if(mvShotgunBullets[i].Set(sceneManager,shipNode,p_iDamage,p_bCritic,iShotSide))
+				if(mvShotgunBullets[i]->Set(sceneManager,shipNode,p_iDamage,p_bCritic,iShotSide))
 				{
 					bFreeBulletFound = true;					
 					
@@ -290,7 +302,7 @@ void icePlayer::createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation,
 		
 			while(!bFreeBulletFound)
 			{
-				if(mvMisilLauncherBullets[i].Set(sceneManager,shipNode,p_iDamage,p_bCritic,iShotSide))
+				if(mvMisilLauncherBullets[i]->Set(sceneManager,shipNode,p_iDamage,p_bCritic,iShotSide))
 				{
 					bFreeBulletFound = true;					
 					
@@ -367,4 +379,18 @@ bool icePlayer::getIsShooting(){
 
 int icePlayer::getCurrentWeapon(){
 	return mCurrentWeapon;
+}
+
+vector<iceBullet*>* icePlayer::getAllBullets(void)
+{
+	vector<iceBullet*>* bullets = new vector<iceBullet*>;
+	bullets->resize(BULLET_VECTOR_SIZE*3);
+	for(unsigned int i=0;i<BULLET_VECTOR_SIZE;i++)
+	{
+		(*bullets)[i] = mvMachinegunBullets[i];
+		(*bullets)[i+BULLET_VECTOR_SIZE] = mvShotgunBullets[i];
+		(*bullets)[i+BULLET_VECTOR_SIZE*2] = mvMisilLauncherBullets[i];
+	}
+
+	return bullets;
 }

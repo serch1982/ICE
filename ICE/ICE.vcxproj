@@ -118,6 +118,7 @@
   <ItemGroup>
     <ClCompile Include="src\Entities\iceBullet.cpp" />
     <ClCompile Include="src\Entities\iceEnemy.cpp" />
+    <ClCompile Include="src\Entities\icePhisicEntity.cpp" />
     <ClCompile Include="src\Entities\icePlayer.cpp" />
     <ClCompile Include="src\Entities\iceRPG.cpp" />
     <ClCompile Include="src\iceGame.cpp" />
@@ -125,6 +126,7 @@
     <ClCompile Include="src\Level\iceLevel.cpp" />
     <ClCompile Include="src\Level\iceLevelManager.cpp" />
     <ClCompile Include="src\Logic\iceLogicLua.cpp" />
+    <ClCompile Include="src\Logic\icePhisics.cpp" />
     <ClCompile Include="src\Scene\DotSceneLoader.cpp" />
     <ClCompile Include="src\Sound\iceMusic.cpp" />
     <ClCompile Include="src\Sound\iceMusicManager.cpp" />
@@ -146,12 +148,14 @@
   <ItemGroup>
     <ClInclude Include="include\Entities\iceBullet.h" />
     <ClInclude Include="include\Entities\iceEnemy.h" />
+    <ClInclude Include="include\Entities\icePhisicEntity.h" />
     <ClInclude Include="include\Entities\icePlayer.h" />
     <ClInclude Include="include\Entities\iceRPG.h" />
     <ClInclude Include="include\iceGame.h" />
     <ClInclude Include="include\Level\iceLevel.h" />
     <ClInclude Include="include\Level\iceLevelManager.h" />
     <ClInclude Include="include\Logic\iceLogicLua.h" />
+    <ClInclude Include="include\Logic\icePhisics.h" />
     <ClInclude Include="include\Scene\DotSceneLoader.h" />
     <ClInclude Include="include\Sound\iceMusic.h" />
     <ClInclude Include="include\Sound\iceMusicManager.h" />

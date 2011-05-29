@@ -4,9 +4,10 @@
 #include "Trajectory\iceTrajectoryFollower.h"
 #include "iceRPG.h"
 #include "icePlayer.h"
+#include "icePhisicEntity.h"
 #include "iceBullet.h"
 
-class iceEnemy : public iceTrajectoryFollower, public iceRPG
+class iceEnemy : public iceTrajectoryFollower, public iceRPG, public icePhisicEntity
 {
 	public:
 		iceEnemy();
@@ -47,6 +48,7 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG
 		bool isVisiblePlayerCam();
 		bool isVisibleWideCam();
 		float rangeAttack();
+		bool isActive(void);
 
 		////iceRPG
 		void createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation, unsigned int p_iDamage, bool p_bCritic);

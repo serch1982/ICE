@@ -147,6 +147,12 @@
     <ClCompile Include="src\Sound\iceSoundManager.cpp">
       <Filter>Source Files\Sound</Filter>
     </ClCompile>
+    <ClCompile Include="src\Logic\icePhisics.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entities\icePhisicEntity.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\iceGame.h">
@@ -229,6 +235,12 @@
     </ClInclude>
     <ClInclude Include="include\Sound\iceSoundManager.h">
       <Filter>Header Files\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Logic\icePhisics.h">
+      <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Entities\icePhisicEntity.h">
+      <Filter>Header Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
