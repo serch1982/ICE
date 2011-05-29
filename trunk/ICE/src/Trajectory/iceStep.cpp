@@ -18,6 +18,8 @@ iceStep::~iceStep(void)
 {
 }
 
+bool iceStep::operator<(iceStep rs) { return mTime < rs.getTime(); }
+
 Ogre::Vector3 iceStep::getPosition(void){ return mPosition; }
 Ogre::Radian iceStep::getRollAngle(void){ return mRollAngle; }
 Ogre::Real iceStep::getTime(void){ return mTime; }

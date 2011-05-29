@@ -21,7 +21,7 @@ DotSceneLoader::~DotSceneLoader()
     OGRE_DELETE mTerrainGlobalOptions;
 }
  
-void DotSceneLoader::parseDotScene(const Ogre::String &SceneName, const Ogre::String &groupName, Ogre::SceneManager *yourSceneMgr, Ogre::SceneNode *pAttachNode, const Ogre::String &sPrependNode)
+void DotSceneLoader::parseDotScene(const Ogre::String &SceneName, icePlayer &p_Player, const Ogre::String &groupName, Ogre::SceneManager *yourSceneMgr, Ogre::SceneNode *pAttachNode, const Ogre::String &sPrependNode)
 {
     // set up shared object values
     m_sGroupName = groupName;
@@ -55,12 +55,12 @@ void DotSceneLoader::parseDotScene(const Ogre::String &SceneName, const Ogre::St
         mAttachNode = mSceneMgr->getRootSceneNode();
  
     // Process the scene
-    processScene(XMLRoot);
+    processScene(XMLRoot, p_Player);
  
     delete scene;
 }
  
-void DotSceneLoader::processScene(rapidxml::xml_node<>* XMLRoot)
+void DotSceneLoader::processScene(rapidxml::xml_node<>* XMLRoot, icePlayer &p_Player)
 {
     // Process the scene parameters
     Ogre::String version = getAttrib(XMLRoot, "formatVersion", "unknown");
@@ -87,7 +87,7 @@ void DotSceneLoader::processScene(rapidxml::xml_node<>* XMLRoot)
     // Process nodes (?)
     pElement = XMLRoot->first_node("nodes");
     if(pElement)
-        processNodes(pElement);
+        processNodes(pElement, p_Player);
  
     // Process externals (?)
     pElement = XMLRoot->first_node("externals");
@@ -120,15 +120,25 @@ void DotSceneLoader::processScene(rapidxml::xml_node<>* XMLRoot)
         processTerrain(pElement);
 }
  
-void DotSceneLoader::processNodes(rapidxml::xml_node<>* XMLNode)
+void DotSceneLoader::processNodes(rapidxml::xml_node<>* XMLNode, icePlayer &p_Player)
 {
     rapidxml::xml_node<>* pElement;
+	mEnemyId = 0;
  
     // Process node (*)
     pElement = XMLNode->first_node("node");
     while(pElement)
     {
-        processNode(pElement);
+		Ogre::String name = getAttrib(pElement, "name");
+		if (Ogre::StringUtil::startsWith(name,"step#"))
+		{
+			processStep(pElement);
+			//processEnemies(pElement,p_Player);
+		}
+		else
+		{
+			processNode(pElement);
+		}
         pElement = pElement->next_sibling("node");
     }
  
@@ -481,153 +491,220 @@ void DotSceneLoader::processNode(rapidxml::xml_node<>* XMLNode, Ogre::SceneNode 
     // Construct the node's name
     Ogre::String name = m_sPrependNode + getAttrib(XMLNode, "name");
 
-	bool isAPlayerStep = false;
-
-	//Processing user data
-	rapidxml::xml_node<>* XMLEntity = XMLNode->first_node("entity");
-	if (XMLEntity)
+	// Create the scene node
+	Ogre::SceneNode *pNode;
+	if(name.empty())
 	{
-		rapidxml::xml_node<>* XMLUserData = XMLEntity->first_node("userData");
-		if (XMLUserData)
+		// Let Ogre choose the name
+		if(pParent)
+			pNode = pParent->createChildSceneNode();
+		else
+			pNode = mAttachNode->createChildSceneNode();
+	}
+	else
+	{
+		// Provide the name
+		if(pParent)
+			pNode = pParent->createChildSceneNode(name);
+		else
+			pNode = mAttachNode->createChildSceneNode(name);
+	}
+ 
+	// Process other attributes
+	Ogre::String id = getAttrib(XMLNode, "id");
+	bool isTarget = getAttribBool(XMLNode, "isTarget");
+ 
+	rapidxml::xml_node<>* pElement;
+ 
+	// Process position (?)
+	pElement = XMLNode->first_node("position");
+	if(pElement)
+	{
+		pNode->setPosition(parseVector3(pElement));
+		pNode->setInitialState();
+	}
+ 
+	// Process rotation (?)
+	pElement = XMLNode->first_node("rotation");
+	if(pElement)
+	{
+		pNode->setOrientation(parseQuaternion(pElement));
+		pNode->setInitialState();
+	}
+ 
+	// Process scale (?)
+	pElement = XMLNode->first_node("scale");
+	if(pElement)
+	{
+		pNode->setScale(parseVector3(pElement));
+		pNode->setInitialState();
+	}
+ 
+	// Process lookTarget (?)
+	pElement = XMLNode->first_node("lookTarget");
+	if(pElement)
+		processLookTarget(pElement, pNode);
+ 
+	// Process trackTarget (?)
+	pElement = XMLNode->first_node("trackTarget");
+	if(pElement)
+		processTrackTarget(pElement, pNode);
+ 
+	// Process node (*)
+	pElement = XMLNode->first_node("node");
+	while(pElement)
+	{
+		processNode(pElement, pNode);
+		pElement = pElement->next_sibling("node");
+	}
+ 
+	// Process entity (*)
+	pElement = XMLNode->first_node("entity");
+	while(pElement)
+	{
+		processEntity(pElement, pNode);
+		pElement = pElement->next_sibling("entity");
+	}
+ 
+	// Process light (*)
+	//pElement = XMLNode->first_node("light");
+	//while(pElement)
+	//{
+	//    processLight(pElement, pNode);
+	//    pElement = pElement->next_sibling("light");
+	//}
+ 
+	// Process camera (*)
+	pElement = XMLNode->first_node("camera");
+	while(pElement)
+	{
+		processCamera(pElement, pNode);
+		pElement = pElement->next_sibling("camera");
+	}
+ 
+	// Process particleSystem (*)
+	pElement = XMLNode->first_node("particleSystem");
+	while(pElement)
+	{
+		processParticleSystem(pElement, pNode);
+		pElement = pElement->next_sibling("particleSystem");
+	}
+ 
+	// Process billboardSet (*)
+	pElement = XMLNode->first_node("billboardSet");
+	while(pElement)
+	{
+		processBillboardSet(pElement, pNode);
+		pElement = pElement->next_sibling("billboardSet");
+	}
+ 
+	// Process plane (*)
+	pElement = XMLNode->first_node("plane");
+	while(pElement)
+	{
+		processPlane(pElement, pNode);
+		pElement = pElement->next_sibling("plane");
+	}
+ 
+	// Process userDataReference (?)
+	pElement = XMLNode->first_node("userDataReference");
+	if(pElement)
+		processUserDataReference(pElement, pNode);
+}
+
+void DotSceneLoader::processStep(rapidxml::xml_node<>* XMLNode, Ogre::SceneNode *pParent)
+{
+	//Processing user data
+	Ogre::Vector3 position = parseVector3(XMLNode->first_node("position"));
+
+	rapidxml::xml_node<>* XMLEntity = XMLNode->first_node("entity");
+	rapidxml::xml_node<>* XMLUserData = XMLEntity->first_node("userData");
+	rapidxml::xml_node<>* XMLProperty = XMLUserData->first_node("property");
+	Ogre::String name = getAttrib(XMLProperty,"name");
+	if (name.compare("time") == 0)
+	{
+		Ogre::Real time = getAttribReal(XMLProperty,"data");
+		mPlayerSteps.push_back(iceStep(position,Ogre::Radian(0),time));
+	}
+}
+
+void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode, icePlayer &p_Player, Ogre::SceneNode *pParent)
+{
+	//Processing user data
+	Ogre::Vector3 position = parseVector3(XMLNode->first_node("position"));
+	Ogre::Vector3 scale = parseVector3(XMLNode->first_node("scale"));
+	Ogre::Real time = 0;
+	int miniMagmatons = 0;
+	int kamikaces = 0;
+	int intelligents = 0;
+
+	Ogre::Vector3 maxDev = 100 * scale;
+
+	rapidxml::xml_node<>* XMLEntity = XMLNode->first_node("entity");
+	rapidxml::xml_node<>* XMLUserData = XMLEntity->first_node("userData");
+	rapidxml::xml_node<>* XMLProperty = XMLUserData->first_node("property");
+	while(XMLProperty)
+	{
+		Ogre::String name = getAttrib(XMLProperty,"name");
+		if (name.compare("time") == 0)
 		{
-			rapidxml::xml_node<>* XMLProperty = XMLUserData->first_node("property");
-			Ogre::String name = getAttrib(XMLProperty,"name");
-			if (name.compare("playerStateOrder"))
-			{
-				Ogre::Real playerStateOrder = getAttribReal(XMLProperty,"data");
-				Ogre::Vector3 position = parseVector3(XMLNode->first_node("position"));
-
-				if (mPlayerSteps.size() < playerStateOrder+1)
-					mPlayerSteps.resize(playerStateOrder+1);
-
-				mPlayerSteps[playerStateOrder] = iceStep(position,Ogre::Radian(0),playerStateOrder*10);
-				isAPlayerStep = true;
-			}
+			time = getAttribReal(XMLProperty,"data");
 		}
+		else if (name.compare("MiniMagmaton") == 0)
+		{
+			miniMagmatons = (int) getAttribReal(XMLProperty,"data");
+		}
+		else if (name.compare("Kamikace") == 0)
+		{
+			kamikaces = (int) getAttribReal(XMLProperty,"data");
+		}
+		else if (name.compare("Intelligent") == 0)
+		{
+			intelligents = (int) getAttribReal(XMLProperty,"data");
+		}
+		XMLProperty = XMLProperty->next_sibling("property");
 	}
 
-
-	if (!isAPlayerStep)
+	for (int i=0;i<miniMagmatons;i++)
 	{
-		// Create the scene node
-		Ogre::SceneNode *pNode;
-		if(name.empty())
-		{
-			// Let Ogre choose the name
-			if(pParent)
-				pNode = pParent->createChildSceneNode();
-			else
-				pNode = mAttachNode->createChildSceneNode();
-		}
-		else
-		{
-			// Provide the name
-			if(pParent)
-				pNode = pParent->createChildSceneNode(name);
-			else
-				pNode = mAttachNode->createChildSceneNode(name);
-		}
- 
-		// Process other attributes
-		Ogre::String id = getAttrib(XMLNode, "id");
-		bool isTarget = getAttribBool(XMLNode, "isTarget");
- 
-		rapidxml::xml_node<>* pElement;
- 
-		// Process position (?)
-		pElement = XMLNode->first_node("position");
-		if(pElement)
-		{
-			pNode->setPosition(parseVector3(pElement));
-			pNode->setInitialState();
-		}
- 
-		// Process rotation (?)
-		pElement = XMLNode->first_node("rotation");
-		if(pElement)
-		{
-			pNode->setOrientation(parseQuaternion(pElement));
-			pNode->setInitialState();
-		}
- 
-		// Process scale (?)
-		pElement = XMLNode->first_node("scale");
-		if(pElement)
-		{
-			pNode->setScale(parseVector3(pElement));
-			pNode->setInitialState();
-		}
- 
-		// Process lookTarget (?)
-		pElement = XMLNode->first_node("lookTarget");
-		if(pElement)
-			processLookTarget(pElement, pNode);
- 
-		// Process trackTarget (?)
-		pElement = XMLNode->first_node("trackTarget");
-		if(pElement)
-			processTrackTarget(pElement, pNode);
- 
-		// Process node (*)
-		pElement = XMLNode->first_node("node");
-		while(pElement)
-		{
-			processNode(pElement, pNode);
-			pElement = pElement->next_sibling("node");
-		}
- 
-		// Process entity (*)
-		pElement = XMLNode->first_node("entity");
-		while(pElement)
-		{
-			processEntity(pElement, pNode);
-			pElement = pElement->next_sibling("entity");
-		}
- 
-		// Process light (*)
-		//pElement = XMLNode->first_node("light");
-		//while(pElement)
-		//{
-		//    processLight(pElement, pNode);
-		//    pElement = pElement->next_sibling("light");
-		//}
- 
-		// Process camera (*)
-		pElement = XMLNode->first_node("camera");
-		while(pElement)
-		{
-			processCamera(pElement, pNode);
-			pElement = pElement->next_sibling("camera");
-		}
- 
-		// Process particleSystem (*)
-		pElement = XMLNode->first_node("particleSystem");
-		while(pElement)
-		{
-			processParticleSystem(pElement, pNode);
-			pElement = pElement->next_sibling("particleSystem");
-		}
- 
-		// Process billboardSet (*)
-		pElement = XMLNode->first_node("billboardSet");
-		while(pElement)
-		{
-			processBillboardSet(pElement, pNode);
-			pElement = pElement->next_sibling("billboardSet");
-		}
- 
-		// Process plane (*)
-		pElement = XMLNode->first_node("plane");
-		while(pElement)
-		{
-			processPlane(pElement, pNode);
-			pElement = pElement->next_sibling("plane");
-		}
- 
-		// Process userDataReference (?)
-		pElement = XMLNode->first_node("userDataReference");
-		if(pElement)
-			processUserDataReference(pElement, pNode);
+		Ogre::Vector3 dev = Ogre::Vector3(maxDev.x * (Ogre::Math::UnitRandom() - 0.5),
+										  maxDev.y * (Ogre::Math::UnitRandom() - 0.5),
+										  maxDev.z * (Ogre::Math::UnitRandom() - 0.5)
+										 );
+		Ogre::Real timeDev = (Ogre::Math::UnitRandom() - 0.5) * 2;
+		Ogre::Vector3 enemyPosition = position + dev;
+
+		iceEnemy* enemy = new iceEnemy();
+		enemy->initialize(mEnemyId++,enemyPosition,&p_Player,time + timeDev,iceEnemy::MINIMAGMATON,false);
+		mEnemies.push_back(enemy);
+	}
+
+	for (int i=0;i<kamikaces;i++)
+	{
+		Ogre::Vector3 dev = Ogre::Vector3(maxDev.x * (Ogre::Math::UnitRandom() - 0.5),
+										  maxDev.y * (Ogre::Math::UnitRandom() - 0.5),
+										  maxDev.z * (Ogre::Math::UnitRandom() - 0.5)
+										 );
+		Ogre::Real timeDev = (Ogre::Math::UnitRandom() - 0.5) * 2;
+		Ogre::Vector3 enemyPosition = position + dev;
+
+		iceEnemy* enemy = new iceEnemy();
+		enemy->initialize(mEnemyId++,enemyPosition,&p_Player,time + timeDev,iceEnemy::KAMIKAZE,false);
+		mEnemies.push_back(enemy);
+	}
+
+	for (int i=0;i<intelligents;i++)
+	{
+		Ogre::Vector3 dev = Ogre::Vector3(maxDev.x * (Ogre::Math::UnitRandom() - 0.5),
+										  maxDev.y * (Ogre::Math::UnitRandom() - 0.5),
+										  maxDev.z * (Ogre::Math::UnitRandom() - 0.5)
+										 );
+		Ogre::Real timeDev = (Ogre::Math::UnitRandom() - 0.5) * 2;
+		Ogre::Vector3 enemyPosition = position + dev;
+
+		iceEnemy* enemy = new iceEnemy();
+		enemy->initialize(mEnemyId++,enemyPosition,&p_Player,time + timeDev,iceEnemy::SMART,false);
+		mEnemies.push_back(enemy);
 	}
 }
  
@@ -1070,4 +1147,9 @@ void DotSceneLoader::processUserDataReference(rapidxml::xml_node<>* XMLNode, Ogr
 std::vector<iceStep> DotSceneLoader::getPlayerSteps(void)
 {
 	return mPlayerSteps;
+}
+
+std::vector<iceEnemy*> DotSceneLoader::getEnemies(void)
+{
+	return mEnemies;
 }

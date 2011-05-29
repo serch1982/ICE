@@ -1,4 +1,5 @@
 #include "Trajectory\iceTrajectory.h"
+#include <algorithm>
 
 Ogre::NameGenerator iceTrajectory::mNameGenerator("Trajectory_");
 
@@ -21,6 +22,7 @@ void iceTrajectory::loadSteps(std::vector<iceStep> p_vSteps, const bool p_bIsLoo
 	mTrack.setAutoCalculate(false);
 	mTrack.clear();
 	mSteps = p_vSteps;
+	std::sort(mSteps.begin(),mSteps.end());
 
 	//DEBUG {
 		//Ogre::SceneNode* sDebugTrajectorySteps = mSceneManager->getSceneNode("DebugTrajectorySteps");

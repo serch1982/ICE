@@ -12,6 +12,7 @@
 #include <vector>
 
 #include "../Trajectory/iceStep.h"
+#include"../Entities/iceEnemy.h"
  
 #include "rapidxml.hpp"
  
@@ -44,7 +45,7 @@
         DotSceneLoader();
         virtual ~DotSceneLoader();
  
-        void parseDotScene(const Ogre::String &SceneName, const Ogre::String &groupName, Ogre::SceneManager *yourSceneMgr, Ogre::SceneNode *pAttachNode = NULL, const Ogre::String &sPrependNode = "");
+        void parseDotScene(const Ogre::String &SceneName, icePlayer &p_Player, const Ogre::String &groupName, Ogre::SceneManager *yourSceneMgr, Ogre::SceneNode *pAttachNode = NULL, const Ogre::String &sPrependNode = "");
         Ogre::String getProperty(const Ogre::String &ndNm, const Ogre::String &prop);
  
         Ogre::TerrainGroup* getTerrainGroup() { return mTerrainGroup; }
@@ -54,11 +55,12 @@
         std::vector<Ogre::String> dynamicObjects;
 
 		std::vector<iceStep> getPlayerSteps(void);
+		std::vector<iceEnemy*> getEnemies(void);
  
     protected:
-        void processScene(rapidxml::xml_node<>* XMLRoot);
+        void processScene(rapidxml::xml_node<>* XMLRoot, icePlayer &p_Player);
  
-        void processNodes(rapidxml::xml_node<>* XMLNode);
+        void processNodes(rapidxml::xml_node<>* XMLNode, icePlayer &p_Player);
         void processExternals(rapidxml::xml_node<>* XMLNode);
         void processEnvironment(rapidxml::xml_node<>* XMLNode);
         void processTerrain(rapidxml::xml_node<>* XMLNode);
@@ -72,6 +74,8 @@
         void processCamera(rapidxml::xml_node<>* XMLNode, Ogre::SceneNode *pParent = 0);
  
         void processNode(rapidxml::xml_node<>* XMLNode, Ogre::SceneNode *pParent = 0);
+		void processStep(rapidxml::xml_node<>* XMLNode, Ogre::SceneNode *pParent = 0);
+		void processEnemies(rapidxml::xml_node<>* XMLNode, icePlayer &p_Player, Ogre::SceneNode *pParent = 0);
         void processLookTarget(rapidxml::xml_node<>* XMLNode, Ogre::SceneNode *pParent);
         void processTrackTarget(rapidxml::xml_node<>* XMLNode, Ogre::SceneNode *pParent);
         void processEntity(rapidxml::xml_node<>* XMLNode, Ogre::SceneNode *pParent);
@@ -105,9 +109,12 @@
         Ogre::Vector3 mTerrainPosition;
         Ogre::Vector3 mLightDirection;
 
+		int mEnemyId;
+
 
 		//ice
 		std::vector<iceStep> mPlayerSteps;
+		std::vector<iceEnemy*> mEnemies;
     };
  
 #endif // DOT_SCENELOADER_H

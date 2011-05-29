@@ -11,6 +11,8 @@ public:
 	Ogre::Radian getRollAngle(void);
 	Ogre::Real getTime(void);
 
+	bool operator<(iceStep rs);
+
 protected:
 	Ogre::Vector3 mPosition;
 	Ogre::Radian mRollAngle;
