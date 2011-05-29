@@ -129,7 +129,7 @@ void iceEnemy::update(Ogre::Real p_timeSinceLastFrame)
 			//iceTrajectoryFollower::update(p_timeSinceLastFrame); Hay que hablar sobre trayectorias de enemigos
 			mTrajectory->lookAt();//TODO
 			break;
-		case ATTACKING:
+		case ATTACKING: 
 			mTrajectory->lookAt(); //TODO
 			iceRPG::update(p_timeSinceLastFrame);
 			shot();						
