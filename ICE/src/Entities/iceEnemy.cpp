@@ -75,25 +75,31 @@ bool iceEnemy::initialize(int id, Ogre::Vector3 p_Position, icePlayer* p_psPlaye
 	mNode->attachObject(mesh);
 	mNode->scale(0.1,0.1,0.1);
 	mNode->setPosition(p_Position);
+
+	//Dummy Trajectory
+	setTrajectory(new iceTrajectory());
+	mTrajectory->setNodeToLookAt(mPlayer->shipNode);
+
+
 	mState = INACTIVE;
 
-		//Pau * INITIALIZE BULLETS *----------------------------------------------------------------------------------------//	
-	
-	/* Create parent node of all bullets */
-	enemyBulletNode = sceneManager->getRootSceneNode()->createChildSceneNode("enemyBullet" + id ,Ogre::Vector3( 0, 0, 0 ));		
-	/*Create Machineguns*/
-	int i = 0;
-	
-	for(i = 0; i < BULLET_VECTOR_SIZE; i++)
-	{		
-		mvMachinegunBullets[i].CreateEntities(sceneManager,enemyBulletNode,MACHINEGUN, i);		
-	}	
-	
-	/*Create Shotguns*/	
-	for(i = 0; i < BULLET_VECTOR_SIZE; i++)
-	{		
-		mvShotgunBullets[i].CreateEntities(sceneManager,enemyBulletNode,SHOTGUN, i);		
-	}
+	//	//Pau * INITIALIZE BULLETS *----------------------------------------------------------------------------------------//	
+	//
+	///* Create parent node of all bullets */
+	//enemyBulletNode = sceneManager->getRootSceneNode()->createChildSceneNode("enemyBullet" + id ,Ogre::Vector3( 0, 0, 0 ));		
+	///*Create Machineguns*/
+	//int i = 0;
+	//
+	//for(i = 0; i < BULLET_VECTOR_SIZE; i++)
+	//{		
+	//	mvMachinegunBullets[i].CreateEntities(sceneManager,enemyBulletNode,MACHINEGUN, i);		
+	//}	
+	//
+	///*Create Shotguns*/	
+	//for(i = 0; i < BULLET_VECTOR_SIZE; i++)
+	//{		
+	//	mvShotgunBullets[i].CreateEntities(sceneManager,enemyBulletNode,SHOTGUN, i);		
+	//}
 	
 	/*Create MisileLaunchers*/	
 	/*for(i = 0; i < BULLET_VECTOR_SIZE; i++)
@@ -121,8 +127,10 @@ void iceEnemy::update(Ogre::Real p_timeSinceLastFrame)
 			break;
 		case FOLLOWING_TRAJECTORY:
 			//iceTrajectoryFollower::update(p_timeSinceLastFrame); Hay que hablar sobre trayectorias de enemigos
+			mTrajectory->lookAt();//TODO
 			break;
 		case ATTACKING:
+			mTrajectory->lookAt(); //TODO
 			iceRPG::update(p_timeSinceLastFrame);
 			shot();						
 			updateActiveBullets(p_timeSinceLastFrame);
@@ -170,7 +178,8 @@ void iceEnemy::update(Ogre::Real p_timeSinceLastFrame)
 void iceEnemy::activate(void)
 {
 	mCurrentLife = getMaxLife();
-	mNode->setVisible(true);	
+	mNode->setVisible(true);
+	mState = FOLLOWING_TRAJECTORY;
 }
 
 bool iceEnemy::checkActivationTime(Ogre::Real p_timeSinceLastFrame)

@@ -133,7 +133,7 @@ void DotSceneLoader::processNodes(rapidxml::xml_node<>* XMLNode, icePlayer &p_Pl
 		if (Ogre::StringUtil::startsWith(name,"step#"))
 		{
 			processStep(pElement);
-			//processEnemies(pElement,p_Player);
+			processEnemies(pElement,p_Player);
 		}
 		else
 		{
@@ -648,7 +648,7 @@ void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode, icePlayer &p_
 		Ogre::String name = getAttrib(XMLProperty,"name");
 		if (name.compare("time") == 0)
 		{
-			time = getAttribReal(XMLProperty,"data");
+			time = getAttribReal(XMLProperty,"data") - 5;
 		}
 		else if (name.compare("MiniMagmaton") == 0)
 		{

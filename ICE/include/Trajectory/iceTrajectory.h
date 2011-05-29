@@ -37,10 +37,11 @@ class iceTrajectory
 		void reset(void);
 		void setLoop(bool p_bLoop);
 		bool hasEnded(void);
+		void lookAt(void);
 
 	protected:
 		unsigned int getCurrentStepIndexByTime(Ogre::Real p_fTime);
 		Ogre::Real getInterpolationByTime(Ogre::Real p_fTime);
-		void lookAt(void);
+		
 };
 
