@@ -29,7 +29,7 @@ void iceEnemy::setPlayer(icePlayer* p_psPlayer)
 	mPlayer = p_psPlayer;
 }
 
-bool iceEnemy::initialize(int id, icePlayer* p_psPlayer, Ogre::Real p_fActivationTime, ENEMYTYPE p_Type, bool p_isAttachedToPlayer)
+bool iceEnemy::initialize(int id, Ogre::Vector3 p_Position, icePlayer* p_psPlayer, Ogre::Real p_fActivationTime, ENEMYTYPE p_Type, bool p_isAttachedToPlayer)
 {
 	Ogre::SceneManager* sceneManager = iceGame::getSceneManager();
 	mRaySceneQuery = sceneManager->createRayQuery(Ogre::Ray());
@@ -37,10 +37,11 @@ bool iceEnemy::initialize(int id, icePlayer* p_psPlayer, Ogre::Real p_fActivatio
 	mType = p_Type;
 	mActivationTime = p_fActivationTime;
 	mCurrentTime = 0;
+	Ogre::String name = mNameGenerator.generate();
 	if(p_isAttachedToPlayer)
-		enemyNode = mPlayer->getNode()->createChildSceneNode(mNameGenerator.generate());
+		enemyNode = mPlayer->getNode()->createChildSceneNode(name);
 	else
-		enemyNode = mPlayer->getNode()->getParentSceneNode()->createChildSceneNode(mNameGenerator.generate());
+		enemyNode = mPlayer->getNode()->getParentSceneNode()->createChildSceneNode(name);
 
 	iceTrajectoryFollower::initialize(enemyNode);
 	stringstream entityName;
@@ -73,6 +74,7 @@ bool iceEnemy::initialize(int id, icePlayer* p_psPlayer, Ogre::Real p_fActivatio
 	}
 	mNode->attachObject(mesh);
 	mNode->scale(0.1,0.1,0.1);
+	mNode->setPosition(p_Position);
 	mState = INACTIVE;
 
 		//Pau * INITIALIZE BULLETS *----------------------------------------------------------------------------------------//	
@@ -118,30 +120,30 @@ void iceEnemy::update(Ogre::Real p_timeSinceLastFrame)
 
 			break;
 		case FOLLOWING_TRAJECTORY:
-			iceTrajectoryFollower::update(p_timeSinceLastFrame);
+			//iceTrajectoryFollower::update(p_timeSinceLastFrame); Hay que hablar sobre trayectorias de enemigos
 			break;
 		case ATTACKING:
 			iceRPG::update(p_timeSinceLastFrame);
 			shot();						
 			updateActiveBullets(p_timeSinceLastFrame);
-			iceTrajectoryFollower::update(p_timeSinceLastFrame);
+			//iceTrajectoryFollower::update(p_timeSinceLastFrame); Hay que hablar sobre trayectorias de enemigos
 			break;
 		case DEADING:
 
-			iceTrajectoryFollower::update(p_timeSinceLastFrame);
+			//iceTrajectoryFollower::update(p_timeSinceLastFrame); Hay que hablar sobre trayectorias de enemigos
 			//Dead sequence...
 			//When dead sequence finished:
 			//mState = INACTIVE;
 			break;
 		case INACTIVE:
-			//if(checkActivationTime(p_timeSinceLastFrame))
-			//{//active
-			//	activate();
-			//}
-			//else
-			//{//inactive
-			//	mNode->setVisible(false);
-			//}
+			if(checkActivationTime(p_timeSinceLastFrame))
+			{//active
+				activate();
+			}
+			else
+			{//inactive
+				mNode->setVisible(false);
+			}
 			break;
 	}
 

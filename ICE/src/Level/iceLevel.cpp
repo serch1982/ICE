@@ -22,7 +22,7 @@ void iceLevel::load(icePlayer& player, std::vector<iceEnemy*>& vectorEnemies) {
 		Ogre::SceneManager* sceneManager = iceGame::getSceneManager();
 		Ogre::SceneNode* level = sceneManager->getRootSceneNode()->createChildSceneNode( "root_" + _name );
 
-		iceLevelManager::getSingletonPtr()->getDotSceneLoader()->parseDotScene( _name + ".scene",_name,sceneManager, level, _name + "_" );
+		iceLevelManager::getSingletonPtr()->getDotSceneLoader()->parseDotScene( _name + ".scene",player,_name,sceneManager, level, _name + "_" );
 
 		////set the skybox
 		//sceneManager->setSkyBox(true, "cielo", 20000.0f, true, Ogre::Quaternion::IDENTITY ); 
@@ -48,8 +48,10 @@ void iceLevel::load(icePlayer& player, std::vector<iceEnemy*>& vectorEnemies) {
 		player.getTrajectory()->loadSteps(iceLevelManager::getSingletonPtr()->getDotSceneLoader()->getPlayerSteps(),false);
 
 		//set enemies
-		rootNode = ConfigScriptLoader::getSingleton().getConfigScript("entity", "phase1Enemies");
-		loadEnemies(rootNode, player, vectorEnemies);
+		//rootNode = ConfigScriptLoader::getSingleton().getConfigScript("entity", "phase1Enemies");
+		//loadEnemies(rootNode, player, vectorEnemies);
+
+		vectorEnemies = iceLevelManager::getSingletonPtr()->getDotSceneLoader()->getEnemies();
     }
 }
 
@@ -71,57 +73,57 @@ const Ogre::String& iceLevel::getName() const {
     return _name;
 }
 
-void iceLevel::loadEnemies(ConfigNode* p_EnemiesNode,icePlayer& player, std::vector<iceEnemy*>& vEnemies)
-{
-	vector<iceStep> steps;
-	int enemiesNumber = p_EnemiesNode->findChild("enemiesNumber")->getValueI();
-
-	vEnemies.resize(enemiesNumber);
-	for(int i=0;i<enemiesNumber;i++)
-	{
-		char enemyName[10];
-		sprintf(enemyName,"enemy%d",i+1);
-		ConfigNode* enemyNode = p_EnemiesNode->findChild(enemyName);
-
-		iceEnemy::ENEMYTYPE enemyType;
-
-		switch(enemyNode->findChild("enemyType")->getValueI())
-		{
-			case 0:
-				enemyType = iceEnemy::MINIMAGMATON;
-				break;
-			case 1:
-				enemyType = iceEnemy::KAMIKAZE;
-				break;
-			case 2:
-				enemyType = iceEnemy::SMART;
-				break;
-			case 3:
-				enemyType = iceEnemy::VOLCANO;
-				break;
-			case 4:
-				enemyType = iceEnemy::MAGMATON;
-				break;
-			default:
-				enemyType = iceEnemy::MINIMAGMATON;
-				break;
-		}
-		Ogre::Real activationTime = enemyNode->findChild("activationTime")->getValueF();
-		bool isAttachedToPlayer = false;
-		int isAtt = enemyNode->findChild("isAttachedToPlayer")->getValueI();
-		if(isAtt > 0) isAttachedToPlayer = true;
-
-		//Trajectory
-		ConfigNode* trajectoryNode = enemyNode->findChild("trajectory");
-		steps = getStepsFromResources(trajectoryNode);
-
-		vEnemies[i] = new iceEnemy();
-		vEnemies[i]->initialize(i, &player ,activationTime,enemyType,isAttachedToPlayer);
-		vEnemies[i]->setTrajectory(new iceTrajectory());
-		vEnemies[i]->getTrajectory()->loadSteps(steps,true);
-		vEnemies[i]->getTrajectory()->setNodeToLookAt(player.shipNode);
-	}
-}
+//void iceLevel::loadEnemies(ConfigNode* p_EnemiesNode,icePlayer& player, std::vector<iceEnemy*>& vEnemies)
+//{
+//	vector<iceStep> steps;
+//	int enemiesNumber = p_EnemiesNode->findChild("enemiesNumber")->getValueI();
+//
+//	vEnemies.resize(enemiesNumber);
+//	for(int i=0;i<enemiesNumber;i++)
+//	{
+//		char enemyName[10];
+//		sprintf(enemyName,"enemy%d",i+1);
+//		ConfigNode* enemyNode = p_EnemiesNode->findChild(enemyName);
+//
+//		iceEnemy::ENEMYTYPE enemyType;
+//
+//		switch(enemyNode->findChild("enemyType")->getValueI())
+//		{
+//			case 0:
+//				enemyType = iceEnemy::MINIMAGMATON;
+//				break;
+//			case 1:
+//				enemyType = iceEnemy::KAMIKAZE;
+//				break;
+//			case 2:
+//				enemyType = iceEnemy::SMART;
+//				break;
+//			case 3:
+//				enemyType = iceEnemy::VOLCANO;
+//				break;
+//			case 4:
+//				enemyType = iceEnemy::MAGMATON;
+//				break;
+//			default:
+//				enemyType = iceEnemy::MINIMAGMATON;
+//				break;
+//		}
+//		Ogre::Real activationTime = enemyNode->findChild("activationTime")->getValueF();
+//		bool isAttachedToPlayer = false;
+//		int isAtt = enemyNode->findChild("isAttachedToPlayer")->getValueI();
+//		if(isAtt > 0) isAttachedToPlayer = true;
+//
+//		//Trajectory
+//		ConfigNode* trajectoryNode = enemyNode->findChild("trajectory");
+//		steps = getStepsFromResources(trajectoryNode);
+//
+//		vEnemies[i] = new iceEnemy();
+//		vEnemies[i]->initialize(i, &player ,activationTime,enemyType,isAttachedToPlayer);
+//		vEnemies[i]->setTrajectory(new iceTrajectory());
+//		vEnemies[i]->getTrajectory()->loadSteps(steps,true);
+//		vEnemies[i]->getTrajectory()->setNodeToLookAt(player.shipNode);
+//	}
+//}
 
 std::vector<iceStep> iceLevel::getStepsFromResources(ConfigNode* p_sStepsNode)
 {

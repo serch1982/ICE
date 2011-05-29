@@ -39,7 +39,7 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG
 
 		void setPlayer(icePlayer* p_psPlayer);
 			
-		bool initialize(int id, icePlayer* p_psPlayer, Ogre::Real p_fActivationTime, const ENEMYTYPE p_Type = MINIMAGMATON, const bool p_isAttachedToPlayer = false);
+		bool initialize(int id, Ogre::Vector3 p_Position, icePlayer* p_psPlayer, Ogre::Real p_fActivationTime, const ENEMYTYPE p_Type = MINIMAGMATON, const bool p_isAttachedToPlayer = false);
 		void finalize();
 		void update(Ogre::Real p_timeSinceLastFrame);
 		void activate(void);
