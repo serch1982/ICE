@@ -12,6 +12,7 @@
 #include "Hikari.h"
 #include "Sound\iceMusic.h"
 #include "Sound\iceSound.h"
+#include "../Logic/icePhisics.h"
 
 class iceStateManager;
 class iceLevel;
@@ -109,6 +110,9 @@ class iceStatePlay: public iceState{
 		p_iceMusic _music;
 		//sounds
 		p_iceSound _sound;
+
+		//phisics
+		icePhisics mPhisics;
 };
 
 

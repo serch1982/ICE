@@ -36,6 +36,8 @@ void iceBullet::CreateEntities(Ogre::SceneManager* sceneMgr, Ogre::SceneNode* bu
 			msbulletNode->setVisible(false);
 			msbulletNode->scale(.05,.05,.05);
 			miSpeed = 500; //1750;
+			icePhisicEntity::initialize(machinegunShotSet);
+
 		}
 		if (p_iWeapon == 1)
 		{			
@@ -47,6 +49,7 @@ void iceBullet::CreateEntities(Ogre::SceneManager* sceneMgr, Ogre::SceneNode* bu
 			msbulletNode->setVisible(false);
 			msbulletNode->scale(.03,.03,.03);
 			miSpeed = 500;
+			icePhisicEntity::initialize(shotgunShotSet);
 			
 		}			
 		if (p_iWeapon == 2)
@@ -56,7 +59,8 @@ void iceBullet::CreateEntities(Ogre::SceneManager* sceneMgr, Ogre::SceneNode* bu
 			msbulletNode->attachObject(Shot_MisileLauncher);
 			msbulletNode->setVisible(false);
 			msbulletNode->scale(.005,.005,.005);
-			miSpeed = 300;	
+			miSpeed = 300;
+			icePhisicEntity::initialize(Shot_MisileLauncher);
 			
 			/* Misile particle system */			
 			Ogre::ParticleSystem* misilParticle = sceneMgr->createParticleSystem("MisilParticle" + Ogre::StringConverter::toString(p_iBulletNumber), "misilParticle");			
@@ -116,9 +120,34 @@ void iceBullet::Update(Ogre::Real timeSinceLastFrame)
 	/*Deactivate bullet and reset its life time to its initial value*/
 	if ((mbActive)&&(miCountDown<=0))
 	{
-		miCountDown = MAX_TIME_ACTIVE;
-		mbActive = false;
-		msbulletNode->setVisible(false);
+		deactivate();
 	}	
 
+}
+
+bool iceBullet::isActive(void)
+{
+	return mbActive;
+}
+
+Ogre::Vector3 iceBullet::getWorldPosition(void)
+{
+	return msbulletNode->_getDerivedPosition();
+}
+	
+unsigned int iceBullet::getDamage(void)
+{
+	return miDamage;
+}
+
+bool iceBullet::isCritic(void)
+{
+	return mbCritic;
+}
+
+void iceBullet::deactivate(void)
+{
+	miCountDown = MAX_TIME_ACTIVE;
+	mbActive = false;
+	msbulletNode->setVisible(false);
 }

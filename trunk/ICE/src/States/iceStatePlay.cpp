@@ -38,6 +38,9 @@ void iceStatePlay::load() {
 		//hide cursor
 		iceSdkTray::getInstance()->hideCursor();
 
+		//load phisics
+		mPhisics.initialize(_player, &_mEnemies,_player->getAllBullets(),_player->getAllBullets());
+
 		//load lua logic
 		std::string path = _stateManager->getPathRoot() + "\\logiclua.lua";
 		iceLogicLua::getInstance()->RunFile(path.c_str()); 
@@ -91,6 +94,9 @@ void iceStatePlay::update(Ogre::Real evt) {
 	_stateManager->getHikariMgr()->update();
 	setHUDLife(_player->getCurrentLife());
 	setHUDWeapon(_player->getCurrentWeaponName());
+
+	//phisics
+	mPhisics.processPlayerBullets();
 
 	//fx
 	/*if(_player->getIsShooting()){

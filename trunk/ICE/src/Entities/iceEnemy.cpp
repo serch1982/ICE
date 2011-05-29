@@ -75,6 +75,7 @@ bool iceEnemy::initialize(int id, Ogre::Vector3 p_Position, icePlayer* p_psPlaye
 	mNode->attachObject(mesh);
 	mNode->scale(0.1,0.1,0.1);
 	mNode->setPosition(p_Position);
+	icePhisicEntity::initialize(mesh);
 
 	//Dummy Trajectory
 	setTrajectory(new iceTrajectory());
@@ -82,6 +83,7 @@ bool iceEnemy::initialize(int id, Ogre::Vector3 p_Position, icePlayer* p_psPlaye
 
 
 	mState = INACTIVE;
+	setLevel(10);
 
 	//	//Pau * INITIALIZE BULLETS *----------------------------------------------------------------------------------------//	
 	//
@@ -123,25 +125,30 @@ void iceEnemy::update(Ogre::Real p_timeSinceLastFrame)
 	switch(mState)
 	{
 		case STOPPED:
-
+			if (!isAlive())
+				mState = DEADING;
 			break;
 		case FOLLOWING_TRAJECTORY:
 			//iceTrajectoryFollower::update(p_timeSinceLastFrame); Hay que hablar sobre trayectorias de enemigos
 			mTrajectory->lookAt();//TODO
+			if (!isAlive())
+				mState = DEADING;
 			break;
 		case ATTACKING: 
 			mTrajectory->lookAt(); //TODO
 			iceRPG::update(p_timeSinceLastFrame);
 			shot();						
 			updateActiveBullets(p_timeSinceLastFrame);
+			if (!isAlive())
+				mState = DEADING;
 			//iceTrajectoryFollower::update(p_timeSinceLastFrame); Hay que hablar sobre trayectorias de enemigos
 			break;
 		case DEADING:
-
+			iceGame::getGameLog()->logMessage("Enemy killed!");
 			//iceTrajectoryFollower::update(p_timeSinceLastFrame); Hay que hablar sobre trayectorias de enemigos
 			//Dead sequence...
 			//When dead sequence finished:
-			//mState = INACTIVE;
+			mState = INACTIVE;
 			break;
 		case INACTIVE:
 			if(checkActivationTime(p_timeSinceLastFrame))
@@ -182,6 +189,11 @@ void iceEnemy::activate(void)
 	mState = FOLLOWING_TRAJECTORY;
 }
 
+bool iceEnemy::isActive(void)
+{
+	return (mState != INACTIVE);
+}
+
 bool iceEnemy::checkActivationTime(Ogre::Real p_timeSinceLastFrame)
 {
 	if(mActivationTime < 0)
@@ -201,6 +213,9 @@ bool iceEnemy::checkActivationTime(Ogre::Real p_timeSinceLastFrame)
 
 void iceEnemy::showReceivedDamage(unsigned int p_iDamage, bool p_bCritical)
 {
+	stringstream strMessage;
+	strMessage << "Adding damage to an enemy = " << p_iDamage << ". Current life = " << getCurrentLife();
+	iceGame::getGameLog()->logMessage(strMessage.str());
 }
 
 void iceEnemy::showShieldDamage(unsigned int p_iDamage, bool p_bCritical)
@@ -260,7 +275,6 @@ float iceEnemy::rangeAttack(){
 	}
 	return (float)tZ;
 }
-
 
 void iceEnemy::createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation, unsigned int p_iDamage, bool p_bCritic)
 
