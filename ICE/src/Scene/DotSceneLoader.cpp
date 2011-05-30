@@ -676,7 +676,8 @@ void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode, icePlayer &p_
 
 		iceEnemy* enemy = new iceEnemy();
 		enemy->initialize(mEnemyId++,enemyPosition,&p_Player,time + timeDev,iceEnemy::MINIMAGMATON,false);
-		mEnemies.push_back(enemy);
+		enemy->setLevel(time/30);//TODO
+		mEnemies.push_back(enemy);	
 	}
 
 	for (int i=0;i<kamikaces;i++)
@@ -690,6 +691,7 @@ void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode, icePlayer &p_
 
 		iceEnemy* enemy = new iceEnemy();
 		enemy->initialize(mEnemyId++,enemyPosition,&p_Player,time + timeDev,iceEnemy::KAMIKAZE,false);
+		enemy->setLevel(time/30);//TODO
 		mEnemies.push_back(enemy);
 	}
 
@@ -704,6 +706,7 @@ void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode, icePlayer &p_
 
 		iceEnemy* enemy = new iceEnemy();
 		enemy->initialize(mEnemyId++,enemyPosition,&p_Player,time + timeDev,iceEnemy::SMART,false);
+		enemy->setLevel(time/30);//TODO
 		mEnemies.push_back(enemy);
 	}
 }

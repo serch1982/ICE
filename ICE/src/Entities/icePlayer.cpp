@@ -70,8 +70,8 @@ icePlayer::icePlayer():_isShooting(false)
 	}	
 	//----------------------------------------------------------------------------------------------------------------------------//
 
-
 	mLog = Ogre::LogManager::getSingleton().getLog("iceLog.log");
+	levelUp();
 }
 
 icePlayer::~icePlayer()
@@ -174,7 +174,7 @@ void icePlayer::processMouseMoved(const int x, const int y, const int z)
 void icePlayer::updateShipPosition(Ogre::Real frameTime)
 {
 	//updatePosition
-	Ogre::Vector3 targetPosition = cursorNode->getPosition();
+	Ogre::Vector3 targetPosition = cursorNode->getPosition() / 4 ;
 	//Ogre::Real maxMovement = shipMaxVelocity * frameTime;
 	Ogre::Real maxMovement = getManiobrability() * frameTime;
 	targetPosition.x += -(Ogre::Real)mXUserDeviation*10;
@@ -239,7 +239,7 @@ void icePlayer::update(Ogre::Real p_timeSinceLastFrame)
 	iceTrajectoryFollower::update(p_timeSinceLastFrame);
 	updateShipPosition(p_timeSinceLastFrame);
 	iceRPG::update(p_timeSinceLastFrame);
-	addExperience(1000);	
+	//addExperience(1000);	
 	if (_isShooting){shot();}						/* Pau */
 	updateActiveBullets(p_timeSinceLastFrame);	/* Pau */
 }

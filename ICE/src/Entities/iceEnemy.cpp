@@ -73,7 +73,7 @@ bool iceEnemy::initialize(int id, Ogre::Vector3 p_Position, icePlayer* p_psPlaye
 			break;
 	}
 	mNode->attachObject(mesh);
-	if( mType != MINIMAGMATON && mType != MAGMATON )
+	if( mType == SMART || mType == VOLCANO )
 		mNode->scale(0.1,0.1,0.1);
 	mNode->setPosition(p_Position);
 	icePhisicEntity::initialize(mesh);
@@ -84,7 +84,7 @@ bool iceEnemy::initialize(int id, Ogre::Vector3 p_Position, icePlayer* p_psPlaye
 
 
 	mState = INACTIVE;
-	setLevel(10);
+	setLevel(1);
 
 	//	//Pau * INITIALIZE BULLETS *----------------------------------------------------------------------------------------//	
 	//
@@ -146,6 +146,7 @@ void iceEnemy::update(Ogre::Real p_timeSinceLastFrame)
 			break;
 		case DEADING:
 			iceGame::getGameLog()->logMessage("Enemy killed!");
+			mPlayer->addExperience(mLevel * 10000);
 			//iceTrajectoryFollower::update(p_timeSinceLastFrame); Hay que hablar sobre trayectorias de enemigos
 			//Dead sequence...
 			//When dead sequence finished:
