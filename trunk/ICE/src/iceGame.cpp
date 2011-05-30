@@ -170,7 +170,7 @@ void iceGame::createCamera() {
     _camera->setNearClipDistance(1);
     //_camera->setFarClipDistance(1000);
     _camera->setPosition(Ogre::Vector3(0,0,0));
-    _camera->lookAt(Ogre::Vector3(0,150,-300));
+    _camera->lookAt(Ogre::Vector3(0,0,-300));
 
     _viewport = _window->addViewport(_camera);
     _viewport->setBackgroundColour(Ogre::ColourValue(0, 0, 0));

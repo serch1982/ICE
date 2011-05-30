@@ -73,7 +73,8 @@ bool iceEnemy::initialize(int id, Ogre::Vector3 p_Position, icePlayer* p_psPlaye
 			break;
 	}
 	mNode->attachObject(mesh);
-	mNode->scale(0.1,0.1,0.1);
+	if( mType != MINIMAGMATON && mType != MAGMATON )
+		mNode->scale(0.1,0.1,0.1);
 	mNode->setPosition(p_Position);
 	icePhisicEntity::initialize(mesh);
 
