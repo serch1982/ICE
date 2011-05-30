@@ -23,13 +23,13 @@ icePlayer::icePlayer():_isShooting(false)
 	shipPlaneNode = mNode->createChildSceneNode();
 	shipNode = shipPlaneNode->createChildSceneNode();
 
-	Ogre::Entity* mesh2 = sceneManager->createEntity("shipMesh", "nave.mesh");
+	Ogre::Entity* mesh2 = sceneManager->createEntity("shipMesh", "airplane.mesh");
 	mesh2->setCastShadows(true);
 	shipNode->attachObject(mesh2);
-	shipNode->scale(0.04,0.09,0.09);
+	//shipNode->scale(0.04,0.09,0.09);
 
 	// Init camera
-	cameraPlaneNode = mNode->createChildSceneNode(Ogre::Vector3(0.0,0.0,-50.0));
+	cameraPlaneNode = mNode->createChildSceneNode(Ogre::Vector3(0.0,0.0,-20.0));
 	cameraNode = cameraPlaneNode->createChildSceneNode(Ogre::Vector3(0.0,/*10*/0.0,0.0));
 
 	if( sceneManager->hasCamera("camera") )
