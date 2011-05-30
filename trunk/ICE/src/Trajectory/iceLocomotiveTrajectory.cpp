@@ -36,11 +36,11 @@ void iceLocomotiveTrajectory::init(Ogre::SceneManager* p_spSceneManager, Ogre::S
 {
 	iceTrajectory::init(p_spSceneManager,p_psNode);
 	mLocomotiveNode = mNode->getParentSceneNode()->createChildSceneNode();
-	//DEBUG {
-	Ogre::Entity* sp = mSceneManager->createEntity("sphere.mesh");
-	mLocomotiveNode->attachObject(sp);
-	mLocomotiveNode->scale(0.01,0.01,0.01);
-	//} DEBUG
+	////DEBUG {
+	//Ogre::Entity* sp = mSceneManager->createEntity("sphere.mesh");
+	//mLocomotiveNode->attachObject(sp);
+	//mLocomotiveNode->scale(0.01,0.01,0.01);
+	////} DEBUG
 	setNodeToLookAt(mLocomotiveNode);
 }
 

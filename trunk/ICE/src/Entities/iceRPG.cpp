@@ -7,12 +7,12 @@ iceRPG::iceRPG(void)
 	mExperience = 0;
 	mBaseLife = 10;
 	mBaseArmor = 1;	
-	mBaseAttack = 1;
+	mBaseAttack = 10;
 	mBaseAccuracy = 1;
 	mBaseManiobrability = 1;
 	mBaseLuck = 10;
 	mCurrentLife = getMaxLife();
-	mWeaponLevel[MACHINEGUN] = 0;
+	mWeaponLevel[MACHINEGUN] = 1;
 	mWeaponLevel[SHOTGUN] = 0;
 	mWeaponLevel[MISILE_LAUNCHER] = 0;
 	mWeaponBaseCadence[MACHINEGUN] = 10;
@@ -68,7 +68,7 @@ Ogre::Real iceRPG::getAccuracy(void)
 
 Ogre::Real iceRPG::getManiobrability(void)
 {
-	return Ogre::Real(mBaseManiobrability * mLevel);
+	return Ogre::Real(mBaseManiobrability * 20 * Ogre::Math::Sin(Ogre::Degree(90*(mLevel+5)/100)));
 }
 
 //unsigned int iceRPG::getCadence(void)

@@ -103,7 +103,7 @@ void iceStateManager::loadResources() {
         }
     }
 	iceLoadingBar loadingBar;
-	loadingBar.start(iceGame::getRenderWindow(), 1,1, 0.50);
+	loadingBar.start(iceGame::getRenderWindow(), 2,1, 0.65);
     Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 	loadingBar.finish();
 }
