@@ -240,7 +240,9 @@ void icePlayer::update(Ogre::Real p_timeSinceLastFrame)
 	updateShipPosition(p_timeSinceLastFrame);
 	iceRPG::update(p_timeSinceLastFrame);
 	//addExperience(1000);	
-	if (_isShooting){shot();}						/* Pau */
+	if (_isShooting){
+		shot();
+	}						/* Pau */
 	updateActiveBullets(p_timeSinceLastFrame);	/* Pau */
 }
 
