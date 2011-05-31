@@ -37,9 +37,9 @@ iceStateManager::iceStateManager(OIS::InputManager* inputManager):_inputManager(
 	//set god camera
 	Ogre::SceneManager* sceneManager = iceGame::getSceneManager();
 	_godCamera = sceneManager->createCamera( "GodCam" );
-	_godCamera->setPosition(Ogre::Vector3(0,300,100));
+	_godCamera->setPosition(Ogre::Vector3(1226,300,0));
 	// Look back along -Z
-	_godCamera->lookAt(Ogre::Vector3(0,300,0));
+	_godCamera->lookAt(Ogre::Vector3(1700,300,0));
 	_godCamera->setNearClipDistance(5);
 	//sdk man
 	_sdkCameraMan = new OgreBites::SdkCameraMan(_godCamera); 
