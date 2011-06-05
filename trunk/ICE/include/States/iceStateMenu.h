@@ -6,7 +6,6 @@
 #include "Hikari.h"
 #include "iceState.h"
 #include "Utils\iceSdkTray.h"
-#include "Sound\iceMusic.h"
 
 class iceStateManager;
 
@@ -78,8 +77,6 @@ class iceStateMenu: public iceState{
 		Hikari::FlashValue menuPlayClick(Hikari::FlashControl* caller, const Hikari::Arguments& args);
 		Hikari::FlashValue menuContinueClick(Hikari::FlashControl* caller, const Hikari::Arguments& args);
 
-		//music
-		p_iceMusic _music;
 };
 
 

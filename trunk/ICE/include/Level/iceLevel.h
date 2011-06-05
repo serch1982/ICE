@@ -52,11 +52,6 @@ class iceLevel {
          *  @return level name
          */
         const Ogre::String& getName() const;
-        
-        /**
-		 *  @return music name
-		 */
-		const Ogre::String& getMusicName() const;
 
     private:
         //level
@@ -66,7 +61,6 @@ class iceLevel {
 		Ogre::String _playerTrajName;
 		Ogre::String _enemiesConfName;
 
-        Ogre::String _musicName;
         bool _loaded;
 };
 

@@ -6,8 +6,6 @@
 #include "Level\iceLevelManager.h"
 #include "iceGame.h"
 #include "Logic\iceLogicLua.h"
-#include "Sound\iceMusicManager.h"
-#include "Sound\iceSoundManager.h"
 
 iceStatePlay::iceStatePlay(iceStateManager* stateManager): iceState(stateManager), _levelID(1) {
     _log->logMessage("iceStatePlay::iceStatePlay()");
@@ -33,7 +31,6 @@ void iceStatePlay::load() {
         // load level
         _level = iceLevelManager::getSingleton().getIceLevel(_levelID);
         _level->load(*_player, _mEnemies);
-		_music = iceMusicManager::getSingleton().load( _level->getMusicName() );
 
 		//hide cursor
 		iceSdkTray::getInstance()->hideCursor();
@@ -54,8 +51,6 @@ void iceStatePlay::load() {
 			_log->logMessage(ex);
 		}
 
-		_music->play();
-
     }
 
 }
@@ -75,9 +70,6 @@ void iceStatePlay::clear() {
 
 		//destroy HUD
 		_stateManager->getHikariMgr()->destroyFlashControl("HUD");
-
-		// STop Music
-		_music->stop();
     }
 }
 
@@ -130,8 +122,6 @@ bool iceStatePlay::keyPressed(const OIS::KeyEvent &arg) {
 	if (arg.key == OIS::KC_P)
     {
         this->_nextICEStateId = Pause;
-		// Change the volume
-		//_music->setVolume( 1 );
     }
 	
     return true;
@@ -174,7 +164,3 @@ void iceStatePlay::setHUDLife(int life){
 void iceStatePlay::setHUDWeapon(char* name){
 	_hikariHUD->callFunction("setWeapon", Hikari::Args(name));
 }
-
-/*void iceStatePlay::restoreVolume(){
-	_music->restoreVolume();
-}*/

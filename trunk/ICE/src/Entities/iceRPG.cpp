@@ -1,5 +1,4 @@
 #include "Entities\iceRPG.h"
-#include "Sound\iceSoundManager.h"
 
 iceRPG::iceRPG(void)
 {
@@ -217,18 +216,12 @@ void iceRPG::shot(void)
 			switch(mCurrentWeapon)
 			{
 				case MACHINEGUN:
-					_sound = iceSoundManager::getSingleton().load("Machinegun_1.wav");
-					_sound->play();
 					fMaxDeviation = fMaxDeviation*2 - Ogre::Radian(Ogre::Real(mWeaponLevel[mCurrentWeapon]/20));
 					break;
 				case SHOTGUN:
-					_sound = iceSoundManager::getSingleton().load("Shotgun_1.wav");
-					_sound->play();
 					fMaxDeviation = fMaxDeviation*5 - Ogre::Radian(Ogre::Real(mWeaponLevel[mCurrentWeapon]/50));
 					break;
 				case MISILE_LAUNCHER:
-					_sound = iceSoundManager::getSingleton().load("Rocket_1.wav");
-					_sound->play();
 					fBaseDamage *= 10;
 					break;
 			}

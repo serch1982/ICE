@@ -8,7 +8,6 @@
 #include "States\iceStateMenu.h"
 #include "States\iceStateManager.h"
 #include "iceGame.h"
-#include "Sound\iceMusicManager.h"
 
 
 iceStateMenu::iceStateMenu(iceStateManager* stateManager): iceState(stateManager) {
@@ -43,8 +42,6 @@ void iceStateMenu::load() {
 			_log->logMessage(ex);
 		}
 
-		_music = iceMusicManager::getSingleton().load("menu.mp3");
-		_music->play( );
     }
 
 }
@@ -72,7 +69,6 @@ void iceStateMenu::clear() {
         _log->logMessage("iceStateMenu::clean()");
         _loaded = false;
 		_stateManager->getHikariMgr()->destroyAllControls();
-		_music->stop();
     }
 }
 

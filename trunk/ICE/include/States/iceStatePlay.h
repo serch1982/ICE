@@ -10,8 +10,6 @@
 #include "Entities\icePlayer.h"
 #include "Entities\iceEnemy.h"
 #include "Hikari.h"
-#include "Sound\iceMusic.h"
-#include "Sound\iceSound.h"
 #include "../Logic/icePhisics.h"
 
 class iceStateManager;
@@ -105,11 +103,6 @@ class iceStatePlay: public iceState{
          *  set the name of the current weapon of the player
          */
 		void setHUDWeapon(char* name);
-
-		//music
-		p_iceMusic _music;
-		//sounds
-		p_iceSound _sound;
 
 		//phisics
 		icePhisics mPhisics;
