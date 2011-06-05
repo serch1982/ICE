@@ -9,8 +9,6 @@
 
 #include "iceGame.h"
 #include "States\iceStateManager.h"
-#include "Sound\iceMusicManager.h"
-#include "Sound\iceSoundManager.h"
 #include "Level\iceLevelManager.h"
 
 Ogre::SceneManager* iceGame::_sceneManager = 0;
@@ -33,11 +31,6 @@ iceGame::iceGame() {
         exit(1);
     }
 
-    //init SDL
-    if (!initialiseSDL()) {
-        exit(1);
-    }
-
     // levels
     _levelManager = new iceLevelManager();
 
@@ -50,8 +43,6 @@ iceGame::~iceGame() {
 }
 
 void iceGame::finalize(){
-	delete _soundManager;
-	delete _musicManager;
 	delete _levelManager;
 	_stateManager->finalize();
     delete _root;
@@ -95,10 +86,6 @@ bool iceGame::initialiseOgre() {
     // ogre root
     _root = new Ogre::Root(_pluginsCfg, _ogreCfg, _ogreLog); 
 
-    // sounds manager
-    _musicManager = new iceMusicManager();
-	_soundManager = new iceSoundManager();
-
     // ogre config dialog
     if (!_root->showConfigDialog()) {
 	// load config from _ogreCfg
@@ -132,27 +119,6 @@ bool iceGame::initialiseOIS() {
 
     // input manager
     _inputManager = OIS::InputManager::createInputSystem(paramList);
-    return true;
-}
-
-bool iceGame::initialiseSDL() {
-	 _log->logMessage("iceGame::initialiseSDL() begin");
-
-	 //doest works in release mode
-    //if (SDL_Init(SDL_INIT_AUDIO) < 0)
-	//	 _log->logMessage("iceGame::initialiseSDL() SDL_Init(SDL_INIT_AUDIO) ERROR");
-    //    return false;
-
-    atexit(SDL_Quit);
-
-    if(Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT,MIX_DEFAULT_CHANNELS, 4096) < 0){
-		  _log->logMessage("iceGame::initialiseSDL() Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT,MIX_DEFAULT_CHANNELS, 4096) ERROR");
-        return false;
-    }
-
-    Mix_AllocateChannels(32);
-    atexit(Mix_CloseAudio);
-	_log->logMessage("iceGame::initialiseSDL() end ");
     return true;
 }
 

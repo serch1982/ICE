@@ -5,8 +5,6 @@
 #include <OIS/OIS.h>
 
 class iceStateManager;
-class iceMusicManager;
-class iceSoundManager;
 class iceLevelManager;
 
 class iceGame {
@@ -77,10 +75,6 @@ class iceGame {
         Ogre::String _pluginsCfg;
         Ogre::String _ogreLog;
         Ogre::String _ogreCfg;
-    
-        // sounds managers
-        iceMusicManager* _musicManager;
-        iceSoundManager* _soundManager;
 
         // level manager
         iceLevelManager* _levelManager;
@@ -88,7 +82,6 @@ class iceGame {
         //
         bool initialiseOgre();
         bool initialiseOIS();
-        bool initialiseSDL();
         
         //configurations
         void configureSceneManager();

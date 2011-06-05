@@ -1,6 +1,5 @@
 #pragma once
 #include <OgreVector3.h>
-#include "Sound\iceSound.h"
 
 //#include "iceCounters.h"
 
@@ -84,8 +83,5 @@ protected:
 	unsigned int mCurrentWeapon;
 
 	Ogre::Real mTimeSinceLastShot;
-
-	//sound fx
-	p_iceSound _sound;
 };
 

@@ -37,9 +37,6 @@ void iceLevel::load(icePlayer& player, std::vector<iceEnemy*>& vectorEnemies) {
 		//l->setDiffuseColour(1.0, 1.0, 1.0);
 		//l->setSpecularColour(1.0, 1.0, 1.0);
 
-        //// song
-		_musicName = "level1.mp3";
-		//_song = SongManager::getSingleton().load(_musicName);
 
 		player.setTrajectory(new iceLocomotiveTrajectory());
 		//player.getTrajectory()->loadSteps(steps,false);
@@ -69,8 +66,4 @@ const int iceLevel::getId() const {
 
 const Ogre::String& iceLevel::getName() const {
     return _name;
-}
-
-const Ogre::String& iceLevel::getMusicName() const{
-	return _musicName;
 }
