@@ -1,4 +1,5 @@
 #include "Stats\icePlayerStats.h"
+#include "iceGame.h"
 
 icePlayerStats* icePlayerStats::mInstance = 0;
 icePlayerStats* icePlayerStats::getInstance()
@@ -61,7 +62,7 @@ icePlayerStats::icePlayerStats(void)
 
 	}
 
-	mLog =Ogre::LogManager::getSingleton().getLog("iceLog.log");
+	mLog = iceGame::getGameLog();
 }
 
 icePlayerStats::~icePlayerStats(void)

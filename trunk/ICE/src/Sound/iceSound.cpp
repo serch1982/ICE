@@ -1,6 +1,7 @@
 #include <fstream>
 
 #include "Sound\iceSound.h"
+#include "iceGame.h"
 
 
 iceSound::iceSound(Ogre::ResourceManager* creator,
@@ -14,7 +15,7 @@ iceSound::iceSound(Ogre::ResourceManager* creator,
     _sound = 0;
     _path = "";
     _size = 0;
-	_log = Ogre::LogManager::getSingleton().getLog("iceLog.log");
+	_log = iceGame::getGameLog();
 }
 
 iceSound::~iceSound() {

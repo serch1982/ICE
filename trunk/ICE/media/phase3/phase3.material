@@ -1,0 +1,62 @@
+
+material phase3volcano
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.3 0.3 0.3 1
+
+			texture_unit
+			{
+				texture volcano.png
+			}
+		}
+
+	}
+
+}
+
+
+
+material phase3cave_ground
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.3 0.3 0.3 1
+
+			texture_unit
+			{
+				texture burn4927.jpg
+				rotate_anim 0.001
+				
+			}
+		}
+
+	}
+
+}
+
+
+
+material phase3terrain
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.3 0.3 0.3 1
+
+			texture_unit
+			{
+				texture burn4927.jpg
+			}
+		}
+
+	}
+
+}
+
+

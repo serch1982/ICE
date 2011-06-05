@@ -3,7 +3,6 @@
 #include "States\iceStatePlay.h"
 #include "States\iceStatePause.h"
 #include "iceGame.h"
-#include "Utils\ConfigScriptLoader.h"
 #include <Utils\iceLoadingBar.h>
 #include <SdkCameraMan.h>
 
@@ -12,7 +11,7 @@ OgreBites::SdkCameraMan* _sdkCameraMan;
 iceStateManager::iceStateManager(OIS::InputManager* inputManager):_inputManager(inputManager),
 																  _levelToLoad(1),
                                                                   _exit(false) {
-    _log = Ogre::LogManager::getSingleton().getLog("iceLog.log");
+    _log = iceGame::getGameLog();
     _log->logMessage("iceStateManager::iceStateManager()");
 
     // render window
@@ -64,7 +63,6 @@ void iceStateManager::finalize(){
         OIS::InputManager::destroyInputSystem(_inputManager);
         _inputManager = 0;
     }
-	delete ConfigScriptLoader::getSingletonPtr();
 	delete _hikariMgr;
 	delete _sdkCameraMan;
 	_log->logMessage("iceStateManager::finalize()");
@@ -73,12 +71,11 @@ void iceStateManager::finalize(){
 void iceStateManager::loadResources() {
     _log->logMessage("iceStateManager::prepareResources()");
 	 
-	new ConfigScriptLoader();
     Ogre::String groupName, typeName, archiveName;
     Ogre::ConfigFile configFile;
 
     // open resource file 
-    configFile.load("iceResources.cfg");
+    configFile.load("./configuration/iceResources.cfg");
 
     // iterator
     Ogre::ConfigFile::SectionIterator sectionIterator = configFile.getSectionIterator();

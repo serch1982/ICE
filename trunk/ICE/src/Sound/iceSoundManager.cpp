@@ -1,13 +1,14 @@
 #include <SDL_mixer.h>
 
 #include "Sound\iceSoundManager.h"
+#include "iceGame.h"
 
 template<> iceSoundManager* Ogre::Singleton<iceSoundManager>::ms_Singleton = 0;
 
 int iceSoundManager::numChannels = 32;
         
 iceSoundManager::iceSoundManager() {
-	_log = Ogre::LogManager::getSingleton().getLog("iceLog.log");
+	_log = iceGame::getGameLog();
     mResourceType = "Sound";
     mLoadOrder = 30.f;
     Ogre::ResourceGroupManager::getSingleton()._registerResourceManager(mResourceType, this);

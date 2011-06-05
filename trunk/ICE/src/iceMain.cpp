@@ -24,7 +24,7 @@ extern "C" {
 		iceGame* myGame;// = new iceGame();
 		/*char root_path[1024];
 		GetCurrentDir(root_path, 1023);
-		myGame->go(root_path);*/
+		myGame->go(root_path);*/ 
 		try {
 					myGame = new iceGame();
 				char root_path[1024];

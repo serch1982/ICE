@@ -69,16 +69,16 @@ void iceGame::go(char* pathRoot) {
 bool iceGame::initialiseOgre() {
     // plugins files (for Debug or Release)
 #ifdef _DEBUG
-    _pluginsCfg = "icePlugins_d.cfg";
+    _pluginsCfg = "./configuration/icePlugins_d.cfg";
     _windowName = "ICE GAME - Debug";
 #else
-    _pluginsCfg = "icePlugins.cfg";
+    _pluginsCfg = "./configuration/icePlugins.cfg";
     _windowName = "ICE GAME";
 #endif
 
-    // config and logging files
-    _ogreCfg = "ice.cfg";
-    _ogreLog = "ice.log";
+    //config and logging files
+    _ogreCfg = "./configuration/ice.cfg";
+    _ogreLog = "./logs/ice.log";
 
     // log level
 #ifdef _DEBUG
@@ -90,17 +90,19 @@ bool iceGame::initialiseOgre() {
     // create ogre log
     _logManager = new Ogre::LogManager();
     _logManager->createLog(_ogreLog, true, false, false);
-	_log = Ogre::LogManager::getSingleton().createLog("iceLog.log", false, false, false );
+	_log = Ogre::LogManager::getSingleton().createLog("./logs/iceLog.log", false, false, false );
 
     // ogre root
-    _root = new Ogre::Root(_pluginsCfg, _ogreCfg, _ogreLog);
+    _root = new Ogre::Root(_pluginsCfg, _ogreCfg, _ogreLog); 
 
     // sounds manager
     _musicManager = new iceMusicManager();
 	_soundManager = new iceSoundManager();
 
     // ogre config dialog
-    if (!_root->restoreConfig() && !_root->showConfigDialog()) {
+    if (!_root->showConfigDialog()) {
+	// load config from _ogreCfg
+	//if (!_root->restoreConfig() && !_root->showConfigDialog()) {
         _log->logMessage("iceGame::initialiseOgre() -> the config dialog was cancelled");
         return false;
     }

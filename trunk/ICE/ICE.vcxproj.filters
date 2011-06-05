@@ -126,9 +126,6 @@
     <ClCompile Include="src\Level\iceLevelManager.cpp">
       <Filter>Source Files\Level</Filter>
     </ClCompile>
-    <ClCompile Include="src\Utils\ConfigScriptLoader.cpp">
-      <Filter>Source Files\Utils</Filter>
-    </ClCompile>
     <ClCompile Include="src\Logic\iceLogicLua.cpp">
       <Filter>Source Files\Logic</Filter>
     </ClCompile>
@@ -211,9 +208,6 @@
     </ClInclude>
     <ClInclude Include="include\Level\iceLevelManager.h">
       <Filter>Header Files\Level</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Utils\ConfigScriptLoader.h">
-      <Filter>Header Files\Utils</Filter>
     </ClInclude>
     <ClInclude Include="include\Logic\iceLogicLua.h">
       <Filter>Header Files\Logic</Filter>

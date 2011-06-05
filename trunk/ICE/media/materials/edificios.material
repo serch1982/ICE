@@ -1,0 +1,14 @@
+
+material Background_Toon_Material1
+{
+	technique
+	{
+		pass
+		{
+		}
+
+	}
+
+}
+
+

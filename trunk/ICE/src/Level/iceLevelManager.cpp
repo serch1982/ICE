@@ -3,11 +3,12 @@
 
 #include "Level\iceLevelManager.h"
 #include "Level\iceLevel.h"
+#include "iceGame.h"
 
 template<> iceLevelManager* Ogre::Singleton<iceLevelManager>::ms_Singleton = 0;
 
 iceLevelManager::iceLevelManager(): _numLevels(0){
-	_log = Ogre::LogManager::getSingleton().getLog("iceLog.log");
+	_log = iceGame::getGameLog();
 	_levels.push_back(new iceLevel(1,"level1", "phase1Trajectory", "phase1Enemies"));
 	_levels.push_back(new iceLevel(2,"level1", "phase1Trajectory", "phase1Enemies"));
 	_numLevels = 2;

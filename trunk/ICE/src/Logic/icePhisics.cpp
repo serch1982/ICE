@@ -1,4 +1,5 @@
 #include "Logic/icePhisics.h"
+#include "iceGame.h"
 
 icePhisics::icePhisics(void)
 {
@@ -17,7 +18,7 @@ void icePhisics::initialize(icePlayer* p_Player, std::vector<iceEnemy*>* p_Enemi
 	mPlayerBullets = p_PlayerBullets;
 	mEnemyBullets = p_EnemyBullets;
 
-	mLog = Ogre::LogManager::getSingleton().getLog("iceLog.log");
+	mLog = iceGame::getGameLog();
 }
 
 void icePhisics::processPlayerBullets(void)

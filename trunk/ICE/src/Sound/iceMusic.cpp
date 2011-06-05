@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include "Sound\iceMusic.h"
+#include "iceGame.h"
 
 iceMusic::iceMusic(Ogre::ResourceManager* creator,
                const Ogre::String& name,
@@ -10,7 +11,7 @@ iceMusic::iceMusic(Ogre::ResourceManager* creator,
                bool isManual,
                Ogre::ManualResourceLoader* loader):
                Ogre::Resource(creator, name, handle, group, isManual, loader) {
-	 _log = Ogre::LogManager::getSingleton().getLog("iceLog.log");
+	 _log = iceGame::getGameLog();
     createParamDictionary(name);
     _song = 0;
     _size = 0;

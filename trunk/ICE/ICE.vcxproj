@@ -76,7 +76,11 @@
     </Link>
     <PostBuildEvent>
       <Message>Copying exe to samples bin directory ...</Message>
-      <Command>copy "$(OutDir)\$(TargetFileName)" "$(OGRE_HOME)\Bin\$(Configuration)"</Command>
+      <Command>xcopy "$(OGRE_HOME)\Bin\$(ConfigurationName)\*.dll" "$(OutDir)" /s/e/d/i/y
+xcopy "$(SolutionDir)media" "$(OutDir)media\" /s/e/d/i/y
+xcopy "$(SolutionDir)configuration" "$(OutDir)configuration\" /s/e/d/i/y
+xcopy "$(SolutionDir)lib\$(Configuration)\*.dll" "$(OutDir)" /s/e/d/i/y
+if not exist "$(OutDir)logs" mkdir "$(OutDir)logs"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -112,7 +116,11 @@
     </Link>
     <PostBuildEvent>
       <Message>Copying exe to samples bin directory ...</Message>
-      <Command>copy "$(OutDir)\$(TargetFileName)" "$(OGRE_HOME)\Bin\$(Configuration)"</Command>
+      <Command>xcopy "$(OGRE_HOME)\Bin\$(ConfigurationName)\*.dll" "$(OutDir)" /s/e/d/i/y
+xcopy "$(SolutionDir)media" "$(OutDir)media\" /s/e/d/i/y
+xcopy "$(SolutionDir)configuration" "$(OutDir)configuration\" /s/e/d/i/y
+xcopy "$(SolutionDir)lib\$(Configuration)\*.dll" "$(OutDir)" /s/e/d/i/y
+if not exist "$(OutDir)logs" mkdir "$(OutDir)logs"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -142,7 +150,6 @@
     <ClCompile Include="src\Trajectory\iceStep.cpp" />
     <ClCompile Include="src\Trajectory\iceTrajectory.cpp" />
     <ClCompile Include="src\Trajectory\iceTrajectoryFollower.cpp" />
-    <ClCompile Include="src\Utils\ConfigScriptLoader.cpp" />
     <ClCompile Include="src\Utils\iceSdkTray.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -171,7 +178,6 @@
     <ClInclude Include="include\Trajectory\iceStep.h" />
     <ClInclude Include="include\Trajectory\iceTrajectory.h" />
     <ClInclude Include="include\Trajectory\iceTrajectoryFollower.h" />
-    <ClInclude Include="include\Utils\ConfigScriptLoader.h" />
     <ClInclude Include="include\Utils\iceLoadingBar.h" />
     <ClInclude Include="include\Utils\iceSdkTray.h" />
     <ClInclude Include="resource.h" />
