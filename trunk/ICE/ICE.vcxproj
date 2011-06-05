@@ -136,10 +136,6 @@ if not exist "$(OutDir)logs" mkdir "$(OutDir)logs"</Command>
     <ClCompile Include="src\Logic\iceLogicLua.cpp" />
     <ClCompile Include="src\Logic\icePhisics.cpp" />
     <ClCompile Include="src\Scene\DotSceneLoader.cpp" />
-    <ClCompile Include="src\Sound\iceMusic.cpp" />
-    <ClCompile Include="src\Sound\iceMusicManager.cpp" />
-    <ClCompile Include="src\Sound\iceSound.cpp" />
-    <ClCompile Include="src\Sound\iceSoundManager.cpp" />
     <ClCompile Include="src\States\iceState.cpp" />
     <ClCompile Include="src\States\iceStateManager.cpp" />
     <ClCompile Include="src\States\iceStateMenu.cpp" />
@@ -164,10 +160,6 @@ if not exist "$(OutDir)logs" mkdir "$(OutDir)logs"</Command>
     <ClInclude Include="include\Logic\iceLogicLua.h" />
     <ClInclude Include="include\Logic\icePhisics.h" />
     <ClInclude Include="include\Scene\DotSceneLoader.h" />
-    <ClInclude Include="include\Sound\iceMusic.h" />
-    <ClInclude Include="include\Sound\iceMusicManager.h" />
-    <ClInclude Include="include\Sound\iceSound.h" />
-    <ClInclude Include="include\Sound\iceSoundManager.h" />
     <ClInclude Include="include\States\iceState.h" />
     <ClInclude Include="include\States\iceStateManager.h" />
     <ClInclude Include="include\States\iceStateMenu.h" />

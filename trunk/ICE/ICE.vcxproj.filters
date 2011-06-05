@@ -132,18 +132,6 @@
     <ClCompile Include="src\States\iceStatePause.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
-    <ClCompile Include="src\Sound\iceMusic.cpp">
-      <Filter>Source Files\Sound</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Sound\iceMusicManager.cpp">
-      <Filter>Source Files\Sound</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Sound\iceSound.cpp">
-      <Filter>Source Files\Sound</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Sound\iceSoundManager.cpp">
-      <Filter>Source Files\Sound</Filter>
-    </ClCompile>
     <ClCompile Include="src\Logic\icePhisics.cpp">
       <Filter>Source Files\Logic</Filter>
     </ClCompile>
@@ -217,18 +205,6 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Sound\iceMusic.h">
-      <Filter>Header Files\Sound</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Sound\iceMusicManager.h">
-      <Filter>Header Files\Sound</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Sound\iceSound.h">
-      <Filter>Header Files\Sound</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Sound\iceSoundManager.h">
-      <Filter>Header Files\Sound</Filter>
     </ClInclude>
     <ClInclude Include="include\Logic\icePhisics.h">
       <Filter>Header Files\Logic</Filter>
