@@ -1,5 +1,5 @@
-
 #include "Logic\iceLogicLua.h"
+#include "iceGame.h" 
 
 #define LUA_CONST_START( class ) { luabind::object g = luabind::globals(L); luabind::object table = g[#class];
 #define LUA_CONST( class, name ) table[#name] = class::name
@@ -14,7 +14,7 @@ iceLogicLua* iceLogicLua::getInstance(){
 }
 
 iceLogicLua::iceLogicLua(void){
-	_log = Ogre::LogManager::getSingleton().getLog("iceLog.log");
+	_log = iceGame::getGameLog();
 	L = lua_open();	
 	luaL_openlibs(L);
 	luabind::open(L);

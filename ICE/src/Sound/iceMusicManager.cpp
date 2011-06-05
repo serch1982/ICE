@@ -1,10 +1,10 @@
 #include "Sound\iceMusicManager.h"
-
+#include "iceGame.h"
 
 template<> iceMusicManager* Ogre::Singleton<iceMusicManager>::ms_Singleton = 0;
 
 iceMusicManager::iceMusicManager() {
-	_log = Ogre::LogManager::getSingleton().getLog("iceLog.log");
+	_log = iceGame::getGameLog();
     mResourceType = "Music";
     mLoadOrder = 30.f;
     Ogre::ResourceGroupManager::getSingleton()._registerResourceManager(mResourceType, this);

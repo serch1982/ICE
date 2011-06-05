@@ -1,0 +1,203 @@
+entity phase3Trajectory
+{
+	stepsNumber 27
+	isLoop 0
+	step1
+	{
+		position -11522 22622 6302
+		rollAngle 0
+		time 0
+	}
+	step2
+	{
+		position -9643 22770 7351
+		rollAngle 0
+		time 5
+	}
+	step3
+	{
+		position -7977 22885 8587
+		rollAngle 0
+		time 10
+	}
+	step4
+	{
+		position -6621 22907 8698
+		rollAngle 0
+		time 15
+	}
+	step5
+	{
+		position -4365 23019 8859
+		rollAngle 0
+		time 20
+	}
+	step6
+	{
+		position -3145 22968 8902
+		rollAngle 0
+		time 25
+	}
+	step7
+	{
+		position -1790 23131 7969
+		rollAngle 0
+		time 30
+	}
+	step8
+	{
+		position -386 23209 6887
+		rollAngle 0
+		time 35
+	}
+	step9
+	{
+		position 1284 22508 5696
+		rollAngle 0
+		time 40
+	}
+	step10
+	{
+		position 1380 21707 5682
+		rollAngle 0
+		time 45
+	}
+	step11
+	{
+		position 1376 20290 5789
+		rollAngle 0
+		time 50
+	}
+	step12
+	{
+		position 1326 18100 6262
+		rollAngle 0
+		time 55
+	}
+	step13
+	{
+		position 999 15177 7247
+		rollAngle 0
+		time 60
+	}
+	step14
+	{
+		position -203 13083 7513
+		rollAngle 0
+		time 65
+	}
+	step15
+	{
+		position -1856 11931 7141
+		rollAngle 0
+		time 70
+	}
+	step16
+	{
+		position -2971 11104 6105
+		rollAngle 0
+		time 75
+	}
+	step17
+	{
+		position -3479 10274 4674
+		rollAngle 0
+		time 80
+	}
+	step18
+	{
+		position -2221 8774 3506
+		rollAngle 0
+		time 85
+	}
+	step19
+	{
+		position -207 7801 3726
+		rollAngle 0
+		time 90
+	}
+	step20
+	{
+		position 2280 6977 4198
+		rollAngle 0
+		time 95
+	}
+	step21
+	{
+		position 3300 5767 5150
+		rollAngle 0
+		time 100
+	}
+	step22
+	{
+		position 2050 3793 5692
+		rollAngle 0
+		time 105
+	}
+	step23
+	{
+		position 162 2534 5743
+		rollAngle 0
+		time 110
+	}
+	step24
+	{
+		position 64 868 5552
+		rollAngle 0
+		time 115
+	}
+	step25
+	{
+		position 405 518 5412
+		rollAngle 0
+		time 120
+	}
+	step26
+	{
+		position 750 -430 4895
+		rollAngle 0
+		time 125
+	}
+	step27
+	{
+		position 750 -430 6590
+		rollAngle 0
+		time 130
+	}
+}
+
+entity phase3TrajectoryEnd
+{
+	stepsNumber 5
+	isLoop 1
+	step1
+	{
+		position 750 -430 4895
+		rollAngle 0
+		time 0
+	}
+	step2
+	{
+		position 750 -430 6590
+		rollAngle 0
+		time 5
+	}
+	step3
+	{
+		position -750 -430 6590
+		rollAngle 0
+		time 10
+	}
+	step4
+	{
+		position -750 -430 4895
+		rollAngle 0
+		time 15
+	}
+	step5
+	{
+		position 750 -430 4895
+		rollAngle 0
+		time 20
+	}
+}

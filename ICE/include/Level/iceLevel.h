@@ -6,7 +6,6 @@
 #include <OGRE/Ogre.h>
 #include "Entities\icePlayer.h"
 #include "Entities\iceEnemy.h"
-#include "Utils\ConfigScriptLoader.h"
 #include "Trajectory\iceLocomotiveTrajectory.h"
 
 class icePlayer;
@@ -69,15 +68,6 @@ class iceLevel {
 
         Ogre::String _musicName;
         bool _loaded;
-        
-		/**
-         *  load enemies from the config file
-         */
-        void loadEnemies(ConfigNode* p_EnemiesNode,icePlayer& player, std::vector<iceEnemy*>& vEnemies);
-		/**
-         *  load steps from the config file
-         */
-		std::vector<iceStep> getStepsFromResources(ConfigNode* p_sStepsNode);
 };
 
 #endif  

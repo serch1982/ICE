@@ -1,5 +1,6 @@
 #include "Trajectory\iceTrajectory.h"
 #include <algorithm>
+#include "iceGame.h"
 
 Ogre::NameGenerator iceTrajectory::mNameGenerator("Trajectory_");
 
@@ -9,7 +10,7 @@ iceTrajectory::iceTrajectory(void)
 	mCurrentTime = 0;
 	mThereIsANodeToLookAt = false;
 	mLoop = false;
-	mLog = Ogre::LogManager::getSingleton().getLog("iceLog.log");
+	mLog = iceGame::getGameLog();
 }
 
 

@@ -1,0 +1,31 @@
+material phase3SkyBox
+{
+
+	technique
+
+	{
+
+		pass
+
+		{
+
+			lighting off
+
+			depth_write on
+
+ 
+			texture_unit
+
+			{
+
+				cubic_texture gehenna_rt.tga gehenna_lf.tga gehenna_bk.tga gehenna_ft.tga gehenna_up.tga gehenna_dn.tga separateUV
+
+				tex_address_mode clamp
+
+			}
+
+		}
+
+	}
+
+}

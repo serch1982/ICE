@@ -1,0 +1,85 @@
+entity phase3Enemies
+{
+	enemiesNumber 2
+	enemy1
+	{
+		enemyType 0 //MINIMAGMATON
+		activationTime 5
+		isAttachedToPlayer 1
+		trajectory
+		{
+			stepsNumber 5
+			isLoop 1
+			step1
+			{
+				position 30 0 200
+				rollAngle 0
+				time 0
+			}
+			step2
+			{
+				position 0 30 230
+				rollAngle 0
+				time 1
+			}
+			step3
+			{
+				position -30 0 200
+				rollAngle 0
+				time 2
+			}
+			step4
+			{
+				position 0 -30 170
+				rollAngle 0
+				time 3
+			}
+			step5
+			{
+				position 30 0 200
+				rollAngle 0
+				time 4
+			}
+		}
+	}
+	enemy2
+	{
+		enemyType 4 //MAGMATON
+		activationTime 134
+		isAttachedToPlayer 0
+		trajectory
+		{
+			stepsNumber 5
+			isLoop 1
+			step1
+			{
+				position 750 -470 6590
+				rollAngle 0
+				time 0
+			}
+			step2
+			{
+				position -750 -470 6590
+				rollAngle 0
+				time 5
+			}
+			step3
+			{
+				position -750 -470 4895
+				rollAngle 0
+				time 10
+			}
+			step4
+			{
+				position 750 -470 4895
+				rollAngle 0
+				time 15
+			}
+			step5
+			{
+				position 750 -470 6590
+				rollAngle 0
+				time 20
+			}
+	}
+}

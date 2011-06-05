@@ -1,0 +1,21 @@
+// Outline vertex shader
+vertex_program Outline cg
+{
+	source Outline.cg
+	profiles vs_2_0 arbvp1
+	entry_point outline_vp
+	
+	default_params
+	{
+		param_named_auto WorldViewProjection worldviewproj_matrix
+		param_named_auto World world_matrix
+		//param_named_auto Camera camera_position		
+	}
+}
+
+fragment_program Black cg
+{
+	source Outline.cg
+	profiles ps_2_0 arbfp1 fp20
+	entry_point black_fp
+}

@@ -70,7 +70,7 @@ icePlayer::icePlayer():_isShooting(false)
 	}	
 	//----------------------------------------------------------------------------------------------------------------------------//
 
-	mLog = Ogre::LogManager::getSingleton().getLog("iceLog.log");
+	mLog = iceGame::getGameLog();
 	levelUp();
 }
 

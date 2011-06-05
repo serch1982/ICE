@@ -1,0 +1,24 @@
+material cursor
+{
+	technique
+	{
+		pass
+		{
+			
+			lighting off
+			scene_blend alpha_blend
+			depth_write off
+			diffuse vertexcolour
+
+			point_sprites on
+			point_size 2
+			point_size_attenuation on
+		
+			
+			texture_unit
+			{
+				anim_texture cursorAnim1.png cursorAnim2.png cursorAnim3.png cursorAnim4.png cursorAnim3.png cursorAnim2.png 1
+			}
+		}
+	}
+}

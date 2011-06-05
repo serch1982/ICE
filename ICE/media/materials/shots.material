@@ -1,0 +1,67 @@
+material machinegunShot
+{
+	technique
+	{
+		pass
+		{
+			
+			lighting off
+			scene_blend add
+			depth_write off
+			diffuse vertexcolour
+
+			point_sprites on
+			point_size 2
+			point_size_attenuation on
+		
+			
+			texture_unit
+			{
+				texture machinegunShot.png
+			}
+		}
+	}
+}
+material shotgunShot
+{
+	technique
+	{
+		pass
+		{
+			
+			lighting off
+			scene_blend add
+			depth_write off
+			diffuse vertexcolour
+
+			point_sprites on
+			point_size 2
+			point_size_attenuation on
+		
+			
+			texture_unit
+			{
+				texture shotgunShot.png
+			}
+		}
+	}
+}
+material misilSmoke
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			scene_blend alpha_blend
+			depth_write off
+			diffuse vertexcolour
+
+			texture_unit
+			{
+				texture misilSmoke.png
+				tex_address_mode clamp
+			}
+		}
+	}
+}

@@ -1,0 +1,50 @@
+uniform float4x4 World;
+uniform float4x4 WorldViewProjection;
+
+//uniform float3 Camera;
+
+// Edge width
+uniform float offset;
+
+//Input for the vertex Shader
+//There are two vertex shaders both take the same input
+struct VS_INPUT
+{
+	float4 Position		: POSITION0;
+	float3 Normal		: NORMAL0;
+	float2 Texcoord		: TEXCOORD0;
+
+};
+
+//Output for the outline vertex shader
+struct VS_OUTPUT2
+{
+	float4 Position			: POSITION0;
+	float4 Normal			: TEXCOORD1;
+};
+
+
+//The outline vertex shader
+//This tranforms the model and
+//"peaks" the surface (scales it out on it's normal) 
+VS_OUTPUT2 outline_vp(VS_INPUT Input)
+{
+
+	//Calculate it based on the distance
+	//between your camera and your model.
+	//float offset = normalize(distance(Camera, Input.Position)) / 2;
+		
+	VS_OUTPUT2 Output;	
+	float4 normal = float4(Input.Normal, 0);
+	
+	Output.Normal = mul(normal, World);	
+	Output.Position	= mul(WorldViewProjection, Input.Position) + (offset * mul(WorldViewProjection, normal));
+	
+	return Output;
+}
+
+//This is the ouline pixel shader. It just outputs unlit black.
+float4 black_fp() : COLOR0
+{
+   return float4(0.0f, 0.0f, 0.0f, 1.0f);
+}
