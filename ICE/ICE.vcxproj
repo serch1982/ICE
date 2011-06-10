@@ -62,7 +62,7 @@
       <FloatingPointModel>Fast</FloatingPointModel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>externals\SDL_mixer_1.2.11;externals;externals\rapidxml;externals\HIKARI;include;$(OGRE_HOME)\include;$(OGRE_HOME)\include\OIS;$(OGRE_HOME)\include\OGRE;$(OGRE_HOME)\Samples\Common\include;$(OGRE_HOME)\boost_1_42;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>externals\FMOD;externals;externals\rapidxml;externals\HIKARI;include;$(OGRE_HOME)\include;$(OGRE_HOME)\include\OIS;$(OGRE_HOME)\include\OGRE;$(OGRE_HOME)\Samples\Common\include;$(OGRE_HOME)\boost_1_42;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnablePREfast>false</EnablePREfast>
     </ClCompile>
     <Link>
@@ -72,7 +72,7 @@
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalLibraryDirectories>lib\debug;$(OGRE_HOME)\lib\debug;$(OGRE_HOME)\boost_1_42\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>OgreMain_d.lib;OIS_d.lib;Hikari.lib;OgreTerrain_d.lib;lua5.1.lib;luabind_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>OgreMain_d.lib;OIS_d.lib;Hikari.lib;OgreTerrain_d.lib;lua5.1.lib;luabind_d.lib;fmodexL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Message>Copying exe to samples bin directory ...</Message>
@@ -103,7 +103,7 @@ if not exist "$(OutDir)logs" mkdir "$(OutDir)logs"</Command>
       <StringPooling>true</StringPooling>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <FloatingPointModel>Fast</FloatingPointModel>
-      <AdditionalIncludeDirectories>externals\SDL_mixer_1.2.11;externals;externals\rapidxml;externals\HIKARI;include;$(OGRE_HOME)\include;$(OGRE_HOME)\include\OIS;$(OGRE_HOME)\include\OGRE;$(OGRE_HOME)\Samples\Common\include;$(OGRE_HOME)\boost_1_42;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>externals\FMOD;externals;externals\rapidxml;externals\HIKARI;include;$(OGRE_HOME)\include;$(OGRE_HOME)\include\OIS;$(OGRE_HOME)\include\OGRE;$(OGRE_HOME)\Samples\Common\include;$(OGRE_HOME)\boost_1_42;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -112,7 +112,7 @@ if not exist "$(OutDir)logs" mkdir "$(OutDir)logs"</Command>
       <OptimizeReferences>true</OptimizeReferences>
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>lib\Release;$(OGRE_HOME)\lib\release;$(OGRE_HOME)\boost_1_42\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>OgreMain.lib;OIS.lib;Hikari.lib;OgreTerrain.lib;lua5.1.lib;luabind.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>OgreMain.lib;OIS.lib;Hikari.lib;OgreTerrain.lib;lua5.1.lib;luabind.lib;fmodex_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Message>Copying exe to samples bin directory ...</Message>
@@ -124,6 +124,7 @@ if not exist "$(OutDir)logs" mkdir "$(OutDir)logs"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="include\Sound\iceSoundManager.cpp" />
     <ClCompile Include="src\Entities\iceBullet.cpp" />
     <ClCompile Include="src\Entities\iceEnemy.cpp" />
     <ClCompile Include="src\Entities\icePhisicEntity.cpp" />
@@ -136,6 +137,9 @@ if not exist "$(OutDir)logs" mkdir "$(OutDir)logs"</Command>
     <ClCompile Include="src\Logic\iceLogicLua.cpp" />
     <ClCompile Include="src\Logic\icePhisics.cpp" />
     <ClCompile Include="src\Scene\DotSceneLoader.cpp" />
+    <ClCompile Include="src\Sound\iceChannel.cpp" />
+    <ClCompile Include="src\Sound\iceFileLocator.cpp" />
+    <ClCompile Include="src\Sound\iceSound.cpp" />
     <ClCompile Include="src\States\iceState.cpp" />
     <ClCompile Include="src\States\iceStateManager.cpp" />
     <ClCompile Include="src\States\iceStateMenu.cpp" />
@@ -160,6 +164,10 @@ if not exist "$(OutDir)logs" mkdir "$(OutDir)logs"</Command>
     <ClInclude Include="include\Logic\iceLogicLua.h" />
     <ClInclude Include="include\Logic\icePhisics.h" />
     <ClInclude Include="include\Scene\DotSceneLoader.h" />
+    <ClInclude Include="include\Sound\iceChannel.h" />
+    <ClInclude Include="include\Sound\iceFileLocator.h" />
+    <ClInclude Include="include\Sound\iceSound.h" />
+    <ClInclude Include="include\Sound\iceSoundManager.h" />
     <ClInclude Include="include\States\iceState.h" />
     <ClInclude Include="include\States\iceStateManager.h" />
     <ClInclude Include="include\States\iceStateMenu.h" />

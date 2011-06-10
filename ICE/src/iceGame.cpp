@@ -4,8 +4,6 @@
 
 #include <iostream>
 #include <string>
-#include <SDL_mixer.h>
-#include <SDL.h>
 
 #include "iceGame.h"
 #include "States\iceStateManager.h"
