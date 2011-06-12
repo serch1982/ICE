@@ -1,6 +1,14 @@
 #include "Entities\icePlayer.h"
 #include "iceGame.h"
 
+#define CURSOR_PLANE_Z 100
+#define CAMERA_PLANE_Z 20
+#define CAMERA_ADDED_Y 6
+#define CHANNEL_HALF_WIDTH 250
+#define CHANNEL_HALF_HEIGHT 200
+#define SCROLL_MAX_VELOCITY 100
+#define FRAME_MULTIPLICATOR 0.3
+
 icePlayer::icePlayer():_isShooting(false)
 {
 	Ogre::SceneManager* sceneManager = iceGame::getSceneManager();
@@ -9,8 +17,11 @@ icePlayer::icePlayer():_isShooting(false)
 	mXUserDeviation = 0;
 	mYUserDeviation = 0;
 
+	//Init Scroll
+	scrollNode =  mNode->createChildSceneNode();
+
 	//Init cursor
-	cursorPlaneNode = mNode->createChildSceneNode(Ogre::Vector3(0.0,0.0,100.0));	
+	cursorPlaneNode = scrollNode->createChildSceneNode(Ogre::Vector3(0.0,0.0,CURSOR_PLANE_Z));	
 	cursorNode = cursorPlaneNode->createChildSceneNode();
 	
 	Ogre::BillboardSet* cursorSet = sceneManager->createBillboardSet();
@@ -20,17 +31,17 @@ icePlayer::icePlayer():_isShooting(false)
 	cursorNode->scale(.05,.05,.05);	
 
 	//Init Ship
-	shipPlaneNode = mNode->createChildSceneNode();
+	shipPlaneNode = scrollNode->createChildSceneNode(Ogre::Vector3(0.0,-CAMERA_ADDED_Y,0.0));
 	shipNode = shipPlaneNode->createChildSceneNode();
 
 	Ogre::Entity* mesh2 = sceneManager->createEntity("shipMesh", "airplane.mesh");
 	mesh2->setCastShadows(true);
 	shipNode->attachObject(mesh2);
-	//shipNode->scale(0.04,0.09,0.09);
+	//shipNode->scale(0.1,0.1,0.1);
 
 	// Init camera
-	cameraPlaneNode = mNode->createChildSceneNode(Ogre::Vector3(0.0,0.0,-20.0));
-	cameraNode = cameraPlaneNode->createChildSceneNode(Ogre::Vector3(0.0,/*10*/0.0,0.0));
+	cameraPlaneNode = scrollNode->createChildSceneNode(Ogre::Vector3(0.0,0.0,-CAMERA_PLANE_Z));
+	cameraNode = cameraPlaneNode->createChildSceneNode(Ogre::Vector3(0.0,0.0,0.0));
 
 	if( sceneManager->hasCamera("camera") )
 		setCamera( sceneManager->getCamera("camera") );
@@ -90,8 +101,15 @@ void icePlayer::setCamera(Ogre::Camera* camera)
 	cameraNode->removeAllChildren();
 	playerCamera = camera;
 	cameraNode->attachObject(camera);
-	camera->lookAt(shipNode->convertLocalToWorldPosition(shipNode->getPosition()));
+	camera->lookAt(cursorPlaneNode->_getDerivedPosition());
 	//camera->setFOVy(Ogre::Degree(20));
+
+	//set some parameters camera-dependent
+	mCameraHeight = CAMERA_PLANE_Z * Ogre::Math::Tan(camera->getFOVy());
+	mCameraWidth = mCameraHeight * camera->getAspectRatio();
+
+	mMaxScrollX = CHANNEL_HALF_WIDTH - mCameraWidth/2;
+	mMaxScrollY = CHANNEL_HALF_HEIGHT - mCameraHeight/2;
 }
 
 Ogre::Camera* icePlayer::getCamera()
@@ -187,6 +205,15 @@ void icePlayer::updateShipPosition(Ogre::Real frameTime)
 		translation *= maxMovement;
 	}
 	shipNode->translate(translation);
+	mCameraHeight = CAMERA_PLANE_Z * Ogre::Math::Tan(playerCamera->getFOVy());
+	mCameraWidth = mCameraHeight * playerCamera->getAspectRatio();
+
+	stringstream str3;
+	str3 << (mCameraWidth/2)*FRAME_MULTIPLICATOR;
+	iceSdkTray::getInstance()->updateScreenInfo(12,str3.str());
+	stringstream str4;
+	str4 << (mCameraHeight/2)*FRAME_MULTIPLICATOR;
+	iceSdkTray::getInstance()->updateScreenInfo(13,str4.str());
 
 	//lookAt
 	Ogre::Real x = cursorNode->getPosition().x - shipNode->getPosition().x;
@@ -196,6 +223,38 @@ void icePlayer::updateShipPosition(Ogre::Real frameTime)
 	shipNode->resetOrientation();
 	shipNode->yaw(Ogre::Radian(atan(x/z)));
 	shipNode->pitch(-Ogre::Radian(atan(y/z)));
+
+
+	//Update scroll with the new ship position
+	Ogre::Real scrollX = 0;
+	Ogre::Real scrollY = 0;
+	Ogre::Vector3 shipPosition = shipNode->getPosition();
+	shipPosition.y -= CAMERA_ADDED_Y/2; //Posicion virtual para la direccion vertical
+	stringstream str;
+	str << shipPosition.x;
+	iceSdkTray::getInstance()->updateScreenInfo(10,str.str());
+	stringstream str2;
+	str2 << shipPosition.y;
+	iceSdkTray::getInstance()->updateScreenInfo(11,str2.str());
+	int signX = shipPosition.x >= 0 ? 1 : -1;
+	int signY = shipPosition.y >= 0 ? 1 : -1;
+	shipPosition.x = abs(shipPosition.x);
+	shipPosition.y = abs(shipPosition.y);
+
+	if(shipPosition.x > (mCameraWidth/2)*FRAME_MULTIPLICATOR)
+	{
+		//scrollAmount en tanto por uno
+		Ogre::Real scrollAmount = (shipPosition.x - (mCameraWidth/2)*FRAME_MULTIPLICATOR) / ((mCameraWidth/2)*(1-FRAME_MULTIPLICATOR));
+		scrollX = scrollAmount * SCROLL_MAX_VELOCITY * frameTime * signX;
+	}
+
+	if(shipPosition.y > (mCameraHeight/2)*FRAME_MULTIPLICATOR)
+	{
+		//scrollAmount en tanto por uno
+		Ogre::Real scrollAmount = (shipPosition.y - (mCameraHeight/2)*FRAME_MULTIPLICATOR) / ((mCameraHeight/2)*(1-FRAME_MULTIPLICATOR));
+		scrollY = scrollAmount * SCROLL_MAX_VELOCITY * frameTime * signY;
+	}
+	scroll(scrollX,scrollY);
 }
 void icePlayer::updateActiveBullets(Ogre::Real p_timeSinceLastFrame)
 {
@@ -395,4 +454,22 @@ vector<iceBullet*>* icePlayer::getAllBullets(void)
 	}
 
 	return bullets;
+}
+
+void icePlayer::scroll(Ogre::Real x, Ogre::Real y)
+{
+	if(x != 0 || y != 0)
+	{
+		Ogre::Vector3 targetScroll = scrollNode->getPosition() + Ogre::Vector3(x,y,0);
+
+		if (abs(targetScroll.x) > mMaxScrollX)
+			targetScroll.x = targetScroll.x >= 0 ? mMaxScrollX : -mMaxScrollX;
+
+		if (abs(targetScroll.y) > mMaxScrollY)
+			targetScroll.y = targetScroll.y >= 0 ? mMaxScrollY : -mMaxScrollY;
+		Ogre::Vector3 finalScroll = targetScroll-scrollNode->getPosition();
+		//Pruebas de la nave moviendose alreves del scroll
+		scrollNode->setPosition(targetScroll);
+		shipNode->translate(-finalScroll/30);
+	}
 }

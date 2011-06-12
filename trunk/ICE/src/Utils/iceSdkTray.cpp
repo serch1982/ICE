@@ -36,6 +36,10 @@ void iceSdkTray::setupScreenInfo(Ogre::RenderWindow* mWindow, OIS::Mouse* mMouse
     items.push_back("Poly Mode");				// 7
 	items.push_back("test LUA");				// 8
 	items.push_back("Weapon");					// 9
+	items.push_back("PlayerX");					// 10
+	items.push_back("PlayerY");					// 11
+	items.push_back("FrameX");					// 12
+	items.push_back("FrameY");					// 13
 	
 	/*
 		here you can add your custom chivato like items.push_back("mycustomchivato"); 
