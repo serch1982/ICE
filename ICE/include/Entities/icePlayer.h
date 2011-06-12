@@ -37,6 +37,8 @@ class icePlayer : public iceTrajectoryFollower, public iceRPG
 		void setIsShooting(bool);
 		bool getIsShooting(void);
 		int getCurrentWeapon();
+
+		void scroll(Ogre::Real x, Ogre::Real y);
 	protected:
 
 		void updateShipPosition(Ogre::Real frameTime);
@@ -49,6 +51,11 @@ class icePlayer : public iceTrajectoryFollower, public iceRPG
 		virtual void showFail(void);
 		virtual void showLevelUp(unsigned int p_iLevel);
 
+		Ogre::Real mCameraWidth;
+		Ogre::Real mCameraHeight;
+
+		Ogre::Real mMaxScrollX; //Absolute value
+		Ogre::Real mMaxScrollY; //Absolute value
 		
 	public:
 		bool _isShooting;
@@ -56,7 +63,7 @@ class icePlayer : public iceTrajectoryFollower, public iceRPG
 		//Redefinidas para tener en cuenta los logros
 		void setWeaponLevel(unsigned int p_iWeapon,unsigned int p_iLevel);
 
-		Ogre::SceneNode *cursorPlaneNode, *shipPlaneNode, *cameraPlaneNode, *cursorNode, *shipNode, *cameraNode; 
+		Ogre::SceneNode *cursorPlaneNode, *shipPlaneNode, *cameraPlaneNode, *cursorNode, *shipNode, *cameraNode, *scrollNode; 
 		Ogre::Real shipMaxVelocity;
 		Ogre::Camera* playerCamera;
 		Ogre::Log* mLog;
