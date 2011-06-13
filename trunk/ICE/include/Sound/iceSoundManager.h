@@ -10,7 +10,7 @@
 
 #define MAX_SOUND_CHANNELS       200
 
-#define INVALID_SOUND_INDEX      0
+#define INVALID_SOUND_INDEX      -2
 #define INVALID_SOUND_CHANNEL    -1
 
 class iceSoundManager : public Ogre::Singleton<iceSoundManager>
@@ -18,9 +18,10 @@ class iceSoundManager : public Ogre::Singleton<iceSoundManager>
 public:
                         iceSoundManager();
    virtual             ~iceSoundManager();
-   void                 Initialize(void);
+   bool                 Initialize(void);
    void                 StopAllSounds(void);
    void                 FrameStarted(Ogre::SceneNode *listenerNode, Ogre::Real timeElapsed);
+   void					loadResources();
 
    int                  CreateSound(Ogre::String &fileName);         // single-shot 3D sound.  returns soundIndex
    int                  CreateStream(Ogre::String &fileName);        // single-shot 2D stream.  returns soundIndex

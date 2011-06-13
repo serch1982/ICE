@@ -20,172 +20,245 @@ template<> iceSoundManager* Ogre::Singleton<iceSoundManager>::ms_Singleton = 0;
 
 iceSoundManager::iceSoundManager()
 {
-   FMOD::System_Create( &mFMODSystem );
-   mPrevListenerPosition = Ogre::Vector3(0, 0, 0);
-   mSoundVector = new SoundVector;
+	FMOD::System_Create( &mFMODSystem );
+	mPrevListenerPosition = Ogre::Vector3(0, 0, 0);
+	mSoundVector = new SoundVector;
 
-   //soundVector has MAX_SOUNDS sounds we designed.
-   mSoundVector->resize(MAX_SOUNDS);
-   for (int vectorIndex = 0; vectorIndex < INITIAL_VECTOR_SIZE; vectorIndex++)
-      {
-      mSoundVector->at(vectorIndex) = new iceSound;
-      mSoundVector->at(vectorIndex)->Clear();
-      }
+	//soundVector has MAX_SOUNDS sounds we designed.
+	mSoundVector->resize(MAX_SOUNDS);
+	for (int vectorIndex = 0; vectorIndex < INITIAL_VECTOR_SIZE; vectorIndex++)
+	{
+		mSoundVector->at(vectorIndex) = new iceSound;
+		mSoundVector->at(vectorIndex)->Clear();
+	}
 
-   for (int channelIndex = 0; channelIndex < MAX_SOUND_CHANNELS; channelIndex++)
-      mChannelArray[channelIndex].Clear();
+	for (int channelIndex = 0; channelIndex < MAX_SOUND_CHANNELS; channelIndex++)
+		mChannelArray[channelIndex].Clear();
 }
 
 
 iceSoundManager::~iceSoundManager()
-   {
-   for (int vectorIndex = 0; vectorIndex < (int)mSoundVector->capacity(); vectorIndex++)
-      {
-      mSoundVector->at(vectorIndex)->fileName.clear();
-//      soundInstanceVector->at(vectorIndex)->streamPtr->close();
-      delete mSoundVector->at(vectorIndex);
-      }
+{
+	for (int vectorIndex = 0; vectorIndex < (int)mSoundVector->capacity(); vectorIndex++)
+	{
+		mSoundVector->at(vectorIndex)->fileName.clear();
+		// soundInstanceVector->at(vectorIndex)->streamPtr->close();
+		delete mSoundVector->at(vectorIndex);
+	}
 
-   if(mFMODSystem)
-      mFMODSystem->release();
-   }
+	if(mFMODSystem)
+		mFMODSystem->release();
+}
 
 
-void iceSoundManager::Initialize(void)
-   {
-   FMOD_RESULT result;
+bool iceSoundManager::Initialize(void)
+{
+	FMOD_RESULT result;
+	FMOD_CAPS		caps;
+    char			name[256];
+	unsigned int	version;
+    FMOD_SPEAKERMODE speakermode;
+	int				key, numdrivers;
 
-   // Create the main system object.
-   result = FMOD::System_Create(&mFMODSystem);
-   if (result != FMOD_OK)
-      OGRE_EXCEPT(Ogre::Exception::ERR_INTERNAL_ERROR, "FMOD error! (" + Ogre::StringConverter::toString(result) + "): " + FMOD_ErrorString(result), "SoundManager::Initialize");
+	/*
+        Create a System object and initialize.
+    */
+    result = FMOD::System_Create(&mFMODSystem);
+    if (result != FMOD_OK)
+		OGRE_EXCEPT(Ogre::Exception::ERR_INTERNAL_ERROR, "FMOD error! (" + Ogre::StringConverter::toString(result) + "): " + FMOD_ErrorString(result), "SoundManager::Initialize");
+    
+    result = mFMODSystem->getVersion(&version);
+    if (result != FMOD_OK)
+		OGRE_EXCEPT(Ogre::Exception::ERR_INTERNAL_ERROR, "FMOD error! (" + Ogre::StringConverter::toString(result) + "): " + FMOD_ErrorString(result), "SoundManager::Initialize");
 
-   result = mFMODSystem->init(MAX_SOUND_CHANNELS, FMOD_INIT_NORMAL, 0);	// Initialize FMOD.
-   if (result != FMOD_OK)
-      OGRE_EXCEPT(Ogre::Exception::ERR_INTERNAL_ERROR, "FMOD error! (" + Ogre::StringConverter::toString(result) + "): " + FMOD_ErrorString(result), "SoundManager::Initialize");
+    if (version < FMOD_VERSION)
+    {
+        printf("Error!  You are using an old version of FMOD %08x.  This program requires %08x\n", version, FMOD_VERSION);
+        return false;
+    }
+    
+    result = mFMODSystem->getNumDrivers(&numdrivers);
+    if (result != FMOD_OK)
+		OGRE_EXCEPT(Ogre::Exception::ERR_INTERNAL_ERROR, "FMOD error! (" + Ogre::StringConverter::toString(result) + "): " + FMOD_ErrorString(result), "SoundManager::Initialize");
 
-   mFMODSystem->set3DSettings(DOPPLER_SCALE, DISTANCE_FACTOR, ROLLOFF_SCALE);
+    if (numdrivers == 0)
+    {
+        result = mFMODSystem->setOutput(FMOD_OUTPUTTYPE_NOSOUND);
+        if (result != FMOD_OK)
+			OGRE_EXCEPT(Ogre::Exception::ERR_INTERNAL_ERROR, "FMOD error! (" + Ogre::StringConverter::toString(result) + "): " + FMOD_ErrorString(result), "SoundManager::Initialize");
+    }
+    else
+    {
+        result = mFMODSystem->getDriverCaps(0, &caps, 0, 0, &speakermode);
+        if (result != FMOD_OK)
+			OGRE_EXCEPT(Ogre::Exception::ERR_INTERNAL_ERROR, "FMOD error! (" + Ogre::StringConverter::toString(result) + "): " + FMOD_ErrorString(result), "SoundManager::Initialize");
 
-   //result = system->setFileSystem(&fmodFileOpenCallback, &fmodFileCloseCallback, &fmodFileReadCallback, &fmodFileSeekCallback, 2048);
-   //if (result != FMOD_OK)
-   //   OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, "FMOD error! (" + StringConverter::toString(result) + "): " + FMOD_ErrorString(result), "SoundManager::Initialize");
+        result = mFMODSystem->setSpeakerMode(speakermode);       /* Set the user selected speaker mode. */
+        if (result != FMOD_OK)
+			OGRE_EXCEPT(Ogre::Exception::ERR_INTERNAL_ERROR, "FMOD error! (" + Ogre::StringConverter::toString(result) + "): " + FMOD_ErrorString(result), "SoundManager::Initialize");
 
-   Ogre::LogManager::getSingleton().logMessage("SoundManager Initialized");
-   }
+        if (caps & FMOD_CAPS_HARDWARE_EMULATED)             /* The user has the 'Acceleration' slider set to off!  This is really bad for latency!. */
+        {                                                   /* You might want to warn the user about this. */
+            result = mFMODSystem->setDSPBufferSize(1024, 10);
+            if (result != FMOD_OK)
+				OGRE_EXCEPT(Ogre::Exception::ERR_INTERNAL_ERROR, "FMOD error! (" + Ogre::StringConverter::toString(result) + "): " + FMOD_ErrorString(result), "SoundManager::Initialize");
+        }
+
+        result = mFMODSystem->getDriverInfo(0, name, 256, 0);
+        if (result != FMOD_OK)
+			OGRE_EXCEPT(Ogre::Exception::ERR_INTERNAL_ERROR, "FMOD error! (" + Ogre::StringConverter::toString(result) + "): " + FMOD_ErrorString(result), "SoundManager::Initialize");
+
+        if (strstr(name, "SigmaTel"))   /* Sigmatel sound devices crackle for some reason if the format is PCM 16bit.  PCM floating point output seems to solve it. */
+        {
+            result = mFMODSystem->setSoftwareFormat(48000, FMOD_SOUND_FORMAT_PCMFLOAT, 0,0, FMOD_DSP_RESAMPLER_LINEAR);
+            if (result != FMOD_OK)
+				OGRE_EXCEPT(Ogre::Exception::ERR_INTERNAL_ERROR, "FMOD error! (" + Ogre::StringConverter::toString(result) + "): " + FMOD_ErrorString(result), "SoundManager::Initialize");
+        }
+    }
+
+    result = mFMODSystem->init(MAX_SOUND_CHANNELS, FMOD_INIT_NORMAL, 0);
+    if (result == FMOD_ERR_OUTPUT_CREATEBUFFER)         /* Ok, the speaker mode selected isn't supported by this soundcard.  Switch it back to stereo... */
+    {
+        result = mFMODSystem->setSpeakerMode(FMOD_SPEAKERMODE_STEREO);
+        if (result != FMOD_OK)
+			OGRE_EXCEPT(Ogre::Exception::ERR_INTERNAL_ERROR, "FMOD error! (" + Ogre::StringConverter::toString(result) + "): " + FMOD_ErrorString(result), "SoundManager::Initialize");
+            
+        result = mFMODSystem->init(MAX_SOUND_CHANNELS, FMOD_INIT_NORMAL, 0);/* ... and re-init. */
+        if (result != FMOD_OK)
+			OGRE_EXCEPT(Ogre::Exception::ERR_INTERNAL_ERROR, "FMOD error! (" + Ogre::StringConverter::toString(result) + "): " + FMOD_ErrorString(result), "SoundManager::Initialize");
+    }
+		
+	result = mFMODSystem->set3DSettings(DOPPLER_SCALE, DISTANCE_FACTOR, ROLLOFF_SCALE);
+	if (result != FMOD_OK)
+	   OGRE_EXCEPT(Ogre::Exception::ERR_INTERNAL_ERROR, "FMOD error! (" + Ogre::StringConverter::toString(result) + "): " + FMOD_ErrorString(result), "SoundManager::Initialize");
+
+	//result = system->setFileSystem(&fmodFileOpenCallback, &fmodFileCloseCallback, &fmodFileReadCallback, &fmodFileSeekCallback, 2048);
+	//if (result != FMOD_OK)
+	//   OGRE_EXCEPT(Exception::ERR_INTERNAL_ERROR, "FMOD error! (" + StringConverter::toString(result) + "): " + FMOD_ErrorString(result), "SoundManager::Initialize");
+
+	Ogre::LogManager::getSingleton().logMessage("SoundManager Initialized");
+
+	return true;
+}
 
 
 iceSoundManager* iceSoundManager::getSingletonPtr(void)
-   {
+{
    return ms_Singleton;
-   }
+}
 
 
 iceSoundManager& iceSoundManager::getSingleton(void)
-   {  
-   assert( ms_Singleton );  return ( *ms_Singleton );  
-   }
+{  
+	assert( ms_Singleton );
+	return ( *ms_Singleton );  
+}
 
 
 void iceSoundManager::FrameStarted(Ogre::SceneNode *listenerNode, Ogre::Real timeElapsed)
-   {
-   int            channelIndex;
-   FMOD::Channel *nextChannel;
-   FMOD_VECTOR    listenerPosition;
-   FMOD_VECTOR    listenerForward;
-   FMOD_VECTOR    listenerUp;
-   FMOD_VECTOR    listenerVelocity;
-   Ogre::Vector3  vectorVelocity;
-   Ogre::Vector3  vectorForward;
-   Ogre::Vector3  vectorUp;
-   Ogre::Vector3  vectorX;
-   Ogre::Quaternion quaternion;
+{
+	int            channelIndex;
+	FMOD::Channel *nextChannel;
+	FMOD_VECTOR    listenerPosition;
+	FMOD_VECTOR    listenerForward;
+	FMOD_VECTOR    listenerUp;
+	FMOD_VECTOR    listenerVelocity;
+	Ogre::Vector3  vectorVelocity;
+	Ogre::Vector3  vectorForward;
+	Ogre::Vector3  vectorUp;
+	Ogre::Vector3  vectorX;
+	Ogre::Quaternion quaternion;
 
-   if (timeElapsed > 0)
+	if (timeElapsed > 0)
 	   vectorVelocity = (listenerNode->convertLocalToWorldPosition( listenerNode->getPosition()) - mPrevListenerPosition) / timeElapsed;
-   else
-      vectorVelocity = Ogre::Vector3(0, 0, 0);
+	else
+	   vectorVelocity = Ogre::Vector3(0, 0, 0);
 
-   listenerNode->convertLocalToWorldOrientation( listenerNode->getOrientation() );
-   quaternion.ToAxes( vectorX, vectorUp, vectorForward );
+	quaternion = listenerNode->convertLocalToWorldOrientation( listenerNode->getOrientation() );
+	quaternion.ToAxes( vectorX, vectorUp, vectorForward );
 
-   //vectorForward = listenerNode->convertLocalToWorldOrientation( listenerNode->getOrientation() ).ToAxes( NULL, vectorUp, vectorForward ));
-   vectorForward.normalise();
+	//vectorForward = listenerNode->convertLocalToWorldOrientation( listenerNode->getOrientation() ).ToAxes( NULL, vectorUp, vectorForward ));
+	vectorForward.normalise();
 
-   //vectorUp = listenerNode->getWorldOrientation().yAxis();
-   vectorUp.normalise();
+	//vectorUp = listenerNode->getWorldOrientation().yAxis();
+	vectorUp.normalise();
 
-   listenerPosition.x = listenerNode->convertLocalToWorldPosition( listenerNode->getPosition() ).x;
-   listenerPosition.y = listenerNode->convertLocalToWorldPosition( listenerNode->getPosition() ).y;
-   listenerPosition.z = listenerNode->convertLocalToWorldPosition( listenerNode->getPosition() ).z;
+	listenerPosition.x = listenerNode->convertLocalToWorldPosition( listenerNode->getPosition() ).x;
+	listenerPosition.y = listenerNode->convertLocalToWorldPosition( listenerNode->getPosition() ).y;
+	listenerPosition.z = listenerNode->convertLocalToWorldPosition( listenerNode->getPosition() ).z;
 
-   listenerForward.x = vectorForward.x;
-   listenerForward.y = vectorForward.y;
-   listenerForward.z = vectorForward.z;
+	listenerForward.x = vectorForward.x;
+	listenerForward.y = vectorForward.y;
+	listenerForward.z = vectorForward.z;
 
-   listenerUp.x = vectorUp.x;
-   listenerUp.y = vectorUp.y;
-   listenerUp.z = vectorUp.z;
+	listenerUp.x = vectorUp.x;
+	listenerUp.y = vectorUp.y;
+	listenerUp.z = vectorUp.z;
 
-   listenerVelocity.x = vectorVelocity.x;
-   listenerVelocity.y = vectorVelocity.y;
-   listenerVelocity.z = vectorVelocity.z;
+	listenerVelocity.x = vectorVelocity.x;
+	listenerVelocity.y = vectorVelocity.y;
+	listenerVelocity.z = vectorVelocity.z;
 
-   // update 'ears'
-   mFMODSystem->set3DListenerAttributes(0, &listenerPosition, &listenerVelocity, &listenerForward, &listenerUp);
-   mFMODSystem->update();
+	// update 'ears'
+	mFMODSystem->set3DListenerAttributes(0, &listenerPosition, &listenerVelocity, &listenerForward, &listenerUp);
+	mFMODSystem->update();
 
-   mPrevListenerPosition = listenerNode->convertLocalToWorldPosition( listenerNode->getPosition() );
+	mPrevListenerPosition = listenerNode->convertLocalToWorldPosition( listenerNode->getPosition() );
 
-   for (channelIndex = 0; channelIndex < MAX_SOUND_CHANNELS; channelIndex++)
-      {
-      if (mChannelArray[channelIndex].sceneNode != NULL)
-         {
-         mFMODSystem->getChannel(channelIndex, &nextChannel);
-         if (timeElapsed > 0)
-            vectorVelocity = (mChannelArray[channelIndex].sceneNode->convertLocalToWorldPosition( listenerNode->getPosition() ) - mChannelArray[channelIndex].prevPosition) / timeElapsed;
-         else
-            vectorVelocity = Ogre::Vector3(0, 0, 0);
+	for (channelIndex = 0; channelIndex < MAX_SOUND_CHANNELS; channelIndex++)
+	{
+		if (mChannelArray[channelIndex].sceneNode != NULL)
+		{
+			mFMODSystem->getChannel(channelIndex, &nextChannel);
+			if (timeElapsed > 0)
+				vectorVelocity = (mChannelArray[channelIndex].sceneNode->convertLocalToWorldPosition( listenerNode->getPosition() ) - mChannelArray[channelIndex].prevPosition) / timeElapsed;
+			else
+				vectorVelocity = Ogre::Vector3(0, 0, 0);
 
-		 listenerPosition.x = mChannelArray[channelIndex].sceneNode->convertLocalToWorldPosition( listenerNode->getPosition() ).x;
-         listenerPosition.y = mChannelArray[channelIndex].sceneNode->convertLocalToWorldPosition( listenerNode->getPosition() ).y;
-         listenerPosition.z = mChannelArray[channelIndex].sceneNode->convertLocalToWorldPosition( listenerNode->getPosition() ).z;
+			listenerPosition.x = mChannelArray[channelIndex].sceneNode->convertLocalToWorldPosition( listenerNode->getPosition() ).x;
+			listenerPosition.y = mChannelArray[channelIndex].sceneNode->convertLocalToWorldPosition( listenerNode->getPosition() ).y;
+			listenerPosition.z = mChannelArray[channelIndex].sceneNode->convertLocalToWorldPosition( listenerNode->getPosition() ).z;
 
-         listenerVelocity.x = vectorVelocity.x;
-         listenerVelocity.y = vectorVelocity.y;
-         listenerVelocity.z = vectorVelocity.z;
+			listenerVelocity.x = vectorVelocity.x;
+			listenerVelocity.y = vectorVelocity.y;
+			listenerVelocity.z = vectorVelocity.z;
 
-         nextChannel->set3DAttributes(&listenerPosition, &listenerVelocity);
-         mChannelArray[channelIndex].prevPosition = mChannelArray[channelIndex].sceneNode->convertLocalToWorldPosition( listenerNode->getPosition() );
-         }
-      }
-   }
+			nextChannel->set3DAttributes(&listenerPosition, &listenerVelocity);
+			mChannelArray[channelIndex].prevPosition = mChannelArray[channelIndex].sceneNode->convertLocalToWorldPosition( listenerNode->getPosition() );
+		}
+	}
+}
 
 
 
 int iceSoundManager::CreateStream(Ogre::String &fileName)
-   {
-   return CreateSound(fileName, SOUND_TYPE_2D_SOUND);
-   }
+{
+	return CreateSound(fileName, SOUND_TYPE_2D_SOUND);
+}
 
 
 int iceSoundManager::CreateSound(Ogre::String &fileName)
-   {
-   return CreateSound(fileName, SOUND_TYPE_3D_SOUND);
-   }
+{
+	return CreateSound(fileName, SOUND_TYPE_3D_SOUND);
+}
 
 
 int iceSoundManager::CreateLoopedSound(Ogre::String &fileName)
-   {
-   return CreateSound(fileName, SOUND_TYPE_3D_SOUND_LOOPED);
-   }
+{
+	return CreateSound(fileName, SOUND_TYPE_3D_SOUND_LOOPED);
+}
 
 
 int iceSoundManager::CreateLoopedStream(Ogre::String &fileName)
-   {
-   return CreateSound(fileName, SOUND_TYPE_2D_SOUND_LOOPED);
-   }
+{
+	return CreateSound(fileName, SOUND_TYPE_2D_SOUND_LOOPED);
+}
 
+void iceSoundManager::loadResources(){
+	
+	CreateLoopedStream( Ogre::String( "menu.mp3" ));
 
+}
 
 // fileName is actually a pointer to a SoundInstance, passed in from CreateSound().
 //FMOD_RESULT SoundManager::fmodFileOpenCallback(const char *fileName, int unicode, unsigned int *filesize, void **handle, void **userdata)
@@ -243,73 +316,73 @@ int iceSoundManager::CreateLoopedStream(Ogre::String &fileName)
 //
 
 int iceSoundManager::CreateSound(Ogre::String &fileName, SOUND_TYPE soundType)
-   {
-   Ogre::Archive	*fileArchive;
-   FMOD_RESULT		result;
-   FMOD::Sound		*sound;
-   Ogre::String		fullPathName;
-   iceSound			*newSoundInstance;
+{
+	Ogre::Archive	*fileArchive;
+	FMOD_RESULT		result;
+	FMOD::Sound		*sound;
+	Ogre::String		fullPathName;
+	iceSound			*newSoundInstance;
 
-   int soundIndex;
-   soundIndex = FindSound(fileName, soundType);
-   if (soundIndex != INVALID_SOUND_INDEX)
-      return soundIndex;
+	int soundIndex;
+	soundIndex = FindSound(fileName, soundType);
+	if (soundIndex != INVALID_SOUND_INDEX)
+	   return soundIndex;
 
-   fullPathName = fileName;
-   iceFileLocator * fileLocator = (iceFileLocator * )Ogre::ResourceGroupManager::getSingletonPtr();
-   fileArchive = fileLocator->Find(fullPathName);
-   if (!fileArchive)
-      {
-      Ogre::LogManager::getSingleton().logMessage("SoundManager::CreateSound could not find sound '" + fileName + "'");
-      return INVALID_SOUND_INDEX;
-      }
+	fullPathName = fileName;
+	iceFileLocator * fileLocator = (iceFileLocator * )Ogre::ResourceGroupManager::getSingletonPtr();
+	fileArchive = fileLocator->Find(fullPathName);
+	if (!fileArchive)
+	{
+	   Ogre::LogManager::getSingleton().logMessage("SoundManager::CreateSound could not find sound '" + fileName + "'");
+	   return INVALID_SOUND_INDEX;
+	}
 
-   newSoundInstance = mSoundVector->at(nextSoundInstanceIndex);
-   newSoundInstance->fileName = fileName;
-   newSoundInstance->soundType = soundType;
+	newSoundInstance = mSoundVector->at(nextSoundInstanceIndex);
+	newSoundInstance->fileName = fileName;
+	newSoundInstance->soundType = soundType;
 
-   switch (soundType)
-      {
-      case SOUND_TYPE_3D_SOUND:
-         {
-         result = mFMODSystem->createSound((const char *)newSoundInstance, FMOD_3D, 0, &sound);
-         break;
-         }
+	switch (soundType)
+	   {
+	   case SOUND_TYPE_3D_SOUND:
+		  {
+		  result = mFMODSystem->createSound((const char *)newSoundInstance, FMOD_3D, 0, &sound);
+		  break;
+		  }
 
-      case SOUND_TYPE_3D_SOUND_LOOPED:
-         {
-         result = mFMODSystem->createSound((const char *)newSoundInstance, FMOD_LOOP_NORMAL | FMOD_3D | FMOD_HARDWARE, 0, &sound);
-         break;
-         }
+	   case SOUND_TYPE_3D_SOUND_LOOPED:
+		  {
+		  result = mFMODSystem->createSound((const char *)newSoundInstance, FMOD_LOOP_NORMAL | FMOD_3D | FMOD_HARDWARE, 0, &sound);
+		  break;
+		  }
 
-      case SOUND_TYPE_2D_SOUND:
-         {
-         result = mFMODSystem->createStream((const char *)newSoundInstance, FMOD_DEFAULT, 0, &sound);
-         break;
-         }
+	   case SOUND_TYPE_2D_SOUND:
+		  {
+		  result = mFMODSystem->createStream((const char *)newSoundInstance, FMOD_DEFAULT, 0, &sound);
+		  break;
+		  }
 
-      case SOUND_TYPE_2D_SOUND_LOOPED:
-         {
-         result = mFMODSystem->createStream((const char *)newSoundInstance, FMOD_LOOP_NORMAL | FMOD_2D | FMOD_HARDWARE, 0, &sound);
-         break;
-         }
+	   case SOUND_TYPE_2D_SOUND_LOOPED:
+		  {
+		  result = mFMODSystem->createStream((const char *)newSoundInstance, FMOD_LOOP_NORMAL | FMOD_2D | FMOD_HARDWARE, 0, &sound);
+		  break;
+		  }
 
-      default:
-         {
-         Ogre::LogManager::getSingleton().logMessage("SoundManager::CreateSound could not load sound '" + fileName + "' (invalid soundType)");
-         return INVALID_SOUND_INDEX;
-         }
-      }
+	   default:
+		  {
+		  Ogre::LogManager::getSingleton().logMessage("SoundManager::CreateSound could not load sound '" + fileName + "' (invalid soundType)");
+		  return INVALID_SOUND_INDEX;
+		  }
+	   }
 
-   if (result != FMOD_OK)
-      {
-      Ogre::LogManager::getSingleton().logMessage("SoundManager::CreateSound could not load sound '" + fileName + "'  FMOD Error:" + FMOD_ErrorString(result));
-      return INVALID_SOUND_INDEX;
-      }
+	if (result != FMOD_OK)
+	   {
+	   Ogre::LogManager::getSingleton().logMessage("SoundManager::CreateSound could not load sound '" + fileName + "'  FMOD Error:" + FMOD_ErrorString(result));
+	   return INVALID_SOUND_INDEX;
+	   }
 
-   newSoundInstance->fmodSound = sound;
-   return nextSoundInstanceIndex;
-   }
+	newSoundInstance->fmodSound = sound;
+	return nextSoundInstanceIndex;
+}
 
 
 void iceSoundManager::PlaySound(int soundIndex, Ogre::SceneNode *soundNode, int *channelIndex)
@@ -428,22 +501,22 @@ void iceSoundManager::StopSound(int *channelIndex)
 
 
 int iceSoundManager::FindSound(Ogre::String &fileName, SOUND_TYPE soundType)
-   {
-   int            vectorIndex;
-   int            vectorCapacity;
-   iceSound		*nextSoundInstance;
+{
+	int            vectorIndex;
+	int            vectorCapacity;
+	iceSound		*nextSoundInstance;
 
-   vectorCapacity = (int)mSoundVector->capacity();
-   for (vectorIndex = 0; vectorIndex < vectorCapacity; vectorIndex++)
-      {
-      nextSoundInstance = mSoundVector->at(vectorIndex);
-      if ((soundType == nextSoundInstance->soundType) && (fileName == nextSoundInstance->fileName))
+	vectorCapacity = (int)mSoundVector->capacity();
+	for (vectorIndex = 0; vectorIndex < vectorCapacity; vectorIndex++)
+	{
+		nextSoundInstance = mSoundVector->at(vectorIndex);
+		if ((soundType == nextSoundInstance->soundType) && (fileName == nextSoundInstance->fileName))
 //      if ((soundType == nextSoundInstance->soundType) && (fileName == nextSoundInstance->fileArchive->getName()))
-         return vectorIndex;
-      }
+		return vectorIndex;
+	}
 
-   return INVALID_SOUND_INDEX;
-   }
+	return INVALID_SOUND_INDEX;
+}
 
 
 

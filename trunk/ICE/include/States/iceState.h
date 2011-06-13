@@ -108,6 +108,9 @@ class iceState {
         //
         iceStateManager* _stateManager;
         bool _loaded;
+
+		//sound
+		//iceSoundManager* mSoundManager;
 };
 
 

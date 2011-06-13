@@ -42,6 +42,8 @@ void iceStateMenu::load() {
 			_log->logMessage(ex);
 		}
 
+		
+
     }
 
 }
@@ -75,6 +77,7 @@ void iceStateMenu::clear() {
 
 void iceStateMenu::update(Ogre::Real evt) {
 	_stateManager->getHikariMgr()->update();
+	
 }
 
 

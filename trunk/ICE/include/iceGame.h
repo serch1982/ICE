@@ -6,6 +6,7 @@
 
 class iceStateManager;
 class iceLevelManager;
+class iceSoundManager;
 
 class iceGame {
     public:
@@ -20,7 +21,7 @@ class iceGame {
          *  finalize objects
          */
 		void finalize(void);
-        
+
         /**
          *  @return SceneManager
          */
@@ -67,7 +68,7 @@ class iceGame {
         
         // states manager
         iceStateManager* _stateManager;
-        
+		
 		//
         Ogre::String _windowName;
         
@@ -87,6 +88,8 @@ class iceGame {
         void configureSceneManager();
         void createCamera();
 
+		//sound manager
+		//iceSoundManager* _soundManager;
 };
 
 #endif 
