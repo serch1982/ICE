@@ -2,15 +2,18 @@
 #include "States\iceStateMenu.h"
 #include "States\iceStatePlay.h"
 #include "States\iceStatePause.h"
+#include <Sound\iceSoundManager.h>
 #include "iceGame.h"
 #include <Utils\iceLoadingBar.h>
 #include <SdkCameraMan.h>
 
 OgreBites::SdkCameraMan* _sdkCameraMan;
 
-iceStateManager::iceStateManager(OIS::InputManager* inputManager):_inputManager(inputManager),
-																  _levelToLoad(1),
-                                                                  _exit(false) {
+iceStateManager::iceStateManager(OIS::InputManager* inputManager)
+	:_inputManager(inputManager),
+	 _levelToLoad(1),
+	 _exit(false)
+{
     _log = iceGame::getGameLog();
     _log->logMessage("iceStateManager::iceStateManager()");
 
@@ -233,6 +236,7 @@ bool iceStateManager::mouseReleased(const OIS::MouseEvent &arg, OIS::MouseButton
 }
 
 bool iceStateManager::frameStarted(const Ogre::FrameEvent& evt) {
+	//iceSoundManager::getSingletonPtr()->FrameStarted( , evt.timeSinceLastFrame );
     return true;
 }
 

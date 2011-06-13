@@ -106,6 +106,7 @@ class iceStatePlay: public iceState{
 
 		//phisics
 		icePhisics mPhisics;
+
 };
 
 

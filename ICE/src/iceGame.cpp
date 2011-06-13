@@ -8,6 +8,7 @@
 #include "iceGame.h"
 #include "States\iceStateManager.h"
 #include "Level\iceLevelManager.h"
+#include "Sound\iceSoundManager.h"
 
 Ogre::SceneManager* iceGame::_sceneManager = 0;
 Ogre::RenderWindow* iceGame::_window = 0;
@@ -32,8 +33,13 @@ iceGame::iceGame() {
     // levels
     _levelManager = new iceLevelManager();
 
+	// sound manager
+	//_soundManager = new iceSoundManager();
+	//_soundManager->Initialize();
+
     // states manager
-    _stateManager = new iceStateManager(_inputManager);
+	_stateManager = new iceStateManager(_inputManager );
+//	_soundManager->loadResources();
 }
 
 iceGame::~iceGame() {
@@ -142,7 +148,6 @@ void iceGame::createCamera() {
     _viewport->setBackgroundColour(Ogre::ColourValue(0, 0, 0));
     _camera->setAspectRatio(Ogre::Real(_viewport->getActualWidth()) / Ogre::Real(_viewport->getActualHeight()));
 }
-
 
 Ogre::SceneManager* iceGame::getSceneManager() {
     return _sceneManager;
