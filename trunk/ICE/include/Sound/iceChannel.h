@@ -7,8 +7,8 @@ class iceChannel
 {
 public:
    void              Clear(void);
-   Ogre::SceneNode * sceneNode;
-   //Ogre::Vector3	 curPosition;
+   //Ogre::SceneNode * sceneNode;
+   Ogre::Vector3	 curPosition;
    Ogre::Vector3     prevPosition;
 };
 

@@ -17,7 +17,8 @@ typedef enum
 class iceSound
 {
 public:
-   void           Clear(void);
+   void           Initialize(void);
+   void			  Finalize(void);
    Ogre::String   fileName;
    SOUND_TYPE     soundType;
    FMOD::Sound *  fmodSound;

@@ -20,27 +20,38 @@ template<> iceSoundManager* Ogre::Singleton<iceSoundManager>::ms_Singleton = 0;
 
 iceSoundManager::iceSoundManager()
 {
+	//Create the FMOD System
 	FMOD::System_Create( &mFMODSystem );
+	//Initialize the prevPosition
 	mPrevListenerPosition = Ogre::Vector3(0, 0, 0);
-	mSoundVector = new SoundVector;
 
+	//Create the sound vector
+	mSoundVector = new SoundVector;
 	//soundVector has MAX_SOUNDS sounds we designed.
 	mSoundVector->resize(MAX_SOUNDS);
+
+	//for each instance, init its parameters
 	for (int vectorIndex = 0; vectorIndex < MAX_SOUNDS; vectorIndex++)
 	{
 		mSoundVector->at(vectorIndex) = new iceSound;
-		mSoundVector->at(vectorIndex)->Clear();
+		mSoundVector->at(vectorIndex)->Initialize();
 	}
 
+	//Init all channels
 	for (int channelIndex = 0; channelIndex < MAX_SOUND_CHANNELS; channelIndex++)
 		mChannelArray[channelIndex].Clear();
 
 	nextSoundInstanceIndex = 0;
 }
 
-
+// Destructor
 iceSoundManager::~iceSoundManager()
 {
+	FMOD_RESULT result;
+
+	// No more sounds playing
+	StopAllSounds();
+
 	for (int vectorIndex = 0; vectorIndex < (int)mSoundVector->capacity(); vectorIndex++)
 	{
 		mSoundVector->at(vectorIndex)->fileName.clear();
@@ -48,11 +59,18 @@ iceSoundManager::~iceSoundManager()
 		delete mSoundVector->at(vectorIndex);
 	}
 
-	if(mFMODSystem)
-		mFMODSystem->release();
+	// Finish FMOD System
+	if(mFMODSystem){
+		result = mFMODSystem->close();
+		if( result != FMOD_OK )
+			OGRE_EXCEPT(Ogre::Exception::ERR_INTERNAL_ERROR, "FMOD error! (" + Ogre::StringConverter::toString(result) + "): " + FMOD_ErrorString(result), "SoundManager::Initialize");
+		result = mFMODSystem->release();
+		if( result != FMOD_OK )
+			OGRE_EXCEPT(Ogre::Exception::ERR_INTERNAL_ERROR, "FMOD error! (" + Ogre::StringConverter::toString(result) + "): " + FMOD_ErrorString(result), "SoundManager::Initialize");
+	}
 }
 
-
+// Function provided by the Getting Started Guide of FMOD
 bool iceSoundManager::Initialize(void)
 {
 	FMOD_RESULT result;
@@ -143,12 +161,11 @@ bool iceSoundManager::Initialize(void)
 	return true;
 }
 
-
+// Singleton
 iceSoundManager* iceSoundManager::getSingletonPtr(void)
 {
    return ms_Singleton;
 }
-
 
 iceSoundManager& iceSoundManager::getSingleton(void)
 {  
@@ -156,11 +173,14 @@ iceSoundManager& iceSoundManager::getSingleton(void)
 	return ( *ms_Singleton );  
 }
 
-void iceSoundManager::update( Ogre::Real timeElapsed ){
-	mFMODSystem->update();
-}
+// fake update
+//void iceSoundManager::update( Ogre::Real timeElapsed ){
+//	mFMODSystem->update();
+//}
 
-void iceSoundManager::FrameStarted(Ogre::SceneNode *listenerNode, Ogre::Real timeElapsed)
+// true update
+void iceSoundManager::update( Ogre::Vector3 position, Ogre::Quaternion orientation, Ogre::Real timeElapsed )
+//void iceSoundManager::FrameStarted(Ogre::SceneNode *listenerNode, Ogre::Real timeElapsed)
 {
 	int            channelIndex;
 	FMOD::Channel *nextChannel;
@@ -171,26 +191,22 @@ void iceSoundManager::FrameStarted(Ogre::SceneNode *listenerNode, Ogre::Real tim
 	Ogre::Vector3  vectorVelocity;
 	Ogre::Vector3  vectorForward;
 	Ogre::Vector3  vectorUp;
-	Ogre::Vector3  vectorX;
 	Ogre::Quaternion quaternion;
 
 	if (timeElapsed > 0)
-	   vectorVelocity = (listenerNode->convertLocalToWorldPosition( listenerNode->getPosition()) - mPrevListenerPosition) / timeElapsed;
+	   vectorVelocity = (position - mPrevListenerPosition) / timeElapsed;
 	else
 	   vectorVelocity = Ogre::Vector3(0, 0, 0);
 
-	quaternion = listenerNode->convertLocalToWorldOrientation( listenerNode->getOrientation() );
-	quaternion.ToAxes( vectorX, vectorUp, vectorForward );
-
-	//vectorForward = listenerNode->convertLocalToWorldOrientation( listenerNode->getOrientation() ).ToAxes( NULL, vectorUp, vectorForward ));
+	vectorForward = quaternion.zAxis();
 	vectorForward.normalise();
 
-	//vectorUp = listenerNode->getWorldOrientation().yAxis();
+	vectorUp = quaternion.yAxis();
 	vectorUp.normalise();
 
-	listenerPosition.x = listenerNode->convertLocalToWorldPosition( listenerNode->getPosition() ).x;
-	listenerPosition.y = listenerNode->convertLocalToWorldPosition( listenerNode->getPosition() ).y;
-	listenerPosition.z = listenerNode->convertLocalToWorldPosition( listenerNode->getPosition() ).z;
+	listenerPosition.x = position.x;
+	listenerPosition.y = position.y;
+	listenerPosition.z = position.z;
 
 	listenerForward.x = vectorForward.x;
 	listenerForward.y = vectorForward.y;
@@ -208,29 +224,26 @@ void iceSoundManager::FrameStarted(Ogre::SceneNode *listenerNode, Ogre::Real tim
 	mFMODSystem->set3DListenerAttributes(0, &listenerPosition, &listenerVelocity, &listenerForward, &listenerUp);
 	mFMODSystem->update();
 
-	mPrevListenerPosition = listenerNode->convertLocalToWorldPosition( listenerNode->getPosition() );
+	mPrevListenerPosition = position;
 
 	for (channelIndex = 0; channelIndex < MAX_SOUND_CHANNELS; channelIndex++)
 	{
-		if (mChannelArray[channelIndex].sceneNode != NULL)
-		{
-			mFMODSystem->getChannel(channelIndex, &nextChannel);
-			if (timeElapsed > 0)
-				vectorVelocity = (mChannelArray[channelIndex].sceneNode->convertLocalToWorldPosition( listenerNode->getPosition() ) - mChannelArray[channelIndex].prevPosition) / timeElapsed;
-			else
-				vectorVelocity = Ogre::Vector3(0, 0, 0);
+		mFMODSystem->getChannel(channelIndex, &nextChannel);
+		if (timeElapsed > 0)
+			vectorVelocity = (mChannelArray[channelIndex].curPosition - mChannelArray[channelIndex].prevPosition) / timeElapsed;
+		else
+			vectorVelocity = Ogre::Vector3(0, 0, 0);
 
-			listenerPosition.x = mChannelArray[channelIndex].sceneNode->convertLocalToWorldPosition( listenerNode->getPosition() ).x;
-			listenerPosition.y = mChannelArray[channelIndex].sceneNode->convertLocalToWorldPosition( listenerNode->getPosition() ).y;
-			listenerPosition.z = mChannelArray[channelIndex].sceneNode->convertLocalToWorldPosition( listenerNode->getPosition() ).z;
+		listenerPosition.x = mChannelArray[channelIndex].curPosition.x;
+		listenerPosition.y = mChannelArray[channelIndex].curPosition.y;
+		listenerPosition.z = mChannelArray[channelIndex].curPosition.z;
 
-			listenerVelocity.x = vectorVelocity.x;
-			listenerVelocity.y = vectorVelocity.y;
-			listenerVelocity.z = vectorVelocity.z;
+		listenerVelocity.x = vectorVelocity.x;
+		listenerVelocity.y = vectorVelocity.y;
+		listenerVelocity.z = vectorVelocity.z;
 
-			nextChannel->set3DAttributes(&listenerPosition, &listenerVelocity);
-			mChannelArray[channelIndex].prevPosition = mChannelArray[channelIndex].sceneNode->convertLocalToWorldPosition( listenerNode->getPosition() );
-		}
+		nextChannel->set3DAttributes(&listenerPosition, &listenerVelocity);
+		mChannelArray[channelIndex].prevPosition = mChannelArray[channelIndex].curPosition;
 	}
 }
 
@@ -389,8 +402,9 @@ int iceSoundManager::CreateSound(Ogre::String &fileName, SOUND_TYPE soundType)
 	return nextSoundInstanceIndex++;
 }
 
+//void iceSoundManager::PlaySound(int soundIndex, Ogre::SceneNode *soundNode, int *channelIndex)
 
-void iceSoundManager::PlaySound(int soundIndex, Ogre::SceneNode *soundNode, int *channelIndex)
+void iceSoundManager::PlaySound(int soundIndex, Ogre::Vector3 soundPosition, int *channelIndex)
    {
    int            channelIndexTemp;
    FMOD_RESULT    result;
@@ -406,21 +420,21 @@ void iceSoundManager::PlaySound(int soundIndex, Ogre::SceneNode *soundNode, int 
    else
       channelIndexTemp = INVALID_SOUND_CHANNEL;
 
-   assert((soundIndex > 0) && (soundIndex < (int)mSoundVector->capacity()));
+   assert((soundIndex >= 0) && (soundIndex < (int)mSoundVector->capacity()));
 
    // If the channelIndex already has a sound assigned to it, test if it's the same sceneNode.
-   if ((channelIndexTemp != INVALID_SOUND_CHANNEL) && (mChannelArray[channelIndexTemp].sceneNode != NULL))
-      {
+   if (channelIndexTemp != INVALID_SOUND_CHANNEL)
+   {
       result = mFMODSystem->getChannel(channelIndexTemp, &channel);
       if (result == FMOD_OK)
          {
          bool isPlaying;
 
          result = channel->isPlaying(&isPlaying);
-         if ((result == FMOD_OK) && (isPlaying == true) && (mChannelArray[channelIndexTemp].sceneNode == soundNode))
+         if ((result == FMOD_OK) && (isPlaying == true))
             return;  // Already playing this sound attached to this node.
          }
-      }
+   }
 
    sound = mSoundVector->at(soundIndex);
    // Start the sound paused
@@ -434,17 +448,17 @@ void iceSoundManager::PlaySound(int soundIndex, Ogre::SceneNode *soundNode, int 
       }
 
    channel->getIndex(&channelIndexTemp);
-   mChannelArray[channelIndexTemp].sceneNode = soundNode;
+   mChannelArray[channelIndexTemp].curPosition = soundPosition;
 
-   if (soundNode)
-      {
-      mChannelArray[channelIndexTemp].prevPosition = soundNode->convertLocalToWorldPosition( soundNode->getPosition() );
+   //if (soundNode)
+   //   {
+		mChannelArray[channelIndexTemp].prevPosition = soundPosition;
 
-      initialPosition.x = soundNode->convertLocalToWorldPosition( soundNode->getPosition() ).x;
-      initialPosition.y = soundNode->convertLocalToWorldPosition( soundNode->getPosition() ).y;
-      initialPosition.z = soundNode->convertLocalToWorldPosition( soundNode->getPosition() ).z;
-      channel->set3DAttributes(&initialPosition, NULL);
-      }
+		initialPosition.x = soundPosition.x;
+		initialPosition.y = soundPosition.y;
+		initialPosition.z = soundPosition.z;
+		channel->set3DAttributes(&initialPosition, NULL);
+   //   }
 
    result = channel->setVolume(1.0);
    // This is where the sound really starts.
@@ -452,8 +466,7 @@ void iceSoundManager::PlaySound(int soundIndex, Ogre::SceneNode *soundNode, int 
 
    if (channelIndex)
       *channelIndex = channelIndexTemp;
-   }
-
+}
 
 
 void iceSoundManager::Set3DMinMaxDistance(int channelIndex, float minDistance, float maxDistance)
