@@ -13,6 +13,7 @@
 #include "../Logic/icePhisics.h"
 
 class iceStateManager;
+class iceSoundManager;
 class iceLevel;
 
 
@@ -21,7 +22,8 @@ class iceStatePlay: public iceState{
         /**
          *  Constructor play state
          */
-        iceStatePlay(iceStateManager* stateManager);
+        iceStatePlay(iceStateManager* stateManager,
+			iceSoundManager* soundManager);
 
         /**
          * Destructor
@@ -107,6 +109,8 @@ class iceStatePlay: public iceState{
 		//phisics
 		icePhisics mPhisics;
 
+		//Sound Manager
+		iceSoundManager* mSoundManager;
 };
 
 

@@ -9,6 +9,7 @@
 
 class iceState;
 class iceGame;
+class iceSoundManager;
 
 class iceStateManager : public Ogre::FrameListener,
                      public Ogre::WindowEventListener,
@@ -18,7 +19,8 @@ class iceStateManager : public Ogre::FrameListener,
         /**
          *  Constructor
          */
-        iceStateManager(OIS::InputManager* inputManager);
+        iceStateManager(OIS::InputManager* inputManager,
+						iceSoundManager* soundManager);
 
         /**
          *  Destructor
@@ -166,6 +168,8 @@ class iceStateManager : public Ogre::FrameListener,
         // exit flag
         bool _exit;
 
+		// sound manager
+		iceSoundManager* mSoundManager;
 };
 
 inline OIS::Mouse* iceStateManager::getMouse() {return _mouse;}

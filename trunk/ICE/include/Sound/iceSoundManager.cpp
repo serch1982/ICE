@@ -26,7 +26,7 @@ iceSoundManager::iceSoundManager()
 
 	//soundVector has MAX_SOUNDS sounds we designed.
 	mSoundVector->resize(MAX_SOUNDS);
-	for (int vectorIndex = 0; vectorIndex < INITIAL_VECTOR_SIZE; vectorIndex++)
+	for (int vectorIndex = 0; vectorIndex < MAX_SOUNDS; vectorIndex++)
 	{
 		mSoundVector->at(vectorIndex) = new iceSound;
 		mSoundVector->at(vectorIndex)->Clear();
@@ -34,6 +34,8 @@ iceSoundManager::iceSoundManager()
 
 	for (int channelIndex = 0; channelIndex < MAX_SOUND_CHANNELS; channelIndex++)
 		mChannelArray[channelIndex].Clear();
+
+	nextSoundInstanceIndex = 0;
 }
 
 
@@ -154,6 +156,9 @@ iceSoundManager& iceSoundManager::getSingleton(void)
 	return ( *ms_Singleton );  
 }
 
+void iceSoundManager::update( Ogre::Real timeElapsed ){
+	mFMODSystem->update();
+}
 
 void iceSoundManager::FrameStarted(Ogre::SceneNode *listenerNode, Ogre::Real timeElapsed)
 {
@@ -254,7 +259,7 @@ int iceSoundManager::CreateLoopedStream(Ogre::String &fileName)
 	return CreateSound(fileName, SOUND_TYPE_2D_SOUND_LOOPED);
 }
 
-void iceSoundManager::loadResources(){
+void iceSoundManager::loadResourcesMenu(){
 	
 	CreateLoopedStream( Ogre::String( "menu.mp3" ));
 
@@ -338,32 +343,32 @@ int iceSoundManager::CreateSound(Ogre::String &fileName, SOUND_TYPE soundType)
 	}
 
 	newSoundInstance = mSoundVector->at(nextSoundInstanceIndex);
-	newSoundInstance->fileName = fileName;
+	newSoundInstance->fileName = fullPathName;
 	newSoundInstance->soundType = soundType;
 
 	switch (soundType)
 	   {
 	   case SOUND_TYPE_3D_SOUND:
 		  {
-		  result = mFMODSystem->createSound((const char *)newSoundInstance, FMOD_3D, 0, &sound);
+		  result = mFMODSystem->createSound(newSoundInstance->fileName.c_str(), FMOD_3D, 0, &sound);
 		  break;
 		  }
 
 	   case SOUND_TYPE_3D_SOUND_LOOPED:
 		  {
-		  result = mFMODSystem->createSound((const char *)newSoundInstance, FMOD_LOOP_NORMAL | FMOD_3D | FMOD_HARDWARE, 0, &sound);
+		  result = mFMODSystem->createSound(newSoundInstance->fileName.c_str(), FMOD_LOOP_NORMAL | FMOD_3D | FMOD_HARDWARE, 0, &sound);
 		  break;
 		  }
 
 	   case SOUND_TYPE_2D_SOUND:
 		  {
-		  result = mFMODSystem->createStream((const char *)newSoundInstance, FMOD_DEFAULT, 0, &sound);
+		  result = mFMODSystem->createStream(newSoundInstance->fileName.c_str(), FMOD_DEFAULT, 0, &sound);
 		  break;
 		  }
 
 	   case SOUND_TYPE_2D_SOUND_LOOPED:
 		  {
-		  result = mFMODSystem->createStream((const char *)newSoundInstance, FMOD_LOOP_NORMAL | FMOD_2D | FMOD_HARDWARE, 0, &sound);
+		  result = mFMODSystem->createStream(newSoundInstance->fileName.c_str(), FMOD_LOOP_NORMAL | FMOD_2D | FMOD_HARDWARE, 0, &sound);
 		  break;
 		  }
 
@@ -381,7 +386,7 @@ int iceSoundManager::CreateSound(Ogre::String &fileName, SOUND_TYPE soundType)
 	   }
 
 	newSoundInstance->fmodSound = sound;
-	return nextSoundInstanceIndex;
+	return nextSoundInstanceIndex++;
 }
 
 

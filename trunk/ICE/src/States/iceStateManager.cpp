@@ -9,8 +9,10 @@
 
 OgreBites::SdkCameraMan* _sdkCameraMan;
 
-iceStateManager::iceStateManager(OIS::InputManager* inputManager)
+iceStateManager::iceStateManager(OIS::InputManager* inputManager,
+								 iceSoundManager* soundManager)
 	:_inputManager(inputManager),
+	 mSoundManager(soundManager),
 	 _levelToLoad(1),
 	 _exit(false)
 {
@@ -48,7 +50,7 @@ iceStateManager::iceStateManager(OIS::InputManager* inputManager)
 	//set the old camera the current
 	_oldCamera = iceGame::getCamera();
 	// load states
-    changeState(new iceStateMenu(this));
+    changeState(new iceStateMenu(this,mSoundManager));
 }
 
 iceStateManager::~iceStateManager() {
@@ -141,16 +143,16 @@ iceState* iceStateManager::getICEStateByID(const ICEStateId stateName) {
 	switch(sid) {
 	case (int)MainMenu:
 		_log->logMessage("iceStateManager::changeState() -> new state:  MainMenu" );
-        return new iceStateMenu(this);
+        return new iceStateMenu(this,mSoundManager);
 	case (int)Play:
 		_log->logMessage("iceStateManager::changeState() -> new state:  Play" );
-        return new iceStatePlay(this);
+        return new iceStatePlay(this,mSoundManager);
 	case (int)Pause:
 		_log->logMessage("iceStateManager::changeState() -> new state:  Pause" );
-        return new iceStatePause(this);
+        return new iceStatePause(this,mSoundManager);
 	default:
 		_log->logMessage("iceStateManager::changeState() -> new state:  default" );
-        return new iceStateMenu(this);
+        return new iceStateMenu(this,mSoundManager);
 	}
 }
 
@@ -269,6 +271,7 @@ bool iceStateManager::frameRenderingQueued(const Ogre::FrameEvent& evt) {
 			_currentState->load();
 		}else if((currentStateId == Pause) && (nextStateId == Play)){
 			_currentState->clear();
+			delete _currentState;
 			_currentState = _idleState;
 			_currentState->setNextStateId(Play);
 			_idleState = NULL;
