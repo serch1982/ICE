@@ -7,7 +7,11 @@
 #include "iceGame.h"
 #include "Logic\iceLogicLua.h"
 
-iceStatePlay::iceStatePlay(iceStateManager* stateManager): iceState(stateManager), _levelID(1) {
+iceStatePlay::iceStatePlay(iceStateManager* stateManager,
+						   iceSoundManager* soundManager)
+	:iceState(stateManager, soundManager),
+	mSoundManager(soundManager),
+	_levelID(1) {
     _log->logMessage("iceStatePlay::iceStatePlay()");
 	_nextICEStateId = Play;
 }

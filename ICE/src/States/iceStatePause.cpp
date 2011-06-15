@@ -10,7 +10,10 @@
 #include "iceGame.h"
 
 
-iceStatePause::iceStatePause(iceStateManager* stateManager): iceState(stateManager) {
+iceStatePause::iceStatePause(iceStateManager* stateManager,
+							 iceSoundManager* soundManager)
+	:iceState(stateManager,soundManager),
+	mSoundManager(soundManager){
     _log->logMessage("iceStatePause::iceStatePause()");
 	_nextICEStateId = Pause;
 }

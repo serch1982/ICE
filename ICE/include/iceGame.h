@@ -63,12 +63,6 @@ class iceGame {
         static Ogre::SceneManager* _sceneManager;
         static Ogre::Log* _log;
 
-        // OIS
-        OIS::InputManager* _inputManager;
-        
-        // states manager
-        iceStateManager* _stateManager;
-		
 		//
         Ogre::String _windowName;
         
@@ -77,9 +71,6 @@ class iceGame {
         Ogre::String _ogreLog;
         Ogre::String _ogreCfg;
 
-        // level manager
-        iceLevelManager* _levelManager;
-        
         //
         bool initialiseOgre();
         bool initialiseOIS();
@@ -88,8 +79,15 @@ class iceGame {
         void configureSceneManager();
         void createCamera();
 
+		// MANAGERS
+        // OIS
+        OIS::InputManager* _inputManager;
+        // states manager
+        iceStateManager* _stateManager;
+        // level manager
+        iceLevelManager* _levelManager;
 		//sound manager
-		//iceSoundManager* _soundManager;
+		iceSoundManager* mSoundManager;
 };
 
 #endif 

@@ -7,18 +7,24 @@
 #include <OGRE/Ogre.h>
 
 class iceStateManager;
+class iceSoundManager;
 
 /**
 *  States from the game
 */
 enum ICEStateId
 {
-	MainMenu		= 0,
-	Play			= 1,
-	GameOver		= 2,
-	Pause			= 3,
-	NextLevel       = 4,  
-	Exit			= 5 
+	Intro			= 0,
+	MainMenu		= 1,
+	Play			= 2,
+	ShipSelection	= 3,
+	LevelSelection  = 4,
+	GameOver		= 5,
+	Pause			= 6,
+	NextLevel       = 7,
+	Credits			= 8,
+	Ending			= 9,
+	Exit			= 10 
 };
 
 class iceState {
@@ -30,7 +36,8 @@ class iceState {
          *
          *  create the state and elements
          */
-        iceState(iceStateManager* stateManager);
+        iceState(iceStateManager* stateManager, 
+				 iceSoundManager* soundManager);
 
         /**
          *  Destructor
@@ -109,8 +116,9 @@ class iceState {
         iceStateManager* _stateManager;
         bool _loaded;
 
+		//managers
 		//sound
-		//iceSoundManager* mSoundManager;
+		iceSoundManager* mSoundManager;
 };
 
 

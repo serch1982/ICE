@@ -21,7 +21,8 @@ public:
    bool                 Initialize(void);
    void                 StopAllSounds(void);
    void                 FrameStarted(Ogre::SceneNode *listenerNode, Ogre::Real timeElapsed);
-   void					loadResources();
+   void					update( Ogre::Real timeElapsed );
+   void					loadResourcesMenu();
 
    int                  CreateSound(Ogre::String &fileName);         // single-shot 3D sound.  returns soundIndex
    int                  CreateStream(Ogre::String &fileName);        // single-shot 2D stream.  returns soundIndex

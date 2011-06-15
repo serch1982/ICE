@@ -34,11 +34,11 @@ iceGame::iceGame() {
     _levelManager = new iceLevelManager();
 
 	// sound manager
-	//_soundManager = new iceSoundManager();
-	//_soundManager->Initialize();
+	mSoundManager = new iceSoundManager();
+	mSoundManager->Initialize();
 
     // states manager
-	_stateManager = new iceStateManager(_inputManager );
+	_stateManager = new iceStateManager(_inputManager, mSoundManager->getSingletonPtr() );
 //	_soundManager->loadResources();
 }
 

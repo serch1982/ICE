@@ -7,10 +7,15 @@
 
 #include "States\iceStateMenu.h"
 #include "States\iceStateManager.h"
+#include <Sound\iceSoundManager.h>
 #include "iceGame.h"
 
 
-iceStateMenu::iceStateMenu(iceStateManager* stateManager): iceState(stateManager) {
+iceStateMenu::iceStateMenu(iceStateManager* stateManager,
+	iceSoundManager* soundManager)
+	: iceState(stateManager,soundManager),
+	mSoundManager(soundManager)
+{
     _log->logMessage("iceStateMenu::iceStateMenu()");
 	_nextICEStateId = MainMenu;
 }
@@ -42,8 +47,8 @@ void iceStateMenu::load() {
 			_log->logMessage(ex);
 		}
 
-		
-
+		mSoundManager->loadResourcesMenu();
+		//mSoundManager->PlaySound( 0, soundNode, 0);
     }
 
 }
@@ -77,6 +82,8 @@ void iceStateMenu::clear() {
 
 void iceStateMenu::update(Ogre::Real evt) {
 	_stateManager->getHikariMgr()->update();
+	//prueba
+	mSoundManager->update(evt);
 	
 }
 
