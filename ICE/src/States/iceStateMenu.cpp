@@ -48,7 +48,7 @@ void iceStateMenu::load() {
 		}
 
 		mSoundManager->loadResourcesMenu();
-		//mSoundManager->PlaySound( 0, soundNode, 0);
+		mSoundManager->PlaySound(0, Ogre::Vector3::ZERO, 0);
     }
 
 }
@@ -76,6 +76,8 @@ void iceStateMenu::clear() {
         _log->logMessage("iceStateMenu::clean()");
         _loaded = false;
 		_stateManager->getHikariMgr()->destroyAllControls();
+		mSoundManager->StopAllSounds();
+		//mSoundManager->unloadSoundsMenu();
     }
 }
 
@@ -83,7 +85,7 @@ void iceStateMenu::clear() {
 void iceStateMenu::update(Ogre::Real evt) {
 	_stateManager->getHikariMgr()->update();
 	//prueba
-	mSoundManager->update(evt);
+	mSoundManager->update( Ogre::Vector3::ZERO, Ogre::Quaternion::ZERO, evt);
 	
 }
 
