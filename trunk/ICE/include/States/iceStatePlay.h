@@ -10,7 +10,8 @@
 #include "Entities\icePlayer.h"
 #include "Entities\iceEnemy.h"
 #include "Hikari.h"
-#include "../Logic/icePhisics.h"
+
+#include "Physics\icePhysics.h"
 
 class iceStateManager;
 class iceSoundManager;
@@ -107,7 +108,7 @@ class iceStatePlay: public iceState{
 		void setHUDWeapon(char* name);
 
 		//phisics
-		icePhisics mPhisics;
+		icePhysics mPhysics;
 
 		//Sound Manager
 		iceSoundManager* mSoundManager;

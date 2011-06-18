@@ -67,6 +67,12 @@
     <Filter Include="Source Files\Sound">
       <UniqueIdentifier>{7b62f460-1ed2-4741-80a1-e5d5940f595b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Physics">
+      <UniqueIdentifier>{194c81bf-e56a-4c13-bf9c-1723328f701a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Physics">
+      <UniqueIdentifier>{108a1875-1cbb-4504-ad73-5357530c2669}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\iceMain.cpp">
@@ -132,12 +138,6 @@
     <ClCompile Include="src\States\iceStatePause.cpp">
       <Filter>Source Files\States</Filter>
     </ClCompile>
-    <ClCompile Include="src\Logic\icePhisics.cpp">
-      <Filter>Source Files\Logic</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Entities\icePhisicEntity.cpp">
-      <Filter>Source Files\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="include\Sound\iceSoundManager.cpp">
       <Filter>Source Files\Sound</Filter>
     </ClCompile>
@@ -149,6 +149,12 @@
     </ClCompile>
     <ClCompile Include="src\Sound\iceFileLocator.cpp">
       <Filter>Source Files\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physics\icePhysics.cpp">
+      <Filter>Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entities\icePhysicEntity.cpp">
+      <Filter>Source Files\Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -218,12 +224,6 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="include\Logic\icePhisics.h">
-      <Filter>Header Files\Logic</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Entities\icePhisicEntity.h">
-      <Filter>Header Files\Entities</Filter>
-    </ClInclude>
     <ClInclude Include="include\Sound\iceSoundManager.h">
       <Filter>Header Files\Sound</Filter>
     </ClInclude>
@@ -235,6 +235,12 @@
     </ClInclude>
     <ClInclude Include="include\Sound\iceFileLocator.h">
       <Filter>Header Files\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Entities\icePhysicEntity.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Physics\icePhysics.h">
+      <Filter>Header Files\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
