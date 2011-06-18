@@ -4,10 +4,10 @@
 #include "Trajectory\iceTrajectoryFollower.h"
 #include "iceRPG.h"
 #include "icePlayer.h"
-#include "icePhisicEntity.h"
+#include "icePhysicEntity.h"
 #include "iceBullet.h"
 
-class iceEnemy : public iceTrajectoryFollower, public iceRPG, public icePhisicEntity
+class iceEnemy : public iceTrajectoryFollower, public iceRPG, public icePhysicEntity
 {
 	public:
 		iceEnemy();
@@ -56,7 +56,9 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG, public icePhisicEn
 		void showShieldDamage(unsigned int p_iDamage, bool p_bCritical);
 		void showFail(void);
 		void showLevelUp(unsigned int p_iLevel);
-	
+		
+		vector<iceBullet*>* getAllBullets(void);
+		Ogre::Vector3 getWorldPosition(void);
 	protected:
 		static Ogre::NameGenerator mNameGenerator;
 
@@ -69,9 +71,12 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG, public icePhisicEn
 		Ogre::SceneNode* enemyNode, *enemyBulletNode;
 
 		/*Bullet vectors depending on the weapon kind*/
-		iceBullet mvMachinegunBullets[BULLET_VECTOR_SIZE];
+		/*iceBullet mvMachinegunBullets[BULLET_VECTOR_SIZE];
 		iceBullet mvShotgunBullets[BULLET_VECTOR_SIZE];
-		iceBullet mvMisilLauncherBullets[BULLET_VECTOR_SIZE];
+		iceBullet mvMisilLauncherBullets[BULLET_VECTOR_SIZE];*/
+		vector<iceBullet*> mvMachinegunBullets;
+		vector<iceBullet*> mvShotgunBullets;
+		vector<iceBullet*> mvMisilLauncherBullets;
 		void updateActiveBullets(Ogre::Real p_timeSinceLastFrame);
 
 		// Animations

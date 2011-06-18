@@ -1,13 +1,13 @@
-#ifndef ICEPHISIC_ENTITY_H_
-#define ICEPHISIC_ENTITY_H_
+#ifndef ICEPHYSIC_ENTITY_H_
+#define ICEPHYSIC_ENTITY_H_
 
 #include <OgreMovableObject.h>
 
-class icePhisicEntity
+class icePhysicEntity
 {
 public:
-	icePhisicEntity(void);	
-	virtual ~icePhisicEntity(void);
+	icePhysicEntity(void);	
+	virtual ~icePhysicEntity(void);
 
 	void initialize(Ogre::MovableObject* p_PhisicEntity);
 	Ogre::AxisAlignedBox getBoundingBox(void);

@@ -10,6 +10,7 @@
 
 //Pau * NUMBER OF BULLETS PER WEAPON-----------------------------------------------//
 #define BULLET_VECTOR_SIZE		  100
+#define ENEMY_BULLET_VECTOR_SIZE		  1
 //---------------------------------------------------------------------------------//
 
 

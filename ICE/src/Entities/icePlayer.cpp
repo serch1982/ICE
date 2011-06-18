@@ -35,6 +35,7 @@ icePlayer::icePlayer():_isShooting(false)
 	shipNode = shipPlaneNode->createChildSceneNode();
 
 	Ogre::Entity* mesh2 = sceneManager->createEntity("shipMesh", "airplane.mesh");
+	icePhysicEntity::initialize(mesh2);
 	mesh2->setCastShadows(true);
 	shipNode->attachObject(mesh2);
 	//shipNode->scale(0.1,0.1,0.1);

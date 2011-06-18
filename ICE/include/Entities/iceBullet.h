@@ -11,11 +11,11 @@
 #include <OgreBillboardSet.h>
 #include <OgreParticleSystemManager.h>
 
-#include "icePhisicEntity.h"
+#include "icePhysicEntity.h"
 
 #define MAX_TIME_ACTIVE	  5	// Maximum time that the bullet can fly without having been crashed
 
-class iceBullet : public icePhisicEntity
+class iceBullet : public icePhysicEntity
 {
 public:
 iceBullet(void);

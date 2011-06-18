@@ -18,7 +18,7 @@
 #include "Stats\icePlayerStats.h"
 
 
-class icePlayer : public iceTrajectoryFollower, public iceRPG
+class icePlayer : public iceTrajectoryFollower, public iceRPG, public icePhysicEntity
 {
 	public:
 		icePlayer();

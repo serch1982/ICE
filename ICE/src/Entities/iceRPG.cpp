@@ -4,7 +4,7 @@ iceRPG::iceRPG(void)
 {
 	mLevel = 1;
 	mExperience = 0;
-	mBaseLife = 10;
+	mBaseLife = 100;
 	mBaseArmor = 1;	
 	mBaseAttack = 10;
 	mBaseAccuracy = 1;
@@ -42,7 +42,7 @@ unsigned int iceRPG::getExperience(void)
 
 unsigned int iceRPG::getMaxLife(void)
 {
-	return mBaseLife * mLevel;
+	return mBaseLife; //* mLevel;
 }
 
 unsigned int iceRPG::getCurrentLife(void)

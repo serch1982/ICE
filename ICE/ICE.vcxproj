@@ -127,7 +127,7 @@ if not exist "$(OutDir)logs" mkdir "$(OutDir)logs"</Command>
     <ClCompile Include="include\Sound\iceSoundManager.cpp" />
     <ClCompile Include="src\Entities\iceBullet.cpp" />
     <ClCompile Include="src\Entities\iceEnemy.cpp" />
-    <ClCompile Include="src\Entities\icePhisicEntity.cpp" />
+    <ClCompile Include="src\Entities\icePhysicEntity.cpp" />
     <ClCompile Include="src\Entities\icePlayer.cpp" />
     <ClCompile Include="src\Entities\iceRPG.cpp" />
     <ClCompile Include="src\iceGame.cpp" />
@@ -135,7 +135,7 @@ if not exist "$(OutDir)logs" mkdir "$(OutDir)logs"</Command>
     <ClCompile Include="src\Level\iceLevel.cpp" />
     <ClCompile Include="src\Level\iceLevelManager.cpp" />
     <ClCompile Include="src\Logic\iceLogicLua.cpp" />
-    <ClCompile Include="src\Logic\icePhisics.cpp" />
+    <ClCompile Include="src\Physics\icePhysics.cpp" />
     <ClCompile Include="src\Scene\DotSceneLoader.cpp" />
     <ClCompile Include="src\Sound\iceChannel.cpp" />
     <ClCompile Include="src\Sound\iceFileLocator.cpp" />
@@ -155,14 +155,14 @@ if not exist "$(OutDir)logs" mkdir "$(OutDir)logs"</Command>
   <ItemGroup>
     <ClInclude Include="include\Entities\iceBullet.h" />
     <ClInclude Include="include\Entities\iceEnemy.h" />
-    <ClInclude Include="include\Entities\icePhisicEntity.h" />
+    <ClInclude Include="include\Entities\icePhysicEntity.h" />
     <ClInclude Include="include\Entities\icePlayer.h" />
     <ClInclude Include="include\Entities\iceRPG.h" />
     <ClInclude Include="include\iceGame.h" />
     <ClInclude Include="include\Level\iceLevel.h" />
     <ClInclude Include="include\Level\iceLevelManager.h" />
     <ClInclude Include="include\Logic\iceLogicLua.h" />
-    <ClInclude Include="include\Logic\icePhisics.h" />
+    <ClInclude Include="include\Physics\icePhysics.h" />
     <ClInclude Include="include\Scene\DotSceneLoader.h" />
     <ClInclude Include="include\Sound\iceChannel.h" />
     <ClInclude Include="include\Sound\iceFileLocator.h" />
