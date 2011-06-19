@@ -67,7 +67,7 @@ Ogre::Real iceRPG::getAccuracy(void)
 
 Ogre::Real iceRPG::getManiobrability(void)
 {
-	return Ogre::Real(mBaseManiobrability * 20 * Ogre::Math::Sin(Ogre::Degree(90*(mLevel+5)/100)));
+	return Ogre::Real(mBaseManiobrability * 50 * Ogre::Math::Sin(Ogre::Degree(90*(mLevel+5)/100)));
 }
 
 //unsigned int iceRPG::getCadence(void)

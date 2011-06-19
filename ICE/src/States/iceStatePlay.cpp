@@ -7,6 +7,8 @@
 #include "iceGame.h"
 #include "Logic\iceLogicLua.h"
 
+#define DOUBLE_KEY_TIME 0.5
+
 iceStatePlay::iceStatePlay(iceStateManager* stateManager,
 						   iceSoundManager* soundManager)
 	:iceState(stateManager, soundManager),
@@ -15,6 +17,11 @@ iceStatePlay::iceStatePlay(iceStateManager* stateManager,
     _log->logMessage("iceStatePlay::iceStatePlay()");
 	_nextICEStateId = Play;
 	visibleBoundingBoxes = false;
+
+	mUpCounter = 0;
+	mDownCounter = 0;
+	mLeftCounter = 0;
+	mRightCounter = 0;
 }
 
 iceStatePlay::~iceStatePlay() {
@@ -117,6 +124,15 @@ void iceStatePlay::update(Ogre::Real evt) {
 	
 	//}
 
+	if(mUpCounter > 0)
+		mUpCounter -= evt;
+	if(mDownCounter > 0)
+		mDownCounter -= evt;
+	if(mLeftCounter > 0)
+		mLeftCounter -= evt;
+	if(mRightCounter > 0)
+		mRightCounter -= evt;
+
 	//chivatos of the camera
     iceSdkTray::getInstance()->updateScreenInfo( 0, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedPosition().x));
     iceSdkTray::getInstance()->updateScreenInfo( 1, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedPosition().y));
@@ -137,11 +153,76 @@ bool iceStatePlay::keyPressed(const OIS::KeyEvent &arg) {
     {
 		switchBoundingBoxesVisibility();
     }
+	else if(arg.key == OIS::KC_W)   // up
+    {
+		if(mUpCounter > 0)
+		{
+			_player->sprint();
+		}
+		else
+		{
+			_player->setMovingUp(true);
+		}
+    }
+	else if(arg.key == OIS::KC_S)   // down
+    {
+		if(mDownCounter > 0)
+		{
+			_player->brake();
+		}
+		else
+		{
+			_player->setMovingDown(true);
+		}
+    }	
+	else if(arg.key == OIS::KC_A)   // left
+    {
+		if(mLeftCounter > 0)
+		{
+			_player->barrelLeft();
+		}
+		else
+		{
+			_player->setMovingLeft(true);
+		}
+    }	
+	else if(arg.key == OIS::KC_D)   // right
+    {
+		if(mRightCounter > 0)
+		{
+			_player->barrelRight();
+		}
+		else
+		{
+			_player->setMovingRight(true);
+		}
+    }
 	
     return true;
 }
 
-bool iceStatePlay::keyReleased(const OIS::KeyEvent &arg) {
+bool iceStatePlay::keyReleased(const OIS::KeyEvent &arg)
+{
+	if(arg.key == OIS::KC_W)   // up
+    {
+		mUpCounter = DOUBLE_KEY_TIME;
+		_player->setMovingUp(false);
+    }
+	else if(arg.key == OIS::KC_S)   // down
+    {
+		mDownCounter = DOUBLE_KEY_TIME;
+		_player->setMovingDown(false);
+    }	
+	else if(arg.key == OIS::KC_A)   // left
+    {
+		mLeftCounter = DOUBLE_KEY_TIME;
+		_player->setMovingLeft(false);
+    }	
+	else if(arg.key == OIS::KC_D)   // right
+    {
+		mRightCounter = DOUBLE_KEY_TIME;
+		_player->setMovingRight(false);
+    }
 	
     return true;
 }

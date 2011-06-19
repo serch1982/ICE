@@ -116,6 +116,12 @@ class iceStatePlay: public iceState{
 		iceSoundManager* mSoundManager;
 
 		bool visibleBoundingBoxes;
+
+		//Contadores para dobles pulsaciones de teclas
+		Ogre::Real mUpCounter;
+		Ogre::Real mDownCounter;
+		Ogre::Real mLeftCounter;
+		Ogre::Real mRightCounter;
 };
 
 
