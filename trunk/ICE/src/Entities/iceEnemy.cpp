@@ -8,6 +8,7 @@ iceEnemy::iceEnemy()
 {
 	mActivationTime = -1;
 	mCurrentTime = 0;
+	mShowingBoundingBox = false;
 }
 
 iceEnemy::~iceEnemy()
@@ -167,6 +168,10 @@ void iceEnemy::update(Ogre::Real p_timeSinceLastFrame)
 			else
 			{//inactive
 				mNode->setVisible(false);
+				if(mShowingBoundingBox)
+				{
+					icePhysicEntity::hideBoundingBox();
+				}
 			}
 			break;
 	}
@@ -196,6 +201,10 @@ void iceEnemy::activate(void)
 	mCurrentLife = getMaxLife();
 	mNode->setVisible(true);
 	mState = FOLLOWING_TRAJECTORY;
+	if(mShowingBoundingBox)
+	{
+		icePhysicEntity::showBoundingBox();
+	}
 }
 
 bool iceEnemy::isActive(void)
@@ -414,4 +423,21 @@ std::vector<iceBullet*>* iceEnemy::getAllBullets(void)
 Ogre::Vector3 iceEnemy::getWorldPosition(void)
 {
 	return enemyNode->_getDerivedPosition();
+}
+
+void iceEnemy::showBoundingBox(void)
+{
+	mShowingBoundingBox = true;
+	if(isActive())
+	{
+		icePhysicEntity::showBoundingBox();
+	}
+}
+void iceEnemy::hideBoundingBox(void)
+{
+	mShowingBoundingBox = false;
+	if(isActive())
+	{
+		icePhysicEntity::hideBoundingBox();
+	}
 }

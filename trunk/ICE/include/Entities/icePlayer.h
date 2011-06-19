@@ -39,9 +39,21 @@ class icePlayer : public iceTrajectoryFollower, public iceRPG, public icePhysicE
 		int getCurrentWeapon();
 
 		void scroll(Ogre::Real x, Ogre::Real y);
+
+		//non RPG habilities
+		void barrelLeft(void);
+		void barrelRight(void);
+		void sprint(void);
+		void brake(void);
 	protected:
 
+		bool mMovingUp;
+		bool mMovingDown;
+		bool mMovingLeft;
+		bool mMovingRight;
 		void updateShipPosition(Ogre::Real frameTime);
+		void updateLookAt(Ogre::Real frameTime);
+		void updateScroll(Ogre::Real frameTime);
 		void updateActiveBullets(Ogre::Real p_timeSinceLastFrame);
 		void changeWeapon(const int z);
 		//iceRPG
@@ -56,6 +68,15 @@ class icePlayer : public iceTrajectoryFollower, public iceRPG, public icePhysicE
 
 		Ogre::Real mMaxScrollX; //Absolute value
 		Ogre::Real mMaxScrollY; //Absolute value
+
+		Ogre::Real mLeftBarrelTime; //Contadores, ha habilidad esta activa mientras el contador sea mayor que cero
+		Ogre::Real mRightBarrelTime; //Contadores, ha habilidad esta activa mientras el contador sea mayor que cero
+		Ogre::Real mBrakeTime; //Contadores, ha habilidad esta activa mientras el contador sea mayor que cero
+		Ogre::Real mSprintTime; //Contadores, ha habilidad esta activa mientras el contador sea mayor que cero
+
+		void updateLeftBarrel(Ogre::Real pTimeSinceLastEvent);
+		void updateRightBarrel(Ogre::Real pTimeSinceLastEvent);
+		void updateBarrelCommon(Ogre::Real* pTime, Ogre::Real pTimeSinceLastEvent, int pDirection);
 		
 	public:
 		bool _isShooting;
@@ -63,7 +84,7 @@ class icePlayer : public iceTrajectoryFollower, public iceRPG, public icePhysicE
 		//Redefinidas para tener en cuenta los logros
 		void setWeaponLevel(unsigned int p_iWeapon,unsigned int p_iLevel);
 
-		Ogre::SceneNode *cursorPlaneNode, *shipPlaneNode, *cameraPlaneNode, *cursorNode, *shipNode, *cameraNode, *scrollNode; 
+		Ogre::SceneNode *cursorPlaneNode, *shipPlaneNode, *cameraPlaneNode, *cursorNode, *shipNode, *cameraNode, *scrollNode, *rollNode; 
 		Ogre::Real shipMaxVelocity;
 		Ogre::Camera* playerCamera;
 		Ogre::Log* mLog;
@@ -73,17 +94,21 @@ class icePlayer : public iceTrajectoryFollower, public iceRPG, public icePhysicE
 		
 		//Pau * BULLETS------------------------------------------------//
 		
-		vector<iceBullet*>* getAllBullets(void);
+		std::vector<iceBullet*>* getAllBullets(void);
 
 		/*Bullet's Father node: son of the root's node and placed in absolute 0,0,0 coordinates.
 		  Every bullet is gonna be son of the mainBulletNode*/
 		Ogre::SceneNode *mainBulletNode;
 
 		/*Bullet vectors depending on the weapon kind*/
-		vector<iceBullet*> mvMachinegunBullets;
-		vector<iceBullet*> mvShotgunBullets;
-		vector<iceBullet*> mvMisilLauncherBullets;
+		std::vector<iceBullet*> mvMachinegunBullets;
+		std::vector<iceBullet*> mvShotgunBullets;
+		std::vector<iceBullet*> mvMisilLauncherBullets;
 		//--------------------------------------------------------------//
+		void setMovingUp(bool pMovingUp);
+		void setMovingDown(bool pMovingDown);
+		void setMovingLeft(bool pMovingLeft);
+		void setMovingRight(bool pMovingRight);
 };
 
 #endif

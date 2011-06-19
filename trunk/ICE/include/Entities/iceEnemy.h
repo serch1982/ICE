@@ -59,6 +59,8 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG, public icePhysicEn
 		
 		vector<iceBullet*>* getAllBullets(void);
 		Ogre::Vector3 getWorldPosition(void);
+		virtual void showBoundingBox(void);
+		virtual void hideBoundingBox(void);
 	protected:
 		static Ogre::NameGenerator mNameGenerator;
 
@@ -67,6 +69,7 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG, public icePhysicEn
 		icePlayer* mPlayer;
 		Ogre::Real mCurrentTime;
 		Ogre::Real mActivationTime;
+		bool mShowingBoundingBox;
 
 		Ogre::SceneNode* enemyNode, *enemyBulletNode;
 

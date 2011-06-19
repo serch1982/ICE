@@ -10,6 +10,14 @@
 #define SCROLL_MAX_VELOCITY 100
 #define FRAME_MULTIPLICATOR 0.3
 
+#define BARREL_ROLL_TIME 2
+#define BARREL_ROLL_DISTANCE 10
+#define BRAKE_TIME 3
+#define BRAKE_DIVISOR 4
+#define SPRINT_TIME 3
+#define SPRINT_MULTIMPLICATOR 4
+
+
 icePlayer::icePlayer():_isShooting(false)
 {
 	Ogre::SceneManager* sceneManager = iceGame::getSceneManager();
@@ -34,11 +42,13 @@ icePlayer::icePlayer():_isShooting(false)
 	//Init Ship
 	shipPlaneNode = scrollNode->createChildSceneNode(Ogre::Vector3(0.0,-CAMERA_ADDED_Y,0.0));
 	shipNode = shipPlaneNode->createChildSceneNode();
+	rollNode = shipNode->createChildSceneNode();
 
+	//CUIDADO! EL NODO PARA ATACHAR COSAS PARA LA NAVE ES rollNode
 	Ogre::Entity* mesh2 = sceneManager->createEntity("shipMesh", "airplane.mesh");
 	icePhysicEntity::initialize(mesh2);
 	mesh2->setCastShadows(true);
-	shipNode->attachObject(mesh2);
+	rollNode->attachObject(mesh2);
 	//shipNode->scale(0.1,0.1,0.1);
 
 	// Init camera
@@ -83,8 +93,16 @@ icePlayer::icePlayer():_isShooting(false)
 	}	
 	//----------------------------------------------------------------------------------------------------------------------------//
 
+	mMovingUp = false;
+	mMovingDown = false;
+	mMovingLeft = false;
+	mMovingRight = false;
+
+	mLeftBarrelTime = 0;
+	mRightBarrelTime = 0;
+	mBrakeTime = 0;
+	mSprintTime = 0;
 	mLog = iceGame::getGameLog();
-	levelUp();
 }
 
 icePlayer::~icePlayer()
@@ -194,19 +212,36 @@ void icePlayer::processMouseMoved(const int x, const int y, const int z)
 void icePlayer::updateShipPosition(Ogre::Real frameTime)
 {
 	//updatePosition
-	Ogre::Vector3 targetPosition = cursorNode->getPosition() / 4 ;
-	//Ogre::Real maxMovement = shipMaxVelocity * frameTime;
-	Ogre::Real maxMovement = getManiobrability() * frameTime;
-	targetPosition.x += -(Ogre::Real)mXUserDeviation*10;
-	targetPosition.y += (Ogre::Real)mYUserDeviation*10;
-	targetPosition.z = 0;
-	Ogre::Vector3 translation = targetPosition - shipNode->getPosition();
-	if (translation.squaredLength() > maxMovement)
-	{
-		translation.normalise();
-		translation *= maxMovement;
-	}
+	//Ogre::Vector3 targetPosition = cursorNode->getPosition() / 4 ;
+	////Ogre::Real maxMovement = shipMaxVelocity * frameTime;
+	//Ogre::Real maxMovement = getManiobrability() * frameTime;
+	//targetPosition.x += -(Ogre::Real)mXUserDeviation*10;
+	//targetPosition.y += (Ogre::Real)mYUserDeviation*10;
+	//targetPosition.z = 0;
+	//Ogre::Vector3 translation = targetPosition - shipNode->getPosition();
+	//if (translation.squaredLength() > maxMovement)
+	//{
+	//	translation.normalise();
+	//	translation *= maxMovement;
+	//}
+
+
+	Ogre::Vector3 translation = Ogre::Vector3::ZERO;
+	if(mMovingUp)
+		translation += Ogre::Vector3::UNIT_Y;
+	if(mMovingDown)
+		translation += Ogre::Vector3::NEGATIVE_UNIT_Y;
+	if(mMovingLeft)
+		translation += Ogre::Vector3::UNIT_X;
+	if(mMovingRight)
+		translation += Ogre::Vector3::NEGATIVE_UNIT_X;
+
+	translation.normalise();
+	translation *= getManiobrability() * frameTime;
+
 	shipNode->translate(translation);
+
+
 	mCameraHeight = CAMERA_PLANE_Z * Ogre::Math::Tan(playerCamera->getFOVy());
 	mCameraWidth = mCameraHeight * playerCamera->getAspectRatio();
 
@@ -216,8 +251,10 @@ void icePlayer::updateShipPosition(Ogre::Real frameTime)
 	std::stringstream str4;
 	str4 << (mCameraHeight/2)*FRAME_MULTIPLICATOR;
 	iceSdkTray::getInstance()->updateScreenInfo(13,str4.str());
+}
 
-	//lookAt
+void icePlayer::updateLookAt(Ogre::Real frameTime)
+{
 	Ogre::Real x = cursorNode->getPosition().x - shipNode->getPosition().x;
 	Ogre::Real y = cursorNode->getPosition().y - shipNode->getPosition().y;
 	Ogre::Real z = cursorPlaneNode->getPosition().z;
@@ -225,9 +262,10 @@ void icePlayer::updateShipPosition(Ogre::Real frameTime)
 	shipNode->resetOrientation();
 	shipNode->yaw(Ogre::Radian(atan(x/z)));
 	shipNode->pitch(-Ogre::Radian(atan(y/z)));
+}
 
-
-	//Update scroll with the new ship position
+void icePlayer::updateScroll(Ogre::Real frameTime)
+{
 	Ogre::Real scrollX = 0;
 	Ogre::Real scrollY = 0;
 	Ogre::Vector3 shipPosition = shipNode->getPosition();
@@ -258,6 +296,7 @@ void icePlayer::updateShipPosition(Ogre::Real frameTime)
 	}
 	scroll(scrollX,scrollY);
 }
+
 void icePlayer::updateActiveBullets(Ogre::Real p_timeSinceLastFrame)
 {
 	int i=0;
@@ -297,8 +336,33 @@ void icePlayer::addYUserDeviation(int p_iYDeviation)
 
 void icePlayer::update(Ogre::Real p_timeSinceLastFrame)
 {
-	iceTrajectoryFollower::update(p_timeSinceLastFrame);
-	updateShipPosition(p_timeSinceLastFrame);
+	Ogre::Real trajectoryUpdate = p_timeSinceLastFrame;
+	if(mSprintTime > 0)
+	{
+		mSprintTime -= p_timeSinceLastFrame;
+		trajectoryUpdate *= SPRINT_MULTIMPLICATOR;
+	}
+	else if(mBrakeTime > 0)
+	{
+		mBrakeTime -= p_timeSinceLastFrame;
+		trajectoryUpdate /= BRAKE_DIVISOR;
+	}
+	iceTrajectoryFollower::update(trajectoryUpdate);
+	if(mLeftBarrelTime > 0)
+	{
+		updateLeftBarrel(p_timeSinceLastFrame);
+	}
+	else if(mRightBarrelTime > 0)
+	{
+		updateRightBarrel(p_timeSinceLastFrame);
+	}
+	else
+	{
+		updateShipPosition(p_timeSinceLastFrame);
+		rollNode->resetOrientation();
+	}
+	updateLookAt(p_timeSinceLastFrame);
+	updateScroll(p_timeSinceLastFrame);
 	iceRPG::update(p_timeSinceLastFrame);
 	//addExperience(1000);	
 	if (_isShooting){
@@ -473,4 +537,96 @@ void icePlayer::scroll(Ogre::Real x, Ogre::Real y)
 		scrollNode->setPosition(targetScroll);
 		shipNode->translate(-finalScroll/30);
 	}
+}
+
+//non RPG habilities
+void icePlayer::barrelLeft(void)
+{
+	if(mLeftBarrelTime <= 0)
+		mLeftBarrelTime = BARREL_ROLL_TIME;
+}
+
+void icePlayer::barrelRight(void)
+{
+	if(mRightBarrelTime <= 0)
+		mRightBarrelTime = BARREL_ROLL_TIME;
+}
+
+void icePlayer::sprint(void)
+{
+	if(mSprintTime <= 0)
+	{
+		mSprintTime = SPRINT_TIME;
+		mBrakeTime = 0; //deactivate brake
+	}
+}
+
+void icePlayer::brake(void)
+{
+	if(mBrakeTime <= 0)
+	{
+		mBrakeTime = BRAKE_TIME;
+		mSprintTime = 0; //deactivate sprint
+	}
+}
+
+void icePlayer::updateLeftBarrel(Ogre::Real pTimeSinceLastEvent)
+{
+	updateBarrelCommon(&mLeftBarrelTime,pTimeSinceLastEvent,1);
+	mLeftBarrelTime -= pTimeSinceLastEvent;
+}
+
+void icePlayer::updateRightBarrel(Ogre::Real pTimeSinceLastEvent)
+{
+	updateBarrelCommon(&mRightBarrelTime,pTimeSinceLastEvent,-1);
+	mRightBarrelTime -= pTimeSinceLastEvent;
+}
+
+//Direction: 1 = left, -1 = right
+void icePlayer::updateBarrelCommon(Ogre::Real* pTime, Ogre::Real pTimeSinceLastEvent, int pDirection)
+{
+	Ogre::Real lastBarrelRatio = (*pTime)/BARREL_ROLL_TIME;
+	(*pTime) -= pTimeSinceLastEvent;
+	if((*pTime)<0)
+		(*pTime) = 0;
+	Ogre::Real barrelRatio = (*pTime)/BARREL_ROLL_TIME;
+	Ogre::Real ratioDifference = lastBarrelRatio - barrelRatio;
+
+	Ogre::Vector3 translation = pDirection * ratioDifference * BARREL_ROLL_DISTANCE * Ogre::Vector3::UNIT_X;
+	Ogre::Radian rotation = -pDirection * ratioDifference * Ogre::Degree(180) * 4;
+
+	shipNode->translate(translation);
+	rollNode->roll(rotation);
+}
+
+void icePlayer::setMovingUp(bool pMovingUp)
+{
+	if(mMovingDown)
+		mMovingUp = false;
+	else
+		mMovingUp = pMovingUp;
+}
+
+void icePlayer::setMovingDown(bool pMovingDown)
+{
+	if(mMovingUp)
+		mMovingDown = false;
+	else
+		mMovingDown = pMovingDown;
+}
+
+void icePlayer::setMovingLeft(bool pMovingLeft)
+{
+	if(mMovingRight)
+		mMovingLeft = false;
+	else
+		mMovingLeft = pMovingLeft;
+}
+
+void icePlayer::setMovingRight(bool pMovingRight)
+{
+	if(mMovingLeft)
+		mMovingRight = false;
+	else
+		mMovingRight = pMovingRight;
 }

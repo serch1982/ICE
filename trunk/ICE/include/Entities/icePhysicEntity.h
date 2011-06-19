@@ -12,8 +12,8 @@ public:
 
 	void initialize(Ogre::MovableObject* p_PhisicEntity);
 	Ogre::AxisAlignedBox getBoundingBox(void);
-	void showBoundingBox(void);
-	void hideBoundingBox(void);
+	virtual void showBoundingBox(void);
+	virtual void hideBoundingBox(void);
 
 protected:
 	Ogre::MovableObject* mPhisicEntity;
