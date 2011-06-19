@@ -1,4 +1,5 @@
 #include "Entities\iceEnemy.h"
+#include "Utils/iceDamageTextManager.h"
 #include "iceGame.h"
 
 Ogre::NameGenerator iceEnemy::mNameGenerator("Enemy_");
@@ -44,7 +45,7 @@ bool iceEnemy::initialize(int id, Ogre::Vector3 p_Position, icePlayer* p_psPlaye
 		enemyNode = mPlayer->getNode()->getParentSceneNode()->createChildSceneNode(name);
 
 	iceTrajectoryFollower::initialize(enemyNode);
-	stringstream entityName;
+	std::stringstream entityName;
 	entityName << "Entity_" << mNameGenerator.generate();
 	Ogre::Entity* mesh;
 	switch(mType)
@@ -221,9 +222,10 @@ bool iceEnemy::checkActivationTime(Ogre::Real p_timeSinceLastFrame)
 
 void iceEnemy::showReceivedDamage(unsigned int p_iDamage, bool p_bCritical)
 {
-	stringstream strMessage;
-	strMessage << "Adding damage to an enemy = " << p_iDamage << ". Current life = " << getCurrentLife();
-	iceGame::getGameLog()->logMessage(strMessage.str());
+	//stringstream strMessage;
+	//strMessage << "Adding damage to an enemy = " << p_iDamage << ". Current life = " << getCurrentLife();
+	//iceGame::getGameLog()->logMessage(strMessage.str());
+	iceDamageTextManager::getSingletonPtr()->showEnemyDamage(mPhisicEntity,p_iDamage,p_bCritical);
 }
 
 void iceEnemy::showShieldDamage(unsigned int p_iDamage, bool p_bCritical)
@@ -232,10 +234,11 @@ void iceEnemy::showShieldDamage(unsigned int p_iDamage, bool p_bCritical)
 
 void iceEnemy::showFail(void)
 {
+	iceDamageTextManager::getSingletonPtr()->showEnemyMiss(mPhisicEntity);
 }
 
 void iceEnemy::showLevelUp(unsigned int p_iLevel)
-{
+{ //Do Nothing
 }
 
 //get the type of the enemy
@@ -394,9 +397,9 @@ void iceEnemy::updateActiveBullets(Ogre::Real p_timeSinceLastFrame)
 	
 }
 
-vector<iceBullet*>* iceEnemy::getAllBullets(void)
+std::vector<iceBullet*>* iceEnemy::getAllBullets(void)
 {
-	vector<iceBullet*>* bullets = new vector<iceBullet*>;
+	std::vector<iceBullet*>* bullets = new std::vector<iceBullet*>;
 	bullets->resize(ENEMY_BULLET_VECTOR_SIZE*3);
 	for(unsigned int i=0;i<ENEMY_BULLET_VECTOR_SIZE;i++)
 	{

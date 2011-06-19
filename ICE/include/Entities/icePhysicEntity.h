@@ -2,6 +2,7 @@
 #define ICEPHYSIC_ENTITY_H_
 
 #include <OgreMovableObject.h>
+#include <OgreSceneNode.h>
 
 class icePhysicEntity
 {
@@ -11,6 +12,8 @@ public:
 
 	void initialize(Ogre::MovableObject* p_PhisicEntity);
 	Ogre::AxisAlignedBox getBoundingBox(void);
+	void showBoundingBox(void);
+	void hideBoundingBox(void);
 
 protected:
 	Ogre::MovableObject* mPhisicEntity;

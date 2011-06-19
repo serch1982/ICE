@@ -1,9 +1,10 @@
 #include "Entities\icePlayer.h"
+#include "Utils/iceDamageTextManager.h"
 #include "iceGame.h"
 
 #define CURSOR_PLANE_Z 100
 #define CAMERA_PLANE_Z 20
-#define CAMERA_ADDED_Y 6
+#define CAMERA_ADDED_Y 4
 #define CHANNEL_HALF_WIDTH 250
 #define CHANNEL_HALF_HEIGHT 200
 #define SCROLL_MAX_VELOCITY 100
@@ -209,10 +210,10 @@ void icePlayer::updateShipPosition(Ogre::Real frameTime)
 	mCameraHeight = CAMERA_PLANE_Z * Ogre::Math::Tan(playerCamera->getFOVy());
 	mCameraWidth = mCameraHeight * playerCamera->getAspectRatio();
 
-	stringstream str3;
+	std::stringstream str3;
 	str3 << (mCameraWidth/2)*FRAME_MULTIPLICATOR;
 	iceSdkTray::getInstance()->updateScreenInfo(12,str3.str());
-	stringstream str4;
+	std::stringstream str4;
 	str4 << (mCameraHeight/2)*FRAME_MULTIPLICATOR;
 	iceSdkTray::getInstance()->updateScreenInfo(13,str4.str());
 
@@ -231,10 +232,10 @@ void icePlayer::updateShipPosition(Ogre::Real frameTime)
 	Ogre::Real scrollY = 0;
 	Ogre::Vector3 shipPosition = shipNode->getPosition();
 	shipPosition.y -= CAMERA_ADDED_Y/2; //Posicion virtual para la direccion vertical
-	stringstream str;
+	std::stringstream str;
 	str << shipPosition.x;
 	iceSdkTray::getInstance()->updateScreenInfo(10,str.str());
-	stringstream str2;
+	std::stringstream str2;
 	str2 << shipPosition.y;
 	iceSdkTray::getInstance()->updateScreenInfo(11,str2.str());
 	int signX = shipPosition.x >= 0 ? 1 : -1;
@@ -400,24 +401,23 @@ void icePlayer::createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation,
 void icePlayer::showReceivedDamage(unsigned int p_iDamage, bool p_bCritical)
 {
 	icePlayerStats::getInstance()->addReceivedDamage(p_iDamage);
+	iceDamageTextManager::getSingletonPtr()->showPlayerDamage(mPhisicEntity,p_iDamage,p_bCritical);
 }
 
 void icePlayer::showShieldDamage(unsigned int p_iDamage, bool p_bCritical)
 {
+	iceDamageTextManager::getSingletonPtr()->showPlayerShieldDamage(mPhisicEntity,p_iDamage,p_bCritical);
 }
 
 void icePlayer::showFail(void)
 {
 	icePlayerStats::getInstance()->addBulletEvaded();
+	iceDamageTextManager::getSingletonPtr()->showPlayerMiss(mPhisicEntity);
 }
 
 void icePlayer::showLevelUp(unsigned int p_iLevel)
 {
-	stringstream strMessage;
-	strMessage << "LEVEL UP (" << p_iLevel << ")";
-	mLog->logMessage( strMessage.str() );
-	icePlayerStats::getInstance()->setPlayerLevel(p_iLevel);
-
+	iceDamageTextManager::getSingletonPtr()->showPlayerLevelUp(mPhisicEntity);
 }
 
 void icePlayer::setWeaponLevel(unsigned int p_iWeapon,unsigned int p_iLevel)
@@ -443,9 +443,9 @@ int icePlayer::getCurrentWeapon(){
 	return mCurrentWeapon;
 }
 
-vector<iceBullet*>* icePlayer::getAllBullets(void)
+std::vector<iceBullet*>* icePlayer::getAllBullets(void)
 {
-	vector<iceBullet*>* bullets = new vector<iceBullet*>;
+	std::vector<iceBullet*>* bullets = new std::vector<iceBullet*>;
 	bullets->resize(BULLET_VECTOR_SIZE*3);
 	for(unsigned int i=0;i<BULLET_VECTOR_SIZE;i++)
 	{
