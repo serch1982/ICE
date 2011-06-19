@@ -31,7 +31,7 @@ void icePhysics::processPlayerBullets(void)
 				iceEnemy* enemy = (*mEnemies)[j];
 				if(enemy->isActive() && enemy->isAlive())
 				{
-					if (enemy->getBoundingBox().intersects(bullet->getWorldPosition()))
+					if (enemy->getBoundingBox().contains(bullet->getWorldPosition()))
 					{
 						stringstream strMessage;
 						strMessage << "Impacto en: (" << bullet->getWorldPosition() << ")";

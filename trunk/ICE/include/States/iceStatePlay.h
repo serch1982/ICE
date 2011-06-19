@@ -83,6 +83,8 @@ class iceStatePlay: public iceState{
          *  get the current icestateid
          */
 		void setLevelToLoad(int levelID);
+
+		void switchBoundingBoxesVisibility(void);
     private:
 		//HUD
 		Hikari::FlashControl  *_hikariHUD;
@@ -112,6 +114,8 @@ class iceStatePlay: public iceState{
 
 		//Sound Manager
 		iceSoundManager* mSoundManager;
+
+		bool visibleBoundingBoxes;
 };
 
 

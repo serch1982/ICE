@@ -13,6 +13,7 @@ iceLevelManager::iceLevelManager(): _numLevels(0){
 	_levels.push_back(new iceLevel(2,"level1", "phase1Trajectory", "phase1Enemies"));
 	_numLevels = 2;
 	_dotSceneLoader = new DotSceneLoader();
+	_damageTextManager = new iceDamageTextManager();
 }
 
 iceLevelManager::~iceLevelManager() {
@@ -22,6 +23,7 @@ iceLevelManager::~iceLevelManager() {
     for (i = _levels.begin(); i != _levels.end(); ++i)
         delete (*i);
 	delete _dotSceneLoader;
+	delete _damageTextManager;
 	_log->logMessage("iceLevelManager::~iceLevelManager()");
 }
 

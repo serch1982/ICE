@@ -30,9 +30,6 @@ iceGame::iceGame() {
         exit(1);
     }
 
-    // levels
-    _levelManager = new iceLevelManager();
-
 	// sound manager
 	mSoundManager = new iceSoundManager();
 	mSoundManager->Initialize();
@@ -40,6 +37,8 @@ iceGame::iceGame() {
     // states manager
 	_stateManager = new iceStateManager(_inputManager, mSoundManager->getSingletonPtr() );
 //	_soundManager->loadResources();
+	// levels
+    _levelManager = new iceLevelManager();
 }
 
 iceGame::~iceGame() {

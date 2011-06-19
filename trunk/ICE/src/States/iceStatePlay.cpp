@@ -14,6 +14,7 @@ iceStatePlay::iceStatePlay(iceStateManager* stateManager,
 	_levelID(1) {
     _log->logMessage("iceStatePlay::iceStatePlay()");
 	_nextICEStateId = Play;
+	visibleBoundingBoxes = false;
 }
 
 iceStatePlay::~iceStatePlay() {
@@ -96,6 +97,9 @@ void iceStatePlay::update(Ogre::Real evt) {
 	//phisics
 	mPhysics.update();
 
+	//ShowDamage
+	iceDamageTextManager::getSingleton().update(evt);
+
 	//fx
 	/*if(_player->getIsShooting()){
 		switch(_player->getCurrentWeapon())
@@ -128,6 +132,10 @@ bool iceStatePlay::keyPressed(const OIS::KeyEvent &arg) {
 	if (arg.key == OIS::KC_P)
     {
         this->_nextICEStateId = Pause;
+    }	
+	else if(arg.key == OIS::KC_F7)   // show bounding boxes
+    {
+		switchBoundingBoxesVisibility();
     }
 	
     return true;
@@ -169,4 +177,26 @@ void iceStatePlay::setHUDLife(int life){
 
 void iceStatePlay::setHUDWeapon(char* name){
 	_hikariHUD->callFunction("setWeapon", Hikari::Args(name));
+}
+
+void iceStatePlay::switchBoundingBoxesVisibility(void)
+{
+	if(visibleBoundingBoxes)
+	{
+		_player->hideBoundingBox();
+		for(unsigned int i=0;i<_mEnemies.size();i++)
+		{
+			_mEnemies[i]->hideBoundingBox();
+		}
+		visibleBoundingBoxes = false;
+	}
+	else
+	{
+		_player->showBoundingBox();
+		for(unsigned int i=0;i<_mEnemies.size();i++)
+		{
+			_mEnemies[i]->showBoundingBox();
+		}
+		visibleBoundingBoxes = true;
+	}
 }

@@ -5,6 +5,7 @@
 #include <vector>
 #include <OGRE/Ogre.h>
 #include "Scene\DotSceneLoader.h"
+#include "Utils/iceDamageTextManager.h"
 
 class iceLevel;
 
@@ -49,6 +50,7 @@ class iceLevelManager: public Ogre::Singleton<iceLevelManager> {
         int _numLevels;
 		Ogre::Log* _log;
 		DotSceneLoader* _dotSceneLoader;
+		iceDamageTextManager* _damageTextManager;
 };
 
 #endif  
