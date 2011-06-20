@@ -825,7 +825,9 @@ void DotSceneLoader::processEntity(rapidxml::xml_node<>* XMLNode, Ogre::SceneNod
         pEntity = mSceneMgr->createEntity(name, meshFile);
         pEntity->setCastShadows(castShadows);
         pParent->attachObject(pEntity);
- 
+
+		mObjects.push_back(new iceObject(pEntity));
+
         if(!materialFile.empty())
             pEntity->setMaterialName(materialFile);
     }
@@ -1155,4 +1157,9 @@ std::vector<iceStep> DotSceneLoader::getPlayerSteps(void)
 std::vector<iceEnemy*> DotSceneLoader::getEnemies(void)
 {
 	return mEnemies;
+}
+
+std::vector<iceObject*> DotSceneLoader::getObjects(void)
+{
+	return mObjects;
 }

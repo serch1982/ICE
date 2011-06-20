@@ -156,6 +156,9 @@
     <ClCompile Include="src\Entities\icePhysicEntity.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="src\Entities\iceObject.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
     <ClCompile Include="src\Utils\iceDamageTextManager.cpp">
       <Filter>Source Files\Utils</Filter>
     </ClCompile>
@@ -247,6 +250,9 @@
     </ClInclude>
     <ClInclude Include="include\Physics\icePhysics.h">
       <Filter>Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Entities\iceObject.h">
+      <Filter>Header Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="include\Utils\MovableTextOverlay.h">
       <Filter>Header Files\Utils</Filter>

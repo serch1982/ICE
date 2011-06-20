@@ -491,7 +491,7 @@ void icePlayer::setWeaponLevel(unsigned int p_iWeapon,unsigned int p_iLevel)
 }
 
 Ogre::Vector3 icePlayer::getPosition(void){
-	return shipNode->getPosition();
+	return shipNode->_getDerivedPosition();
 }
 
 
