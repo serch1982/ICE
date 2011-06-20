@@ -60,6 +60,10 @@ bool iceLevel::isLoaded() const {
     return _loaded;
 }
 
+std::vector<iceObject*> iceLevel::getSceneObjects()  {
+    return iceLevelManager::getSingletonPtr()->getDotSceneLoader()->getObjects();;
+}
+
 const int iceLevel::getId() const {
     return _id;
 }

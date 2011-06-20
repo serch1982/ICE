@@ -11,8 +11,10 @@
 #include <Terrain/OgreTerrainMaterialGeneratorA.h>
 #include <vector>
 
-#include "../Trajectory/iceStep.h"
-#include"../Entities/iceEnemy.h"
+
+#include "Trajectory\iceStep.h"
+#include "Entities\iceEnemy.h"
+#include "Entities\iceObject.h"
  
 #include "rapidxml.hpp"
  
@@ -56,6 +58,7 @@
 
 		std::vector<iceStep> getPlayerSteps(void);
 		std::vector<iceEnemy*> getEnemies(void);
+		std::vector<iceObject*> getObjects(void);
  
     protected:
         void processScene(rapidxml::xml_node<>* XMLRoot, icePlayer &p_Player);
@@ -115,6 +118,7 @@
 		//ice
 		std::vector<iceStep> mPlayerSteps;
 		std::vector<iceEnemy*> mEnemies;
+		std::vector<iceObject*> mObjects;
     };
  
 #endif // DOT_SCENELOADER_H

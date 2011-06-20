@@ -6,6 +6,7 @@
 #include <OGRE/Ogre.h>
 #include "Entities\icePlayer.h"
 #include "Entities\iceEnemy.h"
+#include "Entities\iceObject.h"
 #include "Trajectory\iceLocomotiveTrajectory.h"
 
 class icePlayer;
@@ -53,6 +54,10 @@ class iceLevel {
          */
         const Ogre::String& getName() const;
 
+		/**
+         *  @return get all the objects loaded in the scene
+         */
+		std::vector<iceObject*> iceLevel::getSceneObjects();
     private:
         //level
 		int _id;
