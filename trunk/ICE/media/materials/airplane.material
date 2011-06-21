@@ -1,0 +1,20 @@
+
+material airplane
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.3 0.3 0.3 1
+
+			texture_unit
+			{
+				texture Navetextura.png
+			}
+		}
+
+	}
+
+}
+
+
