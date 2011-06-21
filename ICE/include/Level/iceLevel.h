@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <OGRE/Ogre.h>
+#include <Terrain/OgreTerrainGroup.h>
 #include "Entities\icePlayer.h"
 #include "Entities\iceEnemy.h"
 #include "Entities\iceObject.h"
@@ -58,6 +59,11 @@ class iceLevel {
          *  @return get all the objects loaded in the scene
          */
 		std::vector<iceObject*> iceLevel::getSceneObjects();
+
+		/**
+         *  @return get the terraingroup
+         */
+		Ogre::TerrainGroup* getTerrain(void);
     private:
         //level
 		int _id;

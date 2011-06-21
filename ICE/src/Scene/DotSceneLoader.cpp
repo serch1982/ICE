@@ -20,7 +20,7 @@ DotSceneLoader::~DotSceneLoader()
  
     OGRE_DELETE mTerrainGlobalOptions;
 }
- 
+
 void DotSceneLoader::parseDotScene(const Ogre::String &SceneName, icePlayer &p_Player, const Ogre::String &groupName, Ogre::SceneManager *yourSceneMgr, Ogre::SceneNode *pAttachNode, const Ogre::String &sPrependNode)
 {
     // set up shared object values

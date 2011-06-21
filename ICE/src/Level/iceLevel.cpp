@@ -56,6 +56,10 @@ void iceLevel::unload() {
     }
 }
 
+Ogre::TerrainGroup* iceLevel::getTerrain(void){
+	return iceLevelManager::getSingletonPtr()->getDotSceneLoader()->getTerrainGroup();
+}
+
 bool iceLevel::isLoaded() const {
     return _loaded;
 }
