@@ -48,7 +48,7 @@ void iceStatePlay::load() {
 		iceSdkTray::getInstance()->hideCursor();
 
 		//load phisics
-		mPhysics.initialize(_player, &_mEnemies, _level->getSceneObjects());
+		mPhysics.initialize(_level->getTerrain(), _player, &_mEnemies, _level->getSceneObjects());
 
 		//load lua logic
 		std::string path = _stateManager->getPathRoot() + "\\logiclua.lua";

@@ -10,12 +10,12 @@ icePhysics::~icePhysics(void)
 
 }
 
-void icePhysics::initialize(icePlayer* p_Player, std::vector<iceEnemy*>* p_Enemies, std::vector<iceObject*> p_Objects)
+void icePhysics::initialize(Ogre::TerrainGroup* terrainGroup, icePlayer* p_Player, std::vector<iceEnemy*>* p_Enemies, std::vector<iceObject*> p_Objects)
 {
 	mPlayer = p_Player;
 	mEnemies = p_Enemies;
 	mObjects = p_Objects;
-
+	mTerrainGroup = terrainGroup;
 	mLog = iceGame::getGameLog();
 }
 
@@ -50,7 +50,22 @@ void icePhysics::update(void){
 	processEnemyBullets();
 	processObjectCollision();
 	processPlayerBullets();	
+	processTerrainCollision();
 }
+
+void icePhysics::processTerrainCollision(void){
+	Ogre::Ray playerRay(mPlayer->getPosition(), Ogre::Vector3::NEGATIVE_UNIT_Y);
+    Ogre::TerrainGroup::RayResult mResult =mTerrainGroup->rayIntersects(playerRay); 
+
+	if (!mResult.hit){
+		stringstream strMessage;
+		strMessage << "Impacto en: (" << mPlayer->getPosition() << ")";
+		mLog->logMessage( strMessage.str() );
+
+		mPlayer->addDamage(2,false); //to change
+	}
+}
+
 
 void icePhysics::processEnemyBullets(void)
 {
