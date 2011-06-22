@@ -8,6 +8,7 @@ iceEnemy::iceEnemy()
 {
 	mActivationTime = -1;
 	mCurrentTime = 0;
+	mAnimDyingTicks = 0;
 	mShowingBoundingBox = false;
 }
 
@@ -65,13 +66,13 @@ bool iceEnemy::initialize(int id, Ogre::Vector3 p_Position, icePlayer* p_psPlaye
 			break;
 		case MAGMATON:
 			mesh = sceneManager->createEntity(entityName.str(), "magmaton.mesh");
-			mAttack01 = mesh->getAnimationState( "Attack1" );
+			/*mAttack01 = mesh->getAnimationState( "Attack1" );
 			mAttack02 = mesh->getAnimationState( "Attack2" );
 			mAttack01->setEnabled( true );
 			mAttack02->setEnabled( false );
 			mAttack01->setLoop( false );
 			mAttack02->setLoop( false );
-			mbAnimAttack = true;
+			mbAnimAttack = true;*/
 			break;
 	}
 	mNode->attachObject(mesh);
@@ -134,31 +135,32 @@ void iceEnemy::update(Ogre::Real p_timeSinceLastFrame)
 	switch(mState)
 	{
 		case STOPPED:
-			if (!isAlive())
-				mState = DEADING;
+			/*if (!isAlive())
+				mState = DYING;*/
 			break;
 		case FOLLOWING_TRAJECTORY:
 			//iceTrajectoryFollower::update(p_timeSinceLastFrame); Hay que hablar sobre trayectorias de enemigos
 			mTrajectory->lookAt();//TODO
-			if (!isAlive())
-				mState = DEADING;
+			/*if (!isAlive())
+				mState = DYING;*/
 			break;
-		case ATTACKING: 
+		case ATTACK: 
 			mTrajectory->lookAt(); //TODO
 			iceRPG::update(p_timeSinceLastFrame);
-			shot();						
+			shot();
 			updateActiveBullets(p_timeSinceLastFrame);
-			if (!isAlive())
-				mState = DEADING;
+			/*if (!isAlive())
+				mState = DYING;*/
 			//iceTrajectoryFollower::update(p_timeSinceLastFrame); Hay que hablar sobre trayectorias de enemigos
 			break;
-		case DEADING:
+		case DYING:
 			iceGame::getGameLog()->logMessage("Enemy killed!");
 			mPlayer->addExperience(mLevel * 10000);
+			mAnimDyingTicks++;
 			//iceTrajectoryFollower::update(p_timeSinceLastFrame); Hay que hablar sobre trayectorias de enemigos
 			//Dead sequence...
 			//When dead sequence finished:
-			mState = INACTIVE;
+			//mState = INACTIVE;
 			break;
 		case INACTIVE:
 			if(checkActivationTime(p_timeSinceLastFrame))
@@ -177,7 +179,7 @@ void iceEnemy::update(Ogre::Real p_timeSinceLastFrame)
 	}
 
 	// We are magmaton
-	if( mType == 4 ){
+	/*if( mType == 4 ){
 		if( mbAnimAttack ){
 			mAttack01->addTime( p_timeSinceLastFrame );
 			if( mAttack01->hasEnded() ){
@@ -193,14 +195,15 @@ void iceEnemy::update(Ogre::Real p_timeSinceLastFrame)
 				mbAnimAttack = !mbAnimAttack;
 			}
 		}
-	}
+	}*/
 }
 
 void iceEnemy::activate(void)
 {
 	mCurrentLife = getMaxLife();
 	mNode->setVisible(true);
-	mState = FOLLOWING_TRAJECTORY;
+	mState = STOPPED;
+	//mState = FOLLOWING_TRAJECTORY;
 	if(mShowingBoundingBox)
 	{
 		icePhysicEntity::showBoundingBox();
@@ -433,6 +436,7 @@ void iceEnemy::showBoundingBox(void)
 		icePhysicEntity::showBoundingBox();
 	}
 }
+
 void iceEnemy::hideBoundingBox(void)
 {
 	mShowingBoundingBox = false;
@@ -440,4 +444,17 @@ void iceEnemy::hideBoundingBox(void)
 	{
 		icePhysicEntity::hideBoundingBox();
 	}
+}
+
+bool iceEnemy::isAnimDyingEnded()
+{
+	if( mAnimDyingTicks > 3000 ){
+		return true;
+	}else
+		return false;
+}
+
+void iceEnemy::setAnimDyingEnded( Ogre::Real ticks )
+{
+	mAnimDyingTicks = ticks;
 }

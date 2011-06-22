@@ -51,8 +51,8 @@ void iceStatePlay::load() {
 		mPhysics.initialize(_level->getTerrain(), _player, &_mEnemies, _level->getSceneObjects());
 
 		//load lua logic
-		std::string path = _stateManager->getPathRoot() + "\\logiclua.lua";
-		iceLogicLua::getInstance()->RunFile(path.c_str()); 
+		std::string path = _stateManager->getPathRoot() + "\\media\\scripts\\lua\\kamikaze.lua";
+		iceLogicLua::getInstance()->RunFile(path.c_str());
 
 		//load HUD
 		try{

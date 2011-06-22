@@ -1,6 +1,10 @@
 #include "Logic\iceLogicLua.h"
 #include "iceGame.h" 
 
+// Some helpful macros for defining constants  (sort of) in Lua. Similar to this code: 
+// object g = globals(L);
+// object table = g["class"];
+// table["constant"] = class::constant; 
 #define LUA_CONST_START( class ) { luabind::object g = luabind::globals(L); luabind::object table = g[#class];
 #define LUA_CONST( class, name ) table[#name] = class::name
 #define LUA_CONST_END }
@@ -9,8 +13,8 @@ iceLogicLua* iceLogicLua::pinstance = 0;
 
 iceLogicLua* iceLogicLua::getInstance(){
 	if (pinstance == 0)
-          pinstance = new iceLogicLua;
-        return pinstance;
+		pinstance = new iceLogicLua;
+	return pinstance;
 }
 
 iceLogicLua::iceLogicLua(void){
@@ -21,14 +25,16 @@ iceLogicLua::iceLogicLua(void){
 }
 
 iceLogicLua::~iceLogicLua(void){
-   lua_close(L);
+	if(L)
+		lua_close(L);
 }
 
 
 int iceLogicLua::RunFile( const char *fname )
 {
 	int ret;
-	if( ret = luaL_loadfile(L, fname) || lua_pcall( L, 0 ,0 ,0 )){
+	if( ret = luaL_dofile(L,fname) ){
+	//if( ret = luaL_loadfile(L, fname) || lua_pcall( L, 0 ,0 ,0 )){
 		errorHandler();
 	}else{
 		_log->logMessage("The lua file has been loaded");
@@ -86,8 +92,8 @@ bool iceLogicLua::FuncExist(const char *name )
 
 
 void iceLogicLua::bindLuaObjects(){
-	using namespace Ogre;
-	luabind::module(L)
+	//using namespace Ogre;
+	/*luabind::module(L)
 	[
 		luabind::class_<Vector3>( "Vector3" )
 		.def(tostring(luabind::self))
@@ -124,9 +130,9 @@ void iceLogicLua::bindLuaObjects(){
 		.def( luabind::self - luabind::other<Vector3>() )
 		.def( luabind::self * luabind::other<Vector3>() )
 		.def( luabind::self * Real() )
-	];
+	];*/
 
-	LUA_CONST_START( Vector3 )
+	/*LUA_CONST_START( Vector3 )
 		LUA_CONST( Vector3, ZERO);
 		LUA_CONST( Vector3, UNIT_X );
 		LUA_CONST( Vector3, UNIT_X);
@@ -136,26 +142,26 @@ void iceLogicLua::bindLuaObjects(){
 		LUA_CONST( Vector3, NEGATIVE_UNIT_Y);
 		LUA_CONST( Vector3, NEGATIVE_UNIT_Z);
 		LUA_CONST( Vector3, UNIT_SCALE);
-	LUA_CONST_END;
+	LUA_CONST_END;*/
 
 
-	luabind::module(L)
+	/*luabind::module(L)
 	[
 		luabind::class_<Real>( "Real" )
 		.def(tostring(luabind::self))
 		.def(luabind::constructor<>())
-	];
+	];*/
 
 	//enemy class definition
 	luabind::module(L)
 	[
-		luabind::class_<iceEnemy>("iceEnemy")
+		luabind::class_<iceEnemy>("enemy")
 			.enum_("ENEMYSTATE")
 			[
 				luabind::value("STOPPED",0),
 				luabind::value("FOLLOWING_TRAJECTORY",1),
-				luabind::value("ATTACKING",2),
-				luabind::value("DEADING",3),
+				luabind::value("ATTACK",2),
+				luabind::value("DYING",3),
 				luabind::value("DEAD",4),
 				luabind::value("INACTIVE",5)
 			]
@@ -167,21 +173,65 @@ void iceLogicLua::bindLuaObjects(){
 				luabind::value("VOLCANO",3),
 				luabind::value("MAGMATON",4)
 			]
-		    .def("getState", (iceEnemy::ENEMYSTATE( iceEnemy::*)(void)) &iceEnemy::getState)
-		    .def("setState", (void(iceEnemy::*)(iceEnemy::ENEMYSTATE)) &iceEnemy::setState)
-			.def("getType", (iceEnemy::ENEMYTYPE( iceEnemy::*)(void)) &iceEnemy::getType)
-			.def("activate", (void( iceEnemy::*)(void)) &iceEnemy::activate)
-			.def("checkActivationTime", (bool( iceEnemy::*)(Ogre::Real)) &iceEnemy::checkActivationTime)
-			.def("isVisiblePlayerCam", (bool( iceEnemy::*)(void)) &iceEnemy::isVisiblePlayerCam)
-			.def("isVisibleWideCam", (bool( iceEnemy::*)(void)) &iceEnemy::isVisibleWideCam)
-			.def("rangeAttack", (float( iceEnemy::*)(void)) &iceEnemy::rangeAttack)
+		    .def("getState", &iceEnemy::getState )
+		    .def("setState", &iceEnemy::setState )
+			.def("getType", &iceEnemy::getType )
+			.def("isActive", &iceEnemy::isActive )
+			.def("isAlive", &iceEnemy::isAlive )
+			.def("isAnimDyingEnded", &iceEnemy::isAnimDyingEnded )
+			//.def("checkActivationTime", (bool( iceEnemy::*)(Ogre::Real)) &iceEnemy::checkActivationTime)
+			//.def("isVisiblePlayerCam", (bool( iceEnemy::*)(void)) &iceEnemy::isVisiblePlayerCam)
+			//.def("isVisibleWideCam", (bool( iceEnemy::*)(void)) &iceEnemy::isVisibleWideCam)
+			//.def("rangeAttack", (float( iceEnemy::*)(void)) &iceEnemy::rangeAttack)
 	];
-
 }
 
 //call the method of lua with the enemy logic and change his ENEMYSTATE 
 void iceLogicLua::getEnemyLogicState(iceEnemy *enemy, Ogre::Real p_timeSinceLastFrame){
-	if(FuncExist("EnemyLogicState")){
-		luabind::call_function<void>(L, "EnemyLogicState", enemy, p_timeSinceLastFrame);
-	}
+	try{
+		unsigned int ret = -1;
+		if( enemy->getType() == enemy->KAMIKAZE ){
+			if(FuncExist("KamikazeLogic")){
+				luabind::call_function<void>(L, "KamikazeLogic", enemy);
+					std::stringstream ss; 
+					ss << enemy->getState();
+				_log->logMessage( ss.str() );
+				//ret = luabind::call_function<int>(L, "KamikazeLogic", enemy);
+			}else
+				_log->logMessage("IA: function KamikazeLogic doesn't exist" );
+			if( ret == enemy->INACTIVE )
+				enemy->setAnimDyingEnded(0);
+		}
+	}catch(const luabind::error& err)
+		{
+			std::string errString = "LUA Function call failed: ";
+			errString.append(err.what()).append(" - ");
+			errString.append(lua_tostring(err.state(),-1));
+			_log->logMessage(errString);
+		}
+	/*else if( enemy->getType() == enemy->MAGMATON ){
+		if(FuncExist("MagmatonLogic")){
+			ret = luabind::call_function<int>(L, "MagmatonLogic", enemy->getState());
+		}else
+			_log->logMessage("IA: function MagmatonLogic doesn't exist" );
+
+	}else if( enemy->getType() == enemy->MINIMAGMATON ){
+		if(FuncExist("MinimagmatonLogic")){
+			ret = luabind::call_function<int>(L, "MinimagmatonLogic", enemy->getState());
+		}else
+			_log->logMessage("IA: function MinimagmatonLogic doesn't exist" );
+
+	}else if( enemy->getType() == enemy->SMART ){
+		if(FuncExist("SmartLogic")){
+			ret = luabind::call_function<int>(L, "SmartLogic", enemy->getState());
+		}else
+			_log->logMessage("IA: function SmartLogic doesn't exist" );
+
+	}else if( enemy->getType() == enemy->VOLCANO ){
+		if(FuncExist("VolcanoLogic")){
+			ret = luabind::call_function<int>(L, "VolcanoLogic", enemy->getState());
+		}else
+			_log->logMessage("IA: function VolcanoLogic doesn't exist" );
+	}*/
+//	enemy->setState( ret );
 }

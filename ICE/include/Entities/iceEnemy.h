@@ -18,8 +18,8 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG, public icePhysicEn
 		{
 			STOPPED = 0, //En realidad esta siguiendo la trayectoria del player
 			FOLLOWING_TRAJECTORY = 1,
-			ATTACKING = 2,
-			DEADING = 3,
+			ATTACK = 2,
+			DYING = 3,
 			DEAD = 4,
 			INACTIVE = 5
 		};
@@ -49,6 +49,10 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG, public icePhysicEn
 		bool isVisibleWideCam();
 		float rangeAttack();
 		bool isActive(void);
+
+		// Animated Dead
+		bool isAnimDyingEnded();
+		void setAnimDyingEnded( Ogre::Real ticks );
 
 		////iceRPG
 		void createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation, unsigned int p_iDamage, bool p_bCritic);
@@ -83,12 +87,14 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG, public icePhysicEn
 		void updateActiveBullets(Ogre::Real p_timeSinceLastFrame);
 
 		// Animations
-		Ogre::AnimationState* mAttack01;
-		Ogre::AnimationState* mAttack02;
-		bool mbAnimAttack;
+		//Ogre::AnimationState* mAttack01;
+		//Ogre::AnimationState* mAttack02;
+		//bool mbAnimAttack;
 
 
 		Ogre::RaySceneQuery *mRaySceneQuery;
+
+		Ogre::Real mAnimDyingTicks;
 };
 
 #endif
