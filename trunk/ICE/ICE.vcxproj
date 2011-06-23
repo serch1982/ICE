@@ -125,8 +125,13 @@ if not exist "$(OutDir)logs" mkdir "$(OutDir)logs"</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="include\Sound\iceSoundManager.cpp" />
+    <ClCompile Include="src\Enemies\iceBoss.cpp" />
+    <ClCompile Include="src\Enemies\iceEnemy.cpp" />
+    <ClCompile Include="src\Enemies\iceKamikaze.cpp" />
+    <ClCompile Include="src\Enemies\iceMini.cpp" />
+    <ClCompile Include="src\Enemies\iceSmart.cpp" />
+    <ClCompile Include="src\Enemies\iceVolcano.cpp" />
     <ClCompile Include="src\Entities\iceBullet.cpp" />
-    <ClCompile Include="src\Entities\iceEnemy.cpp" />
     <ClCompile Include="src\Entities\iceObject.cpp" />
     <ClCompile Include="src\Entities\icePhysicEntity.cpp" />
     <ClCompile Include="src\Entities\icePlayer.cpp" />
@@ -156,8 +161,13 @@ if not exist "$(OutDir)logs" mkdir "$(OutDir)logs"</Command>
     <ClCompile Include="src\Utils\MovableTextOverlay.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Enemies\iceBoss.h" />
+    <ClInclude Include="include\Enemies\iceEnemy.h" />
+    <ClInclude Include="include\Enemies\iceKamikaze.h" />
+    <ClInclude Include="include\Enemies\iceMini.h" />
+    <ClInclude Include="include\Enemies\iceSmart.h" />
+    <ClInclude Include="include\Enemies\iceVolcano.h" />
     <ClInclude Include="include\Entities\iceBullet.h" />
-    <ClInclude Include="include\Entities\iceEnemy.h" />
     <ClInclude Include="include\Entities\iceObject.h" />
     <ClInclude Include="include\Entities\icePhysicEntity.h" />
     <ClInclude Include="include\Entities\icePlayer.h" />

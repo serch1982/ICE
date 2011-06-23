@@ -165,17 +165,8 @@ void iceLogicLua::bindLuaObjects(){
 				luabind::value("DEAD",4),
 				luabind::value("INACTIVE",5)
 			]
-			.enum_("ENEMYTYPE")
-			[
-				luabind::value("MINIMAGMATON",0),
-				luabind::value("KAMIKAZE",1),
-				luabind::value("SMART",2),
-				luabind::value("VOLCANO",3),
-				luabind::value("MAGMATON",4)
-			]
 		    .def("getState", &iceEnemy::getState )
 		    .def("setState", &iceEnemy::setState )
-			.def("getType", &iceEnemy::getType )
 			.def("isActive", &iceEnemy::isActive )
 			.def("isAlive", &iceEnemy::isAlive )
 			.def("isAnimDyingEnded", &iceEnemy::isAnimDyingEnded )
@@ -188,7 +179,7 @@ void iceLogicLua::bindLuaObjects(){
 
 //call the method of lua with the enemy logic and change his ENEMYSTATE 
 void iceLogicLua::getEnemyLogicState(iceEnemy *enemy, Ogre::Real p_timeSinceLastFrame){
-	try{
+	/*try{
 		unsigned int ret = -1;
 		if( enemy->getType() == enemy->KAMIKAZE ){
 			if(FuncExist("KamikazeLogic")){

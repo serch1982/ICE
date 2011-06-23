@@ -9,7 +9,7 @@ extern "C" {
 	#include "LUA51\lauxlib.h"
 }
 
-#include "Entities\iceEnemy.h"
+#include "Enemies\iceEnemy.h"
 #include "luabind\luabind.hpp"
 #include "luabind\operator.hpp"
 #include <Ogre.h>

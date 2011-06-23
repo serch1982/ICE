@@ -673,9 +673,9 @@ void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode, icePlayer &p_
 		Ogre::Real timeDev = (Ogre::Math::UnitRandom() - 0.5) * 2;
 		Ogre::Vector3 enemyPosition = position + dev;
 
-		iceEnemy* enemy = new iceEnemy();
+		iceEnemy* enemy = new iceMini();
 		mEnemyId = mEnemyId + 1000; 
-		enemy->initialize(mEnemyId,enemyPosition,&p_Player,time + timeDev,iceEnemy::MINIMAGMATON,false);
+		enemy->initialize(mEnemyId,enemyPosition,&p_Player,time + timeDev,false);
 		enemy->setLevel(time/30);//TODO
 		mEnemies.push_back(enemy);	
 	}
@@ -688,9 +688,9 @@ void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode, icePlayer &p_
 		Ogre::Real timeDev = (Ogre::Math::UnitRandom() - 0.5) * 2;
 		Ogre::Vector3 enemyPosition = position + dev;
 
-		iceEnemy* enemy = new iceEnemy();
+		iceEnemy* enemy = new iceKamikaze();
 		mEnemyId = mEnemyId + 1000;
-		enemy->initialize(mEnemyId,enemyPosition,&p_Player,time + timeDev,iceEnemy::KAMIKAZE,false);
+		enemy->initialize(mEnemyId,enemyPosition,&p_Player,time + timeDev,false);
 		enemy->setLevel(time/30);//TODO
 		mEnemies.push_back(enemy);
 	}
@@ -703,9 +703,9 @@ void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode, icePlayer &p_
 		Ogre::Real timeDev = (Ogre::Math::UnitRandom() - 0.5) * 2;
 		Ogre::Vector3 enemyPosition = position + dev;
 
-		iceEnemy* enemy = new iceEnemy();
+		iceEnemy* enemy = new iceSmart();
 		mEnemyId = mEnemyId + 1000;
-		enemy->initialize(mEnemyId,enemyPosition,&p_Player,time + timeDev,iceEnemy::SMART,false);
+		enemy->initialize(mEnemyId,enemyPosition,&p_Player,time + timeDev,false);
 		enemy->setLevel(time/30);//TODO
 		mEnemies.push_back(enemy);
 	}

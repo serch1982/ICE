@@ -4,7 +4,7 @@
 #include <vector>
 #include <Terrain/OgreTerrainGroup.h>
 #include "../Entities/icePlayer.h"
-#include "../Entities/iceEnemy.h"
+#include "../Enemies/iceEnemy.h"
 #include "../Entities/iceBullet.h"
 #include "Entities\iceObject.h"
 
