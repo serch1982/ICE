@@ -73,6 +73,12 @@
     <Filter Include="Source Files\Physics">
       <UniqueIdentifier>{108a1875-1cbb-4504-ad73-5357530c2669}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Enemies">
+      <UniqueIdentifier>{6fe9cb80-c5ad-4e9d-ae1d-96e68dcde755}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Enemies">
+      <UniqueIdentifier>{0277d11c-9cf0-456c-8024-4997d944658d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\iceMain.cpp">
@@ -120,9 +126,6 @@
     <ClCompile Include="src\Entities\iceBullet.cpp">
       <Filter>Source Files\Entities</Filter>
     </ClCompile>
-    <ClCompile Include="src\Entities\iceEnemy.cpp">
-      <Filter>Source Files\Entities</Filter>
-    </ClCompile>
     <ClCompile Include="src\Stats\icePlayerStats.cpp">
       <Filter>Source Files\Stats</Filter>
     </ClCompile>
@@ -164,6 +167,24 @@
     </ClCompile>
     <ClCompile Include="src\Utils\MovableTextOverlay.cpp">
       <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Enemies\iceBoss.cpp">
+      <Filter>Source Files\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Enemies\iceKamikaze.cpp">
+      <Filter>Source Files\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Enemies\iceSmart.cpp">
+      <Filter>Source Files\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Enemies\iceMini.cpp">
+      <Filter>Source Files\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Enemies\iceVolcano.cpp">
+      <Filter>Source Files\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Enemies\iceEnemy.cpp">
+      <Filter>Source Files\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -210,9 +231,6 @@
       <Filter>Header Files\Trajectory</Filter>
     </ClInclude>
     <ClInclude Include="include\Entities\iceBullet.h">
-      <Filter>Header Files\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Entities\iceEnemy.h">
       <Filter>Header Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="include\Stats\icePlayerStats.h">
@@ -262,6 +280,24 @@
     </ClInclude>
     <ClInclude Include="include\Utils\iceDamageTextManager.h">
       <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Enemies\iceVolcano.h">
+      <Filter>Header Files\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Enemies\iceMini.h">
+      <Filter>Header Files\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Enemies\iceKamikaze.h">
+      <Filter>Header Files\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Enemies\iceSmart.h">
+      <Filter>Header Files\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Enemies\iceBoss.h">
+      <Filter>Header Files\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Enemies\iceEnemy.h">
+      <Filter>Header Files\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

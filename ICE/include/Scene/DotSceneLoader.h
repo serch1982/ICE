@@ -13,7 +13,10 @@
 
 
 #include "Trajectory\iceStep.h"
-#include "Entities\iceEnemy.h"
+#include "Enemies\iceEnemy.h"
+#include "Enemies\iceKamikaze.h"
+#include "Enemies\iceMini.h"
+#include "Enemies\iceSmart.h"
 #include "Entities\iceObject.h"
  
 #include "rapidxml.hpp"

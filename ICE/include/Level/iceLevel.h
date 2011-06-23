@@ -6,7 +6,7 @@
 #include <OGRE/Ogre.h>
 #include <Terrain/OgreTerrainGroup.h>
 #include "Entities\icePlayer.h"
-#include "Entities\iceEnemy.h"
+#include "Enemies\iceEnemy.h"
 #include "Entities\iceObject.h"
 #include "Trajectory\iceLocomotiveTrajectory.h"
 

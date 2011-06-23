@@ -8,7 +8,7 @@
 #include "Level\iceLevel.h"
 #include "Utils\iceSdkTray.h"
 #include "Entities\icePlayer.h"
-#include "Entities\iceEnemy.h"
+#include "Enemies\iceEnemy.h"
 #include "Hikari.h"
 
 #include "Physics\icePhysics.h"
