@@ -164,6 +164,10 @@ void iceEnemy::update(Ogre::Real p_timeSinceLastFrame)
 	}*/
 }
 
+std::string iceEnemy::getFunctionStr(){
+	return "";
+}
+
 void iceEnemy::activate(void)
 {
 	mCurrentLife = getMaxLife();

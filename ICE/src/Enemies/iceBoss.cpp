@@ -13,13 +13,16 @@ bool iceBoss::initialize(int id, Ogre::Vector3 p_Position, icePlayer* p_psPlayer
 	
 	Ogre::SceneManager* sceneManager = iceGame::getSceneManager();
 
+	//creating a name
 	std::stringstream entityName;
 	entityName << "Entity_" << mNameGenerator.generate();
 
+	// loading the mesh and attaching it to he node
 	Ogre::Entity* mesh;
 	mesh = sceneManager->createEntity(entityName.str(), "magmaton.mesh");
-		
 	mNode->attachObject(mesh);
+
+	//init physics mesh
 	icePhysicEntity::initialize(mesh);
 
 	/*mAttack01 = mesh->getAnimationState( "Attack1" );
@@ -39,4 +42,8 @@ void iceBoss::finalize(){
 
 void iceBoss::update(Ogre::Real p_timeSinceLastFrame){
 	iceEnemy::update( p_timeSinceLastFrame );
+}
+
+std::string iceBoss::getFunctionStr(){
+	return "BossLogic";
 }

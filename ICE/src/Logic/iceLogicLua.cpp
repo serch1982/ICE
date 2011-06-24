@@ -170,6 +170,7 @@ void iceLogicLua::bindLuaObjects(){
 			.def("isActive", &iceEnemy::isActive )
 			.def("isAlive", &iceEnemy::isAlive )
 			.def("isAnimDyingEnded", &iceEnemy::isAnimDyingEnded )
+			.def("setAnimDyingEnded", &iceEnemy::setAnimDyingEnded )
 			//.def("checkActivationTime", (bool( iceEnemy::*)(Ogre::Real)) &iceEnemy::checkActivationTime)
 			//.def("isVisiblePlayerCam", (bool( iceEnemy::*)(void)) &iceEnemy::isVisiblePlayerCam)
 			//.def("isVisibleWideCam", (bool( iceEnemy::*)(void)) &iceEnemy::isVisibleWideCam)
@@ -179,6 +180,26 @@ void iceLogicLua::bindLuaObjects(){
 
 //call the method of lua with the enemy logic and change his ENEMYSTATE 
 void iceLogicLua::getEnemyLogicState(iceEnemy *enemy, Ogre::Real p_timeSinceLastFrame){
+	try{
+		unsigned int ret = -1;
+		std::string funcName;
+		funcName = enemy->getFunctionStr();
+		if( FuncExist( funcName.c_str() )){
+			luabind::call_function<void>(L, funcName.c_str(), enemy );
+			std::stringstream ss;
+			ss << enemy->getState();
+			_log->logMessage( ss.str() );
+		}else{
+			std::stringstream ss;
+			ss << "IA: function " << funcName << " does NOT exist";
+			_log->logMessage( ss.str() );
+		}
+	}catch(const luabind::error& err){
+			std::string errString = "LUA Function call failed: ";
+			errString.append(err.what()).append(" - ");
+			errString.append(lua_tostring(err.state(),-1));
+			_log->logMessage(errString);
+	}
 	/*try{
 		unsigned int ret = -1;
 		if( enemy->getType() == enemy->KAMIKAZE ){
@@ -199,30 +220,5 @@ void iceLogicLua::getEnemyLogicState(iceEnemy *enemy, Ogre::Real p_timeSinceLast
 			errString.append(err.what()).append(" - ");
 			errString.append(lua_tostring(err.state(),-1));
 			_log->logMessage(errString);
-		}
-	/*else if( enemy->getType() == enemy->MAGMATON ){
-		if(FuncExist("MagmatonLogic")){
-			ret = luabind::call_function<int>(L, "MagmatonLogic", enemy->getState());
-		}else
-			_log->logMessage("IA: function MagmatonLogic doesn't exist" );
-
-	}else if( enemy->getType() == enemy->MINIMAGMATON ){
-		if(FuncExist("MinimagmatonLogic")){
-			ret = luabind::call_function<int>(L, "MinimagmatonLogic", enemy->getState());
-		}else
-			_log->logMessage("IA: function MinimagmatonLogic doesn't exist" );
-
-	}else if( enemy->getType() == enemy->SMART ){
-		if(FuncExist("SmartLogic")){
-			ret = luabind::call_function<int>(L, "SmartLogic", enemy->getState());
-		}else
-			_log->logMessage("IA: function SmartLogic doesn't exist" );
-
-	}else if( enemy->getType() == enemy->VOLCANO ){
-		if(FuncExist("VolcanoLogic")){
-			ret = luabind::call_function<int>(L, "VolcanoLogic", enemy->getState());
-		}else
-			_log->logMessage("IA: function VolcanoLogic doesn't exist" );
-	}*/
-//	enemy->setState( ret );
+		}*/
 }
