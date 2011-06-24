@@ -24,51 +24,71 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG, public icePhysicEn
 			INACTIVE = 5
 		};
 
+		// getter and setter for state
 		void setState(ENEMYSTATE p_iState);
 		int getState(void);
 
+		// Setter for player pointer
 		void setPlayer(icePlayer* p_psPlayer);
-			
+
+		// Activation in the world
+		void activate(void);
+		// Waiting for activation
+		bool checkActivationTime(Ogre::Real p_timeSinceLastFrame);
+		// Is the enemy visible to the player
+		bool isVisiblePlayerCam();
+		// Is the enemy in the tube but not visible to the player?
+		bool isVisibleWideCam();
+		
+		float rangeAttack();
+		// Has been activated?
+		bool isActive(void);
+
+		// virtual functions for descendants
 		virtual bool initialize(int id, Ogre::Vector3 p_Position, icePlayer* p_psPlayer, Ogre::Real p_fActivationTime, const bool p_isAttachedToPlayer = false);
 		virtual void finalize();
 		virtual void update(Ogre::Real p_timeSinceLastFrame);
-		void activate(void);
-		bool checkActivationTime(Ogre::Real p_timeSinceLastFrame);
-		bool isVisiblePlayerCam();
-		bool isVisibleWideCam();
-		float rangeAttack();
-		bool isActive(void);
+		virtual std::string getFunctionStr();
 
 		// Animated Dead
 		bool isAnimDyingEnded();
 		void setAnimDyingEnded( Ogre::Real ticks );
 
 		////iceRPG
+		// enemy shot
 		void createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation, unsigned int p_iDamage, bool p_bCritic);
+		// Showing information to user
 		void showReceivedDamage(unsigned int p_iDamage, bool p_bCritical);
 		void showShieldDamage(unsigned int p_iDamage, bool p_bCritical);
 		void showFail(void);
 		void showLevelUp(unsigned int p_iLevel);
 		
+		//Obtain all bullets
 		std::vector<iceBullet*>* getAllBullets(void);
+		//Getter for the position
 		Ogre::Vector3 getWorldPosition(void);
+		// Debugging boxes
 		virtual void showBoundingBox(void);
 		virtual void hideBoundingBox(void);
 	protected:
+		// Generator for obtain a name for this instance
 		static Ogre::NameGenerator mNameGenerator;
 
+		//Attributes
 		ENEMYSTATE mState;
 		icePlayer* mPlayer;
 		Ogre::Real mCurrentTime;
 		Ogre::Real mActivationTime;
 		bool mShowingBoundingBox;
 
+		//Nodes, bullet necessary?
 		Ogre::SceneNode* enemyNode, *enemyBulletNode;
 
 		/*Bullet vectors depending on the weapon kind*/
 		/*iceBullet mvMachinegunBullets[BULLET_VECTOR_SIZE];
 		iceBullet mvShotgunBullets[BULLET_VECTOR_SIZE];
 		iceBullet mvMisilLauncherBullets[BULLET_VECTOR_SIZE];*/
+		// Bullet vectors
 		std::vector<iceBullet*> mvMachinegunBullets;
 		std::vector<iceBullet*> mvShotgunBullets;
 		std::vector<iceBullet*> mvMisilLauncherBullets;
@@ -78,10 +98,10 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG, public icePhysicEn
 		//Ogre::AnimationState* mAttack01;
 		//Ogre::AnimationState* mAttack02;
 		//bool mbAnimAttack;
-
-
+		
 		Ogre::RaySceneQuery *mRaySceneQuery;
 
+		// Controlling ticks for dying animation
 		Ogre::Real mAnimDyingTicks;
 };
 

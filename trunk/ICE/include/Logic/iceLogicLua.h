@@ -28,7 +28,7 @@ public:
 	void getEnemyLogicState(iceEnemy *enemy, Ogre::Real p_timeSinceLastFrame);
 	int RunSource( const char *source );
 protected:
-	  iceLogicLua();
+	iceLogicLua();
 
 private:
 	Ogre::Log* _log;
