@@ -1,0 +1,20 @@
+
+material iceflame
+{
+	technique
+	{
+		pass
+		{
+			scene_blend add
+			depth_write off
+
+			texture_unit pu_iceflame.png
+			{
+				texture_alias pu_iceflame.png
+				texture pu_iceflame.png
+			}
+		}
+
+	}
+
+}

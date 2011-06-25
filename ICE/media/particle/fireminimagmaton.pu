@@ -1,0 +1,49 @@
+system ice/fireminimagmaton
+{
+    category                                    ice
+    technique 
+    {
+        material                                ice/Fire
+        default_particle_width                  10
+        default_particle_height                 10
+        default_particle_depth                  10
+        spatial_hashing_cell_dimension          0
+        spatial_hashing_cell_overlap            10
+        renderer                                Billboard
+        {
+            render_queue_group                  100
+            common_direction                    0 -1 0
+            common_up_vector                    0 -1 0
+        }
+        emitter                                 Point 
+        {
+            emission_rate                       200
+            angle                               10
+            time_to_live                        1
+            velocity                            dyn_random
+            {
+                min                             10
+                max                             20
+            }
+            direction                           0 -1 0
+            orientation                         0 0 -1 0
+            start_orientation_range             0 0 0 0
+            end_orientation_range               0 0 0 0
+            auto_direction                      true
+        }
+        affector                                Gravity 
+        {
+            position                            0 200 0
+            gravity                             1000
+        }
+        affector                                Scale 
+        {
+            xyz_scale                           -1
+        }
+        affector                                Colour 
+        {
+            time_colour                         0    1 1 1 1
+            time_colour                         1    0 0 0 1
+        }
+    }
+}
