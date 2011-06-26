@@ -37,9 +37,6 @@
     <Filter Include="Header Files\Entities">
       <UniqueIdentifier>{0fe3e71a-bba6-4288-adfa-8b2a47aa08b4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Entities">
-      <UniqueIdentifier>{11c078bc-9fbd-4dd6-b8e1-18d715d3eafe}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Trajectory">
       <UniqueIdentifier>{c9876051-23eb-45f9-9c09-64ed04292b98}</UniqueIdentifier>
     </Filter>
@@ -78,6 +75,21 @@
     </Filter>
     <Filter Include="Source Files\Enemies">
       <UniqueIdentifier>{0277d11c-9cf0-456c-8024-4997d944658d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Effects">
+      <UniqueIdentifier>{ef1d9f7d-b9e6-4e93-b1b0-3ae82b1ad71e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Particles">
+      <UniqueIdentifier>{26e472d4-3553-4bd9-a47b-22234e80511f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Particles">
+      <UniqueIdentifier>{1cf34ccc-e1c7-4b9d-aa41-ad9316cffd19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Effects">
+      <UniqueIdentifier>{04e784f0-1ce0-4de9-8c88-9ee47cdb73d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Entities">
+      <UniqueIdentifier>{11c078bc-9fbd-4dd6-b8e1-18d715d3eafe}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -185,6 +197,15 @@
     </ClCompile>
     <ClCompile Include="src\Enemies\iceEnemy.cpp">
       <Filter>Source Files\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Effects\iceBillboard.cpp">
+      <Filter>Source Files\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Particle\iceParticle.cpp">
+      <Filter>Source Files\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Particle\iceParticleMgr.cpp">
+      <Filter>Source Files\Particles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -298,6 +319,15 @@
     </ClInclude>
     <ClInclude Include="include\Enemies\iceEnemy.h">
       <Filter>Header Files\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Effects\iceBillboard.h">
+      <Filter>Header Files\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Particle\iceParticle.h">
+      <Filter>Header Files\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Particle\iceParticleMgr.h">
+      <Filter>Header Files\Particles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

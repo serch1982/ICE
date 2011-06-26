@@ -18,7 +18,6 @@ iceBillboard::iceBillboard(Ogre::SceneNode* sceneNode, float lifeTime,BillType b
 			_sceneNode->setScale(0.1,0.1,0.1);
 			break;
 	}
-	//_sceneNode = iceGame::getSceneManager()->getRootSceneNode()->createChildSceneNode("bbcrash");
 	
 	_lifeTime =lifeTime;
 	_sceneNode->setVisible(false);

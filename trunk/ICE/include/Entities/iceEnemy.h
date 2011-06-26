@@ -6,6 +6,7 @@
 #include "icePlayer.h"
 #include "icePhysicEntity.h"
 #include "iceBullet.h"
+#include "Effects\iceBillboard.h"
 
 class iceEnemy : public iceTrajectoryFollower, public iceRPG, public icePhysicEntity
 {
@@ -61,7 +62,7 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG, public icePhysicEn
 		void showFail(void);
 		void showLevelUp(unsigned int p_iLevel);
 		
-		vector<iceBullet*>* getAllBullets(void);
+		std::vector<iceBullet*>* getAllBullets(void);
 		Ogre::Vector3 getWorldPosition(void);
 		virtual void showBoundingBox(void);
 		virtual void hideBoundingBox(void);
@@ -81,9 +82,9 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG, public icePhysicEn
 		/*iceBullet mvMachinegunBullets[BULLET_VECTOR_SIZE];
 		iceBullet mvShotgunBullets[BULLET_VECTOR_SIZE];
 		iceBullet mvMisilLauncherBullets[BULLET_VECTOR_SIZE];*/
-		vector<iceBullet*> mvMachinegunBullets;
-		vector<iceBullet*> mvShotgunBullets;
-		vector<iceBullet*> mvMisilLauncherBullets;
+		std::vector<iceBullet*> mvMachinegunBullets;
+		std::vector<iceBullet*> mvShotgunBullets;
+		std::vector<iceBullet*> mvMisilLauncherBullets;
 		void updateActiveBullets(Ogre::Real p_timeSinceLastFrame);
 
 		// Animations
@@ -93,7 +94,7 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG, public icePhysicEn
 
 
 		Ogre::RaySceneQuery *mRaySceneQuery;
-
+    iceBillboard* mBillboard;
 		Ogre::Real mAnimDyingTicks;
 };
 

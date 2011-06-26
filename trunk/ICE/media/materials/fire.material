@@ -1,4 +1,4 @@
-material Smoke
+material ice/Smoke
 {
     technique
     {
@@ -17,7 +17,7 @@ material Smoke
     }
 }
 
-material Fire
+material ice/Fire
 {
     technique
     {
