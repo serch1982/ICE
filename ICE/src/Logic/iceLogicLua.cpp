@@ -180,12 +180,17 @@ void iceLogicLua::bindLuaObjects(){
 
 //call the method of lua with the enemy logic and change his ENEMYSTATE 
 void iceLogicLua::getEnemyLogicState(iceEnemy *enemy, Ogre::Real p_timeSinceLastFrame){
+	// try catch for luabind
 	try{
 		unsigned int ret = -1;
+		// we need the name of the function
 		std::string funcName;
 		funcName = enemy->getFunctionStr();
+		//Check if the function exists
 		if( FuncExist( funcName.c_str() )){
+			//call Lua Function
 			luabind::call_function<void>(L, funcName.c_str(), enemy );
+			// log
 			std::stringstream ss;
 			ss << enemy->getState();
 			_log->logMessage( ss.str() );
@@ -195,6 +200,7 @@ void iceLogicLua::getEnemyLogicState(iceEnemy *enemy, Ogre::Real p_timeSinceLast
 			_log->logMessage( ss.str() );
 		}
 	}catch(const luabind::error& err){
+			//Catch and log the message
 			std::string errString = "LUA Function call failed: ";
 			errString.append(err.what()).append(" - ");
 			errString.append(lua_tostring(err.state(),-1));

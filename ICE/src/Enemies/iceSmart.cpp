@@ -35,6 +35,53 @@ void iceSmart::finalize(){
 
 void iceSmart::update(Ogre::Real p_timeSinceLastFrame){
 	iceEnemy::update( p_timeSinceLastFrame );
+
+	switch(mState)
+	{
+		case STOPPED:
+			/*if (!isAlive())
+				mState = DYING;*/
+			break;
+		case FOLLOWING_TRAJECTORY:
+			//iceTrajectoryFollower::update(p_timeSinceLastFrame); Hay que hablar sobre trayectorias de enemigos
+			mTrajectory->lookAt();//TODO
+			/*if (!isAlive())
+				mState = DYING;*/
+			break;
+		case ATTACK: 
+			mTrajectory->lookAt(); //TODO
+			iceRPG::update(p_timeSinceLastFrame);
+			shot();
+			updateActiveBullets(p_timeSinceLastFrame);
+			/*if (!isAlive())
+				mState = DYING;*/
+			//iceTrajectoryFollower::update(p_timeSinceLastFrame); Hay que hablar sobre trayectorias de enemigos
+			break;
+		case DYING:
+			mBillboard->start(enemyNode->_getDerivedPosition());
+			iceGame::getGameLog()->logMessage("Enemy killed!");
+			mPlayer->addExperience(mLevel * 10000);
+			mAnimDyingTicks++;
+			//iceTrajectoryFollower::update(p_timeSinceLastFrame); Hay que hablar sobre trayectorias de enemigos
+			//Dead sequence...
+			//When dead sequence finished:
+			//mState = INACTIVE;
+			break;
+		case INACTIVE:
+			if(checkActivationTime(p_timeSinceLastFrame))
+			{//active
+				activate();
+			}
+			else
+			{//inactive
+				mNode->setVisible(false);
+				if(mShowingBoundingBox)
+				{
+					icePhysicEntity::hideBoundingBox();
+				}
+			}
+			break;
+	}
 }
 
 std::string iceSmart::getFunctionStr(){

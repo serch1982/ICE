@@ -16,7 +16,13 @@ public:
 	virtual void update(Ogre::Real p_timeSinceLastFrame);
 	// getter for the LUA function name
 	virtual std::string getFunctionStr();
+	virtual void setState(ENEMYSTATE p_iState);
 	//virtual void logic();
+
+private:
+	Ogre::Vector3 mTargetPosition;
+	Ogre::Vector3 mVelocity;
+	int	mRenewTarget;
 };
 
 #endif

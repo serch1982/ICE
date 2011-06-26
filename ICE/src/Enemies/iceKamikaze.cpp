@@ -3,6 +3,7 @@
 
 iceKamikaze::iceKamikaze(){
 	iceEnemy::iceEnemy();
+	mRenewTarget = 100;
 }
 
 iceKamikaze::~iceKamikaze(){}
@@ -33,9 +34,93 @@ void iceKamikaze::finalize(){
 }
 
 void iceKamikaze::update(Ogre::Real p_timeSinceLastFrame){
-	iceEnemy::update( p_timeSinceLastFrame );
+	switch(mState)
+	{
+		case STOPPED:
+			mTrajectory->lookAt();
+			/*if (!isAlive())
+				mState = DYING;*/
+			break;
+		case FOLLOWING_TRAJECTORY:
+			//iceTrajectoryFollower::update(p_timeSinceLastFrame); Hay que hablar sobre trayectorias de enemigos
+			mTrajectory->lookAt();//TODO
+			/*if (!isAlive())
+				mState = DYING;*/
+			break;
+		case ATTACK: 
+			//mTrajectory->lookAt(); //TODO
+			iceRPG::update(p_timeSinceLastFrame);
+			enemyNode->translate( mVelocity * p_timeSinceLastFrame );
+			mRenewTarget--;
+			if( mRenewTarget == 0 ){
+				/*Ogre::Vector3 playerPos;
+				Ogre::Vector3 kamikazePos;
+				//Get Player position relative to his parent
+				playerPos = mPlayer->shipNode->getPosition();
+				//Convert playerPos to World Coordinates
+				mTargetPosition = mPlayer->shipNode->convertLocalToWorldPosition(playerPos);
+				//Get Kamikaze WORLD position
+				kamikazePos = enemyNode->convertLocalToWorldPosition( kamikazePos );
+				//mVelocity = (mTargetPosition-kamikazePos) / 0.7; //Provisional
+				mRenewTarget = 100;*/
+			}
+			break;
+		case DYING:
+			iceGame::getGameLog()->logMessage("Enemy killed! DYING");
+			mAnimDyingTicks++;
+			break;
+		case INACTIVE:
+			if(checkActivationTime(p_timeSinceLastFrame))
+			{//active
+				activate();
+			}
+			else
+			{//inactive
+				mNode->setVisible(false);
+				if(mShowingBoundingBox)
+				{
+					icePhysicEntity::hideBoundingBox();
+				}
+			}
+			break;
+	}
+	//to update billboard
+	mBillboard->update(p_timeSinceLastFrame);
 }
 
 std::string iceKamikaze::getFunctionStr(){
 	return "KamikazeLogic";
+}
+
+void iceKamikaze::setState(ENEMYSTATE p_iState){
+	mState = p_iState;
+	Ogre::Vector3 playerPos;
+	Ogre::Vector3 kamikazePos(0.0f,0.0f,0.0f);
+	std::stringstream msg;
+	switch(mState){
+		case ATTACK:
+			//Get Player position relative to his parent
+			playerPos = mPlayer->shipNode->getPosition();
+			//Convert playerPos to World Coordinates
+			mTargetPosition = mPlayer->shipNode->convertLocalToWorldPosition(playerPos);
+			//Get Kamikaze WORLD position
+			kamikazePos = enemyNode->convertLocalToWorldPosition( kamikazePos );
+			mVelocity = (mTargetPosition-kamikazePos) / 0.7; //Provisional
+			mRenewTarget = 100;
+			//LOG
+			msg << "PlayerPos:      X: "<< playerPos.x << "\tY: " << playerPos.y << "\tZ: " << playerPos.z << std::endl;
+			msg << "mTargetPostion: X: " << mTargetPosition.x << "\tY: " << mTargetPosition.y << "\tZ: " << mTargetPosition.z << std::endl;
+			msg << "kamikazePos:    X: " << kamikazePos.x << "\tY: " << kamikazePos.y << "\tZ: " << kamikazePos.z << std::endl;
+			msg << "Velocity:       X: " << mVelocity.x << "\tY: " << mVelocity.y << "\tZ: " << mVelocity.z << std::endl;
+			mLog->logMessage( msg.str() );
+			break;
+		case DYING:
+			mAnimDyingTicks = 0;
+			mBillboard->start(enemyNode->_getDerivedPosition());
+			break;
+		case DEAD:
+			mPlayer->addExperience(mLevel * 10000);
+		default:
+			break;
+	}
 }

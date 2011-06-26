@@ -30,7 +30,7 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG, public icePhysicEn
 		Ogre::SceneNode* getEnemySceneNode(void);
 
 		// getter and setter for state
-		void setState(ENEMYSTATE p_iState);
+		virtual void setState(ENEMYSTATE p_iState);
 		int getState(void);
 
 		// Setter for player pointer
@@ -110,7 +110,10 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG, public icePhysicEn
 		Ogre::Real mAnimDyingTicks;
 
 		//effect billboard
-		iceBillboard* mBillboard;
+		iceBillboard* mBillboard;	
+
+		// DEBUG
+		Ogre::Log* mLog;
 };
 
 #endif
