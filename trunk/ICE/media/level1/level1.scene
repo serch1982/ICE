@@ -19,8 +19,8 @@
         </viewport>
         <camera name="intViewCamera1" viewMode="0" polyMode="3" fov="45">
             <clipping near="1" far="10000" />
-            <position x="-1566.26" y="134.891" z="-326.603" />
-            <rotation qw="-0.0495011" qx="0.00101998" qy="0.998682" qz="0.0207645" />
+            <position x="1462.54" y="302.504" z="-1501.09" />
+            <rotation qw="-0.9414" qx="0.336514" qy="0.0256159" qz="0.00815849" />
         </camera>
     </environment>
     <terrain worldSize="4000" mapSize="257" pagenameprefix="Page" colourmapEnabled="false" colourMapTextureSize="128" tuningCompositeMapDistance="1000" tuningMaxPixelError="3" tuningMinBatchSize="33" tuningMaxBatchSize="65">
@@ -29,62 +29,6 @@
         </terrainPages>
     </terrain>
     <nodes>
-        <node name="step#06" id="806238016">
-            <position x="1806.97" y="48" z="1560.4" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.5" y="0.5" z="0.5" />
-            <entity name="step#06" meshFile="cube.mesh" castShadows="false">
-                <subentity index="0" materialName="BaseWhite" />
-                <userData>
-                    <property type="2" name="time" data="65" />
-                    <property type="2" name="MiniMagmaton" data="4" />
-                    <property type="2" name="Kamikace" data="4" />
-                    <property type="2" name="Intelligent" data="4" />
-                </userData>
-            </entity>
-        </node>
-        <node name="step#12" id="242866288">
-            <position x="-529.567" y="66.3249" z="1542.67" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.5" y="0.5" z="0.5" />
-            <entity name="step#12" meshFile="cube.mesh" castShadows="false">
-                <subentity index="0" materialName="BaseWhite" />
-                <userData>
-                    <property type="2" name="time" data="107" />
-                    <property type="2" name="MiniMagmaton" data="3" />
-                    <property type="2" name="Kamikace" data="0" />
-                    <property type="2" name="Intelligent" data="3" />
-                </userData>
-            </entity>
-        </node>
-        <node name="step#21" id="707907328">
-            <position x="-1577.06" y="84.113" z="-531.198" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.397228" y="0.5" z="0.5" />
-            <entity name="step#21" meshFile="cube.mesh" castShadows="false">
-                <subentity index="0" materialName="BaseWhite" />
-                <userData>
-                    <property type="2" name="time" data="158" />
-                    <property type="2" name="MiniMagmaton" data="4" />
-                    <property type="2" name="Kamikace" data="4" />
-                    <property type="2" name="Intelligent" data="4" />
-                </userData>
-            </entity>
-        </node>
-        <node name="step#01" id="446028032">
-            <position x="1838.71" y="49.1091" z="-1226.85" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.5" y="0.5" z="0.5" />
-            <entity name="step#01" meshFile="cube.mesh" castShadows="false">
-                <subentity index="0" materialName="BaseWhite" />
-                <userData>
-                    <property type="2" name="time" data="10" />
-                    <property type="2" name="MiniMagmaton" data="1" />
-                    <property type="2" name="Kamikace" data="1" />
-                    <property type="2" name="Intelligent" data="1" />
-                </userData>
-            </entity>
-        </node>
         <node name="step#09" id="436689344">
             <position x="625.605" y="-82.8812" z="1553.17" />
             <rotation qw="1" qx="0" qy="0" qz="0" />
@@ -96,20 +40,6 @@
                     <property type="2" name="MiniMagmaton" data="0" />
                     <property type="2" name="Kamikace" data="6" />
                     <property type="2" name="Intelligent" data="0" />
-                </userData>
-            </entity>
-        </node>
-        <node name="step#13" id="620380288">
-            <position x="-1025.33" y="62.803" z="1542.67" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.5" y="0.5" z="0.5" />
-            <entity name="step#13" meshFile="cube.mesh" castShadows="false">
-                <subentity index="0" materialName="BaseWhite" />
-                <userData>
-                    <property type="2" name="time" data="115" />
-                    <property type="2" name="MiniMagmaton" data="0" />
-                    <property type="2" name="Kamikace" data="3" />
-                    <property type="2" name="Intelligent" data="3" />
                 </userData>
             </entity>
         </node>
@@ -127,8 +57,127 @@
                 </userData>
             </entity>
         </node>
+        <node name="step#02" id="418042528">
+            <position x="1838.71" y="49.1091" z="-64.517" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.5" y="0.5" z="0.5" />
+            <entity name="step#02" meshFile="cube.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="30" />
+                    <property type="2" name="MiniMagmaton" data="2" />
+                    <property type="2" name="Kamikace" data="2" />
+                    <property type="2" name="Intelligent" data="2" />
+                </userData>
+            </entity>
+        </node>
+        <node name="trajectory1#0" id="152653584">
+            <position x="1107.01" y="-62.4837" z="-1832.06" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.0903487" y="0.0903487" z="0.0903487" />
+            <entity name="trajectory1#0" meshFile="sphere.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="0" />
+                    <property type="2" name="trajectoryNumber" data="1" />
+                </userData>
+            </entity>
+        </node>
+        <node name="trajectory2#2" id="480605472">
+            <position x="1554.47" y="13.232" z="-1786.36" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.0903487" y="0.0903487" z="0.0903487" />
+            <entity name="trajectory2#2" meshFile="sphere.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="10" />
+                    <property type="2" name="trajectoryNumber" data="2" />
+                </userData>
+            </entity>
+        </node>
+        <node name="step#12" id="242866288">
+            <position x="-529.567" y="66.3249" z="1542.67" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.5" y="0.5" z="0.5" />
+            <entity name="step#12" meshFile="cube.mesh" castShadows="false">
+                <subentity index="0" materialName="2 - Default" />
+                <userData>
+                    <property type="2" name="time" data="107" />
+                    <property type="2" name="MiniMagmaton" data="3" />
+                    <property type="2" name="Kamikace" data="0" />
+                    <property type="2" name="Intelligent" data="3" />
+                </userData>
+            </entity>
+        </node>
+        <node name="step#19" id="501205504">
+            <position x="-1577.12" y="77.3219" z="896.741" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.5" y="0.5" z="0.5" />
+            <entity name="step#19" meshFile="cube.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="138" />
+                    <property type="2" name="MiniMagmaton" data="5" />
+                    <property type="2" name="Kamikace" data="5" />
+                    <property type="2" name="Intelligent" data="0" />
+                </userData>
+            </entity>
+        </node>
+        <node name="Waterfall" id="874782592">
+            <position x="1905.63" y="47.7286" z="1655.07" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="1" y="1" z="1" />
+            <node name="waterfall#0" id="323221536">
+                <position x="-168.515" y="-135.759" z="-42.5139" />
+                <rotation qw="-0.0348997" qx="0" qy="0.999391" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="waterfall#0" meshFile="waterfall.mesh" castShadows="false">
+                    <subentity index="0" materialName="Waterfall_mat" />
+                </entity>
+            </node>
+        </node>
+        <node name="step#07" id="852626176">
+            <position x="1675.42" y="48" z="1597.44" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.5" y="0.5" z="0.5" />
+            <entity name="step#07" meshFile="cube.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="68" />
+                    <property type="2" name="MiniMagmaton" data="3" />
+                    <property type="2" name="Kamikace" data="3" />
+                    <property type="2" name="Intelligent" data="3" />
+                </userData>
+            </entity>
+        </node>
+        <node name="step#22" id="229438160">
+            <position x="-1571.68" y="82.8147" z="-854.828" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.5" y="0.5" z="0.5" />
+            <entity name="step#22" meshFile="cube.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="165" />
+                    <property type="2" name="MiniMagmaton" data="0" />
+                    <property type="2" name="Kamikace" data="10" />
+                    <property type="2" name="Intelligent" data="0" />
+                </userData>
+            </entity>
+        </node>
+        <node name="trajectory2#1" id="342539744">
+            <position x="1378.27" y="-44.1375" z="-1778.48" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.0903487" y="0.0903487" z="0.0903487" />
+            <entity name="trajectory2#1" meshFile="sphere.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="5" />
+                    <property type="2" name="trajectoryNumber" data="2" />
+                </userData>
+            </entity>
+        </node>
         <node name="step#00" id="829767744">
-            <position x="1838.71" y="49.1091" z="-1904.51" />
+            <position x="1838.71" y="49.1091" z="-1381.03" />
             <rotation qw="1" qx="0" qy="0" qz="0" />
             <scale x="0.5" y="0.5" z="0.5" />
             <entity name="step#00" meshFile="cube.mesh" castShadows="false">
@@ -136,6 +185,43 @@
                 <userData>
                     <property type="2" name="time" data="0" />
                     <property type="2" name="MiniMagmaton" data="0" />
+                    <property type="2" name="Kamikace" data="0" />
+                    <property type="2" name="Intelligent" data="0" />
+                </userData>
+            </entity>
+        </node>
+        <node name="step#11" id="565752128">
+            <position x="-187.61" y="107.186" z="1542.67" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.5" y="0.5" z="0.5" />
+            <entity name="step#11" meshFile="cube.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="100" />
+                    <property type="2" name="MiniMagmaton" data="3" />
+                    <property type="2" name="Kamikace" data="3" />
+                    <property type="2" name="Intelligent" data="0" />
+                </userData>
+            </entity>
+        </node>
+        <node name="magmaton#0" id="682241280">
+            <position x="129.612" y="134.31" z="-364.093" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="3" y="3" z="3" />
+            <entity name="magmaton#0" meshFile="magmaton.mesh" castShadows="false">
+                <subentity index="0" materialName="Scene_Material" />
+                <subentity index="1" materialName="Material37" />
+            </entity>
+        </node>
+        <node name="step#14" id="614703808">
+            <position x="-1219.57" y="67.2892" z="1542.67" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.5" y="0.5" z="0.5" />
+            <entity name="step#14" meshFile="cube.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="119" />
+                    <property type="2" name="MiniMagmaton" data="7" />
                     <property type="2" name="Kamikace" data="0" />
                     <property type="2" name="Intelligent" data="0" />
                 </userData>
@@ -155,73 +241,15 @@
                 </userData>
             </entity>
         </node>
-        <node name="step#10" id="437726976">
-            <position x="147.893" y="32.4524" z="1553.17" />
+        <node name="trajectory2#4" id="492629760">
+            <position x="1793.33" y="79.5532" z="-1580.82" />
             <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.5" y="0.5" z="0.5" />
-            <entity name="step#10" meshFile="cube.mesh" castShadows="false">
+            <scale x="0.0903487" y="0.0903487" z="0.0903487" />
+            <entity name="trajectory2#4" meshFile="sphere.mesh" castShadows="false">
                 <subentity index="0" materialName="BaseWhite" />
                 <userData>
-                    <property type="2" name="time" data="94" />
-                    <property type="2" name="MiniMagmaton" data="0" />
-                    <property type="2" name="Kamikace" data="0" />
-                    <property type="2" name="Intelligent" data="6" />
-                </userData>
-            </entity>
-        </node>
-        <node name="step#18" id="820001856">
-            <position x="-1538.46" y="76.6607" z="1276.91" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.5" y="0.5" z="0.5" />
-            <entity name="step#18" meshFile="cube.mesh" castShadows="false">
-                <subentity index="0" materialName="BaseWhite" />
-                <userData>
-                    <property type="2" name="time" data="132" />
-                    <property type="2" name="MiniMagmaton" data="5" />
-                    <property type="2" name="Kamikace" data="0" />
-                    <property type="2" name="Intelligent" data="5" />
-                </userData>
-            </entity>
-        </node>
-        <node name="step#03" id="532883712">
-            <position x="1824" y="48" z="336" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.5" y="0.5" z="0.5" />
-            <entity name="step#03" meshFile="cube.mesh" castShadows="false">
-                <subentity index="0" materialName="BaseWhite" />
-                <userData>
-                    <property type="2" name="time" data="37" />
-                    <property type="2" name="MiniMagmaton" data="3" />
-                    <property type="2" name="Kamikace" data="3" />
-                    <property type="2" name="Intelligent" data="3" />
-                </userData>
-            </entity>
-        </node>
-        <node name="step#11" id="565752128">
-            <position x="-187.61" y="107.186" z="1542.67" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.5" y="0.5" z="0.5" />
-            <entity name="step#11" meshFile="cube.mesh" castShadows="false">
-                <subentity index="0" materialName="BaseWhite" />
-                <userData>
-                    <property type="2" name="time" data="100" />
-                    <property type="2" name="MiniMagmaton" data="3" />
-                    <property type="2" name="Kamikace" data="3" />
-                    <property type="2" name="Intelligent" data="0" />
-                </userData>
-            </entity>
-        </node>
-        <node name="step#19" id="501205504">
-            <position x="-1577.12" y="77.3219" z="896.741" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.5" y="0.5" z="0.5" />
-            <entity name="step#19" meshFile="cube.mesh" castShadows="false">
-                <subentity index="0" materialName="BaseWhite" />
-                <userData>
-                    <property type="2" name="time" data="138" />
-                    <property type="2" name="MiniMagmaton" data="5" />
-                    <property type="2" name="Kamikace" data="5" />
-                    <property type="2" name="Intelligent" data="0" />
+                    <property type="2" name="time" data="20" />
+                    <property type="2" name="trajectoryNumber" data="2" />
                 </userData>
             </entity>
         </node>
@@ -574,43 +602,6 @@
                 </entity>
             </node>
         </node>
-        <node name="step#02" id="418042528">
-            <position x="1838.71" y="49.1091" z="-64.517" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.5" y="0.5" z="0.5" />
-            <entity name="step#02" meshFile="cube.mesh" castShadows="false">
-                <subentity index="0" materialName="BaseWhite" />
-                <userData>
-                    <property type="2" name="time" data="30" />
-                    <property type="2" name="MiniMagmaton" data="2" />
-                    <property type="2" name="Kamikace" data="2" />
-                    <property type="2" name="Intelligent" data="2" />
-                </userData>
-            </entity>
-        </node>
-        <node name="step#16" id="326914272">
-            <position x="-1486.72" y="72.5899" z="1500.15" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.5" y="0.5" z="0.5" />
-            <entity name="step#16" meshFile="cube.mesh" castShadows="false">
-                <subentity index="0" materialName="BaseWhite" />
-                <userData>
-                    <property type="2" name="time" data="126" />
-                    <property type="2" name="MiniMagmaton" data="0" />
-                    <property type="2" name="Kamikace" data="7" />
-                    <property type="2" name="Intelligent" data="0" />
-                </userData>
-            </entity>
-        </node>
-        <node name="magmaton#0" id="682241280">
-            <position x="129.612" y="134.31" z="-364.093" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="3" y="3" z="3" />
-            <entity name="magmaton#0" meshFile="magmaton.mesh" castShadows="false">
-                <subentity index="0" materialName="Scene_Material" />
-                <subentity index="1" materialName="Material37" />
-            </entity>
-        </node>
         <node name="step#05" id="600238016">
             <position x="1806.97" y="48" z="1343.97" />
             <rotation qw="1" qx="0" qy="0" qz="0" />
@@ -622,20 +613,6 @@
                     <property type="2" name="MiniMagmaton" data="5" />
                     <property type="2" name="Kamikace" data="5" />
                     <property type="2" name="Intelligent" data="5" />
-                </userData>
-            </entity>
-        </node>
-        <node name="step#17" id="76601464">
-            <position x="-1523.67" y="73.2411" z="1388.64" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.5" y="0.5" z="0.5" />
-            <entity name="step#17" meshFile="cube.mesh" castShadows="false">
-                <subentity index="0" materialName="BaseWhite" />
-                <userData>
-                    <property type="2" name="time" data="129" />
-                    <property type="2" name="MiniMagmaton" data="4" />
-                    <property type="2" name="Kamikace" data="4" />
-                    <property type="2" name="Intelligent" data="4" />
                 </userData>
             </entity>
         </node>
@@ -653,19 +630,6 @@
                 </userData>
             </entity>
         </node>
-        <node name="Waterfall" id="874782592">
-            <position x="1905.63" y="47.7286" z="1655.07" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="1" y="1" z="1" />
-            <node name="waterfall#0" id="323221536">
-                <position x="-168.515" y="-135.759" z="-42.5139" />
-                <rotation qw="-0.0348997" qx="0" qy="0.999391" qz="0" />
-                <scale x="1" y="1" z="1" />
-                <entity name="waterfall#0" meshFile="waterfall.mesh" castShadows="false">
-                    <subentity index="0" materialName="Waterfall_mat" />
-                </entity>
-            </node>
-        </node>
         <node name="nave#0" id="70375680">
             <position x="-0.418793" y="8.97921" z="-33.299" />
             <rotation qw="1" qx="0" qy="0" qz="0" />
@@ -674,59 +638,121 @@
                 <subentity index="0" materialName="BaseWhite" />
             </entity>
         </node>
-        <node name="step#04" id="966612736">
-            <position x="1819.56" y="48" z="1186.18" />
+        <node name="trajectory1#3" id="656758336">
+            <position x="1819.52" y="27.4158" z="-1396.78" />
             <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.5" y="0.5" z="0.5" />
-            <entity name="step#04" meshFile="cube.mesh" castShadows="false">
+            <scale x="0.0903487" y="0.0903487" z="0.0903487" />
+            <entity name="trajectory1#3" meshFile="sphere.mesh" castShadows="false">
                 <subentity index="0" materialName="BaseWhite" />
                 <userData>
-                    <property type="2" name="time" data="53" />
+                    <property type="2" name="time" data="13" />
+                    <property type="2" name="trajectoryNumber" data="1" />
+                </userData>
+            </entity>
+        </node>
+        <node name="trajectory2#3" id="946104320">
+            <position x="1681.12" y="-13.446" z="-1765.82" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.0903487" y="0.0903487" z="0.0903487" />
+            <entity name="trajectory2#3" meshFile="sphere.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="15" />
+                    <property type="2" name="trajectoryNumber" data="2" />
+                </userData>
+            </entity>
+        </node>
+        <node name="step#13" id="620380288">
+            <position x="-1025.33" y="62.803" z="1542.67" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.5" y="0.5" z="0.5" />
+            <entity name="step#13" meshFile="cube.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="115" />
+                    <property type="2" name="MiniMagmaton" data="0" />
+                    <property type="2" name="Kamikace" data="3" />
+                    <property type="2" name="Intelligent" data="3" />
+                </userData>
+            </entity>
+        </node>
+        <node name="trajectory1#4" id="578569920">
+            <position x="1819.52" y="27.4158" z="-1213.61" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.0903487" y="0.0903487" z="0.0903487" />
+            <entity name="trajectory1#4" meshFile="sphere.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="20" />
+                    <property type="2" name="trajectoryNumber" data="1" />
+                </userData>
+            </entity>
+        </node>
+        <node name="step#16" id="326914272">
+            <position x="-1486.72" y="72.5899" z="1500.15" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.5" y="0.5" z="0.5" />
+            <entity name="step#16" meshFile="cube.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="126" />
+                    <property type="2" name="MiniMagmaton" data="0" />
+                    <property type="2" name="Kamikace" data="7" />
+                    <property type="2" name="Intelligent" data="0" />
+                </userData>
+            </entity>
+        </node>
+        <node name="step#06" id="806238016">
+            <position x="1806.97" y="48" z="1560.4" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.5" y="0.5" z="0.5" />
+            <entity name="step#06" meshFile="cube.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="65" />
                     <property type="2" name="MiniMagmaton" data="4" />
                     <property type="2" name="Kamikace" data="4" />
                     <property type="2" name="Intelligent" data="4" />
                 </userData>
             </entity>
         </node>
-        <node name="step#14" id="614703808">
-            <position x="-1219.57" y="67.2892" z="1542.67" />
+        <node name="step#21" id="707907328">
+            <position x="-1577.06" y="84.113" z="-531.198" />
             <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.5" y="0.5" z="0.5" />
-            <entity name="step#14" meshFile="cube.mesh" castShadows="false">
+            <scale x="0.397228" y="0.5" z="0.5" />
+            <entity name="step#21" meshFile="cube.mesh" castShadows="false">
                 <subentity index="0" materialName="BaseWhite" />
                 <userData>
-                    <property type="2" name="time" data="119" />
-                    <property type="2" name="MiniMagmaton" data="7" />
-                    <property type="2" name="Kamikace" data="0" />
-                    <property type="2" name="Intelligent" data="0" />
+                    <property type="2" name="time" data="158" />
+                    <property type="2" name="MiniMagmaton" data="4" />
+                    <property type="2" name="Kamikace" data="4" />
+                    <property type="2" name="Intelligent" data="4" />
                 </userData>
             </entity>
         </node>
-        <node name="step#23" id="585558656">
-            <position x="-1599.97" y="84.5011" z="-1094.57" />
+        <node name="step#03" id="532883712">
+            <position x="1824" y="48" z="336" />
             <rotation qw="1" qx="0" qy="0" qz="0" />
             <scale x="0.5" y="0.5" z="0.5" />
-            <entity name="step#23" meshFile="cube.mesh" castShadows="false">
+            <entity name="step#03" meshFile="cube.mesh" castShadows="false">
                 <subentity index="0" materialName="BaseWhite" />
                 <userData>
-                    <property type="2" name="time" data="175" />
-                    <property type="2" name="MiniMagmaton" data="0" />
-                    <property type="2" name="Kamikace" data="10" />
-                    <property type="2" name="Intelligent" data="0" />
-                </userData>
-            </entity>
-        </node>
-        <node name="step#07" id="852626176">
-            <position x="1675.42" y="48" z="1597.44" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.5" y="0.5" z="0.5" />
-            <entity name="step#07" meshFile="cube.mesh" castShadows="false">
-                <subentity index="0" materialName="BaseWhite" />
-                <userData>
-                    <property type="2" name="time" data="68" />
+                    <property type="2" name="time" data="37" />
                     <property type="2" name="MiniMagmaton" data="3" />
                     <property type="2" name="Kamikace" data="3" />
                     <property type="2" name="Intelligent" data="3" />
+                </userData>
+            </entity>
+        </node>
+        <node name="trajectory1#1" id="922482944">
+            <position x="1446.05" y="-33.0499" z="-1832.06" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.0903487" y="0.0903487" z="0.0903487" />
+            <entity name="trajectory1#1" meshFile="sphere.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="5" />
+                    <property type="2" name="trajectoryNumber" data="1" />
                 </userData>
             </entity>
         </node>
@@ -744,17 +770,111 @@
                 </userData>
             </entity>
         </node>
-        <node name="step#22" id="229438160">
-            <position x="-1571.68" y="82.8147" z="-854.828" />
+        <node name="step#18" id="820001856">
+            <position x="-1538.46" y="76.6607" z="1276.91" />
             <rotation qw="1" qx="0" qy="0" qz="0" />
             <scale x="0.5" y="0.5" z="0.5" />
-            <entity name="step#22" meshFile="cube.mesh" castShadows="false">
+            <entity name="step#18" meshFile="cube.mesh" castShadows="false">
                 <subentity index="0" materialName="BaseWhite" />
                 <userData>
-                    <property type="2" name="time" data="165" />
+                    <property type="2" name="time" data="132" />
+                    <property type="2" name="MiniMagmaton" data="5" />
+                    <property type="2" name="Kamikace" data="0" />
+                    <property type="2" name="Intelligent" data="5" />
+                </userData>
+            </entity>
+        </node>
+        <node name="step#04" id="966612736">
+            <position x="1819.56" y="48" z="1186.18" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.5" y="0.5" z="0.5" />
+            <entity name="step#04" meshFile="cube.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="53" />
+                    <property type="2" name="MiniMagmaton" data="4" />
+                    <property type="2" name="Kamikace" data="4" />
+                    <property type="2" name="Intelligent" data="4" />
+                </userData>
+            </entity>
+        </node>
+        <node name="step#23" id="585558656">
+            <position x="-1599.97" y="84.5011" z="-1094.57" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.5" y="0.5" z="0.5" />
+            <entity name="step#23" meshFile="cube.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="175" />
                     <property type="2" name="MiniMagmaton" data="0" />
                     <property type="2" name="Kamikace" data="10" />
                     <property type="2" name="Intelligent" data="0" />
+                </userData>
+            </entity>
+        </node>
+        <node name="trajectory1#2" id="153508096">
+            <position x="1715.97" y="19.2254" z="-1846.72" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.0903487" y="0.0903487" z="0.0903487" />
+            <entity name="trajectory1#2" meshFile="sphere.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="10" />
+                    <property type="2" name="trajectoryNumber" data="1" />
+                </userData>
+            </entity>
+        </node>
+        <node name="trajectory2#0" id="864223104">
+            <position x="1107.01" y="-44.1375" z="-1778.48" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.0903487" y="0.0903487" z="0.0903487" />
+            <entity name="trajectory2#0" meshFile="sphere.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="0" />
+                    <property type="2" name="trajectoryNumber" data="2" />
+                </userData>
+            </entity>
+        </node>
+        <node name="step#01" id="446028032">
+            <position x="1838.71" y="49.1091" z="-703.367" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.5" y="0.5" z="0.5" />
+            <entity name="step#01" meshFile="cube.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="10" />
+                    <property type="2" name="MiniMagmaton" data="1" />
+                    <property type="2" name="Kamikace" data="1" />
+                    <property type="2" name="Intelligent" data="1" />
+                </userData>
+            </entity>
+        </node>
+        <node name="step#10" id="437726976">
+            <position x="147.893" y="32.4524" z="1553.17" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.5" y="0.5" z="0.5" />
+            <entity name="step#10" meshFile="cube.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="94" />
+                    <property type="2" name="MiniMagmaton" data="0" />
+                    <property type="2" name="Kamikace" data="0" />
+                    <property type="2" name="Intelligent" data="6" />
+                </userData>
+            </entity>
+        </node>
+        <node name="step#17" id="76601464">
+            <position x="-1523.67" y="73.2411" z="1388.64" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.5" y="0.5" z="0.5" />
+            <entity name="step#17" meshFile="cube.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="129" />
+                    <property type="2" name="MiniMagmaton" data="4" />
+                    <property type="2" name="Kamikace" data="4" />
+                    <property type="2" name="Intelligent" data="4" />
                 </userData>
             </entity>
         </node>

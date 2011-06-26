@@ -51,7 +51,7 @@ void iceCutSceneEntity::update(Ogre::Real p_TimeSinceLastFrame)
 	if(mIsActive)
 	{
 		iceTrajectoryFollower::update(p_TimeSinceLastFrame);
-		mTrajectory->lookAt();
+		//mTrajectory->lookAt();
 		if(mTrajectory->hasEnded())
 			deactivate();
 	}

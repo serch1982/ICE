@@ -16,7 +16,13 @@ iceTrajectory::iceTrajectory(void)
 
 iceTrajectory::iceTrajectory(std::vector<iceStep> p_vSteps, const bool p_bIsLoop)
 {
-	iceTrajectory();
+	iceTrajectory::iceTrajectory();
+	mDuration = 0;
+	mCurrentTime = 0;
+	mThereIsANodeToLookAt = false;
+	mLoop = false;
+	mLog = iceGame::getGameLog();
+	mNode = NULL;
 	loadSteps(p_vSteps,p_bIsLoop);
 }
 
@@ -50,8 +56,8 @@ void iceTrajectory::loadSteps(std::vector<iceStep> p_vSteps, const bool p_bIsLoo
 
 	//if(!Ogre::ResourceGroupManager::getSingleton().resourceGroupExists("debugger"))
 	//	Ogre::ResourceGroupManager::getSingleton().createResourceGroup("debugger");
-	//Ogre::ManualObject* myManualObject =  mSceneManager->createManualObject();
-	//Ogre::SceneNode* sDebugNode = mNode->getParentSceneNode()->createChildSceneNode();
+	//Ogre::ManualObject* myManualObject =  iceGame::getSceneManager()->createManualObject();
+	//Ogre::SceneNode* sDebugNode = iceGame::getSceneManager()->getRootSceneNode()->createChildSceneNode();
 	//Ogre::StringStream materialName;
 	//materialName << "Material_"  << mNameGenerator.generate();
 	//Ogre::MaterialPtr myManualObjectMaterial = Ogre::MaterialManager::getSingleton().create(materialName.str(),"debugger");
@@ -77,7 +83,7 @@ void iceTrajectory::loadSteps(std::vector<iceStep> p_vSteps, const bool p_bIsLoo
 	//for (unsigned int i=0;i<mSteps.size(); i++)
 	//{
 	//	Ogre::SceneNode* sStepNode = sDebugNode->createChildSceneNode(mSteps[i].getPosition());
-	//	Ogre::Entity* mesh = mSceneManager->createEntity("sphere.mesh");
+	//	Ogre::Entity* mesh = iceGame::getSceneManager()->createEntity("sphere.mesh");
 	//	sStepNode->attachObject(mesh);
 	//	sStepNode->scale(0.03,0.03,0.03);
 	//}

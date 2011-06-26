@@ -62,7 +62,7 @@
         std::vector<Ogre::String> dynamicObjects;
 
 		std::vector<iceStep> getPlayerSteps(void);//deprecated
-		iceTrajectory* getTrajectory(unsigned int i);
+		std::vector<iceTrajectory*> getTrajectories();
 		std::vector<iceEnemy*> getEnemies(void);
 		std::vector<iceObject*> getObjects(void);
  
@@ -84,6 +84,8 @@
  
         void processNode(rapidxml::xml_node<>* XMLNode, Ogre::SceneNode *pParent = 0);
 		void processStep(rapidxml::xml_node<>* XMLNode, Ogre::SceneNode *pParent = 0);
+		void processTrajectories();
+		void processTrajectoryStep(rapidxml::xml_node<>* XMLNode, Ogre::SceneNode *pParent = 0);
 		void processEnemies(rapidxml::xml_node<>* XMLNode, icePlayer &p_Player, Ogre::SceneNode *pParent = 0);
         void processLookTarget(rapidxml::xml_node<>* XMLNode, Ogre::SceneNode *pParent);
         void processTrackTarget(rapidxml::xml_node<>* XMLNode, Ogre::SceneNode *pParent);
@@ -123,6 +125,7 @@
 
 		//ice
 		std::vector<iceStep> mPlayerSteps;
+		std::vector<std::vector<iceStep>> mTrajectoriesSteps;
 		std::vector<iceTrajectory*> mTrajectories;
 		std::vector<iceEnemy*> mEnemies;
 		std::vector<iceObject*> mObjects;
