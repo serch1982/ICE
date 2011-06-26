@@ -71,9 +71,9 @@ void iceCutScene::initializeEntities(std::vector<iceTrajectory*>& trajectories)
 {
 	//TODO scripted
 	entities.push_back(new iceCutSceneEntity());
-	entities[0]->initialize("kamikaze.mesh",Ogre::Vector3(0,0,0),0,NULL,trajectories[1]);
-	entities.push_back(new iceCutSceneEntity());
-	entities[1]->initialize("airplane.mesh",Ogre::Vector3(0,0,0),0,NULL,trajectories[2]);
+	entities[0]->initialize("airplane.mesh",Ogre::Vector3(0,0,0),0,NULL,trajectories[1]);
+	//entities.push_back(new iceCutSceneEntity());
+	//entities[1]->initialize("airplane.mesh",Ogre::Vector3(0,0,0),0,NULL,trajectories[2]);
 }
 
 void iceCutScene::initializeCameraEntity(std::vector<iceTrajectory*>& trajectories)
@@ -81,8 +81,9 @@ void iceCutScene::initializeCameraEntity(std::vector<iceTrajectory*>& trajectori
 	//TODO scripted
 	cameraEntity = new iceTrajectoryFollower();
 	cameraEntity->initialize(iceGame::getSceneManager()->getRootSceneNode()->createChildSceneNode());
-	cameraEntity->setTrajectory(trajectories[0]);
-	cameraEntity->getTrajectory()->setNodeToLookAt(entities[1]->getNode());
+	cameraEntity->setTrajectory(trajectories[2]);
+	Ogre::SceneNode* no = entities[0]->getNode();
+	cameraEntity->getTrajectory()->setNodeToLookAt(entities[0]->getNode());
 }
 
 bool iceCutScene::hasEnded(void)

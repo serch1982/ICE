@@ -125,6 +125,8 @@ void DotSceneLoader::processScene(rapidxml::xml_node<>* XMLRoot, icePlayer &p_Pl
     pElement = XMLRoot->first_node("terrain");
     if(pElement)
         processTerrain(pElement);
+
+	processTrajectories();
 }
  
 void DotSceneLoader::processNodes(rapidxml::xml_node<>* XMLNode, icePlayer &p_Player)
@@ -141,6 +143,10 @@ void DotSceneLoader::processNodes(rapidxml::xml_node<>* XMLNode, icePlayer &p_Pl
 		{
 			processStep(pElement);
 			processEnemies(pElement,p_Player);
+		}
+		else if (Ogre::StringUtil::startsWith(name,"trajectory"))
+		{
+			processTrajectoryStep(pElement);
 		}
 		else
 		{
@@ -633,6 +639,56 @@ void DotSceneLoader::processStep(rapidxml::xml_node<>* XMLNode, Ogre::SceneNode 
 		Ogre::Real time = getAttribReal(XMLProperty,"data");
 		mPlayerSteps.push_back(iceStep(position,Ogre::Radian(0),time));
 	}
+}
+
+void DotSceneLoader::processTrajectories()
+{
+	mTrajectories.resize(mTrajectoriesSteps.size());
+	for(unsigned int i=1;i<mTrajectoriesSteps.size();i++)//TODO i=0
+	{
+		if(i==1)//TODO megachapuza pa ir pasando
+		{
+			mTrajectories[i] = new iceLocomotiveTrajectory(mTrajectoriesSteps[i]);
+		}
+		else
+		{
+			mTrajectories[i] = new iceTrajectory(mTrajectoriesSteps[i]);
+		}
+	}
+}
+
+void DotSceneLoader::processTrajectoryStep(rapidxml::xml_node<>* XMLNode, Ogre::SceneNode *pParent)
+{
+	//Processing user data
+	Ogre::Vector3 position = parseVector3(XMLNode->first_node("position"));
+	Ogre::Real time;
+	unsigned int trajectoryNumber;
+
+	rapidxml::xml_node<>* XMLEntity = XMLNode->first_node("entity");
+	rapidxml::xml_node<>* XMLUserData = XMLEntity->first_node("userData");
+	rapidxml::xml_node<>* XMLProperty = XMLUserData->first_node("property");
+	while(XMLProperty)
+	{
+		Ogre::String name = getAttrib(XMLProperty,"name");
+
+		if (name.compare("time") == 0)
+		{
+			time = getAttribReal(XMLProperty,"data");
+		}
+		else if (name.compare("trajectoryNumber") == 0)
+		{
+			trajectoryNumber = (int)getAttribReal(XMLProperty,"data");			
+		}
+		XMLProperty = XMLProperty->next_sibling("property");
+	}
+
+	if(mTrajectoriesSteps.size() <= trajectoryNumber)
+	{
+		mTrajectoriesSteps.resize(trajectoryNumber+1);
+		mTrajectoriesSteps[trajectoryNumber] = std::vector<iceStep>();
+	}
+
+	mTrajectoriesSteps[trajectoryNumber].push_back(iceStep(position,Ogre::Radian(0),time));
 }
 
 void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode, icePlayer &p_Player, Ogre::SceneNode *pParent)
@@ -1173,12 +1229,9 @@ std::vector<iceStep> DotSceneLoader::getPlayerSteps(void)
 	return mPlayerSteps;
 }
 
-iceTrajectory* DotSceneLoader::getTrajectory(unsigned int i)
+std::vector<iceTrajectory*> DotSceneLoader::getTrajectories()
 {
-	if(i<mTrajectories.size())
-		return mTrajectories[i];
-	else
-		return NULL;
+	return mTrajectories;
 }
 
 

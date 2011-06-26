@@ -27,26 +27,30 @@ void iceLevel::load(icePlayer& player, std::vector<iceEnemy*>& vectorEnemies, st
 		player.setTrajectory(new iceLocomotiveTrajectory());
 		player.getTrajectory()->loadSteps(iceLevelManager::getSingletonPtr()->getDotSceneLoader()->getPlayerSteps(),false);
 
-		std::vector<iceStep> steps1;
-		steps1.push_back(iceStep(Ogre::Vector3(100,0,0),Ogre::Radian(0),0));
-		steps1.push_back(iceStep(Ogre::Vector3(50,0,0),Ogre::Radian(0),20));
-		steps1.push_back(iceStep(Ogre::Vector3(0,0,0),Ogre::Radian(0),30));
-		std::vector<iceStep> steps2;
-		steps2.push_back(iceStep(Ogre::Vector3(-100,0,0),Ogre::Radian(0),0));
-		steps2.push_back(iceStep(Ogre::Vector3(-50,0,0),Ogre::Radian(0),20));
-		steps2.push_back(iceStep(Ogre::Vector3(0,0,0),Ogre::Radian(0),30));
-		std::vector<iceStep> steps0;
-		steps0.push_back(iceStep(Ogre::Vector3(100,0,100),Ogre::Radian(0),0));
-		steps0.push_back(iceStep(Ogre::Vector3(50,0,100),Ogre::Radian(0),20));
-		steps0.push_back(iceStep(Ogre::Vector3(0,0,100),Ogre::Radian(0),30));
+		//std::vector<iceStep> steps1;
+		//steps1.push_back(iceStep(Ogre::Vector3(100,0,0),Ogre::Radian(0),0));
+		//steps1.push_back(iceStep(Ogre::Vector3(50,0,0),Ogre::Radian(0),20));
+		//steps1.push_back(iceStep(Ogre::Vector3(0,0,0),Ogre::Radian(0),30));
+		//std::vector<iceStep> steps2;
+		//steps2.push_back(iceStep(Ogre::Vector3(-100,0,0),Ogre::Radian(0),0));
+		//steps2.push_back(iceStep(Ogre::Vector3(-50,0,0),Ogre::Radian(0),20));
+		//steps2.push_back(iceStep(Ogre::Vector3(0,0,0),Ogre::Radian(0),30));
+		//std::vector<iceStep> steps0;
+		//steps0.push_back(iceStep(Ogre::Vector3(100,0,100),Ogre::Radian(0),0));
+		//steps0.push_back(iceStep(Ogre::Vector3(50,0,100),Ogre::Radian(0),20));
+		//steps0.push_back(iceStep(Ogre::Vector3(0,0,100),Ogre::Radian(0),30));
 
-		std::vector<iceTrajectory*> trajectories;
-		trajectories.push_back(new iceLocomotiveTrajectory(steps0));
-		trajectories.push_back(new iceLocomotiveTrajectory(steps1));
-		trajectories.push_back(new iceLocomotiveTrajectory(steps2));
+		//std::vector<iceTrajectory*> trajectories;
+		//trajectories.push_back(new iceLocomotiveTrajectory(steps0));
+		//trajectories.push_back(new iceLocomotiveTrajectory(steps1));
+		//trajectories.push_back(new iceLocomotiveTrajectory(steps2));
+
+		DotSceneLoader* dsl = iceLevelManager::getSingletonPtr()->getDotSceneLoader();
+
+		std::vector<iceTrajectory*> trajectories = iceLevelManager::getSingletonPtr()->getDotSceneLoader()->getTrajectories();
 
 		vectorCutScenes.push_back(new iceCutScene());
-		vectorCutScenes[0]->initialize("",trajectories,60);
+		vectorCutScenes[0]->initialize("",iceLevelManager::getSingletonPtr()->getDotSceneLoader()->getTrajectories(),0);
 
 
 		vectorEnemies = iceLevelManager::getSingletonPtr()->getDotSceneLoader()->getEnemies();
