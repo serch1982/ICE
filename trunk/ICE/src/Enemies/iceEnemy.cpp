@@ -10,6 +10,7 @@ iceEnemy::iceEnemy()
 	mCurrentTime = 0;
 	mAnimDyingTicks = 0;
 	mShowingBoundingBox = false;
+	mLog = iceGame::getGameLog();
 }
 
 iceEnemy::~iceEnemy()
@@ -32,8 +33,7 @@ void iceEnemy::setPlayer(icePlayer* p_psPlayer)
 	mPlayer = p_psPlayer;
 }
 
-bool iceEnemy::initialize(int id, Ogre::Vector3 p_Position, icePlayer* p_psPlayer, 
-						Ogre::Real p_fActivationTime, bool p_isAttachedToPlayer)
+bool iceEnemy::initialize(int id, Ogre::Vector3 p_Position, icePlayer* p_psPlayer, Ogre::Real p_fActivationTime, bool p_isAttachedToPlayer)
 {
 	Ogre::SceneManager* sceneManager = iceGame::getSceneManager();
 	mRaySceneQuery = sceneManager->createRayQuery(Ogre::Ray());
@@ -106,73 +106,7 @@ void iceEnemy::finalize()
 void iceEnemy::update(Ogre::Real p_timeSinceLastFrame)
 {
 	iceRPG::update(p_timeSinceLastFrame);
-	switch(mState)
-	{
-		case STOPPED:
-			/*if (!isAlive())
-				mState = DYING;*/
-			break;
-		case FOLLOWING_TRAJECTORY:
-			//iceTrajectoryFollower::update(p_timeSinceLastFrame); Hay que hablar sobre trayectorias de enemigos
-			mTrajectory->lookAt();//TODO
-			/*if (!isAlive())
-				mState = DYING;*/
-			break;
-		case ATTACK: 
-			mTrajectory->lookAt(); //TODO
-			iceRPG::update(p_timeSinceLastFrame);
-			shot();
-			updateActiveBullets(p_timeSinceLastFrame);
-			/*if (!isAlive())
-				mState = DYING;*/
-			//iceTrajectoryFollower::update(p_timeSinceLastFrame); Hay que hablar sobre trayectorias de enemigos
-			break;
-		case DYING:
-			mBillboard->start(enemyNode->_getDerivedPosition());
-			iceGame::getGameLog()->logMessage("Enemy killed!");
-			mPlayer->addExperience(mLevel * 10000);
-			mAnimDyingTicks++;
-			//iceTrajectoryFollower::update(p_timeSinceLastFrame); Hay que hablar sobre trayectorias de enemigos
-			//Dead sequence...
-			//When dead sequence finished:
-			//mState = INACTIVE;
-			break;
-		case INACTIVE:
-			if(checkActivationTime(p_timeSinceLastFrame))
-			{//active
-				activate();
-			}
-			else
-			{//inactive
-				mNode->setVisible(false);
-				if(mShowingBoundingBox)
-				{
-					icePhysicEntity::hideBoundingBox();
-				}
-			}
-			break;
-	}
-	//to update billboard
-	mBillboard->update(p_timeSinceLastFrame);
-	
-	// We are magmaton
-	/*if( mType == 4 ){
-		if( mbAnimAttack ){
-			mAttack01->addTime( p_timeSinceLastFrame );
-			if( mAttack01->hasEnded() ){
-				mAttack01->setEnabled( false );
-				mAttack02->setEnabled( true );
-				mbAnimAttack = !mbAnimAttack;
-			}
-		}else{
-			mAttack02->addTime( p_timeSinceLastFrame );
-			if( mAttack02->hasEnded() ){
-				mAttack02->setEnabled( false );
-				mAttack01->setEnabled( true );
-				mbAnimAttack = !mbAnimAttack;
-			}
-		}
-	}*/
+
 }
 
 std::string iceEnemy::getFunctionStr(){
