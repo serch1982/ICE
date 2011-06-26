@@ -4,8 +4,9 @@
 #include <OGRE/Ogre.h>
 #include <OIS/OIS.h>
 
-#include "iceState.h"
+#include "States/iceState.h"
 #include "Level\iceLevel.h"
+#include "Level/iceCutScene.h"
 #include "Utils\iceSdkTray.h"
 #include "Entities\icePlayer.h"
 #include "Enemies\iceEnemy.h"
@@ -96,6 +97,8 @@ class iceStatePlay: public iceState{
 		 // inverse iterator
         std::vector<iceEnemy*>::const_reverse_iterator _revit_mEnemies;
 
+		std::vector<iceCutScene*> _mCutScenes;
+
         iceLevel* _level;
 		int _levelID;
 		
@@ -108,6 +111,8 @@ class iceStatePlay: public iceState{
          *  set the name of the current weapon of the player
          */
 		void setHUDWeapon(char* name);
+
+		void checkActivableCutScene(void);
 
 		//phisics
 		icePhysics mPhysics;
@@ -122,6 +127,9 @@ class iceStatePlay: public iceState{
 		Ogre::Real mDownCounter;
 		Ogre::Real mLeftCounter;
 		Ogre::Real mRightCounter;
+
+		Ogre::Real mCurrentTime;
+		iceCutScene* mCurrentCutScene;
 
 		//particle Manager
 		iceParticleMgrPtr mIceParticleMgr;

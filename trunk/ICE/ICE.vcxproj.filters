@@ -180,6 +180,12 @@
     <ClCompile Include="src\Utils\MovableTextOverlay.cpp">
       <Filter>Source Files\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="src\Entities\iceCutSceneEntity.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Level\iceCutScene.cpp">
+      <Filter>Source Files\Level</Filter>
+    </ClCompile>
     <ClCompile Include="src\Enemies\iceBoss.cpp">
       <Filter>Source Files\Enemies</Filter>
     </ClCompile>
@@ -301,6 +307,12 @@
     </ClInclude>
     <ClInclude Include="include\Utils\iceDamageTextManager.h">
       <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Level\iceCutScene.h">
+      <Filter>Header Files\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Entities\iceCutSceneEntity.h">
+      <Filter>Header Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="include\Enemies\iceVolcano.h">
       <Filter>Header Files\Enemies</Filter>

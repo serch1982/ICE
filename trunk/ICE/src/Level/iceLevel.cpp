@@ -14,7 +14,7 @@ iceLevel::~iceLevel() {
     unload();
 }
 
-void iceLevel::load(icePlayer& player, std::vector<iceEnemy*>& vectorEnemies) {
+void iceLevel::load(icePlayer& player, std::vector<iceEnemy*>& vectorEnemies, std::vector<iceCutScene*>& vectorCutScenes) {
     if (!_loaded) {
         _loaded = true;
         
@@ -24,27 +24,30 @@ void iceLevel::load(icePlayer& player, std::vector<iceEnemy*>& vectorEnemies) {
 
 		iceLevelManager::getSingletonPtr()->getDotSceneLoader()->parseDotScene( _name + ".scene",player,_name,sceneManager, level, _name + "_" );
 
-		////set the skybox
-		//sceneManager->setSkyBox(true, "cielo", 20000.0f, true, Ogre::Quaternion::IDENTITY ); 
-
-		//// Set ambient light
-		//sceneManager->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
-
-		//// Create a light
-		//Ogre::Light* l = sceneManager->createLight("MainLight");
-		//l->setType( Ogre::Light::LT_DIRECTIONAL);
-		//l->setDirection( -1, 1, -1 );
-		//l->setDiffuseColour(1.0, 1.0, 1.0);
-		//l->setSpecularColour(1.0, 1.0, 1.0);
-
-
 		player.setTrajectory(new iceLocomotiveTrajectory());
-		//player.getTrajectory()->loadSteps(steps,false);
 		player.getTrajectory()->loadSteps(iceLevelManager::getSingletonPtr()->getDotSceneLoader()->getPlayerSteps(),false);
 
-		//set enemies
-		//rootNode = ConfigScriptLoader::getSingleton().getConfigScript("entity", "phase1Enemies");
-		//loadEnemies(rootNode, player, vectorEnemies);
+		std::vector<iceStep> steps1;
+		steps1.push_back(iceStep(Ogre::Vector3(100,0,0),Ogre::Radian(0),0));
+		steps1.push_back(iceStep(Ogre::Vector3(50,0,0),Ogre::Radian(0),20));
+		steps1.push_back(iceStep(Ogre::Vector3(0,0,0),Ogre::Radian(0),30));
+		std::vector<iceStep> steps2;
+		steps2.push_back(iceStep(Ogre::Vector3(-100,0,0),Ogre::Radian(0),0));
+		steps2.push_back(iceStep(Ogre::Vector3(-50,0,0),Ogre::Radian(0),20));
+		steps2.push_back(iceStep(Ogre::Vector3(0,0,0),Ogre::Radian(0),30));
+		std::vector<iceStep> steps0;
+		steps0.push_back(iceStep(Ogre::Vector3(100,0,100),Ogre::Radian(0),0));
+		steps0.push_back(iceStep(Ogre::Vector3(50,0,100),Ogre::Radian(0),20));
+		steps0.push_back(iceStep(Ogre::Vector3(0,0,100),Ogre::Radian(0),30));
+
+		std::vector<iceTrajectory*> trajectories;
+		trajectories.push_back(new iceLocomotiveTrajectory(steps0));
+		trajectories.push_back(new iceLocomotiveTrajectory(steps1));
+		trajectories.push_back(new iceLocomotiveTrajectory(steps2));
+
+		vectorCutScenes.push_back(new iceCutScene());
+		vectorCutScenes[0]->initialize("",trajectories,60);
+
 
 		vectorEnemies = iceLevelManager::getSingletonPtr()->getDotSceneLoader()->getEnemies();
     }

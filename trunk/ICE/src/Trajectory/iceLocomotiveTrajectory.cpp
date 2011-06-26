@@ -4,12 +4,17 @@
 iceLocomotiveTrajectory::iceLocomotiveTrajectory(void)
 {
 	//iceTrajectory();
-		mDuration = 0;
+	mDuration = 0;
 	mCurrentTime = 0;
 	mThereIsANodeToLookAt = false;
 	mLoop = false;
 }
 
+iceLocomotiveTrajectory::iceLocomotiveTrajectory(std::vector<iceStep> p_vSteps, const bool p_bIsLoop)
+{
+	iceLocomotiveTrajectory();
+	loadSteps(p_vSteps,p_bIsLoop);
+}
 
 iceLocomotiveTrajectory::~iceLocomotiveTrajectory(void)
 {

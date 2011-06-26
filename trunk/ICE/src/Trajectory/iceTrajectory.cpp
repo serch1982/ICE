@@ -11,6 +11,13 @@ iceTrajectory::iceTrajectory(void)
 	mThereIsANodeToLookAt = false;
 	mLoop = false;
 	mLog = iceGame::getGameLog();
+	mNode = NULL;
+}
+
+iceTrajectory::iceTrajectory(std::vector<iceStep> p_vSteps, const bool p_bIsLoop)
+{
+	iceTrajectory();
+	loadSteps(p_vSteps,p_bIsLoop);
 }
 
 
@@ -32,11 +39,12 @@ void iceTrajectory::loadSteps(std::vector<iceStep> p_vSteps, const bool p_bIsLoo
 	{
 		mTrack.addPoint(mSteps[i].getPosition());
 	}
-	mNode->setPosition(mSteps[0].getPosition());
+
 	mDuration = mSteps[mSteps.size()-1].getTime();
 	mTrack.recalcTangents();
 	mLoop = p_bIsLoop;
-
+	if(mNode)
+		mNode->setPosition(mSteps[0].getPosition());
 	//DEBUG {
 	//int numSpheres = 3000;
 
@@ -102,6 +110,8 @@ void iceTrajectory::init(Ogre::SceneManager* p_spSceneManager, Ogre::SceneNode* 
 	mSceneManager = p_spSceneManager;
 	mNode = p_psNode;
 	mCurrentTime = 0;
+	if(mSteps.size()>0)
+		mNode->setPosition(mSteps[0].getPosition());
 
 	//DEBUG {
 	//if(!mSceneManager->hasSceneNode("DebugTrajectorySteps"))
@@ -118,7 +128,8 @@ void iceTrajectory::setNodeToLookAt(Ogre::SceneNode* p_psNodeToLookAt)
 {
 	mNodeToLookAt = p_psNodeToLookAt;
 	mThereIsANodeToLookAt = true;
-	mNode->setInheritOrientation(false); //Si vamos a controlar a donde mira el nodo, mejor que no herede la orientacion del padre
+	if(mNode)
+		mNode->setInheritOrientation(false); //Si vamos a controlar a donde mira el nodo, mejor que no herede la orientacion del padre
 }
 
 void iceTrajectory::reset(void)

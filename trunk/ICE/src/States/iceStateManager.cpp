@@ -286,7 +286,10 @@ bool iceStateManager::frameRenderingQueued(const Ogre::FrameEvent& evt) {
 	}
 	iceSdkTray::getInstance()->updateFrameEvent(evt);
 	_sdkCameraMan->frameRenderingQueued(evt);
-	_currentState->update(evt.timeSinceLastFrame);
+	Ogre::Real timeSinceLastFrame = evt.timeSinceLastFrame;
+	//if(timeSinceLastFrame > 0.033)
+	//	timeSinceLastFrame = 0.033;
+	_currentState->update(timeSinceLastFrame);
 	//----------------------
 	return true;
 }
