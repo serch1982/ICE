@@ -48,8 +48,7 @@ void iceKamikaze::update(Ogre::Real p_timeSinceLastFrame){
 				mState = DYING;*/
 			break;
 		case ATTACK: 
-			//mTrajectory->lookAt(); //TODO
-			iceRPG::update(p_timeSinceLastFrame);
+			mTrajectory->lookAt(); //TODO
 			enemyNode->translate( mVelocity * p_timeSinceLastFrame );
 			mRenewTarget--;
 			if( mRenewTarget == 0 ){
@@ -66,6 +65,7 @@ void iceKamikaze::update(Ogre::Real p_timeSinceLastFrame){
 			}
 			break;
 		case DYING:
+			//to update billboard
 			iceGame::getGameLog()->logMessage("Enemy killed! DYING");
 			mAnimDyingTicks++;
 			break;
@@ -84,7 +84,6 @@ void iceKamikaze::update(Ogre::Real p_timeSinceLastFrame){
 			}
 			break;
 	}
-	//to update billboard
 	mBillboard->update(p_timeSinceLastFrame);
 }
 
