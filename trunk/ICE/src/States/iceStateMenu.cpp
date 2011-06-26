@@ -77,7 +77,7 @@ void iceStateMenu::clear() {
         _loaded = false;
 		_stateManager->getHikariMgr()->destroyAllControls();
 		mSoundManager->StopAllSounds();
-		//mSoundManager->unloadSoundsMenu();
+		mSoundManager->unloadResourcesMenu();
     }
 }
 

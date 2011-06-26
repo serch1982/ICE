@@ -6,8 +6,8 @@
 #include <OIS/OIS.h>
 #include <OGRE/Ogre.h>
 
+#include "..\Sound\iceSoundManager.h"
 class iceStateManager;
-class iceSoundManager;
 
 /**
 *  States from the game

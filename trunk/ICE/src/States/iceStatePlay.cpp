@@ -33,48 +33,59 @@ iceStatePlay::~iceStatePlay() {
 }
 
 void iceStatePlay::load() {
-    if (!_loaded) {
-        _log->logMessage("iceStatePlay::load()");
-        _loaded = true;
+    if ( _levelID == 1) {
+		if( !_loaded ){
+			_log->logMessage("iceStatePlay::load()");
+			_loaded = true;
 
-        // light
-        _sceneManager->setAmbientLight(Ogre::ColourValue(0.25, 0.25, 0.25));
+			// light
+			_sceneManager->setAmbientLight(Ogre::ColourValue(0.25, 0.25, 0.25));
 		
-		//particle system
-		mIceParticleMgr = iceParticleMgrPtr(new iceParticleMgr());
-		mIceParticleMgr->initialize();
+			//particle system
+			mIceParticleMgr = iceParticleMgrPtr(new iceParticleMgr());
+			mIceParticleMgr->initialize();
 
-		//new player instance
-        _player = new icePlayer();
+			//new player instance
+			_player = new icePlayer();
 
-        // load level
-        _level = iceLevelManager::getSingleton().getIceLevel(_levelID);
-        _level->load(*_player, _mEnemies, _mCutScenes);
+			// load level
+			_level = iceLevelManager::getSingleton().getIceLevel(_levelID);
+			_level->load(*_player, _mEnemies, _mCutScenes);
 
-		//hide cursor
-		iceSdkTray::getInstance()->hideCursor();
+			//hide cursor
+			iceSdkTray::getInstance()->hideCursor();
 
-		//load phisics
-		mPhysics.initialize(_level->getTerrain(), _player, &_mEnemies, _level->getSceneObjects());
+			//load phisics
+			mPhysics.initialize(_level->getTerrain(), _player, &_mEnemies, _level->getSceneObjects());
 
-		//load lua logic
-		std::string path = _stateManager->getPathRoot() + "\\media\\scripts\\lua\\kamikaze.lua";
-		iceLogicLua::getInstance()->RunFile(path.c_str());
+			//load sounds
+			mSoundManager->loadLevel1();
+			mSoundManager->PlaySound(0, Ogre::Vector3::ZERO, 0);
 
-		//load HUD
-		try{
-			_hikariHUD = _stateManager->getHikariMgr()->createFlashOverlay("HUD",iceGame::getCamera()->getViewport(), iceGame::getCamera()->getViewport()->getActualWidth(), iceGame::getCamera()->getViewport()->getActualHeight(), Hikari::Position(Hikari::Center));
-			_hikariHUD->load("HUD.swf");
-			_hikariHUD->setTransparent(true, true);
-		}catch(char* ex) {
-			_log->logMessage(ex);
+			//load lua logic
+			std::string path = _stateManager->getPathRoot() + "\\media\\scripts\\lua\\kamikaze.lua";
+			iceLogicLua::getInstance()->RunFile(path.c_str());
+
+			//load HUD
+			try{
+				_hikariHUD = _stateManager->getHikariMgr()->createFlashOverlay("HUD",iceGame::getCamera()->getViewport(), iceGame::getCamera()->getViewport()->getActualWidth(), iceGame::getCamera()->getViewport()->getActualHeight(), Hikari::Position(Hikari::Center));
+				_hikariHUD->load("HUD.swf");
+				_hikariHUD->setTransparent(true, true);
+			}catch(char* ex) {
+				_log->logMessage(ex);
+			}
+
 		}
 
-		
-
-    }
+    }else if( _levelID == 2 ){
+		// Boss LEVEL
+		if( !_loaded ){
+			
+		}
+	}
 
 }
+
 void iceStatePlay::clear() {
     if (_loaded) {
         _log->logMessage("iceStatePlay::limpiar()");
@@ -84,6 +95,8 @@ void iceStatePlay::clear() {
         _level->unload();
 		//clean scene manager
         _sceneManager->clearScene();
+
+		mSoundManager->unloadLevel1();
 
 		//Deleting enemies
 		for (unsigned int i=0;i<_mEnemies.size();i++)
