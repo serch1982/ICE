@@ -13,6 +13,8 @@
 
 
 #include "Trajectory\iceStep.h"
+#include "Trajectory\iceTrajectory.h"
+#include "Trajectory\iceLocomotiveTrajectory.h"
 #include "Enemies\iceEnemy.h"
 #include "Enemies\iceKamikaze.h"
 #include "Enemies\iceMini.h"
@@ -59,7 +61,8 @@
         std::vector<Ogre::String> staticObjects;
         std::vector<Ogre::String> dynamicObjects;
 
-		std::vector<iceStep> getPlayerSteps(void);
+		std::vector<iceStep> getPlayerSteps(void);//deprecated
+		iceTrajectory* getTrajectory(unsigned int i);
 		std::vector<iceEnemy*> getEnemies(void);
 		std::vector<iceObject*> getObjects(void);
  
@@ -120,6 +123,7 @@
 
 		//ice
 		std::vector<iceStep> mPlayerSteps;
+		std::vector<iceTrajectory*> mTrajectories;
 		std::vector<iceEnemy*> mEnemies;
 		std::vector<iceObject*> mObjects;
     };

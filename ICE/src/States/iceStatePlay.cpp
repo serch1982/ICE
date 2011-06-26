@@ -22,6 +22,9 @@ iceStatePlay::iceStatePlay(iceStateManager* stateManager,
 	mDownCounter = 0;
 	mLeftCounter = 0;
 	mRightCounter = 0;
+
+	mCurrentTime = 0;
+	mCurrentCutScene = NULL;
 }
 
 iceStatePlay::~iceStatePlay() {
@@ -46,7 +49,7 @@ void iceStatePlay::load() {
 
         // load level
         _level = iceLevelManager::getSingleton().getIceLevel(_levelID);
-        _level->load(*_player, _mEnemies);
+        _level->load(*_player, _mEnemies, _mCutScenes);
 
 		//hide cursor
 		iceSdkTray::getInstance()->hideCursor();
@@ -92,62 +95,81 @@ void iceStatePlay::clear() {
 }
 
 
-void iceStatePlay::update(Ogre::Real evt) {
-	//player
-    _player->update(evt);
-	//enemies
-	for (_revit_mEnemies = _mEnemies.rbegin(); _revit_mEnemies != _mEnemies.rend(); ++_revit_mEnemies) {
-		iceLogicLua::getInstance()->getEnemyLogicState((*_revit_mEnemies),evt);
-        (*_revit_mEnemies)->update(evt);
-    }
-	//HUD
-	_stateManager->getHikariMgr()->update();
-	setHUDLife(_player->getCurrentLife());
-	setHUDWeapon(_player->getCurrentWeaponName());
+void iceStatePlay::update(Ogre::Real evt)
+{
+	checkActivableCutScene();
 
-	//phisics
-	mPhysics.update();
-
-	//particle system
-	mIceParticleMgr->update(evt);
-
-	//ShowDamage
-	iceDamageTextManager::getSingleton().update(evt);
-
-	//fx
-	/*if(_player->getIsShooting()){
-		switch(_player->getCurrentWeapon())
+	if(mCurrentCutScene)
+	{
+		mCurrentCutScene->update(evt);
+		if(mCurrentCutScene->hasEnded())
 		{
-			case  MACHINEGUN:
+			mCurrentCutScene->rollback();
+			mCurrentCutScene = NULL;
+		}
+	}
+	else
+	{
+		//player
+		_player->update(evt);
+		//enemies
+		for (_revit_mEnemies = _mEnemies.rbegin(); _revit_mEnemies != _mEnemies.rend(); ++_revit_mEnemies) {
+			iceLogicLua::getInstance()->getEnemyLogicState((*_revit_mEnemies),evt);
+			(*_revit_mEnemies)->update(evt);
+		}
+		//HUD
+		_stateManager->getHikariMgr()->update();
+		setHUDLife(_player->getCurrentLife());
+		setHUDWeapon(_player->getCurrentWeaponName());
+
+		//phisics
+		mPhysics.update();
+		//particle system
+		mIceParticleMgr->update(evt);
+
+		//ShowDamage
+		iceDamageTextManager::getSingleton().update(evt);
+
+		//ShowDamage
+		iceDamageTextManager::getSingleton().update(evt);
+
+		//fx
+		/*if(_player->getIsShooting()){
+			switch(_player->getCurrentWeapon())
+			{
+				case  MACHINEGUN:
 			
-				break;
-			case SHOTGUN:
-				break;
-			case MISILE_LAUNCHER:
-				break;
-			default:
-				break;
-		}*/
+					break;
+				case SHOTGUN:
+					break;
+				case MISILE_LAUNCHER:
+					break;
+				default:
+					break;
+			}*/
 	
-	//}
+		//}
 
-	if(mUpCounter > 0)
-		mUpCounter -= evt;
-	if(mDownCounter > 0)
-		mDownCounter -= evt;
-	if(mLeftCounter > 0)
-		mLeftCounter -= evt;
-	if(mRightCounter > 0)
-		mRightCounter -= evt;
+		if(mUpCounter > 0)
+			mUpCounter -= evt;
+		if(mDownCounter > 0)
+			mDownCounter -= evt;
+		if(mLeftCounter > 0)
+			mLeftCounter -= evt;
+		if(mRightCounter > 0)
+			mRightCounter -= evt;
 
-	//chivatos of the camera
-    iceSdkTray::getInstance()->updateScreenInfo( 0, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedPosition().x));
-    iceSdkTray::getInstance()->updateScreenInfo( 1, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedPosition().y));
-    iceSdkTray::getInstance()->updateScreenInfo( 2, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedPosition().z));
-    iceSdkTray::getInstance()->updateScreenInfo( 3, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedOrientation().w));
-    iceSdkTray::getInstance()->updateScreenInfo( 4, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedOrientation().x));
-    iceSdkTray::getInstance()->updateScreenInfo( 5, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedOrientation().y));
-    iceSdkTray::getInstance()->updateScreenInfo( 6, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedOrientation().z));
+		//chivatos of the camera
+		iceSdkTray::getInstance()->updateScreenInfo( 0, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedPosition().x));
+		iceSdkTray::getInstance()->updateScreenInfo( 1, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedPosition().y));
+		iceSdkTray::getInstance()->updateScreenInfo( 2, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedPosition().z));
+		iceSdkTray::getInstance()->updateScreenInfo( 3, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedOrientation().w));
+		iceSdkTray::getInstance()->updateScreenInfo( 4, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedOrientation().x));
+		iceSdkTray::getInstance()->updateScreenInfo( 5, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedOrientation().y));
+		iceSdkTray::getInstance()->updateScreenInfo( 6, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedOrientation().z));
+
+		mCurrentTime += evt;
+	}
 }
 
 
@@ -286,5 +308,25 @@ void iceStatePlay::switchBoundingBoxesVisibility(void)
 			_mEnemies[i]->showBoundingBox();
 		}
 		visibleBoundingBoxes = true;
+	}
+}
+
+void iceStatePlay::checkActivableCutScene(void)
+{
+	if(mCurrentCutScene)
+		return;
+
+	for(unsigned int i=0;i<_mCutScenes.size();i++)
+	{
+		Ogre::Real activationTime = _mCutScenes[i]->getActivationTime();
+		if(activationTime>=0)
+		{
+			if(activationTime<mCurrentTime)
+			{
+				mCurrentCutScene = _mCutScenes[i];
+				mCurrentCutScene->play();
+				return;
+			}
+		}
 	}
 }

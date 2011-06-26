@@ -5,6 +5,7 @@
 #include <vector>
 #include <OGRE/Ogre.h>
 #include <Terrain/OgreTerrainGroup.h>
+#include "Level/iceCutScene.h"
 #include "Entities\icePlayer.h"
 #include "Enemies\iceEnemy.h"
 #include "Entities\iceObject.h"
@@ -33,7 +34,7 @@ class iceLevel {
         /**
          *  Load level and elements
          */
-        void load(icePlayer& player, std::vector<iceEnemy*>& vectorEnemies);
+        void load(icePlayer& player, std::vector<iceEnemy*>& vectorEnemies, std::vector<iceCutScene*>& vectorCutScenes);
 
         /**
          *  unload level
@@ -64,6 +65,8 @@ class iceLevel {
          *  @return get the terraingroup
          */
 		Ogre::TerrainGroup* getTerrain(void);
+
+		iceTrajectory* getTrajectory(unsigned int i);
     private:
         //level
 		int _id;
@@ -71,6 +74,8 @@ class iceLevel {
 		//player and enemies config
 		Ogre::String _playerTrajName;
 		Ogre::String _enemiesConfName;
+
+		std::vector<iceTrajectory*> trajectories;
 
         bool _loaded;
 };

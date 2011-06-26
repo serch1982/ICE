@@ -13,7 +13,7 @@
 #define FRAME_MULTIPLICATOR 0.3
 
 #define BARREL_ROLL_TIME 1
-#define BARREL_ROLL_DISTANCE 10
+#define BARREL_ROLL_DISTANCE_MULTIPLIER 1.5
 #define BRAKE_TIME 3
 #define BRAKE_DIVISOR 4
 #define SPRINT_TIME 3
@@ -255,6 +255,9 @@ void icePlayer::updateShipPosition(Ogre::Real frameTime)
 	std::stringstream str4;
 	str4 << (mCameraHeight/2)*FRAME_MULTIPLICATOR;
 	iceSdkTray::getInstance()->updateScreenInfo(13,str4.str());
+	std::stringstream str5;
+	str5 << mLevel;
+	iceSdkTray::getInstance()->updateScreenInfo(14,str5.str());
 }
 
 void icePlayer::updateLookAt(Ogre::Real frameTime)
@@ -593,11 +596,12 @@ void icePlayer::updateBarrelCommon(Ogre::Real* pTime, Ogre::Real pTimeSinceLastE
 	(*pTime) -= pTimeSinceLastEvent;
 	if((*pTime)<0)
 		(*pTime) = 0;
+	Ogre::Real barrelDistance = getManiobrability() * BARREL_ROLL_TIME * BARREL_ROLL_DISTANCE_MULTIPLIER;
 	Ogre::Real barrelRatio = (*pTime)/BARREL_ROLL_TIME;
 	Ogre::Real ratioDifference = lastBarrelRatio - barrelRatio;
 
-	Ogre::Vector3 translation = pDirection * ratioDifference * BARREL_ROLL_DISTANCE * Ogre::Vector3::UNIT_X;
-	Ogre::Radian rotation = -pDirection * ratioDifference * Ogre::Degree(180) * 4;
+	Ogre::Vector3 translation = ratioDifference * pDirection * barrelDistance * Ogre::Vector3::UNIT_X;
+	Ogre::Radian rotation = ratioDifference * (-pDirection) * Ogre::Degree(180) * 4;
 
 	shipNode->translate(translation);
 	rollNode->roll(rotation);

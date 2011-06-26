@@ -40,6 +40,7 @@ void iceSdkTray::setupScreenInfo(Ogre::RenderWindow* mWindow, OIS::Mouse* mMouse
 	items.push_back("PlayerY");					// 11
 	items.push_back("FrameX");					// 12
 	items.push_back("FrameY");					// 13
+	items.push_back("Level");					// 14
 	
 	/*
 		here you can add your custom chivato like items.push_back("mycustomchivato"); 

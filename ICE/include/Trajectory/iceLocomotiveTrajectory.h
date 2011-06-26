@@ -9,6 +9,7 @@ class iceLocomotiveTrajectory : public iceTrajectory
 {
 	public:
 		iceLocomotiveTrajectory(void);
+		iceLocomotiveTrajectory(std::vector<iceStep> p_vSteps, const bool p_bIsLoop = false);
 		~iceLocomotiveTrajectory(void);
 
 	//attributes

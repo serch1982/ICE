@@ -21,6 +21,11 @@ DotSceneLoader::~DotSceneLoader()
     }
  
     OGRE_DELETE mTerrainGlobalOptions;
+	
+	for(unsigned int i=0;i<mTrajectories.size();i++)
+	{
+		delete mTrajectories[i];
+	}
 }
 
 void DotSceneLoader::parseDotScene(const Ogre::String &SceneName, icePlayer &p_Player, const Ogre::String &groupName, Ogre::SceneManager *yourSceneMgr, Ogre::SceneNode *pAttachNode, const Ogre::String &sPrependNode)
@@ -1167,6 +1172,15 @@ std::vector<iceStep> DotSceneLoader::getPlayerSteps(void)
 {
 	return mPlayerSteps;
 }
+
+iceTrajectory* DotSceneLoader::getTrajectory(unsigned int i)
+{
+	if(i<mTrajectories.size())
+		return mTrajectories[i];
+	else
+		return NULL;
+}
+
 
 std::vector<iceEnemy*> DotSceneLoader::getEnemies(void)
 {
