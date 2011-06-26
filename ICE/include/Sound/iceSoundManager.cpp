@@ -273,10 +273,23 @@ int iceSoundManager::CreateLoopedStream(Ogre::String &fileName)
 }
 
 void iceSoundManager::loadResourcesMenu(){
-	
 	CreateLoopedStream( Ogre::String( "menu.mp3" ));
-
 }
+
+void iceSoundManager::unloadResourcesMenu(){
+	(*mSoundVector)[0]->Finalize();
+}
+
+// Load level 1 sounds
+void iceSoundManager::loadLevel1(){
+	CreateSound( Ogre::String( "level1.mp3" ), SOUND_TYPE_2D_SOUND_LOOPED, 0);
+}
+
+// UnLoad level 1 sounds
+void iceSoundManager::unloadLevel1(){
+	(*mSoundVector)[0]->Finalize();
+}
+
 
 // fileName is actually a pointer to a SoundInstance, passed in from CreateSound().
 //FMOD_RESULT SoundManager::fmodFileOpenCallback(const char *fileName, int unicode, unsigned int *filesize, void **handle, void **userdata)
@@ -333,7 +346,7 @@ void iceSoundManager::loadResourcesMenu(){
 //
 //
 
-int iceSoundManager::CreateSound(Ogre::String &fileName, SOUND_TYPE soundType)
+int iceSoundManager::CreateSound(Ogre::String &fileName, SOUND_TYPE soundType, int p_sound_index)
 {
 	Ogre::Archive	*fileArchive;
 	FMOD_RESULT		result;
@@ -355,7 +368,10 @@ int iceSoundManager::CreateSound(Ogre::String &fileName, SOUND_TYPE soundType)
 	   return INVALID_SOUND_INDEX;
 	}
 
-	newSoundInstance = mSoundVector->at(nextSoundInstanceIndex);
+	if( p_sound_index >= 0 )
+		newSoundInstance = mSoundVector->at(p_sound_index);
+	else
+		newSoundInstance = mSoundVector->at(nextSoundInstanceIndex);
 	newSoundInstance->fileName = fullPathName;
 	newSoundInstance->soundType = soundType;
 
@@ -399,7 +415,10 @@ int iceSoundManager::CreateSound(Ogre::String &fileName, SOUND_TYPE soundType)
 	   }
 
 	newSoundInstance->fmodSound = sound;
-	return nextSoundInstanceIndex++;
+	
+	if( p_sound_index < 0 )
+		nextSoundInstanceIndex++;
+	return nextSoundInstanceIndex;
 }
 
 //void iceSoundManager::PlaySound(int soundIndex, Ogre::SceneNode *soundNode, int *channelIndex)
@@ -439,13 +458,12 @@ void iceSoundManager::PlaySound(int soundIndex, Ogre::Vector3 soundPosition, int
    sound = mSoundVector->at(soundIndex);
    // Start the sound paused
    result = mFMODSystem->playSound(FMOD_CHANNEL_FREE, sound->fmodSound, true, &channel);
-   if (result != FMOD_OK)
-      {
+   if (result != FMOD_OK){
       Ogre::LogManager::getSingleton().logMessage(Ogre::String("SoundManager::PlaySound could not play sound  FMOD Error:") + FMOD_ErrorString(result));
       if (channelIndex)
          *channelIndex = INVALID_SOUND_CHANNEL;
       return;
-      }
+   }
 
    channel->getIndex(&channelIndexTemp);
    mChannelArray[channelIndexTemp].curPosition = soundPosition;

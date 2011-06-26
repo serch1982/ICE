@@ -31,6 +31,13 @@ public:
 
    // Load Menu sounds
    void					loadResourcesMenu();
+   // UnLoad Menu sounds
+   void					unloadResourcesMenu();
+
+   // Load level 1 sounds
+   void					loadLevel1();
+   // UnLoad level 1 sounds
+   void					unloadLevel1();
 
    // Create sounds functions
    int                  CreateSound(Ogre::String &fileName);         // single-shot 3D sound.  returns soundIndex
@@ -38,7 +45,7 @@ public:
    int                  CreateLoopedSound(Ogre::String &fileName);   // looping 3D sound.  returns soundIndex
    int                  CreateLoopedStream(Ogre::String &fileName);  // looping 2D stream.  returns soundIndex
    // The function that really load and fill sounds
-   int                  CreateSound(Ogre::String &fileName, SOUND_TYPE soundType);
+   int                  CreateSound(Ogre::String &fileName, SOUND_TYPE soundType, int sound_index = INVALID_SOUND_INDEX);
 
    // Sound interaction
    void iceSoundManager::PlaySound(int soundIndex, Ogre::Vector3 soundPosition, int *channelIndex);
