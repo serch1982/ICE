@@ -16,6 +16,7 @@ public:
 	virtual void update(Ogre::Real p_timeSinceLastFrame);
 	// getter for the LUA function name
 	virtual std::string getFunctionStr();
+	virtual void setState( ENEMYSTATE pState );
 	//virtual void logic();
 };
 

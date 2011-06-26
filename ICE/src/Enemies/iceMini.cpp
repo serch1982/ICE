@@ -38,6 +38,7 @@ void iceMini::update(Ogre::Real p_timeSinceLastFrame){
 	switch(mState)
 	{
 		case STOPPED:
+			mTrajectory->lookAt();
 			/*if (!isAlive())
 				mState = DYING;*/
 			break;
@@ -49,7 +50,6 @@ void iceMini::update(Ogre::Real p_timeSinceLastFrame){
 			break;
 		case ATTACK: 
 			mTrajectory->lookAt(); //TODO
-			iceRPG::update(p_timeSinceLastFrame);
 			shot();
 			updateActiveBullets(p_timeSinceLastFrame);
 			/*if (!isAlive())
@@ -57,9 +57,7 @@ void iceMini::update(Ogre::Real p_timeSinceLastFrame){
 			//iceTrajectoryFollower::update(p_timeSinceLastFrame); Hay que hablar sobre trayectorias de enemigos
 			break;
 		case DYING:
-			mBillboard->start(enemyNode->_getDerivedPosition());
 			iceGame::getGameLog()->logMessage("Enemy killed!");
-			mPlayer->addExperience(mLevel * 10000);
 			mAnimDyingTicks++;
 			//iceTrajectoryFollower::update(p_timeSinceLastFrame); Hay que hablar sobre trayectorias de enemigos
 			//Dead sequence...
@@ -81,8 +79,23 @@ void iceMini::update(Ogre::Real p_timeSinceLastFrame){
 			}
 			break;
 	}
+	mBillboard->update(p_timeSinceLastFrame);
 }
 
 std::string iceMini::getFunctionStr(){
-	return "MiniLogic";
+	return "KamikazeLogic";
+}
+
+void iceMini::setState(ENEMYSTATE p_iState){
+	mState = p_iState;
+	switch(mState){
+		case DYING:
+			mAnimDyingTicks = 0;
+			mBillboard->start(enemyNode->_getDerivedPosition());
+			break;
+		case DEAD:
+			mPlayer->addExperience(mLevel * 10000);
+		default:
+			break;
+	}
 }
