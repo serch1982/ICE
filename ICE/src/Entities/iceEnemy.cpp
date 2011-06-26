@@ -1,6 +1,7 @@
 #include "Entities\iceEnemy.h"
 #include "Utils/iceDamageTextManager.h"
 #include "iceGame.h"
+#include "Particle\iceParticleMgr.h"
 
 Ogre::NameGenerator iceEnemy::mNameGenerator("Enemy_");
 
@@ -50,21 +51,29 @@ bool iceEnemy::initialize(int id, Ogre::Vector3 p_Position, icePlayer* p_psPlaye
 	std::stringstream entityName;
 	entityName << "Entity_" << mNameGenerator.generate();
 	Ogre::Entity* mesh;
+	Ogre::SceneNode* snbillboard = sceneManager->getRootSceneNode()->createChildSceneNode("bbcrash" + name);
 	switch(mType)
 	{
 		case MINIMAGMATON:
-			mesh = sceneManager->createEntity(entityName.str(), "minimagmaton.mesh");			
+			mesh = sceneManager->createEntity(entityName.str(), "minimagmaton.mesh");	
+			mBillboard = new iceBillboard(snbillboard, 6, iceBillboard::DEAD1);
+			iceParticleMgr::getSingletonPtr()->add(enemyNode,"ice/fireminimagmaton");
 			break;
 		case KAMIKAZE:
 			mesh = sceneManager->createEntity(entityName.str(), "kamikaze.mesh");
+			mBillboard = new iceBillboard(snbillboard, 6, iceBillboard::DEAD2);
+			iceParticleMgr::getSingletonPtr()->add(enemyNode,"ice/iceKamimaze");
 			break;
 		case SMART:
 			mesh = sceneManager->createEntity(entityName.str(), "intelligent.mesh");
+			mBillboard = new iceBillboard(snbillboard, 6, iceBillboard::DEAD1);
 			break;
 		case VOLCANO:
 			mesh = sceneManager->createEntity(entityName.str(), "volcano.mesh");
+			mBillboard = new iceBillboard(snbillboard, 6, iceBillboard::DEAD2);
 			break;
 		case MAGMATON:
+			mBillboard = new iceBillboard(snbillboard, 6, iceBillboard::DEAD1);
 			mesh = sceneManager->createEntity(entityName.str(), "magmaton.mesh");
 			/*mAttack01 = mesh->getAnimationState( "Attack1" );
 			mAttack02 = mesh->getAnimationState( "Attack2" );
@@ -177,7 +186,9 @@ void iceEnemy::update(Ogre::Real p_timeSinceLastFrame)
 			}
 			break;
 	}
-
+	//to update billboard
+	mBillboard->update(p_timeSinceLastFrame);
+	
 	// We are magmaton
 	/*if( mType == 4 ){
 		if( mbAnimAttack ){

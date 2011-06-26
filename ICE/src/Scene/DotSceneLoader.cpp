@@ -1,5 +1,6 @@
 #include "Scene\DotSceneLoader.h"
 #include <Ogre.h>
+#include "Particle\iceParticleMgr.h"
  
 #pragma warning(disable:4390)
 #pragma warning(disable:4305)
@@ -8,6 +9,7 @@
 DotSceneLoader::DotSceneLoader() : mSceneMgr(0), mTerrainGroup(0) 
 {
     mTerrainGlobalOptions = OGRE_NEW Ogre::TerrainGlobalOptions();
+	auxId =0;
 }
  
  
@@ -664,6 +666,12 @@ void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode, icePlayer &p_
 		}
 		XMLProperty = XMLProperty->next_sibling("property");
 	}
+
+	Ogre::StringStream countStrStr;
+	countStrStr << auxId;
+	Ogre::String uniqueId = "bbcrash_" + countStrStr.str();
+
+	Ogre::SceneNode* snbbNode = mSceneMgr->getRootSceneNode()->createChildSceneNode(uniqueId);
 	for (int i=0;i<miniMagmatons;i++)
 	{
 		Ogre::Vector3 dev = Ogre::Vector3(maxDev.x * (Ogre::Math::UnitRandom() - 0.5),
@@ -675,8 +683,10 @@ void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode, icePlayer &p_
 
 		iceEnemy* enemy = new iceMini();
 		mEnemyId = mEnemyId + 1000; 
-		enemy->initialize(mEnemyId,enemyPosition,&p_Player,time + timeDev,false);
+		enemy->initialize(mEnemyId,enemyPosition,&p_Player,time + timeDev, false);
 		enemy->setLevel(time/30);//TODO
+		enemy->setBillboard(new iceBillboard(snbbNode,6,iceBillboard::DEAD1));
+		iceParticleMgr::getSingletonPtr()->add(enemy->getEnemySceneNode(),"ice/fireminimagmaton");
 		mEnemies.push_back(enemy);	
 	}
 	for (int i=0;i<kamikaces;i++)
@@ -692,6 +702,8 @@ void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode, icePlayer &p_
 		mEnemyId = mEnemyId + 1000;
 		enemy->initialize(mEnemyId,enemyPosition,&p_Player,time + timeDev,false);
 		enemy->setLevel(time/30);//TODO
+		enemy->setBillboard(new iceBillboard(snbbNode,6,iceBillboard::DEAD2));
+		iceParticleMgr::getSingletonPtr()->add(enemy->getEnemySceneNode(),"ice/iceKamimaze");
 		mEnemies.push_back(enemy);
 	}
 	for (int i=0;i<intelligents;i++)
@@ -707,8 +719,10 @@ void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode, icePlayer &p_
 		mEnemyId = mEnemyId + 1000;
 		enemy->initialize(mEnemyId,enemyPosition,&p_Player,time + timeDev,false);
 		enemy->setLevel(time/30);//TODO
+		enemy->setBillboard(new iceBillboard(snbbNode,6,iceBillboard::DEAD1));
 		mEnemies.push_back(enemy);
 	}
+	auxId++;
 }
  
 void DotSceneLoader::processLookTarget(rapidxml::xml_node<>* XMLNode, Ogre::SceneNode *pParent)

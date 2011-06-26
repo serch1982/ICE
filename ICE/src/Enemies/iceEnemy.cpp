@@ -32,7 +32,8 @@ void iceEnemy::setPlayer(icePlayer* p_psPlayer)
 	mPlayer = p_psPlayer;
 }
 
-bool iceEnemy::initialize(int id, Ogre::Vector3 p_Position, icePlayer* p_psPlayer, Ogre::Real p_fActivationTime, bool p_isAttachedToPlayer)
+bool iceEnemy::initialize(int id, Ogre::Vector3 p_Position, icePlayer* p_psPlayer, 
+						Ogre::Real p_fActivationTime, bool p_isAttachedToPlayer)
 {
 	Ogre::SceneManager* sceneManager = iceGame::getSceneManager();
 	mRaySceneQuery = sceneManager->createRayQuery(Ogre::Ray());
@@ -89,6 +90,13 @@ bool iceEnemy::initialize(int id, Ogre::Vector3 p_Position, icePlayer* p_psPlaye
 
 	return true;
 }
+Ogre::SceneNode* iceEnemy::getEnemySceneNode(void){
+	return enemyNode;
+}
+
+void iceEnemy::setBillboard(iceBillboard* billboard){
+	mBillboard =  billboard;
+} 
 
 void iceEnemy::finalize()
 {
@@ -120,6 +128,7 @@ void iceEnemy::update(Ogre::Real p_timeSinceLastFrame)
 			//iceTrajectoryFollower::update(p_timeSinceLastFrame); Hay que hablar sobre trayectorias de enemigos
 			break;
 		case DYING:
+			mBillboard->start(enemyNode->_getDerivedPosition());
 			iceGame::getGameLog()->logMessage("Enemy killed!");
 			mPlayer->addExperience(mLevel * 10000);
 			mAnimDyingTicks++;
@@ -143,7 +152,9 @@ void iceEnemy::update(Ogre::Real p_timeSinceLastFrame)
 			}
 			break;
 	}
-
+	//to update billboard
+	mBillboard->update(p_timeSinceLastFrame);
+	
 	// We are magmaton
 	/*if( mType == 4 ){
 		if( mbAnimAttack ){

@@ -5,7 +5,7 @@ iceBullet::iceBullet(void)
 :
 	mbActive(false),						
 	miWeapon(0),						
-	miDamage(Ogre::Real(0)),				
+	miDamage(0),				
 	mbCritic(false),
 	miSpeed(100),
 	miCountDown(Ogre::Real(MAX_TIME_ACTIVE)),

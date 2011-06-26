@@ -10,7 +10,7 @@
 #include "Entities\icePlayer.h"
 #include "Enemies\iceEnemy.h"
 #include "Hikari.h"
-
+#include "Particle\iceParticleMgr.h"
 #include "Physics\icePhysics.h"
 
 class iceStateManager;
@@ -122,6 +122,9 @@ class iceStatePlay: public iceState{
 		Ogre::Real mDownCounter;
 		Ogre::Real mLeftCounter;
 		Ogre::Real mRightCounter;
+
+		//particle Manager
+		iceParticleMgrPtr mIceParticleMgr;
 };
 
 

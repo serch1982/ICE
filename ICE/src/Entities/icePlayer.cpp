@@ -2,6 +2,8 @@
 #include "Utils/iceDamageTextManager.h"
 #include "iceGame.h"
 
+#include "Particle\iceParticleMgr.h"
+
 #define CURSOR_PLANE_Z 100
 #define CAMERA_PLANE_Z 20
 #define CAMERA_ADDED_Y 4
@@ -42,6 +44,8 @@ icePlayer::icePlayer():_isShooting(false)
 	//Init Ship
 	shipPlaneNode = scrollNode->createChildSceneNode(Ogre::Vector3(0.0,-CAMERA_ADDED_Y,0.0));
 	shipNode = shipPlaneNode->createChildSceneNode();
+	iceParticleMgr::getSingletonPtr()->add(shipNode,"ice/iceTurbo");
+
 	rollNode = shipNode->createChildSceneNode();
 
 	//CUIDADO! EL NODO PARA ATACHAR COSAS PARA LA NAVE ES rollNode

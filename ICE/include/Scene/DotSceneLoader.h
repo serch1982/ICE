@@ -115,7 +115,7 @@
         Ogre::Vector3 mTerrainPosition;
         Ogre::Vector3 mLightDirection;
 
-		int mEnemyId;
+		int mEnemyId, auxId;
 
 
 		//ice

@@ -6,6 +6,7 @@
 #include "Entities\icePlayer.h"
 #include "Entities\icePhysicEntity.h"
 #include "Entities\iceBullet.h"
+#include "Effects\iceBillboard.h"
 
 class iceEnemy : public iceTrajectoryFollower, public iceRPG, public icePhysicEntity
 {
@@ -23,6 +24,10 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG, public icePhysicEn
 			DEAD = 4,
 			INACTIVE = 5
 		};
+		//set billboard
+		void setBillboard(iceBillboard* billboard);
+
+		Ogre::SceneNode* getEnemySceneNode(void);
 
 		// getter and setter for state
 		void setState(ENEMYSTATE p_iState);
@@ -103,6 +108,9 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG, public icePhysicEn
 
 		// Controlling ticks for dying animation
 		Ogre::Real mAnimDyingTicks;
+
+		//effect billboard
+		iceBillboard* mBillboard;
 };
 
 #endif

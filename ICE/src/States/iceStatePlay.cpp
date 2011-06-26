@@ -37,6 +37,10 @@ void iceStatePlay::load() {
         // light
         _sceneManager->setAmbientLight(Ogre::ColourValue(0.25, 0.25, 0.25));
 		
+		//particle system
+		mIceParticleMgr = iceParticleMgrPtr(new iceParticleMgr());
+		mIceParticleMgr->initialize();
+
 		//new player instance
         _player = new icePlayer();
 
@@ -103,6 +107,9 @@ void iceStatePlay::update(Ogre::Real evt) {
 
 	//phisics
 	mPhysics.update();
+
+	//particle system
+	mIceParticleMgr->update(evt);
 
 	//ShowDamage
 	iceDamageTextManager::getSingleton().update(evt);
