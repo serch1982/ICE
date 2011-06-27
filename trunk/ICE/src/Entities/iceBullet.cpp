@@ -69,7 +69,7 @@ void iceBullet::CreateEntities(Ogre::SceneManager* sceneMgr, Ogre::SceneNode* bu
 					
 		}		
 }
-bool iceBullet::Set(Ogre::SceneManager* sceneMgr, Ogre::SceneNode* shipNode,Ogre::Real p_iDamage, bool p_bCritic,int p_iShotSide)
+bool iceBullet::Set(Ogre::SceneManager* sceneMgr, Ogre::SceneNode* shipNode,Ogre::Radian p_fDeviation, Ogre::Real p_iDamage, bool p_bCritic,int p_iShotSide)
 {
 	if (!mbActive) 
 	{
@@ -84,6 +84,9 @@ bool iceBullet::Set(Ogre::SceneManager* sceneMgr, Ogre::SceneNode* shipNode,Ogre
 		/*Set bullets initial orientation*/
 		msOrientation = shipNode->_getDerivedOrientation();
 		msbulletNode->setOrientation(msOrientation);
+
+		Ogre::Vector3 deviatedDirection = Ogre::Vector3::UNIT_Z.randomDeviant(p_fDeviation);
+		msbulletNode->rotate(Ogre::Vector3::UNIT_Z.getRotationTo(deviatedDirection));
 		
 		/*Set bullets initial position*/
 		mvPosition = shipNode->_getDerivedPosition();

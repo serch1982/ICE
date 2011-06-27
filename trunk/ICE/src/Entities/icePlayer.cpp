@@ -371,14 +371,14 @@ void icePlayer::update(Ogre::Real p_timeSinceLastFrame)
 	updateLookAt(p_timeSinceLastFrame);
 	updateScroll(p_timeSinceLastFrame);
 	iceRPG::update(p_timeSinceLastFrame);
-	//addExperience(1000);	
+	addExperience(1000);	//TODO borrar
 	if (_isShooting){
 		shot();
 	}						/* Pau */
 	updateActiveBullets(p_timeSinceLastFrame);	/* Pau */
 }
 
-void icePlayer::createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation, unsigned int p_iDamage, bool p_bCritic)
+void icePlayer::createShotEntity(int p_iWeapon, Ogre::Radian p_fDeviation, unsigned int p_iDamage, bool p_bCritic)
 
 {
 	//Pau * ACTIVATE THE FIRST FREE BULLET OF THE CURRENT WEAPON*-------------------------------------------------------------//
@@ -394,7 +394,7 @@ void icePlayer::createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation,
 		
 			while(!bFreeBulletFound)
 			{
-				if(mvMachinegunBullets[i]->Set(sceneManager,shipNode,p_iDamage,p_bCritic,iShotSide))
+				if(mvMachinegunBullets[i]->Set(sceneManager,shipNode,p_fDeviation,p_iDamage,p_bCritic,iShotSide))
 				{
 					bFreeBulletFound = true;					
 					
@@ -415,7 +415,7 @@ void icePlayer::createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation,
 		
 			while(!bFreeBulletFound)
 			{
-				if(mvShotgunBullets[i]->Set(sceneManager,shipNode,p_iDamage,p_bCritic,iShotSide))
+				if(mvShotgunBullets[i]->Set(sceneManager,shipNode,p_fDeviation,p_iDamage,p_bCritic,iShotSide))
 				{
 					bFreeBulletFound = true;					
 					
@@ -436,7 +436,7 @@ void icePlayer::createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation,
 		
 			while(!bFreeBulletFound)
 			{
-				if(mvMisilLauncherBullets[i]->Set(sceneManager,shipNode,p_iDamage,p_bCritic,iShotSide))
+				if(mvMisilLauncherBullets[i]->Set(sceneManager,shipNode,p_fDeviation,p_iDamage,p_bCritic,iShotSide))
 				{
 					bFreeBulletFound = true;					
 					

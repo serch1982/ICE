@@ -747,7 +747,11 @@ void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode, icePlayer &p_
 		enemy->initialize(mEnemyId,enemyPosition,&p_Player,time + timeDev, false);
 		enemy->setLevel(time/30);//TODO
 		enemy->setBillboard(new iceBillboard(snbbNode,6,iceBillboard::DEAD1));
+		#ifdef _DEBUG
+
+		#else
 		iceParticleMgr::getSingletonPtr()->add(enemy->getEnemySceneNode(),"ice/fireminimagmaton");
+		#endif
 		mEnemies.push_back(enemy);	
 	}
 	for (int i=0;i<kamikaces;i++)
@@ -764,7 +768,11 @@ void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode, icePlayer &p_
 		enemy->initialize(mEnemyId,enemyPosition,&p_Player,time + timeDev,false);
 		enemy->setLevel(time/30);//TODO
 		enemy->setBillboard(new iceBillboard(snbbNode,6,iceBillboard::DEAD2));
+		#ifdef _DEBUG
+
+		#else
 		iceParticleMgr::getSingletonPtr()->add(enemy->getEnemySceneNode(),"ice/iceKamimaze");
+		#endif
 		mEnemies.push_back(enemy);
 	}
 	for (int i=0;i<intelligents;i++)
