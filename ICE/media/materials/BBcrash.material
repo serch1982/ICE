@@ -4,17 +4,9 @@ material crashpff
 	{
 		pass
 		{
-			
-			lighting off
-			scene_blend add
+			scene_blend alpha_blend
 			depth_write off
-			diffuse vertexcolour
-
-			point_sprites on
-			point_size 2
-			point_size_attenuation on
 		
-			
 			texture_unit
 			{
 				texture crashpff.png
@@ -29,16 +21,8 @@ material crashboom
 	{
 		pass
 		{
-			
-			lighting off
-			scene_blend add
+			scene_blend alpha_blend
 			depth_write off
-			diffuse vertexcolour
-
-			point_sprites on
-			point_size 2
-			point_size_attenuation on
-		
 			
 			texture_unit
 			{
