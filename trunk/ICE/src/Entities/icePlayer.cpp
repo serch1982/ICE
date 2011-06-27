@@ -44,7 +44,7 @@ icePlayer::icePlayer():_isShooting(false)
 	//Init Ship
 	shipPlaneNode = scrollNode->createChildSceneNode(Ogre::Vector3(0.0,-CAMERA_ADDED_Y,0.0));
 	shipNode = shipPlaneNode->createChildSceneNode();
-	iceParticleMgr::getSingletonPtr()->add(shipNode,"ice/iceTurbo");
+	miceParticlePtr = iceParticleMgr::getSingletonPtr()->addParticle(shipNode,"ice/iceTurbo",true);
 
 	rollNode = shipNode->createChildSceneNode();
 

@@ -74,11 +74,7 @@ void iceVolcano::update(Ogre::Real p_timeSinceLastFrame){
 			}
 			else
 			{//inactive
-				mNode->setVisible(false);
-				if(mShowingBoundingBox)
-				{
-					icePhysicEntity::hideBoundingBox();
-				}
+				desactivate();
 			}
 			break;
 	}
