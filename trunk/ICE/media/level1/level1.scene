@@ -19,8 +19,8 @@
         </viewport>
         <camera name="intViewCamera1" viewMode="0" polyMode="3" fov="45">
             <clipping near="1" far="10000" />
-            <position x="-1304.94" y="307.018" z="-59.603" />
-            <rotation qw="-0.385081" qx="0.0699587" qy="-0.905034" qz="-0.166821" />
+            <position x="-1313.26" y="243.462" z="-654.344" />
+            <rotation qw="0.501009" qx="-0.0914228" qy="0.846629" qz="0.154459" />
         </camera>
     </environment>
     <terrain worldSize="4000" mapSize="257" pagenameprefix="Page" colourmapEnabled="false" colourMapTextureSize="128" tuningCompositeMapDistance="1000" tuningMaxPixelError="3" tuningMinBatchSize="33" tuningMaxBatchSize="65">
@@ -227,6 +227,14 @@
                 </userData>
             </entity>
         </node>
+        <node name="Building05#1" id="316873664">
+            <position x="-1592.6" y="102.395" z="-204.761" />
+            <rotation qw="-0.0479783" qx="0" qy="0.998848" qz="0" />
+            <scale x="1" y="1" z="1" />
+            <entity name="Building05#1" meshFile="Building05.mesh" castShadows="false">
+                <subentity index="0" materialName="Building05" />
+            </entity>
+        </node>
         <node name="step#08" id="113773000">
             <position x="1480.5" y="-82.8812" z="1562.52" />
             <rotation qw="1" qx="0" qy="0" qz="0" />
@@ -262,7 +270,7 @@
                 <rotation qw="1" qx="0" qy="0" qz="0" />
                 <scale x="1" y="1" z="1" />
                 <entity name="Building06#0" meshFile="Building06.mesh" castShadows="false">
-                    <subentity index="0" materialName="Background_Toon_Material1" />
+                    <subentity index="0" materialName="Building06" />
                 </entity>
             </node>
             <node name="Building02#2" id="114535968">
@@ -278,7 +286,7 @@
                 <rotation qw="1" qx="0" qy="0" qz="0" />
                 <scale x="1" y="1" z="1" />
                 <entity name="Building09#3" meshFile="Building09.mesh" castShadows="false">
-                    <subentity index="0" materialName="Background_Toon_Material1" />
+                    <subentity index="0" materialName="Building09" />
                 </entity>
             </node>
             <node name="Building12#2" id="395184192">
@@ -310,7 +318,7 @@
                 <rotation qw="1" qx="0" qy="0" qz="0" />
                 <scale x="1" y="1" z="1" />
                 <entity name="Building08#0" meshFile="Building08.mesh" castShadows="false">
-                    <subentity index="0" materialName="Background_Toon_Material1" />
+                    <subentity index="0" materialName="Building08" />
                 </entity>
             </node>
             <node name="Building01#4" id="662800960">
@@ -374,7 +382,7 @@
                 <rotation qw="1" qx="0" qy="0" qz="0" />
                 <scale x="1" y="1" z="1" />
                 <entity name="Building08#2" meshFile="Building08.mesh" castShadows="false">
-                    <subentity index="0" materialName="Background_Toon_Material1" />
+                    <subentity index="0" materialName="Building08" />
                 </entity>
             </node>
             <node name="Building10#1" id="573351232">
@@ -398,7 +406,7 @@
                 <rotation qw="1" qx="0" qy="0" qz="0" />
                 <scale x="1" y="1" z="1" />
                 <entity name="Building06#3" meshFile="Building06.mesh" castShadows="false">
-                    <subentity index="0" materialName="Background_Toon_Material1" />
+                    <subentity index="0" materialName="Building06" />
                 </entity>
             </node>
             <node name="Building02#5" id="176580096">
@@ -414,7 +422,7 @@
                 <rotation qw="1" qx="0" qy="0" qz="0" />
                 <scale x="1" y="1" z="1" />
                 <entity name="Building09#0" meshFile="Building09.mesh" castShadows="false">
-                    <subentity index="0" materialName="Background_Toon_Material1" />
+                    <subentity index="0" materialName="Building09" />
                 </entity>
             </node>
             <node name="Building04#1" id="784966592">
@@ -446,7 +454,7 @@
                 <rotation qw="1" qx="0" qy="0" qz="0" />
                 <scale x="1" y="1" z="1" />
                 <entity name="Building06#1" meshFile="Building06.mesh" castShadows="false">
-                    <subentity index="0" materialName="Background_Toon_Material1" />
+                    <subentity index="0" materialName="Building06" />
                 </entity>
             </node>
             <node name="Building02#3" id="379131424">
@@ -462,7 +470,7 @@
                 <rotation qw="1" qx="0" qy="0" qz="0" />
                 <scale x="1" y="1" z="1" />
                 <entity name="Building09#2" meshFile="Building09.mesh" castShadows="false">
-                    <subentity index="0" materialName="Background_Toon_Material1" />
+                    <subentity index="0" materialName="Building09" />
                 </entity>
             </node>
             <node name="Building07#2" id="311349824">
@@ -486,7 +494,7 @@
                 <rotation qw="1" qx="0" qy="0" qz="0" />
                 <scale x="1" y="1" z="1" />
                 <entity name="Building08#1" meshFile="Building08.mesh" castShadows="false">
-                    <subentity index="0" materialName="Background_Toon_Material1" />
+                    <subentity index="0" materialName="Building08" />
                 </entity>
             </node>
             <node name="Building10#2" id="615222656">
@@ -502,7 +510,7 @@
                 <rotation qw="1" qx="0" qy="0" qz="0" />
                 <scale x="1" y="1" z="1" />
                 <entity name="Building06#2" meshFile="Building06.mesh" castShadows="false">
-                    <subentity index="0" materialName="Background_Toon_Material1" />
+                    <subentity index="0" materialName="Building06" />
                 </entity>
             </node>
             <node name="Building02#4" id="552812288">
@@ -526,7 +534,7 @@
                 <rotation qw="1" qx="0" qy="0" qz="0" />
                 <scale x="1" y="1" z="1" />
                 <entity name="Building09#1" meshFile="Building09.mesh" castShadows="false">
-                    <subentity index="0" materialName="Background_Toon_Material1" />
+                    <subentity index="0" materialName="Building09" />
                 </entity>
             </node>
             <node name="Building12#0" id="894619584">
@@ -574,7 +582,7 @@
                 <rotation qw="1" qx="0" qy="0" qz="0" />
                 <scale x="1" y="1" z="1" />
                 <entity name="Building08#3" meshFile="Building08.mesh" castShadows="false">
-                    <subentity index="0" materialName="Background_Toon_Material1" />
+                    <subentity index="0" materialName="Building08" />
                 </entity>
             </node>
             <node name="Building10#0" id="628681280">
@@ -876,6 +884,14 @@
                     <property type="2" name="Kamikace" data="4" />
                     <property type="2" name="Intelligent" data="4" />
                 </userData>
+            </entity>
+        </node>
+        <node name="Building05#0" id="23743400">
+            <position x="-1594.75" y="102.395" z="472.147" />
+            <rotation qw="-0.0479783" qx="0" qy="0.998848" qz="0" />
+            <scale x="1" y="1" z="1" />
+            <entity name="Building05#0" meshFile="Building05.mesh" castShadows="false">
+                <subentity index="0" materialName="Building05" />
             </entity>
         </node>
     </nodes>
