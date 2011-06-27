@@ -106,7 +106,6 @@ void iceEnemy::finalize()
 void iceEnemy::update(Ogre::Real p_timeSinceLastFrame)
 {
 	iceRPG::update(p_timeSinceLastFrame);
-
 }
 
 std::string iceEnemy::getFunctionStr(){
@@ -115,6 +114,9 @@ std::string iceEnemy::getFunctionStr(){
 
 void iceEnemy::activate(void)
 {
+	if(mIceParticle){
+		mIceParticle->start();
+	}
 	mCurrentLife = getMaxLife();
 	mNode->setVisible(true);
 	mState = STOPPED;
@@ -123,6 +125,19 @@ void iceEnemy::activate(void)
 	{
 		icePhysicEntity::showBoundingBox();
 	}
+}
+
+void iceEnemy::setIceParticle(iceParticlePtr particlePtr){
+	mIceParticle = particlePtr;
+}
+
+void iceEnemy::desactivate(void)
+{
+	if(mIceParticle){
+		mIceParticle->stop();
+	}
+	mNode->setVisible(false);
+	mState = INACTIVE;
 }
 
 bool iceEnemy::isActive(void)

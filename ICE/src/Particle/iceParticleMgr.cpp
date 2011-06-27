@@ -91,12 +91,13 @@ void iceParticleMgr::add(Ogre::SceneNode* node, Ogre::Vector3 position, iceParti
 	mIceParticleList.push_back(pSystem);
 }
 
-void iceParticleMgr::add(Ogre::SceneNode* node, Ogre::String id, iceParticle::iceParticleParameters params)
+void iceParticleMgr::add(Ogre::SceneNode* node, Ogre::String id, iceParticle::iceParticleParameters params, bool start)
 {
 	ParticleUniverse::ParticleSystem* ps = mParticleSystemManager->createParticleSystem(id + "_particle", params.script, mSceneManager);
 
 	iceParticlePtr pSystem = iceParticlePtr(new iceParticle(node, ps, params, id + "_particle"));
-	pSystem->start();
+	if( start )
+		pSystem->start();
 
 	mIceParticleList.push_back(pSystem);
 }
@@ -113,9 +114,17 @@ void iceParticleMgr::add(Ogre::Entity* entityNode, Ogre::SceneNode* node,  Ogre:
 }
 
 
-void iceParticleMgr::add(Ogre::SceneNode* node, Ogre::String script)
+iceParticlePtr iceParticleMgr::addParticle(Ogre::SceneNode* node, Ogre::String script, bool start)
 {
-	this->add(node, this->createUniqueId() + "_" + script, this->defaultParameters(script));
+	iceParticle::iceParticleParameters params = this->defaultParameters(script);
+	Ogre::String name = this->createUniqueId() + "_" + script;
+	ParticleUniverse::ParticleSystem* ps = mParticleSystemManager->createParticleSystem(name, params.script, mSceneManager);
+
+	iceParticlePtr pSystem = iceParticlePtr(new iceParticle(node, ps, params, name));
+	if( start )
+		pSystem->start();
+
+	return pSystem;
 }
 
 // Remove particle system from node and stop it (only usable with non-unique ID particle systems)

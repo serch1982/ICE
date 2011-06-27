@@ -16,6 +16,7 @@
 #include <OgreLog.h>
 #include "Utils\iceSdkTray.h"
 #include "Stats\icePlayerStats.h"
+#include "Particle\iceParticle.h"
 
 
 class icePlayer : public iceTrajectoryFollower, public iceRPG, public icePhysicEntity
@@ -109,6 +110,8 @@ class icePlayer : public iceTrajectoryFollower, public iceRPG, public icePhysicE
 		void setMovingDown(bool pMovingDown);
 		void setMovingLeft(bool pMovingLeft);
 		void setMovingRight(bool pMovingRight);
+
+		iceParticlePtr miceParticlePtr;
 };
 
 #endif

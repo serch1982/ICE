@@ -30,10 +30,10 @@ public:
 	// Particle system function	
 	ParticleUniverse::ParticleSystem* create(Ogre::String script);
 
-	void add(Ogre::SceneNode* node, Ogre::String script);
+	iceParticlePtr addParticle(Ogre::SceneNode* node, Ogre::String script, bool start);
 	void add(Ogre::SceneNode* node, iceParticle::iceParticleParameters params, bool start = true);
 	void add(Ogre::SceneNode* node, Ogre::Vector3 position, iceParticle::iceParticleParameters params, bool start = true);
-	void add(Ogre::SceneNode* node, Ogre::String id, iceParticle::iceParticleParameters params);
+	void add(Ogre::SceneNode* node, Ogre::String id, iceParticle::iceParticleParameters params, bool start);
 	void add(Ogre::Entity* entityNode, Ogre::SceneNode* node,  Ogre::String boneName, Ogre::String script);
 	bool remove(Ogre::String id);
 

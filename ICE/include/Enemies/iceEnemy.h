@@ -7,6 +7,7 @@
 #include "Entities\icePhysicEntity.h"
 #include "Entities\iceBullet.h"
 #include "Effects\iceBillboard.h"
+#include "Particle\iceParticle.h"
 
 class iceEnemy : public iceTrajectoryFollower, public iceRPG, public icePhysicEntity
 {
@@ -26,6 +27,8 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG, public icePhysicEn
 		};
 		//set billboard
 		void setBillboard(iceBillboard* billboard);
+		//set particle pointer
+		void setIceParticle(iceParticlePtr particlePtr);
 
 		Ogre::SceneNode* getEnemySceneNode(void);
 
@@ -38,6 +41,7 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG, public icePhysicEn
 
 		// Activation in the world
 		void activate(void);
+		void desactivate(void);
 		// Waiting for activation
 		bool checkActivationTime(Ogre::Real p_timeSinceLastFrame);
 		// Is the enemy visible to the player
@@ -78,7 +82,7 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG, public icePhysicEn
 	protected:
 		// Generator for obtain a name for this instance
 		static Ogre::NameGenerator mNameGenerator;
-
+		
 		//Attributes
 		ENEMYSTATE mState;
 		icePlayer* mPlayer;
@@ -114,6 +118,9 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG, public icePhysicEn
 
 		// DEBUG
 		Ogre::Log* mLog;
+		 
+		//particles 
+		iceParticlePtr mIceParticle;
 };
 
 #endif
