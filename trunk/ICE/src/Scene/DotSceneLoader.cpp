@@ -746,7 +746,7 @@ void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode, icePlayer &p_
 		mEnemyId = mEnemyId + 1000; 
 		enemy->initialize(mEnemyId,enemyPosition,&p_Player,time + timeDev, false);
 		enemy->setLevel(time/30);//TODO
-		enemy->setBillboard(new iceBillboard(snbbNode,30,iceBillboard::DEAD1));
+		enemy->setBillboard(new iceBillboard(snbbNode,50,iceBillboard::DEAD1));
 
 		enemy->setIceParticle(iceParticleMgr::getSingletonPtr()->addParticle(enemy->getEnemySceneNode(),"ice/fireminimagmaton",false));
 		mEnemies.push_back(enemy);	
@@ -764,7 +764,7 @@ void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode, icePlayer &p_
 		mEnemyId = mEnemyId + 1000;
 		enemy->initialize(mEnemyId,enemyPosition,&p_Player,time + timeDev,false);
 		enemy->setLevel(time/30);//TODO
-		enemy->setBillboard(new iceBillboard(snbbNode,30,iceBillboard::DEAD2));
+		enemy->setBillboard(new iceBillboard(snbbNode,50,iceBillboard::DEAD2));
 		enemy->setIceParticle(iceParticleMgr::getSingletonPtr()->addParticle(enemy->getEnemySceneNode(),"ice/iceKamimaze",false));
 		mEnemies.push_back(enemy);
 	}
@@ -781,7 +781,7 @@ void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode, icePlayer &p_
 		mEnemyId = mEnemyId + 1000;
 		enemy->initialize(mEnemyId,enemyPosition,&p_Player,time + timeDev,false);
 		enemy->setLevel(time/30);//TODO
-		enemy->setBillboard(new iceBillboard(snbbNode,30,iceBillboard::DEAD1));
+		enemy->setBillboard(new iceBillboard(snbbNode,50,iceBillboard::DEAD1));
 		mEnemies.push_back(enemy);
 	}
 	auxId++;
