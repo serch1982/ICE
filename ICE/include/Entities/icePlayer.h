@@ -57,7 +57,7 @@ class icePlayer : public iceTrajectoryFollower, public iceRPG, public icePhysicE
 		void updateActiveBullets(Ogre::Real p_timeSinceLastFrame);
 		void changeWeapon(const int z);
 		//iceRPG
-		virtual void createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation, unsigned int p_iDamage, bool p_bCritic); 
+		virtual void createShotEntity(int p_iWeapon, Ogre::Radian p_fDeviation, unsigned int p_iDamage, bool p_bCritic); 
 		virtual void showReceivedDamage(unsigned int p_iDamage, bool p_bCritical);
 		virtual void showShieldDamage(unsigned int p_iDamage, bool p_bCritical);
 		virtual void showFail(void);

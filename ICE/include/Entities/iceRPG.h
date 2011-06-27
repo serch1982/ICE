@@ -54,7 +54,7 @@ public:
 	void addDamage(unsigned int p_iDamage, bool p_bCritic);
 
 	//this methods must be overridden
-	virtual void createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation, unsigned int p_iDamage, bool p_bCritic) =0; 
+	virtual void createShotEntity(int p_iWeapon, Ogre::Radian p_fDeviation, unsigned int p_iDamage, bool p_bCritic) =0; 
 	virtual void showReceivedDamage(unsigned int p_iDamage, bool p_bCritical) =0;
 	virtual void showShieldDamage(unsigned int p_iDamage, bool p_bCritical) =0;
 	virtual void showFail(void) =0;

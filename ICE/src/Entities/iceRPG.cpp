@@ -224,7 +224,7 @@ void iceRPG::shot(void)
 					fMaxDeviation = fMaxDeviation*2 - Ogre::Radian(Ogre::Real(mWeaponLevel[mCurrentWeapon]/20));
 					break;
 				case SHOTGUN:
-					fMaxDeviation = fMaxDeviation*5 - Ogre::Radian(Ogre::Real(mWeaponLevel[mCurrentWeapon]/50));
+					fMaxDeviation = fMaxDeviation*15 - Ogre::Radian(Ogre::Real(mWeaponLevel[mCurrentWeapon]/50));
 					break;
 				case MISILE_LAUNCHER:
 					fBaseDamage *= 10;
@@ -244,7 +244,8 @@ void iceRPG::shot(void)
 			//Ogre::Quaternion sOrientation = Ogre::Quaternion::IDENTITY;
 			
 			//createShotEntity(mCurrentWeapon,sOrientation,fDamage,bIsCritic);
-			createShotEntity(mCurrentWeapon,sOrientation,1000,bIsCritic);
+			fDeviation /= 60;
+			createShotEntity(mCurrentWeapon,fDeviation,1000,bIsCritic);
 		}
 
 		mTimeSinceLastShot = 0.0;

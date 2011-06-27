@@ -61,7 +61,7 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG, public icePhysicEn
 
 		////iceRPG
 		// enemy shot
-		void createShotEntity(int p_iWeapon, Ogre::Quaternion p_sOrientation, unsigned int p_iDamage, bool p_bCritic);
+		void createShotEntity(int p_iWeapon, Ogre::Radian p_fDeviation, unsigned int p_iDamage, bool p_bCritic);
 		// Showing information to user
 		void showReceivedDamage(unsigned int p_iDamage, bool p_bCritical);
 		void showShieldDamage(unsigned int p_iDamage, bool p_bCritical);
