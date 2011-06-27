@@ -371,7 +371,7 @@ void icePlayer::update(Ogre::Real p_timeSinceLastFrame)
 	updateLookAt(p_timeSinceLastFrame);
 	updateScroll(p_timeSinceLastFrame);
 	iceRPG::update(p_timeSinceLastFrame);
-	addExperience(1000);	//TODO borrar
+	//addExperience(1000);	//TODO borrar
 	if (_isShooting){
 		shot();
 	}						/* Pau */

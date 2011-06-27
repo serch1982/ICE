@@ -19,8 +19,8 @@
         </viewport>
         <camera name="intViewCamera1" viewMode="0" polyMode="3" fov="45">
             <clipping near="1" far="10000" />
-            <position x="1462.54" y="302.504" z="-1501.09" />
-            <rotation qw="-0.9414" qx="0.336514" qy="0.0256159" qz="0.00815849" />
+            <position x="-1304.94" y="307.018" z="-59.603" />
+            <rotation qw="-0.385081" qx="0.0699587" qy="-0.905034" qz="-0.166821" />
         </camera>
     </environment>
     <terrain worldSize="4000" mapSize="257" pagenameprefix="Page" colourmapEnabled="false" colourMapTextureSize="128" tuningCompositeMapDistance="1000" tuningMaxPixelError="3" tuningMinBatchSize="33" tuningMaxBatchSize="65">
@@ -294,7 +294,7 @@
                 <rotation qw="1" qx="0" qy="0" qz="0" />
                 <scale x="1" y="1" z="1" />
                 <entity name="Building04#2" meshFile="Building04.mesh" castShadows="false">
-                    <subentity index="0" materialName="Background_Toon_Material1" />
+                    <subentity index="0" materialName="Building04" />
                 </entity>
             </node>
             <node name="Building01#1" id="999694848">
@@ -422,7 +422,7 @@
                 <rotation qw="1" qx="0" qy="0" qz="0" />
                 <scale x="1" y="1" z="1" />
                 <entity name="Building04#1" meshFile="Building04.mesh" castShadows="false">
-                    <subentity index="0" materialName="Background_Toon_Material1" />
+                    <subentity index="0" materialName="Building04" />
                 </entity>
             </node>
             <node name="Building01#5" id="380108032">
@@ -478,7 +478,7 @@
                 <rotation qw="1" qx="0" qy="0" qz="0" />
                 <scale x="1" y="1" z="1" />
                 <entity name="Building04#3" meshFile="Building04.mesh" castShadows="false">
-                    <subentity index="0" materialName="Background_Toon_Material1" />
+                    <subentity index="0" materialName="Building04" />
                 </entity>
             </node>
             <node name="Building08#1" id="127231672">
@@ -550,7 +550,7 @@
                 <rotation qw="1" qx="0" qy="0" qz="0" />
                 <scale x="1" y="1" z="1" />
                 <entity name="Building04#0" meshFile="Building04.mesh" castShadows="false">
-                    <subentity index="0" materialName="Background_Toon_Material1" />
+                    <subentity index="0" materialName="Building04" />
                 </entity>
             </node>
             <node name="Building07#0" id="751548800">

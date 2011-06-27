@@ -1,5 +1,5 @@
 
-material minimagmaton
+material minimagmaton5
 {
 	technique Toon
 	{
@@ -7,17 +7,16 @@ material minimagmaton
 		{
 			vertex_program_ref ToonVP
 			{
-				param_named shininess float4 6 1.0 1.0 1.0
+				param_named shininess float4 3 1.0 1.0 1.0
 			}
 
 			fragment_program_ref ToonFP
 			{
-				param_named ambient float4 0.628 0.062 0.142 1
-				param_named diffuse float4 1.0 0.0 0.0 1
-				param_named specular float4 0.0 0.0 0.0 1.0
-				param_named emissive float4 0.0 0.0 0.0 1.0
+				param_named ambient float4 0.0 0.0 0.0 1.0
+				param_named diffuse float4 0.244 0.244 0.244 1
+				param_named specular float4 0.0 0.0 0.0 1
+				param_named emissive float4 0.0 0.0 0.0 1
 			}
-
 
 			texture_unit ToonShades
 			{
@@ -28,10 +27,9 @@ material minimagmaton
 
 			texture_unit
 			{
-				texture MiniMagma_ambocc_text.jpg
+				texture minimagmaton.jpg
 			}
 		}
-
 		// Black outline
 		pass
 		{
@@ -45,7 +43,11 @@ material minimagmaton
 			{
 			}		
 		}
-		
+
 	}
 
 }
+
+
+
+

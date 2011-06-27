@@ -711,7 +711,7 @@ void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode, icePlayer &p_
 		Ogre::String name = getAttrib(XMLProperty,"name");
 		if (name.compare("time") == 0)
 		{
-			time = getAttribReal(XMLProperty,"data") - 5;
+			time = getAttribReal(XMLProperty,"data") - 10;
 		}
 		else if (name.compare("MiniMagmaton") == 0)
 		{
@@ -745,7 +745,7 @@ void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode, icePlayer &p_
 		iceEnemy* enemy = new iceMini();
 		mEnemyId = mEnemyId + 1000; 
 		enemy->initialize(mEnemyId,enemyPosition,&p_Player,time + timeDev, false);
-		enemy->setLevel(time/30);//TODO
+		enemy->setLevel(time/20);//TODO
 		enemy->setBillboard(new iceBillboard(snbbNode,50,iceBillboard::DEAD1));
 
 		enemy->setIceParticle(iceParticleMgr::getSingletonPtr()->addParticle(enemy->getEnemySceneNode(),"ice/fireminimagmaton",false));
@@ -763,7 +763,7 @@ void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode, icePlayer &p_
 		iceEnemy* enemy = new iceKamikaze();
 		mEnemyId = mEnemyId + 1000;
 		enemy->initialize(mEnemyId,enemyPosition,&p_Player,time + timeDev,false);
-		enemy->setLevel(time/30);//TODO
+		enemy->setLevel(time/20);//TODO
 		enemy->setBillboard(new iceBillboard(snbbNode,50,iceBillboard::DEAD2));
 		enemy->setIceParticle(iceParticleMgr::getSingletonPtr()->addParticle(enemy->getEnemySceneNode(),"ice/iceKamimaze",false));
 		mEnemies.push_back(enemy);
@@ -780,7 +780,7 @@ void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode, icePlayer &p_
 		iceEnemy* enemy = new iceSmart();
 		mEnemyId = mEnemyId + 1000;
 		enemy->initialize(mEnemyId,enemyPosition,&p_Player,time + timeDev,false);
-		enemy->setLevel(time/30);//TODO
+		enemy->setLevel(time/20);//TODO
 		enemy->setBillboard(new iceBillboard(snbbNode,50,iceBillboard::DEAD1));
 		mEnemies.push_back(enemy);
 	}
