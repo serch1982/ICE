@@ -21,7 +21,7 @@ bool iceSmart::initialize(int id, Ogre::Vector3 p_Position, icePlayer* p_psPlaye
 	Ogre::Entity* mesh;
 	mesh = sceneManager->createEntity(entityName.str(), "intelligent.mesh");
 	mNode->attachObject(mesh);
-	mNode->scale(0.1,0.1,0.1);
+	//mNode->scale(0.1,0.1,0.1);
 
 	//init physics mesh
 	icePhysicEntity::initialize(mesh);

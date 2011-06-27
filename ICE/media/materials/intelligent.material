@@ -1,7 +1,7 @@
 
-material airplane
+material intelligent
 {
-	technique
+	technique Toon
 	{
 		pass
 		{
@@ -27,7 +27,7 @@ material airplane
 
 			texture_unit
 			{
-				texture Navetextura.png
+				texture intelligent.jpg
 			}
 		}
 		// Black outline
@@ -47,5 +47,7 @@ material airplane
 	}
 
 }
+
+
 
 

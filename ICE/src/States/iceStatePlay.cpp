@@ -132,8 +132,8 @@ void iceStatePlay::update(Ogre::Real evt)
 		}
 		//HUD
 		_stateManager->getHikariMgr()->update();
-		setHUDLife(_player->getCurrentLife());
-		setHUDWeapon(_player->getCurrentWeaponName());
+		//setHUDLife(_player->getCurrentLife());
+		//setHUDWeapon(_player->getCurrentWeaponName());
 
 		//phisics
 		mPhysics.update();

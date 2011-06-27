@@ -68,7 +68,8 @@ void iceDamageTextManager::showEnemyDamage(Ogre::MovableObject *mov, unsigned in
 		return;
 	}
 	stringstream damageText;
-	damageText << pDamage << pIsCritic?"!":"";
+	damageText << pDamage << (pIsCritic?"!":"");
+	Ogre::String StreamAlloc = damageText.str();
 	textOverlay->initialize(damageText.str(),mov,mEnemyDamageAttributes);
 	textOverlay->enable();
 }
@@ -92,7 +93,7 @@ void iceDamageTextManager::showPlayerDamage(Ogre::MovableObject *mov, unsigned i
 		return;
 	}
 	stringstream damageText;
-	damageText << pDamage << pIsCritic?"!":"";
+	damageText << pDamage << (pIsCritic?"!":"");
 	textOverlay->initialize(damageText.str(),mov,mPlayerDamageAttributes);
 	textOverlay->enable();
 }
@@ -105,7 +106,7 @@ void iceDamageTextManager::showPlayerShieldDamage(Ogre::MovableObject *mov, unsi
 		return;
 	}
 	stringstream damageText;
-	damageText << pDamage << pIsCritic?"!":"";
+	damageText << pDamage << (pIsCritic?"!":"");
 	textOverlay->initialize(damageText.str(),mov,mPlayerShieldDamageAttributes);
 	textOverlay->enable();
 }

@@ -6,7 +6,7 @@ iceRPG::iceRPG(void)
 	mExperience = 0;
 	mBaseLife = 100;
 	mBaseArmor = 1;	
-	mBaseAttack = 10;
+	mBaseAttack = 100;
 	mBaseAccuracy = 1;
 	mBaseManiobrability = 7;
 	mBaseLuck = 100;
@@ -243,9 +243,9 @@ void iceRPG::shot(void)
 			Ogre::Quaternion sOrientation(fDeviation,Ogre::Vector3(Ogre::Math::SymmetricRandom(),Ogre::Math::SymmetricRandom(),0.0));
 			//Ogre::Quaternion sOrientation = Ogre::Quaternion::IDENTITY;
 			
-			//createShotEntity(mCurrentWeapon,sOrientation,fDamage,bIsCritic);
 			fDeviation /= 60;
-			createShotEntity(mCurrentWeapon,fDeviation,1000,bIsCritic);
+			createShotEntity(mCurrentWeapon,fDeviation,fDamage,bIsCritic);
+			//createShotEntity(mCurrentWeapon,fDeviation,1000,bIsCritic);
 		}
 
 		mTimeSinceLastShot = 0.0;
