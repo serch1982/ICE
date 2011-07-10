@@ -6,17 +6,18 @@
 #include "Hikari.h"
 #include "iceState.h"
 #include "Utils\iceSdkTray.h"
-
-class iceStateManager;
-class iceSoundManager;
+#include <Sound\iceSoundManager.h>
 
 class iceStatePause: public iceState{
     public:
         /**
          *  Constructor menu state pause 
          */
-        iceStatePause(iceStateManager* stateManager,
-			iceSoundManager* soundManager);
+        iceStatePause(
+			iceSoundManager* soundManager,
+			iceLevelManager* levelManager,
+			Hikari::HikariManager *hikariMgr
+			);
 
         /**
          * Destructor
@@ -78,9 +79,6 @@ class iceStatePause: public iceState{
 		Hikari::FlashValue menuExitClick(Hikari::FlashControl* caller, const Hikari::Arguments& args);
 		Hikari::FlashValue menuPlayClick(Hikari::FlashControl* caller, const Hikari::Arguments& args);
 		Hikari::FlashValue menuContinueClick(Hikari::FlashControl* caller, const Hikari::Arguments& args);
-
-		//sound
-		iceSoundManager* mSoundManager;
 };
 
 

@@ -3,10 +3,9 @@
 
 #include <OGRE/Ogre.h>
 #include <OIS/OIS.h>
+#include <States\iceStateManager.h>
+#include <Sound\iceSoundManager.h>
 
-class iceStateManager;
-class iceLevelManager;
-class iceSoundManager;
 
 class iceGame {
     public:
@@ -84,10 +83,8 @@ class iceGame {
         OIS::InputManager* _inputManager;
         // states manager
         iceStateManager* _stateManager;
-        // level manager
-        iceLevelManager* _levelManager;
 		//sound manager
-		iceSoundManager* mSoundManager;
+		iceSoundManager* _soundManager;
 };
 
 #endif 
