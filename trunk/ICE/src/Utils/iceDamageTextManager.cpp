@@ -12,7 +12,7 @@ iceDamageTextManager::iceDamageTextManager()
 	mTextOverlays.resize(MAX_OVERLAYS);
 	for(unsigned int i=0;i<MAX_OVERLAYS;i++)
 	{
-		stringstream str;
+		std::stringstream str;
 		str << "DamageText_" << i;
 		mTextOverlays[i] = new MovableTextOverlay(str.str());
 	}
@@ -67,7 +67,7 @@ void iceDamageTextManager::showEnemyDamage(Ogre::MovableObject *mov, unsigned in
 	{
 		return;
 	}
-	stringstream damageText;
+	std::stringstream damageText;
 	damageText << pDamage << (pIsCritic?"!":"");
 	Ogre::String StreamAlloc = damageText.str();
 	textOverlay->initialize(damageText.str(),mov,mEnemyDamageAttributes);
@@ -92,7 +92,7 @@ void iceDamageTextManager::showPlayerDamage(Ogre::MovableObject *mov, unsigned i
 	{
 		return;
 	}
-	stringstream damageText;
+	std::stringstream damageText;
 	damageText << pDamage << (pIsCritic?"!":"");
 	textOverlay->initialize(damageText.str(),mov,mPlayerDamageAttributes);
 	textOverlay->enable();
@@ -105,7 +105,7 @@ void iceDamageTextManager::showPlayerShieldDamage(Ogre::MovableObject *mov, unsi
 	{
 		return;
 	}
-	stringstream damageText;
+	std::stringstream damageText;
 	damageText << pDamage << (pIsCritic?"!":"");
 	textOverlay->initialize(damageText.str(),mov,mPlayerShieldDamageAttributes);
 	textOverlay->enable();
@@ -118,7 +118,7 @@ void iceDamageTextManager::showPlayerHeal(Ogre::MovableObject *mov, unsigned int
 	{
 		return;
 	}
-	stringstream damageText;
+	std::stringstream damageText;
 	damageText << pHeal;
 	textOverlay->initialize(damageText.str(),mov,mPlayerHealAttributes);
 	textOverlay->enable();

@@ -9,13 +9,15 @@
 
 #define DOUBLE_KEY_TIME 0.5
 
-iceStatePlay::iceStatePlay(iceStateManager* stateManager,
-						   iceSoundManager* soundManager)
-	:iceState(stateManager, soundManager),
-	mSoundManager(soundManager),
+iceStatePlay::iceStatePlay(
+	iceSoundManager* soundManager,
+	iceLevelManager* levelManager,
+	Hikari::HikariManager *hikariManager
+	)
+	:iceState(soundManager,levelManager, hikariManager),
 	_levelID(1) {
     _log->logMessage("iceStatePlay::iceStatePlay()");
-	_nextICEStateId = Play;
+	_nextICEStateId = PLAY;
 	visibleBoundingBoxes = false;
 
 	mUpCounter = 0;
@@ -59,16 +61,17 @@ void iceStatePlay::load() {
 			mPhysics.initialize(_level->getTerrain(), _player, &_mEnemies, _level->getSceneObjects());
 
 			//load sounds
-			mSoundManager->loadLevel1();
-			mSoundManager->PlaySound(0, Ogre::Vector3::ZERO, 0);
+			_soundManager->loadLevel1();
+			_soundManager->PlaySound(0, Ogre::Vector3::ZERO, 0);
 
 			//load lua logic
-			std::string path = _stateManager->getPathRoot() + "\\media\\scripts\\lua\\kamikaze.lua";
+			//Maybe we should choose another way
+			std::string path = "./media/scripts/lua/kamikaze.lua";
 			iceLogicLua::getInstance()->RunFile(path.c_str());
 
 			//load HUD
 			try{
-				_hikariHUD = _stateManager->getHikariMgr()->createFlashOverlay("HUD",iceGame::getCamera()->getViewport(), iceGame::getCamera()->getViewport()->getActualWidth(), iceGame::getCamera()->getViewport()->getActualHeight(), Hikari::Position(Hikari::Center));
+				_hikariHUD = _hikariManager->createFlashOverlay("HUD",iceGame::getCamera()->getViewport(), iceGame::getCamera()->getViewport()->getActualWidth(), iceGame::getCamera()->getViewport()->getActualHeight(), Hikari::Position(Hikari::Center));
 				_hikariHUD->load("HUD.swf");
 				_hikariHUD->setTransparent(true, true);
 			}catch(char* ex) {
@@ -96,14 +99,14 @@ void iceStatePlay::clear() {
 		//clean scene manager
         _sceneManager->clearScene();
 
-		mSoundManager->unloadLevel1();
+		_soundManager->unloadLevel1();
 
 		//Deleting enemies
 		for (unsigned int i=0;i<_mEnemies.size();i++)
 			delete _mEnemies[i];
 
 		//destroy HUD
-		_stateManager->getHikariMgr()->destroyFlashControl("HUD");
+		_hikariManager->destroyFlashControl("HUD");
     }
 }
 
@@ -131,7 +134,7 @@ void iceStatePlay::update(Ogre::Real evt)
 			(*_revit_mEnemies)->update(evt);
 		}
 		//HUD
-		_stateManager->getHikariMgr()->update();
+		_hikariManager->update();
 		//setHUDLife(_player->getCurrentLife());
 		//setHUDWeapon(_player->getCurrentWeaponName());
 
@@ -186,7 +189,7 @@ void iceStatePlay::update(Ogre::Real evt)
 bool iceStatePlay::keyPressed(const OIS::KeyEvent &arg) {
 	if (arg.key == OIS::KC_P)
     {
-        this->_nextICEStateId = Pause;
+        this->_nextICEStateId = PAUSE;
     }	
 	else if(arg.key == OIS::KC_F7)   // show bounding boxes
     {
@@ -289,7 +292,7 @@ void iceStatePlay::setLevelToLoad(int levelID){
 
 ICEStateId iceStatePlay::getStateId()
 {
-	return Play;
+	return PLAY;
 }
 
 void iceStatePlay::setHUDLife(int life){

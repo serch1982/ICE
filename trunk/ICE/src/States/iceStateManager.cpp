@@ -1,4 +1,12 @@
 #include "States\iceStateManager.h"
+#include "States\iceStateIntro.h"
+#include "States\iceStateShipSelection.h"
+#include "States\iceStateLevelSelection.h"
+#include "States\iceStateLoadLevel.h"
+#include "States\iceStateCredits.h"
+#include "States\iceStateStats.h"
+#include "States\iceStateGameOver.h"
+#include "States\iceStateOutro.h"
 #include "States\iceStateMenu.h"
 #include "States\iceStatePlay.h"
 #include "States\iceStatePause.h"
@@ -10,9 +18,10 @@
 OgreBites::SdkCameraMan* _sdkCameraMan;
 
 iceStateManager::iceStateManager(OIS::InputManager* inputManager,
-								 iceSoundManager* soundManager)
+								 iceSoundManager* soundManager
+								 )
 	:_inputManager(inputManager),
-	 mSoundManager(soundManager),
+	 _soundManager(soundManager),
 	 _levelToLoad(1),
 	 _exit(false)
 {
@@ -35,8 +44,7 @@ iceStateManager::iceStateManager(OIS::InputManager* inputManager,
 	iceSdkTray::getInstance()->updateScreenInfo(7, "Solid");
 
 	//load hikari manager
-	_hikariMgr = new Hikari::HikariManager(".\\media");
-
+	_hikariManager = new Hikari::HikariManager(".\\media");
 
 	//set god camera
 	Ogre::SceneManager* sceneManager = iceGame::getSceneManager();
@@ -49,8 +57,23 @@ iceStateManager::iceStateManager(OIS::InputManager* inputManager,
 	_sdkCameraMan = new OgreBites::SdkCameraMan(_godCamera); 
 	//set the old camera the current
 	_oldCamera = iceGame::getCamera();
+	
+	_levelManager = new iceLevelManager();
 	// load states
-    changeState(new iceStateMenu(this,mSoundManager));
+	_statesVector.push_back( new iceStateIntro( _soundManager, _levelManager, _hikariManager) );
+	_statesVector.push_back( new iceStateMenu( _soundManager, _levelManager, _hikariManager) );
+	_statesVector.push_back( new iceStatePlay( _soundManager, _levelManager, _hikariManager) );
+	_statesVector.push_back( new iceStateShipSelection( _soundManager, _levelManager, _hikariManager) );
+	_statesVector.push_back( new iceStateLevelSelection( _soundManager, _levelManager, _hikariManager) );
+	_statesVector.push_back( new iceStateGameOver( _soundManager, _levelManager, _hikariManager) );
+	_statesVector.push_back( new iceStatePause( _soundManager, _levelManager, _hikariManager) );
+	_statesVector.push_back( new iceStateLoadLevel( _soundManager, _levelManager, _hikariManager) );
+	_statesVector.push_back( new iceStateCredits( _soundManager, _levelManager, _hikariManager) );
+	_statesVector.push_back( new iceStateOutro( _soundManager, _levelManager, _hikariManager) );
+	_statesVector.push_back( new iceStateStats( _soundManager, _levelManager, _hikariManager) );
+
+	changeState( _statesVector[MAINMENU] );
+    //changeState(new iceStateMenu(this,_soundManager));
 }
 
 iceStateManager::~iceStateManager() {
@@ -59,7 +82,7 @@ iceStateManager::~iceStateManager() {
 }
 
 void iceStateManager::finalize(){
- Ogre::WindowEventUtilities::removeWindowEventListener(iceGame::getRenderWindow(), this);
+	Ogre::WindowEventUtilities::removeWindowEventListener(iceGame::getRenderWindow(), this);
 	if( _inputManager )
     {
         _inputManager->destroyInputObject( _mouse );
@@ -68,8 +91,18 @@ void iceStateManager::finalize(){
         OIS::InputManager::destroyInputSystem(_inputManager);
         _inputManager = 0;
     }
-	delete _hikariMgr;
+
 	delete _sdkCameraMan;
+	_sdkCameraMan = NULL;
+
+	for( int i = 0; i < _statesVector.size(); ++i ){
+		delete _statesVector[i];
+		_statesVector[i] = NULL;
+	}
+
+	delete _hikariManager;
+	_hikariManager = NULL;
+
 	_log->logMessage("iceStateManager::finalize()");
 }
 
@@ -139,21 +172,26 @@ void iceStateManager::exitGame() {
 
 
 iceState* iceStateManager::getICEStateByID(const ICEStateId stateName) {
-	int sid = stateName;
+	std::stringstream msg;
+	msg << "iceStateManager::changeState() -> new state: " << (int)stateName;
+	_log->logMessage( msg.str() );
+	return _statesVector[stateName];
+	
+	/*int sid = stateName;
 	switch(sid) {
 	case (int)MainMenu:
 		_log->logMessage("iceStateManager::changeState() -> new state:  MainMenu" );
-        return new iceStateMenu(this,mSoundManager);
+        return _statesVector[MAINMENU];
 	case (int)Play:
 		_log->logMessage("iceStateManager::changeState() -> new state:  Play" );
-        return new iceStatePlay(this,mSoundManager);
+        return new iceStatePlay(this,_soundManager);
 	case (int)Pause:
 		_log->logMessage("iceStateManager::changeState() -> new state:  Pause" );
-        return new iceStatePause(this,mSoundManager);
+        return new iceStatePause(this,_soundManager);
 	default:
 		_log->logMessage("iceStateManager::changeState() -> new state:  default" );
-        return new iceStateMenu(this,mSoundManager);
-	}
+        return new iceStateMenu(this,_soundManager);
+	}*/
 }
 
 void iceStateManager::changeState(iceState* icestate) {
@@ -254,7 +292,7 @@ bool iceStateManager::frameRenderingQueued(const Ogre::FrameEvent& evt) {
 		return false;
 	}
 
-	if( _currentState->getNextStateId() == Exit){
+	if( _currentState->getNextStateId() == EXIT){
 		_exit = true;
 		return false;
 	}
@@ -265,15 +303,15 @@ bool iceStateManager::frameRenderingQueued(const Ogre::FrameEvent& evt) {
 
 	if(currentStateId != nextStateId)
 	{
-		if((currentStateId == Play) && (nextStateId == Pause)){
+		if((currentStateId == PLAY) && (nextStateId == PAUSE)){
 			_idleState = _currentState;
 			_currentState = getICEStateByID(nextStateId);
 			_currentState->load();
-		}else if((currentStateId == Pause) && (nextStateId == Play)){
+		}else if((currentStateId == PAUSE) && (nextStateId == PLAY)){
 			_currentState->clear();
-			delete _currentState;
+			//delete _currentState;
 			_currentState = _idleState;
-			_currentState->setNextStateId(Play);
+			_currentState->setNextStateId(PLAY);
 			_idleState = NULL;
 			//force to hide cursor
 			iceSdkTray::getInstance()->hideCursor();

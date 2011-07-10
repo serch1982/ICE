@@ -31,14 +31,10 @@ iceGame::iceGame() {
     }
 
 	// sound manager
-	mSoundManager = new iceSoundManager();
-	mSoundManager->Initialize();
-
+	_soundManager = new iceSoundManager();
+	_soundManager->Initialize();
     // states manager
-	_stateManager = new iceStateManager(_inputManager, mSoundManager->getSingletonPtr() );
-//	_soundManager->loadResources();
-	// levels
-    _levelManager = new iceLevelManager();
+	_stateManager = new iceStateManager(_inputManager, _soundManager->getSingletonPtr() );
 }
 
 iceGame::~iceGame() {
@@ -46,9 +42,19 @@ iceGame::~iceGame() {
 }
 
 void iceGame::finalize(){
-	delete _levelManager;
+	
+	//Destroy Managers
+	//state
 	_stateManager->finalize();
-    delete _root;
+	delete _stateManager;
+	_stateManager = NULL;
+    //sound
+	delete _soundManager;
+	_soundManager = NULL;
+
+	OGRE_DELETE _root;
+	_root = NULL;
+
 	_log->logMessage("iceGame::~finalize()");
 }
 

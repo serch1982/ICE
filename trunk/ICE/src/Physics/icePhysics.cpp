@@ -21,7 +21,7 @@ void icePhysics::initialize(Ogre::TerrainGroup* terrainGroup, icePlayer* p_Playe
 
 void icePhysics::processPlayerBullets(void)
 {
-	vector<iceBullet*>* mPlayerBullets = mPlayer->getAllBullets();
+	std::vector<iceBullet*>* mPlayerBullets = mPlayer->getAllBullets();
 	for(unsigned int i=0;i<mPlayerBullets->size();i++)
 	{
 		iceBullet* bullet = (*mPlayerBullets)[i];
@@ -34,7 +34,7 @@ void icePhysics::processPlayerBullets(void)
 				{
 					if (enemy->getBoundingBox().contains(bullet->getWorldPosition()))
 					{
-						stringstream strMessage;
+						std::stringstream strMessage;
 						strMessage << "Impacto en: (" << bullet->getWorldPosition() << ")";
 						mLog->logMessage( strMessage.str() );
 
@@ -58,7 +58,7 @@ void icePhysics::processTerrainCollision(void){
     Ogre::TerrainGroup::RayResult mResult =mTerrainGroup->rayIntersects(playerRay); 
 
 	if (!mResult.hit){
-		stringstream strMessage;
+		std::stringstream strMessage;
 		strMessage << "Impacto en: (" << mPlayer->getPosition() << ")";
 		mLog->logMessage( strMessage.str() );
 
@@ -70,13 +70,13 @@ void icePhysics::processTerrainCollision(void){
 void icePhysics::processEnemyBullets(void)
 {
 	for( unsigned j = 0; j < mEnemies->size(); j++){
-		vector<iceBullet*>* mEnemyBullets = (*mEnemies)[j]->getAllBullets();
+		std::vector<iceBullet*>* mEnemyBullets = (*mEnemies)[j]->getAllBullets();
 		//collions entities
 		if(mPlayer->isAlive())
 		{
 			if (mPlayer->getBoundingBox().intersects((*mEnemies)[j]->getWorldPosition()))
 			{
-				stringstream strMessage;
+				std::stringstream strMessage;
 				strMessage << "Impacto en: (" << (*mEnemies)[j]->getWorldPosition() << ")";
 				mLog->logMessage( strMessage.str() );
 
@@ -93,7 +93,7 @@ void icePhysics::processEnemyBullets(void)
 					{
 						if (mPlayer->getBoundingBox().intersects(bullet->getWorldPosition()))
 						{
-							stringstream strMessage;
+							std::stringstream strMessage;
 							strMessage << "Impacto en: (" << bullet->getWorldPosition() << ")";
 							mLog->logMessage( strMessage.str() );
 
@@ -113,7 +113,7 @@ void icePhysics::processObjectCollision(void){
 		{
 			if( (iceObject*)(mObjects)[j]->getBoundingBox().intersects(mPlayer->getPosition())) 
 			{
-				stringstream strMessage;
+				std::stringstream strMessage;
 				strMessage << "Impacto en: (" << mPlayer->getPosition() << ")";
 				mLog->logMessage( strMessage.str() );
 

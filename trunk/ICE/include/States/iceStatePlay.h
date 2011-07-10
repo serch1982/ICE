@@ -13,9 +13,8 @@
 #include "Hikari.h"
 #include "Particle\iceParticleMgr.h"
 #include "Physics\icePhysics.h"
+#include <Sound\iceSoundManager.h>
 
-class iceStateManager;
-class iceSoundManager;
 class iceLevel;
 
 
@@ -24,8 +23,11 @@ class iceStatePlay: public iceState{
         /**
          *  Constructor play state
          */
-        iceStatePlay(iceStateManager* stateManager,
-			iceSoundManager* soundManager);
+        iceStatePlay(
+			iceSoundManager* soundManager,
+			iceLevelManager* levelManager,
+			Hikari::HikariManager *hikariMgr
+			);
 
         /**
          * Destructor
@@ -116,9 +118,6 @@ class iceStatePlay: public iceState{
 
 		//phisics
 		icePhysics mPhysics;
-
-		//Sound Manager
-		iceSoundManager* mSoundManager;
 
 		bool visibleBoundingBoxes;
 

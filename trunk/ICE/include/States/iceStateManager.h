@@ -1,15 +1,12 @@
-
 #ifndef ICESTATEMANAGER_H_
 #define ICESTATEMANAGER_H_
 
 #include <vector>
 #include <queue>
-#include "iceState.h"
-#include "Hikari.h"
-
-class iceState;
-class iceGame;
-class iceSoundManager;
+#include <States\iceState.h>
+#include <Sound\iceSoundManager.h>
+#include <Level\iceLevelManager.h>
+//#include <iceGame.h>
 
 class iceStateManager : public Ogre::FrameListener,
                      public Ogre::WindowEventListener,
@@ -20,7 +17,8 @@ class iceStateManager : public Ogre::FrameListener,
          *  Constructor
          */
         iceStateManager(OIS::InputManager* inputManager,
-						iceSoundManager* soundManager);
+						iceSoundManager* soundManager
+						);
 
         /**
          *  Destructor
@@ -114,10 +112,7 @@ class iceStateManager : public Ogre::FrameListener,
          *  get the path application root
          */
 		std::string getPathRoot();
-		/**
-         *  get the HikariManager instance
-         */
-		Hikari::HikariManager*  getHikariMgr() {return _hikariMgr;}
+
 		/**
          *  set the level to load
          */
@@ -142,9 +137,6 @@ class iceStateManager : public Ogre::FrameListener,
 		//path
 		std::string _pathRoot;
 
-		//hikary manager
-		Hikari::HikariManager* _hikariMgr;
-
         // Ogre
         Ogre::Log* _log;
         Ogre::RenderWindow* _window;
@@ -167,9 +159,16 @@ class iceStateManager : public Ogre::FrameListener,
         
         // exit flag
         bool _exit;
+		
+		// states container
+		std::vector<iceState*> _statesVector;
 
 		// sound manager
-		iceSoundManager* mSoundManager;
+		iceSoundManager* _soundManager;
+		// level manager
+		iceLevelManager* _levelManager;
+		// hikari manager
+		Hikari::HikariManager* _hikariManager;
 };
 
 inline OIS::Mouse* iceStateManager::getMouse() {return _mouse;}

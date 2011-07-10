@@ -10,12 +10,15 @@
 #include "iceGame.h"
 
 
-iceStatePause::iceStatePause(iceStateManager* stateManager,
-							 iceSoundManager* soundManager)
-	:iceState(stateManager,soundManager),
-	mSoundManager(soundManager){
+iceStatePause::iceStatePause(
+	iceSoundManager* soundManager,
+	iceLevelManager* levelManager,
+	Hikari::HikariManager *hikariManager
+	)
+	:iceState(soundManager,levelManager, hikariManager)
+{
     _log->logMessage("iceStatePause::iceStatePause()");
-	_nextICEStateId = Pause;
+	_nextICEStateId = PAUSE;
 }
 
 iceStatePause::~iceStatePause() {
@@ -35,7 +38,7 @@ void iceStatePause::load() {
 		iceSdkTray::getInstance()->showCursor();
 
 		try{
-			_hikariMenu = _stateManager->getHikariMgr()->createFlashOverlay("menu", iceGame::getCamera()->getViewport(),  iceGame::getCamera()->getViewport()->getActualWidth(),  iceGame::getCamera()->getViewport()->getActualHeight(), Hikari::Position(Hikari::Center));
+			_hikariMenu = _hikariManager->createFlashOverlay("pause", iceGame::getCamera()->getViewport(),  iceGame::getCamera()->getViewport()->getActualWidth(),  iceGame::getCamera()->getViewport()->getActualHeight(), Hikari::Position(Hikari::Center));
 			_hikariMenu->load("menu.swf"); //"menu.swf"
 			_hikariMenu->setTransparent(false, true);
 			_hikariMenu->bind("menuExitClick", Hikari::FlashDelegate(this, &iceStatePause::menuExitClick));
@@ -52,20 +55,20 @@ void iceStatePause::load() {
 
 Hikari::FlashValue iceStatePause::menuExitClick(Hikari::FlashControl* caller, const Hikari::Arguments& args)
 {
-	this->_nextICEStateId = Exit;
+	this->_nextICEStateId = EXIT;
 	return FLASH_VOID;
 }
 
 Hikari::FlashValue iceStatePause::menuPlayClick(Hikari::FlashControl* caller, const Hikari::Arguments& args)
 {
-	this->_nextICEStateId = Play;
+	this->_nextICEStateId = PLAY;
 	_hikariMenu->hide();
 	return FLASH_VOID;
 }
 
 Hikari::FlashValue iceStatePause::menuContinueClick(Hikari::FlashControl* caller, const Hikari::Arguments& args)
 {
-	this->_nextICEStateId = Play;
+	this->_nextICEStateId = PLAY;
 	_hikariMenu->hide();
 	return FLASH_VOID;
 }
@@ -74,13 +77,13 @@ void iceStatePause::clear() {
     if (_loaded) {
         _log->logMessage("iceStatePause::clean stateMenu()");
         _loaded = false;
-		_stateManager->getHikariMgr()->destroyFlashControl("menu");
+		_hikariManager->destroyFlashControl("pause");
     }
 }
 
 
 void iceStatePause::update(Ogre::Real evt) {
-	_stateManager->getHikariMgr()->update();
+	_hikariManager->update();
 }
 
 
@@ -94,23 +97,23 @@ bool iceStatePause::keyReleased(const OIS::KeyEvent &arg) {
 
 bool iceStatePause::mouseMoved(const OIS::MouseEvent &arg) {
 	iceSdkTray::getInstance()->moveMouse(arg);
-	_stateManager->getHikariMgr()->injectMouseMove(arg.state.X.abs, arg.state.Y.abs) || _stateManager->getHikariMgr()->injectMouseWheel(arg.state.Z.rel);
+	_hikariManager->injectMouseMove(arg.state.X.abs, arg.state.Y.abs) || _hikariManager->injectMouseWheel(arg.state.Z.rel);
     return true;
 }
 
 bool iceStatePause::mousePressed(const OIS::MouseEvent &arg, OIS::MouseButtonID id) {
-	_stateManager->getHikariMgr()->injectMouseDown(id);
+	_hikariManager->injectMouseDown(id);
     return true;
 }
 
 bool iceStatePause::mouseReleased(const OIS::MouseEvent &arg, OIS::MouseButtonID id) {
-	_stateManager->getHikariMgr()->injectMouseUp(id);
+	_hikariManager->injectMouseUp(id);
     return true;
 }
 
 
 ICEStateId iceStatePause::getStateId()
 {
-	return Pause;
+	return PAUSE;
 }
 
