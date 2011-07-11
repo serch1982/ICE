@@ -22,8 +22,10 @@ bool iceBoss::initialize(int id, Ogre::Vector3 p_Position, icePlayer* p_psPlayer
 	mesh = sceneManager->createEntity(entityName.str(), "magmaton.mesh");
 	mNode->attachObject(mesh);
 
-	//init physics mesh
-	icePhysicEntity::initialize(mesh);
+	//init physics
+	icePhysicEntity::initializePhysics("phy_boss"+ entityName.str(), Ogre::Vector3(10,10,10));
+	//add per object 
+	mNode->attachObject(getGeometry()->getMovableObject()); //must change
 
 	/*mAttack01 = mesh->getAnimationState( "Attack1" );
 	mAttack02 = mesh->getAnimationState( "Attack2" );
@@ -59,7 +61,6 @@ void iceBoss::update(Ogre::Real p_timeSinceLastFrame){
 			mTrajectory->lookAt(); //TODO
 			iceRPG::update(p_timeSinceLastFrame);
 			shot();
-			updateActiveBullets(p_timeSinceLastFrame);
 			/*if (!isAlive())
 				mState = DYING;*/
 			//iceTrajectoryFollower::update(p_timeSinceLastFrame); Hay que hablar sobre trayectorias de enemigos

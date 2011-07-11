@@ -1,17 +1,18 @@
 #ifndef ICEOBJECT_H_
 #define ICEOBJECT_H_
 
-#include "icePhysicEntity.h"
+//#include "icePhysicEntity.h"
 #include <OgreEntity.h>
 
-class iceObject :  public icePhysicEntity
+class iceObject //:  public icePhysicEntity
 {
 	public:
-		iceObject(Ogre::Entity* entity);
+		iceObject(Ogre::SceneNode* node, Ogre::Entity* entity);
 		~iceObject();
 
-	//private:
-		
+		Ogre::AxisAlignedBox getBox(void) {return mEntity->getBoundingBox();}
+	private:
+		Ogre::Entity* mEntity;
 };
 
 #endif

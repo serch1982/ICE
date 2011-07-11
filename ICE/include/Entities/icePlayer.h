@@ -11,13 +11,13 @@
 #include <OISInputManager.h>
 #include <OISKeyboard.h>
 #include <OISMouse.h>
-#include "iceRPG.h"
-#include "iceBullet.h"
+#include "Entities\iceRPG.h"
 #include <OgreLog.h>
 #include "Utils\iceSdkTray.h"
 #include "Stats\icePlayerStats.h"
 #include "Particle\iceParticle.h"
-
+#include "Entities\icePhysicEntity.h"
+#include "Entities\iceBulletMgr.h"
 
 class icePlayer : public iceTrajectoryFollower, public iceRPG, public icePhysicEntity
 {
@@ -46,6 +46,9 @@ class icePlayer : public iceTrajectoryFollower, public iceRPG, public icePhysicE
 		void barrelRight(void);
 		void sprint(void);
 		void brake(void);
+
+		//debug
+		void setDebug(bool vari){ getGeometry()->getMovableObject()->setVisible(vari); }
 	protected:
 
 		bool mMovingUp;
@@ -55,7 +58,6 @@ class icePlayer : public iceTrajectoryFollower, public iceRPG, public icePhysicE
 		void updateShipPosition(Ogre::Real frameTime);
 		void updateLookAt(Ogre::Real frameTime);
 		void updateScroll(Ogre::Real frameTime);
-		void updateActiveBullets(Ogre::Real p_timeSinceLastFrame);
 		void changeWeapon(const int z);
 		//iceRPG
 		virtual void createShotEntity(int p_iWeapon, Ogre::Radian p_fDeviation, unsigned int p_iDamage, bool p_bCritic); 
@@ -92,20 +94,7 @@ class icePlayer : public iceTrajectoryFollower, public iceRPG, public icePhysicE
 
 		int mXUserDeviation;
 		int mYUserDeviation;
-		
-		//Pau * BULLETS------------------------------------------------//
-		
-		std::vector<iceBullet*>* getAllBullets(void);
 
-		/*Bullet's Father node: son of the root's node and placed in absolute 0,0,0 coordinates.
-		  Every bullet is gonna be son of the mainBulletNode*/
-		Ogre::SceneNode *mainBulletNode;
-
-		/*Bullet vectors depending on the weapon kind*/
-		std::vector<iceBullet*> mvMachinegunBullets;
-		std::vector<iceBullet*> mvShotgunBullets;
-		std::vector<iceBullet*> mvMisilLauncherBullets;
-		//--------------------------------------------------------------//
 		void setMovingUp(bool pMovingUp);
 		void setMovingDown(bool pMovingDown);
 		void setMovingLeft(bool pMovingLeft);

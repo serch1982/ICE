@@ -13,8 +13,8 @@
 #include "Hikari.h"
 #include "Particle\iceParticleMgr.h"
 #include "Physics\icePhysics.h"
+#include "Entities\iceBulletMgr.h"
 #include <Sound\iceSoundManager.h>
-
 class iceLevel;
 
 
@@ -132,6 +132,9 @@ class iceStatePlay: public iceState{
 
 		//particle Manager
 		iceParticleMgrPtr mIceParticleMgr;
+
+		//bullet  manager
+		iceBulletMgrPtr mIceBulletMgr;
 };
 
 

@@ -1,156 +1,56 @@
 #include "Entities\iceBullet.h"
-
+#include "iceGame.h"
 
 iceBullet::iceBullet(void)
 :
-	mbActive(false),						
-	miWeapon(0),						
-	miDamage(0),				
-	mbCritic(false),
-	miSpeed(100),
-	miCountDown(Ogre::Real(MAX_TIME_ACTIVE)),
-	mvPosition(Ogre::Vector3(0,0,0)),
-	msOrientation(Ogre::Quaternion(0,0,0,0))
+	mDuration(5),
+	mActive(true),
+	mDamage(0),
+	mCritic(false),
+	mSpeed(0),
+	mTime(0),
+	mPosition(Ogre::Vector3(0,0,0)),
+	mOrientation(Ogre::Quaternion(0,0,0,0))
 {
 }
 iceBullet::~iceBullet(void)
 {
-
+	finalizeEntity();
 }
-void iceBullet::CreateEntities(Ogre::SceneManager* sceneMgr, Ogre::SceneNode* bulletNode, int p_iWeapon, int p_iBulletNumber)
-{
-		/* Initialize class atributes values */
-		miWeapon = p_iWeapon;		
-		msbulletNode = bulletNode->createChildSceneNode();
+
+void iceBullet::createBullet(bool fromPlayer, Ogre::SceneNode* bulletNode, Ogre::Vector3 boxSize, Ogre::Vector3 position, Ogre::Quaternion orientation,Ogre::Radian desviation){
+		mFromPlayer = fromPlayer;
+		bulletNode->setOrientation(orientation);
+		bulletNode->setPosition(position);
 		
+		Ogre::Vector3 desviationDirection = Ogre::Vector3::UNIT_Z.randomDeviant(desviation);
+		bulletNode->rotate(Ogre::Vector3::UNIT_Z.getRotationTo(desviationDirection));
 
-		/*Set bullet's entity depending on the weapons' type*/
-		/*Set bullet's speed dependig on the weapon's type*/
-		if (p_iWeapon == 0)
-		{			
-			/*machinegunShot Billboard*/			
-			Ogre::BillboardSet* machinegunShotSet = sceneMgr->createBillboardSet();
-			machinegunShotSet->setMaterialName("machinegunShot");
-			Ogre::Billboard* machinegunShotBillboard = machinegunShotSet->createBillboard(0,0,0);
-			msbulletNode->attachObject(machinegunShotSet);
-			msbulletNode->setVisible(false);
-			msbulletNode->scale(.05,.05,.05);
-			miSpeed = 500; //1750;
-			icePhysicEntity::initialize(machinegunShotSet);
+		icePhysicEntity::initializePhysics(bulletNode->getName(), boxSize);
+		bulletNode->attachObject(getGeometry()->getMovableObject());
 
-		}
-		if (p_iWeapon == 1)
-		{			
-			/*machinegunShot Billboard*/			
-			Ogre::BillboardSet* shotgunShotSet = sceneMgr->createBillboardSet();
-			shotgunShotSet->setMaterialName("shotgunShot");
-			Ogre::Billboard* shotgunShotBillboard = shotgunShotSet->createBillboard(0,0,0);
-			msbulletNode->attachObject(shotgunShotSet);
-			msbulletNode->setVisible(false);
-			msbulletNode->scale(.03,.03,.03);
-			miSpeed = 500;
-			icePhysicEntity::initialize(shotgunShotSet);
-			
-		}			
-		if (p_iWeapon == 2)
-		{			
-			/* Misile mesh */
-			Ogre::Entity* Shot_MisileLauncher = sceneMgr->createEntity("sphere.mesh");
-			msbulletNode->attachObject(Shot_MisileLauncher);
-			msbulletNode->setVisible(false);
-			msbulletNode->scale(.005,.005,.005);
-			miSpeed = 300;
-			icePhysicEntity::initialize(Shot_MisileLauncher);
-			
-			/* Misile particle system */			
-			Ogre::ParticleSystem* misilParticle = sceneMgr->createParticleSystem("MisilParticle" + Ogre::StringConverter::toString(p_iBulletNumber), "misilParticle");			
-			msbulletNode->attachObject(misilParticle);
-
-					
-		}		
+		mBulletNode = bulletNode;
 }
-bool iceBullet::Set(Ogre::SceneManager* sceneMgr, Ogre::SceneNode* shipNode,Ogre::Radian p_fDeviation, Ogre::Real p_iDamage, bool p_bCritic,int p_iShotSide)
+
+void iceBullet::finalizeEntity()
 {
-	if (!mbActive) 
-	{
-		/*Activate bullet*/
-		mbActive = true;
-		msbulletNode->setVisible(true);
-
-		/* Initialize class atributes values */
-		miDamage = p_iDamage;
-		mbCritic = p_bCritic;
-
-		/*Set bullets initial orientation*/
-		msOrientation = shipNode->_getDerivedOrientation();
-		msbulletNode->setOrientation(msOrientation);
-
-		Ogre::Vector3 deviatedDirection = Ogre::Vector3::UNIT_Z.randomDeviant(p_fDeviation);
-		msbulletNode->rotate(Ogre::Vector3::UNIT_Z.getRotationTo(deviatedDirection));
-		
-		/*Set bullets initial position*/
-		mvPosition = shipNode->_getDerivedPosition();
-		msbulletNode->setPosition(mvPosition);
-		if (p_iShotSide == 0)
-		{
-			msbulletNode->translate(-1,0,0,Ogre::Node::TS_LOCAL);
-		}
-		else
-		{
-			msbulletNode->translate(1,0,0,Ogre::Node::TS_LOCAL);
-		}
-		return true;
-
-	}else
-	{
-		return false;
+	if(mBulletNode){
+		mBulletNode->detachAllObjects();
+		mBulletNode->removeAndDestroyAllChildren();
 	}
-
+	icePhysicEntity::finalizePhysics();
 }
-void iceBullet::Update(Ogre::Real timeSinceLastFrame)
-{	
-	/*Translate bullet*/
-	if (mbActive)
-	{
-		/*evt.TimeSinceLastFrame  gives the time in seconds */
-		msbulletNode->translate(0,0,timeSinceLastFrame * miSpeed,Ogre::Node::TS_LOCAL);		
-		miCountDown = miCountDown - timeSinceLastFrame;
 
-		/*Update bullet's atributes*/
-		mvPosition = msbulletNode->_getDerivedPosition();		// Will refresh bullet's position relative to the root scene node
-		msOrientation = msbulletNode->_getDerivedOrientation();	// Idem with bullet's orientation
+void iceBullet::setDebugEnabled(bool isDebugEnabled)
+{
+	if(mIsDebugEnabled != isDebugEnabled)
+	{
+		mIsDebugEnabled = isDebugEnabled;
+		getGeometry()->getMovableObject()->setVisible(mIsDebugEnabled);
 	}
-	/*Deactivate bullet and reset its life time to its initial value*/
-	if ((mbActive)&&(miCountDown<=0))
-	{
-		deactivate();
-	}	
-
 }
 
-bool iceBullet::isActive(void)
+void iceBullet::move(Ogre::Real timeSinceLastFrame)
 {
-	return mbActive;
-}
-
-Ogre::Vector3 iceBullet::getWorldPosition(void)
-{
-	return msbulletNode->_getDerivedPosition();
-}
-	
-unsigned int iceBullet::getDamage(void)
-{
-	return miDamage;
-}
-
-bool iceBullet::isCritic(void)
-{
-	return mbCritic;
-}
-
-void iceBullet::deactivate(void)
-{
-	miCountDown = MAX_TIME_ACTIVE;
-	mbActive = false;
-	msbulletNode->setVisible(false);
+		mBulletNode->translate(0,0,timeSinceLastFrame * mSpeed,Ogre::Node::TS_LOCAL);	
 }

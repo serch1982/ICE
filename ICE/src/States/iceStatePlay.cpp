@@ -47,6 +47,9 @@ void iceStatePlay::load() {
 			mIceParticleMgr = iceParticleMgrPtr(new iceParticleMgr());
 			mIceParticleMgr->initialize();
 
+			//bullet manager
+			mIceBulletMgr = iceBulletMgrPtr(new iceBulletMgr());
+
 			//new player instance
 			_player = new icePlayer();
 
@@ -96,10 +99,14 @@ void iceStatePlay::clear() {
 
         delete _player;
         _level->unload();
-		//clean scene manager
-        _sceneManager->clearScene();
+
+		mIceBulletMgr.reset();
+		mIceParticleMgr.reset();
 
 		_soundManager->unloadLevel1();
+
+		//clean scene manager
+        _sceneManager->clearScene();
 
 		//Deleting enemies
 		for (unsigned int i=0;i<_mEnemies.size();i++)
@@ -107,6 +114,8 @@ void iceStatePlay::clear() {
 
 		//destroy HUD
 		_hikariManager->destroyFlashControl("HUD");
+
+		
     }
 }
 
@@ -126,6 +135,9 @@ void iceStatePlay::update(Ogre::Real evt)
 	}
 	else
 	{
+		//bullets
+		mIceBulletMgr->update(evt, visibleBoundingBoxes);
+
 		//player
 		_player->update(evt);
 		//enemies
@@ -307,19 +319,19 @@ void iceStatePlay::switchBoundingBoxesVisibility(void)
 {
 	if(visibleBoundingBoxes)
 	{
-		_player->hideBoundingBox();
+		_player->setDebug(false);
 		for(unsigned int i=0;i<_mEnemies.size();i++)
 		{
-			_mEnemies[i]->hideBoundingBox();
+			_mEnemies[i]->setDebug(false);
 		}
 		visibleBoundingBoxes = false;
 	}
 	else
 	{
-		_player->showBoundingBox();
+		_player->setDebug(true);
 		for(unsigned int i=0;i<_mEnemies.size();i++)
 		{
-			_mEnemies[i]->showBoundingBox();
+			_mEnemies[i]->setDebug(true);
 		}
 		visibleBoundingBoxes = true;
 	}

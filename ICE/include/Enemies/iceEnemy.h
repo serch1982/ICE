@@ -5,7 +5,7 @@
 #include "Entities\iceRPG.h"
 #include "Entities\icePlayer.h"
 #include "Entities\icePhysicEntity.h"
-#include "Entities\iceBullet.h"
+#include "Entities\iceBulletMgr.h"
 #include "Effects\iceBillboard.h"
 #include "Particle\iceParticle.h"
 
@@ -72,13 +72,11 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG, public icePhysicEn
 		void showFail(void);
 		void showLevelUp(unsigned int p_iLevel);
 		
-		//Obtain all bullets
-		std::vector<iceBullet*>* getAllBullets(void);
 		//Getter for the position
 		Ogre::Vector3 getWorldPosition(void);
-		// Debugging boxes
-		virtual void showBoundingBox(void);
-		virtual void hideBoundingBox(void);
+
+		//debug
+		void setDebug(bool vari){ getGeometry()->getMovableObject()->setVisible(vari); }
 	protected:
 		// Generator for obtain a name for this instance
 		static Ogre::NameGenerator mNameGenerator;
@@ -92,16 +90,6 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG, public icePhysicEn
 
 		//Nodes, bullet necessary?
 		Ogre::SceneNode* enemyNode, *enemyBulletNode;
-
-		/*Bullet vectors depending on the weapon kind*/
-		/*iceBullet mvMachinegunBullets[BULLET_VECTOR_SIZE];
-		iceBullet mvShotgunBullets[BULLET_VECTOR_SIZE];
-		iceBullet mvMisilLauncherBullets[BULLET_VECTOR_SIZE];*/
-		// Bullet vectors
-		std::vector<iceBullet*> mvMachinegunBullets;
-		std::vector<iceBullet*> mvShotgunBullets;
-		std::vector<iceBullet*> mvMisilLauncherBullets;
-		void updateActiveBullets(Ogre::Real p_timeSinceLastFrame);
 
 		// Animations
 		//Ogre::AnimationState* mAttack01;

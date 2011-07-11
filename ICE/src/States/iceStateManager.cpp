@@ -95,7 +95,7 @@ void iceStateManager::finalize(){
 	delete _sdkCameraMan;
 	_sdkCameraMan = NULL;
 
-	for( int i = 0; i < _statesVector.size(); ++i ){
+	for(unsigned int i = 0; i < _statesVector.size(); ++i ){
 		delete _statesVector[i];
 		_statesVector[i] = NULL;
 	}
