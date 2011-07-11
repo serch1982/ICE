@@ -56,37 +56,6 @@ bool iceEnemy::initialize(int id, Ogre::Vector3 p_Position, icePlayer* p_psPlaye
 	mState = INACTIVE;
 	setLevel(1);
 
-	//	//Pau * INITIALIZE BULLETS *----------------------------------------------------------------------------------------//	
-	//
-	///* Create parent node of all bullets */
-	enemyBulletNode = sceneManager->getRootSceneNode()->createChildSceneNode("enemyBullet" + name,Ogre::Vector3( 0, 0, 0 ));		
-	
-	//Create Machineguns
-	int i = 0;
-	mvMachinegunBullets.resize(ENEMY_BULLET_VECTOR_SIZE);
-	mvShotgunBullets.resize(ENEMY_BULLET_VECTOR_SIZE);
-	mvMisilLauncherBullets.resize(ENEMY_BULLET_VECTOR_SIZE);
-	
-	for(i = 0; i < ENEMY_BULLET_VECTOR_SIZE; i++)
-	{	
-		mvMachinegunBullets[i] = new iceBullet();
-		mvMachinegunBullets[i]->CreateEntities(sceneManager,enemyBulletNode,MACHINEGUN,i);		
-	}	
-	
-	//Create Shotguns
-	for(i = 0; i < ENEMY_BULLET_VECTOR_SIZE; i++)
-	{	
-		mvShotgunBullets[i] = new iceBullet();
-		mvShotgunBullets[i]->CreateEntities(sceneManager,enemyBulletNode,SHOTGUN,i);		
-	}
-	
-	//Create MisileLauncher
-	for(i = 0; i < ENEMY_BULLET_VECTOR_SIZE; i++)
-	{
-		mvMisilLauncherBullets[i] = new iceBullet();
-		mvMisilLauncherBullets[i]->CreateEntities(sceneManager,enemyBulletNode,MISILE_LAUNCHER,(i+id));
-	}	
-	//----------------------------------------------------------------------------------------------------------------------------//
 
 	return true;
 }
@@ -123,7 +92,7 @@ void iceEnemy::activate(void)
 	//mState = FOLLOWING_TRAJECTORY;
 	if(mShowingBoundingBox)
 	{
-		icePhysicEntity::showBoundingBox();
+		//icePhysicEntity::showBoundingBox();
 	}
 }
 
@@ -167,7 +136,7 @@ void iceEnemy::showReceivedDamage(unsigned int p_iDamage, bool p_bCritical)
 	//stringstream strMessage;
 	//strMessage << "Adding damage to an enemy = " << p_iDamage << ". Current life = " << getCurrentLife();
 	//iceGame::getGameLog()->logMessage(strMessage.str());
-	iceDamageTextManager::getSingletonPtr()->showEnemyDamage(mPhisicEntity,p_iDamage,p_bCritical);
+	iceDamageTextManager::getSingletonPtr()->showEnemyDamage(icePhysicEntity::getGeometry()->getMovableObject(),p_iDamage,p_bCritical);
 }
 
 void iceEnemy::showShieldDamage(unsigned int p_iDamage, bool p_bCritical)
@@ -176,7 +145,7 @@ void iceEnemy::showShieldDamage(unsigned int p_iDamage, bool p_bCritical)
 
 void iceEnemy::showFail(void)
 {
-	iceDamageTextManager::getSingletonPtr()->showEnemyMiss(mPhisicEntity);
+	iceDamageTextManager::getSingletonPtr()->showEnemyMiss(icePhysicEntity::getGeometry()->getMovableObject());
 }
 
 void iceEnemy::showLevelUp(unsigned int p_iLevel)
@@ -227,148 +196,13 @@ float iceEnemy::rangeAttack(){
 void iceEnemy::createShotEntity(int p_iWeapon, Ogre::Radian p_fDeviation, unsigned int p_iDamage, bool p_bCritic)
 
 {
-	//Pau * ACTIVATE THE FIRST FREE BULLET OF THE CURRENT WEAPON*-------------------------------------------------------------//
-	
-	int i = 0;
-	bool bFreeBulletFound = false;
-	static int iShotSide = 0;	/* One shot is done from the left side of the ship, the next one from the right side, and so on */
-	Ogre::SceneManager* sceneManager = iceGame::getSceneManager();
-
-	switch(p_iWeapon)
-	{
-		case MACHINEGUN:
-		
-			while(!bFreeBulletFound)
-			{
-				if(mvMachinegunBullets[i]->Set(sceneManager,enemyNode,p_fDeviation,p_iDamage,p_bCritic,iShotSide))
-				{
-					bFreeBulletFound = true;					
-					
-				}else
-				{		
-					if (i<ENEMY_BULLET_VECTOR_SIZE-1)
-					{
-						i++;
-					}else					
-					{
-						bFreeBulletFound = true;	/* All bullets have been shooted. Avoid game BUG */
-					}
-				}
-			}
-			break;
-	
-		case SHOTGUN:
-		
-			while(!bFreeBulletFound)
-			{
-				if(mvShotgunBullets[i]->Set(sceneManager,enemyNode,p_fDeviation,p_iDamage,p_bCritic,iShotSide))
-				{
-					bFreeBulletFound = true;					
-					
-				}else
-				{		
-					if (i<ENEMY_BULLET_VECTOR_SIZE-1)
-					{
-						i++;
-					}else					
-					{
-						bFreeBulletFound = true;	/* All bullets have been shooted. Avoid game BUG */
-					}
-				}
-			}
-			break;
-
-		case MISILE_LAUNCHER:
-		
-			while(!bFreeBulletFound)
-			{
-				if(mvMisilLauncherBullets[i]->Set(sceneManager,enemyNode,p_fDeviation,p_iDamage,p_bCritic,iShotSide))
-				{
-					bFreeBulletFound = true;					
-					
-				}else
-				{		
-					if (i<ENEMY_BULLET_VECTOR_SIZE-1)
-					{
-						i++;
-					}else					
-					{
-						bFreeBulletFound = true;	/* All bullets have been shooted. Avoid game BUG */
-					}
-				}
-			}
-			break;
-	}
-
-	/* Change next shot side */
-	if(bFreeBulletFound)
-	{
-		if(iShotSide == 0)
-		{
-			iShotSide = 1;
-		}else	
-		{
-			iShotSide = 0;
-		}
-	}
-	//-------------------------------------------------------------------------------------------------//
-
+	iceBulletMgr::getSingletonPtr()->createBullet(false, "bt_enemy_",p_iWeapon, mNode->_getDerivedPosition(), -mNode->_getDerivedOrientation(), p_fDeviation,p_iDamage, p_bCritic);
 }
 
-void iceEnemy::updateActiveBullets(Ogre::Real p_timeSinceLastFrame)
-{
-	int i=0;
-	
-	for(i = 0; i < ENEMY_BULLET_VECTOR_SIZE; i++)
-	{
-		mvMachinegunBullets[i]->Update(p_timeSinceLastFrame);
-	}
-	for(i = 0; i < ENEMY_BULLET_VECTOR_SIZE; i++)
-	{
-		mvShotgunBullets[i]->Update(p_timeSinceLastFrame);
-	}
-	for(i = 0; i < ENEMY_BULLET_VECTOR_SIZE; i++)
-	{
-		mvMisilLauncherBullets[i]->Update(p_timeSinceLastFrame);
-	}
-	
-}
-
-std::vector<iceBullet*>* iceEnemy::getAllBullets(void)
-{
-	std::vector<iceBullet*>* bullets = new std::vector<iceBullet*>;
-	bullets->resize(ENEMY_BULLET_VECTOR_SIZE*3);
-	for(unsigned int i=0;i<ENEMY_BULLET_VECTOR_SIZE;i++)
-	{
-		(*bullets)[i] = mvMachinegunBullets[i];
-		(*bullets)[i+ENEMY_BULLET_VECTOR_SIZE] = mvShotgunBullets[i];
-		(*bullets)[i+ENEMY_BULLET_VECTOR_SIZE*2] = mvMisilLauncherBullets[i];
-	}
-
-	return bullets;
-}
 
 Ogre::Vector3 iceEnemy::getWorldPosition(void)
 {
 	return enemyNode->_getDerivedPosition();
-}
-
-void iceEnemy::showBoundingBox(void)
-{
-	mShowingBoundingBox = true;
-	if(isActive())
-	{
-		icePhysicEntity::showBoundingBox();
-	}
-}
-
-void iceEnemy::hideBoundingBox(void)
-{
-	mShowingBoundingBox = false;
-	if(isActive())
-	{
-		icePhysicEntity::hideBoundingBox();
-	}
 }
 
 bool iceEnemy::isAnimDyingEnded()

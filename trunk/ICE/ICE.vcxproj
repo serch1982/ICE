@@ -133,7 +133,9 @@ if not exist "$(OutDir)logs" mkdir "$(OutDir)logs"</Command>
     <ClCompile Include="src\Enemies\iceSmart.cpp" />
     <ClCompile Include="src\Enemies\iceVolcano.cpp" />
     <ClCompile Include="src\Entities\iceBullet.cpp" />
+    <ClCompile Include="src\Entities\iceBulletMgr.cpp" />
     <ClCompile Include="src\Entities\iceCutSceneEntity.cpp" />
+    <ClCompile Include="src\Entities\iceGeometry.cpp" />
     <ClCompile Include="src\Entities\iceObject.cpp" />
     <ClCompile Include="src\Entities\icePhysicEntity.cpp" />
     <ClCompile Include="src\Entities\icePlayer.cpp" />
@@ -182,7 +184,9 @@ if not exist "$(OutDir)logs" mkdir "$(OutDir)logs"</Command>
     <ClInclude Include="include\Enemies\iceSmart.h" />
     <ClInclude Include="include\Enemies\iceVolcano.h" />
     <ClInclude Include="include\Entities\iceBullet.h" />
+    <ClInclude Include="include\Entities\iceBulletMgr.h" />
     <ClInclude Include="include\Entities\iceCutSceneEntity.h" />
+    <ClInclude Include="include\Entities\iceGeometry.h" />
     <ClInclude Include="include\Entities\iceObject.h" />
     <ClInclude Include="include\Entities\icePhysicEntity.h" />
     <ClInclude Include="include\Entities\icePlayer.h" />

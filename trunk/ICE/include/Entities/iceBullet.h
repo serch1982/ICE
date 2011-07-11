@@ -1,51 +1,117 @@
 #ifndef ICEBULLET_H_
 #define ICEBULLET_H_
 
-#include <OgreEntity.h>
-#include <OgreSceneManager.h>
-#include <OgreVector3.h>
-#include <OgreSceneNode.h>
-#include <OgreNode.h>
-#include <OgrePrerequisites.h>
-#include <OgreBillboard.h>
-#include <OgreBillboardSet.h>
-#include <OgreParticleSystemManager.h>
+#include "Entities\icePhysicEntity.h"
 
-#include "icePhysicEntity.h"
-
-#define MAX_TIME_ACTIVE	  5	// Maximum time that the bullet can fly without having been crashed
 
 class iceBullet : public icePhysicEntity
 {
-public:
-iceBullet(void);
-	
-	virtual ~iceBullet(void);
+public: 
+		/**
+		*  contructor
+		*/
+		iceBullet(void);
+		/**
+		*  descontructor
+		*/
+		~iceBullet(void);
+		
+		/**
+		*  to create set the parameter from the new bullet instance
+		*/
+		void createBullet(bool fromPlayer, Ogre::SceneNode* bulletNode,  Ogre::Vector3 boxSize, Ogre::Vector3 position, Ogre::Quaternion orientation,Ogre::Radian desviation);
+		/**
+		*  to remove the instance and entity
+		*/
+		void finalizeEntity();
+		/**
+		*  set the debug mode
+		*/
+		void setDebugEnabled(bool isDebugEnabled);
+		/**
+		*  get current the debug mode
+		*/
+		bool getDebugEnabled(){return mIsDebugEnabled;};
 
-	void CreateEntities(Ogre::SceneManager* sceneMgr, Ogre::SceneNode* bulletNode, int p_iWeapon, int p_iBulletNumber);
-	bool Set(Ogre::SceneManager* sceneMgr, Ogre::SceneNode* shipNode,Ogre::Radian p_fDeviation,Ogre::Real p_iDamage, bool p_bCritic, int p_iShotSide);	/* Returns true when a bullet is set to active status*/
-	
-	void Update(Ogre::Real timeSinceLastFrame);
-	bool isActive(void);
-	Ogre::Vector3 getWorldPosition(void);
+		/**
+		*  set the current time of the bullet
+		*/
+		void setTimer(float seconds){ mTime = seconds; }
+		/**
+		*  get the current time of the bullet
+		*/
+		float getTimer(){ return mTime; }
 
-	unsigned int getDamage(void);
-	bool isCritic(void);
-	void deactivate(void);
+		/**
+		*  set the life time (default 5)
+		*/
+		Ogre::Real getTimeDuration(void){ return mDuration; }
 
+		/**
+		*  set property damage
+		*/
+		void setDamage(int damage){ mDamage = damage; }
+		/**
+		*   get property damage
+		*/
+		int getDamage(){ return mDamage; }
+
+		/**
+		*  set property speed
+		*/
+		void setSpeed(int speed){ mSpeed = speed; }
+		/**
+		*  get property speed
+		*/
+		int getSpeed(){ return mSpeed; }
+
+		/**
+		*  set property is critic
+		*/
+		void setCritic(bool critic) { mCritic = critic; }
+		/**
+		*  get property is critic
+		*/
+		bool getCritic(void) { return mCritic; }
+
+		/**
+		*  to desactivate the bullet
+		*/
+		void desactivate(void){ mActive = false; }
+		/**
+		*  get the property is active
+		*/
+		bool isActive(void){ return mActive; }
+		
+		/**
+		*  get position of the bullet into the world
+		*/
+		Ogre::Vector3 getPosition(void){ return mBulletNode->_getDerivedPosition(); 	}
+
+		/**
+		*  move the bullet 
+		*/
+		void move(Ogre::Real timeSinceLastFrame);
+
+		/**
+		*  get property is from the player
+		*/
+		bool isFromPlayer(void){return mFromPlayer;}
 protected:
-	bool mbActive;						// Bullet has been shooted and is now into the scene.
-	
-	int miWeapon;						// Bullet's weapon type
-	unsigned int miDamage;				// Bullet's damage
-	bool mbCritic;						// It makes bullet be letal	
-	int miSpeed;						// Bullet's speed. It will depend on the kind of weapon
-	Ogre::Real miCountDown;				// Bullet's live time
-
-	Ogre::SceneNode* msbulletNode;		// Bullet's sceneNode object
-	
-	
-	Ogre::Vector3 mvPosition;			// Bullet's world position vector
-	Ogre::Quaternion msOrientation;		// Bullet's world direction quaternion
+	//vars
+	bool mFromPlayer;
+	bool mActive;				
+	bool mIsDebugEnabled;
+	unsigned int mDamage;		
+	bool mCritic;		
+	unsigned int mSpeed;	
+	float mTime;					
+	Ogre::Real mDuration;
+	Ogre::SceneNode* mBulletNode;		
+	Ogre::Vector3 mPosition;
+	Ogre::Quaternion mOrientation;
 };
+
+typedef boost::shared_ptr<iceBullet> iceBulletPtr;
+	
 #endif

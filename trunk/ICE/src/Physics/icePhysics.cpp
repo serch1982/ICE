@@ -1,5 +1,6 @@
 #include "Physics\icePhysics.h"
 #include "iceGame.h"
+#include "Entities\iceBulletMgr.h"
 
 icePhysics::icePhysics(void)
 {
@@ -19,37 +20,37 @@ void icePhysics::initialize(Ogre::TerrainGroup* terrainGroup, icePlayer* p_Playe
 	mLog = iceGame::getGameLog();
 }
 
-void icePhysics::processPlayerBullets(void)
+void icePhysics::processBullets(void)
 {
-	std::vector<iceBullet*>* mPlayerBullets = mPlayer->getAllBullets();
-	for(unsigned int i=0;i<mPlayerBullets->size();i++)
-	{
-		iceBullet* bullet = (*mPlayerBullets)[i];
-		if (bullet->isActive())
-		{
-			for(unsigned int j=0;j<mEnemies->size();j++)
-			{
-				iceEnemy* enemy = (*mEnemies)[j];
-				if(enemy->isActive() && enemy->isAlive())
-				{
-					if (enemy->getBoundingBox().contains(bullet->getWorldPosition()))
-					{
-						std::stringstream strMessage;
-						strMessage << "Impacto en: (" << bullet->getWorldPosition() << ")";
-						mLog->logMessage( strMessage.str() );
+	iceBulletList bl = iceBulletMgr::getSingletonPtr()->getAllBullets();
+	iceBulletIter iter = bl.begin();
 
-						enemy->addDamage(bullet->getDamage(),bullet->isCritic());
-						bullet->deactivate();
-					}
+	AxisAlignedBox pbox = mPlayer->getGeometry()->getWorldBoundingBox(mPlayer->getPosition());
+
+	while(iter != bl.end()){
+		AxisAlignedBox bbox = (*iter)->getGeometry()->getWorldBoundingBox((*iter)->getPosition());
+		if(!(*iter)->isFromPlayer()){
+			if(pbox.intersects(bbox)){
+				mPlayer->addDamage((*iter)->getDamage(),(*iter)->getCritic());
+				(*iter)->desactivate();
+			}
+		}
+		else{
+			for(unsigned j = 0; j < mEnemies->size(); j++){
+				iceEnemy* enemy = (*mEnemies)[j];
+				AxisAlignedBox ebox = enemy->getGeometry()->getWorldBoundingBox(enemy->getWorldPosition());
+				if(ebox.intersects(bbox)){
+					enemy->addDamage((*iter)->getDamage(),(*iter)->getCritic());
+					(*iter)->desactivate();
 				}
 			}
 		}
+		++iter;
 	}
 }
 void icePhysics::update(void){
-	processEnemyBullets();
+	processBullets();
 	processObjectCollision();
-	processPlayerBullets();	
 	processTerrainCollision();
 }
 
@@ -67,52 +68,54 @@ void icePhysics::processTerrainCollision(void){
 }
 
 
-void icePhysics::processEnemyBullets(void)
-{
-	for( unsigned j = 0; j < mEnemies->size(); j++){
-		std::vector<iceBullet*>* mEnemyBullets = (*mEnemies)[j]->getAllBullets();
-		//collions entities
-		if(mPlayer->isAlive())
-		{
-			if (mPlayer->getBoundingBox().intersects((*mEnemies)[j]->getWorldPosition()))
-			{
-				std::stringstream strMessage;
-				strMessage << "Impacto en: (" << (*mEnemies)[j]->getWorldPosition() << ")";
-				mLog->logMessage( strMessage.str() );
+//void icePhysics::processEnemyBullets(void)
+//{
+	//for( unsigned j = 0; j < mEnemies->size(); j++){
+		//vector<iceBullet*>* mEnemyBullets = (*mEnemies)[j]->getAllBullets();
+		////collions entities
+		//if(mPlayer->isAlive())
+		//{
+		//	if (mPlayer->getBoundingBox().intersects((*mEnemies)[j]->getWorldPosition()))
+		//	{
+		//		stringstream strMessage;
+		//		strMessage << "Impacto en: (" << (*mEnemies)[j]->getWorldPosition() << ")";
+		//		mLog->logMessage( strMessage.str() );
 
-				mPlayer->addDamage(2,false); //to change
-			}
-		}
+		//		mPlayer->addDamage(2,false); //to change
+		//	}
+		//}
 		//bullet
-		for(unsigned int i=0;i< mEnemyBullets->size();i++)
-		{
-			iceBullet* bullet = (*mEnemyBullets)[i];
-			if (bullet->isActive())
-			{
-				if(mPlayer->isAlive())
-					{
-						if (mPlayer->getBoundingBox().intersects(bullet->getWorldPosition()))
-						{
-							std::stringstream strMessage;
-							strMessage << "Impacto en: (" << bullet->getWorldPosition() << ")";
-							mLog->logMessage( strMessage.str() );
+		//for(unsigned int i=0;i< mEnemyBullets->size();i++)
+		//{
+		//	iceBullet* bullet = (*mEnemyBullets)[i];
+		//	if (bullet->isActive())
+		//	{
+		//		if(mPlayer->isAlive())
+		//			{
+		//				if (mPlayer->getBoundingBox().intersects(bullet->getWorldPosition()))
+		//				{
+		//					stringstream strMessage;
+		//					strMessage << "Impacto en: (" << bullet->getWorldPosition() << ")";
+		//					mLog->logMessage( strMessage.str() );
 
-							mPlayer->addDamage(bullet->getDamage(),bullet->isCritic());
-							bullet->deactivate();
-						}
-					}
-			}
-		}
-	}
-}
+		//					mPlayer->addDamage(bullet->getDamage(),bullet->isCritic());
+		//					//bullet->deactivate();
+		//				}
+		//			}
+		//	}
+		//}
+	//}
+//}
 
 void icePhysics::processObjectCollision(void){
-	for( unsigned j = 0; j < mObjects.size(); j++){
-		//collions entities
-		if(mPlayer->isAlive())
-		{
-			if( (iceObject*)(mObjects)[j]->getBoundingBox().intersects(mPlayer->getPosition())) 
-			{
+	AxisAlignedBox pbox = mPlayer->getGeometry()->getWorldBoundingBox(mPlayer->getPosition());
+	
+	//collions with objects
+	if(mPlayer->isAlive())
+	{
+		for( unsigned j = 0; j < mObjects.size(); j++){
+			AxisAlignedBox obox = ((iceObject*)(mObjects)[j])->getBox();
+			if(pbox.intersects(obox)){
 				std::stringstream strMessage;
 				strMessage << "Impacto en: (" << mPlayer->getPosition() << ")";
 				mLog->logMessage( strMessage.str() );
@@ -120,5 +123,17 @@ void icePhysics::processObjectCollision(void){
 				mPlayer->addDamage(2,false); //to change
 			}
 		}
+	}\
+
+	//collision with enemy body
+	for(unsigned j = 0; j < mEnemies->size(); j++){
+		iceEnemy* enemy = (*mEnemies)[j];
+		AxisAlignedBox ebox = enemy->getGeometry()->getWorldBoundingBox(enemy->getWorldPosition());
+		if(enemy->isActive() && enemy->isAlive()){
+			if(ebox.intersects(pbox)){
+				mPlayer->addDamage(2,false); //to change
+			}
+		}
 	}
+		
 }

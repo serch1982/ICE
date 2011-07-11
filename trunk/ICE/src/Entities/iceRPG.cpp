@@ -12,7 +12,7 @@ iceRPG::iceRPG(void)
 	mBaseLuck = 100;
 	mCurrentLife = getMaxLife();
 	mWeaponLevel[MACHINEGUN] = 1;
-	mWeaponLevel[SHOTGUN] = 0;
+	mWeaponLevel[SHOTGUN] = 1;
 	mWeaponLevel[MISILE_LAUNCHER] = 0;
 	mWeaponBaseCadence[MACHINEGUN] = 10;
 	mWeaponBaseCadence[SHOTGUN] = 5;

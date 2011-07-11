@@ -3,6 +3,7 @@
 #include "iceGame.h"
 
 #include "Particle\iceParticleMgr.h"
+#include "Entities\iceBulletMgr.h"
 
 #define CURSOR_PLANE_Z 100
 #define CAMERA_PLANE_Z 20
@@ -44,13 +45,16 @@ icePlayer::icePlayer():_isShooting(false)
 	//Init Ship
 	shipPlaneNode = scrollNode->createChildSceneNode(Ogre::Vector3(0.0,-CAMERA_ADDED_Y,0.0));
 	shipNode = shipPlaneNode->createChildSceneNode();
+	//physics
+	icePhysicEntity::initializePhysics("phy_player", Ogre::Vector3(5.3,2.8,4.7));
+	shipNode->attachObject(getGeometry()->getMovableObject());
+	//
 	miceParticlePtr = iceParticleMgr::getSingletonPtr()->addParticle(shipNode,"ice/iceTurbo",true);
 
 	rollNode = shipNode->createChildSceneNode();
 
 	//CUIDADO! EL NODO PARA ATACHAR COSAS PARA LA NAVE ES rollNode
 	Ogre::Entity* mesh2 = sceneManager->createEntity("shipMesh", "airplane.mesh");
-	icePhysicEntity::initialize(mesh2);
 	mesh2->setCastShadows(true);
 	rollNode->attachObject(mesh2);
 	//shipNode->scale(0.1,0.1,0.1);
@@ -63,39 +67,6 @@ icePlayer::icePlayer():_isShooting(false)
 		setCamera( sceneManager->getCamera("camera") );
 	else
 		setCamera( sceneManager->createCamera( "camera" ) );
-
-
-	//Pau * INITIALIZE BULLETS *----------------------------------------------------------------------------------------//	
-	
-	/* Create parent node of all bullets */
-	mainBulletNode = sceneManager->getRootSceneNode()->createChildSceneNode("bulletMainNode",Ogre::Vector3( 0, 0, 0 ));		
-	
-	/*Create Machineguns*/
-	int i = 0;
-	mvMachinegunBullets.resize(BULLET_VECTOR_SIZE);
-	mvShotgunBullets.resize(BULLET_VECTOR_SIZE);
-	mvMisilLauncherBullets.resize(BULLET_VECTOR_SIZE);
-	
-	for(i = 0; i < BULLET_VECTOR_SIZE; i++)
-	{	
-		mvMachinegunBullets[i] = new iceBullet();
-		mvMachinegunBullets[i]->CreateEntities(sceneManager,mainBulletNode,MACHINEGUN,i);		
-	}	
-	
-	/*Create Shotguns*/	
-	for(i = 0; i < BULLET_VECTOR_SIZE; i++)
-	{	
-		mvShotgunBullets[i] = new iceBullet();
-		mvShotgunBullets[i]->CreateEntities(sceneManager,mainBulletNode,SHOTGUN,i);		
-	}
-	
-	/*Create MisileLaunchers*/	
-	for(i = 0; i < BULLET_VECTOR_SIZE; i++)
-	{
-		mvMisilLauncherBullets[i] = new iceBullet();
-		mvMisilLauncherBullets[i]->CreateEntities(sceneManager,mainBulletNode,MISILE_LAUNCHER,i);
-	}	
-	//----------------------------------------------------------------------------------------------------------------------------//
 
 	mMovingUp = false;
 	mMovingDown = false;
@@ -111,13 +82,7 @@ icePlayer::icePlayer():_isShooting(false)
 
 icePlayer::~icePlayer()
 {
-	for(unsigned int i=0;i<BULLET_VECTOR_SIZE;i++)
-	{
-		delete mvMachinegunBullets[i];
-		delete mvShotgunBullets[i];
-		delete mvMisilLauncherBullets[i];
-	}
-
+	icePhysicEntity::finalizePhysics();
 }
 
 void icePlayer::setCamera(Ogre::Camera* camera)
@@ -304,25 +269,6 @@ void icePlayer::updateScroll(Ogre::Real frameTime)
 	scroll(scrollX,scrollY);
 }
 
-void icePlayer::updateActiveBullets(Ogre::Real p_timeSinceLastFrame)
-{
-	int i=0;
-	
-	for(i = 0; i < BULLET_VECTOR_SIZE; i++)
-	{
-		mvMachinegunBullets[i]->Update(p_timeSinceLastFrame);
-	}
-	for(i = 0; i < BULLET_VECTOR_SIZE; i++)
-	{
-		mvShotgunBullets[i]->Update(p_timeSinceLastFrame);
-	}
-	for(i = 0; i < BULLET_VECTOR_SIZE; i++)
-	{
-		mvMisilLauncherBullets[i]->Update(p_timeSinceLastFrame);
-	}
-	
-}
-
 void icePlayer::addXUserDeviation(int p_iXDeviation)
 {
 	mXUserDeviation += p_iXDeviation;
@@ -374,121 +320,34 @@ void icePlayer::update(Ogre::Real p_timeSinceLastFrame)
 	//addExperience(1000);	//TODO borrar
 	if (_isShooting){
 		shot();
-	}						/* Pau */
-	updateActiveBullets(p_timeSinceLastFrame);	/* Pau */
+	}						
 }
 
 void icePlayer::createShotEntity(int p_iWeapon, Ogre::Radian p_fDeviation, unsigned int p_iDamage, bool p_bCritic)
-
 {
-	//Pau * ACTIVATE THE FIRST FREE BULLET OF THE CURRENT WEAPON*-------------------------------------------------------------//
-	
-	int i = 0;
-	bool bFreeBulletFound = false;
-	static int iShotSide = 0;	/* One shot is done from the left side of the ship, the next one from the right side, and so on */
-	Ogre::SceneManager* sceneManager = iceGame::getSceneManager();
-
-	switch(p_iWeapon)
-	{
-		case MACHINEGUN:
-		
-			while(!bFreeBulletFound)
-			{
-				if(mvMachinegunBullets[i]->Set(sceneManager,shipNode,p_fDeviation,p_iDamage,p_bCritic,iShotSide))
-				{
-					bFreeBulletFound = true;					
-					
-				}else
-				{		
-					if (i<BULLET_VECTOR_SIZE-1)
-					{
-						i++;
-					}else					
-					{
-						bFreeBulletFound = true;	/* All bullets have been shooted. Avoid game BUG */
-					}
-				}
-			}
-			break;
-	
-		case SHOTGUN:
-		
-			while(!bFreeBulletFound)
-			{
-				if(mvShotgunBullets[i]->Set(sceneManager,shipNode,p_fDeviation,p_iDamage,p_bCritic,iShotSide))
-				{
-					bFreeBulletFound = true;					
-					
-				}else
-				{		
-					if (i<BULLET_VECTOR_SIZE-1)
-					{
-						i++;
-					}else					
-					{
-						bFreeBulletFound = true;	/* All bullets have been shooted. Avoid game BUG */
-					}
-				}
-			}
-			break;
-
-		case MISILE_LAUNCHER:
-		
-			while(!bFreeBulletFound)
-			{
-				if(mvMisilLauncherBullets[i]->Set(sceneManager,shipNode,p_fDeviation,p_iDamage,p_bCritic,iShotSide))
-				{
-					bFreeBulletFound = true;					
-					
-				}else
-				{		
-					if (i<BULLET_VECTOR_SIZE-1)
-					{
-						i++;
-					}else					
-					{
-						bFreeBulletFound = true;	/* All bullets have been shooted. Avoid game BUG */
-					}
-				}
-			}
-			break;
-	}
-
-	/* Change next shot side */
-	if(bFreeBulletFound)
-	{
-		if(iShotSide == 0)
-		{
-			iShotSide = 1;
-		}else	
-		{
-			iShotSide = 0;
-		}
-	}
-	//-------------------------------------------------------------------------------------------------//
-
+	iceBulletMgr::getSingletonPtr()->createBullet(true, "bt_player_",p_iWeapon, shipNode->_getDerivedPosition(), shipNode->_getDerivedOrientation(), p_fDeviation,p_iDamage, p_bCritic);
 }
 
 void icePlayer::showReceivedDamage(unsigned int p_iDamage, bool p_bCritical)
 {
 	icePlayerStats::getInstance()->addReceivedDamage(p_iDamage);
-	iceDamageTextManager::getSingletonPtr()->showPlayerDamage(mPhisicEntity,p_iDamage,p_bCritical);
+	iceDamageTextManager::getSingletonPtr()->showPlayerDamage(icePhysicEntity::getGeometry()->getMovableObject(),p_iDamage,p_bCritical);
 }
 
 void icePlayer::showShieldDamage(unsigned int p_iDamage, bool p_bCritical)
 {
-	iceDamageTextManager::getSingletonPtr()->showPlayerShieldDamage(mPhisicEntity,p_iDamage,p_bCritical);
+	iceDamageTextManager::getSingletonPtr()->showPlayerShieldDamage(icePhysicEntity::getGeometry()->getMovableObject(),p_iDamage,p_bCritical);
 }
 
 void icePlayer::showFail(void)
 {
 	icePlayerStats::getInstance()->addBulletEvaded();
-	iceDamageTextManager::getSingletonPtr()->showPlayerMiss(mPhisicEntity);
+	iceDamageTextManager::getSingletonPtr()->showPlayerMiss(icePhysicEntity::getGeometry()->getMovableObject());
 }
 
 void icePlayer::showLevelUp(unsigned int p_iLevel)
 {
-	iceDamageTextManager::getSingletonPtr()->showPlayerLevelUp(mPhisicEntity);
+	iceDamageTextManager::getSingletonPtr()->showPlayerLevelUp(icePhysicEntity::getGeometry()->getMovableObject());
 }
 
 void icePlayer::setWeaponLevel(unsigned int p_iWeapon,unsigned int p_iLevel)
@@ -512,20 +371,6 @@ bool icePlayer::getIsShooting(){
 
 int icePlayer::getCurrentWeapon(){
 	return mCurrentWeapon;
-}
-
-std::vector<iceBullet*>* icePlayer::getAllBullets(void)
-{
-	std::vector<iceBullet*>* bullets = new std::vector<iceBullet*>;
-	bullets->resize(BULLET_VECTOR_SIZE*3);
-	for(unsigned int i=0;i<BULLET_VECTOR_SIZE;i++)
-	{
-		(*bullets)[i] = mvMachinegunBullets[i];
-		(*bullets)[i+BULLET_VECTOR_SIZE] = mvShotgunBullets[i];
-		(*bullets)[i+BULLET_VECTOR_SIZE*2] = mvMisilLauncherBullets[i];
-	}
-
-	return bullets;
 }
 
 void icePlayer::scroll(Ogre::Real x, Ogre::Real y)

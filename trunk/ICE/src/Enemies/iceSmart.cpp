@@ -23,8 +23,9 @@ bool iceSmart::initialize(int id, Ogre::Vector3 p_Position, icePlayer* p_psPlaye
 	mNode->attachObject(mesh);
 	//mNode->scale(0.1,0.1,0.1);
 
-	//init physics mesh
-	icePhysicEntity::initialize(mesh);
+	//init physics
+	icePhysicEntity::initializePhysics("phy_smart"+ entityName.str(), Ogre::Vector3(4,3,3));
+	mNode->attachObject(getGeometry()->getMovableObject());
 
 	return true;
 }
@@ -52,7 +53,6 @@ void iceSmart::update(Ogre::Real p_timeSinceLastFrame){
 			mTrajectory->lookAt(); //TODO
 			iceRPG::update(p_timeSinceLastFrame);
 			shot();
-			updateActiveBullets(p_timeSinceLastFrame);
 			/*if (!isAlive())
 				mState = DYING;*/
 			//iceTrajectoryFollower::update(p_timeSinceLastFrame); Hay que hablar sobre trayectorias de enemigos

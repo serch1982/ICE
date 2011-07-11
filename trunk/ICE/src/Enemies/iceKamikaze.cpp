@@ -23,8 +23,9 @@ bool iceKamikaze::initialize(int id, Ogre::Vector3 p_Position, icePlayer* p_psPl
 	mesh = sceneManager->createEntity(entityName.str(), "kamikaze.mesh");
 	mNode->attachObject(mesh);
 
-	//init physics mesh
-	icePhysicEntity::initialize(mesh);
+	//init physics
+	icePhysicEntity::initializePhysics("phy_kami"+ entityName.str(), Ogre::Vector3(4,4,4));
+	mNode->attachObject(getGeometry()->getMovableObject());
 
 	return true;
 }
