@@ -44,6 +44,35 @@ int iceLogicLua::RunFile( const char *fname )
 	return ret;
 }
 
+int iceLogicLua::runAllFiles()
+{
+	int error;
+	std::vector<Ogre::String> luaFiles;
+
+	luaFiles.push_back("./media/scripts/lua/kamikaze.lua");
+	luaFiles.push_back("./media/scripts/lua/StartLevel1.lua");
+
+	for(unsigned int i=0;i<luaFiles.size();i++)
+	{
+		if( error = luaL_dofile(L,luaFiles[i].c_str()) )
+		{
+			errorHandler();
+			break;
+		}
+		else
+		{
+			_log->logMessage("The lua file " + luaFiles[i] + " has been loaded");
+		}
+	}
+
+	if(!error)
+	{
+		bindLuaObjects();
+	}
+
+	return error;
+}
+
 int iceLogicLua::RunSource( const char *source )
 {
 	int ret;
@@ -170,11 +199,25 @@ void iceLogicLua::bindLuaObjects(){
 			.def("isActive", &iceEnemy::isActive )
 			.def("isAlive", &iceEnemy::isAlive )
 			.def("isAnimDyingEnded", &iceEnemy::isAnimDyingEnded )
-			.def("setAnimDyingEnded", &iceEnemy::setAnimDyingEnded )
+			.def("setAnimDyingEnded", &iceEnemy::setAnimDyingEnded ),
 			//.def("checkActivationTime", (bool( iceEnemy::*)(Ogre::Real)) &iceEnemy::checkActivationTime)
 			//.def("isVisiblePlayerCam", (bool( iceEnemy::*)(void)) &iceEnemy::isVisiblePlayerCam)
 			//.def("isVisibleWideCam", (bool( iceEnemy::*)(void)) &iceEnemy::isVisibleWideCam)
 			//.def("rangeAttack", (float( iceEnemy::*)(void)) &iceEnemy::rangeAttack)
+
+			luabind::class_<iceCutScene>("cutscene")
+			.enum_("CUTSCENEENTITYTYPE")
+			[
+				luabind::value("SHIP",0),
+				luabind::value("MINI",1)
+			]
+			.def("setActivationTime", &iceCutScene::setActivationTime )
+		    .def("addEntity", &iceCutScene::addEntity )
+		    .def("initializeCameraEntity", &iceCutScene::initializeCameraEntity )
+			.def("getStep", &iceCutScene::getStep )
+			.def("isEntityTrajectoryEnded", &iceCutScene::isEntityTrajectoryEnded )
+			.def("nextStep", &iceCutScene::nextStep )
+			.def("stop", &iceCutScene::stop )
 	];
 }
 
@@ -227,4 +270,63 @@ void iceLogicLua::getEnemyLogicState(iceEnemy *enemy, Ogre::Real p_timeSinceLast
 			errString.append(lua_tostring(err.state(),-1));
 			_log->logMessage(errString);
 		}*/
+}
+
+//call the method of lua with the enemy logic and change his ENEMYSTATE 
+void iceLogicLua::initCutScene(iceCutScene* pCutscene)
+{
+	// try catch for luabind
+	try{
+		unsigned int ret = -1;
+		// we need the name of the function
+		Ogre:: String funcName = pCutscene->getInitFunctionStr();
+		//Check if the function exists
+		if( FuncExist( funcName.c_str() )){
+			//call Lua Function
+			luabind::call_function<void>(L, funcName.c_str(), pCutscene );
+			// log
+			std::stringstream ss;
+			ss << pCutscene->getStep();
+			_log->logMessage( ss.str() );
+		}else{
+			std::stringstream ss;
+			ss << "IA: function " << funcName << " does NOT exist";
+			_log->logMessage( ss.str() );
+		}
+	}catch(const luabind::error& err){
+			//Catch and log the message
+			std::string errString = "LUA Function call failed: ";
+			errString.append(err.what()).append(" - ");
+			errString.append(lua_tostring(err.state(),-1));
+			_log->logMessage(errString);
+	}
+}
+
+void iceLogicLua::updateCutScene(iceCutScene* pCutscene, Ogre::Real p_timeSinceLastFrame)
+{
+		// try catch for luabind
+	try{
+		unsigned int ret = -1;
+		// we need the name of the function
+		Ogre:: String funcName = pCutscene->getUpdateFunctionStr();
+		//Check if the function exists
+		if( FuncExist( funcName.c_str() )){
+			//call Lua Function
+			luabind::call_function<void>(L, funcName.c_str(), pCutscene );
+			// log
+			std::stringstream ss;
+			ss << pCutscene->getStep();
+			_log->logMessage( ss.str() );
+		}else{
+			std::stringstream ss;
+			ss << "IA: function " << funcName << " does NOT exist";
+			_log->logMessage( ss.str() );
+		}
+	}catch(const luabind::error& err){
+			//Catch and log the message
+			std::string errString = "LUA Function call failed: ";
+			errString.append(err.what()).append(" - ");
+			errString.append(lua_tostring(err.state(),-1));
+			_log->logMessage(errString);
+	}
 }

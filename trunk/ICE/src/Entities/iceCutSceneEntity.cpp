@@ -13,7 +13,7 @@ iceCutSceneEntity::~iceCutSceneEntity()
 {
 }
 
-bool iceCutSceneEntity::initialize(Ogre::String mMeshFile, Ogre::Vector3 p_Position, Ogre::Real p_ActivationTime, Ogre::SceneNode* pNodeToLookAt, iceTrajectory* pTrajectory)
+bool iceCutSceneEntity::initialize(TYPE pEntityType, Ogre::Vector3 p_Position, Ogre::Real p_ActivationTime, iceTrajectory* pTrajectory)
 {
 	Ogre::SceneManager* sceneManager = iceGame::getSceneManager();
 	mActivationTime = p_ActivationTime;
@@ -21,7 +21,16 @@ bool iceCutSceneEntity::initialize(Ogre::String mMeshFile, Ogre::Vector3 p_Posit
 	Ogre::String name = mNameGenerator.generate();
 	mCutSceneEntityNode = sceneManager->getRootSceneNode()->createChildSceneNode(name);
 	iceTrajectoryFollower::initialize(mCutSceneEntityNode);
-	Ogre::Entity* mesh = sceneManager->createEntity(name + "_" + mMeshFile, mMeshFile);
+	Ogre::Entity* mesh;
+	switch(pEntityType)
+	{
+		case SHIP:
+			mesh = sceneManager->createEntity(name + "_airplane", "airplane.mesh");
+			break;
+		case MINI:
+			mesh = sceneManager->createEntity(name + "_minimagmaton", "minimagmatone.mesh");
+			break;
+	}
 	mNode->attachObject(mesh);
 	mNode->setPosition(p_Position);
 
@@ -34,8 +43,6 @@ bool iceCutSceneEntity::initialize(Ogre::String mMeshFile, Ogre::Vector3 p_Posit
 		//Dummy Trajectory
 		setTrajectory(new iceTrajectory());
 	}
-	if(pNodeToLookAt)
-		mTrajectory->setNodeToLookAt(pNodeToLookAt);
 
 	deactivate();
 
