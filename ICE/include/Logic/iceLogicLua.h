@@ -10,6 +10,7 @@ extern "C" {
 }
 
 #include "Enemies\iceEnemy.h"
+#include "Level/iceCutScene.h"
 #include "luabind\luabind.hpp"
 #include "luabind\operator.hpp"
 #include <Ogre.h>
@@ -25,7 +26,10 @@ public:
 	~iceLogicLua();
 
 	int RunFile( const char *fname );
+	int runAllFiles();
 	void getEnemyLogicState(iceEnemy *enemy, Ogre::Real p_timeSinceLastFrame);
+	void initCutScene(iceCutScene* pCutscene);
+	void updateCutScene(iceCutScene* pCutscene, Ogre::Real p_timeSinceLastFrame);
 	int RunSource( const char *source );
 protected:
 	iceLogicLua();

@@ -53,24 +53,22 @@ void iceStatePlay::load() {
 			//new player instance
 			_player = new icePlayer();
 
-			// load level
-			_level = iceLevelManager::getSingleton().getIceLevel(_levelID);
-			_level->load(*_player, _mEnemies, _mCutScenes);
-
 			//hide cursor
 			iceSdkTray::getInstance()->hideCursor();
-
-			//load phisics
-			mPhysics.initialize(_level->getTerrain(), _player, &_mEnemies, _level->getSceneObjects());
 
 			//load sounds
 			_soundManager->loadLevel1();
 			_soundManager->PlaySound(0, Ogre::Vector3::ZERO, 0);
 
 			//load lua logic
-			//Maybe we should choose another way
-			std::string path = "./media/scripts/lua/kamikaze.lua";
-			iceLogicLua::getInstance()->RunFile(path.c_str());
+			iceLogicLua::getInstance()->runAllFiles();
+
+			// load level
+			_level = iceLevelManager::getSingleton().getIceLevel(_levelID);
+			_level->load(*_player, _mEnemies, _mCutScenes);
+
+			//load phisics
+			mPhysics.initialize(_level->getTerrain(), _player, &_mEnemies, _level->getSceneObjects());
 
 			//load HUD
 			try{

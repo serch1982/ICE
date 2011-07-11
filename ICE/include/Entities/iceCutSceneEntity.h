@@ -10,7 +10,13 @@ class iceCutSceneEntity : public iceTrajectoryFollower
 		iceCutSceneEntity();
 		~iceCutSceneEntity();
 
-		bool initialize(string mMeshFile, Ogre::Vector3 p_Position, Ogre::Real p_ActivationTime, Ogre::SceneNode* pNodeToLookAt = NULL, iceTrajectory* pTrajectory = NULL);
+		enum TYPE
+		{
+			SHIP = 0,
+			MINI = 1
+		};
+
+		bool initialize(TYPE pEntityType, Ogre::Vector3 p_Position, Ogre::Real p_ActivationTime, iceTrajectory* pTrajectory = NULL);
 		void finalize();
 
 		void update(Ogre::Real p_TimeSinceLastFrame);

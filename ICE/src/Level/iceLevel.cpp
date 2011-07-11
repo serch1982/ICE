@@ -50,7 +50,7 @@ void iceLevel::load(icePlayer& player, std::vector<iceEnemy*>& vectorEnemies, st
 		std::vector<iceTrajectory*> trajectories = iceLevelManager::getSingletonPtr()->getDotSceneLoader()->getTrajectories();
 
 		vectorCutScenes.push_back(new iceCutScene());
-		vectorCutScenes[0]->initialize("",iceLevelManager::getSingletonPtr()->getDotSceneLoader()->getTrajectories(),0);
+		vectorCutScenes[0]->initialize("startLevel1CutSceneInit","startLevel1CutSceneUpdate",&(iceLevelManager::getSingletonPtr()->getDotSceneLoader()->getTrajectories()));
 
 
 		vectorEnemies = iceLevelManager::getSingletonPtr()->getDotSceneLoader()->getEnemies();
