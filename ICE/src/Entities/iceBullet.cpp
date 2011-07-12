@@ -1,5 +1,4 @@
 #include "Entities\iceBullet.h"
-#include "iceGame.h"
 
 iceBullet::iceBullet(void)
 :

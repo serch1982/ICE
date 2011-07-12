@@ -24,7 +24,7 @@ bool iceSmart::initialize(int id, Ogre::Vector3 p_Position, icePlayer* p_psPlaye
 	//mNode->scale(0.1,0.1,0.1);
 
 	//init physics
-	icePhysicEntity::initializePhysics("phy_smart"+ entityName.str(), Ogre::Vector3(4,3,3));
+	icePhysicEntity::initializePhysics("phy_smart"+ entityName.str(), Ogre::Vector3(10,5.5,4));
 	mNode->attachObject(getGeometry()->getMovableObject());
 
 	return true;

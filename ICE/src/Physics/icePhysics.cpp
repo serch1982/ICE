@@ -67,63 +67,20 @@ void icePhysics::processTerrainCollision(void){
 	}
 }
 
-
-//void icePhysics::processEnemyBullets(void)
-//{
-	//for( unsigned j = 0; j < mEnemies->size(); j++){
-		//vector<iceBullet*>* mEnemyBullets = (*mEnemies)[j]->getAllBullets();
-		////collions entities
-		//if(mPlayer->isAlive())
-		//{
-		//	if (mPlayer->getBoundingBox().intersects((*mEnemies)[j]->getWorldPosition()))
-		//	{
-		//		stringstream strMessage;
-		//		strMessage << "Impacto en: (" << (*mEnemies)[j]->getWorldPosition() << ")";
-		//		mLog->logMessage( strMessage.str() );
-
-		//		mPlayer->addDamage(2,false); //to change
-		//	}
-		//}
-		//bullet
-		//for(unsigned int i=0;i< mEnemyBullets->size();i++)
-		//{
-		//	iceBullet* bullet = (*mEnemyBullets)[i];
-		//	if (bullet->isActive())
-		//	{
-		//		if(mPlayer->isAlive())
-		//			{
-		//				if (mPlayer->getBoundingBox().intersects(bullet->getWorldPosition()))
-		//				{
-		//					stringstream strMessage;
-		//					strMessage << "Impacto en: (" << bullet->getWorldPosition() << ")";
-		//					mLog->logMessage( strMessage.str() );
-
-		//					mPlayer->addDamage(bullet->getDamage(),bullet->isCritic());
-		//					//bullet->deactivate();
-		//				}
-		//			}
-		//	}
-		//}
-	//}
-//}
-
 void icePhysics::processObjectCollision(void){
 	AxisAlignedBox pbox = mPlayer->getGeometry()->getWorldBoundingBox(mPlayer->getPosition());
 	
 	//collions with objects
-	if(mPlayer->isAlive())
-	{
-		for( unsigned j = 0; j < mObjects.size(); j++){
-			AxisAlignedBox obox = ((iceObject*)(mObjects)[j])->getBox();
-			if(pbox.intersects(obox)){
-				std::stringstream strMessage;
-				strMessage << "Impacto en: (" << mPlayer->getPosition() << ")";
-				mLog->logMessage( strMessage.str() );
+	for( unsigned j = 0; j < mObjects.size(); j++){
+		AxisAlignedBox obox = ((iceObject*)(mObjects)[j])->getBox();
+		if(pbox.intersects(obox)){
+			std::stringstream strMessage;
+			strMessage << "Impacto en: (" << mPlayer->getPosition() << ")";
+			mLog->logMessage( strMessage.str() );
 
-				mPlayer->addDamage(2,false); //to change
-			}
+			mPlayer->addDamage(2,false); //to change
 		}
-	}\
+	}
 
 	//collision with enemy body
 	for(unsigned j = 0; j < mEnemies->size(); j++){

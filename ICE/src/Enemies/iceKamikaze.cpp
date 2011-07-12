@@ -24,7 +24,7 @@ bool iceKamikaze::initialize(int id, Ogre::Vector3 p_Position, icePlayer* p_psPl
 	mNode->attachObject(mesh);
 
 	//init physics
-	icePhysicEntity::initializePhysics("phy_kami"+ entityName.str(), Ogre::Vector3(4,4,4));
+	icePhysicEntity::initializePhysics("phy_kami"+ entityName.str(), Ogre::Vector3(6,6,6));
 	mNode->attachObject(getGeometry()->getMovableObject());
 
 	return true;

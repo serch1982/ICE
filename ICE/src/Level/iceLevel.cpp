@@ -82,3 +82,12 @@ const int iceLevel::getId() const {
 const Ogre::String& iceLevel::getName() const {
     return _name;
 }
+
+void iceLevel::setDebugSceneObjects(bool isDebug)
+{
+	std::vector<iceObject*> mIceObjects = iceLevelManager::getSingletonPtr()->getDotSceneLoader()->getObjects();
+	for(unsigned int i=0;i<mIceObjects.size();i++)
+	{
+		mIceObjects[i]->setDebugMode(isDebug);
+	}
+}

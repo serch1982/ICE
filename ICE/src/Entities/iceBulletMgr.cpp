@@ -46,7 +46,7 @@ iceBulletPtr iceBulletMgr::createBullet(bool fromPlayer, Ogre::String name,int b
 					mBulletNode->setVisible(true);
 				    mBulletNode->scale(.1,.1,.1);
 					
-					bullet->createBullet(fromPlayer, mBulletNode, Ogre::Vector3(0.5,0.5,0.5), initPos, orientation, desviation);
+					bullet->createBullet(fromPlayer, mBulletNode, Ogre::Vector3(0.7,0.7,0.7), initPos, orientation, desviation);
 					bullet->setSpeed(250);
 					bullet->setCritic(critic);
 					bullet->setDamage(damage);
@@ -59,7 +59,7 @@ iceBulletPtr iceBulletMgr::createBullet(bool fromPlayer, Ogre::String name,int b
 					mBulletNode->setVisible(true);
 				    mBulletNode->scale(.1,.1,.1);
 					
-					bullet->createBullet(fromPlayer, mBulletNode,  Ogre::Vector3(0.5,0.5,0.5), initPos, orientation, desviation);
+					bullet->createBullet(fromPlayer, mBulletNode,  Ogre::Vector3(0.7,0.7,0.7), initPos, orientation, desviation);
 					bullet->setSpeed(250);
 					bullet->setCritic(critic);
 					bullet->setDamage(damage);
@@ -70,7 +70,7 @@ iceBulletPtr iceBulletMgr::createBullet(bool fromPlayer, Ogre::String name,int b
 					mBulletNode->setVisible(true);
 					mBulletNode->scale(.05,.05,.05);
 					
-					bullet->createBullet(fromPlayer, mBulletNode, Ogre::Vector3(0.9,0.9,1.5), initPos, orientation, desviation);
+					bullet->createBullet(fromPlayer, mBulletNode, Ogre::Vector3(1,1,1.5), initPos, orientation, desviation);
 					bullet->setSpeed(300);
 					bullet->setCritic(critic);
 					bullet->setDamage(damage);

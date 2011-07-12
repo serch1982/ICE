@@ -26,6 +26,16 @@ DotSceneLoader::~DotSceneLoader()
 	{
 		delete mTrajectories[i];
 	}
+	mTrajectories.clear();
+	for(unsigned int i=0;i<mObjects.size();i++)
+	{
+		delete mObjects[i];
+	}
+	mObjects.clear();
+
+	mPlayerSteps.clear(); 
+	mTrajectoriesSteps.clear();
+	mEnemies.clear();
 }
 
 void DotSceneLoader::parseDotScene(const Ogre::String &SceneName, icePlayer &p_Player, const Ogre::String &groupName, Ogre::SceneManager *yourSceneMgr, Ogre::SceneNode *pAttachNode, const Ogre::String &sPrependNode)

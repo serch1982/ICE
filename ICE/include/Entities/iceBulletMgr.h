@@ -60,7 +60,6 @@ private:
 
 private:
 		//vars
-		Ogre::SceneManager*		mSceneManager;
 		iceBulletList			mIceBulletList;
 		int						mId;
 
