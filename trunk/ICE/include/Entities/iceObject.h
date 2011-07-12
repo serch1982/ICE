@@ -3,6 +3,7 @@
 
 //#include "icePhysicEntity.h"
 #include <OgreEntity.h>
+#include <OgreSceneNode.h>
 
 class iceObject //:  public icePhysicEntity
 {
@@ -10,9 +11,14 @@ class iceObject //:  public icePhysicEntity
 		iceObject(Ogre::SceneNode* node, Ogre::Entity* entity);
 		~iceObject();
 
+
+		void setDebugMode(bool isDebug);
+
 		Ogre::AxisAlignedBox getBox(void) {return mEntity->getBoundingBox();}
+
 	private:
 		Ogre::Entity* mEntity;
+		Ogre::SceneNode* mObjectNode;
 };
 
 #endif

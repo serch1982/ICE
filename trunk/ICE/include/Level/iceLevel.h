@@ -62,6 +62,11 @@ class iceLevel {
 		std::vector<iceObject*> iceLevel::getSceneObjects();
 
 		/**
+         *  set the debug mode for the scene objects
+         */
+		void setDebugSceneObjects(bool isDebug);
+
+		/**
          *  @return get the terraingroup
          */
 		Ogre::TerrainGroup* getTerrain(void);

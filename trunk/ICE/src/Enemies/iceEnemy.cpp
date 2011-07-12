@@ -92,7 +92,7 @@ void iceEnemy::activate(void)
 	//mState = FOLLOWING_TRAJECTORY;
 	if(mShowingBoundingBox)
 	{
-		//icePhysicEntity::showBoundingBox();
+		setDebug(mShowingBoundingBox);
 	}
 }
 

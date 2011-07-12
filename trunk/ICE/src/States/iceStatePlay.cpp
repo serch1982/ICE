@@ -141,6 +141,7 @@ void iceStatePlay::update(Ogre::Real evt)
 		//enemies
 		for (_revit_mEnemies = _mEnemies.rbegin(); _revit_mEnemies != _mEnemies.rend(); ++_revit_mEnemies) {
 			iceLogicLua::getInstance()->getEnemyLogicState((*_revit_mEnemies),evt);
+			(*_revit_mEnemies)->setDebug(visibleBoundingBoxes);
 			(*_revit_mEnemies)->update(evt);
 		}
 		//HUD
@@ -318,19 +319,13 @@ void iceStatePlay::switchBoundingBoxesVisibility(void)
 	if(visibleBoundingBoxes)
 	{
 		_player->setDebug(false);
-		for(unsigned int i=0;i<_mEnemies.size();i++)
-		{
-			_mEnemies[i]->setDebug(false);
-		}
+		_level->setDebugSceneObjects(false);
 		visibleBoundingBoxes = false;
 	}
 	else
 	{
 		_player->setDebug(true);
-		for(unsigned int i=0;i<_mEnemies.size();i++)
-		{
-			_mEnemies[i]->setDebug(true);
-		}
+		_level->setDebugSceneObjects(true);
 		visibleBoundingBoxes = true;
 	}
 }
