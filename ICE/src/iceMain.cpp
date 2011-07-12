@@ -39,7 +39,6 @@ extern "C" {
 						e.getFullDescription().c_str() << std::endl;
 	#endif
 			}
-
 			delete myGame;
 
         return 0;
