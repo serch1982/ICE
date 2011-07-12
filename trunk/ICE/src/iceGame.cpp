@@ -46,7 +46,6 @@ void iceGame::finalize(){
 	//Destroy Managers
 	//state
 	_stateManager->finalize();
-	delete _stateManager;
 	_stateManager = NULL;
     //sound
 	delete _soundManager;
@@ -56,6 +55,7 @@ void iceGame::finalize(){
 	_root = NULL;
 
 	_log->logMessage("iceGame::~finalize()");
+	delete _log;
 }
 
 void iceGame::go(char* pathRoot) {

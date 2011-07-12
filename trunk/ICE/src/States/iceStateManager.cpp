@@ -99,6 +99,7 @@ void iceStateManager::finalize(){
 		delete _statesVector[i];
 		_statesVector[i] = NULL;
 	}
+	_statesVector.clear();
 
 	delete _hikariManager;
 	_hikariManager = NULL;
