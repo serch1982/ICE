@@ -34,7 +34,7 @@ class iceLevel {
         /**
          *  Load level and elements
          */
-        void load(icePlayer& player, std::vector<iceEnemy*>& vectorEnemies, std::vector<iceCutScene*>& vectorCutScenes);
+        void load(std::vector<iceEnemy*>& vectorEnemies, std::vector<iceCutScene*>& vectorCutScenes);
 
         /**
          *  unload level

@@ -1,4 +1,4 @@
-#include <iostream>
+ #include <iostream>
 
 #include <OGRE/Ogre.h>
 #include "States\iceStatePlay.h"
@@ -51,7 +51,7 @@ void iceStatePlay::load() {
 			mIceBulletMgr = iceBulletMgrPtr(new iceBulletMgr());
 
 			//new player instance
-			_player = new icePlayer();
+			_player = icePlayerPtr(new icePlayer());
 
 			//hide cursor
 			iceSdkTray::getInstance()->hideCursor();
@@ -65,10 +65,10 @@ void iceStatePlay::load() {
 
 			// load level
 			_level = iceLevelManager::getSingleton().getIceLevel(_levelID);
-			_level->load(*_player, _mEnemies, _mCutScenes);
+			_level->load(_mEnemies, _mCutScenes);
 
 			//load phisics
-			mPhysics.initialize(_level->getTerrain(), _player, &_mEnemies, _level->getSceneObjects());
+			mPhysics.initialize(_level->getTerrain(), &_mEnemies, _level->getSceneObjects());
 
 			//load HUD
 			try{
@@ -95,7 +95,8 @@ void iceStatePlay::clear() {
         _log->logMessage("iceStatePlay::limpiar()");
         _loaded = false;
 
-        delete _player;
+        //delete _player;
+		_player.reset();
         _level->unload();
 
 		mIceBulletMgr.reset();

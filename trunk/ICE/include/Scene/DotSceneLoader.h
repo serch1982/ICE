@@ -52,7 +52,7 @@
         DotSceneLoader();
         virtual ~DotSceneLoader();
  
-        void parseDotScene(const Ogre::String &SceneName, icePlayer &p_Player, const Ogre::String &groupName, Ogre::SceneManager *yourSceneMgr, Ogre::SceneNode *pAttachNode = NULL, const Ogre::String &sPrependNode = "");
+        void parseDotScene(const Ogre::String &SceneName, const Ogre::String &groupName, Ogre::SceneManager *yourSceneMgr, Ogre::SceneNode *pAttachNode = NULL, const Ogre::String &sPrependNode = "");
         Ogre::String getProperty(const Ogre::String &ndNm, const Ogre::String &prop);
  
         Ogre::TerrainGroup* getTerrainGroup() { return mTerrainGroup; }
@@ -67,9 +67,9 @@
 		std::vector<iceObject*> getObjects(void);
  
     protected:
-        void processScene(rapidxml::xml_node<>* XMLRoot, icePlayer &p_Player);
+        void processScene(rapidxml::xml_node<>* XMLRoot);
  
-        void processNodes(rapidxml::xml_node<>* XMLNode, icePlayer &p_Player);
+        void processNodes(rapidxml::xml_node<>* XMLNode);
         void processExternals(rapidxml::xml_node<>* XMLNode);
         void processEnvironment(rapidxml::xml_node<>* XMLNode);
         void processTerrain(rapidxml::xml_node<>* XMLNode);
@@ -86,7 +86,7 @@
 		void processStep(rapidxml::xml_node<>* XMLNode, Ogre::SceneNode *pParent = 0);
 		void processTrajectories();
 		void processTrajectoryStep(rapidxml::xml_node<>* XMLNode, Ogre::SceneNode *pParent = 0);
-		void processEnemies(rapidxml::xml_node<>* XMLNode, icePlayer &p_Player, Ogre::SceneNode *pParent = 0);
+		void processEnemies(rapidxml::xml_node<>* XMLNode,  Ogre::SceneNode *pParent = 0);
         void processLookTarget(rapidxml::xml_node<>* XMLNode, Ogre::SceneNode *pParent);
         void processTrackTarget(rapidxml::xml_node<>* XMLNode, Ogre::SceneNode *pParent);
         void processEntity(rapidxml::xml_node<>* XMLNode, Ogre::SceneNode *pParent);

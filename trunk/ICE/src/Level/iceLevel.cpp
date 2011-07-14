@@ -14,7 +14,7 @@ iceLevel::~iceLevel() {
     unload();
 }
 
-void iceLevel::load(icePlayer& player, std::vector<iceEnemy*>& vectorEnemies, std::vector<iceCutScene*>& vectorCutScenes) {
+void iceLevel::load(std::vector<iceEnemy*>& vectorEnemies, std::vector<iceCutScene*>& vectorCutScenes) {
     if (!_loaded) {
         _loaded = true;
         
@@ -22,10 +22,10 @@ void iceLevel::load(icePlayer& player, std::vector<iceEnemy*>& vectorEnemies, st
 		Ogre::SceneManager* sceneManager = iceGame::getSceneManager();
 		Ogre::SceneNode* level = sceneManager->getRootSceneNode()->createChildSceneNode( "root_" + _name );
 
-		iceLevelManager::getSingletonPtr()->getDotSceneLoader()->parseDotScene( _name + ".scene",player,_name,sceneManager, level, _name + "_" );
+		iceLevelManager::getSingletonPtr()->getDotSceneLoader()->parseDotScene( _name + ".scene",_name,sceneManager, level, _name + "_" );
 
-		player.setTrajectory(new iceLocomotiveTrajectory());
-		player.getTrajectory()->loadSteps(iceLevelManager::getSingletonPtr()->getDotSceneLoader()->getPlayerSteps(),false);
+		icePlayer::getSingletonPtr()->setTrajectory(new iceLocomotiveTrajectory());
+		icePlayer::getSingletonPtr()->getTrajectory()->loadSteps(iceLevelManager::getSingletonPtr()->getDotSceneLoader()->getPlayerSteps(),false);
 
 		//std::vector<iceStep> steps1;
 		//steps1.push_back(iceStep(Ogre::Vector3(100,0,0),Ogre::Radian(0),0));

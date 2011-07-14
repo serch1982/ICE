@@ -22,7 +22,7 @@ public:
 	/**
 	*  initialize physics
 	*/
-	void initialize(Ogre::TerrainGroup* terrainGroup, icePlayer* p_Player, std::vector<iceEnemy*>* p_Enemies, std::vector<iceObject*> p_Objects);
+	void initialize(Ogre::TerrainGroup* terrainGroup, std::vector<iceEnemy*>* p_Enemies, std::vector<iceObject*> p_Objects);
 
 	/**
 	*  update physics
@@ -43,7 +43,6 @@ protected:
 	void processTerrainCollision(void);
 
 	//vars
-	icePlayer* mPlayer;
 	Ogre::TerrainGroup* mTerrainGroup;
 	std::vector<iceEnemy*>* mEnemies;
 	std::vector<iceObject*> mObjects;

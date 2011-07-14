@@ -8,8 +8,8 @@ iceKamikaze::iceKamikaze(){
 
 iceKamikaze::~iceKamikaze(){}
 
-bool iceKamikaze::initialize(int id, Ogre::Vector3 p_Position, icePlayer* p_psPlayer, Ogre::Real p_fActivationTime, const bool p_isAttachedToPlayer){
-	if( !iceEnemy::initialize( id, p_Position, p_psPlayer, p_fActivationTime, p_isAttachedToPlayer ) )
+bool iceKamikaze::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActivationTime, const bool p_isAttachedToPlayer){
+	if( !iceEnemy::initialize( id, p_Position,  p_fActivationTime, p_isAttachedToPlayer ) )
 		return false;
 	
 	Ogre::SceneManager* sceneManager = iceGame::getSceneManager();
@@ -96,9 +96,9 @@ void iceKamikaze::setState(ENEMYSTATE p_iState){
 	switch(mState){
 		case ATTACK:
 			//Get Player position relative to his parent
-			playerPos = mPlayer->shipNode->getPosition();
+			playerPos = icePlayer::getSingletonPtr()->shipNode->getPosition();
 			//Convert playerPos to World Coordinates
-			mTargetPosition = mPlayer->shipNode->convertLocalToWorldPosition(playerPos);
+			mTargetPosition = icePlayer::getSingletonPtr()->shipNode->convertLocalToWorldPosition(playerPos);
 			//Get Kamikaze WORLD position
 			kamikazePos = enemyNode->convertLocalToWorldPosition( kamikazePos );
 			mVelocity = (mTargetPosition-kamikazePos) / 0.7; //Provisional
@@ -115,7 +115,7 @@ void iceKamikaze::setState(ENEMYSTATE p_iState){
 			mBillboard->start(enemyNode->_getDerivedPosition());
 			break;
 		case DEAD:
-			mPlayer->addExperience(mLevel * 10000);
+			icePlayer::getSingletonPtr()->addExperience(mLevel * 10000);
 		default:
 			break;
 	}

@@ -6,7 +6,6 @@
 #include <OgreSceneNode.h>
 #include <OgreEntity.h>
 #include <OgreSceneManager.h>
-#include <OgreParticleSystem.h>
 #include <OISEvents.h>
 #include <OISInputManager.h>
 #include <OISKeyboard.h>
@@ -18,12 +17,21 @@
 #include "Particle\iceParticle.h"
 #include "Entities\icePhysicEntity.h"
 #include "Entities\iceBulletMgr.h"
+#include <boost/enable_shared_from_this.hpp>
 
-class icePlayer : public iceTrajectoryFollower, public iceRPG, public icePhysicEntity
+class icePlayer : public iceTrajectoryFollower
+                , public iceRPG
+                , public icePhysicEntity
+                , public Ogre::Singleton<icePlayer>
+			    , public boost::enable_shared_from_this<icePlayer>
 {
 	public:
 		icePlayer();
 		~icePlayer();
+        static icePlayer& getSingleton(void);
+	    static icePlayer* getSingletonPtr(void);
+
+
 		void setCamera(Ogre::Camera* camera);
 		Ogre::Camera* getCamera();
 		void processMouseMoved(const int x, const int y, const int z);
@@ -49,6 +57,10 @@ class icePlayer : public iceTrajectoryFollower, public iceRPG, public icePhysicE
 
 		//debug
 		void setDebug(bool vari){ getGeometry()->getMovableObject()->setVisible(vari); }
+
+		Ogre::Vector3 getShipLastPosition(void){ return _lastPosition;}
+		Ogre::Vector3 getShipPosition(void){ return shipNode->getPosition();}
+		void setShipPosition(Ogre::Vector3 pos){ shipNode->setPosition(pos);}
 	protected:
 
 		bool mMovingUp;
@@ -91,6 +103,7 @@ class icePlayer : public iceTrajectoryFollower, public iceRPG, public icePhysicE
 		Ogre::Real shipMaxVelocity;
 		Ogre::Camera* playerCamera;
 		Ogre::Log* mLog;
+		Ogre::Vector3 _lastPosition;
 
 		int mXUserDeviation;
 		int mYUserDeviation;
@@ -102,5 +115,7 @@ class icePlayer : public iceTrajectoryFollower, public iceRPG, public icePhysicE
 
 		iceParticlePtr miceParticlePtr;
 };
+
+typedef boost::shared_ptr<icePlayer> icePlayerPtr;
 
 #endif

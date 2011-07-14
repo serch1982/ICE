@@ -20,6 +20,18 @@
 #define SPRINT_TIME 3
 #define SPRINT_MULTIMPLICATOR 4
 
+// BEGIN SINGLETON
+template<> icePlayer* Ogre::Singleton<icePlayer>::ms_Singleton = 0;
+
+icePlayer* icePlayer::getSingletonPtr(void)
+{
+    return ms_Singleton;
+}
+icePlayer& icePlayer::getSingleton(void)
+{  
+    assert( ms_Singleton );  return ( *ms_Singleton );  
+}
+// END SINGLETON
 
 icePlayer::icePlayer():_isShooting(false)
 {
@@ -45,6 +57,7 @@ icePlayer::icePlayer():_isShooting(false)
 	//Init Ship
 	shipPlaneNode = scrollNode->createChildSceneNode(Ogre::Vector3(0.0,-CAMERA_ADDED_Y,0.0));
 	shipNode = shipPlaneNode->createChildSceneNode();
+	_lastPosition = Ogre::Vector3(0,0,0);
 	//physics
 	icePhysicEntity::initializePhysics("phy_player", Ogre::Vector3(5.3,2.8,4.7));
 	shipNode->attachObject(getGeometry()->getMovableObject());
@@ -180,6 +193,7 @@ void icePlayer::processMouseMoved(const int x, const int y, const int z)
 
 void icePlayer::updateShipPosition(Ogre::Real frameTime)
 {
+	_lastPosition = shipNode->getPosition();
 	//updatePosition
 	//Ogre::Vector3 targetPosition = cursorNode->getPosition() / 4 ;
 	////Ogre::Real maxMovement = shipMaxVelocity * frameTime;
@@ -194,8 +208,15 @@ void icePlayer::updateShipPosition(Ogre::Real frameTime)
 	//	translation *= maxMovement;
 	//}
 
-
+	Ogre::Vector3 camPos = cameraPlaneNode->getPosition();
+	Ogre::Vector3 shipPos = shipNode->getPosition();
+	
 	Ogre::Vector3 translation = Ogre::Vector3::ZERO;
+
+	Ogre::Real spcam = (shipPos.z - camPos.z) ; 
+	if ((spcam < CAMERA_PLANE_Z) || (shipPos.z < 0)) 
+		translation += Ogre::Vector3::UNIT_Z;
+
 	if(mMovingUp)
 		translation += Ogre::Vector3::UNIT_Y;
 	if(mMovingDown)
