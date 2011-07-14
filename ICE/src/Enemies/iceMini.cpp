@@ -7,8 +7,8 @@ iceMini::iceMini(){
 
 iceMini::~iceMini(){}
 
-bool iceMini::initialize(int id, Ogre::Vector3 p_Position, icePlayer* p_psPlayer, Ogre::Real p_fActivationTime, const bool p_isAttachedToPlayer){
-	if( !iceEnemy::initialize( id, p_Position, p_psPlayer, p_fActivationTime, p_isAttachedToPlayer ) )
+bool iceMini::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActivationTime, const bool p_isAttachedToPlayer){
+	if( !iceEnemy::initialize( id, p_Position, p_fActivationTime, p_isAttachedToPlayer ) )
 		return false;
 	
 	Ogre::SceneManager* sceneManager = iceGame::getSceneManager();
@@ -90,7 +90,7 @@ void iceMini::setState(ENEMYSTATE p_iState){
 			mBillboard->start(enemyNode->_getDerivedPosition());
 			break;
 		case DEAD:
-			mPlayer->addExperience(mLevel * 10000);
+			icePlayer::getSingletonPtr()->addExperience(mLevel * 10000);
 		default:
 			break;
 	}

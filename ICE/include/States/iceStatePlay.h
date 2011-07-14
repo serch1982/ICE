@@ -93,7 +93,7 @@ class iceStatePlay: public iceState{
 		Hikari::FlashControl  *_hikariHUD;
 
 		//player
-        icePlayer* _player;
+        icePlayerPtr _player;
 		//Enemies
 		std::vector<iceEnemy*> _mEnemies;
 		 // inverse iterator

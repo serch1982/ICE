@@ -7,8 +7,8 @@ iceBoss::iceBoss(){
 
 iceBoss::~iceBoss(){}
 
-bool iceBoss::initialize(int id, Ogre::Vector3 p_Position, icePlayer* p_psPlayer, Ogre::Real p_fActivationTime, const bool p_isAttachedToPlayer){
-	if( !iceEnemy::initialize( id, p_Position, p_psPlayer, p_fActivationTime, p_isAttachedToPlayer ) )
+bool iceBoss::initialize(int id, Ogre::Vector3 p_Position,  Ogre::Real p_fActivationTime, const bool p_isAttachedToPlayer){
+	if( !iceEnemy::initialize( id, p_Position, p_fActivationTime, p_isAttachedToPlayer ) )
 		return false;
 	
 	Ogre::SceneManager* sceneManager = iceGame::getSceneManager();
@@ -68,7 +68,7 @@ void iceBoss::update(Ogre::Real p_timeSinceLastFrame){
 		case DYING:
 			mBillboard->start(enemyNode->_getDerivedPosition());
 			iceGame::getGameLog()->logMessage("Enemy killed!");
-			mPlayer->addExperience(mLevel * 10000);
+			icePlayer::getSingletonPtr()->addExperience(mLevel * 10000);
 			mAnimDyingTicks++;
 			//iceTrajectoryFollower::update(p_timeSinceLastFrame); Hay que hablar sobre trayectorias de enemigos
 			//Dead sequence...

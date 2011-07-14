@@ -28,35 +28,30 @@ int iceEnemy::getState(void)
 	return mState;
 }
 
-void iceEnemy::setPlayer(icePlayer* p_psPlayer)
-{
-	mPlayer = p_psPlayer;
-}
 
-bool iceEnemy::initialize(int id, Ogre::Vector3 p_Position, icePlayer* p_psPlayer, Ogre::Real p_fActivationTime, bool p_isAttachedToPlayer)
+bool iceEnemy::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActivationTime, bool p_isAttachedToPlayer)
 {
 	Ogre::SceneManager* sceneManager = iceGame::getSceneManager();
 	mRaySceneQuery = sceneManager->createRayQuery(Ogre::Ray());
-	mPlayer = p_psPlayer;
 	mActivationTime = p_fActivationTime;
 	mCurrentTime = 0;
 	Ogre::String name = mNameGenerator.generate();
 	if(p_isAttachedToPlayer)
-		enemyNode = mPlayer->getNode()->createChildSceneNode(name);
+		enemyNode = icePlayer::getSingletonPtr()->getNode()->createChildSceneNode(name);
 	else
-		enemyNode = mPlayer->getNode()->getParentSceneNode()->createChildSceneNode(name);
+		enemyNode = icePlayer::getSingletonPtr()->getNode()->getParentSceneNode()->createChildSceneNode(name);
 
 	iceTrajectoryFollower::initialize(enemyNode);
 	mNode->setPosition(p_Position);
 
 	//Dummy Trajectory
 	setTrajectory(new iceTrajectory());
-	mTrajectory->setNodeToLookAt(mPlayer->shipNode);
+	mTrajectory->setNodeToLookAt(icePlayer::getSingletonPtr()->shipNode);
 	
 	mState = INACTIVE;
 	setLevel(1);
 
-
+	mWeaponBaseCadence[MACHINEGUN] = 1;
 	return true;
 }
 Ogre::SceneNode* iceEnemy::getEnemySceneNode(void){
@@ -154,7 +149,7 @@ void iceEnemy::showLevelUp(unsigned int p_iLevel)
 
 //return if the eneymy whether or not is inside the player camera
 bool iceEnemy::isVisiblePlayerCam(){
-	Ogre::Camera* playCam = mPlayer->getCamera();
+	Ogre::Camera* playCam = icePlayer::getSingletonPtr()->getCamera();
 	Ogre::Ray ray(playCam->getPosition(), playCam->getDirection());
 	mRaySceneQuery->setRay(ray);
     Ogre::RaySceneQueryResult &result = mRaySceneQuery->execute();
@@ -170,7 +165,7 @@ bool iceEnemy::isVisiblePlayerCam(){
 }
 //return if the eneymy whether or not  is inside the wide (super) camera
 bool iceEnemy::isVisibleWideCam(){
-	Ogre::Camera *playCam = mPlayer->getCamera();
+	Ogre::Camera *playCam = icePlayer::getSingletonPtr()->getCamera();
 	Ogre::Ray ray(playCam->getPosition(), playCam->getDirection() * 2);
 	mRaySceneQuery->setRay(ray);
     Ogre::RaySceneQueryResult &result = mRaySceneQuery->execute();
@@ -184,7 +179,7 @@ bool iceEnemy::isVisibleWideCam(){
 }
 //return if the eneymy whether or not can shoot
 float iceEnemy::rangeAttack(){
-	Ogre::Real pZ = mPlayer->getPosition().z;
+	Ogre::Real pZ = icePlayer::getSingletonPtr()->getPosition().z;
 	Ogre::Real eZ = enemyNode->getPosition().z;
 	Ogre::Real tZ = eZ - pZ;
 	if ((tZ > 500) ||(tZ < 10)) {

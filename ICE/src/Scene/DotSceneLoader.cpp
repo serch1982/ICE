@@ -38,7 +38,7 @@ DotSceneLoader::~DotSceneLoader()
 	mEnemies.clear();
 }
 
-void DotSceneLoader::parseDotScene(const Ogre::String &SceneName, icePlayer &p_Player, const Ogre::String &groupName, Ogre::SceneManager *yourSceneMgr, Ogre::SceneNode *pAttachNode, const Ogre::String &sPrependNode)
+void DotSceneLoader::parseDotScene(const Ogre::String &SceneName, const Ogre::String &groupName, Ogre::SceneManager *yourSceneMgr, Ogre::SceneNode *pAttachNode, const Ogre::String &sPrependNode)
 {
     // set up shared object values
     m_sGroupName = groupName;
@@ -72,12 +72,12 @@ void DotSceneLoader::parseDotScene(const Ogre::String &SceneName, icePlayer &p_P
         mAttachNode = mSceneMgr->getRootSceneNode();
  
     // Process the scene
-    processScene(XMLRoot, p_Player);
+    processScene(XMLRoot);
  
     delete scene;
 }
  
-void DotSceneLoader::processScene(rapidxml::xml_node<>* XMLRoot, icePlayer &p_Player)
+void DotSceneLoader::processScene(rapidxml::xml_node<>* XMLRoot)
 {
     // Process the scene parameters
     Ogre::String version = getAttrib(XMLRoot, "formatVersion", "unknown");
@@ -104,7 +104,7 @@ void DotSceneLoader::processScene(rapidxml::xml_node<>* XMLRoot, icePlayer &p_Pl
     // Process nodes (?)
     pElement = XMLRoot->first_node("nodes");
     if(pElement)
-        processNodes(pElement, p_Player);
+        processNodes(pElement);
  
     // Process externals (?)
     pElement = XMLRoot->first_node("externals");
@@ -139,7 +139,7 @@ void DotSceneLoader::processScene(rapidxml::xml_node<>* XMLRoot, icePlayer &p_Pl
 	processTrajectories();
 }
  
-void DotSceneLoader::processNodes(rapidxml::xml_node<>* XMLNode, icePlayer &p_Player)
+void DotSceneLoader::processNodes(rapidxml::xml_node<>* XMLNode)
 {
     rapidxml::xml_node<>* pElement;
 	mEnemyId = 0;
@@ -152,7 +152,7 @@ void DotSceneLoader::processNodes(rapidxml::xml_node<>* XMLNode, icePlayer &p_Pl
 		if (Ogre::StringUtil::startsWith(name,"step#"))
 		{
 			processStep(pElement);
-			processEnemies(pElement,p_Player);
+			processEnemies(pElement);
 		}
 		else if (Ogre::StringUtil::startsWith(name,"trajectory"))
 		{
@@ -701,7 +701,7 @@ void DotSceneLoader::processTrajectoryStep(rapidxml::xml_node<>* XMLNode, Ogre::
 	mTrajectoriesSteps[trajectoryNumber].push_back(iceStep(position,Ogre::Radian(0),time));
 }
 
-void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode, icePlayer &p_Player, Ogre::SceneNode *pParent)
+void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode,Ogre::SceneNode *pParent)
 {
 	//Processing user data
 	Ogre::Vector3 position = parseVector3(XMLNode->first_node("position"));
@@ -754,7 +754,7 @@ void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode, icePlayer &p_
 
 		iceEnemy* enemy = new iceMini();
 		mEnemyId = mEnemyId + 1000; 
-		enemy->initialize(mEnemyId,enemyPosition,&p_Player,time + timeDev, false);
+		enemy->initialize(mEnemyId,enemyPosition,time + timeDev, false);
 		enemy->setLevel(time/20);//TODO
 		enemy->setBillboard(new iceBillboard(snbbNode,50,iceBillboard::DEAD1));
 
@@ -772,7 +772,7 @@ void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode, icePlayer &p_
 
 		iceEnemy* enemy = new iceKamikaze();
 		mEnemyId = mEnemyId + 1000;
-		enemy->initialize(mEnemyId,enemyPosition,&p_Player,time + timeDev,false);
+		enemy->initialize(mEnemyId,enemyPosition,time + timeDev,false);
 		enemy->setLevel(time/20);//TODO
 		enemy->setBillboard(new iceBillboard(snbbNode,50,iceBillboard::DEAD2));
 		enemy->setIceParticle(iceParticleMgr::getSingletonPtr()->addParticle(enemy->getEnemySceneNode(),"ice/iceKamimaze",false));
@@ -789,7 +789,7 @@ void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode, icePlayer &p_
 
 		iceEnemy* enemy = new iceSmart();
 		mEnemyId = mEnemyId + 1000;
-		enemy->initialize(mEnemyId,enemyPosition,&p_Player,time + timeDev,false);
+		enemy->initialize(mEnemyId,enemyPosition,time + timeDev,false);
 		enemy->setLevel(time/20);//TODO
 		enemy->setBillboard(new iceBillboard(snbbNode,50,iceBillboard::DEAD1));
 		mEnemies.push_back(enemy);

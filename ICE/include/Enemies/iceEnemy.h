@@ -36,9 +36,6 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG, public icePhysicEn
 		virtual void setState(ENEMYSTATE p_iState);
 		int getState(void);
 
-		// Setter for player pointer
-		void setPlayer(icePlayer* p_psPlayer);
-
 		// Activation in the world
 		void activate(void);
 		void desactivate(void);
@@ -54,7 +51,7 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG, public icePhysicEn
 		bool isActive(void);
 
 		// virtual functions for descendants
-		virtual bool initialize(int id, Ogre::Vector3 p_Position, icePlayer* p_psPlayer, Ogre::Real p_fActivationTime, const bool p_isAttachedToPlayer = false);
+		virtual bool initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActivationTime, const bool p_isAttachedToPlayer = false);
 		virtual void finalize();
 		virtual void update(Ogre::Real p_timeSinceLastFrame);
 		virtual std::string getFunctionStr();
@@ -83,7 +80,7 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG, public icePhysicEn
 		
 		//Attributes
 		ENEMYSTATE mState;
-		icePlayer* mPlayer;
+		//icePlayer* mPlayer;
 		Ogre::Real mCurrentTime;
 		Ogre::Real mActivationTime;
 		bool mShowingBoundingBox;
