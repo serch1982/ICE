@@ -117,7 +117,7 @@ class iceStatePlay: public iceState{
 		void checkActivableCutScene(void);
 
 		//phisics
-		icePhysics mPhysics;
+		icePhysicsPtr mPhysics;
 
 		bool visibleBoundingBoxes;
 

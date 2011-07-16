@@ -18,7 +18,7 @@ public:
 	/**
     *  descontructor
     */
-	virtual ~icePhysics(void);
+	~icePhysics(void);
 	/**
 	*  initialize physics
 	*/
@@ -49,5 +49,6 @@ protected:
 	Ogre::Log* mLog;
 };
 
+typedef boost::shared_ptr<icePhysics> icePhysicsPtr;
 
 #endif

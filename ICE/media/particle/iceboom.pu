@@ -1,0 +1,81 @@
+system ice/boom
+{
+    fixed_timeout                               10
+    iteration_interval                          0.1
+    nonvisible_update_timeout                   3
+    category                                    ice
+    technique 
+    {
+        visual_particle_quota                   10
+        emitted_emitter_quota                   10
+        emitted_system_quota                    100
+        material                                ice/crashpff
+        default_particle_width                  15
+        default_particle_height                 15
+        default_particle_depth                  25
+        renderer                                Billboard
+        {
+            render_queue_group                  10
+        }
+        emitter                                 Circle 
+        {
+            angle                               dyn_random
+            {
+                min                             20
+                max                             60
+            }
+            time_to_live                        8
+            mass                                10
+            velocity                            dyn_random
+            {
+                min                             40
+                max                             80
+            }
+            duration                            8
+            orientation                         0 0 1 0
+            radius                              10
+        }
+        affector                                LinearForce Affector80
+        {
+            position                            0 1 0
+            force_vector                        0 -25 0
+        }
+    }
+    technique 
+    {
+        visual_particle_quota                   10
+        emitted_emitter_quota                   10
+        emitted_system_quota                    100
+        material                                ice/crashboom
+        default_particle_width                  15
+        default_particle_height                 15
+        default_particle_depth                  25
+        renderer                                Billboard
+        {
+            render_queue_group                  10
+        }
+        emitter                                 Circle 
+        {
+            angle                               dyn_random
+            {
+                min                             20
+                max                             60
+            }
+            time_to_live                        8
+            mass                                10
+            velocity                            dyn_random
+            {
+                min                             40
+                max                             80
+            }
+            duration                            8
+            orientation                         0 0 1 0
+            radius                              10
+        }
+        affector                                LinearForce Affector80
+        {
+            position                            0 1 0
+            force_vector                        0 -25 0
+        }
+    }
+}

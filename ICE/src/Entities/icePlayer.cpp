@@ -62,7 +62,7 @@ icePlayer::icePlayer():_isShooting(false)
 	icePhysicEntity::initializePhysics("phy_player", Ogre::Vector3(5.3,2.8,4.7));
 	shipNode->attachObject(getGeometry()->getMovableObject());
 	//
-	miceParticlePtr = iceParticleMgr::getSingletonPtr()->addParticle(shipNode,"ice/iceTurbo",true);
+	miceParticlePtr = iceParticleMgr::getSingletonPtr()->createPartAttachToObject(shipNode,"ice/iceTurbo",true);
 
 	rollNode = shipNode->createChildSceneNode();
 

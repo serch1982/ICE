@@ -1,0 +1,38 @@
+material ice/crashpff
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			depth_write off
+
+			texture_unit crashpff.png
+			{
+				texture_alias crashpff.png
+				texture crashpff.png
+			}
+		}
+
+	}
+
+}
+material ice/crashboom
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			depth_write off
+
+			texture_unit crashboom.png
+			{
+				texture_alias crashboom.png
+				texture crashboom.png
+			}
+		}
+
+	}
+
+}

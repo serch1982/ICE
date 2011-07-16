@@ -44,7 +44,7 @@ iceBulletPtr iceBulletMgr::createBullet(bool fromPlayer, Ogre::String name,int b
 					billboarSet->createBillboard(0,0,0);
 				    mBulletNode->attachObject(billboarSet);
 					mBulletNode->setVisible(true);
-				    mBulletNode->scale(.1,.1,.1);
+				    mBulletNode->scale(.04,.04,.04);
 					
 					bullet->createBullet(fromPlayer, mBulletNode, Ogre::Vector3(0.7,0.7,0.7), initPos, orientation, desviation);
 					bullet->setSpeed(250);
@@ -57,7 +57,7 @@ iceBulletPtr iceBulletMgr::createBullet(bool fromPlayer, Ogre::String name,int b
 					billboarSet->createBillboard(0,0,0);
 				    mBulletNode->attachObject(billboarSet);
 					mBulletNode->setVisible(true);
-				    mBulletNode->scale(.1,.1,.1);
+				    mBulletNode->scale(.05,.05,.05);
 					
 					bullet->createBullet(fromPlayer, mBulletNode,  Ogre::Vector3(0.7,0.7,0.7), initPos, orientation, desviation);
 					bullet->setSpeed(250);

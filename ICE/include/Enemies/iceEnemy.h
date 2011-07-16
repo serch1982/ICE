@@ -7,7 +7,7 @@
 #include "Entities\icePhysicEntity.h"
 #include "Entities\iceBulletMgr.h"
 #include "Effects\iceBillboard.h"
-#include "Particle\iceParticle.h"
+#include "Particle\iceParticleMgr.h"
 
 class iceEnemy : public iceTrajectoryFollower, public iceRPG, public icePhysicEntity
 {
@@ -64,7 +64,7 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG, public icePhysicEn
 		// enemy shot
 		void createShotEntity(int p_iWeapon, Ogre::Radian p_fDeviation, unsigned int p_iDamage, bool p_bCritic);
 		// Showing information to user
-		void showReceivedDamage(unsigned int p_iDamage, bool p_bCritical);
+		virtual void showReceivedDamage(unsigned int p_iDamage, bool p_bCritical);
 		void showShieldDamage(unsigned int p_iDamage, bool p_bCritical);
 		void showFail(void);
 		void showLevelUp(unsigned int p_iLevel);
@@ -103,9 +103,7 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG, public icePhysicEn
 
 		// DEBUG
 		Ogre::Log* mLog;
-		 
-		//particles 
-		iceParticlePtr mIceParticle;
+		
 };
 
 #endif

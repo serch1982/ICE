@@ -27,10 +27,13 @@ bool iceKamikaze::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fAct
 	icePhysicEntity::initializePhysics("phy_kami"+ entityName.str(), Ogre::Vector3(6,6,6));
 	mNode->attachObject(getGeometry()->getMovableObject());
 
+	//particles
+	mParticleFire = iceParticleMgr::getSingletonPtr()->createPartAttachToObject(mNode,"ice/iceKamimaze",false);
 	return true;
 }
 
 void iceKamikaze::finalize(){
+	iceParticleMgr::getSingletonPtr()->removeParticle(mParticleFire);
 	iceEnemy::finalize();
 }
 
@@ -52,6 +55,7 @@ void iceKamikaze::update(Ogre::Real p_timeSinceLastFrame){
 			mTrajectory->lookAt(); //TODO
 			enemyNode->translate( mVelocity * p_timeSinceLastFrame );
 			mRenewTarget--;
+			mParticleFire->stop();
 			if( mRenewTarget == 0 ){
 				/*Ogre::Vector3 playerPos;
 				Ogre::Vector3 kamikazePos;
@@ -73,10 +77,12 @@ void iceKamikaze::update(Ogre::Real p_timeSinceLastFrame){
 		case INACTIVE:
 			if(checkActivationTime(p_timeSinceLastFrame))
 			{//active
+				mParticleFire->start();
 				activate();
 			}
 			else
 			{//inactive
+				mParticleFire->stop();
 				desactivate();
 			}
 			break;
@@ -118,5 +124,12 @@ void iceKamikaze::setState(ENEMYSTATE p_iState){
 			icePlayer::getSingletonPtr()->addExperience(mLevel * 10000);
 		default:
 			break;
+	}
+}
+
+void iceKamikaze::showReceivedDamage(unsigned int p_iDamage, bool p_bCritical){
+	iceEnemy::showReceivedDamage(p_iDamage, p_bCritical);
+	if(!isAlive()){
+		mNode->setVisible(false,false);
 	}
 }

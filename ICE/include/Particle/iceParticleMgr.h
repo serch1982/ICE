@@ -5,52 +5,70 @@
 #include <OgreSingleton.h>
 #include <ParticleUniversePlugin.h>
 #include <boost/enable_shared_from_this.hpp>
-
 #include "Particle\iceParticle.h"
-
-
-typedef std::vector<iceParticlePtr> iceParticleList;
-typedef std::vector<iceParticlePtr>::iterator iceParticleListIterator;
-
 
 class iceParticleMgr	: public Ogre::Singleton<iceParticleMgr>
 						, public boost::enable_shared_from_this<iceParticleMgr>
 {				
 public:
+	/**
+    *  contructor
+    */
 	iceParticleMgr();
+	/**
+    *  descontructor
+    */
 	~iceParticleMgr();
+	/**
+    *  singleton instance
+    */
 	static iceParticleMgr& getSingleton(void);
 	static iceParticleMgr* getSingletonPtr(void);
 
+	/**
+    *  initialize particle manager
+    */
 	void initialize();
+	/**
+    *  finalize particle manager
+    */
 	void finalize();
 
-	void update(const float elapsedSeconds);
-
-	// Particle system function	
-	ParticleUniverse::ParticleSystem* create(Ogre::String script);
-
-	iceParticlePtr addParticle(Ogre::SceneNode* node, Ogre::String script, bool start);
-	void add(Ogre::SceneNode* node, iceParticle::iceParticleParameters params, bool start = true);
-	void add(Ogre::SceneNode* node, Ogre::Vector3 position, iceParticle::iceParticleParameters params, bool start = true);
-	void add(Ogre::SceneNode* node, Ogre::String id, iceParticle::iceParticleParameters params, bool start);
-	void add(Ogre::Entity* entityNode, Ogre::SceneNode* node,  Ogre::String boneName, Ogre::String script);
-	bool remove(Ogre::String id);
-
-	iceParticlePtr getParticleSystem(Ogre::String id);
-
-	iceParticle::iceParticleParameters defaultParameters(Ogre::String script);
-
+	/**
+    *  to create a particle attached to a scene node 
+	*  @return iceParticlePtr : instance iceParticle
+    */
+	iceParticlePtr createPartAttachToObject(Ogre::SceneNode* node, Ogre::String script, bool start);
+	/**
+    *  to create a particle attached to a scene node in a specific position of the sceneNode  
+	*  @return iceParticlePtr : instance iceParticle
+    */
+	iceParticlePtr createPartAttachToObject(Ogre::SceneNode* node, Ogre::Vector3 position, Ogre::String script, bool start);
+	/**
+    *  to create a particle attached to a bone from his body
+	*  @return iceParticlePtr : instance iceParticle
+    */
+	iceParticlePtr createPartAttachToBone(Ogre::Entity* entityNode, Ogre::String boneName, Ogre::String script, bool start);
+	/**
+    *  to remove a particle to the world, deleting the instance
+	*  @return bool
+    */
+	bool removeParticle(iceParticlePtr miceParticlePtr);
 
 private:
+	/**
+    *  to create a default parameter for a instance iceparticle 
+	*  @return iceParticle::iceParticleParameters
+    */
+	iceParticle::iceParticleParameters defaultParameters(Ogre::String script);
+	/**
+	*  to create and unique name
+	*/
 	Ogre::String createUniqueId();
 
+	//private vars 
 	ParticleUniverse::ParticleSystemManager* mParticleSystemManager;
-
-	iceParticleList	mIceParticleList;
-
-	int				mId;
-	Ogre::Real			mTimer;
+	int	mId;
 	Ogre::SceneManager*	mSceneManager;
 };
 

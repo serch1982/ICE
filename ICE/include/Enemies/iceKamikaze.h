@@ -19,10 +19,13 @@ public:
 	virtual void setState(ENEMYSTATE p_iState);
 	//virtual void logic();
 
+	virtual void showReceivedDamage(unsigned int p_iDamage, bool p_bCritical);
+
 private:
 	Ogre::Vector3 mTargetPosition;
 	Ogre::Vector3 mVelocity;
 	int	mRenewTarget;
+	iceParticlePtr mParticleFire;
 };
 
 #endif
