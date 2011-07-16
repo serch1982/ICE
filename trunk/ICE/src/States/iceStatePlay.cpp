@@ -68,7 +68,8 @@ void iceStatePlay::load() {
 			_level->load(_mEnemies, _mCutScenes);
 
 			//load phisics
-			mPhysics.initialize(_level->getTerrain(), &_mEnemies, _level->getSceneObjects());
+			mPhysics = icePhysicsPtr(new icePhysics());
+			mPhysics->initialize(_level->getTerrain(), &_mEnemies, _level->getSceneObjects());
 
 			//load HUD
 			try{
@@ -97,10 +98,15 @@ void iceStatePlay::clear() {
 
         //delete _player;
 		_player.reset();
+		//delete _player;
         _level->unload();
 
+		//delete bullet manager;
 		mIceBulletMgr.reset();
+		//delete particle manager;
 		mIceParticleMgr.reset();
+		//delete Physics;
+		mPhysics.reset();
 
 		_soundManager->unloadLevel1();
 
@@ -150,10 +156,8 @@ void iceStatePlay::update(Ogre::Real evt)
 		//setHUDLife(_player->getCurrentLife());
 		//setHUDWeapon(_player->getCurrentWeaponName());
 
-		//phisics
-		mPhysics.update();
-		//particle system
-		mIceParticleMgr->update(evt);
+		//update game Physics 
+		mPhysics->update();
 
 		//ShowDamage
 		iceDamageTextManager::getSingleton().update(evt);

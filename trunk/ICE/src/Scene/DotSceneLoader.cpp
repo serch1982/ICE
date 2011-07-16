@@ -1,6 +1,5 @@
 #include "Scene\DotSceneLoader.h"
 #include <Ogre.h>
-#include "Particle\iceParticleMgr.h"
  
 #pragma warning(disable:4390)
 #pragma warning(disable:4305)
@@ -757,8 +756,6 @@ void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode,Ogre::SceneNod
 		enemy->initialize(mEnemyId,enemyPosition,time + timeDev, false);
 		enemy->setLevel(time/20);//TODO
 		enemy->setBillboard(new iceBillboard(snbbNode,50,iceBillboard::DEAD1));
-
-		enemy->setIceParticle(iceParticleMgr::getSingletonPtr()->addParticle(enemy->getEnemySceneNode(),"ice/fireminimagmaton",false));
 		mEnemies.push_back(enemy);	
 	}
 	for (int i=0;i<kamikaces;i++)
@@ -775,7 +772,6 @@ void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode,Ogre::SceneNod
 		enemy->initialize(mEnemyId,enemyPosition,time + timeDev,false);
 		enemy->setLevel(time/20);//TODO
 		enemy->setBillboard(new iceBillboard(snbbNode,50,iceBillboard::DEAD2));
-		enemy->setIceParticle(iceParticleMgr::getSingletonPtr()->addParticle(enemy->getEnemySceneNode(),"ice/iceKamimaze",false));
 		mEnemies.push_back(enemy);
 	}
 	for (int i=0;i<intelligents;i++)

@@ -72,7 +72,7 @@ Ogre::Real iceRPG::getManiobrability(void)
 	Ogre::Real a = (4*m-1)/100;
 	Ogre::Real b = (1-2*m)/5000;
 
-	return mBaseManiobrability * (0.9 + a * realLevel + b * realLevel*realLevel);
+	return ((Ogre::Real)mBaseManiobrability) * (0.9 + a * realLevel + b * realLevel*realLevel);
 }
 
 //unsigned int iceRPG::getCadence(void)

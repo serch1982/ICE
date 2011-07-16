@@ -1,21 +1,17 @@
 #include "Particle\iceParticle.h"
 
-iceParticle::iceParticle(Ogre::SceneNode* sceneNode, ParticleUniverse::ParticleSystem* particleSystem, iceParticleParameters params, Ogre::String id): mTimer(0.0)
+iceParticle::iceParticle(Ogre::SceneNode* sceneNode, ParticleUniverse::ParticleSystem* particleSystem, iceParticleParameters params, Ogre::String id)
 {
-	mSceneNode = sceneNode;
 	mParticleSystem = particleSystem;
 	mParameters = params;
 	mId = id;
-
-	mSceneNode->attachObject( mParticleSystem );
+	sceneNode->attachObject( mParticleSystem );
 }
 
-iceParticle::iceParticle(Ogre::Entity* entityNode,Ogre::SceneNode* sceneNode, Ogre::String boneName, ParticleUniverse::ParticleSystem* particleSystem, iceParticleParameters params, Ogre::String id): mTimer(0.0){
-	mSceneNode = sceneNode;
+iceParticle::iceParticle(Ogre::Entity* entityNode,Ogre::String boneName, ParticleUniverse::ParticleSystem* particleSystem, iceParticleParameters params, Ogre::String id){
 	mParticleSystem = particleSystem;
 	mParameters = params;
 	mId = id;
-
 	entityNode->attachObjectToBone( boneName, mParticleSystem );
 }
 
@@ -38,6 +34,11 @@ void iceParticle::stop(void)
 	mParticleSystem->stop();
 }
 
-void iceParticle::update(const float elapsedSeconds)
+bool iceParticle::isPlay(void)
 {
+	if((mParticleSystem->getState() == ParticleUniverse::ParticleSystem::PSS_STOPPED) 
+		||(mParticleSystem->getState() == ParticleUniverse::ParticleSystem::PSS_PAUSED) )
+		return false;
+	else
+		return true;
 }

@@ -8,43 +8,62 @@
 class iceParticle
 {
 public:
+	/**
+    *  struct of Parameters for the particles
+    */
 	struct iceParticleParameters
 	{
 		Ogre::String	script;
-		int		subtype;
-		float	repeatMin;
-		float	repeatMax;
+		bool isLoop;
 	};
 
 public:
+	/**
+    *  contructors
+    */
 	iceParticle(Ogre::SceneNode* sceneNode, ParticleUniverse::ParticleSystem* particleSystem, iceParticleParameters params, Ogre::String id);
-	iceParticle(Ogre::Entity* entityNode,Ogre::SceneNode* sceneNode, Ogre::String boneName, ParticleUniverse::ParticleSystem* particleSystem, iceParticleParameters params, Ogre::String id);
+	iceParticle(Ogre::Entity* entityNode, Ogre::String boneName, ParticleUniverse::ParticleSystem* particleSystem, iceParticleParameters params, Ogre::String id);
+	/**
+    *  descontructor
+    */
 	~iceParticle();
-		
+	
+	/**
+    *  Start the particle
+    */
 	void start(void);
+	/**
+    *  start And Stop Fade the particle 
+    */
 	void startAndStopFade(Ogre::Real stopTime);
+	/**
+    *  stop the particle
+    */
 	void stop(void);
-	void update(const float elapsedSeconds);
+	/**
+    *  get if the particle is playing
+    */
+	bool isPlay(void);
 
-	// Parameters functions
+	/**
+    *  get the ParticleUniverse ParticleSystem
+    */
 	ParticleUniverse::ParticleSystem* getParticleSystem(){ return mParticleSystem; }
+	/**
+    *   get the parameter of the instance
+    */
 	iceParticleParameters getParameters(){ return mParameters; }
-	Ogre::SceneNode* getSceneNode(){ return mSceneNode; }
+	/**
+    *  get the name id of the instance
+    */
 	Ogre::String getId(){ return mId; }
 
-	// Time functions
-	float getRepeat(){ return mRepeat; }
-	float getTimer(){ return mTimer; }
-	void setTimer(float time){ mTimer = time; }
-
 private:
+	//private vars
 	ParticleUniverse::ParticleSystem*	mParticleSystem;
 	iceParticleParameters			mParameters;
-	Ogre::SceneNode*					mSceneNode;
-	Ogre::String								mId;
+	Ogre::String					mId;
 
-	float		mRepeat;
-	float		mTimer;
 };
 
 typedef boost::shared_ptr<iceParticle> iceParticlePtr;

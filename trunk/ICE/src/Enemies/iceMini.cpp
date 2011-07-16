@@ -1,6 +1,7 @@
 #include "Enemies\iceMini.h"
 #include "iceGame.h"
 
+
 iceMini::iceMini(){
 	iceEnemy::iceEnemy();
 }
@@ -26,10 +27,15 @@ bool iceMini::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActivat
 	icePhysicEntity::initializePhysics("phy_mini"+ entityName.str(), Ogre::Vector3(3.2,7,2));
 	mNode->attachObject(getGeometry()->getMovableObject());
 
+	//particles
+	mParticleFire = iceParticleMgr::getSingletonPtr()->createPartAttachToObject(mNode,"ice/fireminimagmaton",false);
+	mParticleBoom = iceParticleMgr::getSingletonPtr()->createPartAttachToObject(mNode,"ice/boom",false);
 	return true;
 }
 
 void iceMini::finalize(){
+	iceParticleMgr::getSingletonPtr()->removeParticle(mParticleBoom);
+	iceParticleMgr::getSingletonPtr()->removeParticle(mParticleFire);
 	iceEnemy::finalize();
 }
 
@@ -59,6 +65,7 @@ void iceMini::update(Ogre::Real p_timeSinceLastFrame){
 		case DYING:
 			iceGame::getGameLog()->logMessage("Enemy killed!");
 			mAnimDyingTicks++;
+			mParticleFire->stop();
 			//iceTrajectoryFollower::update(p_timeSinceLastFrame); Hay que hablar sobre trayectorias de enemigos
 			//Dead sequence...
 			//When dead sequence finished:
@@ -67,10 +74,12 @@ void iceMini::update(Ogre::Real p_timeSinceLastFrame){
 		case INACTIVE:
 			if(checkActivationTime(p_timeSinceLastFrame))
 			{//active
+				mParticleFire->start();
 				activate();
 			}
 			else
 			{//inactive
+				mParticleFire->stop();
 				desactivate();
 			}
 			break;
@@ -93,5 +102,13 @@ void iceMini::setState(ENEMYSTATE p_iState){
 			icePlayer::getSingletonPtr()->addExperience(mLevel * 10000);
 		default:
 			break;
+	}
+}
+
+void iceMini::showReceivedDamage(unsigned int p_iDamage, bool p_bCritical){
+	iceEnemy::showReceivedDamage(p_iDamage, p_bCritical);
+	if(!mParticleBoom->isPlay() && !isAlive()){
+		mNode->setVisible(false,false);
+		mParticleBoom->start();
 	}
 }

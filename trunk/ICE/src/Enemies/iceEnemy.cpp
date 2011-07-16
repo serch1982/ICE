@@ -64,7 +64,7 @@ void iceEnemy::setBillboard(iceBillboard* billboard){
 
 void iceEnemy::finalize()
 {
-
+	icePhysicEntity::finalizePhysics();
 }
 
 void iceEnemy::update(Ogre::Real p_timeSinceLastFrame)
@@ -78,9 +78,6 @@ std::string iceEnemy::getFunctionStr(){
 
 void iceEnemy::activate(void)
 {
-	if(mIceParticle){
-		mIceParticle->start();
-	}
 	mCurrentLife = getMaxLife();
 	mNode->setVisible(true);
 	mState = STOPPED;
@@ -91,15 +88,9 @@ void iceEnemy::activate(void)
 	}
 }
 
-void iceEnemy::setIceParticle(iceParticlePtr particlePtr){
-	mIceParticle = particlePtr;
-}
 
 void iceEnemy::desactivate(void)
 {
-	if(mIceParticle){
-		mIceParticle->stop();
-	}
 	mNode->setVisible(false);
 	mState = INACTIVE;
 }

@@ -5,6 +5,7 @@
 #define DEFAULT_DAMAGE_WALL 1
 #define DEFAULT_DAMAGE_OBJECTS 2
 #define DEFAULT_RETURN_SHIP 4
+#define DEFAULT_RETURN_SHIP_MAX -16
 
 icePhysics::icePhysics(void)
 {
@@ -12,7 +13,8 @@ icePhysics::icePhysics(void)
 
 icePhysics::~icePhysics(void)
 {
-
+	mEnemies->clear();
+	mObjects.clear();
 }
 
 void icePhysics::initialize(Ogre::TerrainGroup* terrainGroup,  std::vector<iceEnemy*>* p_Enemies, std::vector<iceObject*> p_Objects)
@@ -66,7 +68,7 @@ void icePhysics::processTerrainCollision(void){
 		strMessage << "Impacto en: (" << icePlayer::getSingletonPtr()->getPosition() << ")";
 		mLog->logMessage( strMessage.str() );
 
-		icePlayer::getSingletonPtr()->addDamage(2,false); //to change
+		icePlayer::getSingletonPtr()->addDamage(DEFAULT_DAMAGE_WALL,false); //to change
 		Ogre::Vector3 initPos = icePlayer::getSingletonPtr()->getShipPosition();
 		Ogre::Vector3 lastPos = icePlayer::getSingletonPtr()->getShipLastPosition();
 		icePlayer::getSingletonPtr()->setShipPosition(Ogre::Vector3(initPos.x > 0 ? lastPos.x - 1.5 : lastPos.x + 1.5, lastPos.y + .5,initPos.z));
@@ -98,7 +100,7 @@ void icePhysics::processObjectCollision(void){
 				enemy->setState(iceEnemy::DEAD);
 				icePlayer::getSingletonPtr()->addDamage(DEFAULT_DAMAGE_OBJECTS,false); //to change
 				Ogre::Vector3 initPos = icePlayer::getSingletonPtr()->getShipPosition();
-				if( initPos.z <= 1){
+				if( initPos.z <= 1 && initPos.z > DEFAULT_RETURN_SHIP_MAX){
 					icePlayer::getSingletonPtr()->setShipPosition(Ogre::Vector3(initPos.x, initPos.y,initPos.z - DEFAULT_RETURN_SHIP));
 				}
 			}

@@ -18,6 +18,11 @@ public:
 	virtual std::string getFunctionStr();
 	virtual void setState( ENEMYSTATE pState );
 	//virtual void logic();
+	virtual void showReceivedDamage(unsigned int p_iDamage, bool p_bCritical);
+
+private:
+	iceParticlePtr mParticleFire;
+	iceParticlePtr mParticleBoom;
 };
 
 #endif
