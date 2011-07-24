@@ -8,7 +8,6 @@
 
 #include <Sound\iceSoundManager.h>
 #include <Level\iceLevelManager.h>
-#include <Hikari.h>
 
 /**
 *  States from the game
@@ -39,8 +38,7 @@ class iceState {
          *  create the state and elements
          */
         iceState(iceSoundManager* soundManager,
-			iceLevelManager*	levelManager,
-			Hikari::HikariManager* _hikariMgr
+			iceLevelManager*	levelManager
 			);
 
         /**
@@ -116,8 +114,6 @@ class iceState {
 		iceSoundManager* _soundManager;
 		//level
 		iceLevelManager* _levelManager;
-		//Hikari
-		Hikari::HikariManager* _hikariManager;
 };
 
 

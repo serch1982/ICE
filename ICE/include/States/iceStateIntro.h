@@ -11,8 +11,7 @@ class iceStateIntro: public iceState{
 public:
 	iceStateIntro(
 				iceSoundManager* soundManager,
-				iceLevelManager* levelManager,
-				Hikari::HikariManager *hikariMgr
+				iceLevelManager* levelManager
 				);
 	~iceStateIntro();
 

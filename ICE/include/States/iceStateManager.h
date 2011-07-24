@@ -6,7 +6,6 @@
 #include <States\iceState.h>
 #include <Sound\iceSoundManager.h>
 #include <Level\iceLevelManager.h>
-//#include <iceGame.h>
 
 class iceStateManager : public Ogre::FrameListener,
                      public Ogre::WindowEventListener,
@@ -125,7 +124,14 @@ class iceStateManager : public Ogre::FrameListener,
 		/**
          *  finalize state manager
          */
-		void iceStateManager::finalize();
+		void finalize();
+
+		//iceMenu
+		void menuExitClick();
+		void menuPlayClick();
+		void menuContinueClick();
+
+
     private:
 		// it's a general control to control the level to load
         int _levelToLoad;
@@ -167,8 +173,6 @@ class iceStateManager : public Ogre::FrameListener,
 		iceSoundManager* _soundManager;
 		// level manager
 		iceLevelManager* _levelManager;
-		// hikari manager
-		Hikari::HikariManager* _hikariManager;
 };
 
 inline OIS::Mouse* iceStateManager::getMouse() {return _mouse;}

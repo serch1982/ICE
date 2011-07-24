@@ -43,8 +43,8 @@ iceStateManager::iceStateManager(OIS::InputManager* inputManager,
 	iceSdkTray::getInstance()->setupScreenInfo(_window, _mouse, this); 
 	iceSdkTray::getInstance()->updateScreenInfo(7, "Solid");
 
-	//load hikari manager
-	_hikariManager = new Hikari::HikariManager(".\\media");
+	iceGame::getUI()->init(this);
+
 
 	//set god camera
 	Ogre::SceneManager* sceneManager = iceGame::getSceneManager();
@@ -60,17 +60,17 @@ iceStateManager::iceStateManager(OIS::InputManager* inputManager,
 	
 	_levelManager = new iceLevelManager();
 	// load states
-	_statesVector.push_back( new iceStateIntro( _soundManager, _levelManager, _hikariManager) );
-	_statesVector.push_back( new iceStateMenu( _soundManager, _levelManager, _hikariManager) );
-	_statesVector.push_back( new iceStatePlay( _soundManager, _levelManager, _hikariManager) );
-	_statesVector.push_back( new iceStateShipSelection( _soundManager, _levelManager, _hikariManager) );
-	_statesVector.push_back( new iceStateLevelSelection( _soundManager, _levelManager, _hikariManager) );
-	_statesVector.push_back( new iceStateGameOver( _soundManager, _levelManager, _hikariManager) );
-	_statesVector.push_back( new iceStatePause( _soundManager, _levelManager, _hikariManager) );
-	_statesVector.push_back( new iceStateLoadLevel( _soundManager, _levelManager, _hikariManager) );
-	_statesVector.push_back( new iceStateCredits( _soundManager, _levelManager, _hikariManager) );
-	_statesVector.push_back( new iceStateOutro( _soundManager, _levelManager, _hikariManager) );
-	_statesVector.push_back( new iceStateStats( _soundManager, _levelManager, _hikariManager) );
+	_statesVector.push_back( new iceStateIntro( _soundManager, _levelManager) );
+	_statesVector.push_back( new iceStateMenu( _soundManager, _levelManager) );
+	_statesVector.push_back( new iceStatePlay( _soundManager, _levelManager) );
+	_statesVector.push_back( new iceStateShipSelection( _soundManager, _levelManager) );
+	_statesVector.push_back( new iceStateLevelSelection( _soundManager, _levelManager) );
+	_statesVector.push_back( new iceStateGameOver( _soundManager, _levelManager) );
+	_statesVector.push_back( new iceStatePause( _soundManager, _levelManager) );
+	_statesVector.push_back( new iceStateLoadLevel( _soundManager, _levelManager) );
+	_statesVector.push_back( new iceStateCredits( _soundManager, _levelManager) );
+	_statesVector.push_back( new iceStateOutro( _soundManager, _levelManager) );
+	_statesVector.push_back( new iceStateStats( _soundManager, _levelManager) );
 
 	changeState( _statesVector[MAINMENU] );
     //changeState(new iceStateMenu(this,_soundManager));
@@ -101,9 +101,6 @@ void iceStateManager::finalize(){
 	}
 	_statesVector.clear();
 
-	delete _hikariManager;
-	_hikariManager = NULL;
-
 	_log->logMessage("iceStateManager::finalize()");
 }
 
@@ -122,6 +119,7 @@ void iceStateManager::loadResources() {
     while (sectionIterator.hasMoreElements()) {
         // get group name
         groupName = sectionIterator.peekNextKey();
+
 
         // get files from section 
         Ogre::ConfigFile::SettingsMultiMap *elements = sectionIterator.getNext();
@@ -328,6 +326,7 @@ bool iceStateManager::frameRenderingQueued(const Ogre::FrameEvent& evt) {
 	Ogre::Real timeSinceLastFrame = evt.timeSinceLastFrame;
 	//if(timeSinceLastFrame > 0.033)
 	//	timeSinceLastFrame = 0.033;
+	iceGame::getUI()->update(timeSinceLastFrame);
 	_currentState->update(timeSinceLastFrame);
 	//----------------------
 	return true;
@@ -352,4 +351,19 @@ void iceStateManager::setLevelToLoad(int levelID){
 
 void iceStateManager::nextLevelToLoad(){
 	_levelToLoad++;
+}
+
+void iceStateManager::menuExitClick()
+{
+	_currentState->setNextStateId(EXIT);
+}
+
+void iceStateManager::menuPlayClick()
+{
+	_currentState->setNextStateId(PLAY);
+}
+
+void iceStateManager::menuContinueClick()
+{
+	_currentState->setNextStateId(PLAY);
 }

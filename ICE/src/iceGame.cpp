@@ -15,6 +15,7 @@ Ogre::RenderWindow* iceGame::_window = 0;
 Ogre::Viewport* iceGame::_viewport = 0;
 Ogre::Log* iceGame::_log = 0;
 Ogre::Camera* iceGame::_camera = 0;
+iceUI* iceGame::mUI = 0;
 
 iceGame::iceGame() {
     // init Ogre
@@ -29,10 +30,13 @@ iceGame::iceGame() {
     if(!initialiseOIS()) {
         exit(1);
     }
+	//UI
+	mUI = new iceUI();
 
 	// sound manager
 	_soundManager = new iceSoundManager();
 	_soundManager->Initialize();
+
     // states manager
 	_stateManager = new iceStateManager(_inputManager, _soundManager->getSingletonPtr() );
 }
@@ -47,6 +51,11 @@ void iceGame::finalize(){
 	//state
 	_stateManager->finalize();
 	_stateManager = NULL;
+
+	//UI
+	delete mUI;
+	mUI = NULL;
+
     //sound
 	delete _soundManager;
 	_soundManager = NULL;
@@ -179,4 +188,9 @@ void iceGame::setCamera(Ogre::Camera* p_Camera)
 	iceGame::_camera = p_Camera;
 	Ogre::RenderWindow* rw = iceGame::getRenderWindow();
 	rw->getViewport(0)->setCamera(iceGame::_camera);
+}
+
+iceUI* iceGame::getUI()
+{
+	return mUI;
 }

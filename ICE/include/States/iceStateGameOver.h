@@ -12,8 +12,7 @@ class iceStateGameOver: public iceState{
 public:
 	iceStateGameOver(
 				iceSoundManager* soundManager,
-				iceLevelManager* levelManager,
-				Hikari::HikariManager *hikariMgr
+				iceLevelManager* levelManager
 				);
 	~iceStateGameOver();
 

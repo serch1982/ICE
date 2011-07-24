@@ -11,10 +11,9 @@
 
 iceStatePlay::iceStatePlay(
 	iceSoundManager* soundManager,
-	iceLevelManager* levelManager,
-	Hikari::HikariManager *hikariManager
+	iceLevelManager* levelManager
 	)
-	:iceState(soundManager,levelManager, hikariManager),
+	:iceState(soundManager,levelManager),
 	_levelID(1) {
     _log->logMessage("iceStatePlay::iceStatePlay()");
 	_nextICEStateId = PLAY;
@@ -71,14 +70,9 @@ void iceStatePlay::load() {
 			mPhysics = icePhysicsPtr(new icePhysics());
 			mPhysics->initialize(_level->getTerrain(), &_mEnemies, _level->getSceneObjects());
 
-			//load HUD
-			try{
-				_hikariHUD = _hikariManager->createFlashOverlay("HUD",iceGame::getCamera()->getViewport(), iceGame::getCamera()->getViewport()->getActualWidth(), iceGame::getCamera()->getViewport()->getActualHeight(), Hikari::Position(Hikari::Center));
-				_hikariHUD->load("HUD.swf");
-				_hikariHUD->setTransparent(true, true);
-			}catch(char* ex) {
-				_log->logMessage(ex);
-			}
+			//show HUD
+			mHUD = iceGame::getUI()->getHUD();
+			mHUD->show();
 
 		}
 
@@ -117,10 +111,8 @@ void iceStatePlay::clear() {
 		for (unsigned int i=0;i<_mEnemies.size();i++)
 			delete _mEnemies[i];
 
-		//destroy HUD
-		_hikariManager->destroyFlashControl("HUD");
-
-		
+		//hide HUD
+		mHUD->hide();
     }
 }
 
@@ -152,7 +144,6 @@ void iceStatePlay::update(Ogre::Real evt)
 			(*_revit_mEnemies)->update(evt);
 		}
 		//HUD
-		_hikariManager->update();
 		//setHUDLife(_player->getCurrentLife());
 		//setHUDWeapon(_player->getCurrentWeaponName());
 
@@ -312,11 +303,11 @@ ICEStateId iceStatePlay::getStateId()
 }
 
 void iceStatePlay::setHUDLife(int life){
-	_hikariHUD->callFunction("setLife",Hikari::Args(life));
+	//mHUD->callFunction("setLife",Hikari::Args(life));
 }
 
 void iceStatePlay::setHUDWeapon(char* name){
-	_hikariHUD->callFunction("setWeapon", Hikari::Args(name));
+	//mHUD->callFunction("setWeapon", Hikari::Args(name));
 }
 
 void iceStatePlay::switchBoundingBoxesVisibility(void)

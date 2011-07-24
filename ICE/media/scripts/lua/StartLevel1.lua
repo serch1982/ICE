@@ -1,7 +1,7 @@
 function startLevel1CutSceneInit(pCutScene)
 	pCutScene:addEntity(cutscene.SHIP,1)
 	pCutScene:initializeCameraEntity(2)
-	pCutScene:setActivationTime(0)
+	pCutScene:setActivationTime(999)
 end
 
 function startLevel1CutSceneUpdate(pCutScene)
