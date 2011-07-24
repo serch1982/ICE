@@ -11,8 +11,7 @@ class iceStateLoadLevel: public iceState{
 public:
 	iceStateLoadLevel(
 				iceSoundManager* soundManager,
-				iceLevelManager* levelManager,
-				Hikari::HikariManager *hikariMgr
+				iceLevelManager* levelManager
 				);
 	~iceStateLoadLevel();
 

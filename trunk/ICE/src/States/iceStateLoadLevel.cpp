@@ -4,10 +4,9 @@
 // Constructor
 iceStateLoadLevel::iceStateLoadLevel(
 	iceSoundManager* soundManager,
-	iceLevelManager* levelManager,
-	Hikari::HikariManager *hikariManager
+	iceLevelManager* levelManager
 	)
-	:iceState( soundManager,levelManager, hikariManager)
+	:iceState( soundManager,levelManager)
 {
 	_log->logMessage("iceStateLoadLevel::iceStateLoadLevel()");
 	_nextICEStateId = LOADLEVEL;

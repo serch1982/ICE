@@ -11,8 +11,7 @@ class iceStateShipSelection: public iceState{
 public:
 	iceStateShipSelection(
 				iceSoundManager* soundManager,
-				iceLevelManager* levelManager,
-				Hikari::HikariManager *hikariMgr
+				iceLevelManager* levelManager
 				);
 	~iceStateShipSelection();
 

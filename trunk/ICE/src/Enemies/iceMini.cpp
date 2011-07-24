@@ -21,6 +21,11 @@ bool iceMini::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActivat
 	// loading the mesh and attaching it to he node
 	Ogre::Entity* mesh;
 	mesh = sceneManager->createEntity(entityName.str(), "minimagmaton.mesh");
+	Ogre::Skeleton* ske = mesh->getSkeleton();
+	//mIddle = mesh->getAnimationState( "iddle" );
+	mIddle2 = mesh->getAnimationState( "iddle2" );
+	mIddle2->setEnabled( true );
+	mIddle2->setLoop( true );
 	mNode->attachObject(mesh);
 
 	//init physics
@@ -57,7 +62,26 @@ void iceMini::update(Ogre::Real p_timeSinceLastFrame){
 			break;
 		case ATTACK: 
 			mTrajectory->lookAt(); //TODO
-			shot();
+			//if(mIddle->hasEnded())
+			//{
+			//	mIddle->setEnabled(false);
+			//	mIddle2->setEnabled(true);
+			//}
+			//else
+			//{
+			//	mIddle->addTime(p_timeSinceLastFrame);
+			//}
+
+			//if(mIddle2->hasEnded())
+			//{
+			//	mIddle2->setEnabled(false);
+			//	mIddle->setEnabled(true);
+			//}
+			//else
+			//{
+				mIddle2->addTime(p_timeSinceLastFrame);
+			//}
+			shot(); 
 			/*if (!isAlive())
 				mState = DYING;*/
 			//iceTrajectoryFollower::update(p_timeSinceLastFrame); Hay que hablar sobre trayectorias de enemigos

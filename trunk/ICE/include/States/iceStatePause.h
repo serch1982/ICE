@@ -3,10 +3,10 @@
 
 #include <OGRE/Ogre.h>
 #include <OIS/OIS.h>
-#include "Hikari.h"
 #include "iceState.h"
 #include "Utils\iceSdkTray.h"
 #include <Sound\iceSoundManager.h>
+#include "UI/iceMenu.h"
 
 class iceStatePause: public iceState{
     public:
@@ -15,8 +15,7 @@ class iceStatePause: public iceState{
          */
         iceStatePause(
 			iceSoundManager* soundManager,
-			iceLevelManager* levelManager,
-			Hikari::HikariManager *hikariMgr
+			iceLevelManager* levelManager
 			);
 
         /**
@@ -74,11 +73,7 @@ class iceStatePause: public iceState{
 		ICEStateId getStateId();
     private:
 		//menu
-		Hikari::FlashControl  *_hikariMenu;
-		//menu callbacks to flash
-		Hikari::FlashValue menuExitClick(Hikari::FlashControl* caller, const Hikari::Arguments& args);
-		Hikari::FlashValue menuPlayClick(Hikari::FlashControl* caller, const Hikari::Arguments& args);
-		Hikari::FlashValue menuContinueClick(Hikari::FlashControl* caller, const Hikari::Arguments& args);
+		iceMenu* mMenu;
 };
 
 

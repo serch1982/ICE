@@ -5,6 +5,7 @@
 #include <OIS/OIS.h>
 #include <States\iceStateManager.h>
 #include <Sound\iceSoundManager.h>
+#include <UI/iceUI.h>
 
 
 class iceGame {
@@ -49,7 +50,9 @@ class iceGame {
         /**
          *  @set current camera
          */
-		static void setCamera(Ogre::Camera* p_Camera);    
+		static void setCamera(Ogre::Camera* p_Camera); 
+
+		static iceUI* getUI();
 
     private:
 		//
@@ -61,6 +64,7 @@ class iceGame {
         static Ogre::Viewport* _viewport;
         static Ogre::SceneManager* _sceneManager;
         static Ogre::Log* _log;
+		static iceUI* mUI;
 
 		//
         Ogre::String _windowName;

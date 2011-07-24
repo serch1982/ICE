@@ -4,10 +4,9 @@
 // Constructor
 iceStateIntro::iceStateIntro(
 	iceSoundManager* soundManager,
-	iceLevelManager* levelManager,
-	Hikari::HikariManager *hikariManager
+	iceLevelManager* levelManager
 	)
-	:iceState( soundManager,levelManager, hikariManager)
+	:iceState( soundManager,levelManager)
 {
 	_log->logMessage("iceStateIntro::iceStateIntro()");
 	_nextICEStateId = INTRO;

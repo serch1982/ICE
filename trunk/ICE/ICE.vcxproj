@@ -171,6 +171,10 @@ if not exist "$(OutDir)logs" mkdir "$(OutDir)logs"</Command>
     <ClCompile Include="src\Trajectory\iceStep.cpp" />
     <ClCompile Include="src\Trajectory\iceTrajectory.cpp" />
     <ClCompile Include="src\Trajectory\iceTrajectoryFollower.cpp" />
+    <ClCompile Include="src\UI\iceHikariObject.cpp" />
+    <ClCompile Include="src\UI\iceHUD.cpp" />
+    <ClCompile Include="src\UI\iceMenu.cpp" />
+    <ClCompile Include="src\UI\iceUI.cpp" />
     <ClCompile Include="src\Utils\iceDamageTextManager.cpp" />
     <ClCompile Include="src\Utils\iceSdkTray.cpp" />
     <ClCompile Include="src\Utils\MovableTextOverlay.cpp" />
@@ -222,6 +226,10 @@ if not exist "$(OutDir)logs" mkdir "$(OutDir)logs"</Command>
     <ClInclude Include="include\Trajectory\iceStep.h" />
     <ClInclude Include="include\Trajectory\iceTrajectory.h" />
     <ClInclude Include="include\Trajectory\iceTrajectoryFollower.h" />
+    <ClInclude Include="include\UI\iceHikariObject.h" />
+    <ClInclude Include="include\UI\iceHUD.h" />
+    <ClInclude Include="include\UI\iceMenu.h" />
+    <ClInclude Include="include\UI\iceUI.h" />
     <ClInclude Include="include\Utils\iceDamageTextManager.h" />
     <ClInclude Include="include\Utils\iceLoadingBar.h" />
     <ClInclude Include="include\Utils\iceSdkTray.h" />

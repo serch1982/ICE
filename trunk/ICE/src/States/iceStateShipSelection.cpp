@@ -5,10 +5,9 @@
 // Constructor
 iceStateShipSelection::iceStateShipSelection(
 	iceSoundManager* soundManager,
-	iceLevelManager* levelManager,
-	Hikari::HikariManager *hikariManager
+	iceLevelManager* levelManager
 	)
-	:iceState( soundManager,levelManager, hikariManager)
+	:iceState( soundManager,levelManager)
 {
 	_log->logMessage("iceStateShipSelection::iceStateShipSelection()");
 	_nextICEStateId = SHIPSELECTION;

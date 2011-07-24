@@ -5,15 +5,13 @@
 #include <OIS/OIS.h>
 #include "iceState.h"
 #include <Sound\iceSoundManager.h>
-#include <Hikari.h>
 
 class iceStateCredits: public iceState{
 
 public:
 	iceStateCredits(
 				iceSoundManager* soundManager,
-				iceLevelManager* levelManager,
-				Hikari::HikariManager *hikariMgr
+				iceLevelManager* levelManager
 				);
 	~iceStateCredits();
 

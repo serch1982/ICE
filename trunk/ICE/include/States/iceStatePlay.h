@@ -10,11 +10,11 @@
 #include "Utils\iceSdkTray.h"
 #include "Entities\icePlayer.h"
 #include "Enemies\iceEnemy.h"
-#include "Hikari.h"
 #include "Particle\iceParticleMgr.h"
 #include "Physics\icePhysics.h"
 #include "Entities\iceBulletMgr.h"
 #include <Sound\iceSoundManager.h>
+#include "UI/iceHUD.h"
 class iceLevel;
 
 
@@ -25,8 +25,7 @@ class iceStatePlay: public iceState{
          */
         iceStatePlay(
 			iceSoundManager* soundManager,
-			iceLevelManager* levelManager,
-			Hikari::HikariManager *hikariMgr
+			iceLevelManager* levelManager
 			);
 
         /**
@@ -90,7 +89,7 @@ class iceStatePlay: public iceState{
 		void switchBoundingBoxesVisibility(void);
     private:
 		//HUD
-		Hikari::FlashControl  *_hikariHUD;
+		iceHUD* mHUD;
 
 		//player
         icePlayerPtr _player;

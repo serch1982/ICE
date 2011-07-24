@@ -12,8 +12,7 @@ class iceStateLevelSelection: public iceState{
 public:
 	iceStateLevelSelection(
 				iceSoundManager* soundManager,
-				iceLevelManager* levelManager,
-				Hikari::HikariManager *hikariMgr
+				iceLevelManager* levelManager
 				);
 	~iceStateLevelSelection();
 

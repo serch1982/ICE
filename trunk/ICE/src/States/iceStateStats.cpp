@@ -4,10 +4,9 @@
 // Constructor
 iceStateStats::iceStateStats(
 	iceSoundManager* soundManager,
-	iceLevelManager* levelManager,
-	Hikari::HikariManager *hikariManager
+	iceLevelManager* levelManager
 	)
-	:iceState( soundManager,levelManager, hikariManager)
+	:iceState( soundManager,levelManager)
 {
 	_log->logMessage("iceStateStats::~iceStateStats()");
 	_nextICEStateId = STATS;
