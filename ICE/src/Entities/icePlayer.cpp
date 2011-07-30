@@ -5,6 +5,10 @@
 #include "Particle\iceParticleMgr.h"
 #include "Entities\iceBulletMgr.h"
 
+#define VIRTUAL_CAMERA_SIZE_X 1000
+#define VIRTUAL_CAMERA_SIZE_Y 1000
+#define VIRTUAL_CAMERA_SIZE_Z 1500
+
 #define CURSOR_PLANE_Z 100
 #define CAMERA_PLANE_Z 20
 #define CAMERA_ADDED_Y 4
@@ -76,6 +80,12 @@ icePlayer::icePlayer():_isShooting(false)
 	cameraPlaneNode = scrollNode->createChildSceneNode(Ogre::Vector3(0.0,0.0,-CAMERA_PLANE_Z));
 	cameraNode = cameraPlaneNode->createChildSceneNode(Ogre::Vector3(0.0,0.0,0.0));
 
+	//virtual boundingbox
+	snVirtualCam = shipNode->createChildSceneNode(Ogre::Vector3(0,0,((VIRTUAL_CAMERA_SIZE_Z / 2) - CAMERA_PLANE_Z ))); 
+	virtualCam = iceGeometryPtr(new iceGeometry(Ogre::Vector3(VIRTUAL_CAMERA_SIZE_X,VIRTUAL_CAMERA_SIZE_Y,VIRTUAL_CAMERA_SIZE_Z), "virtualCam"));
+	snVirtualCam->attachObject(virtualCam->getMovableObject());
+	
+
 	if( sceneManager->hasCamera("camera") )
 		setCamera( sceneManager->getCamera("camera") );
 	else
@@ -95,8 +105,14 @@ icePlayer::icePlayer():_isShooting(false)
 
 icePlayer::~icePlayer()
 {
+	virtualCam.reset();
 	icePhysicEntity::finalizePhysics();
 }
+
+Ogre::AxisAlignedBox icePlayer::getVitualCamBBox(void) {
+	return virtualCam->getWorldBoundingBox(snVirtualCam->_getDerivedPosition());
+}
+
 
 void icePlayer::setCamera(Ogre::Camera* camera)
 {

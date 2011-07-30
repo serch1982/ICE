@@ -49,6 +49,8 @@ int iceLogicLua::runAllFiles()
 	int error;
 	std::vector<Ogre::String> luaFiles;
 
+	luaFiles.push_back("./media/scripts/lua/mini.lua");
+	luaFiles.push_back("./media/scripts/lua/smart.lua");
 	luaFiles.push_back("./media/scripts/lua/kamikaze.lua");
 	luaFiles.push_back("./media/scripts/lua/StartLevel1.lua");
 
@@ -199,11 +201,11 @@ void iceLogicLua::bindLuaObjects(){
 			.def("isActive", &iceEnemy::isActive )
 			.def("isAlive", &iceEnemy::isAlive )
 			.def("isAnimDyingEnded", &iceEnemy::isAnimDyingEnded )
-			.def("setAnimDyingEnded", &iceEnemy::setAnimDyingEnded ),
+			.def("setAnimDyingEnded", &iceEnemy::setAnimDyingEnded )
 			//.def("checkActivationTime", (bool( iceEnemy::*)(Ogre::Real)) &iceEnemy::checkActivationTime)
-			//.def("isVisiblePlayerCam", (bool( iceEnemy::*)(void)) &iceEnemy::isVisiblePlayerCam)
+			.def("isVisiblePlayerCam", (bool( iceEnemy::*)(void)) &iceEnemy::isVisiblePlayerCam)
 			//.def("isVisibleWideCam", (bool( iceEnemy::*)(void)) &iceEnemy::isVisibleWideCam)
-			//.def("rangeAttack", (float( iceEnemy::*)(void)) &iceEnemy::rangeAttack)
+			.def("rangeAttack", (float( iceEnemy::*)(void)) &iceEnemy::rangeAttack),
 
 			luabind::class_<iceCutScene>("cutscene")
 			.enum_("CUTSCENEENTITYTYPE")

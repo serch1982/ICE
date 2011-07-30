@@ -23,9 +23,9 @@ public:
 
 private:
 	Ogre::Vector3 mTargetPosition;
-	Ogre::Vector3 mVelocity;
 	int	mRenewTarget;
 	iceParticlePtr mParticleFire;
+	Ogre::Vector3 mVelocity;
 };
 
 #endif

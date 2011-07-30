@@ -56,11 +56,13 @@ class icePlayer : public iceTrajectoryFollower
 		void brake(void);
 
 		//debug
-		void setDebug(bool vari){ getGeometry()->getMovableObject()->setVisible(vari); }
+		void setDebug(bool vari){ getGeometry()->getMovableObject()->setVisible(vari); virtualCam->getMovableObject()->setVisible(vari);}
 
 		Ogre::Vector3 getShipLastPosition(void){ return _lastPosition;}
 		Ogre::Vector3 getShipPosition(void){ return shipNode->getPosition();}
 		void setShipPosition(Ogre::Vector3 pos){ shipNode->setPosition(pos);}
+
+		Ogre::AxisAlignedBox getVitualCamBBox(void);
 	protected:
 
 		bool mMovingUp;
@@ -100,6 +102,10 @@ class icePlayer : public iceTrajectoryFollower
 		void setWeaponLevel(unsigned int p_iWeapon,unsigned int p_iLevel);
 
 		Ogre::SceneNode *cursorPlaneNode, *shipPlaneNode, *cameraPlaneNode, *cursorNode, *shipNode, *cameraNode, *scrollNode, *rollNode; 
+		//virtual node for the wide camera boundingbox
+		Ogre::SceneNode* snVirtualCam;
+		iceGeometryPtr virtualCam;
+
 		Ogre::Real shipMaxVelocity;
 		Ogre::Camera* playerCamera;
 		Ogre::Log* mLog;

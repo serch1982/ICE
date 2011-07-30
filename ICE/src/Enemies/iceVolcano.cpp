@@ -20,12 +20,12 @@ bool iceVolcano::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActi
 	// loading the mesh and attaching it to he node
 	Ogre::Entity* mesh;
 	mesh = sceneManager->createEntity(entityName.str(), "volcano.mesh");
-	mNode->attachObject(mesh);
-	mNode->scale(0.1,0.1,0.1);
+	enemyNode->attachObject(mesh);
+	enemyNode->scale(0.1,0.1,0.1);
 	
 	//init physics
 	icePhysicEntity::initializePhysics("phy_volc"+ entityName.str(), Ogre::Vector3(3,3,3));
-	mNode->attachObject(getGeometry()->getMovableObject());
+	enemyNode->attachObject(getGeometry()->getMovableObject());
 
 	return true;
 }

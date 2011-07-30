@@ -1,5 +1,6 @@
 #include "Enemies\iceKamikaze.h"
 #include "iceGame.h"
+#include "Utils\iceStrategy.h"
 
 iceKamikaze::iceKamikaze(){
 	iceEnemy::iceEnemy();
@@ -21,14 +22,17 @@ bool iceKamikaze::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fAct
 	// loading the mesh and attaching it to he node
 	Ogre::Entity* mesh;
 	mesh = sceneManager->createEntity(entityName.str(), "kamikaze.mesh");
-	mNode->attachObject(mesh);
+	enemyNode->attachObject(mesh);
 
 	//init physics
 	icePhysicEntity::initializePhysics("phy_kami"+ entityName.str(), Ogre::Vector3(6,6,6));
-	mNode->attachObject(getGeometry()->getMovableObject());
+	enemyNode->attachObject(getGeometry()->getMovableObject());
 
 	//particles
-	mParticleFire = iceParticleMgr::getSingletonPtr()->createPartAttachToObject(mNode,"ice/iceKamimaze",false);
+	mParticleFire = iceParticleMgr::getSingletonPtr()->createPartAttachToObject(enemyNode,"ice/iceKamimaze",false);
+
+	//strategy 
+	mIceStrategy = iceStrategyPtr(new iceStrategyForward(0.9));
 	return true;
 }
 
@@ -38,6 +42,7 @@ void iceKamikaze::finalize(){
 }
 
 void iceKamikaze::update(Ogre::Real p_timeSinceLastFrame){
+	
 	switch(mState)
 	{
 		case STOPPED:
@@ -53,7 +58,7 @@ void iceKamikaze::update(Ogre::Real p_timeSinceLastFrame){
 			break;
 		case ATTACK: 
 			mTrajectory->lookAt(); //TODO
-			enemyNode->translate( mVelocity * p_timeSinceLastFrame );
+			enemyNode->translate(mVelocity *p_timeSinceLastFrame);
 			mRenewTarget--;
 			mParticleFire->stop();
 			if( mRenewTarget == 0 ){
@@ -96,25 +101,10 @@ std::string iceKamikaze::getFunctionStr(){
 
 void iceKamikaze::setState(ENEMYSTATE p_iState){
 	mState = p_iState;
-	Ogre::Vector3 playerPos;
-	Ogre::Vector3 kamikazePos(0.0f,0.0f,0.0f);
-	std::stringstream msg;
 	switch(mState){
 		case ATTACK:
-			//Get Player position relative to his parent
-			playerPos = icePlayer::getSingletonPtr()->shipNode->getPosition();
-			//Convert playerPos to World Coordinates
-			mTargetPosition = icePlayer::getSingletonPtr()->shipNode->convertLocalToWorldPosition(playerPos);
-			//Get Kamikaze WORLD position
-			kamikazePos = enemyNode->convertLocalToWorldPosition( kamikazePos );
-			mVelocity = (mTargetPosition-kamikazePos) / 0.7; //Provisional
+			mVelocity = mIceStrategy->move(enemyNode->_getDerivedPosition(), 1);
 			mRenewTarget = 100;
-			//LOG
-			msg << "PlayerPos:      X: "<< playerPos.x << "\tY: " << playerPos.y << "\tZ: " << playerPos.z << std::endl;
-			msg << "mTargetPostion: X: " << mTargetPosition.x << "\tY: " << mTargetPosition.y << "\tZ: " << mTargetPosition.z << std::endl;
-			msg << "kamikazePos:    X: " << kamikazePos.x << "\tY: " << kamikazePos.y << "\tZ: " << kamikazePos.z << std::endl;
-			msg << "Velocity:       X: " << mVelocity.x << "\tY: " << mVelocity.y << "\tZ: " << mVelocity.z << std::endl;
-			mLog->logMessage( msg.str() );
 			break;
 		case DYING:
 			mAnimDyingTicks = 0;
@@ -130,6 +120,6 @@ void iceKamikaze::setState(ENEMYSTATE p_iState){
 void iceKamikaze::showReceivedDamage(unsigned int p_iDamage, bool p_bCritical){
 	iceEnemy::showReceivedDamage(p_iDamage, p_bCritical);
 	if(!isAlive()){
-		mNode->setVisible(false,false);
+		enemyNode->setVisible(false,false);
 	}
 }
