@@ -20,12 +20,15 @@ bool iceSmart::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActiva
 	// loading the mesh and attaching it to he node
 	Ogre::Entity* mesh;
 	mesh = sceneManager->createEntity(entityName.str(), "intelligent.mesh");
-	mNode->attachObject(mesh);
+	enemyNode->attachObject(mesh);
 	//mNode->scale(0.1,0.1,0.1);
 
 	//init physics
 	icePhysicEntity::initializePhysics("phy_smart"+ entityName.str(), Ogre::Vector3(10,5.5,4));
-	mNode->attachObject(getGeometry()->getMovableObject());
+	enemyNode->attachObject(getGeometry()->getMovableObject());
+
+	//strategy 
+	mIceStrategy = iceStrategyPtr(new iceStrategySin(30,20, true));
 
 	return true;
 }
@@ -45,11 +48,14 @@ void iceSmart::update(Ogre::Real p_timeSinceLastFrame){
 			break;
 		case FOLLOWING_TRAJECTORY:
 			//iceTrajectoryFollower::update(p_timeSinceLastFrame); Hay que hablar sobre trayectorias de enemigos
+			
+			enemyNode->translate(mIceStrategy->move(enemyNode->_getDerivedPosition(), p_timeSinceLastFrame));
 			mTrajectory->lookAt();//TODO
 			/*if (!isAlive())
 				mState = DYING;*/
 			break;
 		case ATTACK: 
+			enemyNode->translate(mIceStrategy->move(enemyNode->_getDerivedPosition(), p_timeSinceLastFrame));
 			mTrajectory->lookAt(); //TODO
 			iceRPG::update(p_timeSinceLastFrame);
 			shot();
@@ -79,7 +85,6 @@ void iceSmart::update(Ogre::Real p_timeSinceLastFrame){
 			break;
 	}
 }
-
 std::string iceSmart::getFunctionStr(){
-	return "SmartLogic";
+	return "smartLogic";
 }

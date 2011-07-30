@@ -104,9 +104,11 @@ void iceTrajectory::addTime(Ogre::Real p_fTime)
 	Ogre::Real fInterpolation = getInterpolationByTime(mCurrentTime);
 
 	Ogre::Vector3 sNewPosition = mTrack.interpolate(fInterpolation);
-
-	mNode->setPosition(sNewPosition);
-
+	//new optional
+	Ogre::Vector3  npos = sNewPosition - mNode->_getDerivedPosition();
+	mNode->translate(npos);
+	//mNode->setPosition(sNewPosition);
+	
 	if (mThereIsANodeToLookAt)
 		lookAt();
 }

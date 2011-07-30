@@ -20,12 +20,12 @@ bool iceBoss::initialize(int id, Ogre::Vector3 p_Position,  Ogre::Real p_fActiva
 	// loading the mesh and attaching it to he node
 	Ogre::Entity* mesh;
 	mesh = sceneManager->createEntity(entityName.str(), "magmaton.mesh");
-	mNode->attachObject(mesh);
+	enemyNode->attachObject(mesh);
 
 	//init physics
 	icePhysicEntity::initializePhysics("phy_boss"+ entityName.str(), Ogre::Vector3(10,10,10));
 	//add per object 
-	mNode->attachObject(getGeometry()->getMovableObject()); //must change
+	enemyNode->attachObject(getGeometry()->getMovableObject()); //must change
 
 	/*mAttack01 = mesh->getAnimationState( "Attack1" );
 	mAttack02 = mesh->getAnimationState( "Attack2" );

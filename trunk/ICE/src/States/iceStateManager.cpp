@@ -324,8 +324,9 @@ bool iceStateManager::frameRenderingQueued(const Ogre::FrameEvent& evt) {
 	iceSdkTray::getInstance()->updateFrameEvent(evt);
 	_sdkCameraMan->frameRenderingQueued(evt);
 	Ogre::Real timeSinceLastFrame = evt.timeSinceLastFrame;
-	//if(timeSinceLastFrame > 0.033)
-	//	timeSinceLastFrame = 0.033;
+//#ifdef _DEBUG
+//	if(timeSinceLastFrame > 1) timeSinceLastFrame = 1;
+//#endif
 	iceGame::getUI()->update(timeSinceLastFrame);
 	_currentState->update(timeSinceLastFrame);
 	//----------------------

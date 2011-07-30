@@ -5,7 +5,7 @@ material crashpff
 		pass
 		{
 			scene_blend alpha_blend
-			depth_write off
+			depth_write on
 		
 			texture_unit
 			{
@@ -22,7 +22,7 @@ material crashboom
 		pass
 		{
 			scene_blend alpha_blend
-			depth_write off
+			depth_write on
 			
 			texture_unit
 			{

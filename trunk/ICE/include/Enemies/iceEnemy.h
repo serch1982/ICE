@@ -8,8 +8,9 @@
 #include "Entities\iceBulletMgr.h"
 #include "Effects\iceBillboard.h"
 #include "Particle\iceParticleMgr.h"
+#include "Utils\iceStrategy.h"
 
-class iceEnemy : public iceTrajectoryFollower, public iceRPG, public icePhysicEntity
+class iceEnemy :public iceTrajectoryFollower, public iceRPG, public icePhysicEntity
 {
 	public:
 		iceEnemy();
@@ -74,6 +75,11 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG, public icePhysicEn
 
 		//debug
 		void setDebug(bool vari){ getGeometry()->getMovableObject()->setVisible(vari); }
+
+		//get or set position for collisions
+		Ogre::Vector3 getNodeLastPosition(void){ return _lastPosition;}
+		Ogre::Vector3 getNodePosition(void){ return enemyNode->getPosition();}
+		void setNodePosition(Ogre::Vector3 pos){ enemyNode->setPosition(pos);}
 	protected:
 		// Generator for obtain a name for this instance
 		static Ogre::NameGenerator mNameGenerator;
@@ -85,6 +91,7 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG, public icePhysicEn
 		Ogre::Real mActivationTime;
 		bool mShowingBoundingBox;
 
+		Ogre::Vector3 _lastPosition;
 		//Nodes, bullet necessary?
 		Ogre::SceneNode* enemyNode, *enemyBulletNode;
 
@@ -92,6 +99,9 @@ class iceEnemy : public iceTrajectoryFollower, public iceRPG, public icePhysicEn
 		//Ogre::AnimationState* mAttack01;
 		//Ogre::AnimationState* mAttack02;
 		//bool mbAnimAttack;
+
+		//strategy
+		iceStrategyPtr mIceStrategy;
 		
 		Ogre::RaySceneQuery *mRaySceneQuery;
 

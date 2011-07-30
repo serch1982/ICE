@@ -64,6 +64,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>externals\ParticleUniverse;externals\FMOD;externals;externals\rapidxml;externals\HIKARI;include;$(OGRE_HOME)\include;$(OGRE_HOME)\include\OIS;$(OGRE_HOME)\include\OGRE;$(OGRE_HOME)\Samples\Common\include;$(OGRE_HOME)\boost_1_42;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnablePREfast>false</EnablePREfast>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -177,6 +178,7 @@ if not exist "$(OutDir)logs" mkdir "$(OutDir)logs"</Command>
     <ClCompile Include="src\UI\iceUI.cpp" />
     <ClCompile Include="src\Utils\iceDamageTextManager.cpp" />
     <ClCompile Include="src\Utils\iceSdkTray.cpp" />
+    <ClCompile Include="src\Utils\iceStrategy.cpp" />
     <ClCompile Include="src\Utils\MovableTextOverlay.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -233,6 +235,7 @@ if not exist "$(OutDir)logs" mkdir "$(OutDir)logs"</Command>
     <ClInclude Include="include\Utils\iceDamageTextManager.h" />
     <ClInclude Include="include\Utils\iceLoadingBar.h" />
     <ClInclude Include="include\Utils\iceSdkTray.h" />
+    <ClInclude Include="include\Utils\iceStrategy.h" />
     <ClInclude Include="include\Utils\MovableTextOverlay.h" />
     <ClInclude Include="include\Utils\RectLayoutManager.h" />
     <ClInclude Include="resource.h" />

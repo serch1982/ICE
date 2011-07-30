@@ -42,7 +42,7 @@ bool iceEnemy::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActiva
 		enemyNode = icePlayer::getSingletonPtr()->getNode()->getParentSceneNode()->createChildSceneNode(name);
 
 	iceTrajectoryFollower::initialize(enemyNode);
-	mNode->setPosition(p_Position);
+	enemyNode->setPosition(p_Position);
 
 	//Dummy Trajectory
 	setTrajectory(new iceTrajectory());
@@ -64,11 +64,13 @@ void iceEnemy::setBillboard(iceBillboard* billboard){
 
 void iceEnemy::finalize()
 {
+	if(mIceStrategy) mIceStrategy.reset();
 	icePhysicEntity::finalizePhysics();
 }
 
 void iceEnemy::update(Ogre::Real p_timeSinceLastFrame)
 {
+	_lastPosition = enemyNode->getPosition();
 	iceRPG::update(p_timeSinceLastFrame);
 }
 
@@ -79,7 +81,7 @@ std::string iceEnemy::getFunctionStr(){
 void iceEnemy::activate(void)
 {
 	mCurrentLife = getMaxLife();
-	mNode->setVisible(true);
+	enemyNode->setVisible(true);
 	mState = STOPPED;
 	//mState = FOLLOWING_TRAJECTORY;
 	if(mShowingBoundingBox)
@@ -91,7 +93,7 @@ void iceEnemy::activate(void)
 
 void iceEnemy::desactivate(void)
 {
-	mNode->setVisible(false);
+	enemyNode->setVisible(false);
 	mState = INACTIVE;
 }
 
@@ -138,21 +140,15 @@ void iceEnemy::showLevelUp(unsigned int p_iLevel)
 { //Do Nothing
 }
 
-//return if the eneymy whether or not is inside the player camera
-bool iceEnemy::isVisiblePlayerCam(){
-	Ogre::Camera* playCam = icePlayer::getSingletonPtr()->getCamera();
-	Ogre::Ray ray(playCam->getPosition(), playCam->getDirection());
-	mRaySceneQuery->setRay(ray);
-    Ogre::RaySceneQueryResult &result = mRaySceneQuery->execute();
-    Ogre::RaySceneQueryResult::iterator itr;
-    for (itr = result.begin(); itr != result.end(); itr++) {
-        if (itr->movable->getName().compare(enemyNode->getName())!=0) {
-            return true;
-        }
-    }
-    return false;
 
-	
+bool iceEnemy::isVisiblePlayerCam(){
+	Ogre::AxisAlignedBox vCamBBox = icePlayer::getSingletonPtr()->getVitualCamBBox();
+	Ogre::AxisAlignedBox eBox = getGeometry()->getWorldBoundingBox(enemyNode->_getDerivedPosition());
+
+	if(eBox.intersects(vCamBBox))
+		return true;
+	else
+		return false;
 }
 //return if the eneymy whether or not  is inside the wide (super) camera
 bool iceEnemy::isVisibleWideCam(){
@@ -168,21 +164,17 @@ bool iceEnemy::isVisibleWideCam(){
     }
     return false;
 }
-//return if the eneymy whether or not can shoot
 float iceEnemy::rangeAttack(){
-	Ogre::Real pZ = icePlayer::getSingletonPtr()->getPosition().z;
-	Ogre::Real eZ = enemyNode->getPosition().z;
-	Ogre::Real tZ = eZ - pZ;
-	if ((tZ > 500) ||(tZ < 10)) {
-	int i=0;
-	}
-	return (float)tZ;
+	/*Ogre::Vector3 sDiference =icePlayer::getSingletonPtr()->getPosition() - enemyNode->_getDerivedPosition();
+	Ogre::Real dis = sqrt(sDiference.x*sDiference.x + sDiference.z*sDiference.z);*/
+
+	Ogre::Real dis = icePlayer::getSingletonPtr()->getPosition().distance(enemyNode->_getDerivedPosition());
+	return (float)dis;
 }
 
 void iceEnemy::createShotEntity(int p_iWeapon, Ogre::Radian p_fDeviation, unsigned int p_iDamage, bool p_bCritic)
-
 {
-	iceBulletMgr::getSingletonPtr()->createBullet(false, "bt_enemy_",p_iWeapon, mNode->_getDerivedPosition(), -mNode->_getDerivedOrientation(), p_fDeviation,p_iDamage, p_bCritic);
+	iceBulletMgr::getSingletonPtr()->createBullet(false, "bt_enemy_",p_iWeapon, enemyNode->_getDerivedPosition(), -enemyNode->_getDerivedOrientation(), p_fDeviation,p_iDamage, p_bCritic);
 }
 
 
