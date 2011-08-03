@@ -2,13 +2,12 @@ HUD/hud_overlay
 {
     zorder 200
 
-	container BorderPanel(HUD/frame)
+	container Panel(HUD/frame)
 	{
 		left 0.03
 		top 0.03
 		width 0.94
 		height 0.94
-		border_size 0.001 0.001 0.001 0.001
 
 		container Panel(HUD/achievements_panel)
 		{
