@@ -65,10 +65,9 @@ iceBulletPtr iceBulletMgr::createBullet(bool fromPlayer, Ogre::String name,int b
 					bullet->setDamage(damage);
 		}
 		if (bulletType == 2){
-					Ogre::Entity* entity = sceneMgr->createEntity("sphere.mesh");
+					Ogre::Entity* entity = sceneMgr->createEntity("missile.mesh");
 					mBulletNode->attachObject(entity);
 					mBulletNode->setVisible(true);
-					mBulletNode->scale(.05,.05,.05);
 					
 					bullet->createBullet(fromPlayer, mBulletNode, Ogre::Vector3(1,1,1.5), initPos, orientation, desviation);
 					bullet->setSpeed(300);

@@ -144,7 +144,8 @@ void iceStatePlay::update(Ogre::Real evt)
 			(*_revit_mEnemies)->update(evt);
 		}
 		//HUD
-		//setHUDLife(_player->getCurrentLife());
+		
+
 		//setHUDWeapon(_player->getCurrentWeaponName());
 
 		//update game Physics 

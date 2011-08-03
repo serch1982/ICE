@@ -1,0 +1,8 @@
+ObelixPro
+{
+	type 		truetype
+	source 	ObelixProB-cyr.ttf
+	size 		32
+	resolution 	55
+}
+

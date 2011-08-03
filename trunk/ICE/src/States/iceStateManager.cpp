@@ -72,7 +72,7 @@ iceStateManager::iceStateManager(OIS::InputManager* inputManager,
 	_statesVector.push_back( new iceStateOutro( _soundManager, _levelManager) );
 	_statesVector.push_back( new iceStateStats( _soundManager, _levelManager) );
 
-	changeState( _statesVector[MAINMENU] );
+	changeState( _statesVector[PLAY] );
     //changeState(new iceStateMenu(this,_soundManager));
 }
 
