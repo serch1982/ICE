@@ -1,0 +1,214 @@
+HUD/hud_overlay
+{
+    zorder 200
+
+	container BorderPanel(HUD/frame)
+	{
+		left 0.03
+		top 0.03
+		width 0.94
+		height 0.94
+		border_size 0.001 0.001 0.001 0.001
+
+		container Panel(HUD/achievements_panel)
+		{
+			metrics_mode pixels
+			horz_align right
+			left -300
+			top 0
+			width 300
+			height 34
+			material HUD/achievements_container_material
+
+			container TextArea(HUD/achievements_text)
+			{
+				metrics_mode pixels
+				left 65
+				top 9
+				width 133
+				height 24
+
+				font_name ObelixPro
+				char_height 20
+				colour black
+				caption hola
+			}
+		}
+
+		container Panel(HUD/stats_panel)
+		{
+			metrics_mode pixels
+			vert_align bottom
+			left 0
+			top -122
+			width 212
+			height 122
+			material HUD/stats_container_material
+
+			container Panel(HUD/life_bar_panel)
+			{
+				metrics_mode pixels
+				left 6
+				top 63
+				width 200
+				height 50
+				uv_coords 0 0 1 1
+				material HUD/life_bar_material
+
+				container Panel(HUD/life_bar_hover_panel)
+				{
+					metrics_mode pixels
+					horz_align right
+					left -200
+					top 0
+					width 200
+					height 50
+					zorder 300
+					material HUD/life_bar_hover_material
+				}
+			}
+
+			container Panel(HUD/face_1_panel)
+			{
+				metrics_mode pixels
+				left 6
+				top 20
+				width 68
+				height 62
+				material HUD/face_1_material
+			}
+
+			container Panel(HUD/face_2_panel)
+			{
+				metrics_mode pixels
+				left 6
+				top 20
+				width 68
+				height 62
+				material HUD/face_2_material
+			}
+
+			container Panel(HUD/face_3_panel)
+			{
+				metrics_mode pixels
+				left 6
+				top 20
+				width 68
+				height 62
+				material HUD/face_3_material
+			}
+
+			container Panel(HUD/face_4_panel)
+			{
+				metrics_mode pixels
+				left 6
+				top 20
+				width 68
+				height 62
+				material HUD/face_4_material
+			}
+
+			container TextArea(HUD/player_name_text)
+			{
+				metrics_mode pixels
+				left 83
+				top 20
+				width 90
+				height 20
+
+				font_name ObelixPro
+				char_height 30
+				colour black
+				caption SCOTT
+			}
+
+			container TextArea(HUD/player_level_text)
+			{
+				metrics_mode pixels
+				left 102
+				top 45
+				width 50
+				height 20
+
+				font_name ObelixPro
+				char_height 38
+				colour black
+				caption 01
+			}
+
+
+		}
+
+		container Panel(HUD/weapons_panel)
+		{
+			metrics_mode pixels
+			horz_align right
+			vert_align bottom
+			left -90
+			top -122
+			width 90
+			height 122
+			material HUD/weapons_container_material
+
+			container Panel(HUD/weapon_1_picture_panel)
+			{
+				metrics_mode pixels
+				left -10
+				top -10
+				width 110
+				height 90
+				material HUD/weapon_1_material
+			}
+
+			container Panel(HUD/weapon_2_picture_panel)
+			{
+				metrics_mode pixels
+				left -10
+				top -10
+				width 110
+				height 90
+				material HUD/weapon_2_material
+			}
+
+			container Panel(HUD/weapon_3_picture_panel)
+			{
+				metrics_mode pixels
+				left -10
+				top -10
+				width 110
+				height 90
+				material HUD/weapon_3_material
+			}
+
+			container TextArea(HUD/weapon_name_text)
+			{
+				metrics_mode pixels
+				left 10
+				top 80
+				width 90
+				height 20
+
+				font_name ObelixPro
+				char_height 25
+				colour black
+				caption MISSILE
+			}
+
+			container TextArea(HUD/weapon_level_text)
+			{
+				metrics_mode pixels
+				vert_align bottom
+				left 18
+				top -12
+				width 90
+				height 20
+
+				font_name ObelixPro
+				char_height 20
+				colour black
+				caption LEVEL 1
+			}
+		}
+	}
+
+}

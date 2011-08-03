@@ -6,7 +6,7 @@ iceUI::iceUI()
 	iceGame::getGameLog()->logMessage("iceUI::iceUI()");
 	mHikariMgr = new Hikari::HikariManager(".\\media");
 	mMenu = new iceMenu(mHikariMgr);
-	mHUD = new iceHUD(mHikariMgr);
+	mHUD = new iceHUD();
 }
 
 iceUI::~iceUI()
@@ -24,13 +24,14 @@ void iceUI::init(iceStateManager* pStateManager)
 
 	mStateManager = pStateManager;
 
-	mMenu->init(mStateManager);
+	//mMenu->init(mStateManager);
 	mHUD->init(mStateManager);
 }
 
 void iceUI::update(Ogre::Real evt)
 {
-	mHikariMgr->update();
+	//mHikariMgr->update();
+	mHUD->update(evt);
 }
 
 iceMenu* iceUI::getMenu()

@@ -24,6 +24,8 @@
 #define SPRINT_TIME 3
 #define SPRINT_MULTIMPLICATOR 4
 
+#define LOOK_AT_FAR_FACTOR 1000
+
 // BEGIN SINGLETON
 template<> icePlayer* Ogre::Singleton<icePlayer>::ms_Singleton = 0;
 
@@ -137,8 +139,6 @@ Ogre::Camera* icePlayer::getCamera()
 
 void icePlayer::changeWeapon(const int z)
 {
-	/* Pau * CHANGEWEAPON WITH MOUSE WHEEL */
-
 	static int iLastZ = 0;
 	int iCurrentZ = 0;
 	bool bWheelUp = false;
@@ -161,11 +161,13 @@ void icePlayer::changeWeapon(const int z)
 	{
 		if (mCurrentWeapon < 2)  {mCurrentWeapon ++;}
 		else if (mCurrentWeapon == 2) {mCurrentWeapon = 0;}
+		iceGame::getUI()->getHUD()->setWeapon(mCurrentWeapon+1,mWeaponLevel[mCurrentWeapon]);
 	}
 	if (bWheelDown)
 	{
 		if (mCurrentWeapon > 0)  {mCurrentWeapon --;}
 		else if (mCurrentWeapon == 0) {mCurrentWeapon = 2;}
+		iceGame::getUI()->getHUD()->setWeapon(mCurrentWeapon+1,mWeaponLevel[mCurrentWeapon]);
 	}
 
 	/* 3rd. Save last mouse wheel Z position value */
@@ -264,9 +266,9 @@ void icePlayer::updateShipPosition(Ogre::Real frameTime)
 
 void icePlayer::updateLookAt(Ogre::Real frameTime)
 {
-	Ogre::Real x = cursorNode->getPosition().x - shipNode->getPosition().x;
-	Ogre::Real y = cursorNode->getPosition().y - shipNode->getPosition().y;
-	Ogre::Real z = cursorPlaneNode->getPosition().z;
+	Ogre::Real x = cursorNode->getPosition().x*LOOK_AT_FAR_FACTOR - shipNode->getPosition().x;
+	Ogre::Real y = cursorNode->getPosition().y*LOOK_AT_FAR_FACTOR - shipNode->getPosition().y;
+	Ogre::Real z = (CURSOR_PLANE_Z+CAMERA_PLANE_Z)*LOOK_AT_FAR_FACTOR - CAMERA_PLANE_Z;
 
 	shipNode->resetOrientation();
 	shipNode->yaw(Ogre::Radian(atan(x/z)));
@@ -369,6 +371,13 @@ void icePlayer::showReceivedDamage(unsigned int p_iDamage, bool p_bCritical)
 {
 	icePlayerStats::getInstance()->addReceivedDamage(p_iDamage);
 	iceDamageTextManager::getSingletonPtr()->showPlayerDamage(icePhysicEntity::getGeometry()->getMovableObject(),p_iDamage,p_bCritical);
+	iceGame::getUI()->getHUD()->setLife(getCurrentLife(),getMaxLife());
+
+	if((Ogre::Real)p_iDamage/(Ogre::Real)getMaxLife() > 0.2f)
+	{
+		iceGame::getUI()->getHUD()->setFace(2); //Cara de daño recibido
+	}
+
 }
 
 void icePlayer::showShieldDamage(unsigned int p_iDamage, bool p_bCritical)
@@ -385,12 +394,15 @@ void icePlayer::showFail(void)
 void icePlayer::showLevelUp(unsigned int p_iLevel)
 {
 	iceDamageTextManager::getSingletonPtr()->showPlayerLevelUp(icePhysicEntity::getGeometry()->getMovableObject());
+	iceGame::getUI()->getHUD()->setLevel(mLevel);
+	icePlayerStats::getInstance()->setPlayerLevel(mLevel);
 }
 
 void icePlayer::setWeaponLevel(unsigned int p_iWeapon,unsigned int p_iLevel)
 {
 	iceRPG::setWeaponLevel(p_iWeapon, p_iLevel);
 	icePlayerStats::getInstance()->setWeaponLevel(p_iWeapon, p_iLevel);
+	iceGame::getUI()->getHUD()->setWeapon(mCurrentWeapon+1,mWeaponLevel[mCurrentWeapon]);
 }
 
 Ogre::Vector3 icePlayer::getPosition(void){

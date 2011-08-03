@@ -1,0 +1,191 @@
+material HUD/stats_container_material
+{
+    technique
+    {
+        pass
+        {
+			scene_blend alpha_blend
+			
+            texture_unit 
+            {
+                texture hud_stats_container.png
+            }
+        }
+    }	
+}
+
+material HUD/weapons_container_material
+{
+    technique
+    {
+        pass
+        {
+			scene_blend alpha_blend
+			
+            texture_unit 
+            {
+                texture hud_weapon_container.png
+            }
+        }
+    }	
+}
+
+material HUD/achievements_container_material
+{
+    technique
+    {
+        pass
+        {
+			scene_blend alpha_blend
+			
+            texture_unit 
+            {
+                texture hud_achievements_container.png
+            }
+        }
+    }	
+}
+
+material HUD/weapon_1_material
+{
+    technique
+    {
+        pass
+        {
+			scene_blend alpha_blend
+			
+            texture_unit 
+            {
+                texture hud_weapon_1.png
+            }
+        }
+    }	
+}
+
+material HUD/weapon_2_material
+{
+    technique
+    {
+        pass
+        {
+			scene_blend alpha_blend
+			
+            texture_unit 
+            {
+                texture hud_weapon_2.png
+            }
+        }
+    }	
+}
+
+material HUD/weapon_3_material
+{
+    technique
+    {
+        pass
+        {
+			scene_blend alpha_blend
+			
+            texture_unit 
+            {
+                texture hud_weapon_3.png
+            }
+        }
+    }	
+}
+
+material HUD/life_bar_hover_material
+{
+    technique
+    {
+        pass
+        {
+			scene_blend alpha_blend
+			
+            texture_unit 
+            {
+                texture hud_life_bar_hover.png
+            }
+        }
+    }	
+}
+
+material HUD/life_bar_material
+{
+    technique
+    {
+        pass
+        {
+			scene_blend alpha_blend
+			
+            texture_unit 
+            {
+                texture hud_life_bar.png
+            }
+        }
+    }	
+}
+
+material HUD/face_1_material
+{
+    technique
+    {
+        pass
+        {
+			scene_blend alpha_blend
+			
+            texture_unit 
+            {
+                texture hud_face_1.png
+            }
+        }
+    }	
+}
+
+material HUD/face_2_material
+{
+    technique
+    {
+        pass
+        {
+			scene_blend alpha_blend
+			
+            texture_unit 
+            {
+                texture hud_face_2.png
+            }
+        }
+    }	
+}
+
+material HUD/face_3_material
+{
+    technique
+    {
+        pass
+        {
+			scene_blend alpha_blend
+			
+            texture_unit 
+            {
+                texture hud_face_3.png
+            }
+        }
+    }	
+}
+
+material HUD/face_4_material
+{
+    technique
+    {
+        pass
+        {
+			scene_blend alpha_blend
+			
+            texture_unit 
+            {
+                texture hud_face_4.png
+            }
+        }
+    }	
+}

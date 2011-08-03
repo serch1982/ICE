@@ -83,6 +83,7 @@ void icePlayerStats::showAchievement(unsigned int p_iAchievementIndex)
 	std::stringstream strMessage;
 	strMessage << "New Achievement(" << p_iAchievementIndex << "): " << mAchievementsName[p_iAchievementIndex];
 	mLog->logMessage( strMessage.str() );
+	iceGame::getUI()->getHUD()->showAchievement(mAchievementsName[p_iAchievementIndex]);
 }
 
 void icePlayerStats::levelCompleted(void)
