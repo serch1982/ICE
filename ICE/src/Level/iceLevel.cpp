@@ -24,7 +24,7 @@ void iceLevel::load(std::vector<iceEnemy*>& vectorEnemies, std::vector<iceCutSce
 
 		iceLevelManager::getSingletonPtr()->getDotSceneLoader()->parseDotScene( _name + ".scene",_name,sceneManager, level, _name + "_" );
 
-		Ogre::SceneNode* staticPhisicObjectsNode = static_cast<Ogre::SceneNode*>(sceneManager->getSceneNode(_name + "_" + "StaticPhisicObjects"));
+		Ogre::SceneNode* staticPhisicObjectsNode = sceneManager->getSceneNode(_name + "_" + "StaticPhisicObjects");
 
 		staticPhisicObjectsNode->setVisible(false);
 
