@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <scene formatVersion="1.0.0" generator="Ogitor SceneBuilder 0.4.3">
     <resourceLocations>
-        <resourceLocation type="FileSystem" name="../materials" />
-        <resourceLocation type="FileSystem" name="../particle" />
-        <resourceLocation type="FileSystem" name="../models" />
-        <resourceLocation type="FileSystem" name="../materials/textures" />
-        <resourceLocation type="FileSystem" name="../OgitorResources" />
+        <resourceLocation type="FileSystem" name="../../characters/models" />
+        <resourceLocation type="FileSystem" name="./materials" />
+        <resourceLocation type="FileSystem" name="../../characters/materials/textures" />
+        <resourceLocation type="FileSystem" name="../../materials" />
+        <resourceLocation type="FileSystem" name="../../models" />
+        <resourceLocation type="FileSystem" name="./materials/textures" />
+        <resourceLocation type="FileSystem" name="../../OgitorResources" />
+        <resourceLocation type="FileSystem" name="./models" />
+        <resourceLocation type="FileSystem" name="../../characters/materials" />
+        <resourceLocation type="FileSystem" name="../../materials/textures" />
+        <resourceLocation type="FileSystem" name="../../particle" />
+        <resourceLocation type="FileSystem" name="../../materials/textures/misc" />
+        <resourceLocation type="FileSystem" name="../../materials/textures/skybox" />
     </resourceLocations>
     <environment>
         <scenemanager name="SceneManager" id="168980992" type="OctreeSceneManager" />
@@ -19,8 +27,8 @@
         </viewport>
         <camera name="intViewCamera1" viewMode="0" polyMode="3" fov="45">
             <clipping near="1" far="10000" />
-            <position x="-1313.26" y="243.462" z="-654.344" />
-            <rotation qw="0.501009" qx="-0.0914228" qy="0.846629" qz="0.154459" />
+            <position x="-1657.02" y="687.96" z="694.07" />
+            <rotation qw="-0.811509" qx="0.0387976" qy="0.583278" qz="0.0278703" />
         </camera>
     </environment>
     <terrain worldSize="4000" mapSize="257" pagenameprefix="Page" colourmapEnabled="false" colourMapTextureSize="128" tuningCompositeMapDistance="1000" tuningMaxPixelError="3" tuningMinBatchSize="33" tuningMaxBatchSize="65">
@@ -56,6 +64,83 @@
                     <property type="2" name="Intelligent" data="5" />
                 </userData>
             </entity>
+        </node>
+        <node name="StaticPhisicObjects" id="92623672">
+            <position x="0" y="0" z="0" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="1" y="1" z="1" />
+            <node name="staticPhisicCube#7" id="869350272">
+                <position x="-1612.23" y="94.0081" z="13.1513" />
+                <rotation qw="0.999914" qx="0" qy="-0.0130896" qz="0" />
+                <scale x="0.38907" y="0.750655" z="1.95009" />
+                <entity name="staticPhisicCube#7" meshFile="cube.mesh" castShadows="false">
+                    <subentity index="0" materialName="BaseWhite" />
+                </entity>
+            </node>
+            <node name="staticPhisicCube#4" id="255745120">
+                <position x="-1521.99" y="105.978" z="202.648" />
+                <rotation qw="0.999914" qx="0" qy="-0.0130896" qz="0" />
+                <scale x="0.549621" y="0.910197" z="0.601314" />
+                <entity name="staticPhisicCube#4" meshFile="cube.mesh" castShadows="false">
+                    <subentity index="0" materialName="BaseWhite" />
+                </entity>
+            </node>
+            <node name="staticPhisicCube#5" id="374401056">
+                <position x="-1616.86" y="105.978" z="190.052" />
+                <rotation qw="0.999914" qx="0" qy="-0.0130896" qz="0" />
+                <scale x="0.217624" y="0.885851" z="0.181596" />
+                <entity name="staticPhisicCube#5" meshFile="cube.mesh" castShadows="false">
+                    <subentity index="0" materialName="BaseWhite" />
+                </entity>
+            </node>
+            <node name="staticPhisicCube#2" id="41352580">
+                <position x="-1618.2" y="96.1807" z="336.714" />
+                <rotation qw="0.999914" qx="0" qy="-0.0130896" qz="0" />
+                <scale x="0.409131" y="0.819413" z="2.53971" />
+                <entity name="staticPhisicCube#2" meshFile="cube.mesh" castShadows="false">
+                    <subentity index="0" materialName="BaseWhite" />
+                </entity>
+            </node>
+            <node name="staticPhisicCube#3" id="112186048">
+                <position x="-1533.59" y="96.1807" z="338.93" />
+                <rotation qw="0.999914" qx="0" qy="-0.0130896" qz="0" />
+                <scale x="0.409131" y="0.819413" z="2.53971" />
+                <entity name="staticPhisicCube#3" meshFile="cube.mesh" castShadows="false">
+                    <subentity index="0" materialName="BaseWhite" />
+                </entity>
+            </node>
+            <node name="staticPhisicCube#0" id="976531264">
+                <position x="-1820.05" y="77.0119" z="677.423" />
+                <rotation qw="0.997564" qx="0" qy="-0.0697565" qz="0" />
+                <scale x="0.480204" y="0.432046" z="0.753848" />
+                <entity name="staticPhisicCube#0" meshFile="cube.mesh" castShadows="false">
+                    <subentity index="0" materialName="BaseWhite" />
+                </entity>
+            </node>
+            <node name="staticPhisicCube#8" id="462263840">
+                <position x="-1523.72" y="94.0081" z="15.4689" />
+                <rotation qw="0.999914" qx="0" qy="-0.0130896" qz="0" />
+                <scale x="0.596685" y="0.793801" z="2.83083" />
+                <entity name="staticPhisicCube#8" meshFile="cube.mesh" castShadows="false">
+                    <subentity index="0" materialName="BaseWhite" />
+                </entity>
+            </node>
+            <node name="staticPhisicCube#1" id="940977216">
+                <position x="-1587.92" y="102.219" z="516.525" />
+                <rotation qw="0.937141" qx="0.0232281" qy="0.0467519" qz="-0.345023" />
+                <scale x="0.365189" y="1.43087" z="0.722908" />
+                <entity name="staticPhisicCube#1" meshFile="cube.mesh" castShadows="false">
+                    <subentity index="0" materialName="BaseWhite" />
+                </entity>
+            </node>
+            <node name="staticPhisicCube#6" id="754478592">
+                <position x="-1615.44" y="105.978" z="135.726" />
+                <rotation qw="0.999914" qx="0" qy="-0.0130896" qz="0" />
+                <scale x="0.217624" y="1.19494" z="0.181596" />
+                <entity name="staticPhisicCube#6" meshFile="cube.mesh" castShadows="false">
+                    <subentity index="0" materialName="BaseWhite" />
+                </entity>
+            </node>
         </node>
         <node name="step#02" id="418042528">
             <position x="1838.71" y="49.1091" z="-64.517" />
@@ -887,7 +972,7 @@
             </entity>
         </node>
         <node name="Building05#0" id="23743400">
-            <position x="-1594.75" y="102.395" z="472.147" />
+            <position x="-1590.2" y="102.395" z="519.351" />
             <rotation qw="-0.0479783" qx="0" qy="0.998848" qz="0" />
             <scale x="1" y="1" z="1" />
             <entity name="Building05#0" meshFile="Building05.mesh" castShadows="false">

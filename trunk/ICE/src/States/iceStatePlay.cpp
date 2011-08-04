@@ -68,7 +68,7 @@ void iceStatePlay::load() {
 
 			//load phisics
 			mPhysics = icePhysicsPtr(new icePhysics());
-			mPhysics->initialize(_level->getTerrain(), &_mEnemies, _level->getSceneObjects());
+			mPhysics->initialize(_level->getTerrain(), &_mEnemies, _level->getStaticPhisicSceneObjects());
 
 			//show HUD
 			mHUD = iceGame::getUI()->getHUD();
@@ -139,9 +139,17 @@ void iceStatePlay::update(Ogre::Real evt)
 		_player->update(evt);
 		//enemies
 		for (_revit_mEnemies = _mEnemies.rbegin(); _revit_mEnemies != _mEnemies.rend(); ++_revit_mEnemies) {
-			iceLogicLua::getInstance()->getEnemyLogicState((*_revit_mEnemies),evt);
-			(*_revit_mEnemies)->setDebug(visibleBoundingBoxes);
-			(*_revit_mEnemies)->update(evt);
+			iceEnemy* enemy = *_revit_mEnemies;
+			if(enemy->isActive() && _player->isPositionBackToPlayer((*_revit_mEnemies)->getNode()->_getDerivedPosition()))
+			{
+				enemy->desactivate();
+			}
+			else
+			{
+				iceLogicLua::getInstance()->getEnemyLogicState(enemy,evt);
+				enemy->setDebug(visibleBoundingBoxes);
+				enemy->update(evt);
+			}
 		}
 		//HUD
 		

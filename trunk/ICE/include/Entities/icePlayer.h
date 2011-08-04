@@ -120,6 +120,8 @@ class icePlayer : public iceTrajectoryFollower
 		void setMovingRight(bool pMovingRight);
 
 		iceParticlePtr miceParticlePtr;
+
+		bool isPositionBackToPlayer(Ogre::Vector3 pPosition);
 };
 
 typedef boost::shared_ptr<icePlayer> icePlayerPtr;
