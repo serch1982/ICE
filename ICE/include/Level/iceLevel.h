@@ -60,6 +60,7 @@ class iceLevel {
          *  @return get all the objects loaded in the scene
          */
 		std::vector<iceObject*> iceLevel::getSceneObjects();
+		std::vector<iceObject*> iceLevel::getStaticPhisicSceneObjects();
 
 		/**
          *  set the debug mode for the scene objects

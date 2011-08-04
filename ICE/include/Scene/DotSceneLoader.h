@@ -65,6 +65,7 @@
 		std::vector<iceTrajectory*> getTrajectories();
 		std::vector<iceEnemy*> getEnemies(void);
 		std::vector<iceObject*> getObjects(void);
+		std::vector<iceObject*> getStaticPhisicObjects(void);
  
     protected:
         void processScene(rapidxml::xml_node<>* XMLRoot);
@@ -129,6 +130,7 @@
 		std::vector<iceTrajectory*> mTrajectories;
 		std::vector<iceEnemy*> mEnemies;
 		std::vector<iceObject*> mObjects;
+		std::vector<iceObject*> mStaticPhisicObjects;
     };
  
 #endif // DOT_SCENELOADER_H

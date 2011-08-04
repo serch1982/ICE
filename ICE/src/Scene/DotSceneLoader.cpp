@@ -908,7 +908,14 @@ void DotSceneLoader::processEntity(rapidxml::xml_node<>* XMLNode, Ogre::SceneNod
         pEntity->setCastShadows(castShadows);
         pParent->attachObject(pEntity);
 
-		mObjects.push_back(new iceObject(pParent, pEntity));
+		if(pParent->getParentSceneNode()->getName().compare(m_sPrependNode + "StaticPhisicObjects") == 0)
+		{
+			mStaticPhisicObjects.push_back(new iceObject(pParent, pEntity));
+		}
+		else
+		{
+			mObjects.push_back(new iceObject(pParent, pEntity));
+		}
 
         if(!materialFile.empty())
             pEntity->setMaterialName(materialFile);
@@ -1250,4 +1257,9 @@ std::vector<iceEnemy*> DotSceneLoader::getEnemies(void)
 std::vector<iceObject*> DotSceneLoader::getObjects(void)
 {
 	return mObjects;
+}
+
+std::vector<iceObject*> DotSceneLoader::getStaticPhisicObjects(void)
+{
+	return mStaticPhisicObjects;
 }

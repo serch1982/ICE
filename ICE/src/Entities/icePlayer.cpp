@@ -532,3 +532,11 @@ void icePlayer::setMovingRight(bool pMovingRight)
 	else
 		mMovingRight = pMovingRight;
 }
+
+bool icePlayer::isPositionBackToPlayer(Ogre::Vector3 pPosition)
+{
+	Ogre::Vector3 normal = mNode->_getDerivedOrientation() * Ogre::Vector3::UNIT_Z;
+	Ogre::Vector3 playerPosition = mNode->_getDerivedPosition();
+
+	return normal.dotProduct(playerPosition) >= normal.dotProduct(pPosition);
+}
