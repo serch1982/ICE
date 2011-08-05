@@ -106,7 +106,7 @@ class icePlayer : public iceTrajectoryFollower
 		Ogre::SceneNode* snVirtualCam;
 		iceGeometryPtr virtualCam;
 
-		Ogre::Real shipMaxVelocity;
+		Ogre::Real shipMaxVelocity, _velocityX, _velocityY;
 		Ogre::Camera* playerCamera;
 		Ogre::Log* mLog;
 		Ogre::Vector3 _lastPosition;

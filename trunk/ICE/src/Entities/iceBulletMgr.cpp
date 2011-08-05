@@ -73,10 +73,6 @@ iceBulletPtr iceBulletMgr::createBullet(bool fromPlayer, Ogre::String name,int b
 					bullet->setSpeed(300);
 					bullet->setCritic(critic);
 					bullet->setDamage(damage);
-	//			
-	//			/* Misile particle system */			
-	//			Ogre::ParticleSystem* misilParticle = sceneMgr->createParticleSystem("MisilParticle" + Ogre::StringConverter::toString(p_iBulletNumber), "misilParticle");			
-	//			msbulletNode->attachObject(misilParticle);
 			}	
 		
 		mIceBulletList.push_back(bullet);
