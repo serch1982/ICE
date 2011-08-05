@@ -24,7 +24,11 @@
 #define SPRINT_TIME 3
 #define SPRINT_MULTIMPLICATOR 4
 
+#define VELOCITY 0.5
+#define MAX_VELOCITY 5
+
 #define LOOK_AT_FAR_FACTOR 1000
+
 
 // BEGIN SINGLETON
 template<> icePlayer* Ogre::Singleton<icePlayer>::ms_Singleton = 0;
@@ -47,6 +51,8 @@ icePlayer::icePlayer():_isShooting(false)
 	mXUserDeviation = 0;
 	mYUserDeviation = 0;
 
+	_velocityX = MAX_VELOCITY;
+	_velocityY = MAX_VELOCITY;
 	//Init Scroll
 	scrollNode =  mNode->createChildSceneNode();
 
@@ -235,17 +241,32 @@ void icePlayer::updateShipPosition(Ogre::Real frameTime)
 	if ((spcam < CAMERA_PLANE_Z) || (shipPos.z < 0)) 
 		translation += Ogre::Vector3::UNIT_Z;
 
-	if(mMovingUp)
-		translation += Ogre::Vector3::UNIT_Y;
-	if(mMovingDown)
-		translation += Ogre::Vector3::NEGATIVE_UNIT_Y;
-	if(mMovingLeft)
-		translation += Ogre::Vector3::UNIT_X;
-	if(mMovingRight)
-		translation += Ogre::Vector3::NEGATIVE_UNIT_X;
 
+	if(mMovingUp){
+		_velocityY -= VELOCITY ;
+		if(_velocityY <= 1) _velocityY = 1;
+		translation += Ogre::Vector3::UNIT_Y;
+	}
+	if(mMovingDown){
+		_velocityY -= VELOCITY ;
+		if(_velocityY <= 1) _velocityY = 1;
+		translation += Ogre::Vector3::NEGATIVE_UNIT_Y;
+	}
+	if(mMovingLeft){
+		_velocityX -= VELOCITY ;
+		if(_velocityX <= 1) _velocityX = 1;
+		translation += Ogre::Vector3::UNIT_X;
+	}
+	if(mMovingRight){
+		_velocityX -= VELOCITY ;
+		if(_velocityX <= 1) _velocityX = 1;
+		translation += Ogre::Vector3::NEGATIVE_UNIT_X;
+	}
+	Ogre::Real divVel =((_velocityX * _velocityY)/MAX_VELOCITY);
+	divVel = divVel < 1 ? 1: divVel;
+	iceSdkTray::getInstance()->updateScreenInfo( 8, Ogre::StringConverter::toString(_velocityX) + " -- " + Ogre::StringConverter::toString(_velocityY)+ " -- " + Ogre::StringConverter::toString(divVel));
 	translation.normalise();
-	translation *= getManiobrability() * frameTime;
+	translation *=(getManiobrability() /divVel ) * frameTime;
 
 	shipNode->translate(translation);
 
@@ -503,34 +524,30 @@ void icePlayer::updateBarrelCommon(Ogre::Real* pTime, Ogre::Real pTimeSinceLastE
 
 void icePlayer::setMovingUp(bool pMovingUp)
 {
-	if(mMovingDown)
-		mMovingUp = false;
-	else
+	if(mMovingUp) _velocityY = MAX_VELOCITY;
+
 		mMovingUp = pMovingUp;
 }
 
 void icePlayer::setMovingDown(bool pMovingDown)
 {
-	if(mMovingUp)
-		mMovingDown = false;
-	else
+	if(mMovingDown) _velocityY = MAX_VELOCITY;
+
 		mMovingDown = pMovingDown;
 }
 
 void icePlayer::setMovingLeft(bool pMovingLeft)
 {
-	if(mMovingRight)
-		mMovingLeft = false;
-	else
-		mMovingLeft = pMovingLeft;
+	if(mMovingLeft) _velocityX = MAX_VELOCITY;
+		
+	mMovingLeft = pMovingLeft;
 }
 
 void icePlayer::setMovingRight(bool pMovingRight)
 {
-	if(mMovingLeft)
-		mMovingRight = false;
-	else
-		mMovingRight = pMovingRight;
+	if(mMovingRight) _velocityX = MAX_VELOCITY;
+
+	mMovingRight = pMovingRight;
 }
 
 bool icePlayer::isPositionBackToPlayer(Ogre::Vector3 pPosition)

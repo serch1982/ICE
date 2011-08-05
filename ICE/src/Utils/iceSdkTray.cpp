@@ -34,7 +34,7 @@ void iceSdkTray::setupScreenInfo(Ogre::RenderWindow* mWindow, OIS::Mouse* mMouse
     items.push_back("cam.oY");					// 5
     items.push_back("cam.oZ");					// 6
     items.push_back("Poly Mode");				// 7
-	items.push_back("test LUA");				// 8
+	items.push_back("sprint x-y-t");				// 8
 	items.push_back("Weapon");					// 9
 	items.push_back("PlayerX");					// 10
 	items.push_back("PlayerY");					// 11
