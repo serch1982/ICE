@@ -290,12 +290,12 @@ void DotSceneLoader::processTerrain(rapidxml::xml_node<>* XMLNode)
     }
     mTerrainGroup->loadAllTerrains(true);
 
-    Ogre::TerrainGroup::TerrainIterator ti = mTerrainGroup->getTerrainIterator();
-    while(ti.hasMoreElements())
-    {
-        Ogre::Terrain* t = ti.getNext()->instance;
-        initTerrainBlendMaps(t);
-    }
+    //Ogre::TerrainGroup::TerrainIterator ti = mTerrainGroup->getTerrainIterator();
+    //while(ti.hasMoreElements())
+    //{
+    //    Ogre::Terrain* t = ti.getNext()->instance;
+    //    initTerrainBlendMaps(t);
+    //}
  
     mTerrainGroup->freeTemporaryResources();
 }

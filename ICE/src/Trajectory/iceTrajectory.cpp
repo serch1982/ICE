@@ -52,41 +52,41 @@ void iceTrajectory::loadSteps(std::vector<iceStep> p_vSteps, const bool p_bIsLoo
 	if(mNode)
 		mNode->setPosition(mSteps[0].getPosition());
 	//DEBUG {
-	//int numSpheres = 3000;
+	int numSpheres = 3000;
 
-	//if(!Ogre::ResourceGroupManager::getSingleton().resourceGroupExists("debugger"))
-	//	Ogre::ResourceGroupManager::getSingleton().createResourceGroup("debugger");
-	//Ogre::ManualObject* myManualObject =  iceGame::getSceneManager()->createManualObject();
-	//Ogre::SceneNode* sDebugNode = iceGame::getSceneManager()->getRootSceneNode()->createChildSceneNode();
-	//Ogre::StringStream materialName;
-	//materialName << "Material_"  << mNameGenerator.generate();
-	//Ogre::MaterialPtr myManualObjectMaterial = Ogre::MaterialManager::getSingleton().create(materialName.str(),"debugger");
+	if(!Ogre::ResourceGroupManager::getSingleton().resourceGroupExists("debugger"))
+		Ogre::ResourceGroupManager::getSingleton().createResourceGroup("debugger");
+	Ogre::ManualObject* myManualObject =  iceGame::getSceneManager()->createManualObject();
+	Ogre::SceneNode* sDebugNode = iceGame::getSceneManager()->getRootSceneNode()->createChildSceneNode();
+	Ogre::StringStream materialName;
+	materialName << "Material_"  << mNameGenerator.generate();
+	Ogre::MaterialPtr myManualObjectMaterial = Ogre::MaterialManager::getSingleton().create(materialName.str(),"debugger");
 
-	//myManualObjectMaterial->setReceiveShadows(false); 
-	//myManualObjectMaterial->getTechnique(0)->setLightingEnabled(true); 
-	//myManualObjectMaterial->getTechnique(0)->getPass(0)->setDiffuse(0,0,1,0); 
-	//myManualObjectMaterial->getTechnique(0)->getPass(0)->setAmbient(0,0,1); 
-	//myManualObjectMaterial->getTechnique(0)->getPass(0)->setSelfIllumination(0,0,1); 
-	////myManualObjectMaterial->dispose();  // dispose pointer, not the material
+	myManualObjectMaterial->setReceiveShadows(false); 
+	myManualObjectMaterial->getTechnique(0)->setLightingEnabled(true); 
+	myManualObjectMaterial->getTechnique(0)->getPass(0)->setDiffuse(0,0,1,0); 
+	myManualObjectMaterial->getTechnique(0)->getPass(0)->setAmbient(0,0,1); 
+	myManualObjectMaterial->getTechnique(0)->getPass(0)->setSelfIllumination(0,0,1); 
+	//myManualObjectMaterial->dispose();  // dispose pointer, not the material
 
 
-	//myManualObject->begin(materialName.str(), Ogre::RenderOperation::OT_LINE_LIST); 
-	//for (int i=0;i<numSpheres;i++)
-	//{
-	//		myManualObject->position(mTrack.interpolate((float)i/numSpheres));
-	//}
+	myManualObject->begin(materialName.str(), Ogre::RenderOperation::OT_LINE_LIST); 
+	for (int i=0;i<numSpheres;i++)
+	{
+			myManualObject->position(mTrack.interpolate((float)i/numSpheres));
+	}
 
-	//myManualObject->end(); 
- //
-	//sDebugNode->attachObject(myManualObject);
+	myManualObject->end(); 
+ 
+	sDebugNode->attachObject(myManualObject);
 
-	//for (unsigned int i=0;i<mSteps.size(); i++)
-	//{
-	//	Ogre::SceneNode* sStepNode = sDebugNode->createChildSceneNode(mSteps[i].getPosition());
-	//	Ogre::Entity* mesh = iceGame::getSceneManager()->createEntity("sphere.mesh");
-	//	sStepNode->attachObject(mesh);
-	//	sStepNode->scale(0.03,0.03,0.03);
-	//}
+	for (unsigned int i=0;i<mSteps.size(); i++)
+	{
+		Ogre::SceneNode* sStepNode = sDebugNode->createChildSceneNode(mSteps[i].getPosition());
+		Ogre::Entity* mesh = iceGame::getSceneManager()->createEntity("sphere.mesh");
+		sStepNode->attachObject(mesh);
+		sStepNode->scale(0.03,0.03,0.03);
+	}
 	//} DEBUG
 }
 
