@@ -25,8 +25,10 @@ void iceLevel::load(std::vector<iceEnemy*>& vectorEnemies, std::vector<iceCutSce
 		iceLevelManager::getSingletonPtr()->getDotSceneLoader()->parseDotScene( _name + ".scene",_name,sceneManager, level, _name + "_" );
 
 		Ogre::SceneNode* staticPhisicObjectsNode = sceneManager->getSceneNode(_name + "_" + "StaticPhisicObjects");
+		Ogre::SceneNode* helpersNode = sceneManager->getSceneNode(_name + "_" + "Helpers");
 
 		staticPhisicObjectsNode->setVisible(false);
+		helpersNode->setVisible(false);
 
 		icePlayer::getSingletonPtr()->setTrajectory(new iceLocomotiveTrajectory());
 		icePlayer::getSingletonPtr()->getTrajectory()->loadSteps(iceLevelManager::getSingletonPtr()->getDotSceneLoader()->getPlayerSteps(),false);

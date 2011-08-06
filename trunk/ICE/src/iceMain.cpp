@@ -21,7 +21,7 @@ extern "C" {
     int main(int argc, char *argv[])
 #endif
     {
-		iceGame* myGame;// = new iceGame();
+		iceGame* myGame = NULL;// = new iceGame();
 		/*char root_path[1024];
 		GetCurrentDir(root_path, 1023);
 		myGame->go(root_path);*/ 
@@ -39,7 +39,10 @@ extern "C" {
 						e.getFullDescription().c_str() << std::endl;
 	#endif
 			}
-			delete myGame;
+			if(myGame)
+			{
+				delete myGame;
+			}
 
         return 0;
     }
