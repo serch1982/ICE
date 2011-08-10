@@ -63,7 +63,7 @@ class iceEnemy :public iceTrajectoryFollower, public iceRPG, public icePhysicEnt
 
 		////iceRPG
 		// enemy shot
-		void createShotEntity(int p_iWeapon, Ogre::Radian p_fDeviation, unsigned int p_iDamage, bool p_bCritic);
+		virtual void createShotEntity(int p_iWeapon, Ogre::Radian p_fDeviation, unsigned int p_iDamage, bool p_bCritic);
 		// Showing information to user
 		virtual void showReceivedDamage(unsigned int p_iDamage, bool p_bCritical);
 		void showShieldDamage(unsigned int p_iDamage, bool p_bCritical);
@@ -80,6 +80,7 @@ class iceEnemy :public iceTrajectoryFollower, public iceRPG, public icePhysicEnt
 		Ogre::Vector3 getNodeLastPosition(void){ return _lastPosition;}
 		Ogre::Vector3 getNodePosition(void){ return enemyNode->getPosition();}
 		void setNodePosition(Ogre::Vector3 pos){ enemyNode->setPosition(pos);}
+		virtual void changeDirection(void);
 	protected:
 		// Generator for obtain a name for this instance
 		static Ogre::NameGenerator mNameGenerator;
@@ -107,6 +108,7 @@ class iceEnemy :public iceTrajectoryFollower, public iceRPG, public icePhysicEnt
 
 		// Controlling ticks for dying animation
 		Ogre::Real mAnimDyingTicks;
+		Ogre::Skeleton* skeleton;
 
 		//effect billboard
 		iceBillboard* mBillboard;	

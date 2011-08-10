@@ -19,10 +19,14 @@ public:
     *  @return Ogre::Vector3
     */
 	virtual Ogre::Vector3 move(Ogre::Vector3 enemyPos, Ogre::Real timeSinceLastFrame) = 0;
+	/**
+	*  change the direction
+    */
+	virtual void reverse(void) = 0;
 protected:
 	//vars
-	Ogre::Real _radius, _velocity, _xPos ,_yPos ,_zPos;
-	Ogre::Real _counter;
+	Ogre::Real _radius, _velocity, _velocityZ;
+	Ogre::Real _counter, _numRand, _counterAux;
 	bool _dir;
 	//function to get the player axis
 	AxisToMove getPlayerAxis(void);
@@ -41,7 +45,7 @@ public:
     *  contructor
 	*  @velocity = velocity to the movement
     */
-	iceStrategyForward(Ogre::Real velocity);
+	iceStrategyForward(Ogre::Real velocityZ);
 	/**
     *  descontructor
     */
@@ -51,6 +55,10 @@ public:
     *  @return Ogre::Vector3
     */
 	Ogre::Vector3 move(Ogre::Vector3 enemyPos, Ogre::Real timeSinceLastFrame);
+	/**
+	*  change the direction
+    */
+	void reverse(void);
 };
 
 /**
@@ -64,7 +72,7 @@ public:
 	*  @radius = radiuos, @velocity = velocity, @dir = forward or inverse
     *  @return Ogre::Vector3
     */
-	iceStrategySin(Ogre::Real radius,Ogre::Real  velocity, bool dir);
+	iceStrategySin(Ogre::Real radius,Ogre::Real  velocity, Ogre::Real velocityZ, bool dir);
 	/**
     *  descontructor
     */
@@ -74,6 +82,10 @@ public:
     *  @return Ogre::Vector3
     */
 	Ogre::Vector3 move(Ogre::Vector3 enemyPos, Ogre::Real timeSinceLastFrame);
+	/**
+	*  change the direction
+    */
+	void reverse(void);
 };
 
 
@@ -88,7 +100,7 @@ public:
 	*  @radius = radiuos, @velocity = velocity, @dir = forward or inverse
     *  @return Ogre::Vector3
     */
-	iceStrategyCircle(Ogre::Real velocity, Ogre::Real radius, bool dir);
+	iceStrategyCircle(Ogre::Real velocity,Ogre::Real velocityZ,  Ogre::Real radius, bool dir);
 	/**
     *  descontructor
     */
@@ -98,5 +110,9 @@ public:
     *  @return Ogre::Vector3
     */
 	Ogre::Vector3 move(Ogre::Vector3 enemyPos, Ogre::Real timeSinceLastFrame);
+	/**
+	*  change the direction
+    */
+	void reverse(void);
 };
 #endif

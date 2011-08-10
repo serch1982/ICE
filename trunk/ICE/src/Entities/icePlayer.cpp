@@ -24,7 +24,7 @@
 #define SPRINT_TIME 3
 #define SPRINT_MULTIMPLICATOR 4
 
-#define VELOCITY 0.5
+#define VELOCITY 0.3
 #define MAX_VELOCITY 5
 
 #define LOOK_AT_FAR_FACTOR 1000
@@ -73,8 +73,10 @@ icePlayer::icePlayer():_isShooting(false)
 	//physics
 	icePhysicEntity::initializePhysics("phy_player", Ogre::Vector3(5.3,2.8,4.7));
 	shipNode->attachObject(getGeometry()->getMovableObject());
-	//
-	miceParticlePtr = iceParticleMgr::getSingletonPtr()->createPartAttachToObject(shipNode,"ice/iceTurbo",true);
+	
+	//particles
+	mParticleTurboLeft = iceParticleMgr::getSingletonPtr()->createPartAttachToObject(shipNode, Ogre::Vector3(1.1,-0.1,-.2),"ice/icePlayerTurbo",true);
+	mParticleTurboRight = iceParticleMgr::getSingletonPtr()->createPartAttachToObject(shipNode, Ogre::Vector3(-1.1,-0.1,-.2),"ice/icePlayerTurbo",true);
 
 	rollNode = shipNode->createChildSceneNode();
 
@@ -113,6 +115,8 @@ icePlayer::icePlayer():_isShooting(false)
 
 icePlayer::~icePlayer()
 {
+	iceParticleMgr::getSingletonPtr()->removeParticle(mParticleTurboLeft);
+	iceParticleMgr::getSingletonPtr()->removeParticle(mParticleTurboRight);
 	virtualCam.reset();
 	icePhysicEntity::finalizePhysics();
 }
@@ -211,7 +215,9 @@ char* icePlayer::getCurrentWeaponName(void){
 
 void icePlayer::processMouseMoved(const int x, const int y, const int z)
 {
-	cursorNode->translate(((Ogre::Real)-x)/20,((Ogre::Real)-y)/20,0);		
+	iceSdkTray::getInstance()->updateScreenInfo( 16, Ogre::StringConverter::toString(cursorNode->getPosition().x) + " - " + Ogre::StringConverter::toString(cursorNode->getPosition().y) );
+	cursorNode->translate(((Ogre::Real)-x)/20,((Ogre::Real)-y)/20,0);
+
 	changeWeapon(z); /* Pau * Change weapon with mouse wheel */
 }
 
@@ -385,7 +391,9 @@ void icePlayer::update(Ogre::Real p_timeSinceLastFrame)
 
 void icePlayer::createShotEntity(int p_iWeapon, Ogre::Radian p_fDeviation, unsigned int p_iDamage, bool p_bCritic)
 {
-	iceBulletMgr::getSingletonPtr()->createBullet(true, "bt_player_",p_iWeapon, shipNode->_getDerivedPosition(), shipNode->_getDerivedOrientation(), p_fDeviation,p_iDamage, p_bCritic);
+	Ogre::Vector3 bPos = (((cursorNode->_getDerivedPosition() + shipNode->_getDerivedPosition()) / 2) + shipNode->_getDerivedPosition()) /2;
+	
+	iceBulletMgr::getSingletonPtr()->createBullet(true, "bt_player_",p_iWeapon, bPos, shipNode->_getDerivedOrientation(), p_fDeviation,p_iDamage, p_bCritic);
 }
 
 void icePlayer::showReceivedDamage(unsigned int p_iDamage, bool p_bCritical)

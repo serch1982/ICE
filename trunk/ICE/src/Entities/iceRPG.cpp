@@ -244,8 +244,8 @@ void iceRPG::shot(void)
 			//Ogre::Quaternion sOrientation = Ogre::Quaternion::IDENTITY;
 			
 			fDeviation /= 60;
-			createShotEntity(mCurrentWeapon,fDeviation,fDamage,bIsCritic);
-			//createShotEntity(mCurrentWeapon,fDeviation,1000,bIsCritic);
+			//createShotEntity(mCurrentWeapon,fDeviation,fDamage,bIsCritic);
+			createShotEntity(mCurrentWeapon,fDeviation,1000,bIsCritic);
 		}
 
 		mTimeSinceLastShot = 0.0;

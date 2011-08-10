@@ -162,6 +162,7 @@ void iceStateManager::configureOIS() {
     const OIS::MouseState &mouseState = _mouse->getMouseState();
     mouseState.width = width;
     mouseState.height = height;
+
 }
 
 void iceStateManager::exitGame() {

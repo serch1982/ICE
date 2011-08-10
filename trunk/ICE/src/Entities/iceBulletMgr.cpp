@@ -40,13 +40,16 @@ iceBulletPtr iceBulletMgr::createBullet(bool fromPlayer, Ogre::String name,int b
 		Ogre::SceneNode* mBulletNode = sceneMgr->getRootSceneNode()->createChildSceneNode(nodeName,Ogre::Vector3( 0, 0, 0 ));	
 		if (bulletType == 0){
 					Ogre::BillboardSet* billboarSet = sceneMgr->createBillboardSet();
-					billboarSet->setMaterialName("machinegunShot");
+					if(fromPlayer)
+						billboarSet->setMaterialName("machinegunShot");
+					else
+						billboarSet->setMaterialName("machinegunFire");
 					billboarSet->createBillboard(0,0,0);
 				    mBulletNode->attachObject(billboarSet);
 					mBulletNode->setVisible(true);
 				    mBulletNode->scale(.04,.04,.04);
 					
-					bullet->createBullet(fromPlayer, mBulletNode, Ogre::Vector3(0.7,0.7,0.7), initPos, orientation, desviation);
+					bullet->createBullet(fromPlayer,NULL, mBulletNode, Ogre::Vector3(3,3,3), initPos, orientation, desviation, "","");
 					bullet->setSpeed(250);
 					bullet->setCritic(critic);
 					bullet->setDamage(damage);
@@ -59,7 +62,7 @@ iceBulletPtr iceBulletMgr::createBullet(bool fromPlayer, Ogre::String name,int b
 					mBulletNode->setVisible(true);
 				    mBulletNode->scale(.05,.05,.05);
 					
-					bullet->createBullet(fromPlayer, mBulletNode,  Ogre::Vector3(0.7,0.7,0.7), initPos, orientation, desviation);
+					bullet->createBullet(fromPlayer,NULL, mBulletNode,  Ogre::Vector3(3,3,3), initPos, orientation, desviation,"","");
 					bullet->setSpeed(250);
 					bullet->setCritic(critic);
 					bullet->setDamage(damage);
@@ -69,7 +72,7 @@ iceBulletPtr iceBulletMgr::createBullet(bool fromPlayer, Ogre::String name,int b
 					mBulletNode->attachObject(entity);
 					mBulletNode->setVisible(true);
 					
-					bullet->createBullet(fromPlayer, mBulletNode, Ogre::Vector3(1,1,1.5), initPos, orientation, desviation);
+					bullet->createBullet(fromPlayer, entity, mBulletNode, Ogre::Vector3(6,6,8), initPos, orientation, desviation, "root","ice/iceMisilTurbo");
 					bullet->setSpeed(300);
 					bullet->setCritic(critic);
 					bullet->setDamage(damage);
@@ -102,7 +105,6 @@ void iceBulletMgr::update(Ogre::Real timeSinceLastFrame, bool isDebugEnabled)
 		(*it)->setDebugEnabled(isDebugEnabled);
 		(*it)->setTimer((*it)->getTimer() + timeSinceLastFrame);
 		if ((((*it)->getTimer() >= (*it)->getTimeDuration()) && (*it)->isActive()) || (!(*it)->isActive()) ) {
-			(*it)->finalizeEntity();
 			it = mIceBulletList.erase(it);
 		}
 		else{
