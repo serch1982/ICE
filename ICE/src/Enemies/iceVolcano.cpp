@@ -34,6 +34,11 @@ void iceVolcano::finalize(){
 	iceEnemy::finalize();
 }
 
+void iceVolcano::createShotEntity(int p_iWeapon, Ogre::Radian p_fDeviation, unsigned int p_iDamage, bool p_bCritic)
+{
+	iceBulletMgr::getSingletonPtr()->createBullet(false, "bt_enemy_",p_iWeapon, enemyNode->_getDerivedPosition(), -enemyNode->_getDerivedOrientation(), p_fDeviation,p_iDamage, p_bCritic);
+}
+
 void iceVolcano::update(Ogre::Real p_timeSinceLastFrame){
 	iceEnemy::update( p_timeSinceLastFrame );
 

@@ -1,0 +1,18 @@
+
+material crashboom
+{
+	technique
+	{
+		pass
+		{
+
+			texture_unit crashboom.png
+			{
+				texture_alias crashboom.png
+				texture crashboom.png
+			}
+		}
+
+	}
+
+}

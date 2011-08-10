@@ -172,12 +172,6 @@ float iceEnemy::rangeAttack(){
 	return (float)dis;
 }
 
-void iceEnemy::createShotEntity(int p_iWeapon, Ogre::Radian p_fDeviation, unsigned int p_iDamage, bool p_bCritic)
-{
-	iceBulletMgr::getSingletonPtr()->createBullet(false, "bt_enemy_",p_iWeapon, enemyNode->_getDerivedPosition(), -enemyNode->_getDerivedOrientation(), p_fDeviation,p_iDamage, p_bCritic);
-}
-
-
 Ogre::Vector3 iceEnemy::getWorldPosition(void)
 {
 	return enemyNode->_getDerivedPosition();
@@ -194,4 +188,12 @@ bool iceEnemy::isAnimDyingEnded()
 void iceEnemy::setAnimDyingEnded( Ogre::Real ticks )
 {
 	mAnimDyingTicks = ticks;
+}
+
+void iceEnemy::createShotEntity(int p_iWeapon, Ogre::Radian p_fDeviation, unsigned int p_iDamage, bool p_bCritic)
+{
+}
+
+void iceEnemy::changeDirection(void){
+
 }

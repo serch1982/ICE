@@ -99,6 +99,11 @@ std::string iceKamikaze::getFunctionStr(){
 	return "KamikazeLogic";
 }
 
+void iceKamikaze::createShotEntity(int p_iWeapon, Ogre::Radian p_fDeviation, unsigned int p_iDamage, bool p_bCritic)
+{
+	//iceBulletMgr::getSingletonPtr()->createBullet(false, "bt_enemy_",p_iWeapon, enemyNode->_getDerivedPosition(), -enemyNode->_getDerivedOrientation(), p_fDeviation,p_iDamage, p_bCritic);
+}
+
 void iceKamikaze::setState(ENEMYSTATE p_iState){
 	mState = p_iState;
 	switch(mState){

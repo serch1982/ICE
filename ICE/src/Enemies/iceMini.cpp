@@ -22,22 +22,33 @@ bool iceMini::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActivat
 	Ogre::Entity* mesh;
 	mesh = sceneManager->createEntity(entityName.str(), "minimagmaton.mesh");
 	enemyNode->attachObject(mesh);
-	Ogre::Skeleton* ske = mesh->getSkeleton();
-	//mIddle = mesh->getAnimationState( "iddle" );
-	/*mIddle2 = mesh->getAnimationState( "iddle2" );
+	skeleton = mesh->getSkeleton();
+	
+	/*Ogre::Skeleton::BoneIterator bi = ske->getBoneIterator();
+	while (bi.hasMoreElements()) {
+		Ogre::Bone* bn = bi.getNext();
+		Ogre::String st = bn->getName();
+	}*/
+	mIddle = mesh->getAnimationState( "iddle" );
+	mIddle2 = mesh->getAnimationState( "iddle2" );
 	mIddle2->setEnabled( true );
-	mIddle2->setLoop( true );*/
+	mIddle2->setLoop( true );
 
 	//init physics
 	icePhysicEntity::initializePhysics("phy_mini"+ entityName.str(), Ogre::Vector3(3.2,7,2));
 	enemyNode->attachObject(getGeometry()->getMovableObject());
 
 	//particles
-	mParticleFire = iceParticleMgr::getSingletonPtr()->createPartAttachToObject(enemyNode,"ice/fireminimagmaton",false);
+	//mParticleFire = iceParticleMgr::getSingletonPtr()->createPartAttachToObject(enemyNode,"ice/fireminimagmaton",false);
+	mParticleFire = iceParticleMgr::getSingletonPtr()->createPartAttachToBone(mesh,"right_tibia","ice/fireDown",false);
 	mParticleBoom = iceParticleMgr::getSingletonPtr()->createPartAttachToObject(enemyNode,"ice/boom",false);
 
 	//strategy 
-	mIceStrategy = iceStrategyPtr(new iceStrategyCircle(1.5,25, true));
+	srand(time(NULL));
+	bool b = (rand() % 2 + 1) == 1 ? true: false;
+	Ogre::Real r = 10 * (Ogre::Math::RangeRandom(20.0,40.0));
+	Ogre::Real vel = 1 + (Ogre::Math::UnitRandom() * 2.5);
+	mIceStrategy = iceStrategyPtr(new iceStrategyCircle(vel,10,r, b ));
 	return true;
 }
 
@@ -68,25 +79,25 @@ void iceMini::update(Ogre::Real p_timeSinceLastFrame){
 		case ATTACK: 
 			mTrajectory->lookAt(); //TODO  * p_timeSinceLastFrame
 			enemyNode->translate(mIceStrategy->move(enemyNode->_getDerivedPosition(), p_timeSinceLastFrame));
-			//if(mIddle->hasEnded())
-			//{
-			//	mIddle->setEnabled(false);
-			//	mIddle2->setEnabled(true);
-			//}
-			//else
-			//{
-			//	mIddle->addTime(p_timeSinceLastFrame);
-			//}
+			if(mIddle->hasEnded())
+			{
+				mIddle->setEnabled(false);
+				mIddle2->setEnabled(true);
+			}
+			else
+			{
+				mIddle->addTime(p_timeSinceLastFrame);
+			}
 
-			//if(mIddle2->hasEnded())
-			//{
-			//	mIddle2->setEnabled(false);
-			//	mIddle->setEnabled(true);
-			//}
-			//else
-			//{
-				//mIddle2->addTime(p_timeSinceLastFrame);
-			//}
+			if(mIddle2->hasEnded())
+			{
+				mIddle2->setEnabled(false);
+				mIddle->setEnabled(true);
+			}
+			else
+			{
+				mIddle2->addTime(p_timeSinceLastFrame);
+			}
 			shot(); 
 			/*if (!isAlive())
 				mState = DYING;*/
@@ -119,6 +130,17 @@ void iceMini::update(Ogre::Real p_timeSinceLastFrame){
 
 std::string iceMini::getFunctionStr(){
 	return "miniLogic";
+}
+
+void iceMini::createShotEntity(int p_iWeapon, Ogre::Radian p_fDeviation, unsigned int p_iDamage, bool p_bCritic)
+{
+	Ogre::Vector3 posb =  skeleton->getBone("Left_leg")->getPosition();
+	Ogre::Vector3 posbx = enemyNode->_getDerivedPosition() + posb;
+	iceBulletMgr::getSingletonPtr()->createBullet(false, "bt_enemy_",p_iWeapon,posbx, -enemyNode->_getDerivedOrientation(), p_fDeviation,p_iDamage, p_bCritic);
+}
+
+void iceMini::changeDirection(void){
+	mIceStrategy->reverse();
 }
 
 void iceMini::setState(ENEMYSTATE p_iState){

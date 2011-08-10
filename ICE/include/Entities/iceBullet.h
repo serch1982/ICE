@@ -2,7 +2,7 @@
 #define ICEBULLET_H_
 
 #include "Entities\icePhysicEntity.h"
-
+#include "Particle\iceParticleMgr.h"
 
 class iceBullet : public icePhysicEntity
 {
@@ -19,7 +19,7 @@ public:
 		/**
 		*  to create set the parameter from the new bullet instance
 		*/
-		void createBullet(bool fromPlayer, Ogre::SceneNode* bulletNode,  Ogre::Vector3 boxSize, Ogre::Vector3 position, Ogre::Quaternion orientation,Ogre::Radian desviation);
+		void createBullet(bool fromPlayer,Ogre::Entity* bulletEntity,  Ogre::SceneNode* bulletNode,  Ogre::Vector3 boxSize, Ogre::Vector3 position, Ogre::Quaternion orientation,Ogre::Radian desviation, Ogre::String boneName, Ogre::String particleName);
 		/**
 		*  to remove the instance and entity
 		*/
@@ -110,6 +110,8 @@ protected:
 	Ogre::SceneNode* mBulletNode;		
 	Ogre::Vector3 mPosition;
 	Ogre::Quaternion mOrientation;
+	//particles
+	iceParticlePtr mParticlePtr;
 };
 
 typedef boost::shared_ptr<iceBullet> iceBulletPtr;

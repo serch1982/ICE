@@ -43,10 +43,12 @@ void icePhysics::processBullets(void)
 		else{
 			for(unsigned j = 0; j < mEnemies->size(); j++){
 				iceEnemy* enemy = (*mEnemies)[j];
-				AxisAlignedBox ebox = enemy->getGeometry()->getWorldBoundingBox(enemy->getWorldPosition());
-				if(ebox.intersects(bbox)){
-					enemy->addDamage((*iter)->getDamage(),(*iter)->getCritic());
-					(*iter)->desactivate();
+				if((enemy->isActive()) && (enemy->isAlive())){
+					AxisAlignedBox ebox = enemy->getGeometry()->getWorldBoundingBox(enemy->getWorldPosition());
+					if(ebox.intersects(bbox)){
+						enemy->addDamage((*iter)->getDamage(),(*iter)->getCritic());
+						(*iter)->desactivate();
+					}
 				}
 			}
 		}
@@ -60,20 +62,35 @@ void icePhysics::update(void){
 }
 
 void icePhysics::processTerrainCollision(void){
-	Ogre::Ray playerRay(icePlayer::getSingletonPtr()->getPosition(), Ogre::Vector3::NEGATIVE_UNIT_Y);
-    Ogre::TerrainGroup::RayResult mResult =mTerrainGroup->rayIntersects(playerRay, 0.1); 
-
+	Ogre::Real dis = 0.1;
+	Ogre::Real xgap = 1.5;
+	Ogre::Real ygap = 0.6;
+	
+	Ogre::Vector3 posp = icePlayer::getSingletonPtr()->getPosition();
+	posp.y = posp.y - 3;
+	Ogre::Ray playerRayNY(posp, Ogre::Vector3::NEGATIVE_UNIT_Y);
+		
+	Ogre::TerrainGroup::RayResult mResult =mTerrainGroup->rayIntersects(playerRayNY,dis); 
+	
 	if (!mResult.hit){
-		std::stringstream strMessage;
-		strMessage << "Impacto en: (" << icePlayer::getSingletonPtr()->getPosition() << ")";
-		mLog->logMessage( strMessage.str() );
-
-		icePlayer::getSingletonPtr()->addDamage(DEFAULT_DAMAGE_WALL,false); //to change
+		icePlayer::getSingletonPtr()->addDamage(DEFAULT_DAMAGE_WALL,false);
 		Ogre::Vector3 initPos = icePlayer::getSingletonPtr()->getShipPosition();
 		Ogre::Vector3 lastPos = icePlayer::getSingletonPtr()->getShipLastPosition();
-		icePlayer::getSingletonPtr()->setShipPosition(Ogre::Vector3(initPos.x > 0 ? lastPos.x - 1.5 : lastPos.x + 1.5, lastPos.y + .5,initPos.z));
-
+		icePlayer::getSingletonPtr()->setShipPosition(Ogre::Vector3(initPos.x, lastPos.y + ygap,initPos.z));
 	}
+
+	for(unsigned j = 0; j < mEnemies->size(); j++){
+		iceEnemy* enemy = (*mEnemies)[j];
+
+		if(enemy->isActive() && enemy->isAlive()){
+			Ogre::Ray enemyRayNY(enemy->getWorldPosition(), Ogre::Vector3::NEGATIVE_UNIT_Y);
+			mResult =mTerrainGroup->rayIntersects(enemyRayNY,dis); 
+			if (!mResult.hit){
+				enemy->changeDirection();
+			}
+		}
+	}
+	
 }
 
 void icePhysics::processObjectCollision(void){
@@ -87,7 +104,7 @@ void icePhysics::processObjectCollision(void){
 			strMessage << "Impacto en: (" << icePlayer::getSingletonPtr()->getPosition() << ")";
 			mLog->logMessage( strMessage.str() );
 
-			icePlayer::getSingletonPtr()->addDamage(DEFAULT_DAMAGE_WALL,false); //to change
+			icePlayer::getSingletonPtr()->addDamage(DEFAULT_DAMAGE_WALL,false); 
 		}
 	}
 
@@ -98,7 +115,7 @@ void icePhysics::processObjectCollision(void){
 		if(enemy->isActive() && enemy->isAlive()){
 			if(ebox.intersects(pbox)){
 				enemy->setState(iceEnemy::DEAD);
-				icePlayer::getSingletonPtr()->addDamage(DEFAULT_DAMAGE_OBJECTS,false); //to change
+				icePlayer::getSingletonPtr()->addDamage(DEFAULT_DAMAGE_OBJECTS,false);
 				Ogre::Vector3 initPos = icePlayer::getSingletonPtr()->getShipPosition();
 				if( initPos.z <= 1 && initPos.z > DEFAULT_RETURN_SHIP_MAX){
 					icePlayer::getSingletonPtr()->setShipPosition(Ogre::Vector3(initPos.x, initPos.y,initPos.z - DEFAULT_RETURN_SHIP));

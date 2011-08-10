@@ -744,9 +744,9 @@ void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode,Ogre::SceneNod
 	Ogre::SceneNode* snbbNode = mSceneMgr->getRootSceneNode()->createChildSceneNode(uniqueId);
 	for (int i=0;i<miniMagmatons;i++)
 	{
-		Ogre::Vector3 dev = Ogre::Vector3(maxDev.x * (Ogre::Math::UnitRandom() - 0.5),
-										  maxDev.y * (Ogre::Math::UnitRandom() - 0.5),
-										  maxDev.z * (Ogre::Math::UnitRandom() - 0.5)
+		Ogre::Vector3 dev = Ogre::Vector3(maxDev.x * (Ogre::Math::UnitRandom() - Ogre::Math::UnitRandom()),
+										  maxDev.y * (Ogre::Math::UnitRandom() - Ogre::Math::UnitRandom()),
+										  maxDev.z * (Ogre::Math::UnitRandom() - Ogre::Math::UnitRandom())
 										 );
 		Ogre::Real timeDev = (Ogre::Math::UnitRandom() - 0.5) * 2;
 		Ogre::Vector3 enemyPosition = position + dev;
@@ -760,9 +760,9 @@ void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode,Ogre::SceneNod
 	}
 	for (int i=0;i<kamikaces;i++)
 	{
-		Ogre::Vector3 dev = Ogre::Vector3(maxDev.x * (Ogre::Math::UnitRandom() - 0.5),
-										  maxDev.y * (Ogre::Math::UnitRandom() - 0.5),
-										  maxDev.z * (Ogre::Math::UnitRandom() - 0.5)
+		Ogre::Vector3 dev = Ogre::Vector3(maxDev.x * (Ogre::Math::UnitRandom() - Ogre::Math::UnitRandom()),
+										  maxDev.y * (Ogre::Math::UnitRandom() - Ogre::Math::UnitRandom()),
+										  maxDev.z * (Ogre::Math::UnitRandom() - Ogre::Math::UnitRandom())
 										 );
 		Ogre::Real timeDev = (Ogre::Math::UnitRandom() - 0.5) * 2;
 		Ogre::Vector3 enemyPosition = position + dev;
@@ -776,9 +776,9 @@ void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode,Ogre::SceneNod
 	}
 	for (int i=0;i<intelligents;i++)
 	{
-		Ogre::Vector3 dev = Ogre::Vector3(maxDev.x * (Ogre::Math::UnitRandom() - 0.5),
-										  maxDev.y * (Ogre::Math::UnitRandom() - 0.5),
-										  maxDev.z * (Ogre::Math::UnitRandom() - 0.5)
+		Ogre::Vector3 dev = Ogre::Vector3(maxDev.x * (Ogre::Math::UnitRandom() - Ogre::Math::UnitRandom()),
+										  maxDev.y * (Ogre::Math::UnitRandom() - Ogre::Math::UnitRandom()),
+										  maxDev.z * (Ogre::Math::UnitRandom() - Ogre::Math::UnitRandom())
 										 );
 		Ogre::Real timeDev = (Ogre::Math::UnitRandom() - 0.5) * 2;
 		Ogre::Vector3 enemyPosition = position + dev;

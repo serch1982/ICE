@@ -27,14 +27,27 @@ bool iceSmart::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActiva
 	icePhysicEntity::initializePhysics("phy_smart"+ entityName.str(), Ogre::Vector3(10,5.5,4));
 	enemyNode->attachObject(getGeometry()->getMovableObject());
 
+	//particles
+	mParticleBoom = iceParticleMgr::getSingletonPtr()->createPartAttachToObject(enemyNode,"ice/boom",false);
+
 	//strategy 
-	mIceStrategy = iceStrategyPtr(new iceStrategySin(30,20, true));
+	srand(time(NULL));
+	bool b = (rand() % 2 + 1) == 1 ? true: false;
+	Ogre::Real r = 10 * (Ogre::Math::RangeRandom(20.0,30.0));
+	Ogre::Real vel = 1 + (Ogre::Math::UnitRandom() * 2.5);
+	mIceStrategy = iceStrategyPtr(new iceStrategySin(r,vel,10, b));
 
 	return true;
 }
 
 void iceSmart::finalize(){
+	iceParticleMgr::getSingletonPtr()->removeParticle(mParticleBoom);
 	iceEnemy::finalize();
+}
+
+void iceSmart::createShotEntity(int p_iWeapon, Ogre::Radian p_fDeviation, unsigned int p_iDamage, bool p_bCritic)
+{
+	iceBulletMgr::getSingletonPtr()->createBullet(false, "bt_enemy_",p_iWeapon, enemyNode->_getDerivedPosition(), -enemyNode->_getDerivedOrientation(), p_fDeviation,p_iDamage, p_bCritic);
 }
 
 void iceSmart::update(Ogre::Real p_timeSinceLastFrame){
@@ -85,6 +98,20 @@ void iceSmart::update(Ogre::Real p_timeSinceLastFrame){
 			break;
 	}
 }
+
+void iceSmart::changeDirection(void){
+	mIceStrategy->reverse();
+}
+
 std::string iceSmart::getFunctionStr(){
 	return "smartLogic";
+}
+
+
+void iceSmart::showReceivedDamage(unsigned int p_iDamage, bool p_bCritical){
+	iceEnemy::showReceivedDamage(p_iDamage, p_bCritical);
+	if(!mParticleBoom->isPlay() && !isAlive()){
+		enemyNode->setVisible(false,false);
+		mParticleBoom->start();
+	}
 }

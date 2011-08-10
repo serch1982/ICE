@@ -1,6 +1,6 @@
 system ice/boom
 {
-     fixed_timeout                               10
+    fixed_timeout                               10
     iteration_interval                          0.1
     nonvisible_update_timeout                   3
     category                                    ice
@@ -25,14 +25,14 @@ system ice/boom
                 min                             0
                 max                             -90
             }
-            time_to_live                        8
-            mass                                10
+            time_to_live                        2
+            mass                                20
             velocity                            dyn_random
             {
                 min                             40
                 max                             80
             }
-            duration                            8
+            duration                            1
             keep_local                          true
             orientation                         0 0 1 0
             radius                              10
@@ -64,14 +64,14 @@ system ice/boom
                 min                             0
                 max                             -90
             }
-            time_to_live                        8
-            mass                                10
+            time_to_live                        2
+            mass                                20
             velocity                            dyn_random
             {
                 min                             40
                 max                             80
             }
-            duration                            8
+            duration                            1
             orientation                         0 0 1 0
             radius                              10
         }

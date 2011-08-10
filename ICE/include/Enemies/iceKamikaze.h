@@ -17,7 +17,7 @@ public:
 	// getter for the LUA function name
 	virtual std::string getFunctionStr();
 	virtual void setState(ENEMYSTATE p_iState);
-	//virtual void logic();
+	virtual void createShotEntity(int p_iWeapon, Ogre::Radian p_fDeviation, unsigned int p_iDamage, bool p_bCritic);
 
 	virtual void showReceivedDamage(unsigned int p_iDamage, bool p_bCritical);
 

@@ -78,7 +78,7 @@ bool iceSoundManager::Initialize(void)
     char			name[256];
 	unsigned int	version;
     FMOD_SPEAKERMODE speakermode;
-	int				key, numdrivers;
+	int				 numdrivers;
 
 	/*
         Create a System object and initialize.
@@ -274,6 +274,8 @@ int iceSoundManager::CreateLoopedStream(Ogre::String &fileName)
 
 void iceSoundManager::loadResourcesMenu(){
 	CreateLoopedStream( Ogre::String( "menu.mp3" ));
+	CreateLoopedStream( Ogre::String( "test.mp3" ));
+	
 }
 
 void iceSoundManager::unloadResourcesMenu(){

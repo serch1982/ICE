@@ -288,6 +288,7 @@ bool iceStatePlay::keyReleased(const OIS::KeyEvent &arg)
 bool iceStatePlay::mouseMoved(const OIS::MouseEvent &arg) {
 	if( _sceneManager->getCurrentViewport()->getCamera()->getName() != "GodCam" )
 		_player->processMouseMoved(arg.state.X.rel,arg.state.Y.rel,arg.state.Z.abs);
+	
     return true;
 }
 

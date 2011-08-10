@@ -2,7 +2,7 @@
 
 iceBullet::iceBullet(void)
 :
-	mDuration(5),
+	mDuration(3),
 	mActive(true),
 	mDamage(0),
 	mCritic(false),
@@ -17,22 +17,28 @@ iceBullet::~iceBullet(void)
 	finalizeEntity();
 }
 
-void iceBullet::createBullet(bool fromPlayer, Ogre::SceneNode* bulletNode, Ogre::Vector3 boxSize, Ogre::Vector3 position, Ogre::Quaternion orientation,Ogre::Radian desviation){
+void iceBullet::createBullet(bool fromPlayer, Ogre::Entity* bulletEntity, Ogre::SceneNode* bulletNode, Ogre::Vector3 boxSize, Ogre::Vector3 position, Ogre::Quaternion orientation,Ogre::Radian desviation, Ogre::String boneName, Ogre::String particleName){
 		mFromPlayer = fromPlayer;
-		bulletNode->setOrientation(orientation);
-		bulletNode->setPosition(position);
-		
+
 		Ogre::Vector3 desviationDirection = Ogre::Vector3::UNIT_Z.randomDeviant(desviation);
 		bulletNode->rotate(Ogre::Vector3::UNIT_Z.getRotationTo(desviationDirection));
 
+		bulletNode->setOrientation(orientation);
+		bulletNode->setPosition(position);
+
 		icePhysicEntity::initializePhysics(bulletNode->getName(), boxSize);
 		bulletNode->attachObject(getGeometry()->getMovableObject());
+
+		if((boneName != "") &&  (particleName != ""))
+		mParticlePtr = iceParticleMgr::getSingletonPtr()->createPartAttachToBone(bulletEntity,boneName,particleName,true);
 
 		mBulletNode = bulletNode;
 }
 
 void iceBullet::finalizeEntity()
 {
+	if(mParticlePtr) iceParticleMgr::getSingletonPtr()->removeParticle(mParticlePtr);
+
 	if(mBulletNode){
 		mBulletNode->detachAllObjects();
 		mBulletNode->removeAndDestroyAllChildren();

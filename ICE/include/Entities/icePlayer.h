@@ -14,7 +14,7 @@
 #include <OgreLog.h>
 #include "Utils\iceSdkTray.h"
 #include "Stats\icePlayerStats.h"
-#include "Particle\iceParticle.h"
+#include "Particle\iceParticleMgr.h"
 #include "Entities\icePhysicEntity.h"
 #include "Entities\iceBulletMgr.h"
 #include <boost/enable_shared_from_this.hpp>
@@ -63,6 +63,32 @@ class icePlayer : public iceTrajectoryFollower
 		void setShipPosition(Ogre::Vector3 pos){ shipNode->setPosition(pos);}
 
 		Ogre::AxisAlignedBox getVitualCamBBox(void);
+
+		//
+		bool _isShooting;
+
+		//Redefinidas para tener en cuenta los logros
+		void setWeaponLevel(unsigned int p_iWeapon,unsigned int p_iLevel);
+
+		Ogre::SceneNode *cursorPlaneNode, *shipPlaneNode, *cameraPlaneNode, *cursorNode, *shipNode, *cameraNode, *scrollNode, *rollNode; 
+		//virtual node for the wide camera boundingbox
+		Ogre::SceneNode* snVirtualCam;
+		iceGeometryPtr virtualCam;
+
+		Ogre::Real shipMaxVelocity, _velocityX, _velocityY;
+		Ogre::Camera* playerCamera;
+		Ogre::Log* mLog;
+		Ogre::Vector3 _lastPosition;
+
+		int mXUserDeviation;
+		int mYUserDeviation;
+
+		void setMovingUp(bool pMovingUp);
+		void setMovingDown(bool pMovingDown);
+		void setMovingLeft(bool pMovingLeft);
+		void setMovingRight(bool pMovingRight);
+
+		bool isPositionBackToPlayer(Ogre::Vector3 pPosition);
 	protected:
 
 		bool mMovingUp;
@@ -95,33 +121,10 @@ class icePlayer : public iceTrajectoryFollower
 		void updateRightBarrel(Ogre::Real pTimeSinceLastEvent);
 		void updateBarrelCommon(Ogre::Real* pTime, Ogre::Real pTimeSinceLastEvent, int pDirection);
 		
-	public:
-		bool _isShooting;
-
-		//Redefinidas para tener en cuenta los logros
-		void setWeaponLevel(unsigned int p_iWeapon,unsigned int p_iLevel);
-
-		Ogre::SceneNode *cursorPlaneNode, *shipPlaneNode, *cameraPlaneNode, *cursorNode, *shipNode, *cameraNode, *scrollNode, *rollNode; 
-		//virtual node for the wide camera boundingbox
-		Ogre::SceneNode* snVirtualCam;
-		iceGeometryPtr virtualCam;
-
-		Ogre::Real shipMaxVelocity, _velocityX, _velocityY;
-		Ogre::Camera* playerCamera;
-		Ogre::Log* mLog;
-		Ogre::Vector3 _lastPosition;
-
-		int mXUserDeviation;
-		int mYUserDeviation;
-
-		void setMovingUp(bool pMovingUp);
-		void setMovingDown(bool pMovingDown);
-		void setMovingLeft(bool pMovingLeft);
-		void setMovingRight(bool pMovingRight);
-
-		iceParticlePtr miceParticlePtr;
-
-		bool isPositionBackToPlayer(Ogre::Vector3 pPosition);
+		//particles
+		iceParticlePtr mParticleTurboLeft;
+		iceParticlePtr mParticleTurboRight;
+		
 };
 
 typedef boost::shared_ptr<icePlayer> icePlayerPtr;

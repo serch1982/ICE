@@ -1,0 +1,19 @@
+
+material crashpff
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+
+			texture_unit crashpff.png
+			{
+				texture_alias crashpff.png
+				texture crashpff.png
+			}
+		}
+
+	}
+
+}
