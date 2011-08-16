@@ -19,10 +19,7 @@ iceStatePlay::iceStatePlay(
 	_nextICEStateId = PLAY;
 	visibleBoundingBoxes = false;
 
-	mUpCounter = 0;
-	mDownCounter = 0;
-	mLeftCounter = 0;
-	mRightCounter = 0;
+	mRightClick = false;
 
 	mCurrentTime = 0;
 	mCurrentCutScene = NULL;
@@ -179,14 +176,6 @@ void iceStatePlay::update(Ogre::Real evt)
 	
 		//}
 
-		if(mUpCounter > 0)
-			mUpCounter -= evt;
-		if(mDownCounter > 0)
-			mDownCounter -= evt;
-		if(mLeftCounter > 0)
-			mLeftCounter -= evt;
-		if(mRightCounter > 0)
-			mRightCounter -= evt;
 
 		//chivatos of the camera
 		iceSdkTray::getInstance()->updateScreenInfo( 0, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedPosition().x));
@@ -213,7 +202,7 @@ bool iceStatePlay::keyPressed(const OIS::KeyEvent &arg) {
     }
 	else if(arg.key == OIS::KC_W)   // up
     {
-		if(mUpCounter > 0)
+		if(mRightClick ==  true)
 		{
 			_player->sprint();
 		}
@@ -224,7 +213,7 @@ bool iceStatePlay::keyPressed(const OIS::KeyEvent &arg) {
     }
 	else if(arg.key == OIS::KC_S)   // down
     {
-		if(mDownCounter > 0)
+		if(mRightClick ==  true)
 		{
 			_player->brake();
 		}
@@ -235,7 +224,7 @@ bool iceStatePlay::keyPressed(const OIS::KeyEvent &arg) {
     }	
 	else if(arg.key == OIS::KC_A)   // left
     {
-		if(mLeftCounter > 0)
+		if(mRightClick ==  true)
 		{
 			_player->barrelLeft();
 		}
@@ -246,7 +235,7 @@ bool iceStatePlay::keyPressed(const OIS::KeyEvent &arg) {
     }	
 	else if(arg.key == OIS::KC_D)   // right
     {
-		if(mRightCounter > 0)
+		if(mRightClick ==  true)
 		{
 			_player->barrelRight();
 		}
@@ -263,22 +252,18 @@ bool iceStatePlay::keyReleased(const OIS::KeyEvent &arg)
 {
 	if(arg.key == OIS::KC_W)   // up
     {
-		mUpCounter = DOUBLE_KEY_TIME;
 		_player->setMovingUp(false);
     }
 	else if(arg.key == OIS::KC_S)   // down
     {
-		mDownCounter = DOUBLE_KEY_TIME;
 		_player->setMovingDown(false);
     }	
 	else if(arg.key == OIS::KC_A)   // left
     {
-		mLeftCounter = DOUBLE_KEY_TIME;
 		_player->setMovingLeft(false);
     }	
 	else if(arg.key == OIS::KC_D)   // right
     {
-		mRightCounter = DOUBLE_KEY_TIME;
 		_player->setMovingRight(false);
     }
 	
@@ -295,11 +280,15 @@ bool iceStatePlay::mouseMoved(const OIS::MouseEvent &arg) {
 bool iceStatePlay::mousePressed(const OIS::MouseEvent &arg, OIS::MouseButtonID id) {
 	if(id==0) 
 		_player->setIsShooting(true);
+
+	if(id== 1) 
+		mRightClick = true;
     return true;
 }
 
 bool iceStatePlay::mouseReleased(const OIS::MouseEvent &arg, OIS::MouseButtonID id) {
 	if(id==0) _player->setIsShooting(false);
+	if(id== 1)  mRightClick = false;
     return true;
 }
 

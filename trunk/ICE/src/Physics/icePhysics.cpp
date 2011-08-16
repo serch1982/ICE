@@ -67,7 +67,7 @@ void icePhysics::processTerrainCollision(void){
 	Ogre::Real ygap = 0.6;
 	
 	Ogre::Vector3 posp = icePlayer::getSingletonPtr()->getPosition();
-	posp.y = posp.y - 3;
+	posp.y = posp.y - 2;
 	Ogre::Ray playerRayNY(posp, Ogre::Vector3::NEGATIVE_UNIT_Y);
 		
 	Ogre::TerrainGroup::RayResult mResult =mTerrainGroup->rayIntersects(playerRayNY,dis); 

@@ -1,5 +1,5 @@
 #include "Entities\icePlayer.h"
-#include "Utils/iceDamageTextManager.h"
+#include "Utils\iceDamageTextManager.h"
 #include "iceGame.h"
 
 #include "Particle\iceParticleMgr.h"
@@ -391,9 +391,8 @@ void icePlayer::update(Ogre::Real p_timeSinceLastFrame)
 
 void icePlayer::createShotEntity(int p_iWeapon, Ogre::Radian p_fDeviation, unsigned int p_iDamage, bool p_bCritic)
 {
-	Ogre::Vector3 bPos = (((cursorNode->_getDerivedPosition() + shipNode->_getDerivedPosition()) / 2) + shipNode->_getDerivedPosition()) /2;
-	
-	iceBulletMgr::getSingletonPtr()->createBullet(true, "bt_player_",p_iWeapon, bPos, shipNode->_getDerivedOrientation(), p_fDeviation,p_iDamage, p_bCritic);
+	Ogre::Vector3 bPos =   shipNode->_getDerivedPosition() + ((cursorNode->_getDerivedPosition() - shipNode->_getDerivedPosition() ) / 16);
+	iceBulletMgr::getSingletonPtr()->createBullet(true, "bt_player_",p_iWeapon, bPos, -shipNode->_getDerivedOrientation(), p_fDeviation,p_iDamage, p_bCritic);
 }
 
 void icePlayer::showReceivedDamage(unsigned int p_iDamage, bool p_bCritical)
