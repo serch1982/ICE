@@ -121,10 +121,7 @@ class iceStatePlay: public iceState{
 		bool visibleBoundingBoxes;
 
 		//Contadores para dobles pulsaciones de teclas
-		Ogre::Real mUpCounter;
-		Ogre::Real mDownCounter;
-		Ogre::Real mLeftCounter;
-		Ogre::Real mRightCounter;
+		bool mRightClick;
 
 		Ogre::Real mCurrentTime;
 		iceCutScene* mCurrentCutScene;

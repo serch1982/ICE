@@ -21,7 +21,7 @@ void iceBullet::createBullet(bool fromPlayer, Ogre::Entity* bulletEntity, Ogre::
 		mFromPlayer = fromPlayer;
 
 		Ogre::Vector3 desviationDirection = Ogre::Vector3::UNIT_Z.randomDeviant(desviation);
-		bulletNode->rotate(Ogre::Vector3::UNIT_Z.getRotationTo(desviationDirection));
+		//bulletNode->rotate(Ogre::Vector3::UNIT_Z.getRotationTo(desviationDirection));
 
 		bulletNode->setOrientation(orientation);
 		bulletNode->setPosition(position);
