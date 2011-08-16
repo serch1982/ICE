@@ -43,7 +43,7 @@ void iceSdkTray::setupScreenInfo(Ogre::RenderWindow* mWindow, OIS::Mouse* mMouse
 	items.push_back("Level");					// 14
 	items.push_back("cam dir");					// 15
 	items.push_back("mouse");					// 16
-	
+	items.push_back("ship");					// 17
 	/*
 		here you can add your custom chivato like items.push_back("mycustomchivato"); 
 	*/
