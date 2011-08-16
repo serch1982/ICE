@@ -52,6 +52,12 @@ void icePhysics::processBullets(void)
 				}
 			}
 		}
+		//detect collision between the player and the terrain
+		Ogre::Ray bulletRayNY((*iter)->getPosition(), Ogre::Vector3::NEGATIVE_UNIT_Y);
+		Ogre::TerrainGroup::RayResult mResult =mTerrainGroup->rayIntersects(bulletRayNY,0.1); 
+		if (!mResult.hit){
+			(*iter)->desactivate();
+		}
 		++iter;
 	}
 }
@@ -69,7 +75,8 @@ void icePhysics::processTerrainCollision(void){
 	Ogre::Vector3 posp = icePlayer::getSingletonPtr()->getPosition();
 	posp.y = posp.y - 2;
 	Ogre::Ray playerRayNY(posp, Ogre::Vector3::NEGATIVE_UNIT_Y);
-		
+	
+	//detect collision between the player and the terrain
 	Ogre::TerrainGroup::RayResult mResult =mTerrainGroup->rayIntersects(playerRayNY,dis); 
 	
 	if (!mResult.hit){
@@ -79,6 +86,7 @@ void icePhysics::processTerrainCollision(void){
 		icePlayer::getSingletonPtr()->setShipPosition(Ogre::Vector3(initPos.x, lastPos.y + ygap,initPos.z));
 	}
 
+	//detect collision between enemies and the terrain
 	for(unsigned j = 0; j < mEnemies->size(); j++){
 		iceEnemy* enemy = (*mEnemies)[j];
 

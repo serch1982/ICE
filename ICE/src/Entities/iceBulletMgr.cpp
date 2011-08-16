@@ -50,7 +50,7 @@ iceBulletPtr iceBulletMgr::createBullet(bool fromPlayer, Ogre::String name,int b
 				    mBulletNode->scale(.04,.04,.04);
 					
 					bullet->createBullet(fromPlayer,NULL, mBulletNode, Ogre::Vector3(3,3,3), initPos, orientation, desviation, "","");
-					bullet->setSpeed(250);
+					bullet->setSpeed(500);
 					bullet->setCritic(critic);
 					bullet->setDamage(damage);
 		}
@@ -63,7 +63,7 @@ iceBulletPtr iceBulletMgr::createBullet(bool fromPlayer, Ogre::String name,int b
 				    mBulletNode->scale(.05,.05,.05);
 					
 					bullet->createBullet(fromPlayer,NULL, mBulletNode,  Ogre::Vector3(3,3,3), initPos, orientation, desviation,"","");
-					bullet->setSpeed(250);
+					bullet->setSpeed(500);
 					bullet->setCritic(critic);
 					bullet->setDamage(damage);
 		}

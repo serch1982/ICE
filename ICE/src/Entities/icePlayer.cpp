@@ -215,9 +215,22 @@ char* icePlayer::getCurrentWeaponName(void){
 
 void icePlayer::processMouseMoved(const int x, const int y, const int z)
 {
-	iceSdkTray::getInstance()->updateScreenInfo( 16, Ogre::StringConverter::toString(cursorNode->getPosition().x) + " - " + Ogre::StringConverter::toString(cursorNode->getPosition().y) );
 	cursorNode->translate(((Ogre::Real)-x)/20,((Ogre::Real)-y)/20,0);
-
+	//restrict the cursor inside the screen
+	Ogre::Real h = 50 ;
+	Ogre::Real w = iceGame::getRenderWindow()->getWidth() < 800 ? 65 :  (iceGame::getRenderWindow()->getWidth() * 7.1) / 100.0;
+	Ogre::Vector3 ori = cursorNode->getPosition();
+	Ogre::Real mx = Ogre::Math::Abs(ori.x);
+	Ogre::Real my = Ogre::Math::Abs(ori.y);
+	if(mx > w) {
+		Ogre::Real amx = mx - w;
+		cursorNode->translate(ori.x > 0 ? -amx : amx,0,0);
+	}
+	if(my > h) {
+		Ogre::Real amy = my - h;
+		cursorNode->translate(0,ori.y > 0 ? -amy : amy,0);
+	}
+	iceSdkTray::getInstance()->updateScreenInfo( 16, Ogre::StringConverter::toString(ori.x) + " - " + Ogre::StringConverter::toString(ori.y));
 	changeWeapon(z); /* Pau * Change weapon with mouse wheel */
 }
 
@@ -382,6 +395,22 @@ void icePlayer::update(Ogre::Real p_timeSinceLastFrame)
 	}
 	updateLookAt(p_timeSinceLastFrame);
 	updateScroll(p_timeSinceLastFrame);
+	//restrict the ship inside the screen 
+	Ogre::Real h = 11 ;
+	Ogre::Real w = 12;
+	Ogre::Vector3 ori = shipNode->getPosition();
+	Ogre::Real mx = Ogre::Math::Abs(ori.x);
+	Ogre::Real my = Ogre::Math::Abs(ori.y);
+	if(mx > w) {
+		Ogre::Real amx = mx - w;
+		shipNode->translate(ori.x > 0 ? -amx : amx,0,0);
+	}
+	if(my > h) {
+		Ogre::Real amy = my - h;
+		shipNode->translate(0,ori.y > 0 ? -amy : amy,0);
+	}
+	iceSdkTray::getInstance()->updateScreenInfo( 17, Ogre::StringConverter::toString(ori.x) + " - " + Ogre::StringConverter::toString(ori.y));
+	//
 	iceRPG::update(p_timeSinceLastFrame);
 	//addExperience(1000);	//TODO borrar
 	if (_isShooting){

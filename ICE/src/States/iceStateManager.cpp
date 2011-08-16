@@ -10,10 +10,10 @@
 #include "States\iceStateMenu.h"
 #include "States\iceStatePlay.h"
 #include "States\iceStatePause.h"
-#include <Sound\iceSoundManager.h>
+#include "Sound\iceSoundManager.h"
 #include "iceGame.h"
-#include <Utils\iceLoadingBar.h>
-#include <SdkCameraMan.h>
+#include "Utils\iceLoadingBar.h"
+#include "SdkCameraMan.h"
 
 OgreBites::SdkCameraMan* _sdkCameraMan;
 
