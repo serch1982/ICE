@@ -24,11 +24,17 @@
 #define SPRINT_TIME 3
 #define SPRINT_MULTIMPLICATOR 4
 
-#define VELOCITY 0.3
+#ifdef _DEBUG 
+	#define VELOCITY 0.08
+#else
+	#define VELOCITY 0.05
+#endif
 #define MAX_VELOCITY 5
 
-#define LOOK_AT_FAR_FACTOR 1000
+#define ROLL_VELOCITY 1
+#define MAX_ROLL 20
 
+#define LOOK_AT_FAR_FACTOR 1000
 
 // BEGIN SINGLETON
 template<> icePlayer* Ogre::Singleton<icePlayer>::ms_Singleton = 0;
@@ -53,6 +59,7 @@ icePlayer::icePlayer():_isShooting(false)
 
 	_velocityX = MAX_VELOCITY;
 	_velocityY = MAX_VELOCITY;
+	_rolling = 0;
 	//Init Scroll
 	scrollNode =  mNode->createChildSceneNode();
 
@@ -237,19 +244,6 @@ void icePlayer::processMouseMoved(const int x, const int y, const int z)
 void icePlayer::updateShipPosition(Ogre::Real frameTime)
 {
 	_lastPosition = shipNode->getPosition();
-	//updatePosition
-	//Ogre::Vector3 targetPosition = cursorNode->getPosition() / 4 ;
-	////Ogre::Real maxMovement = shipMaxVelocity * frameTime;
-	//Ogre::Real maxMovement = getManiobrability() * frameTime;
-	//targetPosition.x += -(Ogre::Real)mXUserDeviation*10;
-	//targetPosition.y += (Ogre::Real)mYUserDeviation*10;
-	//targetPosition.z = 0;
-	//Ogre::Vector3 translation = targetPosition - shipNode->getPosition();
-	//if (translation.squaredLength() > maxMovement)
-	//{
-	//	translation.normalise();
-	//	translation *= maxMovement;
-	//}
 
 	Ogre::Vector3 camPos = cameraPlaneNode->getPosition();
 	Ogre::Vector3 shipPos = shipNode->getPosition();
@@ -259,7 +253,6 @@ void icePlayer::updateShipPosition(Ogre::Real frameTime)
 	Ogre::Real spcam = (shipPos.z - camPos.z) ; 
 	if ((spcam < CAMERA_PLANE_Z) || (shipPos.z < 0)) 
 		translation += Ogre::Vector3::UNIT_Z;
-
 
 	if(mMovingUp){
 		_velocityY -= VELOCITY ;
@@ -288,7 +281,8 @@ void icePlayer::updateShipPosition(Ogre::Real frameTime)
 	translation *=(getManiobrability() /divVel ) * frameTime;
 
 	shipNode->translate(translation);
-
+	shipNode->resetOrientation();
+	
 
 	mCameraHeight = CAMERA_PLANE_Z * Ogre::Math::Tan(playerCamera->getFOVy());
 	mCameraWidth = mCameraHeight * playerCamera->getAspectRatio();
@@ -304,8 +298,25 @@ void icePlayer::updateShipPosition(Ogre::Real frameTime)
 	iceSdkTray::getInstance()->updateScreenInfo(14,str5.str());
 }
 
+
 void icePlayer::updateLookAt(Ogre::Real frameTime)
 {
+	if(mMovingLeft){
+		_rolling = _rolling - ROLL_VELOCITY;
+		if(_rolling < -MAX_ROLL) _rolling  = -MAX_ROLL;
+	}
+	if(mMovingRight){
+		_rolling = _rolling + ROLL_VELOCITY;
+		if(_rolling > MAX_ROLL) _rolling  = MAX_ROLL;
+	}
+	if ((!mMovingRight) && (!mMovingLeft)){
+		if(_rolling != 0)
+		if (_rolling > 0) 
+			_rolling = _rolling - ROLL_VELOCITY;
+		else
+			_rolling = _rolling + ROLL_VELOCITY;
+	}
+		//MAX_ROLL
 	Ogre::Real x = cursorNode->getPosition().x*LOOK_AT_FAR_FACTOR - shipNode->getPosition().x;
 	Ogre::Real y = cursorNode->getPosition().y*LOOK_AT_FAR_FACTOR - shipNode->getPosition().y;
 	Ogre::Real z = (CURSOR_PLANE_Z+CAMERA_PLANE_Z)*LOOK_AT_FAR_FACTOR - CAMERA_PLANE_Z;
@@ -313,6 +324,7 @@ void icePlayer::updateLookAt(Ogre::Real frameTime)
 	shipNode->resetOrientation();
 	shipNode->yaw(Ogre::Radian(atan(x/z)));
 	shipNode->pitch(-Ogre::Radian(atan(y/z)));
+	shipNode->roll(Ogre::Radian(_rolling * ( Ogre::Math::PI / 180)));
 }
 
 void icePlayer::updateScroll(Ogre::Real frameTime)

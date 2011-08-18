@@ -58,35 +58,21 @@ class icePlayer : public iceTrajectoryFollower
 		//debug
 		void setDebug(bool vari){ getGeometry()->getMovableObject()->setVisible(vari); virtualCam->getMovableObject()->setVisible(vari);}
 
+		Ogre::SceneNode* getShipNode(void) { return shipNode; }
 		Ogre::Vector3 getShipLastPosition(void){ return _lastPosition;}
 		Ogre::Vector3 getShipPosition(void){ return shipNode->getPosition();}
-		void setShipPosition(Ogre::Vector3 pos){ shipNode->setPosition(pos);}
+		void setShipTranslate(Ogre::Vector3 pos){ shipNode->translate(pos);}
 
 		Ogre::AxisAlignedBox getVitualCamBBox(void);
 
-		//
-		bool _isShooting;
-
-		//Redefinidas para tener en cuenta los logros
-		void setWeaponLevel(unsigned int p_iWeapon,unsigned int p_iLevel);
-
-		Ogre::SceneNode *cursorPlaneNode, *shipPlaneNode, *cameraPlaneNode, *cursorNode, *shipNode, *cameraNode, *scrollNode, *rollNode; 
-		//virtual node for the wide camera boundingbox
-		Ogre::SceneNode* snVirtualCam;
-		iceGeometryPtr virtualCam;
-
-		Ogre::Real shipMaxVelocity, _velocityX, _velocityY;
-		Ogre::Camera* playerCamera;
-		Ogre::Log* mLog;
-		Ogre::Vector3 _lastPosition;
-
-		int mXUserDeviation;
-		int mYUserDeviation;
-
+		//motion
 		void setMovingUp(bool pMovingUp);
 		void setMovingDown(bool pMovingDown);
 		void setMovingLeft(bool pMovingLeft);
 		void setMovingRight(bool pMovingRight);
+
+		//Redefinidas para tener en cuenta los logros
+		void setWeaponLevel(unsigned int p_iWeapon,unsigned int p_iLevel);
 
 		bool isPositionBackToPlayer(Ogre::Vector3 pPosition);
 	protected:
@@ -111,6 +97,18 @@ class icePlayer : public iceTrajectoryFollower
 
 		Ogre::Real mMaxScrollX; //Absolute value
 		Ogre::Real mMaxScrollY; //Absolute value
+
+		Ogre::SceneNode *cursorPlaneNode, *shipPlaneNode, *cameraPlaneNode, *cursorNode, *shipNode, *cameraNode, *scrollNode, *rollNode; 
+		//virtual node for the wide camera boundingbox
+		Ogre::SceneNode* snVirtualCam;
+		iceGeometryPtr virtualCam;
+		Ogre::Real shipMaxVelocity, _velocityX, _velocityY,_rolling;
+		Ogre::Camera* playerCamera;
+		Ogre::Log* mLog;
+		Ogre::Vector3 _lastPosition;
+		int mXUserDeviation;
+		int mYUserDeviation;
+		bool _isShooting;
 
 		Ogre::Real mLeftBarrelTime; //Contadores, ha habilidad esta activa mientras el contador sea mayor que cero
 		Ogre::Real mRightBarrelTime; //Contadores, ha habilidad esta activa mientras el contador sea mayor que cero
