@@ -1,0 +1,22 @@
+
+material Waterfall_mat
+{
+	technique
+	{
+		pass 
+		{
+			lighting off
+			scene_blend alpha_blend
+			depth_check on
+			depth_write off
+
+			texture_unit 
+			{
+				texture clean_water.png
+				tex_address_mode wrap
+				scroll_anim 0 0.1
+				filtering none
+			}
+		}
+	}
+}

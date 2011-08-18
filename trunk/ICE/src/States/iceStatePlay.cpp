@@ -76,7 +76,43 @@ void iceStatePlay::load() {
     }else if( _levelID == 2 ){
 		// Boss LEVEL
 		if( !_loaded ){
-			
+						_log->logMessage("iceStatePlay::load()");
+			_loaded = true;
+
+			// light
+			_sceneManager->setAmbientLight(Ogre::ColourValue(0.25, 0.25, 0.25));
+		
+			//particle system
+			mIceParticleMgr = iceParticleMgrPtr(new iceParticleMgr());
+			mIceParticleMgr->initialize();
+
+			//bullet manager
+			mIceBulletMgr = iceBulletMgrPtr(new iceBulletMgr());
+
+			//new player instance
+			_player = icePlayerPtr(new icePlayer());
+
+			//hide cursor
+			iceSdkTray::getInstance()->hideCursor();
+
+			//load sounds
+			_soundManager->loadLevel1();
+			_soundManager->PlaySound(0, Ogre::Vector3::ZERO, 0);
+
+			//load lua logic
+			iceLogicLua::getInstance()->runAllFiles();
+
+			// load level
+			_level = iceLevelManager::getSingleton().getIceLevel(_levelID);
+			_level->load(_mEnemies, _mCutScenes);
+
+			//load phisics
+			mPhysics = icePhysicsPtr(new icePhysics());
+			mPhysics->initialize(_level->getTerrain(), &_mEnemies, _level->getStaticPhisicSceneObjects());
+
+			//show HUD
+			mHUD = iceGame::getUI()->getHUD();
+			mHUD->show();
 		}
 	}
 

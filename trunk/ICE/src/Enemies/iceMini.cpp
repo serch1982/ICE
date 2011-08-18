@@ -67,6 +67,7 @@ void iceMini::update(Ogre::Real p_timeSinceLastFrame){
 			mTrajectory->lookAt();
 			/*if (!isAlive())
 				mState = DYING;*/
+			mIddle->addTime(p_timeSinceLastFrame);
 			break;
 		case FOLLOWING_TRAJECTORY:
 			enemyNode->translate(mIceStrategy->move(enemyNode->_getDerivedPosition(), p_timeSinceLastFrame));
@@ -75,6 +76,7 @@ void iceMini::update(Ogre::Real p_timeSinceLastFrame){
 			//enemyNode->setPosition(mIceStrategy->move(Ogre::Vector3(0,0,0), enemyNode->_getDerivedPosition(), 1, Ogre::Vector3(1,0,0)));
 			/*if (!isAlive())
 				mState = DYING;*/
+			mIddle->addTime(p_timeSinceLastFrame);
 			break;
 		case ATTACK: 
 			mTrajectory->lookAt(); //TODO  * p_timeSinceLastFrame
@@ -88,7 +90,6 @@ void iceMini::update(Ogre::Real p_timeSinceLastFrame){
 			{
 				mIddle->addTime(p_timeSinceLastFrame);
 			}
-
 			/*if(mIddle2->hasEnded())
 			{
 				mIddle2->setEnabled(false);
