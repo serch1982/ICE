@@ -31,7 +31,7 @@ void icePhysics::processBullets(void)
 	iceBulletIter iter = bl.begin();
 
 	AxisAlignedBox pbox = icePlayer::getSingletonPtr()->getGeometry()->getWorldBoundingBox(icePlayer::getSingletonPtr()->getPosition());
-
+	//bullets against bodies 
 	while(iter != bl.end()){
 		AxisAlignedBox bbox = (*iter)->getGeometry()->getWorldBoundingBox((*iter)->getPosition());
 		if(!(*iter)->isFromPlayer()){
@@ -69,7 +69,7 @@ void icePhysics::update(void){
 
 void icePhysics::processTerrainCollision(void){
 	Ogre::Real dis = 0.1;
-	Ogre::Real xgap = 1.5;
+	Ogre::Real xgap = 1;
 	Ogre::Real ygap = 0.6;
 	
 	Ogre::Vector3 posp = icePlayer::getSingletonPtr()->getPosition();
@@ -80,10 +80,14 @@ void icePhysics::processTerrainCollision(void){
 	Ogre::TerrainGroup::RayResult mResult =mTerrainGroup->rayIntersects(playerRayNY,dis); 
 	
 	if (!mResult.hit){
-		icePlayer::getSingletonPtr()->addDamage(DEFAULT_DAMAGE_WALL,false);
 		Ogre::Vector3 initPos = icePlayer::getSingletonPtr()->getShipPosition();
-		Ogre::Vector3 lastPos = icePlayer::getSingletonPtr()->getShipLastPosition();
-		icePlayer::getSingletonPtr()->setShipPosition(Ogre::Vector3(initPos.x, lastPos.y + ygap,initPos.z));
+		iceSdkTray::getInstance()->updateScreenInfo( 18, Ogre::StringConverter::toString(initPos.x) + " - " + Ogre::StringConverter::toString(initPos.y)+ " - " + Ogre::StringConverter::toString(initPos.z));
+		icePlayer::getSingletonPtr()->addDamage(DEFAULT_DAMAGE_WALL,false);
+		if(initPos.x > 0) xgap = -xgap;
+		if((initPos.x > -5) && (initPos.x < 5)){
+			xgap = 0;
+		}
+		icePlayer::getSingletonPtr()->setShipTranslate(Ogre::Vector3(xgap, ygap,0));
 	}
 
 	//detect collision between enemies and the terrain
@@ -126,7 +130,7 @@ void icePhysics::processObjectCollision(void){
 				icePlayer::getSingletonPtr()->addDamage(DEFAULT_DAMAGE_OBJECTS,false);
 				Ogre::Vector3 initPos = icePlayer::getSingletonPtr()->getShipPosition();
 				if( initPos.z <= 1 && initPos.z > DEFAULT_RETURN_SHIP_MAX){
-					icePlayer::getSingletonPtr()->setShipPosition(Ogre::Vector3(initPos.x, initPos.y,initPos.z - DEFAULT_RETURN_SHIP));
+					icePlayer::getSingletonPtr()->setShipTranslate(Ogre::Vector3(0, 0,-DEFAULT_RETURN_SHIP));
 				}
 			}
 		}

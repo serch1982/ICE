@@ -20,18 +20,47 @@ system ice/iceMisilTurbo
             time_to_live                        2
             mass                                10
             velocity                            20
-            direction                           0 0 -1
-            orientation                         1 0 0 1
             auto_direction                      true
-        }
-        affector                                Gravity 
-        {
-            position                            1 0 0
-            gravity                             10
         }
         affector                                Scale 
         {
             xyz_scale                           -3
+        }
+        affector                                Jet Affector2
+        {
+        }
+    }
+    technique 
+    {
+        keep_local                              true
+        emitted_emitter_quota                   20
+        material                                iceflame2
+        default_particle_width                  6
+        default_particle_height                 6
+        default_particle_depth                  6
+        spatial_hashing_cell_dimension          1
+        renderer                                Billboard
+        {
+        }
+        emitter                                 Point 
+        {
+            emission_rate                       40
+            angle                               0
+            time_to_live                        1
+            velocity                            dyn_random
+            {
+                min                             20
+                max                             40
+            }
+            auto_direction                      true
+        }
+        affector                                Scale 
+        {
+            xyz_scale                           -3
+        }
+        affector                                Gravity Affector2
+        {
+            gravity                             10
         }
     }
 }

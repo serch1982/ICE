@@ -46,7 +46,7 @@ bool iceEnemy::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActiva
 
 	//Dummy Trajectory
 	setTrajectory(new iceTrajectory());
-	mTrajectory->setNodeToLookAt(icePlayer::getSingletonPtr()->shipNode);
+	mTrajectory->setNodeToLookAt(icePlayer::getSingletonPtr()->getShipNode());
 	
 	mState = INACTIVE;
 	setLevel(1);

@@ -30,9 +30,9 @@ bool iceMini::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActivat
 		Ogre::String st = bn->getName();
 	}*/
 	mIddle = mesh->getAnimationState( "iddle" );
-	mIddle2 = mesh->getAnimationState( "iddle2" );
+	/*mIddle2 = mesh->getAnimationState( "iddle2" );
 	mIddle2->setEnabled( true );
-	mIddle2->setLoop( true );
+	mIddle2->setLoop( true );*/
 
 	//init physics
 	icePhysicEntity::initializePhysics("phy_mini"+ entityName.str(), Ogre::Vector3(3.2,7,2));
@@ -82,14 +82,14 @@ void iceMini::update(Ogre::Real p_timeSinceLastFrame){
 			if(mIddle->hasEnded())
 			{
 				mIddle->setEnabled(false);
-				mIddle2->setEnabled(true);
+				//mIddle2->setEnabled(true);
 			}
 			else
 			{
 				mIddle->addTime(p_timeSinceLastFrame);
 			}
 
-			if(mIddle2->hasEnded())
+			/*if(mIddle2->hasEnded())
 			{
 				mIddle2->setEnabled(false);
 				mIddle->setEnabled(true);
@@ -97,7 +97,7 @@ void iceMini::update(Ogre::Real p_timeSinceLastFrame){
 			else
 			{
 				mIddle2->addTime(p_timeSinceLastFrame);
-			}
+			}*/
 			shot(); 
 			/*if (!isAlive())
 				mState = DYING;*/
