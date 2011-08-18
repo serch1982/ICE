@@ -1,0 +1,21 @@
+
+material Building04
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.3 0.3 0.3 1
+			specular 1 1 1 1 50
+
+			texture_unit
+			{
+				texture Building04.png
+			}
+		}
+
+	}
+
+}
+
+

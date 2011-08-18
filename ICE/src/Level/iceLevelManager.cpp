@@ -10,7 +10,7 @@ template<> iceLevelManager* Ogre::Singleton<iceLevelManager>::ms_Singleton = 0;
 iceLevelManager::iceLevelManager(): _numLevels(0){
 	_log = iceGame::getGameLog();
 	_levels.push_back(new iceLevel(1,"level1", "phase1Trajectory", "phase1Enemies"));
-	_levels.push_back(new iceLevel(2,"level1", "phase1Trajectory", "phase1Enemies"));
+	_levels.push_back(new iceLevel(2,"levelBoss", "phase1Trajectory", "phase1Enemies"));
 	_numLevels = 2;
 	_dotSceneLoader = new DotSceneLoader();
 	_damageTextManager = new iceDamageTextManager();
