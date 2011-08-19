@@ -385,12 +385,17 @@ void icePlayer::update(Ogre::Real p_timeSinceLastFrame)
 	{
 		mSprintTime -= p_timeSinceLastFrame;
 		trajectoryUpdate *= SPRINT_MULTIMPLICATOR;
-	}
+	}	
 	else if(mBrakeTime > 0)
 	{
 		mBrakeTime -= p_timeSinceLastFrame;
 		trajectoryUpdate /= BRAKE_DIVISOR;
 	}
+	else
+	{
+		icePostProcessManager::getSingleton().enableSoftBlur();
+	}
+
 	iceTrajectoryFollower::update(trajectoryUpdate);
 	if(mLeftBarrelTime > 0)
 	{
@@ -528,6 +533,7 @@ void icePlayer::sprint(void)
 	{
 		mSprintTime = SPRINT_TIME;
 		mBrakeTime = 0; //deactivate brake
+		icePostProcessManager::getSingleton().enableHardBlur();
 	}
 }
 
@@ -537,6 +543,7 @@ void icePlayer::brake(void)
 	{
 		mBrakeTime = BRAKE_TIME;
 		mSprintTime = 0; //deactivate sprint
+		icePostProcessManager::getSingleton().disableBlur();
 	}
 }
 
