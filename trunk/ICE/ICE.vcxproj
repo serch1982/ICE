@@ -150,6 +150,7 @@ if not exist "$(OutDir)logs" mkdir "$(OutDir)logs"</Command>
     <ClCompile Include="src\Particle\iceParticle.cpp" />
     <ClCompile Include="src\Particle\iceParticleMgr.cpp" />
     <ClCompile Include="src\Physics\icePhysics.cpp" />
+    <ClCompile Include="src\PostProcess\icePostProcessManager.cpp" />
     <ClCompile Include="src\Scene\DotSceneLoader.cpp" />
     <ClCompile Include="src\Sound\iceChannel.cpp" />
     <ClCompile Include="src\Sound\iceFileLocator.cpp" />
@@ -205,6 +206,7 @@ if not exist "$(OutDir)logs" mkdir "$(OutDir)logs"</Command>
     <ClInclude Include="include\Particle\iceParticle.h" />
     <ClInclude Include="include\Particle\iceParticleMgr.h" />
     <ClInclude Include="include\Physics\icePhysics.h" />
+    <ClInclude Include="include\PostProcess\icePostProcessManager.h" />
     <ClInclude Include="include\Scene\DotSceneLoader.h" />
     <ClInclude Include="include\Sound\iceChannel.h" />
     <ClInclude Include="include\Sound\iceFileLocator.h" />

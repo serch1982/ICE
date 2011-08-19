@@ -57,6 +57,8 @@ iceStateManager::iceStateManager(OIS::InputManager* inputManager,
 	_sdkCameraMan = new OgreBites::SdkCameraMan(_godCamera); 
 	//set the old camera the current
 	_oldCamera = iceGame::getCamera();
+
+	_postProcessManager = new icePostProcessManager();
 	
 	_levelManager = new iceLevelManager();
 	// load states
@@ -100,6 +102,7 @@ void iceStateManager::finalize(){
 		_statesVector[i] = NULL;
 	}
 	_statesVector.clear();
+	delete _postProcessManager;
 
 	_log->logMessage("iceStateManager::finalize()");
 }

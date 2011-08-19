@@ -71,6 +71,9 @@ void iceStatePlay::load() {
 			mHUD = iceGame::getUI()->getHUD();
 			mHUD->show();
 
+			//post process
+			icePostProcessManager::getSingleton().enableSoftBlur();
+
 		}
 
     }else if( _levelID == 2 ){
@@ -146,6 +149,9 @@ void iceStatePlay::clear() {
 
 		//hide HUD
 		mHUD->hide();
+
+		//post process
+		icePostProcessManager::getSingleton().disableBlur();
     }
 }
 

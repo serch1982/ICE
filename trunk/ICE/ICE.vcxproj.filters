@@ -97,6 +97,12 @@
     <Filter Include="Source Files\UI">
       <UniqueIdentifier>{a5155d87-feb2-4433-868d-f5b21650242e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\PostProcess">
+      <UniqueIdentifier>{b46630dd-ff81-4dce-82dd-4808c47828f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PostProcess">
+      <UniqueIdentifier>{aa7a0671-f5a4-4119-8683-0f27b3266374}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\iceMain.cpp">
@@ -263,6 +269,9 @@
     </ClCompile>
     <ClCompile Include="src\UI\iceUI.cpp">
       <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PostProcess\icePostProcessManager.cpp">
+      <Filter>Source Files\PostProcess</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -436,6 +445,9 @@
     </ClInclude>
     <ClInclude Include="include\UI\iceUI.h">
       <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PostProcess\icePostProcessManager.h">
+      <Filter>Header Files\PostProcess</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

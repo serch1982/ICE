@@ -6,6 +6,7 @@
 #include <States\iceState.h>
 #include <Sound\iceSoundManager.h>
 #include <Level\iceLevelManager.h>
+#include <PostProcess/icePostProcessManager.h>
 
 class iceStateManager : public Ogre::FrameListener,
                      public Ogre::WindowEventListener,
@@ -173,6 +174,9 @@ class iceStateManager : public Ogre::FrameListener,
 		iceSoundManager* _soundManager;
 		// level manager
 		iceLevelManager* _levelManager;
+
+		//post process manager
+		icePostProcessManager* _postProcessManager;
 };
 
 inline OIS::Mouse* iceStateManager::getMouse() {return _mouse;}
