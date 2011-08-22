@@ -1,0 +1,23 @@
+material postProcessToon
+{
+	technique
+	{
+		pass
+		{
+			fragment_program_ref ToonFP
+			{
+				param_named ambient float4 0.0 0.0 0.0 1.0
+				param_named diffuse float4 0.244 0.244 0.244 1
+				param_named specular float4 0.0 0.0 0.0 1
+				param_named emissive float4 0.0 0.0 0.0 1
+			}
+
+			texture_unit
+			{
+                tex_coord_set 0
+				tex_address_mode clamp
+				filtering trilinear
+			}
+		}
+	}
+}

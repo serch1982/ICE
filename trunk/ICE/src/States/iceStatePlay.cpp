@@ -73,6 +73,7 @@ void iceStatePlay::load() {
 
 			//post process
 			icePostProcessManager::getSingleton().enableSoftBlur();
+			icePostProcessManager::getSingleton().enableToon();
 
 		}
 
@@ -152,6 +153,7 @@ void iceStatePlay::clear() {
 
 		//post process
 		icePostProcessManager::getSingleton().disableBlur();
+		icePostProcessManager::getSingleton().disableToon();
     }
 }
 
