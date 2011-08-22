@@ -9,6 +9,8 @@ icePostProcessManager::icePostProcessManager()
 {
 	mHardBlurCompositor = Ogre::CompositorManager::getSingleton().addCompositor(iceGame::getViewPort(), "RadialHardBlur");
 	mSoftBlurCompositor = Ogre::CompositorManager::getSingleton().addCompositor(iceGame::getViewPort(), "RadialSoftBlur");
+
+	mToonCompositor = Ogre::CompositorManager::getSingleton().addCompositor(iceGame::getViewPort(), "ToonPostProcess");
 }
 
 icePostProcessManager::~icePostProcessManager()
@@ -43,4 +45,16 @@ void icePostProcessManager::disableBlur()
 {
 	mHardBlurCompositor->setEnabled(false);
 	mSoftBlurCompositor->setEnabled(false);
+}
+
+//Experimental
+void icePostProcessManager::enableToon()
+{
+	//mToonCompositor->setEnabled(true);
+}
+
+//Experimental
+void icePostProcessManager::disableToon()
+{
+	//mToonCompositor->setEnabled(false);
 }

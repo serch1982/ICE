@@ -30,10 +30,15 @@ class icePostProcessManager: public Ogre::Singleton<icePostProcessManager> {
 		void enableSoftBlur();
 		void disableBlur();
 
+		void enableToon();
+		void disableToon();
+
     private:
 
 		Ogre::CompositorInstance* mHardBlurCompositor;
 		Ogre::CompositorInstance* mSoftBlurCompositor;
+
+		Ogre::CompositorInstance* mToonCompositor;
         
 };
 

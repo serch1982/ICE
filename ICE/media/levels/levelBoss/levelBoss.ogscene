@@ -23,9 +23,9 @@
       <DIRECTORY type="FileSystem" value="../../materials/textures/misc"></DIRECTORY>
       <DIRECTORY type="FileSystem" value="../../materials/textures/skybox"></DIRECTORY>
     </RESOURCEDIRECTORIES>
-  <CAMERASPEED value="150"></CAMERASPEED>
+  <CAMERASPEED value="100"></CAMERASPEED>
   <CAMERAPOSITIONS count="0">
-    <OPTION id="0" position="857.146 268.581 -3183.19" orientation="-0.863979 0.305339 -0.377496 -0.133432"></OPTION>
+    <OPTION id="0" position="802.84 610.198 4904.75" orientation="0.706378 -0.282209 0.602828 0.240804"></OPTION>
   </CAMERAPOSITIONS>
     <LAYERS>
       <LAYER id="0" name="Layer 0" visible="true"></LAYER>
@@ -106,9 +106,9 @@
   <OBJECT object_id="2000000002" name="Viewport1" typename="Viewport Object">
     <PROPERTY id="camera::clipdistance" type="8" value="1 10000"></PROPERTY>
     <PROPERTY id="camera::fov" type="6" value="45"></PROPERTY>
-    <PROPERTY id="camera::orientation" type="13" value="-0.864132 0.305393 -0.377563 -0.133455"></PROPERTY>
+    <PROPERTY id="camera::orientation" type="13" value="0.706381 -0.28221 0.60283 0.240805"></PROPERTY>
     <PROPERTY id="camera::polymode" type="2" value="3"></PROPERTY>
-    <PROPERTY id="camera::position" type="9" value="857.146 268.581 -3183.19"></PROPERTY>
+    <PROPERTY id="camera::position" type="9" value="802.84 610.198 4904.75"></PROPERTY>
     <PROPERTY id="camera::viewmode" type="2" value="0"></PROPERTY>
     <PROPERTY id="colour" type="11" value="0 0 0 1"></PROPERTY>
     <PROPERTY id="compositorcount" type="2" value="0"></PROPERTY>
@@ -138,24 +138,24 @@
     </CUSTOMPROPERTIES>
   </OBJECT>
 
-  <OBJECT object_id="869045056" name="ciudad" typename="Node Object" parentnode="SceneManager">
-    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
-    <PROPERTY id="layer" type="2" value="0"></PROPERTY>
-    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
-    <PROPERTY id="orientation" type="13" value="1 0 0 0"></PROPERTY>
-    <PROPERTY id="position" type="9" value="-1844 484 -94"></PROPERTY>
-    <PROPERTY id="scale" type="9" value="1 1 1"></PROPERTY>
-    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
-    <CUSTOMPROPERTIES>
-    </CUSTOMPROPERTIES>
-  </OBJECT>
-
   <OBJECT object_id="874782592" name="Waterfall" typename="Node Object" parentnode="SceneManager">
     <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
     <PROPERTY id="layer" type="2" value="0"></PROPERTY>
     <PROPERTY id="locked" type="12" value="false"></PROPERTY>
     <PROPERTY id="orientation" type="13" value="1 0 0 0"></PROPERTY>
     <PROPERTY id="position" type="9" value="1905.63 47.7286 1655.07"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="1 1 1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
+  <OBJECT object_id="869045056" name="ciudad" typename="Node Object" parentnode="SceneManager">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="0"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="1 0 0 0"></PROPERTY>
+    <PROPERTY id="position" type="9" value="-1844 484 -94"></PROPERTY>
     <PROPERTY id="scale" type="9" value="1 1 1"></PROPERTY>
     <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
     <CUSTOMPROPERTIES>
@@ -222,6 +222,60 @@
     <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
     <PROPERTY id="scale" type="9" value="1 1 1"></PROPERTY>
     <PROPERTY id="subentity0::material" type="7" value="Building06"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
+  <OBJECT object_id="255745120" name="staticPhisicCube#4" typename="Entity Object" parentnode="StaticPhisicObjects">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="2"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="cube"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.999914 0 -0.0130896 0"></PROPERTY>
+    <PROPERTY id="position" type="9" value="-1521.99 105.978 202.648"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="0.549621 0.910197 0.601314"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
+  <OBJECT object_id="462263840" name="staticPhisicCube#8" typename="Entity Object" parentnode="StaticPhisicObjects">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="2"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="cube"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.999914 0 -0.0130896 0"></PROPERTY>
+    <PROPERTY id="position" type="9" value="-1523.72 94.0081 15.4689"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="0.596685 0.793801 2.83083"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
+  <OBJECT object_id="869350272" name="staticPhisicCube#7" typename="Entity Object" parentnode="StaticPhisicObjects">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="2"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="cube"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.999914 0 -0.0130896 0"></PROPERTY>
+    <PROPERTY id="position" type="9" value="-1612.23 94.0081 13.1513"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="0.38907 0.750655 1.95009"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
     <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
     <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
     <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
@@ -337,60 +391,6 @@
     </CUSTOMPROPERTIES>
   </OBJECT>
 
-  <OBJECT object_id="255745120" name="staticPhisicCube#4" typename="Entity Object" parentnode="StaticPhisicObjects">
-    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
-    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
-    <PROPERTY id="layer" type="2" value="2"></PROPERTY>
-    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
-    <PROPERTY id="meshfile" type="7" value="cube"></PROPERTY>
-    <PROPERTY id="orientation" type="13" value="0.999914 0 -0.0130896 0"></PROPERTY>
-    <PROPERTY id="position" type="9" value="-1521.99 105.978 202.648"></PROPERTY>
-    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
-    <PROPERTY id="scale" type="9" value="0.549621 0.910197 0.601314"></PROPERTY>
-    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
-    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
-    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
-    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
-    <CUSTOMPROPERTIES>
-    </CUSTOMPROPERTIES>
-  </OBJECT>
-
-  <OBJECT object_id="462263840" name="staticPhisicCube#8" typename="Entity Object" parentnode="StaticPhisicObjects">
-    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
-    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
-    <PROPERTY id="layer" type="2" value="2"></PROPERTY>
-    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
-    <PROPERTY id="meshfile" type="7" value="cube"></PROPERTY>
-    <PROPERTY id="orientation" type="13" value="0.999914 0 -0.0130896 0"></PROPERTY>
-    <PROPERTY id="position" type="9" value="-1523.72 94.0081 15.4689"></PROPERTY>
-    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
-    <PROPERTY id="scale" type="9" value="0.596685 0.793801 2.83083"></PROPERTY>
-    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
-    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
-    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
-    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
-    <CUSTOMPROPERTIES>
-    </CUSTOMPROPERTIES>
-  </OBJECT>
-
-  <OBJECT object_id="869350272" name="staticPhisicCube#7" typename="Entity Object" parentnode="StaticPhisicObjects">
-    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
-    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
-    <PROPERTY id="layer" type="2" value="2"></PROPERTY>
-    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
-    <PROPERTY id="meshfile" type="7" value="cube"></PROPERTY>
-    <PROPERTY id="orientation" type="13" value="0.999914 0 -0.0130896 0"></PROPERTY>
-    <PROPERTY id="position" type="9" value="-1612.23 94.0081 13.1513"></PROPERTY>
-    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
-    <PROPERTY id="scale" type="9" value="0.38907 0.750655 1.95009"></PROPERTY>
-    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
-    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
-    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
-    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
-    <CUSTOMPROPERTIES>
-    </CUSTOMPROPERTIES>
-  </OBJECT>
-
   <OBJECT object_id="342539744" name="trajectory2#1" typename="Entity Object" parentnode="SceneManager">
     <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
     <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
@@ -431,6 +431,24 @@
     </CUSTOMPROPERTIES>
   </OBJECT>
 
+  <OBJECT object_id="949156160" name="cube#0" typename="Entity Object" parentnode="Helpers">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="3"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="cube"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.878817 0 0.477159 0"></PROPERTY>
+    <PROPERTY id="position" type="9" value="2098.79 -347.078 -4083.53"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="40 1.23992 1.52989"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="Background_Toon_Material1"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
   <OBJECT object_id="480605472" name="trajectory2#2" typename="Entity Object" parentnode="SceneManager">
     <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
     <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
@@ -451,21 +469,23 @@
     </CUSTOMPROPERTIES>
   </OBJECT>
 
-  <OBJECT object_id="949156160" name="cube#0" typename="Entity Object" parentnode="Helpers">
+  <OBJECT object_id="864223104" name="trajectory2#0" typename="Entity Object" parentnode="SceneManager">
     <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
     <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
-    <PROPERTY id="layer" type="2" value="3"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="0"></PROPERTY>
     <PROPERTY id="locked" type="12" value="false"></PROPERTY>
-    <PROPERTY id="meshfile" type="7" value="cube"></PROPERTY>
-    <PROPERTY id="orientation" type="13" value="0.878817 0 0.477159 0"></PROPERTY>
-    <PROPERTY id="position" type="9" value="2098.79 -347.078 -4083.53"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="sphere"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="1 0 0 0"></PROPERTY>
+    <PROPERTY id="position" type="9" value="1107.01 -44.1375 -1778.48"></PROPERTY>
     <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
-    <PROPERTY id="scale" type="9" value="40 1.23992 1.52989"></PROPERTY>
-    <PROPERTY id="subentity0::material" type="7" value="Background_Toon_Material1"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="0.0903487 0.0903487 0.0903487"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
     <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
     <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
     <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
     <CUSTOMPROPERTIES>
+      <PROPERTY id="time" type="2" value="0" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="trajectoryNumber" type="2" value="2" autooptiontype="0"></PROPERTY>
     </CUSTOMPROPERTIES>
   </OBJECT>
 
@@ -484,26 +504,6 @@
     <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
     <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
     <CUSTOMPROPERTIES>
-    </CUSTOMPROPERTIES>
-  </OBJECT>
-
-  <OBJECT object_id="864223104" name="trajectory2#0" typename="Entity Object" parentnode="SceneManager">
-    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
-    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
-    <PROPERTY id="layer" type="2" value="0"></PROPERTY>
-    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
-    <PROPERTY id="meshfile" type="7" value="sphere"></PROPERTY>
-    <PROPERTY id="orientation" type="13" value="1 0 0 0"></PROPERTY>
-    <PROPERTY id="position" type="9" value="1107.01 -44.1375 -1778.48"></PROPERTY>
-    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
-    <PROPERTY id="scale" type="9" value="0.0903487 0.0903487 0.0903487"></PROPERTY>
-    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
-    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
-    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
-    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
-    <CUSTOMPROPERTIES>
-      <PROPERTY id="time" type="2" value="0" autooptiontype="0"></PROPERTY>
-      <PROPERTY id="trajectoryNumber" type="2" value="2" autooptiontype="0"></PROPERTY>
     </CUSTOMPROPERTIES>
   </OBJECT>
 
@@ -569,6 +569,24 @@
     </CUSTOMPROPERTIES>
   </OBJECT>
 
+  <OBJECT object_id="595019392" name="cube#1" typename="Entity Object" parentnode="Helpers">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="3"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="cube"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.591309 0 0.806445 0"></PROPERTY>
+    <PROPERTY id="position" type="9" value="1714.83 -345.484 -477.698"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="40 1.23992 1.52989"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="Background_Toon_Material1"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
   <OBJECT object_id="946104320" name="trajectory2#3" typename="Entity Object" parentnode="SceneManager">
     <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
     <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
@@ -586,24 +604,6 @@
     <CUSTOMPROPERTIES>
       <PROPERTY id="time" type="2" value="15" autooptiontype="0"></PROPERTY>
       <PROPERTY id="trajectoryNumber" type="2" value="2" autooptiontype="0"></PROPERTY>
-    </CUSTOMPROPERTIES>
-  </OBJECT>
-
-  <OBJECT object_id="595019392" name="cube#1" typename="Entity Object" parentnode="Helpers">
-    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
-    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
-    <PROPERTY id="layer" type="2" value="3"></PROPERTY>
-    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
-    <PROPERTY id="meshfile" type="7" value="cube"></PROPERTY>
-    <PROPERTY id="orientation" type="13" value="0.591309 0 0.806445 0"></PROPERTY>
-    <PROPERTY id="position" type="9" value="1714.83 -345.484 -477.698"></PROPERTY>
-    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
-    <PROPERTY id="scale" type="9" value="40 1.23992 1.52989"></PROPERTY>
-    <PROPERTY id="subentity0::material" type="7" value="Background_Toon_Material1"></PROPERTY>
-    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
-    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
-    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
-    <CUSTOMPROPERTIES>
     </CUSTOMPROPERTIES>
   </OBJECT>
 
@@ -701,9 +701,9 @@
     <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
     <CUSTOMPROPERTIES>
       <PROPERTY id="time" type="2" value="30" autooptiontype="0"></PROPERTY>
-      <PROPERTY id="MiniMagmaton" type="2" value="0" autooptiontype="0"></PROPERTY>
-      <PROPERTY id="Kamikace" type="2" value="0" autooptiontype="0"></PROPERTY>
-      <PROPERTY id="Intelligent" type="2" value="0" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="MiniMagmaton" type="2" value="5" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Kamikace" type="2" value="5" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Intelligent" type="2" value="5" autooptiontype="0"></PROPERTY>
     </CUSTOMPROPERTIES>
   </OBJECT>
 
@@ -773,6 +773,28 @@
     </CUSTOMPROPERTIES>
   </OBJECT>
 
+  <OBJECT object_id="840144064" name="step#05" typename="Entity Object" parentnode="SceneManager">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="0"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="cube"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="1 0 0 0"></PROPERTY>
+    <PROPERTY id="position" type="9" value="166.092 -30 4667.18"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="0.242014 0.242014 0.242014"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+      <PROPERTY id="time" type="2" value="15" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="MiniMagmaton" type="2" value="5" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Kamikace" type="2" value="5" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Intelligent" type="2" value="5" autooptiontype="0"></PROPERTY>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
   <OBJECT object_id="60823388" name="Lake#01" typename="Plane Object" parentnode="SceneManager">
     <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
     <PROPERTY id="castshadows" type="12" value="true"></PROPERTY>
@@ -781,42 +803,18 @@
     <PROPERTY id="height" type="6" value="10"></PROPERTY>
     <PROPERTY id="layer" type="2" value="0"></PROPERTY>
     <PROPERTY id="locked" type="12" value="false"></PROPERTY>
-    <PROPERTY id="material" type="7" value="Waterfall_mat"></PROPERTY>
+    <PROPERTY id="material" type="7" value="LavaLake_mat"></PROPERTY>
     <PROPERTY id="normal" type="9" value="0 1 0"></PROPERTY>
     <PROPERTY id="numcoordsets" type="2" value="1"></PROPERTY>
     <PROPERTY id="orientation" type="13" value="1 0 0 0"></PROPERTY>
-    <PROPERTY id="position" type="9" value="-2401.25 -308.23 1359.56"></PROPERTY>
-    <PROPERTY id="scale" type="9" value="256.85 0.999933 469.193"></PROPERTY>
+    <PROPERTY id="position" type="9" value="-296.023 -105.713 -3570.93"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="318.491 0.999933 365.122"></PROPERTY>
     <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
     <PROPERTY id="utile" type="2" value="6"></PROPERTY>
     <PROPERTY id="vtile" type="2" value="6"></PROPERTY>
     <PROPERTY id="width" type="6" value="10"></PROPERTY>
     <PROPERTY id="xsegments" type="2" value="1"></PROPERTY>
     <PROPERTY id="ysegments" type="2" value="1"></PROPERTY>
-    <CUSTOMPROPERTIES>
-    </CUSTOMPROPERTIES>
-  </OBJECT>
-
-  <OBJECT object_id="997497472" name="Lake#02" typename="Plane Object" parentnode="SceneManager">
-    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
-    <PROPERTY id="castshadows" type="12" value="true"></PROPERTY>
-    <PROPERTY id="distance" type="6" value="0"></PROPERTY>
-    <PROPERTY id="hasnormals" type="12" value="false"></PROPERTY>
-    <PROPERTY id="height" type="6" value="10"></PROPERTY>
-    <PROPERTY id="layer" type="2" value="0"></PROPERTY>
-    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
-    <PROPERTY id="material" type="7" value="Waterfall_mat"></PROPERTY>
-    <PROPERTY id="normal" type="9" value="0 1 0"></PROPERTY>
-    <PROPERTY id="numcoordsets" type="2" value="1"></PROPERTY>
-    <PROPERTY id="orientation" type="13" value="1 0 0 0"></PROPERTY>
-    <PROPERTY id="position" type="9" value="-2788.59 -214.011 -3069.26"></PROPERTY>
-    <PROPERTY id="scale" type="9" value="594.191 1 594.191"></PROPERTY>
-    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
-    <PROPERTY id="utile" type="2" value="6"></PROPERTY>
-    <PROPERTY id="vtile" type="2" value="6"></PROPERTY>
-    <PROPERTY id="width" type="6" value="10"></PROPERTY>
-    <PROPERTY id="xsegments" type="2" value="2"></PROPERTY>
-    <PROPERTY id="ysegments" type="2" value="2"></PROPERTY>
     <CUSTOMPROPERTIES>
     </CUSTOMPROPERTIES>
   </OBJECT>
