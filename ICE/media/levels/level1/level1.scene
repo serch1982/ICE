@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<scene formatVersion="1.0.0" generator="Ogitor SceneBuilder 0.4.3">
+<scene formatVersion="1.0.0" generator="Ogitor SceneBuilder 0.4.4">
     <resourceLocations>
         <resourceLocation type="FileSystem" name="../../characters/models" />
         <resourceLocation type="FileSystem" name="./materials" />
@@ -29,11 +29,11 @@
         </viewport>
         <camera name="intViewCamera1" viewMode="0" polyMode="3" fov="45">
             <clipping near="1" far="10000" />
-            <position x="3067.91" y="37.358" z="12000.2" />
-            <rotation qw="0.928163" qx="-0.0113772" qy="-0.371976" qz="-0.00421033" />
+            <position x="-3064.72" y="165.654" z="12954.3" />
+            <rotation qw="0.9638" qx="-0.2049" qy="0.167172" qz="0.0365583" />
         </camera>
     </environment>
-    <terrain worldSize="10000" mapSize="129" pagenameprefix="Page" colourmapEnabled="false" colourMapTextureSize="128" tuningCompositeMapDistance="2000" tuningMaxPixelError="3" tuningMinBatchSize="33" tuningMaxBatchSize="65">
+    <terrain worldSize="10000" mapSize="129" pagenameprefix="Page" colourmapEnabled="false" colourMapTextureSize="128" tuningCompositeMapDistance="2000" tuningMaxPixelError="3" tuningMinBatchSize="33" tuningMaxBatchSize="65" tuningSkirtSize="10" tuningUseRayBoxDistancealculation="false">
         <terrainPages>
             <terrainPage name="Page_00000001.ogt" pageX="0" pageY="1" />
             <terrainPage name="Page_00000000.ogt" pageX="0" pageY="0" />
@@ -41,267 +41,17 @@
         </terrainPages>
     </terrain>
     <nodes>
-        <node name="Lake#01" id="60823388">
-            <position x="-2401.25" y="-308.23" z="1359.56" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="256.85" y="0.999933" z="469.193" />
-            <plane name="Lake#01" distance="1" width="10" height="10" xSegments="1" ySegments="1" numTexCoordSets="1" uTile="6" vTile="6" material="Waterfall_mat" hasNormals="true">
-                <normal x="0" y="1" z="0" />
-                <upVector x="0" y="0" z="1" />
-            </plane>
-        </node>
-        <node name="step#06" id="788110016">
-            <position x="2724.57" y="37.2244" z="-9100.12" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.242014" y="0.242014" z="0.242014" />
-            <entity name="step#06" meshFile="cube" castShadows="false">
-                <subentity index="0" materialName="BaseWhite" />
-                <userData>
-                    <property type="2" name="time" data="160" />
-                    <property type="2" name="MiniMagmaton" data="3" />
-                    <property type="2" name="Kamikace" data="3" />
-                    <property type="2" name="Intelligent" data="3" />
-                </userData>
-            </entity>
-        </node>
-        <node name="trajectory2#1" id="342539744">
-            <position x="1378.27" y="-44.1375" z="-1778.48" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.0903487" y="0.0903487" z="0.0903487" />
-            <entity name="trajectory2#1" meshFile="sphere" castShadows="false">
-                <subentity index="0" materialName="BaseWhite" />
-                <userData>
-                    <property type="2" name="time" data="5" />
-                    <property type="2" name="trajectoryNumber" data="2" />
-                </userData>
-            </entity>
-        </node>
-        <node name="Lake#02" id="997497472">
-            <position x="-2788.59" y="-214.011" z="-3069.26" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="594.191" y="1" z="594.191" />
-            <plane name="Lake#02" distance="0" width="10" height="10" xSegments="2" ySegments="2" numTexCoordSets="1" uTile="6" vTile="6" material="Waterfall_mat" hasNormals="false">
-                <normal x="0" y="1" z="0" />
-                <upVector x="0" y="0" z="1" />
-            </plane>
-        </node>
-        <node name="step#01" id="593127232">
-            <position x="-2302.46" y="-181.463" z="11240.4" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.242014" y="0.242014" z="0.242014" />
-            <entity name="step#01" meshFile="cube" castShadows="false">
-                <subentity index="0" materialName="BaseWhite" />
-                <userData>
-                    <property type="2" name="time" data="30" />
-                    <property type="2" name="MiniMagmaton" data="3" />
-                    <property type="2" name="Kamikace" data="3" />
-                    <property type="2" name="Intelligent" data="3" />
-                </userData>
-            </entity>
-        </node>
-        <node name="trajectory1#4" id="578569920">
-            <position x="1819.52" y="27.4158" z="-1213.61" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.0903487" y="0.0903487" z="0.0903487" />
-            <entity name="trajectory1#4" meshFile="sphere" castShadows="false">
-                <subentity index="0" materialName="BaseWhite" />
-                <userData>
-                    <property type="2" name="time" data="20" />
-                    <property type="2" name="trajectoryNumber" data="1" />
-                </userData>
-            </entity>
-        </node>
-        <node name="step#00" id="337656800">
-            <position x="-4537.53" y="-90.4483" z="14671.8" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.242014" y="0.242014" z="0.242014" />
-            <entity name="step#00" meshFile="cube" castShadows="false">
-                <subentity index="0" materialName="BaseWhite" />
-                <userData>
-                    <property type="2" name="time" data="0" />
-                    <property type="2" name="MiniMagmaton" data="0" />
-                    <property type="2" name="Kamikace" data="0" />
-                    <property type="2" name="Intelligent" data="0" />
-                </userData>
-            </entity>
-        </node>
-        <node name="step#08" id="870387904">
+        <node name="step#07" id="171788688">
             <position x="3068.12" y="37.2244" z="12000" />
             <rotation qw="1" qx="0" qy="0" qz="0" />
             <scale x="0.242014" y="0.242014" z="0.242014" />
-            <entity name="step#08" meshFile="cube" castShadows="false">
+            <entity name="step#07" meshFile="cube.mesh" castShadows="false">
                 <subentity index="0" materialName="BaseWhite" />
                 <userData>
-                    <property type="2" name="time" data="240" />
+                    <property type="2" name="time" data="280" />
                     <property type="2" name="MiniMagmaton" data="4" />
                     <property type="2" name="Kamikace" data="4" />
                     <property type="2" name="Intelligent" data="4" />
-                </userData>
-            </entity>
-        </node>
-        <node name="StaticPhisicObjects" id="92623672">
-            <position x="0" y="0" z="0" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="1" y="1" z="1" />
-            <node name="staticPhisicCube#7" id="869350272">
-                <position x="-1612.23" y="94.0081" z="13.1513" />
-                <rotation qw="0.999914" qx="0" qy="-0.0130896" qz="0" />
-                <scale x="0.38907" y="0.750655" z="1.95009" />
-                <entity name="staticPhisicCube#7" meshFile="cube" castShadows="false">
-                    <subentity index="0" materialName="BaseWhite" />
-                </entity>
-            </node>
-            <node name="staticPhisicCube#4" id="255745120">
-                <position x="-1521.99" y="105.978" z="202.648" />
-                <rotation qw="0.999914" qx="0" qy="-0.0130896" qz="0" />
-                <scale x="0.549621" y="0.910197" z="0.601314" />
-                <entity name="staticPhisicCube#4" meshFile="cube" castShadows="false">
-                    <subentity index="0" materialName="BaseWhite" />
-                </entity>
-            </node>
-            <node name="staticPhisicCube#5" id="374401056">
-                <position x="-1616.86" y="105.978" z="190.052" />
-                <rotation qw="0.999914" qx="0" qy="-0.0130896" qz="0" />
-                <scale x="0.217624" y="0.885851" z="0.181596" />
-                <entity name="staticPhisicCube#5" meshFile="cube" castShadows="false">
-                    <subentity index="0" materialName="BaseWhite" />
-                </entity>
-            </node>
-            <node name="staticPhisicCube#2" id="41352580">
-                <position x="-1618.2" y="96.1807" z="336.714" />
-                <rotation qw="0.999914" qx="0" qy="-0.0130896" qz="0" />
-                <scale x="0.409131" y="0.819413" z="2.53971" />
-                <entity name="staticPhisicCube#2" meshFile="cube" castShadows="false">
-                    <subentity index="0" materialName="BaseWhite" />
-                </entity>
-            </node>
-            <node name="staticPhisicCube#3" id="112186048">
-                <position x="-1533.59" y="96.1807" z="338.93" />
-                <rotation qw="0.999914" qx="0" qy="-0.0130896" qz="0" />
-                <scale x="0.409131" y="0.819413" z="2.53971" />
-                <entity name="staticPhisicCube#3" meshFile="cube" castShadows="false">
-                    <subentity index="0" materialName="BaseWhite" />
-                </entity>
-            </node>
-            <node name="staticPhisicCube#0" id="976531264">
-                <position x="-1820.05" y="77.0119" z="677.423" />
-                <rotation qw="0.997564" qx="0" qy="-0.0697565" qz="0" />
-                <scale x="0.480204" y="0.432046" z="0.753848" />
-                <entity name="staticPhisicCube#0" meshFile="cube" castShadows="false">
-                    <subentity index="0" materialName="BaseWhite" />
-                </entity>
-            </node>
-            <node name="staticPhisicCube#8" id="462263840">
-                <position x="-1523.72" y="94.0081" z="15.4689" />
-                <rotation qw="0.999914" qx="0" qy="-0.0130896" qz="0" />
-                <scale x="0.596685" y="0.793801" z="2.83083" />
-                <entity name="staticPhisicCube#8" meshFile="cube" castShadows="false">
-                    <subentity index="0" materialName="BaseWhite" />
-                </entity>
-            </node>
-            <node name="staticPhisicCube#1" id="940977216">
-                <position x="-1587.92" y="102.219" z="516.525" />
-                <rotation qw="0.937141" qx="0.0232281" qy="0.0467519" qz="-0.345023" />
-                <scale x="0.365189" y="1.43087" z="0.722908" />
-                <entity name="staticPhisicCube#1" meshFile="cube" castShadows="false">
-                    <subentity index="0" materialName="BaseWhite" />
-                </entity>
-            </node>
-            <node name="staticPhisicCube#6" id="754478592">
-                <position x="-1615.44" y="105.978" z="135.726" />
-                <rotation qw="0.999914" qx="0" qy="-0.0130896" qz="0" />
-                <scale x="0.217624" y="1.19494" z="0.181596" />
-                <entity name="staticPhisicCube#6" meshFile="cube" castShadows="false">
-                    <subentity index="0" materialName="BaseWhite" />
-                </entity>
-            </node>
-        </node>
-        <node name="step#03" id="49439984">
-            <position x="-3635.08" y="-181.463" z="7114.43" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.242014" y="0.242014" z="0.242014" />
-            <entity name="step#03" meshFile="cube" castShadows="false">
-                <subentity index="0" materialName="BaseWhite" />
-                <userData>
-                    <property type="2" name="time" data="60" />
-                    <property type="2" name="MiniMagmaton" data="4" />
-                    <property type="2" name="Kamikace" data="4" />
-                    <property type="2" name="Intelligent" data="4" />
-                </userData>
-            </entity>
-        </node>
-        <node name="trajectory2#4" id="492629760">
-            <position x="1793.33" y="79.5532" z="-1580.82" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.0903487" y="0.0903487" z="0.0903487" />
-            <entity name="trajectory2#4" meshFile="sphere" castShadows="false">
-                <subentity index="0" materialName="BaseWhite" />
-                <userData>
-                    <property type="2" name="time" data="20" />
-                    <property type="2" name="trajectoryNumber" data="2" />
-                </userData>
-            </entity>
-        </node>
-        <node name="ciudad" id="869045056">
-            <position x="-1844" y="484" z="-94" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="1" y="1" z="1" />
-            <node name="Building06#0" id="449720736">
-                <position x="4744.19" y="-440.722" z="12000" />
-                <rotation qw="1" qx="0" qy="0" qz="0" />
-                <scale x="1" y="1" z="1" />
-                <entity name="Building06#0" meshFile="Building06.mesh" castShadows="false">
-                    <subentity index="0" materialName="Building06" />
-                </entity>
-            </node>
-        </node>
-        <node name="trajectory1#1" id="922482944">
-            <position x="1446.05" y="-33.0499" z="-1832.06" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.0903487" y="0.0903487" z="0.0903487" />
-            <entity name="trajectory1#1" meshFile="sphere" castShadows="false">
-                <subentity index="0" materialName="BaseWhite" />
-                <userData>
-                    <property type="2" name="time" data="5" />
-                    <property type="2" name="trajectoryNumber" data="1" />
-                </userData>
-            </entity>
-        </node>
-        <node name="step#05" id="496810816">
-            <position x="-2801.8" y="37.2244" z="-12009.9" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.242014" y="0.242014" z="0.242014" />
-            <entity name="step#05" meshFile="cube" castShadows="false">
-                <subentity index="0" materialName="BaseWhite" />
-                <userData>
-                    <property type="2" name="time" data="140" />
-                    <property type="2" name="MiniMagmaton" data="5" />
-                    <property type="2" name="Kamikace" data="5" />
-                    <property type="2" name="Intelligent" data="5" />
-                </userData>
-            </entity>
-        </node>
-        <node name="trajectory1#0" id="152653584">
-            <position x="1107.01" y="-62.4837" z="-1832.06" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.0903487" y="0.0903487" z="0.0903487" />
-            <entity name="trajectory1#0" meshFile="sphere" castShadows="false">
-                <subentity index="0" materialName="BaseWhite" />
-                <userData>
-                    <property type="2" name="time" data="0" />
-                    <property type="2" name="trajectoryNumber" data="1" />
-                </userData>
-            </entity>
-        </node>
-        <node name="trajectory2#2" id="480605472">
-            <position x="1554.47" y="13.232" z="-1786.36" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.0903487" y="0.0903487" z="0.0903487" />
-            <entity name="trajectory2#2" meshFile="sphere" castShadows="false">
-                <subentity index="0" materialName="BaseWhite" />
-                <userData>
-                    <property type="2" name="time" data="10" />
-                    <property type="2" name="trajectoryNumber" data="2" />
                 </userData>
             </entity>
         </node>
@@ -313,22 +63,749 @@
                 <position x="-168.515" y="-135.759" z="-42.5139" />
                 <rotation qw="-0.0348997" qx="0" qy="0.999391" qz="0" />
                 <scale x="1" y="1" z="1" />
-                <entity name="waterfall#0" meshFile="waterfall" castShadows="false">
+                <entity name="waterfall#0" meshFile="waterfall.mesh" castShadows="false">
                     <subentity index="0" materialName="Waterfall_mat" />
                 </entity>
             </node>
         </node>
-        <node name="step#04" id="300057984">
-            <position x="-2648.24" y="-134.483" z="468.486" />
+        <node name="ciudad" id="869045056">
+            <position x="-1844" y="484" z="-94" />
             <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.242014" y="0.242014" z="0.242014" />
-            <entity name="step#04" meshFile="cube" castShadows="false">
+            <scale x="1" y="1" z="1" />
+            <node name="Building05#0" id="943021952">
+                <position x="5131.09" y="-438.849" z="11715.8" />
+                <rotation qw="0.69779" qx="0" qy="0.716302" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Building05#0" meshFile="Building05.mesh" castShadows="false">
+                    <subentity index="0" materialName="Building05" />
+                </entity>
+            </node>
+            <node name="Building05#5" id="868495744">
+                <position x="4748.07" y="-434.983" z="11648.9" />
+                <rotation qw="0.678801" qx="0" qy="-0.734323" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Building05#5" meshFile="Building05.mesh" castShadows="false">
+                    <subentity index="0" materialName="Building05" />
+                </entity>
+            </node>
+            <node name="Building06#8" id="103549304">
+                <position x="5000.74" y="-441.53" z="12295.5" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Building06#8" meshFile="Building06.mesh" castShadows="false">
+                    <subentity index="0" materialName="Building06" />
+                </entity>
+            </node>
+            <node name="Building04#0" id="733695488">
+                <position x="5062.16" y="-457.023" z="11306.4" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Building04#0" meshFile="Building04.mesh" castShadows="false">
+                    <subentity index="0" materialName="Building04" />
+                </entity>
+            </node>
+            <node name="Building06#7" id="411694720">
+                <position x="4895.75" y="-441.722" z="12296.8" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Building06#7" meshFile="Building06.mesh" castShadows="false">
+                    <subentity index="0" materialName="Building06" />
+                </entity>
+            </node>
+            <node name="Building09#1" id="630176704">
+                <position x="4736.69" y="-461.737" z="11545.7" />
+                <rotation qw="0.710185" qx="0" qy="0.704015" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Building09#1" meshFile="Building09.mesh" castShadows="false">
+                    <subentity index="0" materialName="Building09" />
+                </entity>
+            </node>
+            <node name="Building03#0" id="462080736">
+                <position x="5092.74" y="-482.836" z="11571.9" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Building03#0" meshFile="Building03.mesh" castShadows="false">
+                    <subentity index="0" materialName="Material" />
+                </entity>
+            </node>
+            <node name="Building06#2" id="36042360">
+                <position x="4896.23" y="-441.508" z="12200.1" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Building06#2" meshFile="Building06.mesh" castShadows="false">
+                    <subentity index="0" materialName="Building06" />
+                </entity>
+            </node>
+            <node name="Building08#1" id="743217280">
+                <position x="4823.38" y="-454.676" z="11536.6" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Building08#1" meshFile="Building08.mesh" castShadows="false">
+                    <subentity index="0" materialName="Building08" />
+                </entity>
+            </node>
+            <node name="Building06#1" id="423139136">
+                <position x="4799.47" y="-441.022" z="12084" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Building06#1" meshFile="Building06.mesh" castShadows="false">
+                    <subentity index="0" materialName="Building06" />
+                </entity>
+            </node>
+            <node name="Building05#3" id="773552640">
+                <position x="4736.96" y="-438.073" z="11746.1" />
+                <rotation qw="-0.67559" qx="0" qy="0.737277" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Building05#3" meshFile="Building05.mesh" castShadows="false">
+                    <subentity index="0" materialName="Building05" />
+                </entity>
+            </node>
+            <node name="Building05#4" id="643330176">
+                <position x="5129.93" y="-438.163" z="11817.8" />
+                <rotation qw="-0.728371" qx="0" qy="-0.685183" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Building05#4" meshFile="Building05.mesh" castShadows="false">
+                    <subentity index="0" materialName="Building05" />
+                </entity>
+            </node>
+            <node name="Building04#1" id="877742848">
+                <position x="4770.71" y="-457.671" z="11309.2" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Building04#1" meshFile="Building04.mesh" castShadows="false">
+                    <subentity index="0" materialName="Building04" />
+                </entity>
+            </node>
+            <node name="Building06#4" id="852565056">
+                <position x="4996.23" y="-440.646" z="12095.4" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Building06#4" meshFile="Building06.mesh" castShadows="false">
+                    <subentity index="0" materialName="Building06" />
+                </entity>
+            </node>
+            <node name="Building09#0" id="58778652">
+                <position x="5124.52" y="-462.426" z="11437.6" />
+                <rotation qw="0.700909" qx="0" qy="-0.713251" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Building09#0" meshFile="Building09.mesh" castShadows="false">
+                    <subentity index="0" materialName="Building09" />
+                </entity>
+            </node>
+            <node name="Building06#3" id="664723648">
+                <position x="4798.54" y="-440.322" z="12197" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Building06#3" meshFile="Building06.mesh" castShadows="false">
+                    <subentity index="0" materialName="Building06" />
+                </entity>
+            </node>
+            <node name="Building05#1" id="197363200">
+                <position x="4851.4" y="-437.911" z="11868.4" />
+                <rotation qw="-0.00872672" qx="0" qy="-0.999962" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Building05#1" meshFile="Building05.mesh" castShadows="false">
+                    <subentity index="0" materialName="Building05" />
+                </entity>
+            </node>
+            <node name="Building06#6" id="615955072">
+                <position x="4794.1" y="-441.253" z="12296.6" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Building06#6" meshFile="Building06.mesh" castShadows="false">
+                    <subentity index="0" materialName="Building06" />
+                </entity>
+            </node>
+            <node name="Building03#1" id="786156800">
+                <position x="4774.49" y="-484.093" z="11418.7" />
+                <rotation qw="0.00872632" qx="0" qy="0.999962" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Building03#1" meshFile="Building03.mesh" castShadows="false">
+                    <subentity index="0" materialName="Material" />
+                </entity>
+            </node>
+            <node name="Building05#2" id="274971776">
+                <position x="4986.97" y="-437.828" z="11872.3" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Building05#2" meshFile="Building05.mesh" castShadows="false">
+                    <subentity index="0" materialName="Building05" />
+                </entity>
+            </node>
+            <node name="Building06#0" id="449720736">
+                <position x="4895.99" y="-440.722" z="12087.9" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Building06#0" meshFile="Building06.mesh" castShadows="false">
+                    <subentity index="0" materialName="Building06" />
+                </entity>
+            </node>
+            <node name="Tower#13" id="736381120">
+                <position x="5249.34" y="-472.32" z="12241.8" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Tower#13" meshFile="Tower.mesh" castShadows="false">
+                    <subentity index="0" materialName="Tower" />
+                </entity>
+            </node>
+            <node name="Building06#5" id="348521376">
+                <position x="4995.25" y="-441.516" z="12197" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Building06#5" meshFile="Building06.mesh" castShadows="false">
+                    <subentity index="0" materialName="Building06" />
+                </entity>
+            </node>
+            <node name="Building04#2" id="91402936">
+                <position x="4921.38" y="-457.31" z="11308.4" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Building04#2" meshFile="Building04.mesh" castShadows="false">
+                    <subentity index="0" materialName="Building04" />
+                </entity>
+            </node>
+            <node name="Building08#0" id="26703696">
+                <position x="4993.16" y="-455.184" z="11533.4" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Building08#0" meshFile="Building08.mesh" castShadows="false">
+                    <subentity index="0" materialName="Building08" />
+                </entity>
+            </node>
+            <node name="Tower#31" id="217566464">
+                <position x="4599.26" y="-469.376" z="12348" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Tower#31" meshFile="Tower.mesh" castShadows="false">
+                    <subentity index="0" materialName="Tower" />
+                </entity>
+            </node>
+            <node name="Building10#0" id="375865952">
+                <position x="4697.44" y="-431.981" z="12076.7" />
+                <rotation qw="0.55557" qx="0" qy="-0.83147" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Building10#0" meshFile="Building10.mesh" castShadows="false">
+                    <subentity index="0" materialName="Scene_Material" />
+                </entity>
+            </node>
+            <node name="Building10#2" id="117648856">
+                <position x="4697.1" y="-433.081" z="12297.9" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Building10#2" meshFile="Building10.mesh" castShadows="false">
+                    <subentity index="0" materialName="Scene_Material" />
+                </entity>
+            </node>
+            <node name="Building11#0" id="524674240">
+                <position x="4922.1" y="-423.243" z="11683.2" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Building11#0" meshFile="Building11.mesh" castShadows="false">
+                    <subentity index="0" materialName="Building11" />
+                </entity>
+            </node>
+            <node name="Building10#1" id="331461504">
+                <position x="5092.13" y="-428.29" z="12096.5" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Building10#1" meshFile="Building10.mesh" castShadows="false">
+                    <subentity index="0" materialName="Scene_Material" />
+                </entity>
+            </node>
+            <node name="Building10#3" id="646504128">
+                <position x="5094.95" y="-432.96" z="12296.3" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Building10#3" meshFile="Building10.mesh" castShadows="false">
+                    <subentity index="0" materialName="Scene_Material" />
+                </entity>
+            </node>
+            <node name="Tower#29" id="847071744">
+                <position x="4599.26" y="-469.376" z="12203.7" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Tower#29" meshFile="Tower.mesh" castShadows="false">
+                    <subentity index="0" materialName="Tower" />
+                </entity>
+            </node>
+            <node name="Tower#1" id="596881024">
+                <position x="5249.34" y="-472.32" z="11396.7" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Tower#1" meshFile="Tower.mesh" castShadows="false">
+                    <subentity index="0" materialName="Tower" />
+                </entity>
+            </node>
+            <node name="Tower#18" id="614703808">
+                <position x="4599.26" y="-469.376" z="11411.7" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Tower#18" meshFile="Tower.mesh" castShadows="false">
+                    <subentity index="0" materialName="Tower" />
+                </entity>
+            </node>
+            <node name="Tower#24" id="491500576">
+                <position x="4599.26" y="-469.376" z="11842.9" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Tower#24" meshFile="Tower.mesh" castShadows="false">
+                    <subentity index="0" materialName="Tower" />
+                </entity>
+            </node>
+            <node name="Tower#10" id="708517760">
+                <position x="5249.34" y="-472.32" z="12029.2" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Tower#10" meshFile="Tower.mesh" castShadows="false">
+                    <subentity index="0" materialName="Tower" />
+                </entity>
+            </node>
+            <node name="Tower#23" id="382366432">
+                <position x="4599.26" y="-469.376" z="11770.5" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Tower#23" meshFile="Tower.mesh" castShadows="false">
+                    <subentity index="0" materialName="Tower" />
+                </entity>
+            </node>
+            <node name="Tower#32" id="168919952">
+                <position x="4599.26" y="-469.376" z="12420.3" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Tower#32" meshFile="Tower.mesh" castShadows="false">
+                    <subentity index="0" materialName="Tower" />
+                </entity>
+            </node>
+            <node name="Tower#9" id="627338496">
+                <position x="5249.34" y="-472.32" z="11957.9" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Tower#9" meshFile="Tower.mesh" castShadows="false">
+                    <subentity index="0" materialName="Tower" />
+                </entity>
+            </node>
+            <node name="Tower#4" id="255134736">
+                <position x="5249.34" y="-472.32" z="11605.9" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Tower#4" meshFile="Tower.mesh" castShadows="false">
+                    <subentity index="0" materialName="Tower" />
+                </entity>
+            </node>
+            <node name="Tower#3" id="855189696">
+                <position x="5249.34" y="-472.32" z="11536.9" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Tower#3" meshFile="Tower.mesh" castShadows="false">
+                    <subentity index="0" materialName="Tower" />
+                </entity>
+            </node>
+            <node name="Tower#15" id="67842648">
+                <position x="5249.34" y="-472.32" z="12382.9" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Tower#15" meshFile="Tower.mesh" castShadows="false">
+                    <subentity index="0" materialName="Tower" />
+                </entity>
+            </node>
+            <node name="Tower#26" id="357097088">
+                <position x="4599.26" y="-469.376" z="11986.8" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Tower#26" meshFile="Tower.mesh" castShadows="false">
+                    <subentity index="0" materialName="Tower" />
+                </entity>
+            </node>
+            <node name="Tower#12" id="388103872">
+                <position x="5249.34" y="-472.32" z="12170.6" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Tower#12" meshFile="Tower.mesh" castShadows="false">
+                    <subentity index="0" materialName="Tower" />
+                </entity>
+            </node>
+            <node name="Tower#30" id="721640640">
+                <position x="4599.26" y="-469.376" z="12275.8" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Tower#30" meshFile="Tower.mesh" castShadows="false">
+                    <subentity index="0" materialName="Tower" />
+                </entity>
+            </node>
+            <node name="Tower#6" id="697347968">
+                <position x="5249.34" y="-472.32" z="11746.3" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Tower#6" meshFile="Tower.mesh" castShadows="false">
+                    <subentity index="0" materialName="Tower" />
+                </entity>
+            </node>
+            <node name="Tower#25" id="785363328">
+                <position x="4599.26" y="-469.376" z="11914" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Tower#25" meshFile="Tower.mesh" castShadows="false">
+                    <subentity index="0" materialName="Tower" />
+                </entity>
+            </node>
+            <node name="telephone_box#0" id="611499392">
+                <position x="4992.83" y="-484.053" z="11497.8" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="telephone_box#0" meshFile="telephone_box.mesh" castShadows="false">
+                    <subentity index="0" materialName="telephone_box_material" />
+                </entity>
+            </node>
+            <node name="Tower#17" id="367809088">
+                <position x="4599.26" y="-469.376" z="11339.8" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Tower#17" meshFile="Tower.mesh" castShadows="false">
+                    <subentity index="0" materialName="Tower" />
+                </entity>
+            </node>
+            <node name="Tower#20" id="653859072">
+                <position x="4599.26" y="-469.376" z="11556" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Tower#20" meshFile="Tower.mesh" castShadows="false">
+                    <subentity index="0" materialName="Tower" />
+                </entity>
+            </node>
+            <node name="Tower#5" id="811059904">
+                <position x="5249.34" y="-472.32" z="11675.1" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Tower#5" meshFile="Tower.mesh" castShadows="false">
+                    <subentity index="0" materialName="Tower" />
+                </entity>
+            </node>
+            <node name="Tower#19" id="744315904">
+                <position x="4599.26" y="-469.376" z="11483.7" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Tower#19" meshFile="Tower.mesh" castShadows="false">
+                    <subentity index="0" materialName="Tower" />
+                </entity>
+            </node>
+            <node name="Tower#0" id="235328224">
+                <position x="5249.34" y="-472.32" z="11327.3" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Tower#0" meshFile="Tower.mesh" castShadows="false">
+                    <subentity index="0" materialName="Tower" />
+                </entity>
+            </node>
+            <node name="Tower#28" id="131626336">
+                <position x="4599.26" y="-469.376" z="12131" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Tower#28" meshFile="Tower.mesh" castShadows="false">
+                    <subentity index="0" materialName="Tower" />
+                </entity>
+            </node>
+            <node name="Tower#14" id="203070160">
+                <position x="5249.34" y="-472.32" z="12312.6" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Tower#14" meshFile="Tower.mesh" castShadows="false">
+                    <subentity index="0" materialName="Tower" />
+                </entity>
+            </node>
+            <node name="Tower#27" id="374248480">
+                <position x="4599.26" y="-469.376" z="12058.5" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Tower#27" meshFile="Tower.mesh" castShadows="false">
+                    <subentity index="0" materialName="Tower" />
+                </entity>
+            </node>
+            <node name="Tower#11" id="903866688">
+                <position x="5249.34" y="-472.32" z="12100" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Tower#11" meshFile="Tower.mesh" castShadows="false">
+                    <subentity index="0" materialName="Tower" />
+                </entity>
+            </node>
+            <node name="Tower#22" id="492538208">
+                <position x="4599.26" y="-469.376" z="11698.9" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Tower#22" meshFile="Tower.mesh" castShadows="false">
+                    <subentity index="0" materialName="Tower" />
+                </entity>
+            </node>
+            <node name="Tower#8" id="185308400">
+                <position x="5249.34" y="-472.32" z="11887.6" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Tower#8" meshFile="Tower.mesh" castShadows="false">
+                    <subentity index="0" materialName="Tower" />
+                </entity>
+            </node>
+            <node name="Tower#7" id="391705056">
+                <position x="5249.34" y="-472.32" z="11816.2" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Tower#7" meshFile="Tower.mesh" castShadows="false">
+                    <subentity index="0" materialName="Tower" />
+                </entity>
+            </node>
+            <node name="Tower#2" id="253700368">
+                <position x="5249.34" y="-472.32" z="11466.6" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Tower#2" meshFile="Tower.mesh" castShadows="false">
+                    <subentity index="0" materialName="Tower" />
+                </entity>
+            </node>
+            <node name="Tower#16" id="530961024">
+                <position x="5249.34" y="-472.32" z="12453.9" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Tower#16" meshFile="Tower.mesh" castShadows="false">
+                    <subentity index="0" materialName="Tower" />
+                </entity>
+            </node>
+            <node name="Tower#21" id="551164288">
+                <position x="4599.26" y="-469.376" z="11627.4" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Tower#21" meshFile="Tower.mesh" castShadows="false">
+                    <subentity index="0" materialName="Tower" />
+                </entity>
+            </node>
+        </node>
+        <node name="trajectory1#1" id="922482944">
+            <position x="1446.05" y="-33.0499" z="-1832.06" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.0903487" y="0.0903487" z="0.0903487" />
+            <entity name="trajectory1#1" meshFile="sphere.mesh" castShadows="false">
                 <subentity index="0" materialName="BaseWhite" />
                 <userData>
-                    <property type="2" name="time" data="90" />
-                    <property type="2" name="MiniMagmaton" data="2" />
-                    <property type="2" name="Kamikace" data="2" />
-                    <property type="2" name="Intelligent" data="2" />
+                    <property type="2" name="time" data="5" />
+                    <property type="2" name="trajectoryNumber" data="1" />
+                </userData>
+            </entity>
+        </node>
+        <node name="Tower#33" id="227088224">
+            <position x="3339.02" y="14.374" z="11171.1" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="1" y="1" z="1" />
+            <entity name="Tower#33" meshFile="Tower.mesh" castShadows="false">
+                <subentity index="0" materialName="Tower" />
+            </entity>
+        </node>
+        <node name="StaticPhisicObjects" id="92623672">
+            <position x="0" y="0" z="0" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="1" y="1" z="1" />
+            <node name="staticPhisicCube#2" id="41352580">
+                <position x="-1618.2" y="96.1807" z="336.714" />
+                <rotation qw="0.999914" qx="0" qy="-0.0130896" qz="0" />
+                <scale x="0.409131" y="0.819413" z="2.53971" />
+                <entity name="staticPhisicCube#2" meshFile="cube.mesh" castShadows="false">
+                    <subentity index="0" materialName="BaseWhite" />
+                </entity>
+            </node>
+            <node name="staticPhisicCube#1" id="940977216">
+                <position x="-1587.92" y="102.219" z="516.525" />
+                <rotation qw="0.937141" qx="0.0232281" qy="0.0467519" qz="-0.345023" />
+                <scale x="0.365189" y="1.43087" z="0.722908" />
+                <entity name="staticPhisicCube#1" meshFile="cube.mesh" castShadows="false">
+                    <subentity index="0" materialName="BaseWhite" />
+                </entity>
+            </node>
+            <node name="staticPhisicCube#4" id="255745120">
+                <position x="-1521.99" y="105.978" z="202.648" />
+                <rotation qw="0.999914" qx="0" qy="-0.0130896" qz="0" />
+                <scale x="0.549621" y="0.910197" z="0.601314" />
+                <entity name="staticPhisicCube#4" meshFile="cube.mesh" castShadows="false">
+                    <subentity index="0" materialName="BaseWhite" />
+                </entity>
+            </node>
+            <node name="staticPhisicCube#3" id="112186048">
+                <position x="-1533.59" y="96.1807" z="338.93" />
+                <rotation qw="0.999914" qx="0" qy="-0.0130896" qz="0" />
+                <scale x="0.409131" y="0.819413" z="2.53971" />
+                <entity name="staticPhisicCube#3" meshFile="cube.mesh" castShadows="false">
+                    <subentity index="0" materialName="BaseWhite" />
+                </entity>
+            </node>
+            <node name="staticPhisicCube#6" id="754478592">
+                <position x="-1615.44" y="105.978" z="135.726" />
+                <rotation qw="0.999914" qx="0" qy="-0.0130896" qz="0" />
+                <scale x="0.217624" y="1.19494" z="0.181596" />
+                <entity name="staticPhisicCube#6" meshFile="cube.mesh" castShadows="false">
+                    <subentity index="0" materialName="BaseWhite" />
+                </entity>
+            </node>
+            <node name="staticPhisicCube#5" id="374401056">
+                <position x="-1616.86" y="105.978" z="190.052" />
+                <rotation qw="0.999914" qx="0" qy="-0.0130896" qz="0" />
+                <scale x="0.217624" y="0.885851" z="0.181596" />
+                <entity name="staticPhisicCube#5" meshFile="cube.mesh" castShadows="false">
+                    <subentity index="0" materialName="BaseWhite" />
+                </entity>
+            </node>
+            <node name="staticPhisicCube#0" id="976531264">
+                <position x="-1820.05" y="77.0119" z="677.423" />
+                <rotation qw="0.997564" qx="0" qy="-0.0697565" qz="0" />
+                <scale x="0.480204" y="0.432046" z="0.753848" />
+                <entity name="staticPhisicCube#0" meshFile="cube.mesh" castShadows="false">
+                    <subentity index="0" materialName="BaseWhite" />
+                </entity>
+            </node>
+            <node name="staticPhisicCube#7" id="869350272">
+                <position x="-1612.23" y="94.0081" z="13.1513" />
+                <rotation qw="0.999914" qx="0" qy="-0.0130896" qz="0" />
+                <scale x="0.38907" y="0.750655" z="1.95009" />
+                <entity name="staticPhisicCube#7" meshFile="cube.mesh" castShadows="false">
+                    <subentity index="0" materialName="BaseWhite" />
+                </entity>
+            </node>
+            <node name="staticPhisicCube#8" id="462263840">
+                <position x="-1523.72" y="94.0081" z="15.4689" />
+                <rotation qw="0.999914" qx="0" qy="-0.0130896" qz="0" />
+                <scale x="0.596685" y="0.793801" z="2.83083" />
+                <entity name="staticPhisicCube#8" meshFile="cube.mesh" castShadows="false">
+                    <subentity index="0" materialName="BaseWhite" />
+                </entity>
+            </node>
+        </node>
+        <node name="trajectory1#0" id="152653584">
+            <position x="1107.01" y="-62.4837" z="-1832.06" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.0903487" y="0.0903487" z="0.0903487" />
+            <entity name="trajectory1#0" meshFile="sphere.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="0" />
+                    <property type="2" name="trajectoryNumber" data="1" />
+                </userData>
+            </entity>
+        </node>
+        <node name="trajectory2#1" id="342539744">
+            <position x="1378.27" y="-44.1375" z="-1778.48" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.0903487" y="0.0903487" z="0.0903487" />
+            <entity name="trajectory2#1" meshFile="sphere.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="5" />
+                    <property type="2" name="trajectoryNumber" data="2" />
+                </userData>
+            </entity>
+        </node>
+        <node name="Helpers" id="569200704">
+            <position x="-1847.4" y="329.086" z="4254.44" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="1" y="1" z="1" />
+            <node name="cube#2" id="625171648">
+                <position x="-1309.95" y="-377.337" z="779.033" />
+                <rotation qw="0.790689" qx="0" qy="0.612218" qz="0" />
+                <scale x="42.1036" y="1.23992" z="1.52989" />
+                <entity name="cube#2" meshFile="cube.mesh" castShadows="false">
+                    <subentity index="0" materialName="Background_Toon_Material1" />
+                </entity>
+            </node>
+            <node name="cube#0" id="949156160">
+                <position x="-1545.9" y="-377.337" z="8657.51" />
+                <rotation qw="0.878817" qx="0" qy="0.477159" qz="0" />
+                <scale x="40" y="1.23992" z="1.52989" />
+                <entity name="cube#0" meshFile="cube.mesh" castShadows="false">
+                    <subentity index="0" materialName="Background_Toon_Material1" />
+                </entity>
+            </node>
+            <node name="cube#3" id="601550336">
+                <position x="-868.203" y="-377.337" z="-4376.43" />
+                <rotation qw="0.69779" qx="0" qy="0.716303" qz="0" />
+                <scale x="63.7671" y="1.23992" z="1.52989" />
+                <entity name="cube#3" meshFile="cube.mesh" castShadows="false">
+                    <subentity index="0" materialName="Background_Toon_Material1" />
+                </entity>
+            </node>
+            <node name="cube#1" id="595019392">
+                <position x="-1040.18" y="-377.337" z="5083.09" />
+                <rotation qw="0.591309" qx="0" qy="0.806445" qz="0" />
+                <scale x="40" y="1.23992" z="1.52989" />
+                <entity name="cube#1" meshFile="cube.mesh" castShadows="false">
+                    <subentity index="0" materialName="Background_Toon_Material1" />
+                </entity>
+            </node>
+        </node>
+        <node name="trajectory2#2" id="480605472">
+            <position x="1554.47" y="13.232" z="-1786.36" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.0903487" y="0.0903487" z="0.0903487" />
+            <entity name="trajectory2#2" meshFile="sphere.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="10" />
+                    <property type="2" name="trajectoryNumber" data="2" />
+                </userData>
+            </entity>
+        </node>
+        <node name="step#00" id="337656800">
+            <position x="-4485.66" y="-80" z="14649.9" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.242014" y="0.242014" z="0.242014" />
+            <entity name="step#00" meshFile="cube.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="0" />
+                    <property type="2" name="MiniMagmaton" data="0" />
+                    <property type="2" name="Kamikace" data="0" />
+                    <property type="2" name="Intelligent" data="0" />
+                </userData>
+            </entity>
+        </node>
+        <node name="Tower#33Copy#0" id="955717632">
+            <position x="2816.9" y="14.374" z="11171.1" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="1" y="1" z="1" />
+            <entity name="Tower#33Copy#0" meshFile="Tower.mesh" castShadows="false">
+                <subentity index="0" materialName="Tower" />
+            </entity>
+        </node>
+        <node name="step#08" id="870387904">
+            <position x="3068.12" y="37.2244" z="12000" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.242014" y="0.242014" z="0.242014" />
+            <entity name="step#08" meshFile="cube.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="360" />
+                    <property type="2" name="MiniMagmaton" data="4" />
+                    <property type="2" name="Kamikace" data="4" />
+                    <property type="2" name="Intelligent" data="4" />
+                </userData>
+            </entity>
+        </node>
+        <node name="trajectory2#4" id="492629760">
+            <position x="1793.33" y="79.5532" z="-1580.82" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.0903487" y="0.0903487" z="0.0903487" />
+            <entity name="trajectory2#4" meshFile="sphere.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="20" />
+                    <property type="2" name="trajectoryNumber" data="2" />
+                </userData>
+            </entity>
+        </node>
+        <node name="step#05" id="496810816">
+            <position x="-2801.8" y="37.2244" z="-12009.9" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.242014" y="0.242014" z="0.242014" />
+            <entity name="step#05" meshFile="cube.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="160" />
+                    <property type="2" name="MiniMagmaton" data="5" />
+                    <property type="2" name="Kamikace" data="5" />
+                    <property type="2" name="Intelligent" data="5" />
                 </userData>
             </entity>
         </node>
@@ -336,7 +813,7 @@
             <position x="1819.52" y="27.4158" z="-1396.78" />
             <rotation qw="1" qx="0" qy="0" qz="0" />
             <scale x="0.0903487" y="0.0903487" z="0.0903487" />
-            <entity name="trajectory1#3" meshFile="sphere" castShadows="false">
+            <entity name="trajectory1#3" meshFile="sphere.mesh" castShadows="false">
                 <subentity index="0" materialName="BaseWhite" />
                 <userData>
                     <property type="2" name="time" data="13" />
@@ -348,7 +825,7 @@
             <position x="1681.12" y="-13.446" z="-1765.82" />
             <rotation qw="1" qx="0" qy="0" qz="0" />
             <scale x="0.0903487" y="0.0903487" z="0.0903487" />
-            <entity name="trajectory2#3" meshFile="sphere" castShadows="false">
+            <entity name="trajectory2#3" meshFile="sphere.mesh" castShadows="false">
                 <subentity index="0" materialName="BaseWhite" />
                 <userData>
                     <property type="2" name="time" data="15" />
@@ -356,54 +833,57 @@
                 </userData>
             </entity>
         </node>
-        <node name="Helpers" id="569200704">
-            <position x="-1847.4" y="329.086" z="4254.44" />
+        <node name="trajectory1#4" id="578569920">
+            <position x="1819.52" y="27.4158" z="-1213.61" />
             <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="1" y="1" z="1" />
-            <node name="cube#0" id="949156160">
-                <position x="-1545.9" y="-377.337" z="8657.51" />
-                <rotation qw="0.878817" qx="0" qy="0.477159" qz="0" />
-                <scale x="40" y="1.23992" z="1.52989" />
-                <entity name="cube#0" meshFile="cube" castShadows="false">
-                    <subentity index="0" materialName="Background_Toon_Material1" />
-                </entity>
-            </node>
-            <node name="cube#1" id="595019392">
-                <position x="-1040.18" y="-377.337" z="5083.09" />
-                <rotation qw="0.591309" qx="0" qy="0.806445" qz="0" />
-                <scale x="40" y="1.23992" z="1.52989" />
-                <entity name="cube#1" meshFile="cube" castShadows="false">
-                    <subentity index="0" materialName="Background_Toon_Material1" />
-                </entity>
-            </node>
-            <node name="cube#2" id="625171648">
-                <position x="-1309.95" y="-377.337" z="779.033" />
-                <rotation qw="0.790689" qx="0" qy="0.612218" qz="0" />
-                <scale x="42.1036" y="1.23992" z="1.52989" />
-                <entity name="cube#2" meshFile="cube" castShadows="false">
-                    <subentity index="0" materialName="Background_Toon_Material1" />
-                </entity>
-            </node>
-            <node name="cube#3" id="601550336">
-                <position x="-868.203" y="-377.337" z="-4376.43" />
-                <rotation qw="0.69779" qx="0" qy="0.716303" qz="0" />
-                <scale x="63.7671" y="1.23992" z="1.52989" />
-                <entity name="cube#3" meshFile="cube" castShadows="false">
-                    <subentity index="0" materialName="Background_Toon_Material1" />
-                </entity>
-            </node>
+            <scale x="0.0903487" y="0.0903487" z="0.0903487" />
+            <entity name="trajectory1#4" meshFile="sphere.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="20" />
+                    <property type="2" name="trajectoryNumber" data="1" />
+                </userData>
+            </entity>
         </node>
-        <node name="step#07" id="171788688">
-            <position x="3068.12" y="37.2244" z="12000" />
+        <node name="step#06" id="788110016">
+            <position x="2724.57" y="37.2244" z="-9100.12" />
             <rotation qw="1" qx="0" qy="0" qz="0" />
             <scale x="0.242014" y="0.242014" z="0.242014" />
-            <entity name="step#07" meshFile="cube" castShadows="false">
+            <entity name="step#06" meshFile="cube.mesh" castShadows="false">
                 <subentity index="0" materialName="BaseWhite" />
                 <userData>
                     <property type="2" name="time" data="200" />
+                    <property type="2" name="MiniMagmaton" data="3" />
+                    <property type="2" name="Kamikace" data="3" />
+                    <property type="2" name="Intelligent" data="3" />
+                </userData>
+            </entity>
+        </node>
+        <node name="step#03" id="49439984">
+            <position x="-3635.08" y="-80" z="7114.43" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.242014" y="0.242014" z="0.242014" />
+            <entity name="step#03" meshFile="cube.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="80" />
                     <property type="2" name="MiniMagmaton" data="4" />
                     <property type="2" name="Kamikace" data="4" />
                     <property type="2" name="Intelligent" data="4" />
+                </userData>
+            </entity>
+        </node>
+        <node name="step#04" id="300057984">
+            <position x="-2648.24" y="-134.483" z="468.486" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.242014" y="0.242014" z="0.242014" />
+            <entity name="step#04" meshFile="cube.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="120" />
+                    <property type="2" name="MiniMagmaton" data="2" />
+                    <property type="2" name="Kamikace" data="2" />
+                    <property type="2" name="Intelligent" data="2" />
                 </userData>
             </entity>
         </node>
@@ -411,7 +891,7 @@
             <position x="1715.97" y="19.2254" z="-1846.72" />
             <rotation qw="1" qx="0" qy="0" qz="0" />
             <scale x="0.0903487" y="0.0903487" z="0.0903487" />
-            <entity name="trajectory1#2" meshFile="sphere" castShadows="false">
+            <entity name="trajectory1#2" meshFile="sphere.mesh" castShadows="false">
                 <subentity index="0" materialName="BaseWhite" />
                 <userData>
                     <property type="2" name="time" data="10" />
@@ -423,11 +903,71 @@
             <position x="1107.01" y="-44.1375" z="-1778.48" />
             <rotation qw="1" qx="0" qy="0" qz="0" />
             <scale x="0.0903487" y="0.0903487" z="0.0903487" />
-            <entity name="trajectory2#0" meshFile="sphere" castShadows="false">
+            <entity name="trajectory2#0" meshFile="sphere.mesh" castShadows="false">
                 <subentity index="0" materialName="BaseWhite" />
                 <userData>
                     <property type="2" name="time" data="0" />
                     <property type="2" name="trajectoryNumber" data="2" />
+                </userData>
+            </entity>
+        </node>
+        <node name="step#10" id="136539824">
+            <position x="-2798.92" y="-80" z="12065.1" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.242014" y="0.242014" z="0.242014" />
+            <entity name="step#10" meshFile="cube.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="30" />
+                    <property type="2" name="MiniMagmaton" data="5" />
+                    <property type="2" name="Kamikace" data="5" />
+                    <property type="2" name="Intelligent" data="5" />
+                </userData>
+            </entity>
+        </node>
+        <node name="step#01" id="593127232">
+            <position x="-2314.81" y="-80" z="11275.7" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.242014" y="0.242014" z="0.242014" />
+            <entity name="step#01" meshFile="cube.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="40" />
+                    <property type="2" name="MiniMagmaton" data="5" />
+                    <property type="2" name="Kamikace" data="5" />
+                    <property type="2" name="Intelligent" data="5" />
+                </userData>
+            </entity>
+        </node>
+        <node name="Lake#01" id="60823388">
+            <position x="-2401.25" y="-308.23" z="1359.56" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="256.85" y="0.999933" z="469.193" />
+            <plane name="Lake#01" distance="1" width="10" height="10" xSegments="1" ySegments="1" numTexCoordSets="1" uTile="6" vTile="6" material="Waterfall_mat" hasNormals="true">
+                <normal x="0" y="1" z="0" />
+                <upVector x="0" y="0" z="1" />
+            </plane>
+        </node>
+        <node name="Lake#02" id="997497472">
+            <position x="-2788.59" y="-150.011" z="-3069.26" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="594.191" y="1" z="594.191" />
+            <plane name="Lake#02" distance="0" width="10" height="10" xSegments="2" ySegments="2" numTexCoordSets="1" uTile="6" vTile="6" material="Waterfall_mat" hasNormals="false">
+                <normal x="0" y="1" z="0" />
+                <upVector x="0" y="0" z="1" />
+            </plane>
+        </node>
+        <node name="step#09" id="188940096">
+            <position x="-3282.98" y="-61.5005" z="12828" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.242014" y="0.242014" z="0.242014" />
+            <entity name="step#09" meshFile="cube.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="20" />
+                    <property type="2" name="MiniMagmaton" data="5" />
+                    <property type="2" name="Kamikace" data="5" />
+                    <property type="2" name="Intelligent" data="5" />
                 </userData>
             </entity>
         </node>
