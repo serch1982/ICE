@@ -46,9 +46,9 @@ bool iceMini::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActivat
 	//strategy 
 	srand(time(NULL));
 	bool b = (rand() % 2 + 1) == 1 ? true: false;
-	Ogre::Real r = 10 * (Ogre::Math::RangeRandom(20.0,40.0));
-	Ogre::Real vel = 1 + (Ogre::Math::UnitRandom() * 2.5);
-	mIceStrategy = iceStrategyPtr(new iceStrategyCircle(vel,10,r, b ));
+	Ogre::Real r = 10 * (Ogre::Math::RangeRandom(15.0,25.0));
+	Ogre::Real vel = Ogre::Math::RangeRandom(1.0,2.5);
+	mIceStrategy = iceStrategyPtr(new iceStrategyCircle(vel,20,r, b ));
 	return true;
 }
 
