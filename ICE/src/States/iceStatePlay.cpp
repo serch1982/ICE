@@ -80,7 +80,7 @@ void iceStatePlay::load() {
     }else if( _levelID == 2 ){
 		// Boss LEVEL
 		if( !_loaded ){
-						_log->logMessage("iceStatePlay::load()");
+			_log->logMessage("iceStatePlay::load()");
 			_loaded = true;
 
 			// light
@@ -181,16 +181,16 @@ void iceStatePlay::update(Ogre::Real evt)
 		//enemies
 		for (_revit_mEnemies = _mEnemies.rbegin(); _revit_mEnemies != _mEnemies.rend(); ++_revit_mEnemies) {
 			iceEnemy* enemy = *_revit_mEnemies;
-			if(enemy->isActive() && _player->isPositionBackToPlayer((*_revit_mEnemies)->getNode()->_getDerivedPosition()))
+			/*if(enemy->isActive() && _player->isPositionBackToPlayer((*_revit_mEnemies)->getNode()->_getDerivedPosition()))
 			{
 				enemy->desactivate();
 			}
-			else
-			{
+			else 
+			{*/
 				iceLogicLua::getInstance()->getEnemyLogicState(enemy,evt);
 				enemy->setDebug(visibleBoundingBoxes);
 				enemy->update(evt);
-			}
+			//}
 		}
 		//HUD
 		

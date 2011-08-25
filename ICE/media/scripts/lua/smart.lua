@@ -15,9 +15,9 @@ function smartLogic( pEnemy )
 		ra = pEnemy:rangeAttack()
 		if not pEnemy:isAlive() then
 			pEnemy:setState(enemy.INACTIVE)
-			elseif (ra  < 300) and pEnemy:isVisiblePlayerCam() then
+			elseif (ra  < 400) and pEnemy:isVisiblePlayerCam() then
 				pEnemy:setState(enemy.ATTACK)
-				elseif (ra  > 300) and not pEnemy:isVisiblePlayerCam()  then
+				elseif (ra  > 400) and not pEnemy:isVisiblePlayerCam()  then
 					pEnemy:setState(enemy.INACTIVE)
 			
 		end
@@ -26,7 +26,7 @@ function smartLogic( pEnemy )
 		ra = pEnemy:rangeAttack()
 		if not pEnemy:isAlive() then
 			pEnemy:setState(enemy.DYING)
-		elseif (ra  > 300) then 
+		elseif (ra  > 400) then 
 			pEnemy:setState(enemy.FOLLOWING_TRAJECTORY)
 			elseif not pEnemy:isVisiblePlayerCam() then 
 				pEnemy:setState(enemy.FOLLOWING_TRAJECTORY)		

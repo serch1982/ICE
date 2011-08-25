@@ -33,9 +33,9 @@ bool iceSmart::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActiva
 	//strategy 
 	srand(time(NULL));
 	bool b = (rand() % 2 + 1) == 1 ? true: false;
-	Ogre::Real r = 10 * (Ogre::Math::RangeRandom(20.0,30.0));
-	Ogre::Real vel = 1 + (Ogre::Math::UnitRandom() * 2.5);
-	mIceStrategy = iceStrategyPtr(new iceStrategySin(r,vel,10, b));
+	Ogre::Real r = 15 * (Ogre::Math::RangeRandom(20.0,30.0));
+	Ogre::Real vel = Ogre::Math::RangeRandom(1.0,2.5);
+	mIceStrategy = iceStrategyPtr(new iceStrategySin(r,vel,50, b));
 
 	return true;
 }

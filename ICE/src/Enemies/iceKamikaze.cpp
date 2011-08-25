@@ -32,7 +32,7 @@ bool iceKamikaze::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fAct
 	mParticleFire = iceParticleMgr::getSingletonPtr()->createPartAttachToObject(enemyNode,"ice/iceKamimaze",false);
 
 	//strategy 
-	mIceStrategy = iceStrategyPtr(new iceStrategyForward(0.9));
+	mIceStrategy = iceStrategyPtr(new iceStrategyForward(2));
 	return true;
 }
 
