@@ -249,11 +249,13 @@ bool iceStateManager::keyPressed(const OIS::KeyEvent &arg) {
         iceGame::getRenderWindow()->writeContentsToTimestampedFile("screenshot", ".jpg");
     }else if (arg.key == OIS::KC_F1)
     {
+		icePostProcessManager::getSingleton().disableBlur();
 		_godCamera->setPosition(icePlayer::getSingletonPtr()->getPosition());
 		iceGame::setCamera(_godCamera);
     }else if (arg.key == OIS::KC_F2)
     {
 		iceGame::setCamera(_oldCamera);
+		icePostProcessManager::getSingleton().enableSoftBlur();
     }
 	_sdkCameraMan->injectKeyDown(arg);
     return this->_currentState->keyPressed(arg);
