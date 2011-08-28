@@ -27,7 +27,7 @@
     </RESOURCEDIRECTORIES>
   <CAMERASPEED value="100"></CAMERASPEED>
   <CAMERAPOSITIONS count="0">
-    <OPTION id="0" position="-98.3691 181.948 -3206.18" orientation="0.954962 -0.236347 -0.17415 -0.0431252"></OPTION>
+    <OPTION id="0" position="-864.755 1238.98 3448.9" orientation="-0.636597 0.123396 0.747179 0.145746"></OPTION>
   </CAMERAPOSITIONS>
     <LAYERS>
       <LAYER id="0" name="Layer 0" visible="true"></LAYER>
@@ -108,9 +108,9 @@
   <OBJECT object_id="2000000002" name="Viewport1" typename="Viewport Object">
     <PROPERTY id="camera::clipdistance" type="8" value="1 10000"></PROPERTY>
     <PROPERTY id="camera::fov" type="6" value="45"></PROPERTY>
-    <PROPERTY id="camera::orientation" type="13" value="0.954965 -0.236348 -0.174151 -0.0431253"></PROPERTY>
+    <PROPERTY id="camera::orientation" type="13" value="-0.636748 0.123425 0.747356 0.14578"></PROPERTY>
     <PROPERTY id="camera::polymode" type="2" value="3"></PROPERTY>
-    <PROPERTY id="camera::position" type="9" value="-98.3691 181.948 -3206.18"></PROPERTY>
+    <PROPERTY id="camera::position" type="9" value="-864.755 1238.98 3448.9"></PROPERTY>
     <PROPERTY id="camera::viewmode" type="2" value="0"></PROPERTY>
     <PROPERTY id="colour" type="11" value="0 0 0 1"></PROPERTY>
     <PROPERTY id="compositorcount" type="2" value="0"></PROPERTY>
@@ -224,6 +224,42 @@
     <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
     <PROPERTY id="scale" type="9" value="1 1 1"></PROPERTY>
     <PROPERTY id="subentity0::material" type="7" value="Building06"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
+  <OBJECT object_id="374401056" name="staticPhisicCube#5" typename="Entity Object" parentnode="StaticPhisicObjects">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="2"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="cube"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.999914 0 -0.0130896 0"></PROPERTY>
+    <PROPERTY id="position" type="9" value="-1616.86 105.978 190.052"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="0.217624 0.885851 0.181596"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
+  <OBJECT object_id="754478592" name="staticPhisicCube#6" typename="Entity Object" parentnode="StaticPhisicObjects">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="2"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="cube"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.999914 0 -0.0130896 0"></PROPERTY>
+    <PROPERTY id="position" type="9" value="-1615.44 105.978 135.726"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="0.217624 1.19494 0.181596"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
     <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
     <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
     <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
@@ -349,42 +385,6 @@
     <PROPERTY id="position" type="9" value="-1820.05 77.0119 677.423"></PROPERTY>
     <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
     <PROPERTY id="scale" type="9" value="0.480204 0.432046 0.753848"></PROPERTY>
-    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
-    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
-    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
-    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
-    <CUSTOMPROPERTIES>
-    </CUSTOMPROPERTIES>
-  </OBJECT>
-
-  <OBJECT object_id="374401056" name="staticPhisicCube#5" typename="Entity Object" parentnode="StaticPhisicObjects">
-    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
-    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
-    <PROPERTY id="layer" type="2" value="2"></PROPERTY>
-    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
-    <PROPERTY id="meshfile" type="7" value="cube"></PROPERTY>
-    <PROPERTY id="orientation" type="13" value="0.999914 0 -0.0130896 0"></PROPERTY>
-    <PROPERTY id="position" type="9" value="-1616.86 105.978 190.052"></PROPERTY>
-    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
-    <PROPERTY id="scale" type="9" value="0.217624 0.885851 0.181596"></PROPERTY>
-    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
-    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
-    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
-    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
-    <CUSTOMPROPERTIES>
-    </CUSTOMPROPERTIES>
-  </OBJECT>
-
-  <OBJECT object_id="754478592" name="staticPhisicCube#6" typename="Entity Object" parentnode="StaticPhisicObjects">
-    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
-    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
-    <PROPERTY id="layer" type="2" value="2"></PROPERTY>
-    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
-    <PROPERTY id="meshfile" type="7" value="cube"></PROPERTY>
-    <PROPERTY id="orientation" type="13" value="0.999914 0 -0.0130896 0"></PROPERTY>
-    <PROPERTY id="position" type="9" value="-1615.44 105.978 135.726"></PROPERTY>
-    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
-    <PROPERTY id="scale" type="9" value="0.217624 1.19494 0.181596"></PROPERTY>
     <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
     <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
     <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
@@ -694,7 +694,7 @@
     <PROPERTY id="locked" type="12" value="false"></PROPERTY>
     <PROPERTY id="meshfile" type="7" value="cube"></PROPERTY>
     <PROPERTY id="orientation" type="13" value="1 0 0 0"></PROPERTY>
-    <PROPERTY id="position" type="9" value="-797.257 -30 1837.92"></PROPERTY>
+    <PROPERTY id="position" type="9" value="-574.475 -30 1460.81"></PROPERTY>
     <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
     <PROPERTY id="scale" type="9" value="0.242014 0.242014 0.242014"></PROPERTY>
     <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
@@ -702,7 +702,7 @@
     <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
     <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
     <CUSTOMPROPERTIES>
-      <PROPERTY id="time" type="2" value="30" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="time" type="2" value="35" autooptiontype="0"></PROPERTY>
       <PROPERTY id="MiniMagmaton" type="2" value="5" autooptiontype="0"></PROPERTY>
       <PROPERTY id="Kamikace" type="2" value="5" autooptiontype="0"></PROPERTY>
       <PROPERTY id="Intelligent" type="2" value="5" autooptiontype="0"></PROPERTY>
@@ -716,7 +716,7 @@
     <PROPERTY id="locked" type="12" value="false"></PROPERTY>
     <PROPERTY id="meshfile" type="7" value="cube"></PROPERTY>
     <PROPERTY id="orientation" type="13" value="1 0 0 0"></PROPERTY>
-    <PROPERTY id="position" type="9" value="1347.54 -30 -1513.94"></PROPERTY>
+    <PROPERTY id="position" type="9" value="1202.41 -30 -1820.45"></PROPERTY>
     <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
     <PROPERTY id="scale" type="9" value="0.242014 0.242014 0.242014"></PROPERTY>
     <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
@@ -724,7 +724,7 @@
     <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
     <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
     <CUSTOMPROPERTIES>
-      <PROPERTY id="time" type="2" value="60" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="time" type="2" value="65" autooptiontype="0"></PROPERTY>
       <PROPERTY id="MiniMagmaton" type="2" value="0" autooptiontype="0"></PROPERTY>
       <PROPERTY id="Kamikace" type="2" value="0" autooptiontype="0"></PROPERTY>
       <PROPERTY id="Intelligent" type="2" value="0" autooptiontype="0"></PROPERTY>
@@ -738,7 +738,7 @@
     <PROPERTY id="locked" type="12" value="false"></PROPERTY>
     <PROPERTY id="meshfile" type="7" value="cube"></PROPERTY>
     <PROPERTY id="orientation" type="13" value="1 0 0 0"></PROPERTY>
-    <PROPERTY id="position" type="9" value="539.766 -30 -3593.28"></PROPERTY>
+    <PROPERTY id="position" type="9" value="463.893 -30 -3569.34"></PROPERTY>
     <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
     <PROPERTY id="scale" type="9" value="0.242014 0.242014 0.242014"></PROPERTY>
     <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
@@ -760,7 +760,7 @@
     <PROPERTY id="locked" type="12" value="false"></PROPERTY>
     <PROPERTY id="meshfile" type="7" value="cube"></PROPERTY>
     <PROPERTY id="orientation" type="13" value="1 0 0 0"></PROPERTY>
-    <PROPERTY id="position" type="9" value="539.766 -30 -3632.14"></PROPERTY>
+    <PROPERTY id="position" type="9" value="405.022 -30 -3717.93"></PROPERTY>
     <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
     <PROPERTY id="scale" type="9" value="0.242014 0.242014 0.242014"></PROPERTY>
     <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
@@ -775,14 +775,14 @@
     </CUSTOMPROPERTIES>
   </OBJECT>
 
-  <OBJECT object_id="840144064" name="step#05" typename="Entity Object" parentnode="SceneManager">
+  <OBJECT object_id="72267832" name="step#07" typename="Entity Object" parentnode="SceneManager">
     <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
     <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
     <PROPERTY id="layer" type="2" value="0"></PROPERTY>
     <PROPERTY id="locked" type="12" value="false"></PROPERTY>
     <PROPERTY id="meshfile" type="7" value="cube"></PROPERTY>
     <PROPERTY id="orientation" type="13" value="1 0 0 0"></PROPERTY>
-    <PROPERTY id="position" type="9" value="166.092 -30 4667.18"></PROPERTY>
+    <PROPERTY id="position" type="9" value="-581.742 -30 2397.7"></PROPERTY>
     <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
     <PROPERTY id="scale" type="9" value="0.242014 0.242014 0.242014"></PROPERTY>
     <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
@@ -790,10 +790,32 @@
     <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
     <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
     <CUSTOMPROPERTIES>
-      <PROPERTY id="time" type="2" value="15" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="time" type="2" value="25" autooptiontype="0"></PROPERTY>
       <PROPERTY id="MiniMagmaton" type="2" value="5" autooptiontype="0"></PROPERTY>
       <PROPERTY id="Kamikace" type="2" value="5" autooptiontype="0"></PROPERTY>
       <PROPERTY id="Intelligent" type="2" value="5" autooptiontype="0"></PROPERTY>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
+  <OBJECT object_id="551988288" name="step#08" typename="Entity Object" parentnode="SceneManager">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="0"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="cube"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="1 0 0 0"></PROPERTY>
+    <PROPERTY id="position" type="9" value="1122.48 -30 -1138.73"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="0.242014 0.242014 0.242014"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+      <PROPERTY id="time" type="2" value="55" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="MiniMagmaton" type="2" value="0" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Kamikace" type="2" value="0" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Intelligent" type="2" value="0" autooptiontype="0"></PROPERTY>
     </CUSTOMPROPERTIES>
   </OBJECT>
 
