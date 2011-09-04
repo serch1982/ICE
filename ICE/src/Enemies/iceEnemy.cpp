@@ -152,28 +152,10 @@ bool iceEnemy::isVisiblePlayerCam(){
 }
 //return if the eneymy whether or not  is inside the wide (super) camera
 bool iceEnemy::isVisibleWideCam(){
-	if(this->isActive() && icePlayer::getSingletonPtr()->isPositionBackToPlayer(this->getNode()->_getDerivedPosition()))
-	{
-		return false;
-	}else{
-		return true;
-	}	
-	/*Ogre::Camera *playCam = icePlayer::getSingletonPtr()->getCamera();
-	Ogre::Ray ray(playCam->getPosition(), playCam->getDirection() * 2);
-	mRaySceneQuery->setRay(ray);
-    Ogre::RaySceneQueryResult &result = mRaySceneQuery->execute();
-    Ogre::RaySceneQueryResult::iterator itr;
-    for (itr = result.begin(); itr != result.end(); itr++) {
-        if (itr->movable->getName().compare(enemyNode->getName())!=0) {
-            return true;
-        }
-    }
-    return false;*/
+	return icePlayer::getSingletonPtr()->isPositionBackToPlayer(this->getNode()->_getDerivedPosition());
 }
-float iceEnemy::rangeAttack(){
-	/*Ogre::Vector3 sDiference =icePlayer::getSingletonPtr()->getPosition() - enemyNode->_getDerivedPosition();
-	Ogre::Real dis = sqrt(sDiference.x*sDiference.x + sDiference.z*sDiference.z);*/
 
+float iceEnemy::rangeAttack(){
 	Ogre::Real dis = icePlayer::getSingletonPtr()->getPosition().distance(enemyNode->_getDerivedPosition());
 	return (float)dis;
 }

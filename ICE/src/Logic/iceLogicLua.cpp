@@ -25,8 +25,7 @@ iceLogicLua::iceLogicLua(void){
 }
 
 iceLogicLua::~iceLogicLua(void){
-	if(L)
-		lua_close(L);
+	if(L) lua_close(L);
 }
 
 
@@ -204,7 +203,7 @@ void iceLogicLua::bindLuaObjects(){
 			.def("setAnimDyingEnded", &iceEnemy::setAnimDyingEnded )
 			//.def("checkActivationTime", (bool( iceEnemy::*)(Ogre::Real)) &iceEnemy::checkActivationTime)
 			.def("isVisiblePlayerCam", (bool( iceEnemy::*)(void)) &iceEnemy::isVisiblePlayerCam)
-			//.def("isVisibleWideCam", (bool( iceEnemy::*)(void)) &iceEnemy::isVisibleWideCam)
+			.def("isVisibleWideCam", (bool( iceEnemy::*)(void)) &iceEnemy::isVisibleWideCam)
 			.def("rangeAttack", (float( iceEnemy::*)(void)) &iceEnemy::rangeAttack),
 
 			luabind::class_<iceCutScene>("cutscene")
@@ -251,27 +250,6 @@ void iceLogicLua::getEnemyLogicState(iceEnemy *enemy, Ogre::Real p_timeSinceLast
 			errString.append(lua_tostring(err.state(),-1));
 			_log->logMessage(errString);
 	}
-	/*try{
-		unsigned int ret = -1;
-		if( enemy->getType() == enemy->KAMIKAZE ){
-			if(FuncExist("KamikazeLogic")){
-				luabind::call_function<void>(L, "KamikazeLogic", enemy);
-					std::stringstream ss; 
-					ss << enemy->getState();
-				_log->logMessage( ss.str() );
-				//ret = luabind::call_function<int>(L, "KamikazeLogic", enemy);
-			}else
-				_log->logMessage("IA: function KamikazeLogic doesn't exist" );
-			if( ret == enemy->INACTIVE )
-				enemy->setAnimDyingEnded(0);
-		}
-	}catch(const luabind::error& err)
-		{
-			std::string errString = "LUA Function call failed: ";
-			errString.append(err.what()).append(" - ");
-			errString.append(lua_tostring(err.state(),-1));
-			_log->logMessage(errString);
-		}*/
 }
 
 //call the method of lua with the enemy logic and change his ENEMYSTATE 
