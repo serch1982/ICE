@@ -23,6 +23,7 @@ iceStatePlay::iceStatePlay(
 
 	mCurrentTime = 0;
 	mCurrentCutScene = NULL;
+	_mMagmaton = NULL;
 }
 
 iceStatePlay::~iceStatePlay() {
@@ -65,7 +66,7 @@ void iceStatePlay::load() {
 
 			//load phisics
 			mPhysics = icePhysicsPtr(new icePhysics());
-			mPhysics->initialize(_level->getTerrain(), &_mEnemies, _level->getStaticPhisicSceneObjects());
+			mPhysics->initialize(_level->getTerrain(), &_mEnemies, _level->getStaticPhisicSceneObjects(), _mMagmaton);
 
 			//show HUD
 			mHUD = iceGame::getUI()->getHUD();
@@ -74,6 +75,7 @@ void iceStatePlay::load() {
 			//post process
 			icePostProcessManager::getSingleton().enableSoftBlur();
 			icePostProcessManager::getSingleton().enableToon();
+			icePostProcessManager::getSingleton().enableDepthOfField();
 
 		}
 
@@ -109,14 +111,21 @@ void iceStatePlay::load() {
 			// load level
 			_level = iceLevelManager::getSingleton().getIceLevel(_levelID);
 			_level->load(_mEnemies, _mCutScenes);
+			_mMagmaton = (iceBoss*) _mEnemies.back();
+			_mEnemies.pop_back();
 
 			//load phisics
 			mPhysics = icePhysicsPtr(new icePhysics());
-			mPhysics->initialize(_level->getTerrain(), &_mEnemies, _level->getStaticPhisicSceneObjects());
+			mPhysics->initialize(_level->getTerrain(), &_mEnemies, _level->getStaticPhisicSceneObjects(), _mMagmaton);
 
 			//show HUD
 			mHUD = iceGame::getUI()->getHUD();
 			mHUD->show();
+
+			//post process
+			icePostProcessManager::getSingleton().enableSoftBlur();
+			icePostProcessManager::getSingleton().enableToon();
+			icePostProcessManager::getSingleton().enableDepthOfField();
 		}
 	}
 
@@ -147,6 +156,8 @@ void iceStatePlay::clear() {
 		//Deleting enemies
 		for (unsigned int i=0;i<_mEnemies.size();i++)
 			delete _mEnemies[i];
+		if(_mMagmaton)
+			delete _mMagmaton;
 
 		//hide HUD
 		mHUD->hide();
@@ -154,6 +165,7 @@ void iceStatePlay::clear() {
 		//post process
 		icePostProcessManager::getSingleton().disableBlur();
 		icePostProcessManager::getSingleton().disableToon();
+		icePostProcessManager::getSingleton().disableDepthOfField();
     }
 }
 
@@ -191,6 +203,13 @@ void iceStatePlay::update(Ogre::Real evt)
 				enemy->setDebug(visibleBoundingBoxes);
 				enemy->update(evt);
 			//}
+		}
+
+		if(_mMagmaton)
+		{
+			iceLogicLua::getInstance()->getEnemyLogicState(_mMagmaton,evt);
+			_mMagmaton->setDebug(visibleBoundingBoxes);
+			_mMagmaton->update(evt);
 		}
 		//HUD
 		
@@ -230,7 +249,17 @@ void iceStatePlay::update(Ogre::Real evt)
 		iceSdkTray::getInstance()->updateScreenInfo( 5, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedOrientation().y));
 		iceSdkTray::getInstance()->updateScreenInfo( 6, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedOrientation().z));
 
-		mCurrentTime += evt;
+		mCurrentTime += evt*_player->getTimeMultiplier();
+
+		if( _levelID == 2 )
+		{
+			if(mCurrentTime >= 80)
+			{ // Fin de trayectoria, comienza la lucha con el boss
+				_player->getTrajectory()->goToLastStep();
+				_player->getTrajectory()->setNodeToLookAt(_mMagmaton->getNode());
+				_player->getTrajectory()->lookAt();
+			}
+		}
 	}
 }
 

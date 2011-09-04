@@ -1,0 +1,84 @@
+fragment_program dof_blender_pass1 cg
+{
+    source BlenderDoF.cg
+    entry_point blurPass1
+    profiles ps_2_x arbfp1
+    default_params
+    {
+        param_named focalDepth float 0.95
+    }
+}
+ 
+fragment_program dof_blender_pass2 cg
+{
+    source BlenderDoF.cg
+    entry_point blurPass2
+    profiles ps_2_x arbfp1
+    default_params
+    {
+        param_named focalDepth float 0.95
+    }
+}
+ 
+material dof_blender_1st_pass
+{
+    technique
+    {
+        pass
+        {
+ 
+			vertex_program_ref Ogre/Compositor/StdQuad_Tex2a_vp
+			{
+			}
+ 
+			fragment_program_ref dof_blender_pass1
+			{
+			}
+ 
+			texture_unit scene
+			{
+			    tex_coord_set 0
+			    tex_address_mode clamp
+			    filtering trilinear
+			}
+ 
+			texture_unit RT0
+			{
+			    tex_coord_set 0
+			    tex_address_mode clamp
+			    filtering trilinear
+			}
+        }
+    }
+}
+ 
+material dof_blender_2nd_pass
+{
+    technique
+    {
+        pass
+        {
+            vertex_program_ref Ogre/Compositor/StdQuad_Tex2a_vp
+            {
+            }
+ 
+            fragment_program_ref dof_blender_pass2
+            {
+            }
+ 
+            texture_unit scene
+            {
+                tex_coord_set 0
+                tex_address_mode clamp
+                filtering trilinear
+            }
+ 
+            texture_unit RT0
+            {
+                tex_coord_set 0
+                tex_address_mode clamp
+                filtering trilinear
+            }
+        }
+    }
+}

@@ -22,7 +22,7 @@
 #define BRAKE_TIME 3
 #define BRAKE_DIVISOR 4
 #define SPRINT_TIME 3
-#define SPRINT_MULTIMPLICATOR 4
+#define SPRINT_MULTIMPLICATOR 2
 
 #ifdef _DEBUG 
 	#define VELOCITY 0.08
@@ -611,4 +611,27 @@ bool icePlayer::isPositionBackToPlayer(Ogre::Vector3 pPosition)
 	Ogre::Vector3 playerPosition = mNode->_getDerivedPosition();
 
 	return normal.dotProduct(playerPosition) >= normal.dotProduct(pPosition);
+}
+
+Ogre::Real icePlayer::getTimeMultiplier(void)
+{
+	Ogre::Real multiplier = 1;
+
+	if(mSprintTime > 0)
+	{
+		multiplier = SPRINT_MULTIMPLICATOR;
+	}	
+	else if(mBrakeTime > 0)
+	{
+		multiplier = 1 / BRAKE_DIVISOR;
+	}
+
+	return multiplier;
+}
+
+void icePlayer::resetPositions(void)
+{
+	cursorNode->setPosition(Ogre::Vector3::ZERO);
+	shipPlaneNode->setPosition(Ogre::Vector3::ZERO);
+	shipNode->setPosition(Ogre::Vector3::ZERO);
 }

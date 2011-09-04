@@ -200,3 +200,9 @@ void iceTrajectory::lookAt(void)
 	mNode->yaw(fYawAngle);
 	mNode->pitch(fPitchAngle);
 }
+
+void iceTrajectory::goToLastStep(void)
+{
+	mNode->_setDerivedPosition(mSteps.back().getPosition());
+	mCurrentTime = mSteps.back().getTime() + 1;
+}

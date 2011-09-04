@@ -72,6 +72,10 @@ void iceEnemy::update(Ogre::Real p_timeSinceLastFrame)
 {
 	_lastPosition = enemyNode->getPosition();
 	iceRPG::update(p_timeSinceLastFrame);
+	for(std::map<Ogre::String,Ogre::AnimationState*>::const_iterator i = mAnimations.begin();i!=mAnimations.end();i++)
+	{
+		i->second->addTime(p_timeSinceLastFrame);
+	}
 }
 
 std::string iceEnemy::getFunctionStr(){
@@ -104,6 +108,7 @@ bool iceEnemy::isActive(void)
 
 bool iceEnemy::checkActivationTime(Ogre::Real p_timeSinceLastFrame)
 {
+	p_timeSinceLastFrame *= icePlayer::getSingletonPtr()->getTimeMultiplier();
 	if(mActivationTime < 0)
 		return false;
 

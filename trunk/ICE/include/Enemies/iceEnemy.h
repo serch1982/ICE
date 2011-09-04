@@ -38,7 +38,7 @@ class iceEnemy :public iceTrajectoryFollower, public iceRPG, public icePhysicEnt
 		int getState(void);
 
 		// Activation in the world
-		void activate(void);
+		virtual void activate(void);
 		void desactivate(void);
 		// Waiting for activation
 		bool checkActivationTime(Ogre::Real p_timeSinceLastFrame);
@@ -97,9 +97,7 @@ class iceEnemy :public iceTrajectoryFollower, public iceRPG, public icePhysicEnt
 		Ogre::SceneNode* enemyNode, *enemyBulletNode;
 
 		// Animations
-		//Ogre::AnimationState* mAttack01;
-		//Ogre::AnimationState* mAttack02;
-		//bool mbAnimAttack;
+		std::map<Ogre::String,Ogre::AnimationState*> mAnimations;
 
 		//strategy
 		iceStrategyPtr mIceStrategy;

@@ -9,6 +9,7 @@
 
 icePhysics::icePhysics(void)
 {
+	mMagmaton = NULL;
 }
 
 icePhysics::~icePhysics(void)
@@ -17,11 +18,20 @@ icePhysics::~icePhysics(void)
 	mObjects.clear();
 }
 
-void icePhysics::initialize(Ogre::TerrainGroup* terrainGroup,  std::vector<iceEnemy*>* p_Enemies, std::vector<iceObject*> p_Objects)
+void icePhysics::initialize(Ogre::TerrainGroup* terrainGroup,  std::vector<iceEnemy*>* p_Enemies, std::vector<iceObject*> p_Objects, iceBoss* magmaton)
 {
 	mEnemies = p_Enemies;
 	mObjects = p_Objects;
 	mTerrainGroup = terrainGroup;
+	mMagmaton = magmaton;
+
+	if(mMagmaton)
+	{
+		mSoftMagmatonObjects = mMagmaton->getSoftPhysicObjects();
+		mHardMagmatonObjects = mMagmaton->getHardPhysicObjects();
+		mAttackMagmatonObjects = mMagmaton->getAttackPhysicObjects();
+	}
+	
 	mLog = iceGame::getGameLog();
 }
 
@@ -41,12 +51,37 @@ void icePhysics::processBullets(void)
 			}
 		}
 		else{
+			bool bulletImpacted = false;
 			for(unsigned j = 0; j < mEnemies->size(); j++){
 				iceEnemy* enemy = (*mEnemies)[j];
 				if((enemy->isActive()) && (enemy->isAlive())){
 					AxisAlignedBox ebox = enemy->getGeometry()->getWorldBoundingBox(enemy->getWorldPosition());
 					if(ebox.intersects(bbox)){
 						enemy->addDamage((*iter)->getDamage(),(*iter)->getCritic());
+						(*iter)->desactivate();
+						bulletImpacted = true;
+					}
+				}
+			}
+
+			if(!bulletImpacted && mMagmaton)
+			{
+				for(unsigned j=0;j<mSoftMagmatonObjects.size();j++)
+				{
+					AxisAlignedBox ebox = mSoftMagmatonObjects[j]->getWorldBoundingBox();
+					if(ebox.intersects(bbox))
+					{
+						mMagmaton->addSoftDamage((*iter)->getDamage(),(*iter)->getCritic());
+						(*iter)->desactivate();
+					}
+				}
+
+				for(unsigned j=0;j<mHardMagmatonObjects.size();j++)
+				{
+					AxisAlignedBox ebox = mHardMagmatonObjects[j]->getWorldBoundingBox();
+					if(ebox.intersects(bbox))
+					{
+						mMagmaton->addHardDamage((*iter)->getDamage(),(*iter)->getCritic());
 						(*iter)->desactivate();
 					}
 				}
@@ -66,6 +101,7 @@ void icePhysics::update(void){
 	processBullets();
 	processObjectCollision();
 	processTerrainCollision();
+	processMagmatonAttacks();
 }
 
 void icePhysics::processTerrainCollision(void){
@@ -133,4 +169,20 @@ void icePhysics::processObjectCollision(void){
 		}
 	}
 		
+}
+
+void icePhysics::processMagmatonAttacks(void)
+{
+	if(mMagmaton)
+	{
+		AxisAlignedBox pbox = icePlayer::getSingletonPtr()->getGeometry()->getWorldBoundingBox(icePlayer::getSingletonPtr()->getPosition());
+		for(unsigned i=0;i<mAttackMagmatonObjects.size();i++)
+		{
+			AxisAlignedBox ebox = mAttackMagmatonObjects[i]->getWorldBoundingBox();
+			if(ebox.intersects(pbox))
+			{
+				icePlayer::getSingletonPtr()->addDamage(1000,false);
+			}
+		}
+	}
 }

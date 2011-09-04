@@ -75,6 +75,101 @@ void DotSceneLoader::parseDotScene(const Ogre::String &SceneName, const Ogre::St
  
     delete scene;
 }
+
+void DotSceneLoader::parseMagmatonDotScene(const Ogre::String &SceneName, const Ogre::String &groupName, Ogre::Entity* magmatonMesh, iceBoss* magmaton)
+{
+	rapidxml::xml_document<> XMLDoc;    // character type defaults to char
+ 
+    rapidxml::xml_node<>* XMLRoot;
+ 
+    Ogre::DataStreamPtr stream = Ogre::ResourceGroupManager::getSingleton().openResource(SceneName, groupName );
+    char* scene = strdup(stream->getAsString().c_str());
+    XMLDoc.parse<0>(scene);
+ 
+    // Grab the scene node
+    XMLRoot = XMLDoc.first_node("scene");
+ 
+    // Process the scene
+ 
+ 
+    rapidxml::xml_node<>* pElement;
+	rapidxml::xml_node<>* phisicElement;
+ 
+ 
+    // Process nodes (?)
+    pElement = XMLRoot->first_node("nodes");
+
+ 
+    // Process node (*)
+    pElement = pElement->first_node("node");
+    while(pElement)
+    {
+		Ogre::String name = getAttrib(pElement, "name");
+		bool isMagma = Ogre::StringUtil::startsWith(name,"Magmaton");
+		if (name.compare("Magmaton") != 0)
+		{
+			//Procesando objeto fisico
+			Ogre::Vector3 pos = Ogre::Vector3::ZERO;
+
+
+			// Process position (?)
+			phisicElement = pElement->first_node("position");
+			if(phisicElement)
+			{
+				pos = parseVector3(phisicElement);
+			}
+ 
+			// Process entity (*)
+			phisicElement = pElement->first_node("entity");
+			if(phisicElement)
+			{
+				Ogre::String name = getAttrib(phisicElement, "name");
+				Ogre::String boneName = name.substr(0,name.find('-'));
+				Ogre::String meshFile = getAttrib(phisicElement, "meshFile");
+ 
+				// Create the entity
+				Ogre::Entity *pEntity = 0;
+				try
+				{
+					pEntity = mSceneMgr->createEntity(name, meshFile);
+
+					if(Ogre::StringUtil::startsWith(name,"MagHard",false))
+					{
+						pos.z = -pos.z;
+						Ogre::SceneNode* node = magmatonMesh->getParentSceneNode()->createChildSceneNode(pos);
+						node->attachObject(pEntity);
+						magmaton->addHardPhysicObject(pEntity);
+						pEntity->getParentSceneNode()->showBoundingBox(true);
+					}
+					else if(Ogre::StringUtil::startsWith(name,"MagSoft",false))
+					{
+						pos.z = -pos.z;
+						Ogre::SceneNode* node = magmatonMesh->getParentSceneNode()->createChildSceneNode(pos);
+						node->attachObject(pEntity);
+						magmaton->addSoftPhysicObject(pEntity);
+						pEntity->getParentSceneNode()->showBoundingBox(true);
+					}
+					else
+					{
+						magmatonMesh->attachObjectToBone(boneName,pEntity);
+						magmaton->addAttackPhysicObject(pEntity);
+					}
+				}
+				catch(Ogre::Exception &/*e*/)
+				{
+					Ogre::LogManager::getSingleton().logMessage("[DotSceneLoader] Error loading an entity!");
+				}
+			}
+
+
+
+
+		}
+        pElement = pElement->next_sibling("node");
+    }
+	
+    delete scene;
+}
  
 void DotSceneLoader::processScene(rapidxml::xml_node<>* XMLRoot)
 {
@@ -153,9 +248,17 @@ void DotSceneLoader::processNodes(rapidxml::xml_node<>* XMLNode)
 			processStep(pElement);
 			processEnemies(pElement);
 		}
+		else if (Ogre::StringUtil::startsWith(name,"enemies"))
+		{
+			processEnemies(pElement);
+		}
 		else if (Ogre::StringUtil::startsWith(name,"trajectory"))
 		{
 			processTrajectoryStep(pElement);
+		}
+		else if (Ogre::StringUtil::startsWith(name,"magmaton"))
+		{
+			processMagmaton(pElement);
 		}
 		else
 		{
@@ -792,6 +895,22 @@ void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode,Ogre::SceneNod
 	}
 	auxId++;
 }
+
+void DotSceneLoader::processMagmaton(rapidxml::xml_node<>* XMLNode,Ogre::SceneNode *pParent)
+{
+	//Processing user data
+	Ogre::Vector3 position = parseVector3(XMLNode->first_node("position"));
+	Ogre::StringStream countStrStr;
+	countStrStr << auxId;
+	Ogre::String uniqueId = "bbcrash_magmaton";
+	Ogre::SceneNode* snbbNode = mSceneMgr->getRootSceneNode()->createChildSceneNode(uniqueId);
+
+		mMagmaton = new iceBoss();
+		mEnemyId = mEnemyId + 4000; 
+		mMagmaton->initialize(mEnemyId,position,0, false);
+		mMagmaton->setLevel(99);//TODO
+		mMagmaton->setBillboard(new iceBillboard(snbbNode,50,iceBillboard::DEAD1));
+}
  
 void DotSceneLoader::processLookTarget(rapidxml::xml_node<>* XMLNode, Ogre::SceneNode *pParent)
 {
@@ -1252,6 +1371,11 @@ std::vector<iceTrajectory*> DotSceneLoader::getTrajectories()
 std::vector<iceEnemy*> DotSceneLoader::getEnemies(void)
 {
 	return mEnemies;
+}
+
+iceBoss* DotSceneLoader::getMagmaton(void)
+{
+	return mMagmaton;
 }
 
 std::vector<iceObject*> DotSceneLoader::getObjects(void)

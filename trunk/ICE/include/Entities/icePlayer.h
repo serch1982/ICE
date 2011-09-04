@@ -75,6 +75,9 @@ class icePlayer : public iceTrajectoryFollower
 		void setWeaponLevel(unsigned int p_iWeapon,unsigned int p_iLevel);
 
 		bool isPositionBackToPlayer(Ogre::Vector3 pPosition);
+
+		Ogre::Real getTimeMultiplier(void);
+		void resetPositions(void);
 	protected:
 
 		bool mMovingUp;
