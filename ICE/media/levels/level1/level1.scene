@@ -29,8 +29,8 @@
         </viewport>
         <camera name="intViewCamera1" viewMode="0" polyMode="3" fov="45">
             <clipping near="1" far="10000" />
-            <position x="-3599.02" y="89.9154" z="-11673" />
-            <rotation qw="0.00454203" qx="-0.00406233" qy="0.996402" qz="0.0855222" />
+            <position x="3240.83" y="281.624" z="-9990.63" />
+            <rotation qw="-0.000643506" qx="0.00315918" qy="-0.999266" qz="0.0459252" />
         </camera>
     </environment>
     <terrain worldSize="10000" mapSize="129" pagenameprefix="Page" colourmapEnabled="false" colourMapTextureSize="128" tuningCompositeMapDistance="2000" tuningMaxPixelError="3" tuningMinBatchSize="33" tuningMaxBatchSize="65">
@@ -41,467 +41,6 @@
         </terrainPages>
     </terrain>
     <nodes>
-        <node name="Lake#01" id="60823388">
-            <position x="-2401.25" y="-308.23" z="1359.56" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="256.85" y="0.999933" z="469.193" />
-            <plane name="Lake#01" distance="1" width="10" height="10" xSegments="1" ySegments="1" numTexCoordSets="1" uTile="6" vTile="6" material="Waterfall_mat" hasNormals="true">
-                <normal x="0" y="1" z="0" />
-                <upVector x="0" y="0" z="1" />
-            </plane>
-        </node>
-        <node name="obstaculos" id="912533952">
-            <position x="-2801.61" y="1777.97" z="-9049.84" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="1" y="1" z="1" />
-            <node name="Cristal#14" id="255958736">
-                <position x="-129.642" y="-1416.6" z="-1250.2" />
-                <rotation qw="0.00872632" qx="-0.999962" qy="0" qz="0" />
-                <scale x="20" y="20" z="20" />
-                <entity name="Cristal#14" meshFile="Cristal.mesh" castShadows="false">
-                    <subentity index="0" materialName="Cristal" />
-                </entity>
-            </node>
-            <node name="Cristal#26" id="284249408">
-                <position x="281.377" y="-1680.97" z="-2218.36" />
-                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
-                <scale x="20" y="20" z="20" />
-                <entity name="Cristal#26" meshFile="Cristal.mesh" castShadows="false">
-                    <subentity index="0" materialName="Cristal" />
-                </entity>
-            </node>
-            <node name="Cristal#3" id="750633216">
-                <position x="-342.037" y="-1734.83" z="1178.6" />
-                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
-                <scale x="20" y="20" z="20" />
-                <entity name="Cristal#3" meshFile="Cristal.mesh" castShadows="false">
-                    <subentity index="0" materialName="Cristal" />
-                </entity>
-            </node>
-            <node name="Cristal#19" id="674581120">
-                <position x="-744.539" y="-1689.24" z="-1231.76" />
-                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
-                <scale x="20" y="20" z="20" />
-                <entity name="Cristal#19" meshFile="Cristal.mesh" castShadows="false">
-                    <subentity index="0" materialName="Cristal" />
-                </entity>
-            </node>
-            <node name="Cristal#23" id="307626560">
-                <position x="-185.961" y="-1694.12" z="-1231.85" />
-                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
-                <scale x="20" y="20" z="20" />
-                <entity name="Cristal#23" meshFile="Cristal.mesh" castShadows="false">
-                    <subentity index="0" materialName="Cristal" />
-                </entity>
-            </node>
-            <node name="Cristal#35" id="907437376">
-                <position x="-278.145" y="-1399.59" z="-2224.86" />
-                <rotation qw="0.00872632" qx="-0.999962" qy="0" qz="0" />
-                <scale x="20" y="20" z="20" />
-                <entity name="Cristal#35" meshFile="Cristal.mesh" castShadows="false">
-                    <subentity index="0" materialName="Cristal" />
-                </entity>
-            </node>
-            <node name="Cristal#17" id="885708160">
-                <position x="307.978" y="-1416.6" z="-1250.2" />
-                <rotation qw="0.00872632" qx="-0.999962" qy="0" qz="0" />
-                <scale x="20" y="20" z="20" />
-                <entity name="Cristal#17" meshFile="Cristal.mesh" castShadows="false">
-                    <subentity index="0" materialName="Cristal" />
-                </entity>
-            </node>
-            <node name="Cristal#38" id="426801344">
-                <position x="-833.229" y="-1671.25" z="-2218.19" />
-                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
-                <scale x="20" y="20" z="20" />
-                <entity name="Cristal#38" meshFile="Cristal.mesh" castShadows="false">
-                    <subentity index="0" materialName="Cristal" />
-                </entity>
-            </node>
-            <node name="Cristal#0" id="862239424">
-                <position x="-868.79" y="-1406.9" z="1184.33" />
-                <rotation qw="0.00872632" qx="-0.999962" qy="0" qz="0" />
-                <scale x="20" y="20" z="20" />
-                <entity name="Cristal#0" meshFile="Cristal.mesh" castShadows="false">
-                    <subentity index="0" materialName="Cristal" />
-                </entity>
-            </node>
-            <node name="obstacle1#3" id="142826624">
-                <position x="-432.764" y="-1364.75" z="-1926.24" />
-                <rotation qw="1" qx="0" qy="0" qz="0" />
-                <scale x="12.7451" y="5.0124" z="53.4553" />
-                <entity name="obstacle1#3" meshFile="obstacle1.mesh" castShadows="false">
-                    <subentity index="0" materialName="obstacle1" />
-                </entity>
-            </node>
-            <node name="Cristal#24" id="504806624">
-                <position x="-423.588" y="-1717.57" z="230.975" />
-                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
-                <scale x="20" y="20" z="20" />
-                <entity name="Cristal#24" meshFile="Cristal.mesh" castShadows="false">
-                    <subentity index="0" materialName="Cristal" />
-                </entity>
-            </node>
-            <node name="Cristal#5" id="895718272">
-                <position x="186.51" y="-1739.44" z="1178.52" />
-                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
-                <scale x="20" y="20" z="20" />
-                <entity name="Cristal#5" meshFile="Cristal.mesh" castShadows="false">
-                    <subentity index="0" materialName="Cristal" />
-                </entity>
-            </node>
-            <node name="Cristal#21" id="174718464">
-                <position x="120.835" y="-1696.79" z="-1231.89" />
-                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
-                <scale x="20" y="20" z="20" />
-                <entity name="Cristal#21" meshFile="Cristal.mesh" castShadows="false">
-                    <subentity index="0" materialName="Cristal" />
-                </entity>
-            </node>
-            <node name="Cristal#30" id="895321472">
-                <position x="-205.147" y="-1676.73" z="-2218.29" />
-                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
-                <scale x="20" y="20" z="20" />
-                <entity name="Cristal#30" meshFile="Cristal.mesh" castShadows="false">
-                    <subentity index="0" materialName="Cristal" />
-                </entity>
-            </node>
-            <node name="Cristal#12" id="858119424">
-                <position x="-435.085" y="-1416.6" z="-1250.2" />
-                <rotation qw="0.00872632" qx="-0.999962" qy="0" qz="0" />
-                <scale x="20" y="20" z="20" />
-                <entity name="Cristal#12" meshFile="Cristal.mesh" castShadows="false">
-                    <subentity index="0" materialName="Cristal" />
-                </entity>
-            </node>
-            <node name="Cristal#8" id="228614144">
-                <position x="-744.539" y="-1714.78" z="231.024" />
-                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
-                <scale x="20" y="20" z="20" />
-                <entity name="Cristal#8" meshFile="Cristal.mesh" castShadows="false">
-                    <subentity index="0" materialName="Cristal" />
-                </entity>
-            </node>
-            <node name="Cristal#37" id="75777456">
-                <position x="-785.464" y="-1399.59" z="-2224.86" />
-                <rotation qw="0.00872632" qx="-0.999962" qy="0" qz="0" />
-                <scale x="20" y="20" z="20" />
-                <entity name="Cristal#37" meshFile="Cristal.mesh" castShadows="false">
-                    <subentity index="0" materialName="Cristal" />
-                </entity>
-            </node>
-            <node name="Cristal#15" id="544053504">
-                <position x="10.9854" y="-1416.6" z="-1250.2" />
-                <rotation qw="0.00872632" qx="-0.999962" qy="0" qz="0" />
-                <scale x="20" y="20" z="20" />
-                <entity name="Cristal#15" meshFile="Cristal.mesh" castShadows="false">
-                    <subentity index="0" materialName="Cristal" />
-                </entity>
-            </node>
-            <node name="Cristal#29" id="890224960">
-                <position x="-123.376" y="-1399.59" z="-2224.86" />
-                <rotation qw="0.00872632" qx="-0.999962" qy="0" qz="0" />
-                <scale x="20" y="20" z="20" />
-                <entity name="Cristal#29" meshFile="Cristal.mesh" castShadows="false">
-                    <subentity index="0" materialName="Cristal" />
-                </entity>
-            </node>
-            <node name="Cristal#2" id="82247384">
-                <position x="218.211" y="-1406.9" z="1184.33" />
-                <rotation qw="0.00872632" qx="-0.999962" qy="0" qz="0" />
-                <scale x="20" y="20" z="20" />
-                <entity name="Cristal#2" meshFile="Cristal.mesh" castShadows="false">
-                    <subentity index="0" materialName="Cristal" />
-                </entity>
-            </node>
-            <node name="obstacle1#1" id="337992480">
-                <position x="-425.876" y="-1424.73" z="262.389" />
-                <rotation qw="1" qx="0" qy="0" qz="0" />
-                <scale x="12.7451" y="5.0124" z="6.67066" />
-                <entity name="obstacle1#1" meshFile="obstacle1.mesh" castShadows="false">
-                    <subentity index="0" materialName="obstacle1" />
-                </entity>
-            </node>
-            <node name="Cristal#22" id="225074016">
-                <position x="-25.2356" y="-1695.52" z="-1231.87" />
-                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
-                <scale x="20" y="20" z="20" />
-                <entity name="Cristal#22" meshFile="Cristal.mesh" castShadows="false">
-                    <subentity index="0" materialName="Cristal" />
-                </entity>
-            </node>
-            <node name="Cristal#7" id="761040064">
-                <position x="-721.837" y="-1472.07" z="268.278" />
-                <rotation qw="0.00872632" qx="-0.999962" qy="0" qz="0" />
-                <scale x="20" y="20" z="20" />
-                <entity name="Cristal#7" meshFile="Cristal.mesh" castShadows="false">
-                    <subentity index="0" materialName="Cristal" />
-                </entity>
-            </node>
-            <node name="Cristal#32" id="691488384">
-                <position x="127.434" y="-1679.63" z="-2218.34" />
-                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
-                <scale x="20" y="20" z="20" />
-                <entity name="Cristal#32" meshFile="Cristal.mesh" castShadows="false">
-                    <subentity index="0" materialName="Cristal" />
-                </entity>
-            </node>
-            <node name="Cristal#10" id="324564352">
-                <position x="-721.837" y="-1416.6" z="-1250.2" />
-                <rotation qw="0.00872632" qx="-0.999962" qy="0" qz="0" />
-                <scale x="20" y="20" z="20" />
-                <entity name="Cristal#10" meshFile="Cristal.mesh" castShadows="false">
-                    <subentity index="0" materialName="Cristal" />
-                </entity>
-            </node>
-            <node name="obstacle1#2" id="340556064">
-                <position x="-425.876" y="-1316.89" z="-946.198" />
-                <rotation qw="0.989651" qx="-0.143493" qy="0" qz="0" />
-                <scale x="12.7451" y="5.0124" z="10.6809" />
-                <entity name="obstacle1#2" meshFile="obstacle1.mesh" castShadows="false">
-                    <subentity index="0" materialName="obstacle1" />
-                </entity>
-            </node>
-            <node name="Cristal#27" id="336405504">
-                <position x="307.978" y="-1399.59" z="-2224.86" />
-                <rotation qw="0.00872632" qx="-0.999962" qy="0" qz="0" />
-                <scale x="20" y="20" z="20" />
-                <entity name="Cristal#27" meshFile="Cristal.mesh" castShadows="false">
-                    <subentity index="0" materialName="Cristal" />
-                </entity>
-            </node>
-            <node name="Cristal#4" id="540574400">
-                <position x="-890.304" y="-1730.04" z="1178.68" />
-                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
-                <scale x="20" y="20" z="20" />
-                <entity name="Cristal#4" meshFile="Cristal.mesh" castShadows="false">
-                    <subentity index="0" materialName="Cristal" />
-                </entity>
-            </node>
-            <node name="Cristal#18" id="962279168">
-                <position x="-598.259" y="-1690.52" z="-1231.78" />
-                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
-                <scale x="20" y="20" z="20" />
-                <entity name="Cristal#18" meshFile="Cristal.mesh" castShadows="false">
-                    <subentity index="0" materialName="Cristal" />
-                </entity>
-            </node>
-            <node name="Cristal#20" id="813409792">
-                <position x="281.377" y="-1698.19" z="-1231.92" />
-                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
-                <scale x="20" y="20" z="20" />
-                <entity name="Cristal#20" meshFile="Cristal.mesh" castShadows="false">
-                    <subentity index="0" materialName="Cristal" />
-                </entity>
-            </node>
-            <node name="Cristal#31" id="139316992">
-                <position x="-355.913" y="-1675.41" z="-2218.27" />
-                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
-                <scale x="20" y="20" z="20" />
-                <entity name="Cristal#31" meshFile="Cristal.mesh" castShadows="false">
-                    <subentity index="0" materialName="Cristal" />
-                </entity>
-            </node>
-            <node name="Cristal#13" id="585924864">
-                <position x="-280.06" y="-1416.6" z="-1250.2" />
-                <rotation qw="0.00872632" qx="-0.999962" qy="0" qz="0" />
-                <scale x="20" y="20" z="20" />
-                <entity name="Cristal#13" meshFile="Cristal.mesh" castShadows="false">
-                    <subentity index="0" materialName="Cristal" />
-                </entity>
-            </node>
-            <node name="Cristal#34" id="109378336">
-                <position x="-668.604" y="-1672.68" z="-2218.22" />
-                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
-                <scale x="20" y="20" z="20" />
-                <entity name="Cristal#34" meshFile="Cristal.mesh" castShadows="false">
-                    <subentity index="0" materialName="Cristal" />
-                </entity>
-            </node>
-            <node name="Cristal#16" id="606860608">
-                <position x="152.46" y="-1416.6" z="-1250.2" />
-                <rotation qw="0.00872632" qx="-0.999962" qy="0" qz="0" />
-                <scale x="20" y="20" z="20" />
-                <entity name="Cristal#16" meshFile="Cristal.mesh" castShadows="false">
-                    <subentity index="0" materialName="Cristal" />
-                </entity>
-            </node>
-            <node name="Cristal#28" id="981780480">
-                <position x="-47.6614" y="-1678.1" z="-2218.31" />
-                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
-                <scale x="20" y="20" z="20" />
-                <entity name="Cristal#28" meshFile="Cristal.mesh" castShadows="false">
-                    <subentity index="0" materialName="Cristal" />
-                </entity>
-            </node>
-            <node name="Cristal#1" id="136539824">
-                <position x="-314.566" y="-1406.9" z="1184.33" />
-                <rotation qw="0.00872632" qx="-0.999962" qy="0" qz="0" />
-                <scale x="20" y="20" z="20" />
-                <entity name="Cristal#1" meshFile="Cristal.mesh" castShadows="false">
-                    <subentity index="0" materialName="Cristal" />
-                </entity>
-            </node>
-            <node name="obstacle1#0" id="677205760">
-                <position x="-425.876" y="-1357" z="1148.85" />
-                <rotation qw="1" qx="0" qy="0" qz="0" />
-                <scale x="12.7451" y="5.0124" z="6.67066" />
-                <entity name="obstacle1#0" meshFile="obstacle1.mesh" castShadows="false">
-                    <subentity index="0" materialName="obstacle1" />
-                </entity>
-            </node>
-            <node name="Cristal#25" id="303048800">
-                <position x="-399.988" y="-1472.07" z="268.278" />
-                <rotation qw="0.00872632" qx="-0.999962" qy="0" qz="0" />
-                <scale x="20" y="20" z="20" />
-                <entity name="Cristal#25" meshFile="Cristal.mesh" castShadows="false">
-                    <subentity index="0" materialName="Cristal" />
-                </entity>
-            </node>
-            <node name="Cristal#6" id="221625424">
-                <position x="-112.611" y="-1472.07" z="268.278" />
-                <rotation qw="0.00872632" qx="-0.999962" qy="0" qz="0" />
-                <scale x="20" y="20" z="20" />
-                <entity name="Cristal#6" meshFile="Cristal.mesh" castShadows="false">
-                    <subentity index="0" materialName="Cristal" />
-                </entity>
-            </node>
-            <node name="Cristal#33" id="680440640">
-                <position x="-508.864" y="-1674.08" z="-2218.24" />
-                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
-                <scale x="20" y="20" z="20" />
-                <entity name="Cristal#33" meshFile="Cristal.mesh" castShadows="false">
-                    <subentity index="0" materialName="Cristal" />
-                </entity>
-            </node>
-            <node name="Cristal#11" id="884365376">
-                <position x="-585.505" y="-1416.6" z="-1250.2" />
-                <rotation qw="0.00872632" qx="-0.999962" qy="0" qz="0" />
-                <scale x="20" y="20" z="20" />
-                <entity name="Cristal#11" meshFile="Cristal.mesh" castShadows="false">
-                    <subentity index="0" materialName="Cristal" />
-                </entity>
-            </node>
-            <node name="Cristal#9" id="561296384">
-                <position x="-107.826" y="-1720.33" z="230.927" />
-                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
-                <scale x="20" y="20" z="20" />
-                <entity name="Cristal#9" meshFile="Cristal.mesh" castShadows="false">
-                    <subentity index="0" materialName="Cristal" />
-                </entity>
-            </node>
-            <node name="Cristal#36" id="654835648">
-                <position x="-430.828" y="-1399.59" z="-2224.86" />
-                <rotation qw="0.00872632" qx="-0.999962" qy="0" qz="0" />
-                <scale x="20" y="20" z="20" />
-                <entity name="Cristal#36" meshFile="Cristal.mesh" castShadows="false">
-                    <subentity index="0" materialName="Cristal" />
-                </entity>
-            </node>
-        </node>
-        <node name="step#06" id="788110016">
-            <position x="3378.98" y="37.2244" z="-9717.13" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.242014" y="0.242014" z="0.242014" />
-            <entity name="step#06" meshFile="cube" castShadows="false">
-                <subentity index="0" materialName="BaseWhite" />
-                <userData>
-                    <property type="2" name="time" data="200" />
-                    <property type="2" name="MiniMagmaton" data="3" />
-                    <property type="2" name="Kamikace" data="3" />
-                    <property type="2" name="Intelligent" data="3" />
-                </userData>
-            </entity>
-        </node>
-        <node name="trajectory2#1" id="342539744">
-            <position x="1378.27" y="-44.1375" z="-1778.48" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.0903487" y="0.0903487" z="0.0903487" />
-            <entity name="trajectory2#1" meshFile="sphere" castShadows="false">
-                <subentity index="0" materialName="BaseWhite" />
-                <userData>
-                    <property type="2" name="time" data="5" />
-                    <property type="2" name="trajectoryNumber" data="2" />
-                </userData>
-            </entity>
-        </node>
-        <node name="Lake#02" id="997497472">
-            <position x="-2788.59" y="-150.011" z="-3069.26" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="594.191" y="1" z="594.191" />
-            <plane name="Lake#02" distance="0" width="10" height="10" xSegments="2" ySegments="2" numTexCoordSets="1" uTile="6" vTile="6" material="Waterfall_mat" hasNormals="false">
-                <normal x="0" y="1" z="0" />
-                <upVector x="0" y="0" z="1" />
-            </plane>
-        </node>
-        <node name="step#01" id="451307712">
-            <position x="-2747.3" y="-80" z="11925.8" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.242014" y="0.242014" z="0.242014" />
-            <entity name="step#01" meshFile="cube" castShadows="false">
-                <subentity index="0" materialName="BaseWhite" />
-                <userData>
-                    <property type="2" name="time" data="20" />
-                    <property type="2" name="MiniMagmaton" data="5" />
-                    <property type="2" name="Kamikace" data="5" />
-                    <property type="2" name="Intelligent" data="5" />
-                </userData>
-            </entity>
-        </node>
-        <node name="trajectory1#4" id="578569920">
-            <position x="1819.52" y="27.4158" z="-1213.61" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.0903487" y="0.0903487" z="0.0903487" />
-            <entity name="trajectory1#4" meshFile="sphere" castShadows="false">
-                <subentity index="0" materialName="BaseWhite" />
-                <userData>
-                    <property type="2" name="time" data="20" />
-                    <property type="2" name="trajectoryNumber" data="1" />
-                </userData>
-            </entity>
-        </node>
-        <node name="step#00" id="337656800">
-            <position x="-4485.66" y="37.3019" z="14649.9" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.242014" y="0.242014" z="0.242014" />
-            <entity name="step#00" meshFile="cube" castShadows="false">
-                <subentity index="0" materialName="BaseWhite" />
-                <userData>
-                    <property type="2" name="time" data="0" />
-                    <property type="2" name="MiniMagmaton" data="0" />
-                    <property type="2" name="Kamikace" data="0" />
-                    <property type="2" name="Intelligent" data="0" />
-                </userData>
-            </entity>
-        </node>
-        <node name="step#08" id="870387904">
-            <position x="3068.12" y="37.2244" z="12000" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.242014" y="0.242014" z="0.242014" />
-            <entity name="step#08" meshFile="cube" castShadows="false">
-                <subentity index="0" materialName="BaseWhite" />
-                <userData>
-                    <property type="2" name="time" data="360" />
-                    <property type="2" name="MiniMagmaton" data="4" />
-                    <property type="2" name="Kamikace" data="4" />
-                    <property type="2" name="Intelligent" data="4" />
-                </userData>
-            </entity>
-        </node>
-        <node name="step#10" id="850550848">
-            <position x="-3272.67" y="-122.499" z="5696.33" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.242014" y="0.242014" z="0.242014" />
-            <entity name="step#10" meshFile="cube" castShadows="false">
-                <subentity index="0" materialName="BaseWhite" />
-                <userData>
-                    <property type="2" name="time" data="100" />
-                    <property type="2" name="MiniMagmaton" data="4" />
-                    <property type="2" name="Kamikace" data="4" />
-                    <property type="2" name="Intelligent" data="4" />
-                </userData>
-            </entity>
-        </node>
         <node name="StaticPhisicObjects" id="92623672">
             <position x="0" y="0" z="0" />
             <rotation qw="1" qx="0" qy="0" qz="0" />
@@ -579,17 +118,119 @@
                 </entity>
             </node>
         </node>
-        <node name="step#03" id="49439984">
-            <position x="-3403.67" y="-80" z="7778.18" />
+        <node name="Cristal#41" id="425122816">
+            <position x="3131.14" y="142.3" z="-10402.2" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="80" y="80" z="80" />
+            <entity name="Cristal#41" meshFile="Cristal.mesh" castShadows="false">
+                <subentity index="0" materialName="Cristal" />
+            </entity>
+        </node>
+        <node name="step#02" id="593127232">
+            <position x="-2538.73" y="-68.8782" z="10489.7" />
             <rotation qw="1" qx="0" qy="0" qz="0" />
             <scale x="0.242014" y="0.242014" z="0.242014" />
-            <entity name="step#03" meshFile="cube" castShadows="false">
+            <entity name="step#02" meshFile="cube" castShadows="false">
                 <subentity index="0" materialName="BaseWhite" />
                 <userData>
-                    <property type="2" name="time" data="80" />
+                    <property type="2" name="time" data="40" />
+                    <property type="2" name="MiniMagmaton" data="5" />
+                    <property type="2" name="Kamikace" data="5" />
+                    <property type="2" name="Intelligent" data="5" />
+                </userData>
+            </entity>
+        </node>
+        <node name="trajectory1#0" id="152653584">
+            <position x="1107.01" y="-62.4837" z="-1832.06" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.0903487" y="0.0903487" z="0.0903487" />
+            <entity name="trajectory1#0" meshFile="sphere" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="0" />
+                    <property type="2" name="trajectoryNumber" data="1" />
+                </userData>
+            </entity>
+        </node>
+        <node name="trajectory2#2" id="480605472">
+            <position x="1554.47" y="13.232" z="-1786.36" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.0903487" y="0.0903487" z="0.0903487" />
+            <entity name="trajectory2#2" meshFile="sphere" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="10" />
+                    <property type="2" name="trajectoryNumber" data="2" />
+                </userData>
+            </entity>
+        </node>
+        <node name="Waterfall" id="874782592">
+            <position x="1905.63" y="47.7286" z="1655.07" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="1" y="1" z="1" />
+            <node name="waterfall#0" id="323221536">
+                <position x="-168.515" y="-135.759" z="-42.5139" />
+                <rotation qw="-0.0348997" qx="0" qy="0.999391" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="waterfall#0" meshFile="waterfall" castShadows="false">
+                    <subentity index="0" materialName="Waterfall_mat" />
+                </entity>
+            </node>
+        </node>
+        <node name="step#07" id="171788688">
+            <position x="3068.12" y="37.2244" z="12000" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.242014" y="0.242014" z="0.242014" />
+            <entity name="step#07" meshFile="cube" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="280" />
                     <property type="2" name="MiniMagmaton" data="4" />
                     <property type="2" name="Kamikace" data="4" />
                     <property type="2" name="Intelligent" data="4" />
+                </userData>
+            </entity>
+        </node>
+        <node name="Lake#01" id="60823388">
+            <position x="-2401.25" y="-308.23" z="1359.56" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="256.85" y="0.999933" z="469.193" />
+            <plane name="Lake#01" distance="1" width="10" height="10" xSegments="1" ySegments="1" numTexCoordSets="1" uTile="6" vTile="6" material="Waterfall_mat" hasNormals="true">
+                <normal x="0" y="1" z="0" />
+                <upVector x="0" y="0" z="1" />
+            </plane>
+        </node>
+        <node name="trajectory2#1" id="342539744">
+            <position x="1378.27" y="-44.1375" z="-1778.48" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.0903487" y="0.0903487" z="0.0903487" />
+            <entity name="trajectory2#1" meshFile="sphere" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="5" />
+                    <property type="2" name="trajectoryNumber" data="2" />
+                </userData>
+            </entity>
+        </node>
+        <node name="Cristal#43" id="25391400">
+            <position x="3865.47" y="142.3" z="-9373.38" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="80" y="80" z="80" />
+            <entity name="Cristal#43" meshFile="Cristal.mesh" castShadows="false">
+                <subentity index="0" materialName="Cristal" />
+            </entity>
+        </node>
+        <node name="step#00" id="337656800">
+            <position x="-4485.66" y="37.3019" z="14649.9" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.242014" y="0.242014" z="0.242014" />
+            <entity name="step#00" meshFile="cube" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="0" />
+                    <property type="2" name="MiniMagmaton" data="0" />
+                    <property type="2" name="Kamikace" data="0" />
+                    <property type="2" name="Intelligent" data="0" />
                 </userData>
             </entity>
         </node>
@@ -604,6 +245,20 @@
                     <property type="2" name="MiniMagmaton" data="3" />
                     <property type="2" name="Kamikace" data="3" />
                     <property type="2" name="Intelligent" data="3" />
+                </userData>
+            </entity>
+        </node>
+        <node name="step#08" id="870387904">
+            <position x="3068.12" y="37.2244" z="12000" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.242014" y="0.242014" z="0.242014" />
+            <entity name="step#08" meshFile="cube" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="360" />
+                    <property type="2" name="MiniMagmaton" data="4" />
+                    <property type="2" name="Kamikace" data="4" />
+                    <property type="2" name="Intelligent" data="4" />
                 </userData>
             </entity>
         </node>
@@ -3146,30 +2801,12 @@
                 </entity>
             </node>
         </node>
-        <node name="step#02" id="593127232">
-            <position x="-2538.73" y="-68.8782" z="10489.7" />
+        <node name="Cristal#40" id="933286528">
+            <position x="2731.17" y="142.3" z="-11540.4" />
             <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.242014" y="0.242014" z="0.242014" />
-            <entity name="step#02" meshFile="cube" castShadows="false">
-                <subentity index="0" materialName="BaseWhite" />
-                <userData>
-                    <property type="2" name="time" data="40" />
-                    <property type="2" name="MiniMagmaton" data="5" />
-                    <property type="2" name="Kamikace" data="5" />
-                    <property type="2" name="Intelligent" data="5" />
-                </userData>
-            </entity>
-        </node>
-        <node name="trajectory1#1" id="922482944">
-            <position x="1446.05" y="-33.0499" z="-1832.06" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.0903487" y="0.0903487" z="0.0903487" />
-            <entity name="trajectory1#1" meshFile="sphere" castShadows="false">
-                <subentity index="0" materialName="BaseWhite" />
-                <userData>
-                    <property type="2" name="time" data="5" />
-                    <property type="2" name="trajectoryNumber" data="1" />
-                </userData>
+            <scale x="80" y="80" z="80" />
+            <entity name="Cristal#40" meshFile="Cristal.mesh" castShadows="false">
+                <subentity index="0" materialName="Cristal" />
             </entity>
         </node>
         <node name="step#05" id="496810816">
@@ -3183,57 +2820,6 @@
                     <property type="2" name="MiniMagmaton" data="5" />
                     <property type="2" name="Kamikace" data="5" />
                     <property type="2" name="Intelligent" data="4" />
-                </userData>
-            </entity>
-        </node>
-        <node name="trajectory1#0" id="152653584">
-            <position x="1107.01" y="-62.4837" z="-1832.06" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.0903487" y="0.0903487" z="0.0903487" />
-            <entity name="trajectory1#0" meshFile="sphere" castShadows="false">
-                <subentity index="0" materialName="BaseWhite" />
-                <userData>
-                    <property type="2" name="time" data="0" />
-                    <property type="2" name="trajectoryNumber" data="1" />
-                </userData>
-            </entity>
-        </node>
-        <node name="trajectory2#2" id="480605472">
-            <position x="1554.47" y="13.232" z="-1786.36" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.0903487" y="0.0903487" z="0.0903487" />
-            <entity name="trajectory2#2" meshFile="sphere" castShadows="false">
-                <subentity index="0" materialName="BaseWhite" />
-                <userData>
-                    <property type="2" name="time" data="10" />
-                    <property type="2" name="trajectoryNumber" data="2" />
-                </userData>
-            </entity>
-        </node>
-        <node name="Waterfall" id="874782592">
-            <position x="1905.63" y="47.7286" z="1655.07" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="1" y="1" z="1" />
-            <node name="waterfall#0" id="323221536">
-                <position x="-168.515" y="-135.759" z="-42.5139" />
-                <rotation qw="-0.0348997" qx="0" qy="0.999391" qz="0" />
-                <scale x="1" y="1" z="1" />
-                <entity name="waterfall#0" meshFile="waterfall" castShadows="false">
-                    <subentity index="0" materialName="Waterfall_mat" />
-                </entity>
-            </node>
-        </node>
-        <node name="step#04" id="300057984">
-            <position x="-2648.24" y="-134.483" z="468.486" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.242014" y="0.242014" z="0.242014" />
-            <entity name="step#04" meshFile="cube" castShadows="false">
-                <subentity index="0" materialName="BaseWhite" />
-                <userData>
-                    <property type="2" name="time" data="120" />
-                    <property type="2" name="MiniMagmaton" data="2" />
-                    <property type="2" name="Kamikace" data="2" />
-                    <property type="2" name="Intelligent" data="2" />
                 </userData>
             </entity>
         </node>
@@ -3298,17 +2884,939 @@
                 </entity>
             </node>
         </node>
-        <node name="step#07" id="171788688">
-            <position x="3068.12" y="37.2244" z="12000" />
+        <node name="obstaculos" id="912533952">
+            <position x="-2801.61" y="1777.97" z="-9049.84" />
             <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.242014" y="0.242014" z="0.242014" />
-            <entity name="step#07" meshFile="cube" castShadows="false">
+            <scale x="1" y="1" z="1" />
+            <node name="Cristal#14" id="255958736">
+                <position x="-129.642" y="-1416.6" z="-1250.2" />
+                <rotation qw="0.00872632" qx="-0.999962" qy="0" qz="0" />
+                <scale x="20" y="20" z="20" />
+                <entity name="Cristal#14" meshFile="Cristal.mesh" castShadows="false">
+                    <subentity index="0" materialName="Cristal" />
+                </entity>
+            </node>
+            <node name="obstacle1#55" id="523941760">
+                <position x="3941.35" y="-1683.69" z="-4217.79" />
+                <rotation qw="-0.00301745" qx="-0.691506" qy="0.00945547" qz="-0.722302" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#55" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="Cristal#26" id="284249408">
+                <position x="281.377" y="-1680.97" z="-2218.36" />
+                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
+                <scale x="20" y="20" z="20" />
+                <entity name="Cristal#26" meshFile="Cristal.mesh" castShadows="false">
+                    <subentity index="0" materialName="Cristal" />
+                </entity>
+            </node>
+            <node name="obstacle1#48" id="63936280">
+                <position x="3923.19" y="-1567.89" z="-3787.51" />
+                <rotation qw="0.691506" qx="-0.00301731" qy="-0.722302" qz="-0.00945532" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#48" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="obstacle1#50" id="757103232">
+                <position x="3920.92" y="-1698.2" z="-3788.74" />
+                <rotation qw="0.691506" qx="-0.00301731" qy="-0.722302" qz="-0.00945532" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#50" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="Cristal#3" id="750633216">
+                <position x="-342.037" y="-1734.83" z="1178.6" />
+                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
+                <scale x="20" y="20" z="20" />
+                <entity name="Cristal#3" meshFile="Cristal.mesh" castShadows="false">
+                    <subentity index="0" materialName="Cristal" />
+                </entity>
+            </node>
+            <node name="Cristal#19" id="674581120">
+                <position x="-744.539" y="-1689.24" z="-1231.76" />
+                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
+                <scale x="20" y="20" z="20" />
+                <entity name="Cristal#19" meshFile="Cristal.mesh" castShadows="false">
+                    <subentity index="0" materialName="Cristal" />
+                </entity>
+            </node>
+            <node name="obstacle1#24" id="537491968">
+                <position x="3934.83" y="-1435.92" z="-4000.88" />
+                <rotation qw="0.691506" qx="-0.00301731" qy="-0.722302" qz="-0.00945532" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#24" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="obstacle1#6" id="94668416">
+                <position x="2594.1" y="-1575.79" z="-3844.99" />
+                <rotation qw="-0.00301745" qx="-0.691506" qy="0.00945548" qz="-0.722302" />
+                <scale x="1.9088" y="2.80718" z="5.40046" />
+                <entity name="obstacle1#6" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="Cristal#23" id="307626560">
+                <position x="-185.961" y="-1694.12" z="-1231.85" />
+                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
+                <scale x="20" y="20" z="20" />
+                <entity name="Cristal#23" meshFile="Cristal.mesh" castShadows="false">
+                    <subentity index="0" materialName="Cristal" />
+                </entity>
+            </node>
+            <node name="obstacle1#13" id="535477760">
+                <position x="2639.12" y="-1405.73" z="-4810.04" />
+                <rotation qw="0.691506" qx="-0.00301731" qy="-0.722302" qz="-0.00945532" />
+                <scale x="1.9088" y="2.80718" z="5.40046" />
+                <entity name="obstacle1#13" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="obstacle1#46" id="148686176">
+                <position x="3913.28" y="-1689.9" z="-3575.29" />
+                <rotation qw="-0.00301745" qx="-0.691506" qy="0.00945547" qz="-0.722302" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#46" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="Cristal#35" id="907437376">
+                <position x="-278.145" y="-1399.59" z="-2224.86" />
+                <rotation qw="0.00872632" qx="-0.999962" qy="0" qz="0" />
+                <scale x="20" y="20" z="20" />
+                <entity name="Cristal#35" meshFile="Cristal.mesh" castShadows="false">
+                    <subentity index="0" materialName="Cristal" />
+                </entity>
+            </node>
+            <node name="obstacle1#31" id="260963760">
+                <position x="3981.03" y="-1547.07" z="-5073.85" />
+                <rotation qw="-0.00301745" qx="-0.691506" qy="0.00945547" qz="-0.722302" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#31" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="Cristal#17" id="885708160">
+                <position x="307.978" y="-1416.6" z="-1250.2" />
+                <rotation qw="0.00872632" qx="-0.999962" qy="0" qz="0" />
+                <scale x="20" y="20" z="20" />
+                <entity name="Cristal#17" meshFile="Cristal.mesh" castShadows="false">
+                    <subentity index="0" materialName="Cristal" />
+                </entity>
+            </node>
+            <node name="obstacle1#58" id="690939072">
+                <position x="3950.72" y="-1681.5" z="-4432.34" />
+                <rotation qw="-0.00301745" qx="-0.691506" qy="0.00945547" qz="-0.722302" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#58" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="obstacle1#16" id="904660160">
+                <position x="2633.25" y="-1743.13" z="-4813.52" />
+                <rotation qw="-0.00301745" qx="-0.691506" qy="0.00945548" qz="-0.722302" />
+                <scale x="1.9088" y="2.80718" z="5.40046" />
+                <entity name="obstacle1#16" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="Cristal#38" id="426801344">
+                <position x="-833.229" y="-1671.25" z="-2218.19" />
+                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
+                <scale x="20" y="20" z="20" />
+                <entity name="Cristal#38" meshFile="Cristal.mesh" castShadows="false">
+                    <subentity index="0" materialName="Cristal" />
+                </entity>
+            </node>
+            <node name="obstacle1#34" id="192907504">
+                <position x="3943.6" y="-1554.55" z="-4216.64" />
+                <rotation qw="-0.00301745" qx="-0.691506" qy="0.00945547" qz="-0.722302" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#34" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="obstacle1#57" id="668202752">
+                <position x="3951.32" y="-1561.96" z="-4431.48" />
+                <rotation qw="0.691506" qx="-0.00301731" qy="-0.722302" qz="-0.00945532" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#57" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="obstacle1#64" id="891781376">
+                <position x="3969.41" y="-1678.63" z="-4860.83" />
+                <rotation qw="-0.00301745" qx="-0.691506" qy="0.00945547" qz="-0.722302" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#64" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="Cristal#0" id="862239424">
+                <position x="-868.79" y="-1406.9" z="1184.33" />
+                <rotation qw="0.00872632" qx="-0.999962" qy="0" qz="0" />
+                <scale x="20" y="20" z="20" />
+                <entity name="Cristal#0" meshFile="Cristal.mesh" castShadows="false">
+                    <subentity index="0" materialName="Cristal" />
+                </entity>
+            </node>
+            <node name="obstacle1#21" id="794427328">
+                <position x="3916.11" y="-1439.66" z="-3572.19" />
+                <rotation qw="0.691506" qx="-0.00301731" qy="-0.722302" qz="-0.00945532" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#21" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="obstacle1#3" id="142826624">
+                <position x="-432.764" y="-1364.75" z="-1926.24" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="12.7451" y="5.0124" z="53.4553" />
+                <entity name="obstacle1#3" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="Cristal#24" id="504806624">
+                <position x="-423.588" y="-1717.57" z="230.975" />
+                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
+                <scale x="20" y="20" z="20" />
+                <entity name="Cristal#24" meshFile="Cristal.mesh" castShadows="false">
+                    <subentity index="0" materialName="Cristal" />
+                </entity>
+            </node>
+            <node name="obstacle1#52" id="162968848">
+                <position x="3932" y="-1685.82" z="-4003.79" />
+                <rotation qw="-0.00301745" qx="-0.691506" qy="0.00945547" qz="-0.722302" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#52" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="obstacle1#61" id="801202432">
+                <position x="3960.06" y="-1680.18" z="-4646.41" />
+                <rotation qw="-0.00301745" qx="-0.691506" qy="0.00945547" qz="-0.722302" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#61" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="Cristal#5" id="895718272">
+                <position x="186.51" y="-1739.44" z="1178.52" />
+                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
+                <scale x="20" y="20" z="20" />
+                <entity name="Cristal#5" meshFile="Cristal.mesh" castShadows="false">
+                    <subentity index="0" materialName="Cristal" />
+                </entity>
+            </node>
+            <node name="obstacle1#39" id="130832848">
+                <position x="3896.85" y="-1563.9" z="-3146" />
+                <rotation qw="-0.00301745" qx="-0.691506" qy="0.00945547" qz="-0.722302" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#39" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="obstacle1#26" id="157994336">
+                <position x="3953.54" y="-1432.18" z="-4429.38" />
+                <rotation qw="0.691506" qx="-0.00301731" qy="-0.722302" qz="-0.00945532" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#26" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="obstacle1#4" id="683187392">
+                <position x="2575.84" y="-1418.37" z="-3360.84" />
+                <rotation qw="0.691506" qx="-0.00301731" qy="-0.722302" qz="-0.00945532" />
+                <scale x="1.9088" y="2.80718" z="5.40046" />
+                <entity name="obstacle1#4" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="Cristal#21" id="174718464">
+                <position x="120.835" y="-1696.79" z="-1231.89" />
+                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
+                <scale x="20" y="20" z="20" />
+                <entity name="Cristal#21" meshFile="Cristal.mesh" castShadows="false">
+                    <subentity index="0" materialName="Cristal" />
+                </entity>
+            </node>
+            <node name="obstacle1#43" id="379039872">
+                <position x="3903.95" y="-1690.55" z="-3361.05" />
+                <rotation qw="-0.00301745" qx="-0.691506" qy="0.00945547" qz="-0.722302" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#43" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="Cristal#30" id="895321472">
+                <position x="-205.147" y="-1676.73" z="-2218.29" />
+                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
+                <scale x="20" y="20" z="20" />
+                <entity name="Cristal#30" meshFile="Cristal.mesh" castShadows="false">
+                    <subentity index="0" materialName="Cristal" />
+                </entity>
+            </node>
+            <node name="Cristal#12" id="858119424">
+                <position x="-435.085" y="-1416.6" z="-1250.2" />
+                <rotation qw="0.00872632" qx="-0.999962" qy="0" qz="0" />
+                <scale x="20" y="20" z="20" />
+                <entity name="Cristal#12" meshFile="Cristal.mesh" castShadows="false">
+                    <subentity index="0" materialName="Cristal" />
+                </entity>
+            </node>
+            <node name="Cristal#8" id="228614144">
+                <position x="-744.539" y="-1714.78" z="231.024" />
+                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
+                <scale x="20" y="20" z="20" />
+                <entity name="Cristal#8" meshFile="Cristal.mesh" castShadows="false">
+                    <subentity index="0" materialName="Cristal" />
+                </entity>
+            </node>
+            <node name="obstacle1#15" id="863338112">
+                <position x="2636.14" y="-1580.05" z="-4813.12" />
+                <rotation qw="0.691506" qx="-0.00301731" qy="-0.722302" qz="-0.00945532" />
+                <scale x="1.9088" y="2.80718" z="5.40046" />
+                <entity name="obstacle1#15" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="obstacle1#44" id="537247808">
+                <position x="3902.28" y="-1699.95" z="-3360.93" />
+                <rotation qw="0.691506" qx="-0.00301731" qy="-0.722302" qz="-0.00945532" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#44" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="Cristal#37" id="75777456">
+                <position x="-785.464" y="-1399.59" z="-2224.86" />
+                <rotation qw="0.00872632" qx="-0.999962" qy="0" qz="0" />
+                <scale x="20" y="20" z="20" />
+                <entity name="Cristal#37" meshFile="Cristal.mesh" castShadows="false">
+                    <subentity index="0" materialName="Cristal" />
+                </entity>
+            </node>
+            <node name="obstacle1#29" id="786858752">
+                <position x="3981.64" y="-1426.56" z="-5072.97" />
+                <rotation qw="0.691506" qx="-0.00301731" qy="-0.722302" qz="-0.00945532" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#29" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="obstacle1#37" id="282387776">
+                <position x="3915.54" y="-1560.16" z="-3574.06" />
+                <rotation qw="-0.00301745" qx="-0.691506" qy="0.00945547" qz="-0.722302" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#37" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="Cristal#15" id="544053504">
+                <position x="10.9854" y="-1416.6" z="-1250.2" />
+                <rotation qw="0.00872632" qx="-0.999962" qy="0" qz="0" />
+                <scale x="20" y="20" z="20" />
+                <entity name="Cristal#15" meshFile="Cristal.mesh" castShadows="false">
+                    <subentity index="0" materialName="Cristal" />
+                </entity>
+            </node>
+            <node name="obstacle1#18" id="494857632">
+                <position x="2591.04" y="-1750.97" z="-3846.65" />
+                <rotation qw="-0.00301745" qx="-0.691506" qy="0.00945548" qz="-0.722302" />
+                <scale x="1.9088" y="2.80718" z="5.40046" />
+                <entity name="obstacle1#18" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="Cristal#29" id="890224960">
+                <position x="-123.376" y="-1399.59" z="-2224.86" />
+                <rotation qw="0.00872632" qx="-0.999962" qy="0" qz="0" />
+                <scale x="20" y="20" z="20" />
+                <entity name="Cristal#29" meshFile="Cristal.mesh" castShadows="false">
+                    <subentity index="0" materialName="Cristal" />
+                </entity>
+            </node>
+            <node name="obstacle1#51" id="320688480">
+                <position x="3932.6" y="-1565.6" z="-4002.88" />
+                <rotation qw="0.691506" qx="-0.00301731" qy="-0.722302" qz="-0.00945532" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#51" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="Cristal#2" id="82247384">
+                <position x="218.211" y="-1406.9" z="1184.33" />
+                <rotation qw="0.00872632" qx="-0.999962" qy="0" qz="0" />
+                <scale x="20" y="20" z="20" />
+                <entity name="Cristal#2" meshFile="Cristal.mesh" castShadows="false">
+                    <subentity index="0" materialName="Cristal" />
+                </entity>
+            </node>
+            <node name="obstacle1#1" id="337992480">
+                <position x="-425.876" y="-1424.73" z="262.389" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="12.7451" y="5.0124" z="6.67066" />
+                <entity name="obstacle1#1" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="obstacle1#23" id="346903904">
+                <position x="3897.43" y="-1443.39" z="-3144.24" />
+                <rotation qw="0.691506" qx="-0.00301731" qy="-0.722302" qz="-0.00945532" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#23" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="Cristal#22" id="225074016">
+                <position x="-25.2356" y="-1695.52" z="-1231.87" />
+                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
+                <scale x="20" y="20" z="20" />
+                <entity name="Cristal#22" meshFile="Cristal.mesh" castShadows="false">
+                    <subentity index="0" materialName="Cristal" />
+                </entity>
+            </node>
+            <node name="obstacle1#63" id="742393280">
+                <position x="3970.02" y="-1557.93" z="-4859.75" />
+                <rotation qw="0.691506" qx="-0.00301731" qy="-0.722302" qz="-0.00945532" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#63" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="Cristal#7" id="761040064">
+                <position x="-721.837" y="-1472.07" z="268.278" />
+                <rotation qw="0.00872632" qx="-0.999962" qy="0" qz="0" />
+                <scale x="20" y="20" z="20" />
+                <entity name="Cristal#7" meshFile="Cristal.mesh" castShadows="false">
+                    <subentity index="0" materialName="Cristal" />
+                </entity>
+            </node>
+            <node name="obstacle1#10" id="995025472">
+                <position x="2618.03" y="-1409.94" z="-4327.09" />
+                <rotation qw="0.691506" qx="-0.00301731" qy="-0.722302" qz="-0.00945532" />
+                <scale x="1.9088" y="2.80718" z="5.40046" />
+                <entity name="obstacle1#10" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="obstacle1#41" id="470931104">
+                <position x="3894.6" y="-1693.24" z="-3147.23" />
+                <rotation qw="-0.00301745" qx="-0.691506" qy="0.00945547" qz="-0.722302" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#41" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="Cristal#32" id="691488384">
+                <position x="127.434" y="-1679.63" z="-2218.34" />
+                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
+                <scale x="20" y="20" z="20" />
+                <entity name="Cristal#32" meshFile="Cristal.mesh" castShadows="false">
+                    <subentity index="0" materialName="Cristal" />
+                </entity>
+            </node>
+            <node name="obstacle1#32" id="187658304">
+                <position x="3962.31" y="-1550.81" z="-4645.18" />
+                <rotation qw="-0.00301745" qx="-0.691506" qy="0.00945547" qz="-0.722302" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#32" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="Cristal#10" id="324564352">
+                <position x="-721.837" y="-1416.6" z="-1250.2" />
+                <rotation qw="0.00872632" qx="-0.999962" qy="0" qz="0" />
+                <scale x="20" y="20" z="20" />
+                <entity name="Cristal#10" meshFile="Cristal.mesh" castShadows="false">
+                    <subentity index="0" materialName="Cristal" />
+                </entity>
+            </node>
+            <node name="obstacle1#59" id="888241216">
+                <position x="3949.07" y="-1690.75" z="-4432.7" />
+                <rotation qw="0.691506" qx="-0.00301731" qy="-0.722302" qz="-0.00945532" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#59" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="obstacle1#17" id="731559232">
+                <position x="2612.13" y="-1747.77" z="-4330" />
+                <rotation qw="-0.00301745" qx="-0.691506" qy="0.00945548" qz="-0.722302" />
+                <scale x="1.9088" y="2.80718" z="5.40046" />
+                <entity name="obstacle1#17" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="obstacle1#35" id="892757952">
+                <position x="3934.25" y="-1556.42" z="-4002.56" />
+                <rotation qw="-0.00301745" qx="-0.691506" qy="0.00945547" qz="-0.722302" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#35" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="obstacle1#9" id="438520448">
+                <position x="2593.94" y="-1588.49" z="-3846.55" />
+                <rotation qw="0.691506" qx="-0.00301731" qy="-0.722302" qz="-0.00945532" />
+                <scale x="1.9088" y="2.80718" z="5.40046" />
+                <entity name="obstacle1#9" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="obstacle1#54" id="712149440">
+                <position x="3942.01" y="-1563.03" z="-4217.95" />
+                <rotation qw="0.691506" qx="-0.00301731" qy="-0.722302" qz="-0.00945532" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#54" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="obstacle1#2" id="340556064">
+                <position x="-425.876" y="-1316.89" z="-946.198" />
+                <rotation qw="0.989651" qx="-0.143493" qy="0" qz="0" />
+                <scale x="12.7451" y="5.0124" z="10.6809" />
+                <entity name="obstacle1#2" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="obstacle1#20" id="460066528">
+                <position x="3925.46" y="-1437.79" z="-3786.27" />
+                <rotation qw="0.691506" qx="-0.00301731" qy="-0.722302" qz="-0.00945532" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#20" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="Cristal#27" id="336405504">
+                <position x="307.978" y="-1399.59" z="-2224.86" />
+                <rotation qw="0.00872632" qx="-0.999962" qy="0" qz="0" />
+                <scale x="20" y="20" z="20" />
+                <entity name="Cristal#27" meshFile="Cristal.mesh" castShadows="false">
+                    <subentity index="0" materialName="Cristal" />
+                </entity>
+            </node>
+            <node name="obstacle1#49" id="783715328">
+                <position x="3922.62" y="-1688.79" z="-3789.55" />
+                <rotation qw="-0.00301745" qx="-0.691506" qy="0.00945547" qz="-0.722302" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#49" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="obstacle1#53" id="260811184">
+                <position x="3930.35" y="-1695.13" z="-4004.11" />
+                <rotation qw="0.691506" qx="-0.00301731" qy="-0.722302" qz="-0.00945532" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#53" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="obstacle1#60" id="733451392">
+                <position x="3960.66" y="-1560.15" z="-4645.54" />
+                <rotation qw="0.691506" qx="-0.00301731" qy="-0.722302" qz="-0.00945532" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#60" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="Cristal#4" id="540574400">
+                <position x="-890.304" y="-1730.04" z="1178.68" />
+                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
+                <scale x="20" y="20" z="20" />
+                <entity name="Cristal#4" meshFile="Cristal.mesh" castShadows="false">
+                    <subentity index="0" materialName="Cristal" />
+                </entity>
+            </node>
+            <node name="Cristal#18" id="962279168">
+                <position x="-598.259" y="-1690.52" z="-1231.78" />
+                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
+                <scale x="20" y="20" z="20" />
+                <entity name="Cristal#18" meshFile="Cristal.mesh" castShadows="false">
+                    <subentity index="0" materialName="Cristal" />
+                </entity>
+            </node>
+            <node name="obstacle1#25" id="859065536">
+                <position x="3944.19" y="-1434.05" z="-4215.08" />
+                <rotation qw="0.691506" qx="-0.00301731" qy="-0.722302" qz="-0.00945532" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#25" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="obstacle1#7" id="946165312">
+                <position x="2596.8" y="-1414.07" z="-3844.08" />
+                <rotation qw="0.691506" qx="-0.00301731" qy="-0.722302" qz="-0.00945532" />
+                <scale x="1.9088" y="2.80718" z="5.40046" />
+                <entity name="obstacle1#7" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="Cristal#20" id="813409792">
+                <position x="281.377" y="-1698.19" z="-1231.92" />
+                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
+                <scale x="20" y="20" z="20" />
+                <entity name="Cristal#20" meshFile="Cristal.mesh" castShadows="false">
+                    <subentity index="0" materialName="Cristal" />
+                </entity>
+            </node>
+            <node name="obstacle1#42" id="659718656">
+                <position x="3904.54" y="-1570.34" z="-3359.7" />
+                <rotation qw="0.691506" qx="-0.00301731" qy="-0.722302" qz="-0.00945532" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#42" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="Cristal#31" id="139316992">
+                <position x="-355.913" y="-1675.41" z="-2218.27" />
+                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
+                <scale x="20" y="20" z="20" />
+                <entity name="Cristal#31" meshFile="Cristal.mesh" castShadows="false">
+                    <subentity index="0" materialName="Cristal" />
+                </entity>
+            </node>
+            <node name="Cristal#13" id="585924864">
+                <position x="-280.06" y="-1416.6" z="-1250.2" />
+                <rotation qw="0.00872632" qx="-0.999962" qy="0" qz="0" />
+                <scale x="20" y="20" z="20" />
+                <entity name="Cristal#13" meshFile="Cristal.mesh" castShadows="false">
+                    <subentity index="0" materialName="Cristal" />
+                </entity>
+            </node>
+            <node name="obstacle1#12" id="838923328">
+                <position x="2615.04" y="-1584.27" z="-4329.89" />
+                <rotation qw="0.691506" qx="-0.00301731" qy="-0.722302" qz="-0.00945532" />
+                <scale x="1.9088" y="2.80718" z="5.40046" />
+                <entity name="obstacle1#12" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="obstacle1#47" id="826441216">
+                <position x="3911.62" y="-1699.09" z="-3575.42" />
+                <rotation qw="0.691506" qx="-0.00301731" qy="-0.722302" qz="-0.00945532" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#47" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="Cristal#34" id="109378336">
+                <position x="-668.604" y="-1672.68" z="-2218.22" />
+                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
+                <scale x="20" y="20" z="20" />
+                <entity name="Cristal#34" meshFile="Cristal.mesh" castShadows="false">
+                    <subentity index="0" materialName="Cristal" />
+                </entity>
+            </node>
+            <node name="obstacle1#28" id="337473696">
+                <position x="3972.28" y="-1428.43" z="-4858.52" />
+                <rotation qw="0.691506" qx="-0.00301731" qy="-0.722302" qz="-0.00945532" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#28" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="obstacle1#30" id="368480480">
+                <position x="3971.67" y="-1548.94" z="-4859.6" />
+                <rotation qw="-0.00301745" qx="-0.691506" qy="0.00945547" qz="-0.722302" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#30" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="Cristal#16" id="606860608">
+                <position x="152.46" y="-1416.6" z="-1250.2" />
+                <rotation qw="0.00872632" qx="-0.999962" qy="0" qz="0" />
+                <scale x="20" y="20" z="20" />
+                <entity name="Cristal#16" meshFile="Cristal.mesh" castShadows="false">
+                    <subentity index="0" materialName="Cristal" />
+                </entity>
+            </node>
+            <node name="obstacle1#19" id="875545472">
+                <position x="2569.96" y="-1755.65" z="-3364.04" />
+                <rotation qw="-0.00301745" qx="-0.691506" qy="0.00945548" qz="-0.722302" />
+                <scale x="1.9088" y="2.80718" z="5.40046" />
+                <entity name="obstacle1#19" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="Cristal#28" id="981780480">
+                <position x="-47.6614" y="-1678.1" z="-2218.31" />
+                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
+                <scale x="20" y="20" z="20" />
+                <entity name="Cristal#28" meshFile="Cristal.mesh" castShadows="false">
+                    <subentity index="0" materialName="Cristal" />
+                </entity>
+            </node>
+            <node name="obstacle1#56" id="748069696">
+                <position x="3939.75" y="-1692.63" z="-4219.18" />
+                <rotation qw="0.691506" qx="-0.00301731" qy="-0.722302" qz="-0.00945532" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#56" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="obstacle1#65" id="886043904">
+                <position x="3967.76" y="-1687.86" z="-4860.98" />
+                <rotation qw="0.691506" qx="-0.00301731" qy="-0.722302" qz="-0.00945532" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#65" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="Cristal#1" id="136539824">
+                <position x="-314.566" y="-1406.9" z="1184.33" />
+                <rotation qw="0.00872632" qx="-0.999962" qy="0" qz="0" />
+                <scale x="20" y="20" z="20" />
+                <entity name="Cristal#1" meshFile="Cristal.mesh" castShadows="false">
+                    <subentity index="0" materialName="Cristal" />
+                </entity>
+            </node>
+            <node name="obstacle1#0" id="677205760">
+                <position x="-425.876" y="-1357" z="1148.85" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="12.7451" y="5.0124" z="6.67066" />
+                <entity name="obstacle1#0" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="obstacle1#22" id="781426432">
+                <position x="3906.78" y="-1441.52" z="-3358.48" />
+                <rotation qw="0.691506" qx="-0.00301731" qy="-0.722302" qz="-0.00945532" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#22" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="Cristal#25" id="303048800">
+                <position x="-399.988" y="-1472.07" z="268.278" />
+                <rotation qw="0.00872632" qx="-0.999962" qy="0" qz="0" />
+                <scale x="20" y="20" z="20" />
+                <entity name="Cristal#25" meshFile="Cristal.mesh" castShadows="false">
+                    <subentity index="0" materialName="Cristal" />
+                </entity>
+            </node>
+            <node name="obstacle1#62" id="947996416">
+                <position x="3958.41" y="-1689.15" z="-4646.76" />
+                <rotation qw="0.691506" qx="-0.00301731" qy="-0.722302" qz="-0.00945532" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#62" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="Cristal#6" id="221625424">
+                <position x="-112.611" y="-1472.07" z="268.278" />
+                <rotation qw="0.00872632" qx="-0.999962" qy="0" qz="0" />
+                <scale x="20" y="20" z="20" />
+                <entity name="Cristal#6" meshFile="Cristal.mesh" castShadows="false">
+                    <subentity index="0" materialName="Cristal" />
+                </entity>
+            </node>
+            <node name="obstacle1#38" id="608111808">
+                <position x="3906.19" y="-1562.03" z="-3359.83" />
+                <rotation qw="-0.00301745" qx="-0.691506" qy="0.00945547" qz="-0.722302" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#38" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="obstacle1#27" id="244850000">
+                <position x="3962.91" y="-1430.31" z="-4643.85" />
+                <rotation qw="0.691506" qx="-0.00301731" qy="-0.722302" qz="-0.00945532" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#27" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="obstacle1#5" id="509262368">
+                <position x="2573.03" y="-1580" z="-3362.37" />
+                <rotation qw="-0.00301745" qx="-0.691506" qy="0.00945548" qz="-0.722302" />
+                <scale x="1.9088" y="2.80718" z="5.40046" />
+                <entity name="obstacle1#5" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="obstacle1#11" id="676625856">
+                <position x="2615.2" y="-1571.57" z="-4328.33" />
+                <rotation qw="-0.00301745" qx="-0.691506" qy="0.00945548" qz="-0.722302" />
+                <scale x="1.9088" y="2.80718" z="5.40046" />
+                <entity name="obstacle1#11" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="obstacle1#40" id="133701592">
+                <position x="3895.17" y="-1572.92" z="-3145.46" />
+                <rotation qw="0.691506" qx="-0.00301731" qy="-0.722302" qz="-0.00945532" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#40" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="Cristal#33" id="680440640">
+                <position x="-508.864" y="-1674.08" z="-2218.24" />
+                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
+                <scale x="20" y="20" z="20" />
+                <entity name="Cristal#33" meshFile="Cristal.mesh" castShadows="false">
+                    <subentity index="0" materialName="Cristal" />
+                </entity>
+            </node>
+            <node name="obstacle1#33" id="148991360">
+                <position x="3952.97" y="-1552.68" z="-4431.12" />
+                <rotation qw="-0.00301745" qx="-0.691506" qy="0.00945547" qz="-0.722302" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#33" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="Cristal#11" id="884365376">
+                <position x="-585.505" y="-1416.6" z="-1250.2" />
+                <rotation qw="0.00872632" qx="-0.999962" qy="0" qz="0" />
+                <scale x="20" y="20" z="20" />
+                <entity name="Cristal#11" meshFile="Cristal.mesh" castShadows="false">
+                    <subentity index="0" materialName="Cristal" />
+                </entity>
+            </node>
+            <node name="Cristal#9" id="561296384">
+                <position x="-107.826" y="-1720.33" z="230.927" />
+                <rotation qw="3.80741e-005" qx="-0.00436294" qy="-0.999952" qz="-0.00872624" />
+                <scale x="20" y="20" z="20" />
+                <entity name="Cristal#9" meshFile="Cristal.mesh" castShadows="false">
+                    <subentity index="0" materialName="Cristal" />
+                </entity>
+            </node>
+            <node name="obstacle1#14" id="259987168">
+                <position x="2636.31" y="-1567.35" z="-4811.85" />
+                <rotation qw="-0.00301745" qx="-0.691506" qy="0.00945548" qz="-0.722302" />
+                <scale x="1.9088" y="2.80718" z="5.40046" />
+                <entity name="obstacle1#14" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="obstacle1#45" id="328165536">
+                <position x="3913.85" y="-1569.71" z="-3573.42" />
+                <rotation qw="0.691506" qx="-0.00301731" qy="-0.722302" qz="-0.00945532" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#45" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="Cristal#36" id="654835648">
+                <position x="-430.828" y="-1399.59" z="-2224.86" />
+                <rotation qw="0.00872632" qx="-0.999962" qy="0" qz="0" />
+                <scale x="20" y="20" z="20" />
+                <entity name="Cristal#36" meshFile="Cristal.mesh" castShadows="false">
+                    <subentity index="0" materialName="Cristal" />
+                </entity>
+            </node>
+            <node name="obstacle1#36" id="527848128">
+                <position x="3924.9" y="-1558.29" z="-3788.31" />
+                <rotation qw="-0.00301745" qx="-0.691506" qy="0.00945547" qz="-0.722302" />
+                <scale x="0.847127" y="2.06809" z="5.40046" />
+                <entity name="obstacle1#36" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+            <node name="obstacle1#8" id="285561696">
+                <position x="2572.8" y="-1592.71" z="-3362.5" />
+                <rotation qw="0.691506" qx="-0.00301731" qy="-0.722302" qz="-0.00945532" />
+                <scale x="1.9088" y="2.80718" z="5.40046" />
+                <entity name="obstacle1#8" meshFile="obstacle1.mesh" castShadows="false">
+                    <subentity index="0" materialName="obstacle1" />
+                </entity>
+            </node>
+        </node>
+        <node name="trajectory1#4" id="578569920">
+            <position x="1819.52" y="27.4158" z="-1213.61" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.0903487" y="0.0903487" z="0.0903487" />
+            <entity name="trajectory1#4" meshFile="sphere" castShadows="false">
                 <subentity index="0" materialName="BaseWhite" />
                 <userData>
-                    <property type="2" name="time" data="280" />
+                    <property type="2" name="time" data="20" />
+                    <property type="2" name="trajectoryNumber" data="1" />
+                </userData>
+            </entity>
+        </node>
+        <node name="Cristal#39" id="579546496">
+            <position x="3596.57" y="135.009" z="-11540.4" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="80" y="80" z="80" />
+            <entity name="Cristal#39" meshFile="Cristal.mesh" castShadows="false">
+                <subentity index="0" materialName="Cristal" />
+            </entity>
+        </node>
+        <node name="step#06" id="788110016">
+            <position x="3378.98" y="37.2244" z="-9717.13" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.242014" y="0.242014" z="0.242014" />
+            <entity name="step#06" meshFile="cube" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="200" />
+                    <property type="2" name="MiniMagmaton" data="3" />
+                    <property type="2" name="Kamikace" data="3" />
+                    <property type="2" name="Intelligent" data="3" />
+                </userData>
+            </entity>
+        </node>
+        <node name="Lake#02" id="997497472">
+            <position x="-2788.59" y="-150.011" z="-3069.26" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="594.191" y="1" z="594.191" />
+            <plane name="Lake#02" distance="0" width="10" height="10" xSegments="2" ySegments="2" numTexCoordSets="1" uTile="6" vTile="6" material="Waterfall_mat" hasNormals="false">
+                <normal x="0" y="1" z="0" />
+                <upVector x="0" y="0" z="1" />
+            </plane>
+        </node>
+        <node name="Cristal#42" id="548570240">
+            <position x="2731.17" y="142.3" z="-9373.38" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="80" y="80" z="80" />
+            <entity name="Cristal#42" meshFile="Cristal.mesh" castShadows="false">
+                <subentity index="0" materialName="Cristal" />
+            </entity>
+        </node>
+        <node name="step#03" id="49439984">
+            <position x="-3403.67" y="-80" z="7778.18" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.242014" y="0.242014" z="0.242014" />
+            <entity name="step#03" meshFile="cube" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="80" />
                     <property type="2" name="MiniMagmaton" data="4" />
                     <property type="2" name="Kamikace" data="4" />
                     <property type="2" name="Intelligent" data="4" />
+                </userData>
+            </entity>
+        </node>
+        <node name="trajectory1#1" id="922482944">
+            <position x="1446.05" y="-33.0499" z="-1832.06" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.0903487" y="0.0903487" z="0.0903487" />
+            <entity name="trajectory1#1" meshFile="sphere" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="5" />
+                    <property type="2" name="trajectoryNumber" data="1" />
+                </userData>
+            </entity>
+        </node>
+        <node name="step#04" id="300057984">
+            <position x="-2648.24" y="-134.483" z="468.486" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.242014" y="0.242014" z="0.242014" />
+            <entity name="step#04" meshFile="cube" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="120" />
+                    <property type="2" name="MiniMagmaton" data="2" />
+                    <property type="2" name="Kamikace" data="2" />
+                    <property type="2" name="Intelligent" data="2" />
                 </userData>
             </entity>
         </node>
@@ -3333,6 +3841,34 @@
                 <userData>
                     <property type="2" name="time" data="0" />
                     <property type="2" name="trajectoryNumber" data="2" />
+                </userData>
+            </entity>
+        </node>
+        <node name="step#01" id="451307712">
+            <position x="-2747.3" y="-80" z="11925.8" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.242014" y="0.242014" z="0.242014" />
+            <entity name="step#01" meshFile="cube" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="20" />
+                    <property type="2" name="MiniMagmaton" data="5" />
+                    <property type="2" name="Kamikace" data="5" />
+                    <property type="2" name="Intelligent" data="5" />
+                </userData>
+            </entity>
+        </node>
+        <node name="step#10" id="850550848">
+            <position x="-3272.67" y="-122.499" z="5696.33" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.242014" y="0.242014" z="0.242014" />
+            <entity name="step#10" meshFile="cube" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="100" />
+                    <property type="2" name="MiniMagmaton" data="4" />
+                    <property type="2" name="Kamikace" data="4" />
+                    <property type="2" name="Intelligent" data="4" />
                 </userData>
             </entity>
         </node>
