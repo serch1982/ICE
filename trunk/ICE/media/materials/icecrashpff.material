@@ -6,6 +6,7 @@ material crashpff
 		pass
 		{
 			scene_blend alpha_blend
+			depth_write off
 
 			texture_unit crashpff.png
 			{

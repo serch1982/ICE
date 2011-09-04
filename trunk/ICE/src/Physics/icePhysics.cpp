@@ -61,6 +61,7 @@ void icePhysics::processBullets(void)
 		++iter;
 	}
 }
+
 void icePhysics::update(void){
 	processBullets();
 	processObjectCollision();
@@ -112,10 +113,6 @@ void icePhysics::processObjectCollision(void){
 	for( unsigned j = 0; j < mObjects.size(); j++){
 		AxisAlignedBox obox = ((iceObject*)(mObjects)[j])->getBox();
 		if(pbox.intersects(obox)){
-			std::stringstream strMessage;
-			strMessage << "Impacto en: (" << icePlayer::getSingletonPtr()->getPosition() << ")";
-			mLog->logMessage( strMessage.str() );
-
 			icePlayer::getSingletonPtr()->addDamage(DEFAULT_DAMAGE_WALL,false); 
 		}
 	}

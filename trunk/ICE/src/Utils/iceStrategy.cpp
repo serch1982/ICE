@@ -100,7 +100,7 @@ Ogre::Vector3 iceStrategySin::move(Ogre::Vector3 enemyPos, Ogre::Real timeSinceL
 		//translation.z += _velocityZ;
 	} 
 	
-	return translation ;
+	return translation / 2;
 }
 
 void iceStrategySin::reverse(void){
@@ -171,7 +171,7 @@ Ogre::Vector3 iceStrategyCircle::move(Ogre::Vector3 enemyPos, Ogre::Real timeSin
 		translation.normalise();
 		//translation.z *= _velocityZ;
 	} 
-	return translation ;
+	return translation  / 2;
 
 }
 
