@@ -19,6 +19,7 @@
 #include "Enemies\iceKamikaze.h"
 #include "Enemies\iceMini.h"
 #include "Enemies\iceSmart.h"
+#include "Enemies\iceBoss.h"
 #include "Entities\iceObject.h"
  
 #include "rapidxml.hpp"
@@ -53,6 +54,7 @@
         virtual ~DotSceneLoader();
  
         void parseDotScene(const Ogre::String &SceneName, const Ogre::String &groupName, Ogre::SceneManager *yourSceneMgr, Ogre::SceneNode *pAttachNode = NULL, const Ogre::String &sPrependNode = "");
+		void parseMagmatonDotScene(const Ogre::String &SceneName, const Ogre::String &groupName, Ogre::Entity* magmatonMesh, iceBoss* magmaton);
         Ogre::String getProperty(const Ogre::String &ndNm, const Ogre::String &prop);
  
         Ogre::TerrainGroup* getTerrainGroup() { return mTerrainGroup; }
@@ -64,6 +66,7 @@
 		std::vector<iceStep> getPlayerSteps(void);//deprecated
 		std::vector<iceTrajectory*> getTrajectories();
 		std::vector<iceEnemy*> getEnemies(void);
+		iceBoss* getMagmaton(void);
 		std::vector<iceObject*> getObjects(void);
 		std::vector<iceObject*> getStaticPhisicObjects(void);
  
@@ -87,6 +90,7 @@
 		void processStep(rapidxml::xml_node<>* XMLNode, Ogre::SceneNode *pParent = 0);
 		void processTrajectories();
 		void processTrajectoryStep(rapidxml::xml_node<>* XMLNode, Ogre::SceneNode *pParent = 0);
+		void processMagmaton(rapidxml::xml_node<>* XMLNode, Ogre::SceneNode *pParent = 0);
 		void processEnemies(rapidxml::xml_node<>* XMLNode,  Ogre::SceneNode *pParent = 0);
         void processLookTarget(rapidxml::xml_node<>* XMLNode, Ogre::SceneNode *pParent);
         void processTrackTarget(rapidxml::xml_node<>* XMLNode, Ogre::SceneNode *pParent);
@@ -129,6 +133,7 @@
 		std::vector<std::vector<iceStep>> mTrajectoriesSteps;
 		std::vector<iceTrajectory*> mTrajectories;
 		std::vector<iceEnemy*> mEnemies;
+		iceBoss* mMagmaton;
 		std::vector<iceObject*> mObjects;
 		std::vector<iceObject*> mStaticPhisicObjects;
     };

@@ -40,6 +40,8 @@ class iceTrajectory
 		bool hasEnded(void);
 		void lookAt(void);
 
+		void goToLastStep(void);
+
 	protected:
 		unsigned int getCurrentStepIndexByTime(Ogre::Real p_fTime);
 		Ogre::Real getInterpolationByTime(Ogre::Real p_fTime);

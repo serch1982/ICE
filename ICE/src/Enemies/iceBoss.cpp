@@ -18,22 +18,23 @@ bool iceBoss::initialize(int id, Ogre::Vector3 p_Position,  Ogre::Real p_fActiva
 	entityName << "Entity_" << mNameGenerator.generate();
 
 	// loading the mesh and attaching it to he node
-	Ogre::Entity* mesh;
-	mesh = sceneManager->createEntity(entityName.str(), "magmaton.mesh");
-	enemyNode->attachObject(mesh);
+	Ogre::Entity* mainMesh;
+	mainMesh = sceneManager->createEntity(entityName.str(), "magmaton.mesh");
+	enemyNode->attachObject(mainMesh);
+
+	iceLevelManager::getSingletonPtr()->getDotSceneLoader()->parseMagmatonDotScene( "Magmaton.scene","General",mainMesh,this );
 
 	//init physics
 	icePhysicEntity::initializePhysics("phy_boss"+ entityName.str(), Ogre::Vector3(10,10,10));
 	//add per object 
 	enemyNode->attachObject(getGeometry()->getMovableObject()); //must change
 
-	/*mAttack01 = mesh->getAnimationState( "Attack1" );
-	mAttack02 = mesh->getAnimationState( "Attack2" );
-	mAttack01->setEnabled( true );
-	mAttack02->setEnabled( false );
-	mAttack01->setLoop( false );
-	mAttack02->setLoop( false );
-	mbAnimAttack = true;*/
+	Ogre::AnimationState* attack = mainMesh->getAnimationState( "attack" );
+	attack->setEnabled( true );
+	attack->setLoop( true );
+	mAnimations["attack"] = attack;
+
+	enemyNode->yaw(Ogre::Degree(180)); 
 
 	return true;
 }
@@ -115,4 +116,55 @@ void iceBoss::update(Ogre::Real p_timeSinceLastFrame){
 
 std::string iceBoss::getFunctionStr(){
 	return "BossLogic";
+}
+
+void iceBoss::addSoftPhysicObject(Ogre::Entity* pEntity)
+{
+	mSoftPhysicObjects.push_back(pEntity);
+}
+
+void iceBoss::addHardPhysicObject(Ogre::Entity* pEntity)
+{
+	mHardPhysicObjects.push_back(pEntity);
+}
+
+void iceBoss::addAttackPhysicObject(Ogre::Entity* pEntity)
+{
+	mAttackPhysicObjects.push_back(pEntity);
+}
+
+std::vector<Ogre::Entity*> iceBoss::getSoftPhysicObjects(void)
+{
+	return mSoftPhysicObjects;
+}
+
+std::vector<Ogre::Entity*> iceBoss::getHardPhysicObjects(void)
+{
+	return mHardPhysicObjects;
+}
+
+std::vector<Ogre::Entity*> iceBoss::getAttackPhysicObjects(void)
+{
+	return mAttackPhysicObjects;
+}
+
+void iceBoss::activate(void)
+{
+	iceEnemy::activate();
+	for(unsigned int i=0;i<mHardPhysicObjects.size();i++)
+		mHardPhysicObjects[i]->setVisible(false);
+	for(unsigned int i=0;i<mSoftPhysicObjects.size();i++)
+		mSoftPhysicObjects[i]->setVisible(false);
+	//for(unsigned int i=0;i<mAttackPhysicObjects.size();i++)
+	//	mAttackPhysicObjects[i]->setVisible(false);
+}
+
+void iceBoss::addSoftDamage(unsigned int p_iDamage, bool p_bCritic)
+{
+	addDamage(p_iDamage,p_bCritic);
+}
+
+void iceBoss::addHardDamage(unsigned int p_iDamage, bool p_bCritic)
+{
+	addDamage(p_iDamage/10,false);
 }

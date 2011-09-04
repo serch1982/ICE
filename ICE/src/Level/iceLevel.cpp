@@ -54,6 +54,8 @@ void iceLevel::load(std::vector<iceEnemy*>& vectorEnemies, std::vector<iceCutSce
 
 		std::vector<iceTrajectory*> trajectories = iceLevelManager::getSingletonPtr()->getDotSceneLoader()->getTrajectories();
 
+		vectorEnemies = iceLevelManager::getSingletonPtr()->getDotSceneLoader()->getEnemies();
+
 		if(_id == 1) //level 1
 		{
 			vectorCutScenes.push_back(new iceCutScene());
@@ -61,10 +63,8 @@ void iceLevel::load(std::vector<iceEnemy*>& vectorEnemies, std::vector<iceCutSce
 		}
 		else //level boss
 		{
+			vectorEnemies.push_back(iceLevelManager::getSingletonPtr()->getDotSceneLoader()->getMagmaton());
 		}
-
-
-		vectorEnemies = iceLevelManager::getSingletonPtr()->getDotSceneLoader()->getEnemies();
     }
 }
 

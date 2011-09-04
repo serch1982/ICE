@@ -10,6 +10,7 @@
 #include "Utils\iceSdkTray.h"
 #include "Entities\icePlayer.h"
 #include "Enemies\iceEnemy.h"
+#include "Enemies\iceBoss.h"
 #include "Particle\iceParticleMgr.h"
 #include "Physics\icePhysics.h"
 #include "Entities\iceBulletMgr.h"
@@ -95,6 +96,7 @@ class iceStatePlay: public iceState{
         icePlayerPtr _player;
 		//Enemies
 		std::vector<iceEnemy*> _mEnemies;
+		iceBoss* _mMagmaton;
 		 // inverse iterator
         std::vector<iceEnemy*>::const_reverse_iterator _revit_mEnemies;
 

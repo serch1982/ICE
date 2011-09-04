@@ -11,6 +11,8 @@ icePostProcessManager::icePostProcessManager()
 	mSoftBlurCompositor = Ogre::CompositorManager::getSingleton().addCompositor(iceGame::getViewPort(), "RadialSoftBlur");
 
 	mToonCompositor = Ogre::CompositorManager::getSingleton().addCompositor(iceGame::getViewPort(), "ToonPostProcess");
+
+	mDepthOfFieldCompositor = Ogre::CompositorManager::getSingleton().addCompositor(iceGame::getViewPort(), "DepthOfField");
 }
 
 icePostProcessManager::~icePostProcessManager()
@@ -57,4 +59,16 @@ void icePostProcessManager::enableToon()
 void icePostProcessManager::disableToon()
 {
 	//mToonCompositor->setEnabled(false);
+}
+
+//Experimental
+void icePostProcessManager::enableDepthOfField()
+{
+	//mDepthOfFieldCompositor->setEnabled(true);
+}
+
+//Experimental
+void icePostProcessManager::disableDepthOfField()
+{
+	//mDepthOfFieldCompositor->setEnabled(false);
 }

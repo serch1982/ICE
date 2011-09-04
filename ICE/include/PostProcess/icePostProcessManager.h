@@ -33,12 +33,17 @@ class icePostProcessManager: public Ogre::Singleton<icePostProcessManager> {
 		void enableToon();
 		void disableToon();
 
+		void enableDepthOfField();
+		void disableDepthOfField();
+
     private:
 
 		Ogre::CompositorInstance* mHardBlurCompositor;
 		Ogre::CompositorInstance* mSoftBlurCompositor;
 
 		Ogre::CompositorInstance* mToonCompositor;
+
+		Ogre::CompositorInstance* mDepthOfFieldCompositor;
         
 };
 
