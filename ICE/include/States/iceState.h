@@ -6,8 +6,7 @@
 #include <OIS/OIS.h>
 #include <OGRE/Ogre.h>
 
-#include <Sound\iceSoundManager.h>
-#include <Level\iceLevelManager.h>
+#include "Sound\iceSoundManager.h"
 
 /**
 *  States from the game
@@ -37,9 +36,7 @@ class iceState {
          *
          *  create the state and elements
          */
-        iceState(iceSoundManager* soundManager,
-			iceLevelManager*	levelManager
-			);
+        iceState(iceSoundManager* soundManager);
 
         /**
          *  Destructor
@@ -112,8 +109,6 @@ class iceState {
 		//managers
 		//sound
 		iceSoundManager* _soundManager;
-		//level
-		iceLevelManager* _levelManager;
 };
 
 

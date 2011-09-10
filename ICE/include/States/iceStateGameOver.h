@@ -10,10 +10,7 @@ class iceSoundManager;
 class iceStateGameOver: public iceState{
 
 public:
-	iceStateGameOver(
-				iceSoundManager* soundManager,
-				iceLevelManager* levelManager
-				);
+	iceStateGameOver(iceSoundManager* soundManager);
 	~iceStateGameOver();
 
 	/**

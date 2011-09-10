@@ -3,10 +3,9 @@
 
 // Constructor
 iceStateGameOver::iceStateGameOver(
-	iceSoundManager* soundManager,
-	iceLevelManager* levelManager
+	iceSoundManager* soundManager
 	)
-	:iceState( soundManager,levelManager)
+	:iceState( soundManager)
 {
 	_log->logMessage("iceStateGameOver::iceStateGameOver()");
 	_nextICEStateId = GAMEOVER;

@@ -18,6 +18,7 @@ iceLogicLua* iceLogicLua::getInstance(){
 }
 
 iceLogicLua::iceLogicLua(void){
+	isload = false;
 	_log = iceGame::getGameLog();
 	L = lua_open();	
 	luaL_openlibs(L);
@@ -45,6 +46,7 @@ int iceLogicLua::RunFile( const char *fname )
 
 int iceLogicLua::runAllFiles()
 {
+	if( isload) return 0;
 	int error;
 	std::vector<Ogre::String> luaFiles;
 
@@ -68,9 +70,9 @@ int iceLogicLua::runAllFiles()
 
 	if(!error)
 	{
+		isload = true;
 		bindLuaObjects();
 	}
-
 	return error;
 }
 

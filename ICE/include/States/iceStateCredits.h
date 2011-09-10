@@ -9,10 +9,7 @@
 class iceStateCredits: public iceState{
 
 public:
-	iceStateCredits(
-				iceSoundManager* soundManager,
-				iceLevelManager* levelManager
-				);
+	iceStateCredits(iceSoundManager* soundManager);
 	~iceStateCredits();
 
 	/**

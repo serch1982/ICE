@@ -10,8 +10,7 @@ class iceStateOutro: public iceState{
 
 public:
 	iceStateOutro(
-				iceSoundManager* soundManager,
-				iceLevelManager* levelManager
+				iceSoundManager* soundManager
 				);
 	~iceStateOutro();
 

@@ -10,8 +10,7 @@ class iceStateShipSelection: public iceState{
 
 public:
 	iceStateShipSelection(
-				iceSoundManager* soundManager,
-				iceLevelManager* levelManager
+				iceSoundManager* soundManager
 				);
 	~iceStateShipSelection();
 

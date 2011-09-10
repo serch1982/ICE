@@ -15,8 +15,7 @@ class iceStateMenu: public iceState{
          *  Constructor menu state
          */
         iceStateMenu(
-				iceSoundManager* soundManager,
-				iceLevelManager* levelManager
+				iceSoundManager* soundManager
 				);
 
         /**

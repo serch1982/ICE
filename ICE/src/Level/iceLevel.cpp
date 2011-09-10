@@ -14,7 +14,7 @@ iceLevel::~iceLevel() {
     unload();
 }
 
-void iceLevel::load(std::vector<iceEnemy*>& vectorEnemies, std::vector<iceCutScene*>& vectorCutScenes) {
+void iceLevel::load(std::vector<iceEnemy*>& vectorEnemies, std::vector<iceCutScene*>& vectorCutScenes, iceSoundManager* soundManager) {
     if (!_loaded) {
         _loaded = true;
         
@@ -32,24 +32,6 @@ void iceLevel::load(std::vector<iceEnemy*>& vectorEnemies, std::vector<iceCutSce
 		icePlayer::getSingletonPtr()->setTrajectory(new iceLocomotiveTrajectory());
 		icePlayer::getSingletonPtr()->getTrajectory()->loadSteps(iceLevelManager::getSingletonPtr()->getDotSceneLoader()->getPlayerSteps(),false);
 
-		//std::vector<iceStep> steps1;
-		//steps1.push_back(iceStep(Ogre::Vector3(100,0,0),Ogre::Radian(0),0));
-		//steps1.push_back(iceStep(Ogre::Vector3(50,0,0),Ogre::Radian(0),20));
-		//steps1.push_back(iceStep(Ogre::Vector3(0,0,0),Ogre::Radian(0),30));
-		//std::vector<iceStep> steps2;
-		//steps2.push_back(iceStep(Ogre::Vector3(-100,0,0),Ogre::Radian(0),0));
-		//steps2.push_back(iceStep(Ogre::Vector3(-50,0,0),Ogre::Radian(0),20));
-		//steps2.push_back(iceStep(Ogre::Vector3(0,0,0),Ogre::Radian(0),30));
-		//std::vector<iceStep> steps0;
-		//steps0.push_back(iceStep(Ogre::Vector3(100,0,100),Ogre::Radian(0),0));
-		//steps0.push_back(iceStep(Ogre::Vector3(50,0,100),Ogre::Radian(0),20));
-		//steps0.push_back(iceStep(Ogre::Vector3(0,0,100),Ogre::Radian(0),30));
-
-		//std::vector<iceTrajectory*> trajectories;
-		//trajectories.push_back(new iceLocomotiveTrajectory(steps0));
-		//trajectories.push_back(new iceLocomotiveTrajectory(steps1));
-		//trajectories.push_back(new iceLocomotiveTrajectory(steps2));
-
 		DotSceneLoader* dsl = iceLevelManager::getSingletonPtr()->getDotSceneLoader();
 
 		std::vector<iceTrajectory*> trajectories = iceLevelManager::getSingletonPtr()->getDotSceneLoader()->getTrajectories();
@@ -58,15 +40,30 @@ void iceLevel::load(std::vector<iceEnemy*>& vectorEnemies, std::vector<iceCutSce
 
 		if(_id == 1) //level 1
 		{
+			// light
+			iceGame::getSceneManager()->setAmbientLight(Ogre::ColourValue(0.25, 0.25, 0.25));
+
+			//load sounds
+			soundManager->loadLevel1();
+			soundManager->PlaySound(0, Ogre::Vector3::ZERO, 0);
+
 			vectorCutScenes.push_back(new iceCutScene());
 			vectorCutScenes[0]->initialize("startLevel1CutSceneInit","startLevel1CutSceneUpdate",&(iceLevelManager::getSingletonPtr()->getDotSceneLoader()->getTrajectories()));
 		}
 		else //level boss
 		{
+			// light
+			iceGame::getSceneManager()->setAmbientLight(Ogre::ColourValue(0.25, 0.25, 0.25));
+
+			//load sounds
+			soundManager->loadLevel1();
+			soundManager->PlaySound(0, Ogre::Vector3::ZERO, 0);
+
 			vectorEnemies.push_back(iceLevelManager::getSingletonPtr()->getDotSceneLoader()->getMagmaton());
 		}
     }
 }
+
 
 void iceLevel::unload() {
     if (_loaded) {

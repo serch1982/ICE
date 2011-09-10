@@ -7,15 +7,14 @@
 
 #include "States\iceStateMenu.h"
 #include "States\iceStateManager.h"
-#include <Sound\iceSoundManager.h>
+#include "Sound\iceSoundManager.h"
 #include "iceGame.h"
 
 
 iceStateMenu::iceStateMenu(
-	iceSoundManager* soundManager,
-	iceLevelManager* levelManager
+	iceSoundManager* soundManager
 	)
-	: iceState(soundManager,levelManager)
+	: iceState(soundManager)
 {
     _log->logMessage("iceStateMenu::iceStateMenu()");
 	_nextICEStateId = MAINMENU; 

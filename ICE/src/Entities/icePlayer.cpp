@@ -1,9 +1,9 @@
 #include "Entities\icePlayer.h"
 #include "Utils\iceDamageTextManager.h"
 #include "iceGame.h"
-
 #include "Particle\iceParticleMgr.h"
 #include "Entities\iceBulletMgr.h"
+#include "PostProcess\icePostProcessManager.h"
 
 #define VIRTUAL_CAMERA_SIZE_X 1000
 #define VIRTUAL_CAMERA_SIZE_Y 1000
@@ -51,6 +51,19 @@ icePlayer& icePlayer::getSingleton(void)
 
 icePlayer::icePlayer():_isShooting(false)
 {
+	initPlayer();
+	mLog = iceGame::getGameLog();
+}
+
+icePlayer::~icePlayer()
+{
+	iceParticleMgr::getSingletonPtr()->removeParticle(mParticleTurboLeft);
+	iceParticleMgr::getSingletonPtr()->removeParticle(mParticleTurboRight);
+	virtualCam.reset();
+	icePhysicEntity::finalizePhysics();
+}
+
+void icePlayer::initPlayer(){
 	Ogre::SceneManager* sceneManager = iceGame::getSceneManager();
 	iceTrajectoryFollower::initialize(sceneManager->getRootSceneNode()->createChildSceneNode("icePlayer"));
 	shipMaxVelocity = 20;
@@ -105,8 +118,10 @@ icePlayer::icePlayer():_isShooting(false)
 
 	if( sceneManager->hasCamera("camera") )
 		setCamera( sceneManager->getCamera("camera") );
-	else
-		setCamera( sceneManager->createCamera( "camera" ) );
+	else{
+		iceGame::createCamera();
+		setCamera( sceneManager->getCamera("camera") );
+	}
 
 	mMovingUp = false;
 	mMovingDown = false;
@@ -117,15 +132,6 @@ icePlayer::icePlayer():_isShooting(false)
 	mRightBarrelTime = 0;
 	mBrakeTime = 0;
 	mSprintTime = 0;
-	mLog = iceGame::getGameLog();
-}
-
-icePlayer::~icePlayer()
-{
-	iceParticleMgr::getSingletonPtr()->removeParticle(mParticleTurboLeft);
-	iceParticleMgr::getSingletonPtr()->removeParticle(mParticleTurboRight);
-	virtualCam.reset();
-	icePhysicEntity::finalizePhysics();
 }
 
 Ogre::AxisAlignedBox icePlayer::getVitualCamBBox(void) {

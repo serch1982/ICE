@@ -43,6 +43,6 @@ private:
 	int errorHandler();
 	void ForceGarbageCollect();
 	bool FuncExist(const char *name );
-
+	bool isload;
 };
 #endif

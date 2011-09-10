@@ -51,7 +51,6 @@ public:
 		*  @return std::vector<iceBulletPtr> with all the bullets into the scene 
 		*/
 		iceBulletList getAllBullets(){return  mIceBulletList;}
-
 private:
 		/**
 		*  to create and unique name

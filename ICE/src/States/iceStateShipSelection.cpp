@@ -4,10 +4,9 @@
 
 // Constructor
 iceStateShipSelection::iceStateShipSelection(
-	iceSoundManager* soundManager,
-	iceLevelManager* levelManager
+	iceSoundManager* soundManager
 	)
-	:iceState( soundManager,levelManager)
+	:iceState( soundManager)
 {
 	_log->logMessage("iceStateShipSelection::iceStateShipSelection()");
 	_nextICEStateId = SHIPSELECTION;

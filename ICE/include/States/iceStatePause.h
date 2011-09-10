@@ -14,8 +14,7 @@ class iceStatePause: public iceState{
          *  Constructor menu state pause 
          */
         iceStatePause(
-			iceSoundManager* soundManager,
-			iceLevelManager* levelManager
+			iceSoundManager* soundManager
 			);
 
         /**

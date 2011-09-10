@@ -15,8 +15,9 @@ icePostProcessManager::icePostProcessManager()
 	mDepthOfFieldCompositor = Ogre::CompositorManager::getSingleton().addCompositor(iceGame::getViewPort(), "DepthOfField");
 }
 
-icePostProcessManager::~icePostProcessManager()
+icePostProcessManager::~icePostProcessManager() 
 {
+	 Ogre::CompositorManager::getSingleton().removeCompositorChain(iceGame::getViewPort());
 }
 
 icePostProcessManager& icePostProcessManager::getSingleton()

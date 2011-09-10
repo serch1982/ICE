@@ -3,10 +3,9 @@
 
 #include <vector>
 #include <queue>
-#include <States\iceState.h>
-#include <Sound\iceSoundManager.h>
-#include <Level\iceLevelManager.h>
-#include <PostProcess/icePostProcessManager.h>
+#include "States\iceState.h"
+#include "Sound\iceSoundManager.h"
+#include "Entities\icePlayer.h"
 
 class iceStateManager : public Ogre::FrameListener,
                      public Ogre::WindowEventListener,
@@ -127,6 +126,11 @@ class iceStateManager : public Ogre::FrameListener,
          */
 		void finalize();
 
+		/**
+         *  to create the god camera
+         */
+		void createGodCam();
+
 		//iceMenu
 		void menuExitClick();
 		void menuPlayClick();
@@ -172,11 +176,9 @@ class iceStateManager : public Ogre::FrameListener,
 
 		// sound manager
 		iceSoundManager* _soundManager;
-		// level manager
-		iceLevelManager* _levelManager;
 
-		//post process manager
-		icePostProcessManager* _postProcessManager;
+		//player share pointers
+		icePlayerPtr _player;
 };
 
 inline OIS::Mouse* iceStateManager::getMouse() {return _mouse;}

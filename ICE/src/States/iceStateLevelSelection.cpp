@@ -3,10 +3,9 @@
 
 // Constructor
 iceStateLevelSelection::iceStateLevelSelection(
-	iceSoundManager* soundManager,
-	iceLevelManager* levelManager
+	iceSoundManager* soundManager
 	)
-	:iceState( soundManager,levelManager)
+	:iceState( soundManager)
 {
 	_log->logMessage("iceStateLevelSelection::iceStateLevelSelection()");
 	_nextICEStateId = LEVELSELECTION;

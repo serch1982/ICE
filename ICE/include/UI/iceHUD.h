@@ -2,7 +2,7 @@
 #define _ICE_HUD_H_
 
 #include <OGRE/Ogre.h>
-#include "../States/iceStateManager.h"
+#include "States\iceStateManager.h"
 
 #define FACE_2_TIME 1
 #define ACHIEVEMENT_TIME 2

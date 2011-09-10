@@ -9,10 +9,7 @@
 class iceStateIntro: public iceState{
 
 public:
-	iceStateIntro(
-				iceSoundManager* soundManager,
-				iceLevelManager* levelManager
-				);
+	iceStateIntro(iceSoundManager* soundManager);
 	~iceStateIntro();
 
 	/**

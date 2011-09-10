@@ -52,6 +52,11 @@ class iceGame {
          */
 		static void setCamera(Ogre::Camera* p_Camera); 
 
+		 /**
+         *  create root camera
+         */
+		static void createCamera();
+
 		static iceUI* getUI();
 
     private:
@@ -80,7 +85,6 @@ class iceGame {
         
         //configurations
         void configureSceneManager();
-        void createCamera();
 
 		// MANAGERS
         // OIS

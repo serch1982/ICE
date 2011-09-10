@@ -10,8 +10,7 @@ class iceStateLoadLevel: public iceState{
 
 public:
 	iceStateLoadLevel(
-				iceSoundManager* soundManager,
-				iceLevelManager* levelManager
+				iceSoundManager* soundManager
 				);
 	~iceStateLoadLevel();
 

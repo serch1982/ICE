@@ -158,8 +158,10 @@ void iceGame::createCamera() {
     _camera->setPosition(Ogre::Vector3(0,0,0));
     _camera->lookAt(Ogre::Vector3(0,0,-300));
 
-    _viewport = _window->addViewport(_camera);
-    _viewport->setBackgroundColour(Ogre::ColourValue(0, 0, 0));
+	_window->removeViewport(0);
+	_viewport = _window->addViewport(_camera);
+	_viewport->setBackgroundColour(Ogre::ColourValue(0, 0, 0));
+
     _camera->setAspectRatio(Ogre::Real(_viewport->getActualWidth()) / Ogre::Real(_viewport->getActualHeight()));
 }
 

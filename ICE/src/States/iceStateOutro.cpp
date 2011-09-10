@@ -1,13 +1,12 @@
-#include <States\iceStateOutro.h>
-#include <States\iceStateManager.h>
-#include <Sound\iceSoundManager.h>
+#include "States\iceStateOutro.h"
+#include "States\iceStateManager.h"
+#include "Sound\iceSoundManager.h"
 
 // Constructor
 iceStateOutro::iceStateOutro(
-	iceSoundManager* soundManager,
-	iceLevelManager* levelManager
+	iceSoundManager* soundManager
 	)
-	:iceState( soundManager,levelManager)
+	:iceState( soundManager)
 {
 	_log->logMessage("iceStateOutro::iceStateOutro()");
 	_nextICEStateId = OUTRO;
