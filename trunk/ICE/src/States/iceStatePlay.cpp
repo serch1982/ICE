@@ -10,17 +10,16 @@
 #define DOUBLE_KEY_TIME 0.5
 
 iceStatePlay::iceStatePlay(
-	iceSoundManager* soundManager,
-	iceLevelManager* levelManager
+	iceSoundManager* soundManager
 	)
-	:iceState(soundManager,levelManager),
+	:iceState(soundManager),
 	_levelID(1) {
     _log->logMessage("iceStatePlay::iceStatePlay()");
 	_nextICEStateId = PLAY;
 	visibleBoundingBoxes = false;
 
 	mRightClick = false;
-
+	
 	mCurrentTime = 0;
 	mCurrentCutScene = NULL;
 	_mMagmaton = NULL;
@@ -28,18 +27,19 @@ iceStatePlay::iceStatePlay(
 
 iceStatePlay::~iceStatePlay() {
     _log->logMessage("iceStatePlay::~iceStatePlay()");
+	 //delete _player;
+	_player.reset();
     clear();
 }
 
 void iceStatePlay::load() {
-    if ( _levelID == 1) {
-		if( !_loaded ){
+	if(!_loaded){
 			_log->logMessage("iceStatePlay::load()");
 			_loaded = true;
 
-			// light
-			_sceneManager->setAmbientLight(Ogre::ColourValue(0.25, 0.25, 0.25));
-		
+			//level manager
+			_levelManager = new iceLevelManager();	
+
 			//particle system
 			mIceParticleMgr = iceParticleMgrPtr(new iceParticleMgr());
 			mIceParticleMgr->initialize();
@@ -47,88 +47,47 @@ void iceStatePlay::load() {
 			//bullet manager
 			mIceBulletMgr = iceBulletMgrPtr(new iceBulletMgr());
 
-			//new player instance
-			_player = icePlayerPtr(new icePlayer());
+			////new player instance
+			if(!icePlayer::getSingletonPtr()) {
+				_player = icePlayerPtr(new icePlayer());
+			}else{
+				_player->initPlayer();
+			}
 
 			//hide cursor
 			iceSdkTray::getInstance()->hideCursor();
 
-			//load sounds
-			_soundManager->loadLevel1();
-			_soundManager->PlaySound(0, Ogre::Vector3::ZERO, 0);
+			// load level
+			_level = iceLevelManager::getSingleton().getIceLevel(_levelID);
+			_level->load(_mEnemies, _mCutScenes, _soundManager);
+			if( _levelID == 2 ){
+				_mMagmaton = (iceBoss*) _mEnemies.back();
+				_mEnemies.pop_back();
+			}else{
+				_mMagmaton = NULL;
+			}
+
+			//load physics
+			mPhysics = icePhysicsPtr(new icePhysics());
+			mPhysics->initialize(_level->getTerrain(), &_mEnemies, _level->getStaticPhisicSceneObjects(), _mMagmaton);
 
 			//load lua logic
 			iceLogicLua::getInstance()->runAllFiles();
-
-			// load level
-			_level = iceLevelManager::getSingleton().getIceLevel(_levelID);
-			_level->load(_mEnemies, _mCutScenes);
-
-			//load phisics
-			mPhysics = icePhysicsPtr(new icePhysics());
-			mPhysics->initialize(_level->getTerrain(), &_mEnemies, _level->getStaticPhisicSceneObjects(), _mMagmaton);
 
 			//show HUD
 			mHUD = iceGame::getUI()->getHUD();
 			mHUD->show();
 
+			_damageTextManager = new iceDamageTextManager();
+
 			//post process
+			_postProcessManager = new icePostProcessManager();
 			icePostProcessManager::getSingleton().enableSoftBlur();
 			icePostProcessManager::getSingleton().enableToon();
 			icePostProcessManager::getSingleton().enableDepthOfField();
 
-		}
-
-    }else if( _levelID == 2 ){
-		// Boss LEVEL
-		if( !_loaded ){
-			_log->logMessage("iceStatePlay::load()");
-			_loaded = true;
-
-			// light
-			_sceneManager->setAmbientLight(Ogre::ColourValue(0.25, 0.25, 0.25));
-		
-			//particle system
-			mIceParticleMgr = iceParticleMgrPtr(new iceParticleMgr());
-			mIceParticleMgr->initialize();
-
-			//bullet manager
-			mIceBulletMgr = iceBulletMgrPtr(new iceBulletMgr());
-
-			//new player instance
-			_player = icePlayerPtr(new icePlayer());
-
-			//hide cursor
-			iceSdkTray::getInstance()->hideCursor();
-
-			//load sounds
-			_soundManager->loadLevel1();
-			_soundManager->PlaySound(0, Ogre::Vector3::ZERO, 0);
-
-			//load lua logic
-			iceLogicLua::getInstance()->runAllFiles();
-
-			// load level
-			_level = iceLevelManager::getSingleton().getIceLevel(_levelID);
-			_level->load(_mEnemies, _mCutScenes);
-			_mMagmaton = (iceBoss*) _mEnemies.back();
-			_mEnemies.pop_back();
-
-			//load phisics
-			mPhysics = icePhysicsPtr(new icePhysics());
-			mPhysics->initialize(_level->getTerrain(), &_mEnemies, _level->getStaticPhisicSceneObjects(), _mMagmaton);
-
-			//show HUD
-			mHUD = iceGame::getUI()->getHUD();
-			mHUD->show();
-
-			//post process
-			icePostProcessManager::getSingleton().enableSoftBlur();
-			icePostProcessManager::getSingleton().enableToon();
-			icePostProcessManager::getSingleton().enableDepthOfField();
-		}
+			mCurrentTime = 0;
 	}
-
 }
 
 void iceStatePlay::clear() {
@@ -136,10 +95,9 @@ void iceStatePlay::clear() {
         _log->logMessage("iceStatePlay::limpiar()");
         _loaded = false;
 
-        //delete _player;
-		_player.reset();
-		//delete _player;
-        _level->unload();
+		//delete level;
+		_level->unload();
+		delete _levelManager;
 
 		//delete bullet manager;
 		mIceBulletMgr.reset();
@@ -150,22 +108,26 @@ void iceStatePlay::clear() {
 
 		_soundManager->unloadLevel1();
 
-		//clean scene manager
-        _sceneManager->clearScene();
-
 		//Deleting enemies
 		for (unsigned int i=0;i<_mEnemies.size();i++)
 			delete _mEnemies[i];
 		if(_mMagmaton)
 			delete _mMagmaton;
 
-		//hide HUD
-		mHUD->hide();
-
-		//post process
+		//delete postprocess
 		icePostProcessManager::getSingleton().disableBlur();
 		icePostProcessManager::getSingleton().disableToon();
 		icePostProcessManager::getSingleton().disableDepthOfField();
+		delete _postProcessManager;	
+
+		//delete text Manager
+		delete _damageTextManager;
+
+		//clean scene manager
+        _sceneManager->clearScene();
+
+		//hide HUD
+		mHUD->hide();
     }
 }
 
@@ -193,16 +155,9 @@ void iceStatePlay::update(Ogre::Real evt)
 		//enemies
 		for (_revit_mEnemies = _mEnemies.rbegin(); _revit_mEnemies != _mEnemies.rend(); ++_revit_mEnemies) {
 			iceEnemy* enemy = *_revit_mEnemies;
-			/*if(enemy->isActive() && _player->isPositionBackToPlayer((*_revit_mEnemies)->getNode()->_getDerivedPosition()))
-			{
-				enemy->desactivate();
-			}
-			else 
-			{*/
-				iceLogicLua::getInstance()->getEnemyLogicState(enemy,evt);
-				enemy->setDebug(visibleBoundingBoxes);
-				enemy->update(evt);
-			//}
+			iceLogicLua::getInstance()->getEnemyLogicState(enemy,evt);
+			enemy->setDebug(visibleBoundingBoxes);
+			enemy->update(evt);
 		}
 
 		if(_mMagmaton)
@@ -221,24 +176,6 @@ void iceStatePlay::update(Ogre::Real evt)
 
 		//ShowDamage
 		iceDamageTextManager::getSingleton().update(evt);
-
-		//fx
-		/*if(_player->getIsShooting()){
-			switch(_player->getCurrentWeapon())
-			{
-				case  MACHINEGUN:
-			
-					break;
-				case SHOTGUN:
-					break;
-				case MISILE_LAUNCHER:
-					break;
-				default:
-					break;
-			}*/
-	
-		//}
-
 
 		//chivatos of the camera
 		iceSdkTray::getInstance()->updateScreenInfo( 0, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedPosition().x));
@@ -367,6 +304,22 @@ bool iceStatePlay::mouseReleased(const OIS::MouseEvent &arg, OIS::MouseButtonID 
 
 void iceStatePlay::setLevelToLoad(int levelID){
 	_levelID = levelID;
+}
+
+int iceStatePlay::getLevelLoaded(){
+	return _levelID;
+}
+
+int iceStatePlay::getNextLevel(){
+	if(_levelManager){
+		if(_levelID  + 1 > _levelManager->getNumLevels()) {
+			return 1;
+		}else{
+			return _levelID + 1;
+		}
+	} else{
+		return 1;
+	}
 }
 
 ICEStateId iceStatePlay::getStateId()

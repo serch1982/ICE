@@ -10,10 +10,7 @@
 class iceStateLevelSelection: public iceState{
 
 public:
-	iceStateLevelSelection(
-				iceSoundManager* soundManager,
-				iceLevelManager* levelManager
-				);
+	iceStateLevelSelection(iceSoundManager* soundManager);
 	~iceStateLevelSelection();
 
 	/**

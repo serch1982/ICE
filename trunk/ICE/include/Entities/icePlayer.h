@@ -31,6 +31,7 @@ class icePlayer : public iceTrajectoryFollower
         static icePlayer& getSingleton(void);
 	    static icePlayer* getSingletonPtr(void);
 
+		void initPlayer();
 
 		void setCamera(Ogre::Camera* camera);
 		Ogre::Camera* getCamera();

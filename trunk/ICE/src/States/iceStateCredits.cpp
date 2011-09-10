@@ -3,10 +3,9 @@
 
 // Constructor
 iceStateCredits::iceStateCredits(
-	iceSoundManager* soundManager,
-	iceLevelManager* levelManager
+	iceSoundManager* soundManager
 	)
-	:iceState( soundManager,levelManager)
+	:iceState( soundManager)
 {
 	_log->logMessage("iceStateCredits::iceStateCredits()");
 	_nextICEStateId = CREDITS;

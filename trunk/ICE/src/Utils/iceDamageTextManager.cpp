@@ -27,7 +27,7 @@ iceDamageTextManager::iceDamageTextManager()
 
 iceDamageTextManager::~iceDamageTextManager()
 {
-	for(unsigned int i=0;i<MAX_OVERLAYS;i++)
+	for(unsigned int i=0;i < mTextOverlays.size() ;i++)
 	{
 		delete mTextOverlays[i];
 	}

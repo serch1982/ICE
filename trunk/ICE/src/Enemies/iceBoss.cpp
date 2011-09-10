@@ -1,5 +1,6 @@
 #include "Enemies\iceBoss.h"
 #include "iceGame.h"
+#include "Level\iceLevelManager.h"
 
 iceBoss::iceBoss(){
 	iceEnemy::iceEnemy();

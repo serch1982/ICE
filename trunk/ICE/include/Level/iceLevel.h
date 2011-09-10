@@ -10,6 +10,7 @@
 #include "Enemies\iceEnemy.h"
 #include "Entities\iceObject.h"
 #include "Trajectory\iceLocomotiveTrajectory.h"
+#include "Sound\iceSoundManager.h"
 
 class icePlayer;
 class iceEnemy;
@@ -34,7 +35,7 @@ class iceLevel {
         /**
          *  Load level and elements
          */
-        void load(std::vector<iceEnemy*>& vectorEnemies, std::vector<iceCutScene*>& vectorCutScenes);
+        void load(std::vector<iceEnemy*>& vectorEnemies, std::vector<iceCutScene*>& vectorCutScenes, iceSoundManager* soundManager);
 
         /**
          *  unload level

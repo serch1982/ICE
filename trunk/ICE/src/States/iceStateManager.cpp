@@ -16,6 +16,7 @@
 #include "SdkCameraMan.h"
 
 OgreBites::SdkCameraMan* _sdkCameraMan;
+bool _ind;
 
 iceStateManager::iceStateManager(OIS::InputManager* inputManager,
 								 iceSoundManager* soundManager
@@ -45,7 +46,28 @@ iceStateManager::iceStateManager(OIS::InputManager* inputManager,
 
 	iceGame::getUI()->init(this);
 
+	//god camera
+	createGodCam();
 
+	// load states
+	_statesVector.push_back( new iceStateIntro( _soundManager) );
+	_statesVector.push_back( new iceStateMenu( _soundManager) );
+	_statesVector.push_back( new iceStatePlay( _soundManager) );
+	_statesVector.push_back( new iceStateShipSelection( _soundManager) );
+	_statesVector.push_back( new iceStateLevelSelection( _soundManager) );
+	_statesVector.push_back( new iceStateGameOver( _soundManager) );
+	_statesVector.push_back( new iceStatePause( _soundManager) );
+	_statesVector.push_back( new iceStateLoadLevel( _soundManager) );
+	_statesVector.push_back( new iceStateCredits( _soundManager) );
+	_statesVector.push_back( new iceStateOutro( _soundManager) );
+	_statesVector.push_back( new iceStateStats( _soundManager) );
+
+	changeState( _statesVector[PLAY] );
+	_ind= false;
+    //changeState(new iceStateMenu(this,_soundManager));
+}
+
+void iceStateManager::createGodCam(){
 	//set god camera
 	Ogre::SceneManager* sceneManager = iceGame::getSceneManager();
 	_godCamera = sceneManager->createCamera( "GodCam" );
@@ -54,32 +76,13 @@ iceStateManager::iceStateManager(OIS::InputManager* inputManager,
 	_godCamera->lookAt(Ogre::Vector3(1700,300,0));
 	_godCamera->setNearClipDistance(5);
 	//sdk man
+	if(_sdkCameraMan) delete _sdkCameraMan;
 	_sdkCameraMan = new OgreBites::SdkCameraMan(_godCamera); 
 	//set the old camera the current
 	_oldCamera = iceGame::getCamera();
-
-	_postProcessManager = new icePostProcessManager();
-	
-	_levelManager = new iceLevelManager();
-	// load states
-	_statesVector.push_back( new iceStateIntro( _soundManager, _levelManager) );
-	_statesVector.push_back( new iceStateMenu( _soundManager, _levelManager) );
-	_statesVector.push_back( new iceStatePlay( _soundManager, _levelManager) );
-	_statesVector.push_back( new iceStateShipSelection( _soundManager, _levelManager) );
-	_statesVector.push_back( new iceStateLevelSelection( _soundManager, _levelManager) );
-	_statesVector.push_back( new iceStateGameOver( _soundManager, _levelManager) );
-	_statesVector.push_back( new iceStatePause( _soundManager, _levelManager) );
-	_statesVector.push_back( new iceStateLoadLevel( _soundManager, _levelManager) );
-	_statesVector.push_back( new iceStateCredits( _soundManager, _levelManager) );
-	_statesVector.push_back( new iceStateOutro( _soundManager, _levelManager) );
-	_statesVector.push_back( new iceStateStats( _soundManager, _levelManager) );
-
-	changeState( _statesVector[PLAY] );
-    //changeState(new iceStateMenu(this,_soundManager));
 }
 
 iceStateManager::~iceStateManager() {
-	
 	_log->logMessage("iceStateManager::~iceStateManager()");
 }
 
@@ -102,7 +105,6 @@ void iceStateManager::finalize(){
 		_statesVector[i] = NULL;
 	}
 	_statesVector.clear();
-	delete _postProcessManager;
 
 	_log->logMessage("iceStateManager::finalize()");
 }
@@ -179,26 +181,10 @@ iceState* iceStateManager::getICEStateByID(const ICEStateId stateName) {
 	msg << "iceStateManager::changeState() -> new state: " << (int)stateName;
 	_log->logMessage( msg.str() );
 	return _statesVector[stateName];
-	
-	/*int sid = stateName;
-	switch(sid) {
-	case (int)MainMenu:
-		_log->logMessage("iceStateManager::changeState() -> new state:  MainMenu" );
-        return _statesVector[MAINMENU];
-	case (int)Play:
-		_log->logMessage("iceStateManager::changeState() -> new state:  Play" );
-        return new iceStatePlay(this,_soundManager);
-	case (int)Pause:
-		_log->logMessage("iceStateManager::changeState() -> new state:  Pause" );
-        return new iceStatePause(this,_soundManager);
-	default:
-		_log->logMessage("iceStateManager::changeState() -> new state:  default" );
-        return new iceStateMenu(this,_soundManager);
-	}*/
 }
 
 void iceStateManager::changeState(iceState* icestate) {
-    _log->logMessage("iceStateManager::changeState() -> the state is changing");
+    _log->logMessage("iceStateManager::changeState() -> the state is changing");	
 
 	_currentState = icestate;
 	_currentState->load();
@@ -256,6 +242,10 @@ bool iceStateManager::keyPressed(const OIS::KeyEvent &arg) {
     {
 		iceGame::setCamera(_oldCamera);
 		icePostProcessManager::getSingleton().enableSoftBlur();
+    }
+	else if (arg.key == OIS::KC_N)
+    {
+		_ind= true;
     }
 	_sdkCameraMan->injectKeyDown(arg);
     return this->_currentState->keyPressed(arg);
@@ -337,6 +327,19 @@ bool iceStateManager::frameRenderingQueued(const Ogre::FrameEvent& evt) {
 	iceGame::getUI()->update(timeSinceLastFrame);
 	_currentState->update(timeSinceLastFrame);
 	//----------------------
+	if(_ind){
+		if(currentStateId == PLAY){
+			iceStatePlay* sp = (iceStatePlay*)this->_currentState;
+			unsigned int lid = sp->getNextLevel();
+			sp->clear();
+			iceGame::getSceneManager()->destroyAllCameras();
+			sp->setLevelToLoad(lid);
+			createGodCam();
+			sp->load();
+			_currentState = (iceState*) sp;
+			_ind= false;
+		}
+	}
 	return true;
 }
 

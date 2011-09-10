@@ -11,10 +11,9 @@
 
 
 iceStatePause::iceStatePause(
-	iceSoundManager* soundManager,
-	iceLevelManager* levelManager
+	iceSoundManager* soundManager
 	)
-	:iceState(soundManager,levelManager)
+	:iceState(soundManager)
 {
     _log->logMessage("iceStatePause::iceStatePause()");
 	_nextICEStateId = PAUSE;

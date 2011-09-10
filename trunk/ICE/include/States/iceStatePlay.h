@@ -6,7 +6,7 @@
 
 #include "States/iceState.h"
 #include "Level\iceLevel.h"
-#include "Level/iceCutScene.h"
+#include "Level\iceCutScene.h"
 #include "Utils\iceSdkTray.h"
 #include "Entities\icePlayer.h"
 #include "Enemies\iceEnemy.h"
@@ -14,8 +14,12 @@
 #include "Particle\iceParticleMgr.h"
 #include "Physics\icePhysics.h"
 #include "Entities\iceBulletMgr.h"
-#include <Sound\iceSoundManager.h>
-#include "UI/iceHUD.h"
+#include "Sound\iceSoundManager.h"
+#include "UI\iceHUD.h"
+#include "Utils\iceDamageTextManager.h"
+#include "PostProcess\icePostProcessManager.h"
+#include "Level\iceLevelManager.h"
+
 class iceLevel;
 
 
@@ -25,8 +29,7 @@ class iceStatePlay: public iceState{
          *  Constructor play state
          */
         iceStatePlay(
-			iceSoundManager* soundManager,
-			iceLevelManager* levelManager
+			iceSoundManager* soundManager
 			);
 
         /**
@@ -82,11 +85,25 @@ class iceStatePlay: public iceState{
          *  get the current icestateid
          */
 		ICEStateId getStateId();
+
 		/**
-         *  get the current icestateid
+         *  set the level to load
          */
 		void setLevelToLoad(int levelID);
 
+		/**
+         *  get the current level ID
+         */
+		int getLevelLoaded();
+
+		/**
+         *  get the levels 
+         */
+		int getNextLevel();
+
+		/**
+         *  set the visibility for the boundingboxes
+         */
 		void switchBoundingBoxesVisibility(void);
     private:
 		//HUD
@@ -115,6 +132,9 @@ class iceStatePlay: public iceState{
          */
 		void setHUDWeapon(char* name);
 
+		/**
+         *  check the CutScenes
+         */
 		void checkActivableCutScene(void);
 
 		//phisics
@@ -133,6 +153,15 @@ class iceStatePlay: public iceState{
 
 		//bullet  manager
 		iceBulletMgrPtr mIceBulletMgr;
+
+		//damage text manager
+		iceDamageTextManager* _damageTextManager;
+
+		//post process manager
+		icePostProcessManager* _postProcessManager;
+
+		// level manager
+		iceLevelManager* _levelManager;
 };
 
 
