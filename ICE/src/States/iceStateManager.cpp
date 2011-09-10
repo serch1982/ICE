@@ -44,6 +44,7 @@ iceStateManager::iceStateManager(OIS::InputManager* inputManager,
 	iceSdkTray::getInstance()->setupScreenInfo(_window, _mouse, this); 
 	iceSdkTray::getInstance()->updateScreenInfo(7, "Solid");
 
+	//init UI
 	iceGame::getUI()->init(this);
 
 	//god camera
@@ -62,9 +63,8 @@ iceStateManager::iceStateManager(OIS::InputManager* inputManager,
 	_statesVector.push_back( new iceStateOutro( _soundManager) );
 	_statesVector.push_back( new iceStateStats( _soundManager) );
 
-	changeState( _statesVector[PLAY] );
+	changeState( _statesVector[MAINMENU] );
 	_ind= false;
-    //changeState(new iceStateMenu(this,_soundManager));
 }
 
 void iceStateManager::createGodCam(){
@@ -341,6 +341,10 @@ bool iceStateManager::frameRenderingQueued(const Ogre::FrameEvent& evt) {
 		}
 	}
 	return true;
+}
+
+ICEStateId iceStateManager::getCurrentStateID(){
+	return _currentState->getStateId();
 }
 
 bool iceStateManager::windowClosing(Ogre::RenderWindow* window) {
