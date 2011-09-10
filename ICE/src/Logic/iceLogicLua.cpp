@@ -53,6 +53,7 @@ int iceLogicLua::runAllFiles()
 	luaFiles.push_back("./media/scripts/lua/mini.lua");
 	luaFiles.push_back("./media/scripts/lua/smart.lua");
 	luaFiles.push_back("./media/scripts/lua/kamikaze.lua");
+	luaFiles.push_back("./media/scripts/lua/volcano.lua");
 	luaFiles.push_back("./media/scripts/lua/StartLevel1.lua");
 
 	for(unsigned int i=0;i<luaFiles.size();i++)

@@ -114,6 +114,7 @@ class iceStatePlay: public iceState{
 		//Enemies
 		std::vector<iceEnemy*> _mEnemies;
 		iceBoss* _mMagmaton;
+		bool mFightingAgainstBoss;
 		 // inverse iterator
         std::vector<iceEnemy*>::const_reverse_iterator _revit_mEnemies;
 

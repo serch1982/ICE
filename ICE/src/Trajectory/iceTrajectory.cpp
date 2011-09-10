@@ -135,9 +135,16 @@ void iceTrajectory::init(Ogre::SceneManager* p_spSceneManager, Ogre::SceneNode* 
 void iceTrajectory::setNodeToLookAt(Ogre::SceneNode* p_psNodeToLookAt)
 {
 	mNodeToLookAt = p_psNodeToLookAt;
-	mThereIsANodeToLookAt = true;
-	if(mNode)
-		mNode->setInheritOrientation(false); //Si vamos a controlar a donde mira el nodo, mejor que no herede la orientacion del padre
+	if(mNodeToLookAt)
+	{
+		mThereIsANodeToLookAt = true;
+		if(mNode)
+			mNode->setInheritOrientation(false); //Si vamos a controlar a donde mira el nodo, mejor que no herede la orientacion del padre
+	}
+	else
+	{
+		mThereIsANodeToLookAt = false;
+	}
 }
 
 void iceTrajectory::reset(void)

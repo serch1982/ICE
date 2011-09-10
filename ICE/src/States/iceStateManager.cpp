@@ -23,7 +23,7 @@ iceStateManager::iceStateManager(OIS::InputManager* inputManager,
 								 )
 	:_inputManager(inputManager),
 	 _soundManager(soundManager),
-	 _levelToLoad(2),
+	 _levelToLoad(1),
 	 _exit(false)
 {
     _log = iceGame::getGameLog();

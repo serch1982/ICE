@@ -5,6 +5,7 @@
 #include <Terrain/OgreTerrainGroup.h>
 #include "Entities\icePlayer.h"
 #include "Enemies\iceEnemy.h"
+#include "Enemies\iceVolcano.h"
 #include "Enemies\iceBoss.h"
 #include "Entities\iceBullet.h"
 #include "Entities\iceObject.h"
@@ -23,7 +24,7 @@ public:
 	/**
 	*  initialize physics
 	*/
-	void initialize(Ogre::TerrainGroup* terrainGroup, std::vector<iceEnemy*>* p_Enemies, std::vector<iceObject*> p_Objects, iceBoss* magmaton);
+	void initialize(Ogre::TerrainGroup* terrainGroup, std::vector<iceEnemy*>* p_Enemies, std::vector<iceObject*> p_Objects);
 
 	/**
 	*  update physics
@@ -43,13 +44,10 @@ protected:
 	*/
 	void processTerrainCollision(void);
 
-	void processMagmatonAttacks(void);
-
 	//vars
 	Ogre::TerrainGroup* mTerrainGroup;
 	std::vector<iceEnemy*>* mEnemies;
 	std::vector<iceObject*> mObjects;
-	iceBoss* mMagmaton;
 	std::vector<Ogre::Entity*> mSoftMagmatonObjects;
 	std::vector<Ogre::Entity*> mHardMagmatonObjects;
 	std::vector<Ogre::Entity*> mAttackMagmatonObjects;

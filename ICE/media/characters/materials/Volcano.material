@@ -1,5 +1,5 @@
 
-material Magmaton
+material volcano
 {
 	technique Toon
 	{
@@ -24,12 +24,12 @@ material Magmaton
 				tex_address_mode clamp
 				filtering none
 			}
+
 			texture_unit
 			{
-				texture Magmaton.png
+				texture volcano.jpg
 			}
 		}
-
 		// Black outline
 		pass
 		{
@@ -43,6 +43,24 @@ material Magmaton
 			{
 			}		
 		}
+	}
+}
+
+material lava_volcano
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.3 0.3 0.3 1
+			specular 1 1 1 1 50
+
+			texture_unit
+			{
+				texture lava_volcano.png
+			}
+		}
+
 	}
 
 }
