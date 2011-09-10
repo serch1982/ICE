@@ -131,11 +131,15 @@ class iceStateManager : public Ogre::FrameListener,
          */
 		void createGodCam();
 
+		/**
+         *  get the current State Loaded
+         */
+		ICEStateId getCurrentStateID();
+
 		//iceMenu
 		void menuExitClick();
 		void menuPlayClick();
 		void menuContinueClick();
-
 
     private:
 		// it's a general control to control the level to load

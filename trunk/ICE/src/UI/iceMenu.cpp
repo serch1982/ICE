@@ -18,17 +18,13 @@ void iceMenu::init(iceStateManager* pStateManager)
 
 	mStateManager = pStateManager;
 
-	try{
-		mFlash = mHikariMgr->createFlashOverlay("MENU", iceGame::getCamera()->getViewport(),  iceGame::getCamera()->getViewport()->getActualWidth(),  iceGame::getCamera()->getViewport()->getActualHeight(), Hikari::Position(Hikari::Center));
-		mFlash->load("menu.swf");
-		mFlash->setTransparent(false, true);
-		mFlash->bind("menuExitClick", Hikari::FlashDelegate(this, &iceMenu::exitClick));
-		mFlash->bind("menuPlayClick", Hikari::FlashDelegate(this, &iceMenu::playClick));
-		mFlash->bind("menuContinueClick", Hikari::FlashDelegate(this, &iceMenu::continueClick));
-		mFlash->hide();
-	}catch(char* ex) {
-		iceGame::getGameLog()->logMessage(ex);
-	}
+	mFlash = mHikariMgr->createFlashOverlay("MENU", iceGame::getCamera()->getViewport(),  iceGame::getCamera()->getViewport()->getActualWidth(),  iceGame::getCamera()->getViewport()->getActualHeight(), Hikari::Position(Hikari::Center));
+	mFlash->load("menu.swf");
+	mFlash->setTransparent(false, true);
+	mFlash->bind("menuExitClick", Hikari::FlashDelegate(this, &iceMenu::exitClick));
+	mFlash->bind("menuPlayClick", Hikari::FlashDelegate(this, &iceMenu::playClick));
+	mFlash->bind("menuContinueClick", Hikari::FlashDelegate(this, &iceMenu::continueClick));
+	mFlash->hide();
 }
 
 Hikari::FlashValue iceMenu::exitClick(Hikari::FlashControl* caller, const Hikari::Arguments& args)
