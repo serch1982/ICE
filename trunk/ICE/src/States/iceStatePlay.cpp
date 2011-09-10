@@ -22,7 +22,6 @@ iceStatePlay::iceStatePlay(
 	
 	mCurrentTime = 0;
 	mCurrentCutScene = NULL;
-	_mMagmaton = NULL;
 }
 
 iceStatePlay::~iceStatePlay() {
@@ -33,6 +32,9 @@ iceStatePlay::~iceStatePlay() {
 }
 
 void iceStatePlay::load() {
+
+	mFightingAgainstBoss = false;
+
 	if(!_loaded){
 			_log->logMessage("iceStatePlay::load()");
 			_loaded = true;
@@ -69,7 +71,7 @@ void iceStatePlay::load() {
 
 			//load physics
 			mPhysics = icePhysicsPtr(new icePhysics());
-			mPhysics->initialize(_level->getTerrain(), &_mEnemies, _level->getStaticPhisicSceneObjects(), _mMagmaton);
+			mPhysics->initialize(_level->getTerrain(), &_mEnemies, _level->getStaticPhisicSceneObjects());
 
 			//load lua logic
 			iceLogicLua::getInstance()->runAllFiles();
@@ -190,11 +192,19 @@ void iceStatePlay::update(Ogre::Real evt)
 
 		if( _levelID == 2 )
 		{
-			if(mCurrentTime >= 80)
-			{ // Fin de trayectoria, comienza la lucha con el boss
-				_player->getTrajectory()->goToLastStep();
-				_player->getTrajectory()->setNodeToLookAt(_mMagmaton->getNode());
-				_player->getTrajectory()->lookAt();
+			if(mFightingAgainstBoss)
+			{
+				//Rutinas contra magmaton
+			}
+			else
+			{
+				if(mCurrentTime >= 80)
+				{ // Fin de trayectoria, comienza la lucha con el boss
+					_player->getTrajectory()->goToLastStep();
+					_player->getTrajectory()->setNodeToLookAt(_mMagmaton->getNode());
+					_player->getTrajectory()->lookAt();
+					mFightingAgainstBoss = true;
+				}
 			}
 		}
 	}

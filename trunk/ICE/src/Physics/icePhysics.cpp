@@ -9,7 +9,6 @@
 
 icePhysics::icePhysics(void)
 {
-	mMagmaton = NULL;
 }
 
 icePhysics::~icePhysics(void)
@@ -18,19 +17,11 @@ icePhysics::~icePhysics(void)
 	mObjects.clear();
 }
 
-void icePhysics::initialize(Ogre::TerrainGroup* terrainGroup,  std::vector<iceEnemy*>* p_Enemies, std::vector<iceObject*> p_Objects, iceBoss* magmaton)
+void icePhysics::initialize(Ogre::TerrainGroup* terrainGroup,  std::vector<iceEnemy*>* p_Enemies, std::vector<iceObject*> p_Objects)
 {
 	mEnemies = p_Enemies;
 	mObjects = p_Objects;
 	mTerrainGroup = terrainGroup;
-	mMagmaton = magmaton;
-
-	if(mMagmaton)
-	{
-		mSoftMagmatonObjects = mMagmaton->getSoftPhysicObjects();
-		mHardMagmatonObjects = mMagmaton->getHardPhysicObjects();
-		mAttackMagmatonObjects = mMagmaton->getAttackPhysicObjects();
-	}
 	
 	mLog = iceGame::getGameLog();
 }
@@ -63,29 +54,6 @@ void icePhysics::processBullets(void)
 					}
 				}
 			}
-
-			if(!bulletImpacted && mMagmaton)
-			{
-				for(unsigned j=0;j<mSoftMagmatonObjects.size();j++)
-				{
-					AxisAlignedBox ebox = mSoftMagmatonObjects[j]->getWorldBoundingBox();
-					if(ebox.intersects(bbox))
-					{
-						mMagmaton->addSoftDamage((*iter)->getDamage(),(*iter)->getCritic());
-						(*iter)->desactivate();
-					}
-				}
-
-				for(unsigned j=0;j<mHardMagmatonObjects.size();j++)
-				{
-					AxisAlignedBox ebox = mHardMagmatonObjects[j]->getWorldBoundingBox();
-					if(ebox.intersects(bbox))
-					{
-						mMagmaton->addHardDamage((*iter)->getDamage(),(*iter)->getCritic());
-						(*iter)->desactivate();
-					}
-				}
-			}
 		}
 		//detect collision between the player and the terrain
 		Ogre::Ray bulletRayNY((*iter)->getPosition(), Ogre::Vector3::NEGATIVE_UNIT_Y);
@@ -101,7 +69,6 @@ void icePhysics::update(void){
 	processBullets();
 	processObjectCollision();
 	processTerrainCollision();
-	processMagmatonAttacks();
 }
 
 void icePhysics::processTerrainCollision(void){
@@ -166,23 +133,18 @@ void icePhysics::processObjectCollision(void){
 					icePlayer::getSingletonPtr()->setShipTranslate(Ogre::Vector3(0, 0,-DEFAULT_RETURN_SHIP));
 				}
 			}
-		}
-	}
-		
-}
-
-void icePhysics::processMagmatonAttacks(void)
-{
-	if(mMagmaton)
-	{
-		AxisAlignedBox pbox = icePlayer::getSingletonPtr()->getGeometry()->getWorldBoundingBox(icePlayer::getSingletonPtr()->getPosition());
-		for(unsigned i=0;i<mAttackMagmatonObjects.size();i++)
-		{
-			AxisAlignedBox ebox = mAttackMagmatonObjects[i]->getWorldBoundingBox();
-			if(ebox.intersects(pbox))
+			iceVolcano* volcano = dynamic_cast<iceVolcano*> (enemy);
+			if(volcano)
 			{
-				icePlayer::getSingletonPtr()->addDamage(1000,false);
+				if(volcano->processLavaColision(pbox))
+				{
+					Ogre::Vector3 initPos = icePlayer::getSingletonPtr()->getShipPosition();
+					if( initPos.z <= 1 && initPos.z > DEFAULT_RETURN_SHIP_MAX){
+						icePlayer::getSingletonPtr()->setShipTranslate(Ogre::Vector3(0, 0,-DEFAULT_RETURN_SHIP));
+					}
+				}
 			}
 		}
 	}
+		
 }
