@@ -26,23 +26,26 @@ bool iceVolcano::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActi
 	entityName << "Entity_" << mNameGenerator.generate();
 
 	// loading the mesh and attaching it to he node
-	Ogre::Entity* mesh;
-	mesh = sceneManager->createEntity(entityName.str(), "volcano.mesh");
+	Ogre::Entity* mesh = sceneManager->createEntity(entityName.str(), "volcano.mesh");
 	mLavaMesh = sceneManager->createEntity("lava_volcano.mesh");
 	enemyNode->attachObject(mesh);
 	
-	mLavaInitialPosition = Ogre::Vector3(0.0858451,-104.2434,0.675004);
-
-	mLavaNode = enemyNode->createChildSceneNode(mLavaInitialPosition);
+//	mLavaInitialPosition = Ogre::Vector3(0.0858451,-104.2434,0.675004);
+	mLavaInitialPosition = enemyNode->_getDerivedPosition();
+	mLavaInitialPosition.y -= 80;
+	
+	entityName << "_lava";
+	mLavaNode = iceGame::getSceneManager()->getRootSceneNode()->createChildSceneNode(entityName.str(),mLavaInitialPosition );
+	//  enemyNode->createChildSceneNode(mLavaInitialPosition);
 	mLavaNode->attachObject(mLavaMesh);
 
 	//mLavaNode->showBoundingBox(true);
 
-	enemyNode->scale(p_Scale);
-	enemyNode->rotate(rotation);
-	
+	//enemyNode->scale(p_Scale);
+	//enemyNode->rotate(rotation);
+
 	//init physics
-	icePhysicEntity::initializePhysics("phy_volc"+ entityName.str(), Ogre::Vector3(3,3,3) * p_Scale);
+	icePhysicEntity::initializePhysics("phy_volc"+ entityName.str(), Ogre::Vector3(20,32,20));
 	enemyNode->attachObject(getGeometry()->getMovableObject());
 
 	mAnimations["iddle"] = mesh->getAnimationState( "iddle" );
@@ -78,20 +81,14 @@ void iceVolcano::createShotEntity(int p_iWeapon, Ogre::Radian p_fDeviation, unsi
 void iceVolcano::update(Ogre::Real p_timeSinceLastFrame){
 	iceEnemy::update( p_timeSinceLastFrame );
 
-		switch(mState)
+	switch(mState)
 	{
 		case STOPPED:
-			/*if (!isAlive())
-				mState = DYING;*/
 			break;
 		case FOLLOWING_TRAJECTORY:
-			//iceTrajectoryFollower::update(p_timeSinceLastFrame); Hay que hablar sobre trayectorias de enemigos
-			/*if (!isAlive())
-				mState = DYING;*/
 			break;
 		case ATTACK: 
 			iceRPG::update(p_timeSinceLastFrame);
-
 			//gestion del ataque de lava
 			if(mLavaCreated)
 			{
@@ -140,39 +137,35 @@ void iceVolcano::update(Ogre::Real p_timeSinceLastFrame){
 					mTimeToNextAtack -= p_timeSinceLastFrame;
 				}
 			}
-			/*if (!isAlive()
-			)
-				mState = DYING;*/
-			//iceTrajectoryFollower::update(p_timeSinceLastFrame); Hay que hablar sobre trayectorias de enemigos
 			break;
 		case DYING:
 			mBillboard->start(enemyNode->_getDerivedPosition());
 			iceGame::getGameLog()->logMessage("Enemy killed!");
 			icePlayer::getSingletonPtr()->addExperience(mLevel * 10000);
 			mAnimDyingTicks++;
-			//iceTrajectoryFollower::update(p_timeSinceLastFrame); Hay que hablar sobre trayectorias de enemigos
 			//Dead sequence...
 			//When dead sequence finished:
 			//mState = INACTIVE;
 			break;
 		case INACTIVE:
 			if(checkActivationTime(p_timeSinceLastFrame))
-			{//active
+			{
 				activate();
 			}
 			else
-			{//inactive
+			{
 				desactivate();
 			}
 			break;
 	}
+	mBillboard->update(p_timeSinceLastFrame);
 }
 
 std::string iceVolcano::getFunctionStr(){
 	return "VolcanoLogic";
 }
 
-bool iceVolcano::processLavaColision(Ogre::AxisAlignedBox pbox)
+bool iceVolcano::detectLavaCollision(Ogre::AxisAlignedBox pbox)
 {
 	if(mLavaMesh->getWorldBoundingBox().intersects(pbox)){
 		icePlayer::getSingletonPtr()->addDamage(mAttackDamage,mAttackIsCritic);
@@ -182,5 +175,13 @@ bool iceVolcano::processLavaColision(Ogre::AxisAlignedBox pbox)
 	{
 		return false;
 	}
+	return false;
 }
 
+void iceVolcano::showReceivedDamage(unsigned int p_iDamage, bool p_bCritical){
+	iceEnemy::showReceivedDamage(p_iDamage, p_bCritical);
+	if(!isAlive()){
+		mLavaNode->setVisible(false);
+		enemyNode->setVisible(false);
+	}
+}

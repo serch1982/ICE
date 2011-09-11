@@ -32,7 +32,7 @@ bool iceKamikaze::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fAct
 	mParticleFire = iceParticleMgr::getSingletonPtr()->createPartAttachToObject(enemyNode,"ice/iceKamimaze",false);
 
 	//strategy 
-	mIceStrategy = iceStrategyPtr(new iceStrategyForward(2));
+	mIceStrategy = iceStrategyPtr(new iceStrategyForward(4));
 	return true;
 }
 
@@ -47,18 +47,13 @@ void iceKamikaze::update(Ogre::Real p_timeSinceLastFrame){
 	{
 		case STOPPED:
 			mTrajectory->lookAt();
-			/*if (!isAlive())
-				mState = DYING;*/
 			break;
 		case FOLLOWING_TRAJECTORY:
-			//iceTrajectoryFollower::update(p_timeSinceLastFrame); Hay que hablar sobre trayectorias de enemigos
-			mTrajectory->lookAt();//TODO
-			/*if (!isAlive())
-				mState = DYING;*/
+			mTrajectory->lookAt();
 			break;
 		case ATTACK: 
-			mTrajectory->lookAt(); //TODO
-			enemyNode->translate(mVelocity *p_timeSinceLastFrame);
+			mTrajectory->lookAt();
+			enemyNode->translate(mVelocity * p_timeSinceLastFrame);
 			mRenewTarget--;
 			mParticleFire->stop();
 			if( mRenewTarget == 0 ){
@@ -75,18 +70,17 @@ void iceKamikaze::update(Ogre::Real p_timeSinceLastFrame){
 			}
 			break;
 		case DYING:
-			//to update billboard
 			iceGame::getGameLog()->logMessage("Enemy killed! DYING");
 			mAnimDyingTicks++;
 			break;
 		case INACTIVE:
 			if(checkActivationTime(p_timeSinceLastFrame))
-			{//active
+			{
 				mParticleFire->start();
 				activate();
 			}
 			else
-			{//inactive
+			{
 				mParticleFire->stop();
 				desactivate();
 			}
@@ -125,6 +119,6 @@ void iceKamikaze::setState(ENEMYSTATE p_iState){
 void iceKamikaze::showReceivedDamage(unsigned int p_iDamage, bool p_bCritical){
 	iceEnemy::showReceivedDamage(p_iDamage, p_bCritical);
 	if(!isAlive()){
-		enemyNode->setVisible(false,false);
+		enemyNode->setVisible(false);
 	}
 }

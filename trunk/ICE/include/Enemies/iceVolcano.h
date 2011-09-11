@@ -18,7 +18,10 @@ public:
 	virtual std::string getFunctionStr();
 	virtual void createShotEntity(int p_iWeapon, Ogre::Radian p_fDeviation, unsigned int p_iDamage, bool p_bCritic);
 
-	bool processLavaColision(Ogre::AxisAlignedBox pbox);
+	//detect collision with the player against the lava
+	bool detectLavaCollision(Ogre::AxisAlignedBox pbox);
+	
+	virtual void showReceivedDamage(unsigned int p_iDamage, bool p_bCritical);
 
 private:
 	Ogre::SceneNode* mLavaNode;

@@ -65,21 +65,16 @@ void iceMini::update(Ogre::Real p_timeSinceLastFrame){
 	{
 		case STOPPED:
 			mTrajectory->lookAt();
-			/*if (!isAlive())
-				mState = DYING;*/
 			mIddle->addTime(p_timeSinceLastFrame);
 			break;
 		case FOLLOWING_TRAJECTORY:
 			enemyNode->translate(mIceStrategy->move(enemyNode->_getDerivedPosition(), p_timeSinceLastFrame));
-			//iceTrajectoryFollower::update(p_timeSinceLastFrame); Hay que hablar sobre trayectorias de enemigos
-			mTrajectory->lookAt();//TODO
+			mTrajectory->lookAt();
 			//enemyNode->setPosition(mIceStrategy->move(Ogre::Vector3(0,0,0), enemyNode->_getDerivedPosition(), 1, Ogre::Vector3(1,0,0)));
-			/*if (!isAlive())
-				mState = DYING;*/
 			mIddle->addTime(p_timeSinceLastFrame);
 			break;
 		case ATTACK: 
-			mTrajectory->lookAt(); //TODO  * p_timeSinceLastFrame
+			mTrajectory->lookAt(); 
 			enemyNode->translate(mIceStrategy->move(enemyNode->_getDerivedPosition(), p_timeSinceLastFrame));
 			if(mIddle->hasEnded())
 			{
@@ -100,27 +95,23 @@ void iceMini::update(Ogre::Real p_timeSinceLastFrame){
 				mIddle2->addTime(p_timeSinceLastFrame);
 			}*/
 			shot(); 
-			/*if (!isAlive())
-				mState = DYING;*/
-			//iceTrajectoryFollower::update(p_timeSinceLastFrame); Hay que hablar sobre trayectorias de enemigos
 			break;
 		case DYING:
 			iceGame::getGameLog()->logMessage("Enemy killed!");
 			mAnimDyingTicks++;
 			mParticleFire->stop();
-			//iceTrajectoryFollower::update(p_timeSinceLastFrame); Hay que hablar sobre trayectorias de enemigos
 			//Dead sequence...
 			//When dead sequence finished:
 			//mState = INACTIVE;
 			break;
 		case INACTIVE:
 			if(checkActivationTime(p_timeSinceLastFrame))
-			{//active
+			{
 				mParticleFire->start();
 				activate();
 			}
 			else
-			{//inactive
+			{
 				mParticleFire->stop();
 				desactivate();
 			}
@@ -169,7 +160,7 @@ void iceMini::setState(ENEMYSTATE p_iState){
 void iceMini::showReceivedDamage(unsigned int p_iDamage, bool p_bCritical){
 	iceEnemy::showReceivedDamage(p_iDamage, p_bCritical);
 	if(!mParticleBoom->isPlay() && !isAlive()){
-		enemyNode->setVisible(false,false);
+		enemyNode->setVisible(false);
 		mParticleBoom->start();
 	}
 }

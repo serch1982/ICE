@@ -156,7 +156,7 @@ void icePhysics::processObjectCollision(void){
 			iceVolcano* volcano = dynamic_cast<iceVolcano*> (enemy);
 			if(volcano)
 			{
-				if(volcano->processLavaColision(pbox))
+				if(volcano->detectLavaCollision(pbox))
 				{
 					Ogre::Vector3 initPos = mPlayer->getShipPosition();
 					if( initPos.z <= 1 && initPos.z > DEFAULT_RETURN_SHIP_MAX){
