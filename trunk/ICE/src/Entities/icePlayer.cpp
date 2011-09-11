@@ -24,6 +24,9 @@
 #define SPRINT_TIME 3
 #define SPRINT_MULTIMPLICATOR 2
 
+#define INVULNERABLE_TIME 2
+#define BLINK_TIME 0.2
+
 #ifdef _DEBUG 
 	#define VELOCITY 0.08
 #else
@@ -93,14 +96,15 @@ void icePlayer::initPlayer(){
 	//physics
 	icePhysicEntity::initializePhysics("phy_player", Ogre::Vector3(5.3,2.8,4.7));
 	shipNode->attachObject(getGeometry()->getMovableObject());
-	
-	//particles
-	mParticleTurboLeft = iceParticleMgr::getSingletonPtr()->createPartAttachToObject(shipNode, Ogre::Vector3(1.1,-0.1,-.2),"ice/icePlayerTurbo",true);
-	mParticleTurboRight = iceParticleMgr::getSingletonPtr()->createPartAttachToObject(shipNode, Ogre::Vector3(-1.1,-0.1,-.2),"ice/icePlayerTurbo",true);
-
+		
 	rollNode = shipNode->createChildSceneNode();
 
 	//CUIDADO! EL NODO PARA ATACHAR COSAS PARA LA NAVE ES rollNode
+
+	//particles
+	mParticleTurboLeft = iceParticleMgr::getSingletonPtr()->createPartAttachToObject(rollNode, Ogre::Vector3(1.1,-0.1,-.2),"ice/icePlayerTurbo",true);
+	mParticleTurboRight = iceParticleMgr::getSingletonPtr()->createPartAttachToObject(rollNode, Ogre::Vector3(-1.1,-0.1,-.2),"ice/icePlayerTurbo",true);
+
 	Ogre::Entity* mesh2 = sceneManager->createEntity("shipMesh", "airplane.mesh");
 	mesh2->setCastShadows(true);
 	rollNode->attachObject(mesh2);
@@ -132,6 +136,11 @@ void icePlayer::initPlayer(){
 	mRightBarrelTime = 0;
 	mBrakeTime = 0;
 	mSprintTime = 0;
+
+	mInvulnerable = false;
+	mInvulnerableTime = 0;
+	mBlinkTime = 0;
+	mBlinkVisible = true;
 }
 
 Ogre::AxisAlignedBox icePlayer::getVitualCamBBox(void) {
@@ -438,7 +447,28 @@ void icePlayer::update(Ogre::Real p_timeSinceLastFrame)
 	//addExperience(1000);	//TODO borrar
 	if (_isShooting){
 		shot();
-	}						
+	}
+
+	if(mInvulnerable)
+	{
+		if(mInvulnerableTime > 0)
+		{
+			if(mBlinkTime <= 0)
+			{
+				mBlinkVisible = !mBlinkVisible;
+				shipNode->setVisible(mBlinkVisible);
+				mBlinkTime = BLINK_TIME;
+			}
+			mInvulnerableTime -= p_timeSinceLastFrame;
+			mBlinkTime -= p_timeSinceLastFrame;
+		}
+		else
+		{
+			shipNode->setVisible(true);
+			mInvulnerable = false;
+		}
+	}
+
 }
 
 void icePlayer::createShotEntity(int p_iWeapon, Ogre::Radian p_fDeviation, unsigned int p_iDamage, bool p_bCritic)
@@ -640,4 +670,21 @@ void icePlayer::resetPositions(void)
 	cursorNode->setPosition(Ogre::Vector3::ZERO);
 	shipPlaneNode->setPosition(Ogre::Vector3::ZERO);
 	shipNode->setPosition(Ogre::Vector3::ZERO);
+}
+
+bool icePlayer::isInvulnerable(void)
+{
+	return mInvulnerable;
+}
+void icePlayer::setInvulnerable(bool invunerable)
+{
+	mInvulnerable = invunerable;
+	if(mInvulnerable)
+	{
+		mInvulnerableTime = INVULNERABLE_TIME;
+	}
+	else
+	{
+		mInvulnerableTime = 0;
+	}
 }

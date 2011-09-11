@@ -79,6 +79,9 @@ class icePlayer : public iceTrajectoryFollower
 
 		Ogre::Real getTimeMultiplier(void);
 		void resetPositions(void);
+
+		bool isInvulnerable(void);
+		void setInvulnerable(bool invunerable = true);
 	protected:
 
 		bool mMovingUp;
@@ -126,7 +129,11 @@ class icePlayer : public iceTrajectoryFollower
 		//particles
 		iceParticlePtr mParticleTurboLeft;
 		iceParticlePtr mParticleTurboRight;
-		
+
+		bool mInvulnerable;
+		Ogre::Real mInvulnerableTime;
+		Ogre::Real mBlinkTime;
+		bool mBlinkVisible;
 };
 
 typedef boost::shared_ptr<icePlayer> icePlayerPtr;
