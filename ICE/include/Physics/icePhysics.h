@@ -48,6 +48,7 @@ protected:
 	Ogre::TerrainGroup* mTerrainGroup;
 	std::vector<iceEnemy*>* mEnemies;
 	std::vector<iceObject*> mObjects;
+	icePlayer* mPlayer;
 	std::vector<Ogre::Entity*> mSoftMagmatonObjects;
 	std::vector<Ogre::Entity*> mHardMagmatonObjects;
 	std::vector<Ogre::Entity*> mAttackMagmatonObjects;
