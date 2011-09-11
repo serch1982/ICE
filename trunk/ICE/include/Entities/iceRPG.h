@@ -50,6 +50,7 @@ public:
 
 	bool isAlive(void);
 	virtual void update(Ogre::Real p_fFrameTime);
+	void heal(void);
 	void shot(void);
 	void addDamage(unsigned int p_iDamage, bool p_bCritic);
 
@@ -57,6 +58,7 @@ public:
 	virtual void createShotEntity(int p_iWeapon, Ogre::Radian p_fDeviation, unsigned int p_iDamage, bool p_bCritic) =0; 
 	virtual void showReceivedDamage(unsigned int p_iDamage, bool p_bCritical) =0;
 	virtual void showShieldDamage(unsigned int p_iDamage, bool p_bCritical) =0;
+	virtual void showHeal(unsigned int p_iHeal) {}; // no obligo a implemenarla a los enemigos
 	virtual void showFail(void) =0;
 	virtual void showLevelUp(unsigned int p_iLevel) =0;
 
@@ -84,5 +86,7 @@ protected:
 	unsigned int mCurrentWeapon;
 
 	Ogre::Real mTimeSinceLastShot;
+
+	Ogre::Real mHealCountDown;
 };
 

@@ -96,6 +96,7 @@ class icePlayer : public iceTrajectoryFollower
 		virtual void createShotEntity(int p_iWeapon, Ogre::Radian p_fDeviation, unsigned int p_iDamage, bool p_bCritic); 
 		virtual void showReceivedDamage(unsigned int p_iDamage, bool p_bCritical);
 		virtual void showShieldDamage(unsigned int p_iDamage, bool p_bCritical);
+		virtual void showHeal(unsigned int p_iHeal);
 		virtual void showFail(void);
 		virtual void showLevelUp(unsigned int p_iLevel);
 

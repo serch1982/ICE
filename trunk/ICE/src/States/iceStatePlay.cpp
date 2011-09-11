@@ -264,6 +264,10 @@ bool iceStatePlay::keyPressed(const OIS::KeyEvent &arg) {
 			_player->setMovingRight(true);
 		}
     }
+	else if(arg.key == OIS::KC_H)   // heal
+    {
+		_player->heal();
+    }
 	
     return true;
 }

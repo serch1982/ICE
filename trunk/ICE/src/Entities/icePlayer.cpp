@@ -495,6 +495,12 @@ void icePlayer::showShieldDamage(unsigned int p_iDamage, bool p_bCritical)
 	iceDamageTextManager::getSingletonPtr()->showPlayerShieldDamage(icePhysicEntity::getGeometry()->getMovableObject(),p_iDamage,p_bCritical);
 }
 
+void icePlayer::showHeal(unsigned int p_iHeal)
+{
+	iceDamageTextManager::getSingletonPtr()->showPlayerHeal(icePhysicEntity::getGeometry()->getMovableObject(),p_iHeal);
+	iceGame::getUI()->getHUD()->setLife(getCurrentLife(),getMaxLife());
+}
+
 void icePlayer::showFail(void)
 {
 	icePlayerStats::getInstance()->addBulletEvaded();
@@ -505,6 +511,7 @@ void icePlayer::showLevelUp(unsigned int p_iLevel)
 {
 	iceDamageTextManager::getSingletonPtr()->showPlayerLevelUp(icePhysicEntity::getGeometry()->getMovableObject());
 	iceGame::getUI()->getHUD()->setLevel(mLevel);
+	iceGame::getUI()->getHUD()->setLife(getCurrentLife(),getMaxLife());
 	icePlayerStats::getInstance()->setPlayerLevel(mLevel);
 }
 
