@@ -56,43 +56,33 @@ void iceSmart::update(Ogre::Real p_timeSinceLastFrame){
 	switch(mState)
 	{
 		case STOPPED:
-			/*if (!isAlive())
-				mState = DYING;*/
 			break;
 		case FOLLOWING_TRAJECTORY:
-			//iceTrajectoryFollower::update(p_timeSinceLastFrame); Hay que hablar sobre trayectorias de enemigos
-			
 			enemyNode->translate(mIceStrategy->move(enemyNode->_getDerivedPosition(), p_timeSinceLastFrame));
-			mTrajectory->lookAt();//TODO
-			/*if (!isAlive())
-				mState = DYING;*/
+			mTrajectory->lookAt();
 			break;
 		case ATTACK: 
 			enemyNode->translate(mIceStrategy->move(enemyNode->_getDerivedPosition(), p_timeSinceLastFrame));
 			mTrajectory->lookAt(); //TODO
 			iceRPG::update(p_timeSinceLastFrame);
 			shot();
-			/*if (!isAlive())
-				mState = DYING;*/
-			//iceTrajectoryFollower::update(p_timeSinceLastFrame); Hay que hablar sobre trayectorias de enemigos
 			break;
 		case DYING:
 			mBillboard->start(enemyNode->_getDerivedPosition());
 			iceGame::getGameLog()->logMessage("Enemy killed!");
 			icePlayer::getSingletonPtr()->addExperience(mLevel * 10000);
 			mAnimDyingTicks++;
-			//iceTrajectoryFollower::update(p_timeSinceLastFrame); Hay que hablar sobre trayectorias de enemigos
 			//Dead sequence...
 			//When dead sequence finished:
 			//mState = INACTIVE;
 			break;
 		case INACTIVE:
 			if(checkActivationTime(p_timeSinceLastFrame))
-			{//active
+			{
 				activate();
 			}
 			else
-			{//inactive
+			{
 				desactivate();
 			}
 			break;
@@ -111,7 +101,7 @@ std::string iceSmart::getFunctionStr(){
 void iceSmart::showReceivedDamage(unsigned int p_iDamage, bool p_bCritical){
 	iceEnemy::showReceivedDamage(p_iDamage, p_bCritical);
 	if(!mParticleBoom->isPlay() && !isAlive()){
-		enemyNode->setVisible(false,false);
+		enemyNode->setVisible(false);
 		mParticleBoom->start();
 	}
 }

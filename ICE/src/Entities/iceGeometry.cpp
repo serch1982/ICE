@@ -157,7 +157,6 @@ Ogre::ManualObject* iceGeometry::debuggGeometry(Ogre::String name)
 
 	// tell OGRE we use the OT_TRIANGLE_STRIP to draw
 	m_pManObj->begin("",Ogre::RenderOperation::OT_LINE_STRIP);
-
 	m_pManObj->position(x,-y,z);
 	m_pManObj->position(x,y,z);
 	m_pManObj->position(-x,y,z);

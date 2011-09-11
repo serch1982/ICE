@@ -154,6 +154,7 @@ void iceStatePlay::update(Ogre::Real evt)
 
 		//player
 		_player->update(evt);
+		_player->setDebug(visibleBoundingBoxes);
 		//enemies
 		for (_revit_mEnemies = _mEnemies.rbegin(); _revit_mEnemies != _mEnemies.rend(); ++_revit_mEnemies) {
 			iceEnemy* enemy = *_revit_mEnemies;
@@ -353,13 +354,11 @@ void iceStatePlay::switchBoundingBoxesVisibility(void)
 {
 	if(visibleBoundingBoxes)
 	{
-		_player->setDebug(false);
 		_level->setDebugSceneObjects(false);
 		visibleBoundingBoxes = false;
 	}
 	else
 	{
-		_player->setDebug(true);
 		_level->setDebugSceneObjects(true);
 		visibleBoundingBoxes = true;
 	}

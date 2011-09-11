@@ -1,5 +1,6 @@
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 #include "../resource.h"
+#include <Windows.h>
 #endif
 
 #include <iostream>
@@ -30,6 +31,15 @@ iceGame::iceGame() {
     if(!initialiseOIS()) {
         exit(1);
     }
+
+	//load windows icon
+	#ifdef WIN32
+        HWND hwnd;
+        _window->getCustomAttribute("WINDOW", &hwnd);
+        HINSTANCE hInst = (HINSTANCE)GetModuleHandle(NULL);
+        SetClassLong (hwnd, GCL_HICON, (LONG)LoadIcon (hInst, MAKEINTRESOURCE (IDI_ICON1)));
+	#endif
+
 	//UI
 	mUI = new iceUI();
 

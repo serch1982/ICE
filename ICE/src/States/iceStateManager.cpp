@@ -187,6 +187,10 @@ void iceStateManager::changeState(iceState* icestate) {
     _log->logMessage("iceStateManager::changeState() -> the state is changing");	
 
 	_currentState = icestate;
+	if(_currentState->getStateId() == PLAY){
+			iceStatePlay* sp = (iceStatePlay*)this->_currentState;
+			sp->setLevelToLoad(_levelToLoad);
+	}
 	_currentState->load();
 }
 
@@ -301,8 +305,7 @@ bool iceStateManager::frameRenderingQueued(const Ogre::FrameEvent& evt) {
 	{
 		if((currentStateId == PLAY) && (nextStateId == PAUSE)){
 			_idleState = _currentState;
-			_currentState = getICEStateByID(nextStateId);
-			_currentState->load();
+			changeState(getICEStateByID(nextStateId));
 		}else if((currentStateId == PAUSE) && (nextStateId == PLAY)){
 			_currentState->clear();
 			//delete _currentState;
@@ -311,10 +314,9 @@ bool iceStateManager::frameRenderingQueued(const Ogre::FrameEvent& evt) {
 			_idleState = NULL;
 			//force to hide cursor
 			iceSdkTray::getInstance()->hideCursor();
-		}else{
+		}else if((currentStateId == MAINMENU) && (nextStateId == PLAY)) {
 			_currentState->clear();
-			_currentState = getICEStateByID(nextStateId);
-			_currentState->load();
+			changeState(getICEStateByID(nextStateId));
 		}
 		
 	}
