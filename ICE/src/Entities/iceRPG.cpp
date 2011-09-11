@@ -1,5 +1,7 @@
 #include "Entities\iceRPG.h"
 
+#define HEAL_COUNTDOWN_TIME 0
+
 iceRPG::iceRPG(void)
 {
 	mLevel = 1;
@@ -42,7 +44,7 @@ unsigned int iceRPG::getExperience(void)
 
 unsigned int iceRPG::getMaxLife(void)
 {
-	return mBaseLife; //* mLevel;
+	return mBaseLife * mLevel;
 }
 
 unsigned int iceRPG::getCurrentLife(void)
@@ -136,6 +138,8 @@ void iceRPG::levelUp(void)
 	mLevel++;
 	if (mLevel > 99)
 		mLevel = 99;
+	else
+		mCurrentLife = getMaxLife();
 	mExperience = 0;
 
 	//Las armas empiezan a estar disponibles a partir de cierto nivel
@@ -180,6 +184,7 @@ void iceRPG::addExperience(unsigned int p_iExperience)
 
 void iceRPG::addLife(unsigned int p_iLife)
 {
+	showHeal(p_iLife);
 	mCurrentLife += p_iLife;
 	if (mCurrentLife > getMaxLife())
 		mCurrentLife = getMaxLife();
@@ -197,6 +202,18 @@ void iceRPG::update(Ogre::Real p_fFrameTime)
 		mShieldEnergy += (unsigned int)(10*mShieldLevel*p_fFrameTime);
 	if(mShieldEnergy > getMaxShieldEnergy())
 		mShieldEnergy = getMaxShieldEnergy();
+	mHealCountDown -= p_fFrameTime;
+}
+
+void iceRPG::heal(void)
+{
+	if(mHealCountDown <= 0)
+	{
+		int heal = getMaxLife() / 2;
+		heal += (unsigned int) getModifierByLuck(-(Ogre::Real)heal/10,(Ogre::Real)heal/10);
+		addLife((unsigned int) heal);
+		mHealCountDown = HEAL_COUNTDOWN_TIME;
+	}
 }
 
 void iceRPG::shot(void)

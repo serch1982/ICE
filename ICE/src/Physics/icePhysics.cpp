@@ -35,15 +35,16 @@ void icePhysics::processBullets(void)
 	AxisAlignedBox pbox = mPlayer->getGeometry()->getWorldBoundingBox(mPlayer->getPosition());
 	//bullets against bodies 
 	while(iter != bl.end()){
+		bool bulletImpacted = false;
 		AxisAlignedBox bbox = (*iter)->getGeometry()->getWorldBoundingBox((*iter)->getPosition());
 		if(!(*iter)->isFromPlayer()){
 			if(pbox.intersects(bbox)){
 				mPlayer->addDamage((*iter)->getDamage(),(*iter)->getCritic());
 				(*iter)->desactivate();
+				bulletImpacted = true;
 			}
 		}
 		else{
-			bool bulletImpacted = false;
 			for(unsigned j = 0; j < mEnemies->size(); j++){
 				iceEnemy* enemy = (*mEnemies)[j];
 				if((enemy->isActive()) && (enemy->isAlive())){
@@ -52,15 +53,19 @@ void icePhysics::processBullets(void)
 						enemy->addDamage((*iter)->getDamage(),(*iter)->getCritic());
 						(*iter)->desactivate();
 						bulletImpacted = true;
+						break;
 					}
 				}
 			}
 		}
-		//detect collision between the player and the terrain
-		Ogre::Ray bulletRayNY((*iter)->getPosition(), Ogre::Vector3::NEGATIVE_UNIT_Y);
-		Ogre::TerrainGroup::RayResult mResult =mTerrainGroup->rayIntersects(bulletRayNY,0.1); 
-		if (!mResult.hit){
-			(*iter)->desactivate();
+		if(!bulletImpacted)
+		{
+			//detect collision between the player and the terrain
+			Ogre::Ray bulletRayNY((*iter)->getPosition(), Ogre::Vector3::NEGATIVE_UNIT_Y);
+			Ogre::TerrainGroup::RayResult mResult =mTerrainGroup->rayIntersects(bulletRayNY,0.1); 
+			if (!mResult.hit){
+				(*iter)->desactivate();
+			}
 		}
 		++iter;
 	}
