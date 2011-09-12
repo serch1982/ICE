@@ -11,7 +11,9 @@ iceLevel::iceLevel(const int id, const Ogre::String& name,const Ogre::String& pl
 }
 
 iceLevel::~iceLevel() {
-    unload();
+    if (_loaded) {
+        _loaded = false;
+	}
 }
 
 void iceLevel::load(std::vector<iceEnemy*>& vectorEnemies, std::vector<iceCutScene*>& vectorCutScenes, iceSoundManager* soundManager) {
@@ -56,7 +58,7 @@ void iceLevel::load(std::vector<iceEnemy*>& vectorEnemies, std::vector<iceCutSce
 			iceGame::getSceneManager()->setAmbientLight(Ogre::ColourValue(0.25, 0.25, 0.25));
 
 			//load sounds
-			soundManager->loadLevel1();
+			soundManager->loadLevelBoss();
 			soundManager->PlaySound(0, Ogre::Vector3::ZERO, 0);
 
 			vectorEnemies.push_back(iceLevelManager::getSingletonPtr()->getDotSceneLoader()->getMagmaton());
@@ -65,10 +67,16 @@ void iceLevel::load(std::vector<iceEnemy*>& vectorEnemies, std::vector<iceCutSce
 }
 
 
-void iceLevel::unload() {
+void iceLevel::unload( iceSoundManager* soundManager ) {
     if (_loaded) {
         _loaded = false;
+
+		if( _id == 1 )
+			soundManager->unloadLevel1();
+		else
+			soundManager->unloadLevelBoss();
     }
+
 }
 
 Ogre::TerrainGroup* iceLevel::getTerrain(void){

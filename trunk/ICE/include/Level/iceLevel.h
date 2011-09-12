@@ -40,7 +40,7 @@ class iceLevel {
         /**
          *  unload level
          */
-        void unload();
+        void unload( iceSoundManager* soundManager );
 
         /**
          *  @return is t level is loaded
