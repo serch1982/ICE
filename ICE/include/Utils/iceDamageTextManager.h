@@ -5,6 +5,13 @@
 #include <OGRE/Ogre.h>
 #include "MovableTextOverlay.h"
 
+struct TextOverlayOptions
+{
+	Ogre::String caption;
+	Ogre::MovableObject* mov;
+	MovableTextOverlayAttributes* attributes;
+};
+
 
 class iceDamageTextManager: public Ogre::Singleton<iceDamageTextManager> {
     public:
@@ -24,10 +31,15 @@ class iceDamageTextManager: public Ogre::Singleton<iceDamageTextManager> {
 		void showPlayerMiss(Ogre::MovableObject *mov);
 		void showPlayerLevelUp(Ogre::MovableObject *mov);
 
+		void showMinigunLevelUp(Ogre::MovableObject *mov);
+		void showShotgunLevelUp(Ogre::MovableObject *mov);
+		void showMissileLevelUp(Ogre::MovableObject *mov);
+
 
     private:
 		MovableTextOverlay* _getNextDisabledOverlayText();
 		std::vector<MovableTextOverlay*> mTextOverlays;
+		std::queue<TextOverlayOptions> mPlayerOverlayOptions;
 		MovableTextOverlayAttributes* mEnemyDamageAttributes;
 		MovableTextOverlayAttributes* mEnemyMissAttributes;
 		MovableTextOverlayAttributes* mPlayerDamageAttributes;
@@ -35,6 +47,10 @@ class iceDamageTextManager: public Ogre::Singleton<iceDamageTextManager> {
 		MovableTextOverlayAttributes* mPlayerHealAttributes;
 		MovableTextOverlayAttributes* mPlayerMissAttributes;
 		MovableTextOverlayAttributes* mPlayerLevelUpAttributes;
+
+		Ogre::Real mTimeToNextPlayerLabel;
+
+		void _showMPlayerNotification(Ogre::MovableObject *mov, Ogre::String caption);
 };
 
 #endif ICEDAMAGETEXTMANAGER_H_

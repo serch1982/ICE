@@ -520,6 +520,18 @@ void icePlayer::setWeaponLevel(unsigned int p_iWeapon,unsigned int p_iLevel)
 	iceRPG::setWeaponLevel(p_iWeapon, p_iLevel);
 	icePlayerStats::getInstance()->setWeaponLevel(p_iWeapon, p_iLevel);
 	iceGame::getUI()->getHUD()->setWeapon(mCurrentWeapon+1,mWeaponLevel[mCurrentWeapon]);
+	if(p_iWeapon == MACHINEGUN)
+	{
+		iceDamageTextManager::getSingletonPtr()->showMinigunLevelUp(icePhysicEntity::getGeometry()->getMovableObject());
+	}
+	else if(p_iWeapon == SHOTGUN)
+	{
+		iceDamageTextManager::getSingletonPtr()->showShotgunLevelUp(icePhysicEntity::getGeometry()->getMovableObject());
+	}
+	else if(p_iWeapon == MISILE_LAUNCHER)
+	{
+		iceDamageTextManager::getSingletonPtr()->showMissileLevelUp(icePhysicEntity::getGeometry()->getMovableObject());
+	}
 }
 
 Ogre::Vector3 icePlayer::getPosition(void){
