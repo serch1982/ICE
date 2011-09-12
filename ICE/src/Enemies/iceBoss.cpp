@@ -23,6 +23,14 @@ bool iceBoss::initialize(int id, Ogre::Vector3 p_Position,  Ogre::Real p_fActiva
 	mainMesh = sceneManager->createEntity(entityName.str(), "magmaton.mesh");
 	enemyNode->attachObject(mainMesh);
 
+	/*Ogre::Skeleton* ske = mainMesh->getSkeleton();
+	Ogre::Skeleton::BoneIterator bi = ske->getBoneIterator();
+	Ogre::String todos ="";
+	while (bi.hasMoreElements()) {
+		Ogre::Bone* bn = bi.getNext();
+		todos += bn->getName() + ";";
+		Ogre::String st = bn->getName();
+	}*/
 	//init physics
 	icePhysicEntity::initializePhysics("phy_boss"+ entityName.str(), Ogre::Vector3(10,10,10));
 	//add per object 

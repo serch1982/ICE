@@ -73,8 +73,10 @@ class iceEnemy :public iceTrajectoryFollower, public iceRPG, public icePhysicEnt
 		//Getter for the position
 		Ogre::Vector3 getWorldPosition(void);
 
-		//debug
-		void setDebug(bool vari){ getGeometry()->getMovableObject()->setVisible(vari); }
+		//debug boundingboxes
+		void setDebug(bool vari){ 
+			setPhysicsDebug(vari);
+		}
 
 		//get or set position for collisions
 		Ogre::Vector3 getNodeLastPosition(void){ return _lastPosition;}

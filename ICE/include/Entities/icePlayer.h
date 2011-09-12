@@ -56,8 +56,11 @@ class icePlayer : public iceTrajectoryFollower
 		void sprint(void);
 		void brake(void);
 
-		//debug
-		void setDebug(bool vari){ getGeometry()->getMovableObject()->setVisible(vari); virtualCam->getMovableObject()->setVisible(vari);}
+		//debug boundingboxes
+		void setDebug(bool vari){ 
+			setPhysicsDebug(vari);
+			virtualCam->getMovableObject()->setVisible(vari);
+		}
 
 		Ogre::SceneNode* getShipNode(void) { return shipNode; }
 		Ogre::Vector3 getShipLastPosition(void){ return _lastPosition;}

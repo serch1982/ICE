@@ -25,28 +25,28 @@ void iceHUD::init(iceStateManager* pStateManager)
 
 	mStateManager = pStateManager;
 
-	mHUDOverlay = OverlayManager::getSingleton().getByName("HUD/hud_overlay");
+	mHUDOverlay = Ogre::OverlayManager::getSingleton().getByName("HUD/hud_overlay");
 
-	mAchievementsTextArea = static_cast<Ogre::TextAreaOverlayElement*>(OverlayManager::getSingleton().getOverlayElement("HUD/achievements_text"));
-	mWeaponNameTextarea = static_cast<Ogre::TextAreaOverlayElement*>(OverlayManager::getSingleton().getOverlayElement("HUD/weapon_name_text"));
-	mWeaponLevelTextarea = static_cast<Ogre::TextAreaOverlayElement*>(OverlayManager::getSingleton().getOverlayElement("HUD/weapon_level_text"));
+	mAchievementsTextArea = static_cast<Ogre::TextAreaOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/achievements_text"));
+	mWeaponNameTextarea = static_cast<Ogre::TextAreaOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/weapon_name_text"));
+	mWeaponLevelTextarea = static_cast<Ogre::TextAreaOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/weapon_level_text"));
 
-	mWeaponPicturePanels.push_back(static_cast<Ogre::PanelOverlayElement*>(OverlayManager::getSingleton().getOverlayElement("HUD/weapon_1_picture_panel")));
-	mWeaponPicturePanels.push_back(static_cast<Ogre::PanelOverlayElement*>(OverlayManager::getSingleton().getOverlayElement("HUD/weapon_2_picture_panel")));
-	mWeaponPicturePanels.push_back(static_cast<Ogre::PanelOverlayElement*>(OverlayManager::getSingleton().getOverlayElement("HUD/weapon_3_picture_panel")));
+	mWeaponPicturePanels.push_back(static_cast<Ogre::PanelOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/weapon_1_picture_panel")));
+	mWeaponPicturePanels.push_back(static_cast<Ogre::PanelOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/weapon_2_picture_panel")));
+	mWeaponPicturePanels.push_back(static_cast<Ogre::PanelOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/weapon_3_picture_panel")));
 
-	mPlayerNameTextarea = static_cast<Ogre::TextAreaOverlayElement*>(OverlayManager::getSingleton().getOverlayElement("HUD/player_name_text"));
-	mLevelTextarea = static_cast<Ogre::TextAreaOverlayElement*>(OverlayManager::getSingleton().getOverlayElement("HUD/player_level_text"));
+	mPlayerNameTextarea = static_cast<Ogre::TextAreaOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/player_name_text"));
+	mLevelTextarea = static_cast<Ogre::TextAreaOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/player_level_text"));
 
-	mFacesPanels.push_back(static_cast<Ogre::PanelOverlayElement*>(OverlayManager::getSingleton().getOverlayElement("HUD/face_1_panel")));
-	mFacesPanels.push_back(static_cast<Ogre::PanelOverlayElement*>(OverlayManager::getSingleton().getOverlayElement("HUD/face_2_panel")));
-	mFacesPanels.push_back(static_cast<Ogre::PanelOverlayElement*>(OverlayManager::getSingleton().getOverlayElement("HUD/face_3_panel")));
-	mFacesPanels.push_back(static_cast<Ogre::PanelOverlayElement*>(OverlayManager::getSingleton().getOverlayElement("HUD/face_4_panel")));
+	mFacesPanels.push_back(static_cast<Ogre::PanelOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/face_1_panel")));
+	mFacesPanels.push_back(static_cast<Ogre::PanelOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/face_2_panel")));
+	mFacesPanels.push_back(static_cast<Ogre::PanelOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/face_3_panel")));
+	mFacesPanels.push_back(static_cast<Ogre::PanelOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/face_4_panel")));
 
-	mAchievementPanel = static_cast<Ogre::PanelOverlayElement*>(OverlayManager::getSingleton().getOverlayElement("HUD/achievements_panel"));
-	mAchievementTextarea = static_cast<Ogre::TextAreaOverlayElement*>(OverlayManager::getSingleton().getOverlayElement("HUD/achievements_text"));
+	mAchievementPanel = static_cast<Ogre::PanelOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/achievements_panel"));
+	mAchievementTextarea = static_cast<Ogre::TextAreaOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/achievements_text"));
 
-	mLifeBarPanel = static_cast<Ogre::PanelOverlayElement*>(OverlayManager::getSingleton().getOverlayElement("HUD/life_bar_panel"));
+	mLifeBarPanel = static_cast<Ogre::PanelOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/life_bar_panel"));
 	mMaxLifeBarWidth = mLifeBarPanel->getWidth();
 	mLifeBarLeftMargin = mLifeBarPanel->getLeft();
 
