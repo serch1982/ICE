@@ -32,11 +32,11 @@ void icePhysics::processBullets(void)
 	iceBulletList bl = iceBulletMgr::getSingletonPtr()->getAllBullets();
 	iceBulletIter iter = bl.begin();
 
-	AxisAlignedBox pbox = mPlayer->getGeometry()->getWorldBoundingBox(mPlayer->getPosition());
+	Ogre::AxisAlignedBox pbox = mPlayer->getGeometry()->getWorldBoundingBox(mPlayer->getPosition());
 	//bullets against bodies 
 	while(iter != bl.end()){
 		bool bulletImpacted = false;
-		AxisAlignedBox bbox = (*iter)->getGeometry()->getWorldBoundingBox((*iter)->getPosition());
+		Ogre::AxisAlignedBox bbox = (*iter)->getGeometry()->getWorldBoundingBox((*iter)->getPosition());
 		if(!(*iter)->isFromPlayer()){
 			if(pbox.intersects(bbox)){
 				mPlayer->addDamage((*iter)->getDamage(),(*iter)->getCritic());
@@ -48,7 +48,7 @@ void icePhysics::processBullets(void)
 			for(unsigned j = 0; j < mEnemies->size(); j++){
 				iceEnemy* enemy = (*mEnemies)[j];
 				if((enemy->isActive()) && (enemy->isAlive())){
-					AxisAlignedBox ebox = enemy->getGeometry()->getWorldBoundingBox(enemy->getWorldPosition());
+					Ogre::AxisAlignedBox ebox = enemy->getGeometry()->getWorldBoundingBox(enemy->getWorldPosition());
 					if(ebox.intersects(bbox)){
 						enemy->addDamage((*iter)->getDamage(),(*iter)->getCritic());
 						(*iter)->desactivate();
@@ -122,11 +122,11 @@ void icePhysics::processTerrainCollision(void){
 }
 
 void icePhysics::processObjectCollision(void){
-	AxisAlignedBox pbox = mPlayer->getGeometry()->getWorldBoundingBox(mPlayer->getPosition());
+	Ogre::AxisAlignedBox pbox = mPlayer->getGeometry()->getWorldBoundingBox(mPlayer->getPosition());
 	
 	//collions with objects
 	for( unsigned j = 0; j < mObjects.size(); j++){
-		AxisAlignedBox obox = ((iceObject*)(mObjects)[j])->getBox();
+		Ogre::AxisAlignedBox obox = ((iceObject*)(mObjects)[j])->getBox();
 		if(pbox.intersects(obox)){
 			if(!mPlayer->isInvulnerable())
 			{
@@ -139,7 +139,7 @@ void icePhysics::processObjectCollision(void){
 	//collision with enemy body
 	for(unsigned j = 0; j < mEnemies->size(); j++){
 		iceEnemy* enemy = (*mEnemies)[j];
-		AxisAlignedBox ebox = enemy->getGeometry()->getWorldBoundingBox(enemy->getWorldPosition());
+		Ogre::AxisAlignedBox ebox = enemy->getGeometry()->getWorldBoundingBox(enemy->getWorldPosition());
 		if(enemy->isActive() && enemy->isAlive()){
 			if(ebox.intersects(pbox)){
 				enemy->setState(iceEnemy::DEAD);

@@ -2,10 +2,7 @@
 #define ICEPHYSIC_ENTITY_H_
 
 #include <Ogre.h>
-
 #include "Entities\iceGeometry.h"
-
-using namespace Ogre;
 
 typedef std::vector<iceGeometryPtr> iceGeometryList;
 typedef std::vector<iceGeometryPtr>::iterator iceGeometryIter;
@@ -20,37 +17,33 @@ public:
 		mIceGeometryList.push_back( iceGeometryPtr(new iceGeometry(boxDimension, name)) );
 	}
 
-	virtual void initializeBossPhysics(Ogre::String name, Ogre::Vector3 boxDimension)
-	{
-		for(int i = 0; i < 8; i ++)
-		{
-			// One box for every leg
-			char boxName[20];
-			sprintf(boxName, "%s_%d", name.c_str(), i);
-			iceGeometryPtr geom = iceGeometryPtr(new iceGeometry(boxDimension, boxName));
-			mIceGeometryList.push_back( geom );
-		}
-	}
-
-
 	virtual void finalizePhysics(){
 		mIceGeometryList.clear();
-	} 
-	virtual void updatePhysics(const float elapsedSeconds){};
-
-	Ogre::Real getSpeed(){return mSpeed;}
-	void setSpeed(Ogre::Real speed){mSpeed = speed;}
+	}
 
 	virtual iceGeometryPtr getGeometry()
 	{
 		return mIceGeometryList[0];
 	}
 
-	virtual iceGeometryPtr getBossGeometry(int index){ return mIceGeometryList[index]; }
+	virtual iceGeometryPtr getGeometry(int index)
+	{ 
+		return mIceGeometryList[index]; 
+	}
+
+	virtual int getNumBoxes()
+	{
+		return mIceGeometryList.size();
+	}
+
+	virtual void setPhysicsDebug(bool bdebug)
+	{
+		for(unsigned i = 0; i <  mIceGeometryList.size(); i++){
+			mIceGeometryList[i]->getMovableObject()->setVisible(bdebug);
+		}
+	}
 
 private:
-	Ogre::Real		mSpeed;
-
 	// List of physics geometry
 	iceGeometryList	mIceGeometryList;
 

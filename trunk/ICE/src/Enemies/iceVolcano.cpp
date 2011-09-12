@@ -30,9 +30,7 @@ bool iceVolcano::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActi
 	mLavaMesh = sceneManager->createEntity("lava_volcano.mesh");
 	enemyNode->attachObject(mesh);
 	
-//	mLavaInitialPosition = Ogre::Vector3(0.0858451,-104.2434,0.675004);
 	mLavaInitialPosition = enemyNode->_getDerivedPosition();
-	mLavaInitialPosition.y -= 80;
 	
 	entityName << "_lava";
 	mLavaNode = iceGame::getSceneManager()->getRootSceneNode()->createChildSceneNode(entityName.str(),mLavaInitialPosition );
@@ -41,11 +39,19 @@ bool iceVolcano::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActi
 
 	//mLavaNode->showBoundingBox(true);
 
-	//enemyNode->scale(p_Scale);
-	//enemyNode->rotate(rotation);
+	enemyNode->scale(p_Scale);
+	enemyNode->rotate(rotation);
+	mLavaNode->scale(p_Scale);
+	mLavaNode->rotate(rotation);
+	/*enemyNode->scale(Ogre::Vector3(2,2,2));
+	enemyNode->rotate(Ogre::Vector3(1,0,0), Ogre::Radian(Ogre::Degree(45)));
+	mLavaNode->scale(Ogre::Vector3(2,2,2));
+	mLavaNode->rotate(Ogre::Vector3(1,0,0),Ogre::Radian(Ogre::Degree(45)));*/
+	mLavaNode->translate(Ogre::Vector3(0,-100,0), Ogre::Node::TS_LOCAL);
+	mLavaInitialPosition = mLavaNode->_getDerivedPosition();
 
 	//init physics
-	icePhysicEntity::initializePhysics("phy_volc"+ entityName.str(), Ogre::Vector3(20,32,20));
+	icePhysicEntity::initializePhysics("phy_volc"+ entityName.str(), Ogre::Vector3(20,32,20) * p_Scale );
 	enemyNode->attachObject(getGeometry()->getMovableObject());
 
 	mAnimations["iddle"] = mesh->getAnimationState( "iddle" );
@@ -58,7 +64,6 @@ bool iceVolcano::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActi
 	mAttackDamage = 0;
 	mAttackIsCritic = false;
 	mLavaTime = 0;
-
 	mTimeToNextAtack = 0;
 
 	return true;
@@ -77,6 +82,8 @@ void iceVolcano::createShotEntity(int p_iWeapon, Ogre::Radian p_fDeviation, unsi
 	mLavaTime = 0;
 	mLavaCreated = true;
 }
+
+Ogre::Vector3 total; 
 
 void iceVolcano::update(Ogre::Real p_timeSinceLastFrame){
 	iceEnemy::update( p_timeSinceLastFrame );
@@ -98,11 +105,13 @@ void iceVolcano::update(Ogre::Real p_timeSinceLastFrame){
 					{
 						if(mLavaTime<=LAVA_UP_TIME)
 						{// lava ascendiendo
-							mLavaNode->translate(0,(LAVA_TOTAL_DISTACE/LAVA_UP_TIME)*p_timeSinceLastFrame,0);
+							Ogre::Vector3 t(0,(LAVA_TOTAL_DISTACE/LAVA_UP_TIME)*p_timeSinceLastFrame,0);
+							mLavaNode->translate(t, Ogre::Node::TS_LOCAL);
 						}
 						else if (mLavaTime > (LAVA_UP_TIME+LAVA_HOLD_TIME))
 						{// lava descendiendo
-							mLavaNode->translate(0,-(LAVA_TOTAL_DISTACE/LAVA_DOWN_TIME)*p_timeSinceLastFrame,0);
+							Ogre::Vector3 t(0,-(LAVA_TOTAL_DISTACE/LAVA_UP_TIME)*p_timeSinceLastFrame,0);
+							mLavaNode->translate(t, Ogre::Node::TS_LOCAL);
 						}
 						//mAnimations["attack"]->addTime(p_timeSinceLastFrame);
 						mLavaTime += p_timeSinceLastFrame;
