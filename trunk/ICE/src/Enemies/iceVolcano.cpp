@@ -150,7 +150,7 @@ void iceVolcano::update(Ogre::Real p_timeSinceLastFrame){
 		case DYING:
 			mBillboard->start(enemyNode->_getDerivedPosition());
 			iceGame::getGameLog()->logMessage("Enemy killed!");
-			icePlayer::getSingletonPtr()->addExperience(mLevel * 10000);
+			giveExperieceToPlayer();
 			mAnimDyingTicks++;
 			//Dead sequence...
 			//When dead sequence finished:

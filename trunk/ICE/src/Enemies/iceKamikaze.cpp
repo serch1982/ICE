@@ -110,7 +110,7 @@ void iceKamikaze::setState(ENEMYSTATE p_iState){
 			mBillboard->start(enemyNode->_getDerivedPosition());
 			break;
 		case DEAD:
-			icePlayer::getSingletonPtr()->addExperience(mLevel * 10000);
+			giveExperieceToPlayer();
 		default:
 			break;
 	}

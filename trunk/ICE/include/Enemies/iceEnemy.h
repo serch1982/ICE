@@ -83,6 +83,8 @@ class iceEnemy :public iceTrajectoryFollower, public iceRPG, public icePhysicEnt
 		Ogre::Vector3 getNodePosition(void){ return enemyNode->getPosition();}
 		void setNodePosition(Ogre::Vector3 pos){ enemyNode->setPosition(pos);}
 		virtual void changeDirection(void);
+
+		void giveExperieceToPlayer(void);
 	protected:
 		// Generator for obtain a name for this instance
 		static Ogre::NameGenerator mNameGenerator;
@@ -111,7 +113,9 @@ class iceEnemy :public iceTrajectoryFollower, public iceRPG, public icePhysicEnt
 		Ogre::Skeleton* skeleton;
 
 		//effect billboard
-		iceBillboard* mBillboard;	
+		iceBillboard* mBillboard;
+
+		bool mExperienceGived;
 
 		// DEBUG
 		Ogre::Log* mLog;

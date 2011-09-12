@@ -11,6 +11,7 @@ iceEnemy::iceEnemy()
 	mAnimDyingTicks = 0;
 	mShowingBoundingBox = false;
 	mLog = iceGame::getGameLog();
+	mExperienceGived = false;
 }
 
 iceEnemy::~iceEnemy()
@@ -190,4 +191,13 @@ void iceEnemy::createShotEntity(int p_iWeapon, Ogre::Radian p_fDeviation, unsign
 
 void iceEnemy::changeDirection(void){
 
+}
+
+void iceEnemy::giveExperieceToPlayer(void)
+{
+	if(!mExperienceGived)
+	{
+		icePlayer::getSingletonPtr()->addExperience(mLevel * 10000);
+		mExperienceGived = true;
+	}
 }
