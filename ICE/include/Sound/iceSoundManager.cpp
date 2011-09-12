@@ -292,6 +292,16 @@ void iceSoundManager::unloadLevel1(){
 	(*mSoundVector)[0]->Finalize();
 }
 
+// Load level Boss sounds
+void iceSoundManager::loadLevelBoss(){
+	CreateSound( Ogre::String( "levelBoss.mp3" ), SOUND_TYPE_2D_SOUND_LOOPED, 0);
+}
+
+// Unload level Boss sounds
+void iceSoundManager::unloadLevelBoss(){
+	(*mSoundVector)[0]->Finalize();
+}
+
 
 // fileName is actually a pointer to a SoundInstance, passed in from CreateSound().
 //FMOD_RESULT SoundManager::fmodFileOpenCallback(const char *fileName, int unicode, unsigned int *filesize, void **handle, void **userdata)

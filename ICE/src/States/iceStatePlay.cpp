@@ -98,7 +98,7 @@ void iceStatePlay::clear() {
         _loaded = false;
 
 		//delete level;
-		_level->unload();
+		_level->unload( _soundManager );
 		delete _levelManager;
 
 		//delete bullet manager;
@@ -107,8 +107,6 @@ void iceStatePlay::clear() {
 		mIceParticleMgr.reset();
 		//delete Physics;
 		mPhysics.reset();
-
-		_soundManager->unloadLevel1();
 
 		//Deleting enemies
 		for (unsigned int i=0;i<_mEnemies.size();i++)
