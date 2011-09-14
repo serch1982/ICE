@@ -267,6 +267,10 @@ bool iceStatePlay::keyPressed(const OIS::KeyEvent &arg) {
     {
 		_player->heal();
     }
+	else if(arg.key == OIS::KC_Z)   // heal
+    {
+		_player->levelUp();
+    }
 	
     return true;
 }

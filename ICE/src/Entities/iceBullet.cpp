@@ -20,11 +20,11 @@ iceBullet::~iceBullet(void)
 void iceBullet::createBullet(bool fromPlayer, Ogre::Entity* bulletEntity, Ogre::SceneNode* bulletNode, Ogre::Vector3 boxSize, Ogre::Vector3 position, Ogre::Quaternion orientation,Ogre::Radian desviation, Ogre::String boneName, Ogre::String particleName){
 		mFromPlayer = fromPlayer;
 
-		Ogre::Vector3 desviationDirection = Ogre::Vector3::UNIT_Z.randomDeviant(desviation);
-		bulletNode->rotate(Ogre::Vector3::UNIT_Z.getRotationTo(desviationDirection));
-
 		bulletNode->setOrientation(orientation);
 		bulletNode->setPosition(position);
+
+		Ogre::Vector3 desviationDirection = Ogre::Vector3::UNIT_Z.randomDeviant(desviation);
+		bulletNode->rotate(Ogre::Vector3::UNIT_Z.getRotationTo(desviationDirection));
 
 		icePhysicEntity::initializePhysics(bulletNode->getName(), boxSize);
 		bulletNode->attachObject(getGeometry()->getMovableObject());

@@ -10,18 +10,18 @@ iceRPG::iceRPG(void)
 	mBaseLife = 100;
 	mBaseArmor = 1;	
 	mBaseAttack = 100;
-	mBaseAccuracy = 1;
-	mBaseManiobrability = 7;
+	mBaseAccuracy = 100;
+	mBaseManiobrability = 20;
 	mBaseLuck = 100;
 	mCurrentLife = getMaxLife();
 	mWeaponLevel[MACHINEGUN] = 1;
-	mWeaponLevel[SHOTGUN] = 1;
+	mWeaponLevel[SHOTGUN] = 0;
 	mWeaponLevel[MISILE_LAUNCHER] = 0;
 	mWeaponBaseCadence[MACHINEGUN] = 10;
-	mWeaponBaseCadence[SHOTGUN] = 5;
-	mWeaponBaseCadence[MISILE_LAUNCHER] = 2;
+	mWeaponBaseCadence[SHOTGUN] = 1;
+	mWeaponBaseCadence[MISILE_LAUNCHER] = 0.5;
 	mShieldLevel = 0;
-	mShieldEnergy = 0;
+	mShieldEnergy =	0;
 	mCurrentWeapon = MACHINEGUN;
 
 	mTimeSinceLastShot = 0;
@@ -65,7 +65,7 @@ unsigned int iceRPG::getAttack(void)
 
 Ogre::Real iceRPG::getAccuracy(void)
 {
-	return Ogre::Real(mBaseAccuracy * mLevel);
+	return Ogre::Real(mBaseAccuracy);// * mLevel);
 }
 
 Ogre::Real iceRPG::getManiobrability(void)
@@ -229,7 +229,7 @@ void iceRPG::shot(void)
 	{
 		unsigned int iBulletsPerShot = 1;
 		if (mCurrentWeapon == SHOTGUN)
-			iBulletsPerShot = mWeaponLevel[mCurrentWeapon] * 3;
+			iBulletsPerShot = 5 + (mWeaponLevel[mCurrentWeapon] - 1) * 3;
 
 		for (unsigned int i=0;i<iBulletsPerShot;i++)
 		{
@@ -239,10 +239,10 @@ void iceRPG::shot(void)
 			switch(mCurrentWeapon)
 			{
 				case MACHINEGUN:
-					fMaxDeviation = fMaxDeviation*2 - Ogre::Radian(Ogre::Real(mWeaponLevel[mCurrentWeapon]/20));
+					fMaxDeviation = fMaxDeviation*2 / (Ogre::Real)mWeaponLevel[mCurrentWeapon];
 					break;
 				case SHOTGUN:
-					fMaxDeviation = fMaxDeviation*15 - Ogre::Radian(Ogre::Real(mWeaponLevel[mCurrentWeapon]/50));
+					fMaxDeviation = fMaxDeviation*15 / (Ogre::Real)(mWeaponLevel[mCurrentWeapon]+1);
 					break;
 				case MISILE_LAUNCHER:
 					fBaseDamage *= 10;
@@ -258,10 +258,10 @@ void iceRPG::shot(void)
 				fDamage = fBaseDamage + (unsigned int)getModifierByLuck(-(Ogre::Real)fBaseDamage/10,(Ogre::Real)fBaseDamage/10);
 			
 			Ogre::Radian fDeviation = fMaxDeviation + Ogre::Radian(getModifierByLuck(-fMaxDeviation.valueRadians()/10,fMaxDeviation.valueRadians()/10));
-			Ogre::Quaternion sOrientation(fDeviation,Ogre::Vector3(Ogre::Math::SymmetricRandom(),Ogre::Math::SymmetricRandom(),0.0));
+			//Ogre::Quaternion sOrientation(fDeviation,Ogre::Vector3(Ogre::Math::SymmetricRandom(),Ogre::Math::SymmetricRandom(),0.0));
 			//Ogre::Quaternion sOrientation = Ogre::Quaternion::IDENTITY;
 			
-			fDeviation /= 60;
+			//fDeviation /= 60;
 			createShotEntity(mCurrentWeapon,fDeviation,fDamage,bIsCritic);
 			//createShotEntity(mCurrentWeapon,fDeviation,1000,bIsCritic);
 		}
@@ -277,6 +277,7 @@ void iceRPG::shot(void)
 
 void iceRPG::addDamage(unsigned int p_iDamage, bool p_bCritic)
 {
+	int damage = (int)p_iDamage;
 	if(isFail() && !p_bCritic)
 	{
 		showFail();
@@ -285,32 +286,32 @@ void iceRPG::addDamage(unsigned int p_iDamage, bool p_bCritic)
 	{
 		if(mShieldEnergy > 0)
 		{
-			if(mShieldEnergy >= p_iDamage)
+			if(mShieldEnergy >= damage)
 			{
-				mShieldEnergy -= p_iDamage;
-				showShieldDamage(p_iDamage,p_bCritic);
-				p_iDamage = 0;
+				mShieldEnergy -= damage;
+				showShieldDamage(damage,p_bCritic);
+				damage = 0;
 			}
 			else
 			{
-				p_iDamage -= mShieldEnergy;
+				damage -= mShieldEnergy;
 				showShieldDamage(mShieldEnergy,p_bCritic);
 				mShieldEnergy = 0;
 			}
 		}
-		if(p_iDamage > 0)
+		if(damage > 0)
 		{
 			if(!p_bCritic)
-				p_iDamage -= getArmor();
-			if (p_iDamage < MIN_DAMAGE)
-				p_iDamage = MIN_DAMAGE;
+				damage -= getArmor();
+			if (damage < MIN_DAMAGE)
+				damage = MIN_DAMAGE;
 
-			if (p_iDamage < (int)mCurrentLife)
-				mCurrentLife -= p_iDamage;
+			if (damage < (int)mCurrentLife)
+				mCurrentLife -= damage;
 			else
 				mCurrentLife = 0;
 
-			showReceivedDamage(p_iDamage,p_bCritic);
+			showReceivedDamage(damage,p_bCritic);
 		}
 	}
 }
