@@ -471,6 +471,17 @@ void icePlayer::update(Ogre::Real p_timeSinceLastFrame)
 
 }
 
+void icePlayer::playShotSound(){
+	iceSoundManager* soundMgr = iceSoundManager::getSingletonPtr();
+	if( mCurrentWeapon == MACHINEGUN ){
+		soundMgr->PlaySound( 1, Ogre::Vector3::ZERO, 0 );
+	}else if( mCurrentWeapon == SHOTGUN ){
+		soundMgr->PlaySound( 2, Ogre::Vector3::ZERO, 0 );
+	}else if( mCurrentWeapon == MISILE_LAUNCHER ){
+		soundMgr->PlaySound( 3, Ogre::Vector3::ZERO, 0 );
+	}
+}
+
 void icePlayer::createShotEntity(int p_iWeapon, Ogre::Radian p_fDeviation, unsigned int p_iDamage, bool p_bCritic)
 {
 	Ogre::Vector3 bPos =   shipNode->_getDerivedPosition() + ((cursorNode->_getDerivedPosition() - shipNode->_getDerivedPosition() ) / 16);

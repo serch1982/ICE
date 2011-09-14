@@ -65,6 +65,7 @@ public:
 protected:
 	bool isCritic(void);
 	bool isFail(void);
+	virtual void playShotSound(){}; // is not necessary for all entities
 	Ogre::Real getModifierByLuck(Ogre::Real p_fMin, Ogre::Real p_fMax);
 	Ogre::Real randn_notrig(Ogre::Real mu=0.0, Ogre::Real sigma=1.0);
 

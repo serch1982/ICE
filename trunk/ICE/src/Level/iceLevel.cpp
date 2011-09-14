@@ -73,6 +73,8 @@ void iceLevel::load(std::vector<iceEnemy*>& vectorEnemies, std::vector<iceCutSce
 
 			vectorEnemies.push_back(iceLevelManager::getSingletonPtr()->getDotSceneLoader()->getMagmaton());
 		}
+
+		soundManager->loadSounds();
     }
 }
 
@@ -85,6 +87,8 @@ void iceLevel::unload( iceSoundManager* soundManager ) {
 			soundManager->unloadLevel1();
 		else
 			soundManager->unloadLevelBoss();
+
+		soundManager->unloadSounds();
     }
 
 }
