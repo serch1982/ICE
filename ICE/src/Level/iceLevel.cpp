@@ -40,10 +40,16 @@ void iceLevel::load(std::vector<iceEnemy*>& vectorEnemies, std::vector<iceCutSce
 
 		vectorEnemies = iceLevelManager::getSingletonPtr()->getDotSceneLoader()->getEnemies();
 
+		
+
 		if(_id == 1) //level 1
 		{
 			// light
 			iceGame::getSceneManager()->setAmbientLight(Ogre::ColourValue(0.25, 0.25, 0.25));
+
+			//FOG
+			Ogre::ColourValue fadeColour(.9, 0.9, 0.9);
+			iceGame::getSceneManager()->setFog(Ogre::FOG_LINEAR, fadeColour, 1, 500, 1500);
 
 			//load sounds
 			soundManager->loadLevel1();
@@ -56,6 +62,10 @@ void iceLevel::load(std::vector<iceEnemy*>& vectorEnemies, std::vector<iceCutSce
 		{
 			// light
 			iceGame::getSceneManager()->setAmbientLight(Ogre::ColourValue(0.25, 0.25, 0.25));
+
+			//FOG
+			Ogre::ColourValue fadeColour(.253, .149, .151);
+			iceGame::getSceneManager()->setFog(Ogre::FOG_LINEAR, fadeColour, 0.0, 500, 1500);
 
 			//load sounds
 			soundManager->loadLevelBoss();
