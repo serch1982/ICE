@@ -302,6 +302,20 @@ void iceSoundManager::unloadLevelBoss(){
 	(*mSoundVector)[0]->Finalize();
 }
 
+// Load sounds for all levels
+void iceSoundManager::loadSounds(){
+	CreateSound( Ogre::String( "Machinegun_1.wav" ), SOUND_TYPE_2D_SOUND, 1);
+	CreateSound( Ogre::String( "Shotgun_1.wav" ), SOUND_TYPE_2D_SOUND, 2);
+	CreateSound( Ogre::String( "Rocket_1.wav" ), SOUND_TYPE_2D_SOUND, 3);
+}
+
+// Unload sounds for all levels
+void iceSoundManager::unloadSounds(){
+	(*mSoundVector)[1]->Finalize();
+	(*mSoundVector)[2]->Finalize();
+	(*mSoundVector)[3]->Finalize();
+}
+
 
 // fileName is actually a pointer to a SoundInstance, passed in from CreateSound().
 //FMOD_RESULT SoundManager::fmodFileOpenCallback(const char *fileName, int unicode, unsigned int *filesize, void **handle, void **userdata)

@@ -1,4 +1,5 @@
 #include "Entities\iceRPG.h"
+#include "Sound\iceSoundManager.h"
 
 #define HEAL_COUNTDOWN_TIME 0
 
@@ -266,6 +267,8 @@ void iceRPG::shot(void)
 		}
 
 		mTimeSinceLastShot = 0.0;
+		
+		playShotSound();
 	}
 
 //borram:

@@ -95,6 +95,7 @@ class icePlayer : public iceTrajectoryFollower
 		void updateLookAt(Ogre::Real frameTime);
 		void updateScroll(Ogre::Real frameTime);
 		void changeWeapon(const int z);
+		void playShotSound();
 		//iceRPG
 		virtual void createShotEntity(int p_iWeapon, Ogre::Radian p_fDeviation, unsigned int p_iDamage, bool p_bCritic); 
 		virtual void showReceivedDamage(unsigned int p_iDamage, bool p_bCritical);
