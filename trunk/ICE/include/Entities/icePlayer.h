@@ -139,6 +139,9 @@ class icePlayer : public iceTrajectoryFollower
 		Ogre::Real mInvulnerableTime;
 		Ogre::Real mBlinkTime;
 		bool mBlinkVisible;
+
+		// Animations
+		std::map<Ogre::String,Ogre::AnimationState*> mAnimations;
 };
 
 typedef boost::shared_ptr<icePlayer> icePlayerPtr;

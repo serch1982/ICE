@@ -1056,14 +1056,8 @@ void DotSceneLoader::processFog(rapidxml::xml_node<>* XMLNode)
     Ogre::String sMode = getAttrib(XMLNode, "mode");
     if(sMode == "none")
         mode = Ogre::FOG_NONE;
-    else if(sMode == "exp")
-        mode = Ogre::FOG_EXP;
-    else if(sMode == "exp2")
-        mode = Ogre::FOG_EXP2;
-    else if(sMode == "linear")
-        mode = Ogre::FOG_LINEAR;
     else
-        mode = (Ogre::FogMode)Ogre::StringConverter::parseInt(sMode);
+        mode = Ogre::FOG_LINEAR;
  
     rapidxml::xml_node<>* pElement;
  

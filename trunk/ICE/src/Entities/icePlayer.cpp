@@ -34,7 +34,7 @@
 #endif
 #define MAX_VELOCITY 5
 
-#define ROLL_VELOCITY 1
+#define ROLL_VELOCITY 0.1
 #define MAX_ROLL 20
 
 #define LOOK_AT_FAR_FACTOR 1000
@@ -110,6 +110,11 @@ void icePlayer::initPlayer(){
 	rollNode->attachObject(mesh2);
 	//shipNode->scale(0.1,0.1,0.1);
 
+	//init animations
+	mAnimations["queja"] = mesh2->getAnimationState( "queja" );
+	mAnimations["queja"]->setEnabled(true);
+	mAnimations["queja"]->setLoop(true);
+
 	// Init camera
 	cameraPlaneNode = scrollNode->createChildSceneNode(Ogre::Vector3(0.0,0.0,-CAMERA_PLANE_Z));
 	cameraNode = cameraPlaneNode->createChildSceneNode(Ogre::Vector3(0.0,0.0,0.0));
@@ -171,54 +176,26 @@ Ogre::Camera* icePlayer::getCamera()
 
 void icePlayer::changeWeapon(const int z)
 {
-	static int iLastZ = 0;
-	int iCurrentZ = 0;
-	bool bWheelUp = false;
-	bool bWheelDown = false;
-
-	/* 1st. Check if wheel has been moved "up" or "down" */
-	iCurrentZ = z;
+	static int lastZ = 0;
 	
-	if (iCurrentZ > iLastZ)
+	if(z != lastZ)
 	{
-		bWheelUp = true;
-	}
-	if (iCurrentZ < iLastZ)
-	{
-		bWheelDown = true;
-	}
+		int increment = 1;
+		if (z < lastZ)
+		{
+			increment = 2;
+		}
 
-	/* 2nd. Change weapon */
-	if (bWheelUp)
-	{
-		if (mCurrentWeapon < 2)  {mCurrentWeapon ++;}
-		else if (mCurrentWeapon == 2) {mCurrentWeapon = 0;}
+		unsigned int nextWeapon = (mCurrentWeapon+increment)%3;
+
+		while(mWeaponLevel[nextWeapon] == 0)
+			nextWeapon = (nextWeapon+increment)%3;
+
+		mCurrentWeapon = nextWeapon;
 		iceGame::getUI()->getHUD()->setWeapon(mCurrentWeapon+1,mWeaponLevel[mCurrentWeapon]);
-	}
-	if (bWheelDown)
-	{
-		if (mCurrentWeapon > 0)  {mCurrentWeapon --;}
-		else if (mCurrentWeapon == 0) {mCurrentWeapon = 2;}
-		iceGame::getUI()->getHUD()->setWeapon(mCurrentWeapon+1,mWeaponLevel[mCurrentWeapon]);
-	}
 
-	/* 3rd. Save last mouse wheel Z position value */
-	iLastZ = iCurrentZ;
-
-	/* 4th. Show current weapon */
-	switch(mCurrentWeapon)
-	{
-		case  MACHINEGUN:
-			iceSdkTray::getInstance()->updateScreenInfo(9,"Machinegun");
-			break;
-		case SHOTGUN:
-			iceSdkTray::getInstance()->updateScreenInfo(9,"Shotgun");
-			break;
-		case MISILE_LAUNCHER:
-			iceSdkTray::getInstance()->updateScreenInfo(9,"Misile launcher");
-			break;
+		lastZ = z;
 	}
-	
 }
 
 char* icePlayer::getCurrentWeaponName(void){
@@ -316,20 +293,27 @@ void icePlayer::updateShipPosition(Ogre::Real frameTime)
 
 void icePlayer::updateLookAt(Ogre::Real frameTime)
 {
+	Ogre::Real rollVelocity = ROLL_VELOCITY * getManiobrability();
 	if(mMovingLeft){
-		_rolling = _rolling - ROLL_VELOCITY;
+		_rolling = _rolling - rollVelocity;
 		if(_rolling < -MAX_ROLL) _rolling  = -MAX_ROLL;
 	}
 	if(mMovingRight){
-		_rolling = _rolling + ROLL_VELOCITY;
+		_rolling = _rolling + rollVelocity;
 		if(_rolling > MAX_ROLL) _rolling  = MAX_ROLL;
 	}
 	if ((!mMovingRight) && (!mMovingLeft)){
 		if(_rolling != 0)
-		if (_rolling > 0) 
-			_rolling = _rolling - ROLL_VELOCITY;
+		if (_rolling > 0)
+		{
+			_rolling = _rolling - rollVelocity;
+			_rolling = _rolling > 0 ? _rolling : 0;
+		}
 		else
-			_rolling = _rolling + ROLL_VELOCITY;
+		{
+			_rolling = _rolling + rollVelocity;
+			_rolling = _rolling < 0 ? _rolling : 0;
+		}
 	}
 		//MAX_ROLL
 	Ogre::Real x = cursorNode->getPosition().x*LOOK_AT_FAR_FACTOR - shipNode->getPosition().x;
@@ -468,6 +452,9 @@ void icePlayer::update(Ogre::Real p_timeSinceLastFrame)
 			mInvulnerable = false;
 		}
 	}
+
+	//Anilations
+	mAnimations["queja"]->addTime(p_timeSinceLastFrame);
 
 }
 
