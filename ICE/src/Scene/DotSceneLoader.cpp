@@ -850,7 +850,7 @@ void DotSceneLoader::processVolcano(rapidxml::xml_node<>* XMLNode, Ogre::SceneNo
 	mEnemyId = mEnemyId + 1; 
 	enemy->initialize(mEnemyId,position,time,scale,rotation);
 	enemy->setLevel(time/20);//TODO
-	enemy->setBillboard(new iceBillboard(snbbNode,50,iceBillboard::DEAD1));
+	//enemy->setBillboard(new iceBillboard(snbbNode,50,iceBillboard::DEAD1));
 	mEnemies.push_back(enemy);
 }
  

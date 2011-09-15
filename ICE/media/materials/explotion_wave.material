@@ -1,0 +1,35 @@
+material mp_woosh_circle_07
+{
+    technique
+    {
+        pass
+        {
+            lighting off
+            depth_write off
+            scene_blend add
+
+            texture_unit
+            {
+                texture mp_woosh_circle_07.dds
+            }
+        }
+    }
+}
+
+material mp_woosh_glow_01
+{
+    technique
+    {
+        pass
+        {
+            lighting off
+            depth_write off
+            scene_blend add
+
+            texture_unit
+            {
+                texture mp_woosh_glow_01.dds
+            }
+        }
+    }
+}

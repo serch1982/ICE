@@ -1,6 +1,8 @@
 #include "Entities\iceBullet.h"
+#include "Particle\iceParticleMgr.h"
+#include "iceGame.h"
 
-iceBullet::iceBullet(void)
+iceBullet::iceBullet(int bulletType)
 :
 	mDuration(3),
 	mActive(true),
@@ -9,7 +11,8 @@ iceBullet::iceBullet(void)
 	mSpeed(0),
 	mTime(0),
 	mPosition(Ogre::Vector3(0,0,0)),
-	mOrientation(Ogre::Quaternion(0,0,0,0))
+	mOrientation(Ogre::Quaternion(0,0,0,0)),
+	mBulletType(mBulletType)
 {
 }
 iceBullet::~iceBullet(void)
@@ -59,4 +62,13 @@ void iceBullet::move(Ogre::Real timeSinceLastFrame)
 {
 	Ogre::Real vel =mSpeed * timeSinceLastFrame;
 	mBulletNode->translate(0, 0, vel, Ogre::Node::TS_LOCAL);	
+}
+
+void iceBullet::crashEnemy(void){ 
+	Ogre::SceneNode* node = iceGame::getSceneManager()->getRootSceneNode()->createChildSceneNode(mBulletNode->getName() + "_exp");
+	node->setPosition(mBulletNode->_getDerivedPosition());
+	Ogre::Vector3 scale(.05,.05,.05);
+	node->scale(scale);
+	iceParticleMgr::getSingletonPtr()->createParticle(node, "explotion_blue",scale);
+	mActive = false; 
 }
