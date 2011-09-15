@@ -9,6 +9,7 @@
 #include "Effects\iceBillboard.h"
 #include "Particle\iceParticleMgr.h"
 #include "Utils\iceStrategy.h"
+#include "Effects\iceAnimationMgr.h"
 
 class iceEnemy :public iceTrajectoryFollower, public iceRPG, public icePhysicEntity
 {
@@ -100,9 +101,6 @@ class iceEnemy :public iceTrajectoryFollower, public iceRPG, public icePhysicEnt
 		//Nodes, bullet necessary?
 		Ogre::SceneNode* enemyNode, *enemyBulletNode;
 
-		// Animations
-		std::map<Ogre::String,Ogre::AnimationState*> mAnimations;
-
 		//strategy
 		iceStrategyPtr mIceStrategy;
 		
@@ -119,6 +117,9 @@ class iceEnemy :public iceTrajectoryFollower, public iceRPG, public icePhysicEnt
 
 		// DEBUG
 		Ogre::Log* mLog;
+
+		// Animations
+		iceAnimationMgrPtr iceAnimationPtr;
 		
 };
 

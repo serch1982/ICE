@@ -29,10 +29,7 @@ bool iceMini::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActivat
 		Ogre::Bone* bn = bi.getNext();
 		Ogre::String st = bn->getName();
 	}*/
-	mIddle = mesh->getAnimationState( "iddle" );
-	/*mIddle2 = mesh->getAnimationState( "iddle2" );
-	mIddle2->setEnabled( true );
-	mIddle2->setLoop( true );*/
+	iceAnimationPtr->addAnimation(mesh->getAnimationState("iddle"), true, true); 
 
 	//init physics
 	icePhysicEntity::initializePhysics("phy_mini"+ entityName.str(), Ogre::Vector3(3.2,7,2));
@@ -65,35 +62,15 @@ void iceMini::update(Ogre::Real p_timeSinceLastFrame){
 	{
 		case STOPPED:
 			mTrajectory->lookAt();
-			mIddle->addTime(p_timeSinceLastFrame);
 			break;
 		case FOLLOWING_TRAJECTORY:
 			enemyNode->translate(mIceStrategy->move(enemyNode->_getDerivedPosition(), p_timeSinceLastFrame));
 			mTrajectory->lookAt();
 			//enemyNode->setPosition(mIceStrategy->move(Ogre::Vector3(0,0,0), enemyNode->_getDerivedPosition(), 1, Ogre::Vector3(1,0,0)));
-			mIddle->addTime(p_timeSinceLastFrame);
 			break;
 		case ATTACK: 
 			mTrajectory->lookAt(); 
 			enemyNode->translate(mIceStrategy->move(enemyNode->_getDerivedPosition(), p_timeSinceLastFrame));
-			if(mIddle->hasEnded())
-			{
-				mIddle->setEnabled(false);
-				//mIddle2->setEnabled(true);
-			}
-			else
-			{
-				mIddle->addTime(p_timeSinceLastFrame);
-			}
-			/*if(mIddle2->hasEnded())
-			{
-				mIddle2->setEnabled(false);
-				mIddle->setEnabled(true);
-			}
-			else
-			{
-				mIddle2->addTime(p_timeSinceLastFrame);
-			}*/
 			shot(); 
 			break;
 		case DYING:
@@ -118,6 +95,7 @@ void iceMini::update(Ogre::Real p_timeSinceLastFrame){
 			break;
 	}
 	mBillboard->update(p_timeSinceLastFrame);
+	iceAnimationPtr->update(p_timeSinceLastFrame);
 }
 
 std::string iceMini::getFunctionStr(){

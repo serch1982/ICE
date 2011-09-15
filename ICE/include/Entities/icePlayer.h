@@ -18,6 +18,7 @@
 #include "Entities\icePhysicEntity.h"
 #include "Entities\iceBulletMgr.h"
 #include <boost/enable_shared_from_this.hpp>
+#include "Effects\iceAnimationMgr.h"
 
 class icePlayer : public iceTrajectoryFollower
                 , public iceRPG
@@ -141,7 +142,7 @@ class icePlayer : public iceTrajectoryFollower
 		bool mBlinkVisible;
 
 		// Animations
-		std::map<Ogre::String,Ogre::AnimationState*> mAnimations;
+		iceAnimationMgrPtr iceAnimationPtr;
 };
 
 typedef boost::shared_ptr<icePlayer> icePlayerPtr;

@@ -63,6 +63,7 @@ icePlayer::~icePlayer()
 	iceParticleMgr::getSingletonPtr()->removeParticle(mParticleTurboLeft);
 	iceParticleMgr::getSingletonPtr()->removeParticle(mParticleTurboRight);
 	virtualCam.reset();
+	iceAnimationPtr.reset();
 	icePhysicEntity::finalizePhysics();
 }
 
@@ -111,9 +112,9 @@ void icePlayer::initPlayer(){
 	//shipNode->scale(0.1,0.1,0.1);
 
 	//init animations
-	mAnimations["queja"] = mesh2->getAnimationState( "queja" );
-	mAnimations["queja"]->setEnabled(true);
-	mAnimations["queja"]->setLoop(true);
+	iceAnimationPtr = iceAnimationMgrPtr(new iceAnimationMgr());
+	iceAnimationPtr->addAnimation(mesh2->getAnimationState("queja"), true, true); 
+	
 
 	// Init camera
 	cameraPlaneNode = scrollNode->createChildSceneNode(Ogre::Vector3(0.0,0.0,-CAMERA_PLANE_Z));
@@ -453,9 +454,7 @@ void icePlayer::update(Ogre::Real p_timeSinceLastFrame)
 		}
 	}
 
-	//Anilations
-	mAnimations["queja"]->addTime(p_timeSinceLastFrame);
-
+	iceAnimationPtr->update(p_timeSinceLastFrame);
 }
 
 void icePlayer::playShotSound(){
