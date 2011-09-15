@@ -92,15 +92,15 @@ bool iceParticleMgr::removeParticle(iceParticlePtr miceParticlePtr)
 	return true;
 }
 
-iceParticle::iceParticleParameters iceParticleMgr::defaultParameters(Ogre::String script)
+iceParticle::iceParticleParameters iceParticleMgr::defaultParameters(Ogre::String script, bool isFree, bool isLoop )
 {
 	iceParticle::iceParticleParameters params;
 	params.script = script;
-	params.isLoop = true;
+	params.isLoop = isLoop;
+	params.isFree = isFree;
 
 	return params;
 }
-
 
 Ogre::String iceParticleMgr::createUniqueId()
 {
@@ -112,4 +112,33 @@ Ogre::String iceParticleMgr::createUniqueId()
 	mId++;
 
 	return uniqueId;
+}
+
+void iceParticleMgr::createParticle(Ogre::SceneNode* node, Ogre::String script, Ogre::Vector3 scale)
+{
+	iceParticle::iceParticleParameters params = this->defaultParameters(script, true, false);
+	Ogre::String name = this->createUniqueId() + "_" + script;
+	ParticleUniverse::ParticleSystem* ps = mParticleSystemManager->createParticleSystem(name, params.script, mSceneManager);
+
+	iceParticlePtr pSystem = iceParticlePtr(new iceParticle(node, ps, params, name));
+	pSystem->start();
+	ps->setScale(scale);
+	mParticlesList.push_back(pSystem);
+}
+
+void iceParticleMgr::update(Ogre::Real timeSinceLastFrame)
+{
+	iceParticlesIter it = mParticlesList.begin();
+	while (it != mParticlesList.end()) {
+		if (!(*it)->isPlay())  {
+			mParticleSystemManager->destroyParticleSystem(mParticleSystemManager->getParticleSystem((*it)->getId()), mSceneManager);
+			it = mParticlesList.erase(it);
+		}
+		else{
+			//(*it)->
+			++it;
+		}
+		
+	}
+
 }

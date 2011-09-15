@@ -51,7 +51,7 @@ void icePhysics::processBullets(void)
 					Ogre::AxisAlignedBox ebox = enemy->getGeometry()->getWorldBoundingBox(enemy->getWorldPosition());
 					if(ebox.intersects(bbox)){
 						enemy->addDamage((*iter)->getDamage(),(*iter)->getCritic());
-						(*iter)->desactivate();
+						(*iter)->crashEnemy();
 						bulletImpacted = true;
 						break;
 					}

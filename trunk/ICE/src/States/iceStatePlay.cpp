@@ -169,6 +169,8 @@ void iceStatePlay::update(Ogre::Real evt)
 		}
 		//HUD
 		
+		//update particles
+		iceParticleMgr::getSingletonPtr()->update(evt);
 
 		//setHUDWeapon(_player->getCurrentWeaponName());
 

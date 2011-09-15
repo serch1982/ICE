@@ -33,7 +33,7 @@ void iceBulletMgr::finalize()
 }
 
 iceBulletPtr iceBulletMgr::createBullet(bool fromPlayer, Ogre::String name,int bulletType, Ogre::Vector3 initPos, Ogre::Quaternion orientation, Ogre::Radian desviation, int damage, bool critic){
-		iceBulletPtr bullet  = iceBulletPtr(new iceBullet());
+		iceBulletPtr bullet  = iceBulletPtr(new iceBullet(bulletType));
 		
 		Ogre::SceneManager* sceneMgr =  iceGame::getSceneManager();
 		Ogre::String nodeName = name + "_" + this->createUniqueId() ;

@@ -15,6 +15,7 @@ public:
 	{
 		Ogre::String	script;
 		bool isLoop;
+		bool isFree;
 	};
 
 public:
@@ -63,6 +64,7 @@ private:
 	ParticleUniverse::ParticleSystem*	mParticleSystem;
 	iceParticleParameters			mParameters;
 	Ogre::String					mId;
+	Ogre::SceneNode*			mSceneNode;
 
 };
 

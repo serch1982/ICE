@@ -6,6 +6,7 @@ iceParticle::iceParticle(Ogre::SceneNode* sceneNode, ParticleUniverse::ParticleS
 	mParameters = params;
 	mId = id;
 	sceneNode->attachObject( mParticleSystem );
+	mSceneNode = sceneNode;
 }
 
 iceParticle::iceParticle(Ogre::Entity* entityNode,Ogre::String boneName, ParticleUniverse::ParticleSystem* particleSystem, iceParticleParameters params, Ogre::String id){
@@ -17,6 +18,12 @@ iceParticle::iceParticle(Ogre::Entity* entityNode,Ogre::String boneName, Particl
 
 iceParticle::~iceParticle()
 {
+	if (mParameters.isFree){
+		if(mSceneNode){
+			mSceneNode->detachAllObjects();
+			mSceneNode->removeAndDestroyAllChildren();
+		}
+	}
 }
 		
 void iceParticle::start(void)

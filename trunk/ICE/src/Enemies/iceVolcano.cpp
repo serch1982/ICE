@@ -135,7 +135,6 @@ void iceVolcano::update(Ogre::Real p_timeSinceLastFrame){
 			}
 			break;
 		case DYING:
-			mBillboard->start(enemyNode->_getDerivedPosition());
 			iceGame::getGameLog()->logMessage("Enemy killed!");
 			giveExperieceToPlayer();
 			mAnimDyingTicks++;
@@ -154,7 +153,7 @@ void iceVolcano::update(Ogre::Real p_timeSinceLastFrame){
 			}
 			break;
 	}
-	mBillboard->update(p_timeSinceLastFrame);
+	
 	iceAnimationPtr->update(p_timeSinceLastFrame);
 }
 
@@ -178,6 +177,11 @@ bool iceVolcano::detectLavaCollision(Ogre::AxisAlignedBox pbox)
 void iceVolcano::showReceivedDamage(unsigned int p_iDamage, bool p_bCritical){
 	iceEnemy::showReceivedDamage(p_iDamage, p_bCritical);
 	if(!isAlive()){
+		Ogre::SceneNode* node = iceGame::getSceneManager()->getRootSceneNode()->createChildSceneNode(enemyNode->getName() + "_exp");
+		node->setPosition(enemyNode->_getDerivedPosition());
+		Ogre::Vector3 scale(.08,.08,.08);
+		node->scale(scale);
+		iceParticleMgr::getSingletonPtr()->createParticle(node, "explotion_wave",scale);		
 		mLavaNode->setVisible(false);
 		enemyNode->setVisible(false);
 	}

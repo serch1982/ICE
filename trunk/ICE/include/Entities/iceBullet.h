@@ -10,7 +10,7 @@ public:
 		/**
 		*  contructor
 		*/
-		iceBullet(void);
+		iceBullet(int bulletType);
 		/**
 		*  descontructor
 		*/
@@ -78,6 +78,12 @@ public:
 		*  to desactivate the bullet
 		*/
 		void desactivate(void){ mActive = false; }
+
+		/**
+		*  to desactivate the bullet and create effect when crash an enemy
+		*/
+		void crashEnemy(void);
+
 		/**
 		*  get the property is active
 		*/
@@ -102,7 +108,7 @@ protected:
 	bool mFromPlayer;
 	bool mActive;				
 	bool mIsDebugEnabled;
-	unsigned int mDamage;		
+	unsigned int mDamage, mBulletType;		
 	bool mCritic;		
 	unsigned int mSpeed;	
 	float mTime;					
