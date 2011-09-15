@@ -16,7 +16,8 @@ iceEnemy::iceEnemy()
 
 iceEnemy::~iceEnemy()
 {
-
+	if(mIceStrategy) mIceStrategy.reset();
+	if(iceAnimationPtr) iceAnimationPtr.reset();
 }
 
 void iceEnemy::setState(ENEMYSTATE p_iState)
@@ -32,6 +33,7 @@ int iceEnemy::getState(void)
 
 bool iceEnemy::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActivationTime, bool p_isAttachedToPlayer)
 {
+	iceAnimationPtr = iceAnimationMgrPtr(new iceAnimationMgr());
 	Ogre::SceneManager* sceneManager = iceGame::getSceneManager();
 	mRaySceneQuery = sceneManager->createRayQuery(Ogre::Ray());
 	mActivationTime = p_fActivationTime;

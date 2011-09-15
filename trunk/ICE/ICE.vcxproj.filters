@@ -273,6 +273,9 @@
     <ClCompile Include="src\PostProcess\icePostProcessManager.cpp">
       <Filter>Source Files\PostProcess</Filter>
     </ClCompile>
+    <ClCompile Include="src\Effects\iceAnimationMgr.cpp">
+      <Filter>Source Files\Effects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\iceGame.h">
@@ -448,6 +451,9 @@
     </ClInclude>
     <ClInclude Include="include\PostProcess\icePostProcessManager.h">
       <Filter>Header Files\PostProcess</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Effects\iceAnimationMgr.h">
+      <Filter>Header Files\Effects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

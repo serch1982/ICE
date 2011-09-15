@@ -36,10 +36,7 @@ bool iceBoss::initialize(int id, Ogre::Vector3 p_Position,  Ogre::Real p_fActiva
 	//add per object 
 	enemyNode->attachObject(getGeometry()->getMovableObject()); //must change
 
-	Ogre::AnimationState* attack = mainMesh->getAnimationState( "attack" );
-	attack->setEnabled( true );
-	attack->setLoop( true );
-	mAnimations["attack"] = attack;
+	iceAnimationPtr->addAnimation(mainMesh->getAnimationState("attack"), true, true); 
 
 	enemyNode->yaw(Ogre::Degree(180)); 
 

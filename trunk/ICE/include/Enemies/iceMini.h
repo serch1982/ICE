@@ -24,8 +24,6 @@ public:
 private:
 	iceParticlePtr mParticleFire;
 	iceParticlePtr mParticleBoom;
-	Ogre::AnimationState* mIddle;
-	Ogre::AnimationState* mIddle2;
 };
 
 #endif

@@ -54,11 +54,9 @@ bool iceVolcano::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActi
 	icePhysicEntity::initializePhysics("phy_volc"+ entityName.str(), Ogre::Vector3(20,32,20) * p_Scale );
 	enemyNode->attachObject(getGeometry()->getMovableObject());
 
-	mAnimations["iddle"] = mesh->getAnimationState( "iddle" );
-	mAnimations["iddle"]->setEnabled(true);
-	mAnimations["iddle"]->setLoop(true);
-	mAnimations["attack"] = mesh->getAnimationState( "attack" );
-	mAnimations["attack"]->setLoop(false);
+	//Animations
+	iceAnimationPtr->addAnimation(mesh->getAnimationState("iddle"), true, true); 
+	iceAnimationPtr->addAnimation(mesh->getAnimationState("attack"), false, false); 
 
 	mLavaCreated = false;
 	mAttackDamage = 0;
@@ -77,8 +75,7 @@ void iceVolcano::createShotEntity(int p_iWeapon, Ogre::Radian p_fDeviation, unsi
 {
 	mAttackDamage = p_iDamage;
 	mAttackIsCritic = p_bCritic;
-	mAnimations["iddle"]->setEnabled(false);
-	mAnimations["attack"]->setEnabled(true);
+	iceAnimationPtr->startAnimation("attack");
 	mLavaTime = 0;
 	mLavaCreated = true;
 }
@@ -99,8 +96,6 @@ void iceVolcano::update(Ogre::Real p_timeSinceLastFrame){
 			//gestion del ataque de lava
 			if(mLavaCreated)
 			{
-				//if(mAnimations["attack"]->getTimePosition() > 1.6)
-				//{
 					if(mLavaTime<=(LAVA_UP_TIME+LAVA_HOLD_TIME+LAVA_DOWN_TIME))
 					{
 						if(mLavaTime<=LAVA_UP_TIME)
@@ -118,24 +113,16 @@ void iceVolcano::update(Ogre::Real p_timeSinceLastFrame){
 					}
 					else
 					{// attack ended
-						mAnimations["iddle"]->setEnabled(true);
-						mAnimations["attack"]->setEnabled(false);
+						iceAnimationPtr->startAnimation("iddle");
 
-						mAnimations["attack"]->setTimePosition(0);
 						mLavaNode->setPosition(mLavaInitialPosition);
 						mLavaCreated = false;
 						mTimeToNextAtack = TIME_BETWEEN_ATTACKS;
 						mTimeToNextAtack += getModifierByLuck(-mTimeToNextAtack/10,mTimeToNextAtack/10);
 					}
-				//}
-				//else
-				//{
-					mAnimations["attack"]->addTime(p_timeSinceLastFrame);
-				//}
 			}
 			else
 			{
-				mAnimations["iddle"]->addTime(p_timeSinceLastFrame);
 
 				if(mTimeToNextAtack<=0)
 				{
@@ -168,6 +155,7 @@ void iceVolcano::update(Ogre::Real p_timeSinceLastFrame){
 			break;
 	}
 	mBillboard->update(p_timeSinceLastFrame);
+	iceAnimationPtr->update(p_timeSinceLastFrame);
 }
 
 std::string iceVolcano::getFunctionStr(){
