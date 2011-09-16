@@ -22,7 +22,8 @@ public:
 
 private:
 	iceParticlePtr mParticleBoom;
-	
+	iceStrategyPtr mIceStrategySmart;
+	float _renew, _count;
 };
 
 #endif

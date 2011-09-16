@@ -4,7 +4,8 @@
 function KamikazeLogic( pEnemy )
 -- 	STOPPED
 	if pEnemy:getState() == enemy.STOPPED then
-		if pEnemy:isActive() then
+		ra = pEnemy:rangeAttack()
+		if pEnemy:isActive() and (ra  < 900) then
 			pEnemy:setState(enemy.ATTACK)
 		elseif not pEnemy:isAlive() then
 			pEnemy:setState(enemy.INACTIVE)
@@ -14,7 +15,7 @@ function KamikazeLogic( pEnemy )
 		ra = pEnemy:rangeAttack()
 		if not pEnemy:isAlive() then
 			pEnemy:setState(enemy.DYING)
-		elseif not pEnemy:isVisiblePlayerCam() and (ra  > 300) then 
+		elseif pEnemy:isVisibleWideCam() and (ra  > 600) then 
 			pEnemy:setState(enemy.INACTIVE)
 		end
 -- 	DYING

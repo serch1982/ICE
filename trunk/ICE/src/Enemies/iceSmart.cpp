@@ -21,7 +21,6 @@ bool iceSmart::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActiva
 	Ogre::Entity* mesh;
 	mesh = sceneManager->createEntity(entityName.str(), "intelligent.mesh");
 	enemyNode->attachObject(mesh);
-	//mNode->scale(0.1,0.1,0.1);
 
 	//init physics
 	icePhysicEntity::initializePhysics("phy_smart"+ entityName.str(), Ogre::Vector3(10,5.5,4));
@@ -33,14 +32,17 @@ bool iceSmart::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActiva
 	//strategy 
 	srand(time(NULL));
 	bool b = (rand() % 2 + 1) == 1 ? true: false;
-	Ogre::Real r = 15 * (Ogre::Math::RangeRandom(20.0,30.0));
+	Ogre::Real r = 15 * (Ogre::Math::RangeRandom(25.0,35.0));
 	Ogre::Real vel = Ogre::Math::RangeRandom(1.0,2.5);
 	mIceStrategy = iceStrategyPtr(new iceStrategySin(r,vel,50, b));
-
+	mIceStrategySmart = iceStrategyPtr(new iceStrategyForward(4.5));
+	_renew = (rand() % 2 + 1) + 1;
+	_count =0;
 	return true;
 }
 
 void iceSmart::finalize(){
+	mIceStrategySmart.reset();
 	iceParticleMgr::getSingletonPtr()->removeParticle(mParticleBoom);
 	iceEnemy::finalize();
 }
@@ -63,6 +65,13 @@ void iceSmart::update(Ogre::Real p_timeSinceLastFrame){
 			break;
 		case ATTACK: 
 			enemyNode->translate(mIceStrategy->move(enemyNode->_getDerivedPosition(), p_timeSinceLastFrame));
+			if(_count > _renew){
+				Ogre::Vector3 npos =  mIceStrategySmart->move(enemyNode->_getDerivedPosition(), p_timeSinceLastFrame);
+				enemyNode->translate(-npos);
+				_count =0;
+			}else{
+				_count += p_timeSinceLastFrame;
+			}
 			mTrajectory->lookAt(); //TODO
 			iceRPG::update(p_timeSinceLastFrame);
 			shot();
@@ -72,9 +81,6 @@ void iceSmart::update(Ogre::Real p_timeSinceLastFrame){
 			iceGame::getGameLog()->logMessage("Enemy killed!");
 			giveExperieceToPlayer();
 			mAnimDyingTicks++;
-			//Dead sequence...
-			//When dead sequence finished:
-			//mState = INACTIVE;
 			break;
 		case INACTIVE:
 			if(checkActivationTime(p_timeSinceLastFrame))

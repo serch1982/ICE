@@ -36,20 +36,21 @@ bool iceMini::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActivat
 	enemyNode->attachObject(getGeometry()->getMovableObject());
 
 	//particles
-	//mParticleFire = iceParticleMgr::getSingletonPtr()->createPartAttachToObject(enemyNode,"ice/fireminimagmaton",false);
 	mParticleFire = iceParticleMgr::getSingletonPtr()->createPartAttachToBone(mesh,"right_tibia","ice/fireDown",false);
 	mParticleBoom = iceParticleMgr::getSingletonPtr()->createPartAttachToObject(enemyNode,"ice/boom",false);
 
 	//strategy 
 	srand(time(NULL));
 	bool b = (rand() % 2 + 1) == 1 ? true: false;
-	Ogre::Real r = 10 * (Ogre::Math::RangeRandom(15.0,25.0));
+	Ogre::Real r = 10 * (Ogre::Math::RangeRandom(25.0,45.0));
 	Ogre::Real vel = Ogre::Math::RangeRandom(1.0,2.5);
 	mIceStrategy = iceStrategyPtr(new iceStrategyCircle(vel,20,r, b ));
+	mIceStrategyMini = iceStrategyPtr(new iceStrategyForward(5));
 	return true;
 }
 
 void iceMini::finalize(){
+	mIceStrategyMini.reset();
 	iceParticleMgr::getSingletonPtr()->removeParticle(mParticleBoom);
 	iceParticleMgr::getSingletonPtr()->removeParticle(mParticleFire);
 	iceEnemy::finalize();
@@ -66,20 +67,17 @@ void iceMini::update(Ogre::Real p_timeSinceLastFrame){
 		case FOLLOWING_TRAJECTORY:
 			enemyNode->translate(mIceStrategy->move(enemyNode->_getDerivedPosition(), p_timeSinceLastFrame));
 			mTrajectory->lookAt();
-			//enemyNode->setPosition(mIceStrategy->move(Ogre::Vector3(0,0,0), enemyNode->_getDerivedPosition(), 1, Ogre::Vector3(1,0,0)));
 			break;
 		case ATTACK: 
 			mTrajectory->lookAt(); 
 			enemyNode->translate(mIceStrategy->move(enemyNode->_getDerivedPosition(), p_timeSinceLastFrame));
+			enemyNode->translate(mIceStrategyMini->move(enemyNode->_getDerivedPosition(), p_timeSinceLastFrame));
 			shot(); 
 			break;
 		case DYING:
 			iceGame::getGameLog()->logMessage("Enemy killed!");
 			mAnimDyingTicks++;
 			mParticleFire->stop();
-			//Dead sequence...
-			//When dead sequence finished:
-			//mState = INACTIVE;
 			break;
 		case INACTIVE:
 			if(checkActivationTime(p_timeSinceLastFrame))

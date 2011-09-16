@@ -43,7 +43,7 @@ iceStrategySin::iceStrategySin(Ogre::Real radius,Ogre::Real  velocity,Ogre::Real
 	_velocityZ = velocityZ;
 	_counterAux =1;
 	_dir = dir;
-	_numRand = Ogre::Math::RangeRandom(150.0,300.0);
+	_numRand = Ogre::Math::RangeRandom(400.0,800.0);
 }
 
 iceStrategySin::~iceStrategySin(){
@@ -65,47 +65,37 @@ Ogre::Vector3 iceStrategySin::move(Ogre::Vector3 enemyPos, Ogre::Real timeSinceL
 
 	if (getPlayerAxis() == iceStrategy::aX){
 		if (_dir){
-			//translation += Ogre::Vector3::UNIT_X  * _velocityZ;
 			translation += Ogre::Vector3::UNIT_Z * _velocity;
 			translation += Ogre::Vector3::UNIT_Y * y;
 			_counter += _velocity * timeSinceLastFrame;
-			//if(_counter > rt) _counter = 0;
 		}
 		else {
-			//translation += Ogre::Vector3::NEGATIVE_UNIT_X * _velocityZ;
 			translation += Ogre::Vector3::NEGATIVE_UNIT_Z * _velocity;
 			translation += Ogre::Vector3::NEGATIVE_UNIT_Y * y;
 			_counter -= _velocity * timeSinceLastFrame;
-			//if(_counter < 0) _counter = rt;
 		}
 		translation.normalise();
-		//translation.x += _velocityZ;
 	}
 	else {
 		if (_dir){
-			//translation += Ogre::Vector3::UNIT_Z * _velocityZ;
 			translation += Ogre::Vector3::UNIT_X * _velocity;
 			translation += Ogre::Vector3::UNIT_Y * y;
 			_counter += _velocity * timeSinceLastFrame;
-			//if(_counter > rt) _counter = 0;
 		}
 		else {
-			//translation += Ogre::Vector3::NEGATIVE_UNIT_Z * _velocityZ;
 			translation += Ogre::Vector3::NEGATIVE_UNIT_X * _velocity;
 			translation += Ogre::Vector3::NEGATIVE_UNIT_Y * y;
 			_counter -= _velocity * timeSinceLastFrame;
-			//if(_counter < 0) _counter = rt;
 		}
 		translation.normalise();
-		//translation.z += _velocityZ;
 	} 
 	
-	return translation / 2;
+	return translation;
 }
 
 void iceStrategySin::reverse(void){
 	_dir = !_dir;
-	_numRand = Ogre::Math::RangeRandom(_numRand,90.0);
+	_numRand = Ogre::Math::RangeRandom(400.0,800.0);
 }
 
 /*---------------------------------------------------------------------------------------------------------------------------*/
@@ -137,39 +127,33 @@ Ogre::Vector3 iceStrategyCircle::move(Ogre::Vector3 enemyPos, Ogre::Real timeSin
 
 	if (getPlayerAxis() == iceStrategy::aX){
 		if (_dir){
-			//translation += Ogre::Vector3::UNIT_X  * _velocityZ;
 			translation += Ogre::Vector3::UNIT_Z * x;
 			translation += Ogre::Vector3::UNIT_Y * y;
 			_counter += _velocity * timeSinceLastFrame;
 			if(_counter > 360) _counter = 0;
 		}
 		else {
-			//translation += Ogre::Vector3::NEGATIVE_UNIT_X  * _velocityZ;
 			translation += Ogre::Vector3::NEGATIVE_UNIT_Z * x;
 			translation += Ogre::Vector3::NEGATIVE_UNIT_Y * y;
 			_counter -= _velocity * timeSinceLastFrame;
 			if(_counter < 0) _counter = 360;
 		}
 		translation.normalise();
-		//translation.x *= _velocityZ;
 	}
 	else {
 		if (_dir){
-			//translation += Ogre::Vector3::UNIT_Z  * _velocityZ;
 			translation += Ogre::Vector3::UNIT_X * x;
 			translation += Ogre::Vector3::UNIT_Y * y;
 			_counter += _velocity * timeSinceLastFrame;
 			if(_counter > 360) _counter = 0;
 		}
 		else {
-			//translation += Ogre::Vector3::NEGATIVE_UNIT_Z * _velocityZ;
 			translation += Ogre::Vector3::NEGATIVE_UNIT_X * x;
 			translation += Ogre::Vector3::NEGATIVE_UNIT_Y * y;
 			_counter -= _velocity * timeSinceLastFrame;
 			if(_counter < 0) _counter = 360;
 		}
 		translation.normalise();
-		//translation.z *= _velocityZ;
 	} 
 	return translation  / 2;
 

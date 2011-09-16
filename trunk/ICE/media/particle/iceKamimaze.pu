@@ -3,10 +3,11 @@ system ice/iceKamimaze
     category                                    ice
     technique 
     {
+        visual_particle_quota                   300
         material                                ice/Fire
-        default_particle_width                  10
-        default_particle_height                 10
-        default_particle_depth                  10
+        default_particle_width                  5
+        default_particle_height                 5
+        default_particle_depth                  5
         spatial_hashing_cell_dimension          0
         spatial_hashing_cell_overlap            10
         renderer                                Billboard
@@ -38,7 +39,7 @@ system ice/iceKamimaze
         }
         affector                                Scale 
         {
-            xyz_scale                           -1
+            xyz_scale                           -2
         }
         affector                                Colour 
         {

@@ -24,6 +24,7 @@ public:
 private:
 	iceParticlePtr mParticleFire;
 	iceParticlePtr mParticleBoom;
+	iceStrategyPtr mIceStrategyMini;
 };
 
 #endif

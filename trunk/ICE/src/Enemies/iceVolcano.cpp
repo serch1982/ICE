@@ -43,11 +43,7 @@ bool iceVolcano::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActi
 	enemyNode->rotate(rotation);
 	mLavaNode->scale(p_Scale);
 	mLavaNode->rotate(rotation);
-	/*enemyNode->scale(Ogre::Vector3(2,2,2));
-	enemyNode->rotate(Ogre::Vector3(1,0,0), Ogre::Radian(Ogre::Degree(45)));
-	mLavaNode->scale(Ogre::Vector3(2,2,2));
-	mLavaNode->rotate(Ogre::Vector3(1,0,0),Ogre::Radian(Ogre::Degree(45)));*/
-	mLavaNode->translate(Ogre::Vector3(0,-100,0), Ogre::Node::TS_LOCAL);
+	mLavaNode->translate(Ogre::Vector3(0,-LAVA_TOTAL_DISTACE,0), Ogre::Node::TS_LOCAL);
 	mLavaInitialPosition = mLavaNode->_getDerivedPosition();
 
 	//init physics
@@ -138,9 +134,6 @@ void iceVolcano::update(Ogre::Real p_timeSinceLastFrame){
 			iceGame::getGameLog()->logMessage("Enemy killed!");
 			giveExperieceToPlayer();
 			mAnimDyingTicks++;
-			//Dead sequence...
-			//When dead sequence finished:
-			//mState = INACTIVE;
 			break;
 		case INACTIVE:
 			if(checkActivationTime(p_timeSinceLastFrame))
