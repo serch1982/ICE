@@ -772,9 +772,9 @@ void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode,Ogre::SceneNod
 	}
 	for (int i=0;i<kamikaces;i++)
 	{
-		Ogre::Vector3 dev = Ogre::Vector3(maxDev.x * (Ogre::Math::UnitRandom() - Ogre::Math::UnitRandom()),
-										  maxDev.y * (Ogre::Math::UnitRandom() - Ogre::Math::UnitRandom()),
-										  maxDev.z * (Ogre::Math::UnitRandom() - Ogre::Math::UnitRandom())
+		Ogre::Vector3 dev =  Ogre::Vector3(maxDev.x * (Ogre::Math::RangeRandom(0.1,4.0)),
+										  maxDev.y * (Ogre::Math::RangeRandom(0.1,4.0)),
+										  maxDev.z * (Ogre::Math::RangeRandom(0.1,4.0))
 										 );
 		Ogre::Real timeDev = (Ogre::Math::UnitRandom() - 0.5) * 2;
 		Ogre::Vector3 enemyPosition = position + dev;

@@ -23,9 +23,18 @@ bool iceKamikaze::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fAct
 	Ogre::Entity* mesh;
 	mesh = sceneManager->createEntity(entityName.str(), "kamikaze.mesh");
 	enemyNode->attachObject(mesh);
+	Ogre::Real arr[5];
+	arr[0] = 0.3;
+	arr[1] = 0.6;
+	arr[2] = 1.0;
+	arr[3] = 2.0;
+	srand(time(NULL));
+	int ran = (rand() % 4 + 1) - 1;
+	Ogre::Vector3 scale(Ogre::Vector3::UNIT_SCALE * arr[ran] );
+	enemyNode->setScale(scale);
 
 	//init physics
-	icePhysicEntity::initializePhysics("phy_kami"+ entityName.str(), Ogre::Vector3(6,6,6));
+	icePhysicEntity::initializePhysics("phy_kami"+ entityName.str(), scale * 5); 
 	enemyNode->attachObject(getGeometry()->getMovableObject());
 
 	//particles
@@ -46,17 +55,16 @@ void iceKamikaze::update(Ogre::Real p_timeSinceLastFrame){
 	switch(mState)
 	{
 		case STOPPED:
-			mTrajectory->lookAt();
-			break;
-		case FOLLOWING_TRAJECTORY:
+			mRenewTarget = 50;
 			mTrajectory->lookAt();
 			break;
 		case ATTACK: 
-			mTrajectory->lookAt();
+			//mTrajectory->lookAt();
 			enemyNode->translate(mVelocity * p_timeSinceLastFrame);
 			mRenewTarget--;
-			mParticleFire->stop();
 			if( mRenewTarget == 0 ){
+				mTrajectory->lookAt();
+				mRenewTarget = 50;
 				/*Ogre::Vector3 playerPos;
 				Ogre::Vector3 kamikazePos;
 				//Get Player position relative to his parent
@@ -95,7 +103,6 @@ std::string iceKamikaze::getFunctionStr(){
 
 void iceKamikaze::createShotEntity(int p_iWeapon, Ogre::Radian p_fDeviation, unsigned int p_iDamage, bool p_bCritic)
 {
-	//iceBulletMgr::getSingletonPtr()->createBullet(false, "bt_enemy_",p_iWeapon, enemyNode->_getDerivedPosition(), -enemyNode->_getDerivedOrientation(), p_fDeviation,p_iDamage, p_bCritic);
 }
 
 void iceKamikaze::setState(ENEMYSTATE p_iState){
@@ -103,7 +110,6 @@ void iceKamikaze::setState(ENEMYSTATE p_iState){
 	switch(mState){
 		case ATTACK:
 			mVelocity = mIceStrategy->move(enemyNode->_getDerivedPosition(), 1);
-			mRenewTarget = 100;
 			break;
 		case DYING:
 			mAnimDyingTicks = 0;
