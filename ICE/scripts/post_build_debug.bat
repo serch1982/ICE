@@ -18,4 +18,7 @@ xcopy "%SolutionDir%lib\%ConfigurationName%\*.dll" "%OutDir%" /s/e/d/i/y
 echo if not exist "%OutDir%logs" mkdir "%OutDir%logs"
 if not exist "%OutDir%logs" mkdir "%OutDir%logs"
 
+echo if not exist "%OutDir%screenshots" mkdir "%OutDir%screenshots"
+if not exist "%OutDir%screenshots" mkdir "%OutDir%screenshots"
+
 pause

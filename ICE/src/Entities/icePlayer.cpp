@@ -88,7 +88,7 @@ void icePlayer::initPlayer(){
 	cursorSet->setMaterialName("cursor");
 	Ogre::Billboard* cursorBillboard = cursorSet->createBillboard(0,0,0);
 	cursorNode->attachObject(cursorSet);	
-	cursorNode->scale(.05,.05,.05);	
+	cursorNode->scale(.09,.09,.09);	
 
 	//Init Ship
 	shipPlaneNode = scrollNode->createChildSceneNode(Ogre::Vector3(0.0,-CAMERA_ADDED_Y,0.0));

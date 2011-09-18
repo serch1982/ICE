@@ -23,7 +23,7 @@
         <scenemanager name="SceneManager" id="168980992" type="OctreeSceneManager" />
         <colourAmbient r="0.5" g="0.5" b="0.5" a="1" />
         <skyBox active="true" distance="5000" material="level2SkyBox" />
-        <fog mode="exp2" start="500" end="1500" density="0">
+        <fog mode="none" start="500" end="1500" density="0">
             <colour r="0.996078" g="0.537255" b="0.568627" a="1" />
         </fog>
         <viewport name="Viewport1" id="2000000002" index="1">
@@ -31,8 +31,8 @@
         </viewport>
         <camera name="intViewCamera1" viewMode="0" polyMode="3" fov="45">
             <clipping near="1" far="10000" />
-            <position x="1162.51" y="345.215" z="-1561.6" />
-            <rotation qw="-0.999026" qx="0.00807565" qy="0.044915" qz="0.000736019" />
+            <position x="881.062" y="789.004" z="6237.05" />
+            <rotation qw="0.891917" qx="-0.127884" qy="0.429505" qz="0.061647" />
         </camera>
     </environment>
     <terrain worldSize="4000" mapSize="129" pagenameprefix="Page" colourmapEnabled="false" colourMapTextureSize="128" tuningCompositeMapDistance="2000" tuningMaxPixelError="3" tuningMinBatchSize="33" tuningMaxBatchSize="65" tuningSkirtSize="10" tuningUseRayBoxDistancealculation="false">
@@ -42,6 +42,12 @@
             <terrainPage name="Page_00000000.ogt" pageX="0" pageY="0" />
         </terrainPages>
     </terrain>
+    <light name="Light#0" id="297280800" type="directional" castShadows="true">
+        <position x="663.526" y="657.386" z="5999.7" />
+        <directionVector x="-0.391258" y="-0.738217" z="-0.549501" />
+        <colourDiffuse r="1" g="1" b="1" a="1" />
+        <colourSpecular r="0" g="0" b="0" a="1" />
+    </light>
     <nodes>
         <node name="Waterfall" id="874782592">
             <position x="1905.63" y="47.7286" z="1655.07" />
@@ -113,6 +119,22 @@
             <position x="0" y="0" z="0" />
             <rotation qw="1" qx="0" qy="0" qz="0" />
             <scale x="1" y="1" z="1" />
+            <node name="staticPhisicCube#4" id="255745120">
+                <position x="-1521.99" y="105.978" z="202.648" />
+                <rotation qw="0.999914" qx="0" qy="-0.0130896" qz="0" />
+                <scale x="0.549621" y="0.910197" z="0.601314" />
+                <entity name="staticPhisicCube#4" meshFile="cube.mesh" castShadows="false">
+                    <subentity index="0" materialName="BaseWhite" />
+                </entity>
+            </node>
+            <node name="staticPhisicCube#8" id="462263840">
+                <position x="-1523.72" y="94.0081" z="15.4689" />
+                <rotation qw="0.999914" qx="0" qy="-0.0130896" qz="0" />
+                <scale x="0.596685" y="0.793801" z="2.83083" />
+                <entity name="staticPhisicCube#8" meshFile="cube.mesh" castShadows="false">
+                    <subentity index="0" materialName="BaseWhite" />
+                </entity>
+            </node>
             <node name="staticPhisicCube#7" id="869350272">
                 <position x="-1612.23" y="94.0081" z="13.1513" />
                 <rotation qw="0.999914" qx="0" qy="-0.0130896" qz="0" />
@@ -166,22 +188,6 @@
                 <rotation qw="0.937141" qx="0.0232281" qy="0.0467519" qz="-0.345023" />
                 <scale x="0.365189" y="1.43087" z="0.722908" />
                 <entity name="staticPhisicCube#1" meshFile="cube.mesh" castShadows="false">
-                    <subentity index="0" materialName="BaseWhite" />
-                </entity>
-            </node>
-            <node name="staticPhisicCube#4" id="255745120">
-                <position x="-1521.99" y="105.978" z="202.648" />
-                <rotation qw="0.999914" qx="0" qy="-0.0130896" qz="0" />
-                <scale x="0.549621" y="0.910197" z="0.601314" />
-                <entity name="staticPhisicCube#4" meshFile="cube.mesh" castShadows="false">
-                    <subentity index="0" materialName="BaseWhite" />
-                </entity>
-            </node>
-            <node name="staticPhisicCube#8" id="462263840">
-                <position x="-1523.72" y="94.0081" z="15.4689" />
-                <rotation qw="0.999914" qx="0" qy="-0.0130896" qz="0" />
-                <scale x="0.596685" y="0.793801" z="2.83083" />
-                <entity name="staticPhisicCube#8" meshFile="cube.mesh" castShadows="false">
                     <subentity index="0" materialName="BaseWhite" />
                 </entity>
             </node>

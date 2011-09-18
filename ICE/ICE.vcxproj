@@ -81,7 +81,8 @@
 xcopy "$(SolutionDir)media" "$(OutDir)media\" /s/e/d/i/y
 xcopy "$(SolutionDir)configuration" "$(OutDir)configuration\" /s/e/d/i/y
 xcopy "$(SolutionDir)lib\$(Configuration)\*.dll" "$(OutDir)" /s/e/d/i/y
-if not exist "$(OutDir)logs" mkdir "$(OutDir)logs"</Command>
+if not exist "$(OutDir)logs" mkdir "$(OutDir)logs"
+if not exist "$(OutDir)screenshots" mkdir "$(OutDir)screenshots"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -121,7 +122,8 @@ if not exist "$(OutDir)logs" mkdir "$(OutDir)logs"</Command>
 xcopy "$(SolutionDir)media" "$(OutDir)media\" /s/e/d/i/y
 xcopy "$(SolutionDir)configuration" "$(OutDir)configuration\" /s/e/d/i/y
 xcopy "$(SolutionDir)lib\$(Configuration)\*.dll" "$(OutDir)" /s/e/d/i/y
-if not exist "$(OutDir)logs" mkdir "$(OutDir)logs"</Command>
+if not exist "$(OutDir)logs" mkdir "$(OutDir)logs"
+if not exist "$(OutDir)screenshots" mkdir "$(OutDir)screenshots"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
