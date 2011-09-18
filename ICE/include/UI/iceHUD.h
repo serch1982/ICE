@@ -26,10 +26,18 @@ class iceHUD
 		void setFace(unsigned int pFace);
 		void showAchievement(Ogre::String pAchievement);
 
+		void hideAllNotifications(void);
+		void showHealAvailable(void);
+		void showSprintAvailable(void);
+		void showWeaponUpgrade(unsigned int pWeapon);
+
+
 	protected:
 		std::vector<std::string> mWeaponNames;
 		std::vector<Ogre::Real> mWeaponCharSizes;
 		unsigned int mCurrentWeapon;
+
+		icePlayer* mPlayer;
 
 		iceStateManager* mStateManager;
 		Ogre::Overlay* mHUDOverlay;
@@ -50,6 +58,11 @@ class iceHUD
 		Ogre::PanelOverlayElement* mAchievementPanel;
 		Ogre::TextAreaOverlayElement* mAchievementTextarea;
 
+		Ogre::PanelOverlayElement* mNotificationsPanel;
+		Ogre::PanelOverlayElement* mHealNotificationPanel;
+		Ogre::PanelOverlayElement* mSprintNotificationPanel;
+		std::vector<Ogre::PanelOverlayElement*> mWeaponNotificationPanels;
+
 		unsigned int mCurrentFace;
 		bool mShowingFace2;
 		Ogre::Real mFace2Time;
@@ -57,10 +70,13 @@ class iceHUD
 		bool mShowingAchievement;
 		Ogre::Real mShowAchievementTime;
 
-		bool mUpdateOnce;
+		bool mShowinwg;
 
 		void _showFace(unsigned int pFace);
 		void _hideFace(unsigned int pFace);
+
+		Ogre::Real mShowNotificationTime;
+		bool mShowingNotification;
 };
 
 #endif

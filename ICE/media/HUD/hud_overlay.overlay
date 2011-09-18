@@ -66,6 +66,66 @@ HUD/hud_overlay
 					material HUD/life_bar_hover_material
 				}
 			}
+			
+			container Panel(HUD/notification_container_panel)
+			{
+				metrics_mode pixels
+				left 55
+				top -70
+				width 125
+				height 103
+				material HUD/notification_container_material
+				
+				container Panel(HUD/notification_heal_panel)
+				{
+					metrics_mode pixels
+					left 33
+					top 15
+					width 60
+					height 60
+					material HUD/notification_heal_material
+				}
+				
+				container Panel(HUD/notification_sprint_panel)
+				{
+					metrics_mode pixels
+					left 33
+					top 15
+					width 60
+					height 60
+					material HUD/notification_sprint_material
+				}
+				
+				container Panel(HUD/notification_weapon_1_panel)
+				{
+					metrics_mode pixels
+					left 33
+					top 15
+					width 60
+					height 60
+					material HUD/weapon_1_material
+				}
+				
+				container Panel(HUD/notification_weapon_2_panel)
+				{
+					metrics_mode pixels
+					left 33
+					top 15
+					width 60
+					height 60
+					material HUD/weapon_2_material
+				}
+				
+				container Panel(HUD/notification_weapon_3_panel)
+				{
+					metrics_mode pixels
+					left 33
+					top 15
+					width 60
+					height 60
+					material HUD/weapon_3_material
+				}
+			}
 
 			container Panel(HUD/face_1_panel)
 			{

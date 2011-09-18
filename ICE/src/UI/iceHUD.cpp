@@ -1,9 +1,12 @@
 #include <UI/iceHUD.h>
 #include "iceGame.h"
 
+#define SHOW_NOTIFICATION_TIME 2
+
 iceHUD::iceHUD()
 {
 	iceGame::getGameLog()->logMessage("iceMenu::iceHUD()");
+	mShowinwg = false;
 }
 
 iceHUD::~iceHUD()
@@ -14,6 +17,8 @@ iceHUD::~iceHUD()
 void iceHUD::init(iceStateManager* pStateManager)
 {
 	iceGame::getGameLog()->logMessage("iceHUD::init()");
+
+	mPlayer = icePlayer::getSingletonPtr();
 
 	mWeaponNames.push_back("MINIGUN");
 	mWeaponNames.push_back("SHOTGUN");
@@ -43,6 +48,13 @@ void iceHUD::init(iceStateManager* pStateManager)
 	mFacesPanels.push_back(static_cast<Ogre::PanelOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/face_3_panel")));
 	mFacesPanels.push_back(static_cast<Ogre::PanelOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/face_4_panel")));
 
+	mNotificationsPanel = static_cast<Ogre::PanelOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/notification_container_panel"));
+	mHealNotificationPanel = static_cast<Ogre::PanelOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/notification_heal_panel"));
+	mSprintNotificationPanel = static_cast<Ogre::PanelOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/notification_sprint_panel"));
+	mWeaponNotificationPanels.push_back(static_cast<Ogre::PanelOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/notification_weapon_1_panel")));
+	mWeaponNotificationPanels.push_back(static_cast<Ogre::PanelOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/notification_weapon_2_panel")));
+	mWeaponNotificationPanels.push_back(static_cast<Ogre::PanelOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/notification_weapon_3_panel")));
+
 	mAchievementPanel = static_cast<Ogre::PanelOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/achievements_panel"));
 	mAchievementTextarea = static_cast<Ogre::TextAreaOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/achievements_text"));
 
@@ -60,25 +72,35 @@ void iceHUD::init(iceStateManager* pStateManager)
 	{
 		mFacesPanels[i]->hide();
 	}
+	
+	hideAllNotifications();
+
 	mCurrentFace = 1;
 	_showFace(1);
 	mShowingAchievement = false;
 	mAchievementPanel->hide();
-	mUpdateOnce = true;
+	mShowinwg = false;
 }
 
 void iceHUD::show()
 {
 	mHUDOverlay->show();
+	mShowinwg = true;
 }
 
 void iceHUD::hide()
 {
+	mShowinwg = false;
 	mHUDOverlay->hide();	
 }
 
 void iceHUD::update(Ogre::Real pTimeSinceLastFrame)
 {
+	if(!mShowinwg)
+		return;
+	if(!mPlayer)
+		mPlayer = icePlayer::getSingletonPtr();
+
 	if(mShowingFace2)
 	{
 		mFace2Time -= pTimeSinceLastFrame;
@@ -102,13 +124,25 @@ void iceHUD::update(Ogre::Real pTimeSinceLastFrame)
 		}
 	}
 
-	if(mUpdateOnce)
-	{
-		setWeapon(1,1);
+	//if(mUpdateOnce)
+	//{
+		//setWeapon(1,1);
 		mPlayerNameTextarea->setCaption("SCOTT");
-		setLevel(1);
-		//mAchievementTextarea->setCaption("Ninja");
-		mUpdateOnce = false;
+		setWeapon(mPlayer->getCurrentWeapon()+1,mPlayer->getWeaponLevel(mPlayer->getCurrentWeapon()));
+		setLevel(mPlayer->getLevel());
+		//setLevel(1);
+		////mAchievementTextarea->setCaption("Ninja");
+		//mUpdateOnce = false;
+	//}
+
+	if(mShowingNotification)
+	{
+		mShowNotificationTime -= pTimeSinceLastFrame;
+
+		if(mShowNotificationTime < 0)
+		{
+			hideAllNotifications();
+		}
 	}
 }
 
@@ -191,4 +225,44 @@ void iceHUD::_showFace(unsigned int pFace)
 void iceHUD::_hideFace(unsigned int pFace)
 {
 	mFacesPanels[pFace-1]->hide();
+}
+
+void iceHUD::hideAllNotifications(void)
+{
+	mHealNotificationPanel->hide();
+	mSprintNotificationPanel->hide();
+	for(unsigned int i=0;i<mWeaponNotificationPanels.size();i++)
+	{
+		mWeaponNotificationPanels[i]->hide();
+	}
+	mNotificationsPanel->hide();
+	mShowNotificationTime = 0;
+	mShowingNotification = false;
+}
+
+void iceHUD::showHealAvailable(void)
+{
+	hideAllNotifications();
+	mNotificationsPanel->show();
+	mHealNotificationPanel->show();
+	mShowNotificationTime = SHOW_NOTIFICATION_TIME;
+	mShowingNotification = true;
+}
+
+void iceHUD::showSprintAvailable(void)
+{
+	hideAllNotifications();
+	mNotificationsPanel->show();
+	mSprintNotificationPanel->show();
+	mShowNotificationTime = SHOW_NOTIFICATION_TIME;
+	mShowingNotification = true;
+}
+
+void iceHUD::showWeaponUpgrade(unsigned int pWeapon)
+{
+	hideAllNotifications();
+	mNotificationsPanel->show();
+	mWeaponNotificationPanels[pWeapon]->show();
+	mShowNotificationTime = SHOW_NOTIFICATION_TIME;
+	mShowingNotification = true;
 }

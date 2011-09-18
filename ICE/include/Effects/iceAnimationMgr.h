@@ -20,7 +20,7 @@ public:
 	/**
     *  add new Animation
     */
-	void addAnimation(Ogre::AnimationState*  animation, bool enable, bool loop);
+	void addAnimation(Ogre::AnimationState*  animation, bool enable = false, bool loop = false);
 	
 	/**
     *  start an animation
@@ -36,6 +36,10 @@ public:
     *  update current animation 
     */
 	void update(Ogre::Real time);
+
+	void animationGoToStart(Ogre::String animationName = "");
+	void animationGoToEnd(Ogre::String animationName = "");
+	bool hasAnimationEnded(Ogre::String animationName = "");
 
 private:
 	Ogre::String activeAnimation;

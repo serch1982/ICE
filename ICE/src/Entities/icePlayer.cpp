@@ -113,8 +113,16 @@ void icePlayer::initPlayer(){
 
 	//init animations
 	iceAnimationPtr = iceAnimationMgrPtr(new iceAnimationMgr());
-	iceAnimationPtr->addAnimation(mesh2->getAnimationState("queja"), true, true); 
-	
+	iceAnimationPtr->addAnimation(mesh2->getAnimationState("anger"));
+	iceAnimationPtr->addAnimation(mesh2->getAnimationState("celebration"));
+	iceAnimationPtr->addAnimation(mesh2->getAnimationState("impact2"));
+	iceAnimationPtr->addAnimation(mesh2->getAnimationState("turn_left"));
+	iceAnimationPtr->addAnimation(mesh2->getAnimationState("turn_right"));
+
+	mIsAnger = false;
+	mIsCelebrating = false;
+	mIsImpact = false;
+	mIsAngerDone = false;
 
 	// Init camera
 	cameraPlaneNode = scrollNode->createChildSceneNode(Ogre::Vector3(0.0,0.0,-CAMERA_PLANE_Z));
@@ -454,6 +462,31 @@ void icePlayer::update(Ogre::Real p_timeSinceLastFrame)
 		}
 	}
 
+	if(mIsAnger)
+	{
+		if(iceAnimationPtr->hasAnimationEnded())
+		{
+			iceAnimationPtr->stopAllAnimations();
+			mIsAnger = false;
+		}
+	}
+	if(mIsCelebrating)
+	{
+		if(iceAnimationPtr->hasAnimationEnded())
+		{
+			iceAnimationPtr->stopAllAnimations();
+			mIsCelebrating = false;
+		}
+	}
+	if(mIsImpact)
+	{
+		if(iceAnimationPtr->hasAnimationEnded())
+		{
+			iceAnimationPtr->stopAllAnimations();
+			mIsImpact = false;
+		}
+	}
+
 	iceAnimationPtr->update(p_timeSinceLastFrame);
 }
 
@@ -480,11 +513,24 @@ void icePlayer::showReceivedDamage(unsigned int p_iDamage, bool p_bCritical)
 	iceDamageTextManager::getSingletonPtr()->showPlayerDamage(icePhysicEntity::getGeometry()->getMovableObject(),p_iDamage,p_bCritical);
 	iceGame::getUI()->getHUD()->setLife(getCurrentLife(),getMaxLife());
 
+	if((Ogre::Real)getCurrentLife()/(Ogre::Real)getMaxLife() < 0.33f)
+	{
+		if(!mIsAngerDone)
+		{
+			anger();
+			mIsAngerDone = true;
+		}
+	}
+	else
+	{
+		mIsAngerDone = false;
+	}
+
 	if((Ogre::Real)p_iDamage/(Ogre::Real)getMaxLife() > 0.2f)
 	{
 		iceGame::getUI()->getHUD()->setFace(2); //Cara de daño recibido
+		impact();
 	}
-
 }
 
 void icePlayer::showShieldDamage(unsigned int p_iDamage, bool p_bCritical)
@@ -517,6 +563,7 @@ void icePlayer::setWeaponLevel(unsigned int p_iWeapon,unsigned int p_iLevel)
 	iceRPG::setWeaponLevel(p_iWeapon, p_iLevel);
 	icePlayerStats::getInstance()->setWeaponLevel(p_iWeapon, p_iLevel);
 	iceGame::getUI()->getHUD()->setWeapon(mCurrentWeapon+1,mWeaponLevel[mCurrentWeapon]);
+	iceGame::getUI()->getHUD()->showWeaponUpgrade(p_iWeapon);
 	if(p_iWeapon == MACHINEGUN)
 	{
 		iceDamageTextManager::getSingletonPtr()->showMinigunLevelUp(icePhysicEntity::getGeometry()->getMovableObject());
@@ -529,6 +576,7 @@ void icePlayer::setWeaponLevel(unsigned int p_iWeapon,unsigned int p_iLevel)
 	{
 		iceDamageTextManager::getSingletonPtr()->showMissileLevelUp(icePhysicEntity::getGeometry()->getMovableObject());
 	}
+	celebrate();
 }
 
 Ogre::Vector3 icePlayer::getPosition(void){
@@ -648,6 +696,7 @@ void icePlayer::setMovingLeft(bool pMovingLeft)
 	if(mMovingLeft) _velocityX = MAX_VELOCITY;
 		
 	mMovingLeft = pMovingLeft;
+	iceAnimationPtr->startAnimation("turn_left");
 }
 
 void icePlayer::setMovingRight(bool pMovingRight)
@@ -655,6 +704,7 @@ void icePlayer::setMovingRight(bool pMovingRight)
 	if(mMovingRight) _velocityX = MAX_VELOCITY;
 
 	mMovingRight = pMovingRight;
+	iceAnimationPtr->startAnimation("turn_right");
 }
 
 bool icePlayer::isPositionBackToPlayer(Ogre::Vector3 pPosition)
@@ -703,4 +753,28 @@ void icePlayer::setInvulnerable(bool invunerable)
 	{
 		mInvulnerableTime = 0;
 	}
+}
+
+void icePlayer::anger()
+{
+	mIsAnger = true;
+	mIsCelebrating = false;
+	mIsImpact = false;
+	iceAnimationPtr->startAnimation("anger");
+}
+
+void icePlayer::celebrate()
+{
+	mIsAnger = false;
+	mIsCelebrating = true;
+	mIsImpact = false;
+	iceAnimationPtr->startAnimation("celebration");
+}
+
+void icePlayer::impact()
+{
+	mIsAnger = false;
+	mIsCelebrating = false;
+	mIsImpact = true;
+	iceAnimationPtr->startAnimation("impact2");
 }
