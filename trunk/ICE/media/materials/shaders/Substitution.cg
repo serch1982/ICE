@@ -1,0 +1,20 @@
+float4 Substitution
+(
+    in float2 texCoord: TEXCOORD0,
+    uniform float4 subsColor,
+	uniform float offset,
+    uniform sampler2D RT,
+    uniform sampler2D SUBS
+) : COLOR
+{
+	float4 render = tex2D(RT, texCoord);
+	float4 subst = tex2D(SUBS, texCoord + (offset/100.0));
+
+	float4 coloret;
+    if (render.r == subsColor.r && render.g == subsColor.g && render.b == subsColor.b)
+		coloret = subst;
+	else 
+		coloret = render;
+	
+	return coloret;
+}
