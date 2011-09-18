@@ -19,7 +19,7 @@
     </resourceLocations>
     <environment>
         <scenemanager name="SceneManager" id="168980992" type="OctreeSceneManager" />
-        <colourAmbient r="0.5" g="0.5" b="0.5" a="1" />
+        <colourAmbient r="0.14902" g="0.14902" b="0.14902" a="1" />
         <skyBox active="true" distance="5000" material="level1SkyBox" />
         <fog mode="exp2" start="500" end="1500" density="0">
             <colour r="0.454902" g="0.764706" b="0.917647" a="1" />
@@ -29,8 +29,8 @@
         </viewport>
         <camera name="intViewCamera1" viewMode="0" polyMode="3" fov="45">
             <clipping near="1" far="10000" />
-            <position x="-2202.89" y="21.4149" z="11509.5" />
-            <rotation qw="-0.973523" qx="-0.00159621" qy="-0.228724" qz="0.00401973" />
+            <position x="-2434.87" y="626.891" z="2559.78" />
+            <rotation qw="-0.902674" qx="-0.0231927" qy="-0.429905" qz="0.0150747" />
         </camera>
     </environment>
     <terrain worldSize="10000" mapSize="129" pagenameprefix="Page" colourmapEnabled="false" colourMapTextureSize="128" tuningCompositeMapDistance="2000" tuningMaxPixelError="3" tuningMinBatchSize="33" tuningMaxBatchSize="65" tuningSkirtSize="10" tuningUseRayBoxDistancealculation="false">
@@ -40,19 +40,13 @@
             <terrainPage name="Page_0000ffff.ogt" pageX="0" pageY="-1" />
         </terrainPages>
     </terrain>
+    <light name="Light#0" id="563219072" type="directional" castShadows="true">
+        <position x="-2709.96" y="505.61" z="2360.97" />
+        <directionVector x="0" y="-0.748956" z="-0.66262" />
+        <colourDiffuse r="0.529412" g="0.796078" b="1" a="1" />
+        <colourSpecular r="0" g="0" b="0" a="1" />
+    </light>
     <nodes>
-        <node name="trajectory2#0" id="864223104">
-            <position x="1107.01" y="-44.1375" z="-1778.48" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.0903487" y="0.0903487" z="0.0903487" />
-            <entity name="trajectory2#0" meshFile="sphere.mesh" castShadows="false">
-                <subentity index="0" materialName="BaseWhite" />
-                <userData>
-                    <property type="2" name="time" data="0" />
-                    <property type="2" name="trajectoryNumber" data="2" />
-                </userData>
-            </entity>
-        </node>
         <node name="Waterfall" id="874782592">
             <position x="1905.63" y="47.7286" z="1655.07" />
             <rotation qw="1" qx="0" qy="0" qz="0" />
@@ -220,6 +214,46 @@
                     <subentity index="0" materialName="Tower" />
                 </entity>
             </node>
+            <node name="streetlight#47" id="166447952">
+                <position x="4981.33" y="-483.279" z="10911.7" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="streetlight#47" meshFile="streetlight.mesh" castShadows="false">
+                    <subentity index="0" materialName="streetlight_material" />
+                </entity>
+            </node>
+            <node name="streetlight#40" id="486587104">
+                <position x="4904.48" y="-483.279" z="10748.6" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="streetlight#40" meshFile="streetlight.mesh" castShadows="false">
+                    <subentity index="0" materialName="streetlight_material" />
+                </entity>
+            </node>
+            <node name="Tower#9" id="627338496">
+                <position x="5249.34" y="-472.32" z="11957.9" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="Tower#9" meshFile="Tower.mesh" castShadows="false">
+                    <subentity index="0" materialName="Tower" />
+                </entity>
+            </node>
+            <node name="streetlight#46" id="315958144">
+                <position x="5011.6" y="-483.279" z="10911.7" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="streetlight#46" meshFile="streetlight.mesh" castShadows="false">
+                    <subentity index="0" materialName="streetlight_material" />
+                </entity>
+            </node>
+            <node name="streetlight#49" id="827326272">
+                <position x="4919" y="-483.279" z="10911.7" />
+                <rotation qw="1" qx="0" qy="0" qz="0" />
+                <scale x="1" y="1" z="1" />
+                <entity name="streetlight#49" meshFile="streetlight.mesh" castShadows="false">
+                    <subentity index="0" materialName="streetlight_material" />
+                </entity>
+            </node>
             <node name="streetlight#45" id="50355540">
                 <position x="5039.42" y="-483.279" z="10911.7" />
                 <rotation qw="1" qx="0" qy="0" qz="0" />
@@ -274,46 +308,6 @@
                 <scale x="1" y="1" z="1" />
                 <entity name="streetlight#41" meshFile="streetlight.mesh" castShadows="false">
                     <subentity index="0" materialName="streetlight_material" />
-                </entity>
-            </node>
-            <node name="streetlight#40" id="486587104">
-                <position x="4904.48" y="-483.279" z="10748.6" />
-                <rotation qw="1" qx="0" qy="0" qz="0" />
-                <scale x="1" y="1" z="1" />
-                <entity name="streetlight#40" meshFile="streetlight.mesh" castShadows="false">
-                    <subentity index="0" materialName="streetlight_material" />
-                </entity>
-            </node>
-            <node name="streetlight#47" id="166447952">
-                <position x="4981.33" y="-483.279" z="10911.7" />
-                <rotation qw="1" qx="0" qy="0" qz="0" />
-                <scale x="1" y="1" z="1" />
-                <entity name="streetlight#47" meshFile="streetlight.mesh" castShadows="false">
-                    <subentity index="0" materialName="streetlight_material" />
-                </entity>
-            </node>
-            <node name="streetlight#49" id="827326272">
-                <position x="4919" y="-483.279" z="10911.7" />
-                <rotation qw="1" qx="0" qy="0" qz="0" />
-                <scale x="1" y="1" z="1" />
-                <entity name="streetlight#49" meshFile="streetlight.mesh" castShadows="false">
-                    <subentity index="0" materialName="streetlight_material" />
-                </entity>
-            </node>
-            <node name="streetlight#46" id="315958144">
-                <position x="5011.6" y="-483.279" z="10911.7" />
-                <rotation qw="1" qx="0" qy="0" qz="0" />
-                <scale x="1" y="1" z="1" />
-                <entity name="streetlight#46" meshFile="streetlight.mesh" castShadows="false">
-                    <subentity index="0" materialName="streetlight_material" />
-                </entity>
-            </node>
-            <node name="Tower#9" id="627338496">
-                <position x="5249.34" y="-472.32" z="11957.9" />
-                <rotation qw="1" qx="0" qy="0" qz="0" />
-                <scale x="1" y="1" z="1" />
-                <entity name="Tower#9" meshFile="Tower.mesh" castShadows="false">
-                    <subentity index="0" materialName="Tower" />
                 </entity>
             </node>
             <node name="Tower#45" id="820001856">
@@ -4117,6 +4111,18 @@
                 <userData>
                     <property type="2" name="time" data="13" />
                     <property type="2" name="trajectoryNumber" data="1" />
+                </userData>
+            </entity>
+        </node>
+        <node name="trajectory2#0" id="864223104">
+            <position x="1107.01" y="-44.1375" z="-1778.48" />
+            <rotation qw="1" qx="0" qy="0" qz="0" />
+            <scale x="0.0903487" y="0.0903487" z="0.0903487" />
+            <entity name="trajectory2#0" meshFile="sphere.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="0" />
+                    <property type="2" name="trajectoryNumber" data="2" />
                 </userData>
             </entity>
         </node>
