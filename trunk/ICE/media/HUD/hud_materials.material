@@ -189,3 +189,51 @@ material HUD/face_4_material
         }
     }	
 }
+
+material HUD/notification_container_material
+{
+    technique
+    {
+        pass
+        {
+			scene_blend alpha_blend
+			
+            texture_unit 
+            {
+                texture hud_notification_container.png
+            }
+        }
+    }	
+}
+
+material HUD/notification_heal_material
+{
+    technique
+    {
+        pass
+        {
+			scene_blend alpha_blend
+			
+            texture_unit 
+            {
+                texture hud_notification_heal.png
+            }
+        }
+    }	
+}
+
+material HUD/notification_sprint_material
+{
+    technique
+    {
+        pass
+        {
+			scene_blend alpha_blend
+			
+            texture_unit 
+            {
+                texture hud_notification_sprint.png
+            }
+        }
+    }	
+}

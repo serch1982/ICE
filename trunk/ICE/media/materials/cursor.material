@@ -17,7 +17,8 @@ material cursor
 			
 			texture_unit
 			{
-				anim_texture cursorAnim1.png cursorAnim2.png cursorAnim3.png 1
+				//anim_texture cursorAnim1.png cursorAnim2.png cursorAnim3.png 1
+				texture cursor.png
 			}
 		}
 	}

@@ -1,0 +1,32 @@
+material level2SkyBox
+{
+
+	technique
+
+	{
+
+		pass
+
+		{
+
+			lighting off
+
+			depth_write on
+
+			fog_override true none
+ 
+			texture_unit
+
+			{
+
+				cubic_texture level2_skybox.jpg separateUV
+
+				tex_address_mode clamp
+
+			}
+
+		}
+
+	}
+
+}

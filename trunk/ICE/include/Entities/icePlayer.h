@@ -86,6 +86,10 @@ class icePlayer : public iceTrajectoryFollower
 
 		bool isInvulnerable(void);
 		void setInvulnerable(bool invunerable = true);
+
+		void anger();
+		void celebrate();
+		void impact();
 	protected:
 
 		bool mMovingUp;
@@ -143,6 +147,10 @@ class icePlayer : public iceTrajectoryFollower
 
 		// Animations
 		iceAnimationMgrPtr iceAnimationPtr;
+		bool mIsAnger;
+		bool mIsCelebrating;
+		bool mIsImpact;
+		bool mIsAngerDone;
 };
 
 typedef boost::shared_ptr<icePlayer> icePlayerPtr;

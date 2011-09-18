@@ -149,6 +149,7 @@ void icePhysics::processObjectCollision(void){
 					Ogre::Vector3 initPos = mPlayer->getShipPosition();
 					if( initPos.z <= 1 && initPos.z > DEFAULT_RETURN_SHIP_MAX){
 						mPlayer->setShipTranslate(Ogre::Vector3(0, 0,-DEFAULT_RETURN_SHIP));
+						mPlayer->impact();
 					}
 					mPlayer->setInvulnerable();
 				}

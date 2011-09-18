@@ -19,7 +19,7 @@ material level1SkyBox
 
 			{
 
-				cubic_texture ICE_rt.tga ICE_lf.tga ICE_bk.tga ICE_ft.tga ICE_up.tga ICE_dn.tga separateUV
+				cubic_texture level1_skybox.jpg separateUV
 
 				tex_address_mode clamp
 
