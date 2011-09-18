@@ -234,9 +234,9 @@ bool iceStateManager::keyPressed(const OIS::KeyEvent &arg) {
     {
         Ogre::TextureManager::getSingleton().reloadAll();
     }
-    else if (arg.key == OIS::KC_SYSRQ)   // take a screenshot
+    else if (arg.key == OIS::KC_SYSRQ || arg.key == OIS::KC_F12)   // take a screenshot
     {
-        iceGame::getRenderWindow()->writeContentsToTimestampedFile("screenshot", ".jpg");
+        iceGame::getRenderWindow()->writeContentsToTimestampedFile("screenshots/ICE-screenshot", ".png");
     }else if (arg.key == OIS::KC_F1)
     {
 		icePostProcessManager::getSingleton().disableBlur();
