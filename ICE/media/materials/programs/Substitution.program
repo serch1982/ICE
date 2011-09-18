@@ -1,0 +1,23 @@
+fragment_program SubstitutionFS cg
+{
+	source Substitution.cg
+	entry_point Substitution
+	profiles ps_2_0 arbfp1
+
+	default_params
+	{
+		param_named subsColor float4 1.0 0.0 0.0 1.0
+	}
+}
+
+vertex_program Ogre/Compositor/StdQuad_Cg_vp cg
+{
+	source StdQuad_vp.cg
+	entry_point StdQuad_vp
+	profiles vs_1_1 arbvp1
+
+	default_params
+	{
+		param_named_auto worldViewProj worldviewproj_matrix
+	}
+}

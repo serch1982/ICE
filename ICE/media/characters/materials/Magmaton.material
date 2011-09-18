@@ -1,35 +1,54 @@
+vertex_program ToonmagmaVP cg
+{
+	source ToonMagma.cg
+	entry_point toonmagma_vp
+	profiles vs_2_0 arbvp1
+
+	default_params
+	{
+		param_named_auto LightPosition light_position_object_space 0
+		param_named_auto EyePosition camera_position_object_space
+		param_named_auto WorldViewProj worldviewproj_matrix
+	}
+}
+
+fragment_program ToonmagmaFP cg
+{
+	source ToonMagma.cg
+	entry_point toonmagma_fp
+	profiles ps_2_0 arbfp1 fp20
+	
+	default_params
+  {
+    param_named_auto ambientLightColour ambient_light_colour
+    param_named_auto diffuseLightColour light_diffuse_colour 0
+    param_named_auto specularLightColour light_specular_colour 0
+  }
+}
+
 
 material Magmaton
 {
-	technique Toon
-	{
+	technique MagmaToon
+	{	
 		pass
 		{
-			vertex_program_ref ToonVP
+			fragment_program_ref SubstitutionFS
 			{
-				param_named shininess float4 3 1.0 1.0 1.0
+				param_named_auto offset time
 			}
-
-			fragment_program_ref ToonFP
-			{
-				param_named ambient float4 0.0 0.0 0.0 1.0
-				param_named diffuse float4 0.244 0.244 0.244 1
-				param_named specular float4 0.0 0.0 0.0 1
-				param_named emissive float4 0.0 0.0 0.0 1
-			}
-
-			texture_unit ToonShades
-			{
-				texture toon.png 2d
-				tex_address_mode clamp
-				filtering none
-			}
+			
 			texture_unit
 			{
 				texture Magmaton.png
 			}
-		}
-
+			
+			texture_unit
+			{
+				texture lava8.jpg
+			}
+		}		
+		
 		// Black outline
 		pass
 		{
@@ -44,7 +63,4 @@ material Magmaton
 			}		
 		}
 	}
-
 }
-
-
