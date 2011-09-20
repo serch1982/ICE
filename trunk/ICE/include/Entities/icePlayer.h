@@ -151,6 +151,9 @@ class icePlayer : public iceTrajectoryFollower
 		bool mIsCelebrating;
 		bool mIsImpact;
 		bool mIsAngerDone;
+
+		Ogre::Real mSprintCountDown;
+		Ogre::Real mBrakeCountDown;
 };
 
 typedef boost::shared_ptr<icePlayer> icePlayerPtr;

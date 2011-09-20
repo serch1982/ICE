@@ -1,7 +1,8 @@
 #include "Entities\iceRPG.h"
 #include "Sound\iceSoundManager.h"
+#include "iceGame.h"
 
-#define HEAL_COUNTDOWN_TIME 0
+#define HEAL_COUNTDOWN_TIME 5
 
 iceRPG::iceRPG(void)
 {
@@ -203,7 +204,12 @@ void iceRPG::update(Ogre::Real p_fFrameTime)
 		mShieldEnergy += (unsigned int)(10*mShieldLevel*p_fFrameTime);
 	if(mShieldEnergy > getMaxShieldEnergy())
 		mShieldEnergy = getMaxShieldEnergy();
-	mHealCountDown -= p_fFrameTime;
+	if(mHealCountDown>0)
+	{
+		mHealCountDown -= p_fFrameTime;
+		if(mHealCountDown<=0)
+			iceGame::getUI()->getHUD()->showHealAvailable();
+	}
 }
 
 void iceRPG::heal(void)
@@ -214,6 +220,7 @@ void iceRPG::heal(void)
 		heal += (unsigned int) getModifierByLuck(-(Ogre::Real)heal/10,(Ogre::Real)heal/10);
 		addLife((unsigned int) heal);
 		mHealCountDown = HEAL_COUNTDOWN_TIME;
+		iceGame::getUI()->getHUD()->hideHealAvailable();
 	}
 }
 
