@@ -1,10 +1,11 @@
 
-material crashboom
+material ice/crashboom
 {
 	technique
 	{
 		pass
 		{
+			lighting off
 			scene_blend alpha_blend
 			depth_write off
 

@@ -63,4 +63,30 @@ system ice/iceMisilTurbo
             gravity                             10
         }
     }
+    technique 
+    {
+        emitted_emitter_quota                   10
+        material                                ice/smokewhite
+        default_particle_width                  5
+        default_particle_height                 5
+        default_particle_depth                  5
+        spatial_hashing_cell_dimension          1
+        renderer                                Billboard
+        {
+        }
+        emitter                                 Point 
+        {
+            angle                               0
+            time_to_live                        4
+            velocity                            30
+            auto_direction                      true
+        }
+        affector                                Scale 
+        {
+            xyz_scale                           -3
+        }
+        affector                                Jet Affector2
+        {
+        }
+    }
 }

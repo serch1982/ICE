@@ -6,13 +6,13 @@ iceBillboard::iceBillboard(Ogre::SceneNode* sceneNode, float lifeTime,BillType b
 	Ogre::BillboardSet* billboard = iceGame::getSceneManager()->createBillboardSet();
 	switch (billtype){
 		case DEAD1:
-			billboard->setMaterialName("crashpff");
+			billboard->setMaterialName("ice/crashpff");
 			billboard->createBillboard(0,0,0);
 			_sceneNode->attachObject(billboard);
 			_sceneNode->setScale(0.2,0.2,0.2);
 			break;
 		case DEAD2:
-			billboard->setMaterialName("crashboom");
+			billboard->setMaterialName("ice/crashboom");
 			billboard->createBillboard(0,0,0);
 			_sceneNode->attachObject(billboard);
 			_sceneNode->setScale(0.2,0.2,0.2);

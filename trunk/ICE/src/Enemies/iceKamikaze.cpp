@@ -55,7 +55,7 @@ void iceKamikaze::update(Ogre::Real p_timeSinceLastFrame){
 	switch(mState)
 	{
 		case STOPPED:
-			mRenewTarget = 50;
+			mRenewTarget = 10;
 			mTrajectory->lookAt();
 			break;
 		case ATTACK: 
@@ -64,7 +64,8 @@ void iceKamikaze::update(Ogre::Real p_timeSinceLastFrame){
 			mRenewTarget--;
 			if( mRenewTarget == 0 ){
 				mTrajectory->lookAt();
-				mRenewTarget = 50;
+				mRenewTarget = 10;
+				enemyNode->translate(mIceStrategy->move(enemyNode->_getDerivedPosition(),1) * p_timeSinceLastFrame);
 				/*Ogre::Vector3 playerPos;
 				Ogre::Vector3 kamikazePos;
 				//Get Player position relative to his parent
@@ -113,9 +114,11 @@ void iceKamikaze::setState(ENEMYSTATE p_iState){
 			break;
 		case DYING:
 			mAnimDyingTicks = 0;
+			enemyNode->setVisible(false);
 			mBillboard->start(enemyNode->_getDerivedPosition());
 			break;
 		case DEAD:
+			enemyNode->setVisible(false);
 			giveExperieceToPlayer();
 		default:
 			break;
@@ -124,7 +127,4 @@ void iceKamikaze::setState(ENEMYSTATE p_iState){
 
 void iceKamikaze::showReceivedDamage(unsigned int p_iDamage, bool p_bCritical){
 	iceEnemy::showReceivedDamage(p_iDamage, p_bCritical);
-	if(!isAlive()){
-		enemyNode->setVisible(false);
-	}
 }

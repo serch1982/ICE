@@ -21,7 +21,7 @@ public:
 	virtual void changeDirection(void);
 
 private:
-	iceParticlePtr mParticleBoom;
+	iceParticlePtr mParticleFire;
 	iceStrategyPtr mIceStrategySmart;
 	float _renew, _count;
 };

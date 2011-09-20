@@ -37,38 +37,6 @@ void iceAnimationMgr::update(Ogre::Real time){
 	}
 }
 
-void iceAnimationMgr::animationGoToStart(Ogre::String animationName)
-{
-	if(animationName == "")
-	{
-		if(activeAnimation == "")
-		{
-			return;
-		}
-		else
-		{
-			animationName = activeAnimation;
-		}
-	}
-	mAnimations[animationName]->setTimePosition(0);
-}
-
-void iceAnimationMgr::animationGoToEnd(Ogre::String animationName)
-{
-	if(animationName == "")
-	{
-		if(activeAnimation == "")
-		{
-			return;
-		}
-		else
-		{
-			animationName = activeAnimation;
-		}
-	}
-	mAnimations[animationName]->setTimePosition(mAnimations[animationName]->getLength());
-}
-
 bool iceAnimationMgr::hasAnimationEnded(Ogre::String animationName)
 {
 		if(animationName == "")
@@ -83,4 +51,10 @@ bool iceAnimationMgr::hasAnimationEnded(Ogre::String animationName)
 		}
 	}
 	return mAnimations[animationName]->hasEnded();
+}
+
+
+Ogre::String iceAnimationMgr::getNameCurrentAnimation()
+{
+	return activeAnimation;
 }

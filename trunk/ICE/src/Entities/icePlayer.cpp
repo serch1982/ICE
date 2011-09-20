@@ -102,14 +102,15 @@ void icePlayer::initPlayer(){
 
 	//CUIDADO! EL NODO PARA ATACHAR COSAS PARA LA NAVE ES rollNode
 
-	//particles
-	mParticleTurboLeft = iceParticleMgr::getSingletonPtr()->createPartAttachToObject(rollNode, Ogre::Vector3(1.1,-0.1,-.2),"ice/icePlayerTurbo",true);
-	mParticleTurboRight = iceParticleMgr::getSingletonPtr()->createPartAttachToObject(rollNode, Ogre::Vector3(-1.1,-0.1,-.2),"ice/icePlayerTurbo",true);
-
 	Ogre::Entity* mesh2 = sceneManager->createEntity("shipMesh", "airplane.mesh");
 	mesh2->setCastShadows(true);
 	rollNode->attachObject(mesh2);
-	//shipNode->scale(0.1,0.1,0.1);
+	
+	//particles
+	mParticleTurboLeft = iceParticleMgr::getSingletonPtr()->createPartAttachToBone(mesh2,"turbo_right","ice/icePlayerTurbo",true); 
+	//iceParticleMgr::getSingletonPtr()->createPartAttachToObject(rollNode, Ogre::Vector3(1.1,-0.1,-.2),"ice/icePlayerTurbo",true);
+	mParticleTurboRight =  iceParticleMgr::getSingletonPtr()->createPartAttachToBone(mesh2,"turbo_left","ice/icePlayerTurbo",true); 
+	//iceParticleMgr::getSingletonPtr()->createPartAttachToObject(rollNode, Ogre::Vector3(-1.1,-0.1,-.2),"ice/icePlayerTurbo",true);
 
 	//init animations
 	iceAnimationPtr = iceAnimationMgrPtr(new iceAnimationMgr());
@@ -306,10 +307,16 @@ void icePlayer::updateLookAt(Ogre::Real frameTime)
 	if(mMovingLeft){
 		_rolling = _rolling - rollVelocity;
 		if(_rolling < -MAX_ROLL) _rolling  = -MAX_ROLL;
+		if ((_rolling < -(MAX_ROLL / 2)) && (iceAnimationPtr->getNameCurrentAnimation() != "turn_left")) {
+			iceAnimationPtr->startAnimation("turn_left");
+		}
 	}
 	if(mMovingRight){
 		_rolling = _rolling + rollVelocity;
 		if(_rolling > MAX_ROLL) _rolling  = MAX_ROLL;
+		if ((_rolling > (MAX_ROLL / 2)) && (iceAnimationPtr->getNameCurrentAnimation() != "turn_right")) {
+			iceAnimationPtr->startAnimation("turn_right");
+		}
 	}
 	if ((!mMovingRight) && (!mMovingLeft)){
 		if(_rolling != 0)
@@ -694,17 +701,13 @@ void icePlayer::setMovingDown(bool pMovingDown)
 void icePlayer::setMovingLeft(bool pMovingLeft)
 {
 	if(mMovingLeft) _velocityX = MAX_VELOCITY;
-		
 	mMovingLeft = pMovingLeft;
-	iceAnimationPtr->startAnimation("turn_left");
 }
 
 void icePlayer::setMovingRight(bool pMovingRight)
 {
 	if(mMovingRight) _velocityX = MAX_VELOCITY;
-
 	mMovingRight = pMovingRight;
-	iceAnimationPtr->startAnimation("turn_right");
 }
 
 bool icePlayer::isPositionBackToPlayer(Ogre::Vector3 pPosition)

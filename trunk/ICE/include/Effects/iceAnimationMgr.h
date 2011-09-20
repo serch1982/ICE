@@ -36,11 +36,17 @@ public:
     *  update current animation 
     */
 	void update(Ogre::Real time);
-
-	void animationGoToStart(Ogre::String animationName = "");
-	void animationGoToEnd(Ogre::String animationName = "");
+	
+	
+	/**
+    *  the animation has ended
+    */
 	bool hasAnimationEnded(Ogre::String animationName = "");
 
+	/**
+    *  get hte name of the current animation
+    */
+	Ogre::String getNameCurrentAnimation();
 private:
 	Ogre::String activeAnimation;
 	std::map<Ogre::String,Ogre::AnimationState*> mAnimations;

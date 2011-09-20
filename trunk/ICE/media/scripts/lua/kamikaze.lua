@@ -5,7 +5,7 @@ function KamikazeLogic( pEnemy )
 -- 	STOPPED
 	if pEnemy:getState() == enemy.STOPPED then
 		ra = pEnemy:rangeAttack()
-		if pEnemy:isActive() and (ra  < 900) then
+		if pEnemy:isActive() and (ra  < 1500) then
 			pEnemy:setState(enemy.ATTACK)
 		elseif not pEnemy:isAlive() then
 			pEnemy:setState(enemy.INACTIVE)

@@ -1,0 +1,22 @@
+
+material ice/smokeblack
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			scene_blend alpha_blend
+			depth_check off
+			depth_write off
+
+			texture_unit smokeblack.png
+			{
+				texture_alias smokeblack.png
+				texture smokeblack.png
+			}
+		}
+
+	}
+
+}
