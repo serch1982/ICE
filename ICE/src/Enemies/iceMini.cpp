@@ -37,7 +37,6 @@ bool iceMini::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActivat
 
 	//particles
 	mParticleFire = iceParticleMgr::getSingletonPtr()->createPartAttachToBone(mesh,"right_tibia","ice/fireDown",false);
-	mParticleBoom = iceParticleMgr::getSingletonPtr()->createPartAttachToObject(enemyNode,"ice/boom",false);
 
 	//strategy 
 	srand(time(NULL));
@@ -51,7 +50,6 @@ bool iceMini::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActivat
 
 void iceMini::finalize(){
 	mIceStrategyMini.reset();
-	iceParticleMgr::getSingletonPtr()->removeParticle(mParticleBoom);
 	iceParticleMgr::getSingletonPtr()->removeParticle(mParticleFire);
 	iceEnemy::finalize();
 }
@@ -126,6 +124,7 @@ void iceMini::setState(ENEMYSTATE p_iState){
 			mBillboard->start(enemyNode->_getDerivedPosition());
 			break;
 		case DEAD:
+			enemyNode->setVisible(false);
 			giveExperieceToPlayer();
 			break;
 		default:
@@ -135,8 +134,10 @@ void iceMini::setState(ENEMYSTATE p_iState){
 
 void iceMini::showReceivedDamage(unsigned int p_iDamage, bool p_bCritical){
 	iceEnemy::showReceivedDamage(p_iDamage, p_bCritical);
-	if(!mParticleBoom->isPlay() && !isAlive()){
+	if(!isAlive()){
 		enemyNode->setVisible(false);
-		mParticleBoom->start();
+		Ogre::SceneNode* node = iceGame::getSceneManager()->getRootSceneNode()->createChildSceneNode(enemyNode->getName() + "_exp");
+		node->setPosition(enemyNode->_getDerivedPosition());
+		iceParticleMgr::getSingletonPtr()->createParticle(node, "ice/crashboom");	
 	}
 }

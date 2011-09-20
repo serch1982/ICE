@@ -7,6 +7,7 @@
 #define DEFAULT_RETURN_SHIP 4
 #define DEFAULT_RETURN_SHIP_MAX -16
 
+Ogre::RaySceneQuery*  mRaySceneQuery;
 icePhysics::icePhysics(void)
 {
 }
@@ -15,15 +16,16 @@ icePhysics::~icePhysics(void)
 {
 	mEnemies->clear();
 	mObjects.clear();
+	delete mRaySceneQuery;
 }
 
 void icePhysics::initialize(Ogre::TerrainGroup* terrainGroup,  std::vector<iceEnemy*>* p_Enemies, std::vector<iceObject*> p_Objects)
 {
+	mRaySceneQuery = iceGame::getSceneManager()->createRayQuery(Ogre::Ray());
 	mEnemies = p_Enemies;
 	mObjects = p_Objects;
 	mTerrainGroup = terrainGroup;
 	mPlayer = icePlayer::getSingletonPtr();
-	
 	mLog = iceGame::getGameLog();
 }
 
@@ -87,11 +89,12 @@ void icePhysics::processTerrainCollision(void){
 	Ogre::Ray playerRayNY(posp, Ogre::Vector3::NEGATIVE_UNIT_Y);
 	
 	//detect collision between the player and the terrain
-	Ogre::TerrainGroup::RayResult mResult =mTerrainGroup->rayIntersects(playerRayNY,dis); 
+	Ogre::TerrainGroup::RayResult mResult =  mTerrainGroup->rayIntersects(playerRayNY,dis); 
 	
 	if (!mResult.hit){
 		Ogre::Vector3 initPos = mPlayer->getShipPosition();
-		iceSdkTray::getInstance()->updateScreenInfo( 18, Ogre::StringConverter::toString(initPos.x) + " - " + Ogre::StringConverter::toString(initPos.y)+ " - " + Ogre::StringConverter::toString(initPos.z));
+		iceSdkTray::getInstance()->updateScreenInfo( 18, Ogre::StringConverter::toString(mResult.position.x) + " - " + Ogre::StringConverter::toString(mResult.position.y)+ " - " + Ogre::StringConverter::toString(mResult.position.z));
+		//iceSdkTray::getInstance()->updateScreenInfo( 18, Ogre::StringConverter::toString(initPos.x) + " - " + Ogre::StringConverter::toString(initPos.y)+ " - " + Ogre::StringConverter::toString(initPos.z));
 
 		if(initPos.x > 0) xgap = -xgap;
 		if((initPos.x > -5) && (initPos.x < 5)){
@@ -125,13 +128,23 @@ void icePhysics::processObjectCollision(void){
 	Ogre::AxisAlignedBox pbox = mPlayer->getGeometry()->getWorldBoundingBox(mPlayer->getPosition());
 	
 	//collions with objects
+	Ogre::Ray ray(mPlayer->getPosition(), iceGame::getCamera()->getDerivedDirection());
+	mRaySceneQuery->setRay(ray);
+	Ogre::RaySceneQueryResult &result = mRaySceneQuery->execute();
+	Ogre::RaySceneQueryResult::iterator itr;
 	for( unsigned j = 0; j < mObjects.size(); j++){
-		Ogre::AxisAlignedBox obox = ((iceObject*)(mObjects)[j])->getBox();
-		if(pbox.intersects(obox)){
-			if(!mPlayer->isInvulnerable())
-			{
-				mPlayer->addDamage(DEFAULT_DAMAGE_WALL,false);
-				mPlayer->setInvulnerable();
+		iceObject* obj = ((iceObject*)(mObjects)[j]);
+		for (itr = result.begin(); itr != result.end(); itr++) {
+			if (itr->movable->getName().compare(obj->getName()) == 0 && itr->distance<10) {
+				if(!mPlayer->isInvulnerable())
+				{
+					mPlayer->addDamage(DEFAULT_DAMAGE_WALL,false);
+					Ogre::Vector3 initPos = mPlayer->getShipPosition();
+					if( initPos.z <= 1 && initPos.z > DEFAULT_RETURN_SHIP_MAX){
+						mPlayer->setShipTranslate(Ogre::Vector3(0, 0,-DEFAULT_RETURN_SHIP));
+						mPlayer->impact();
+					}
+				}
 			}
 		}
 	}

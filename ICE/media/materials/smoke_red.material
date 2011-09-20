@@ -1,5 +1,5 @@
 
-material ice/crashpff
+material ice/smokered
 {
 	technique
 	{
@@ -9,10 +9,10 @@ material ice/crashpff
 			scene_blend alpha_blend
 			depth_write off
 
-			texture_unit crashpff.png
+			texture_unit smokered.png
 			{
-				texture_alias crashpff.png
-				texture crashpff.png
+				texture_alias smokered.png
+				texture smokered.png
 			}
 		}
 

@@ -1,4 +1,4 @@
-system ice/boom
+system ice/crashboom
 {
     fixed_timeout                               10
     iteration_interval                          0.1
@@ -6,17 +6,15 @@ system ice/boom
     category                                    ice
     technique 
     {
-        keep_local                              true
         visual_particle_quota                   10
         emitted_emitter_quota                   10
         emitted_system_quota                    100
-        material                                crashpff
+        material                                ice/crashpff
         default_particle_width                  5
         default_particle_height                 5
-        default_particle_depth                  10
+        default_particle_depth                  5
         renderer                                Billboard
         {
-            render_queue_group                  10
         }
         emitter                                 Circle 
         {
@@ -25,15 +23,13 @@ system ice/boom
                 min                             0
                 max                             -90
             }
-            time_to_live                        2
-            mass                                20
+            time_to_live                        4
             velocity                            dyn_random
             {
-                min                             40
-                max                             80
+                min                             20
+                max                             40
             }
-            duration                            1
-            keep_local                          true
+            duration                            4
             orientation                         0 0 1 0
             radius                              10
         }
@@ -45,17 +41,15 @@ system ice/boom
     }
     technique 
     {
-        keep_local                              true
         visual_particle_quota                   10
         emitted_emitter_quota                   10
         emitted_system_quota                    100
-        material                                crashboom
+        material                                ice/crashboom
         default_particle_width                  5
         default_particle_height                 5
-        default_particle_depth                  10
+        default_particle_depth                  5
         renderer                                Billboard
         {
-            render_queue_group                  10
         }
         emitter                                 Circle 
         {
@@ -64,14 +58,13 @@ system ice/boom
                 min                             0
                 max                             -90
             }
-            time_to_live                        2
-            mass                                20
+            time_to_live                        4
             velocity                            dyn_random
             {
-                min                             40
-                max                             80
+                min                             20
+                max                             40
             }
-            duration                            1
+            duration                            4
             orientation                         0 0 1 0
             radius                              10
         }

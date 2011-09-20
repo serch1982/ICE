@@ -1,0 +1,77 @@
+system smoke
+{
+    category                                    ice
+    technique 
+    {
+        visual_particle_quota                   8
+        emitted_emitter_quota                   8
+        emitted_technique_quota                 8
+        emitted_affector_quota                  8
+        emitted_system_quota                    8
+        material                                ice/smokered
+        default_particle_width                  200
+        default_particle_height                 200
+        default_particle_depth                  200
+        renderer                                Billboard
+        {
+        }
+        emitter                                 Circle 
+        {
+            angle                               dyn_random
+            {
+                min                             20
+                max                             90
+            }
+            velocity                            1
+            duration                            3
+            radius                              40
+            step                                1
+        }
+        affector                                Scale Affector122
+        {
+            xyz_scale                           -20
+        }
+    }
+    technique 
+    {
+        visual_particle_quota                   20
+        emitted_emitter_quota                   5
+        emitted_technique_quota                 5
+        emitted_affector_quota                  5
+        emitted_system_quota                    5
+        material                                ice/smokeblack
+        renderer                                Billboard
+        {
+            render_queue_group                  40
+        }
+        emitter                                 Circle 
+        {
+            angle                               dyn_random
+            {
+                min                             20
+                max                             90
+            }
+            velocity                            dyn_random
+            {
+                min                             2
+                max                             4
+            }
+            duration                            3
+            radius                              25
+            step                                1
+        }
+        affector                                LinearForce Affector121
+        {
+            position                            0 1 0
+            force_vector                        0 10 0
+        }
+        affector                                Scale Affector122
+        {
+            xyz_scale                           dyn_random
+            {
+                min                             20
+                max                             40
+            }
+        }
+    }
+}

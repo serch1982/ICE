@@ -18,6 +18,7 @@ iceEnemy::~iceEnemy()
 {
 	if(mIceStrategy) mIceStrategy.reset();
 	if(iceAnimationPtr) iceAnimationPtr.reset();
+	icePhysicEntity::finalizePhysics();
 }
 
 void iceEnemy::setState(ENEMYSTATE p_iState)

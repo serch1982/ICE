@@ -27,7 +27,7 @@ bool iceSmart::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActiva
 	enemyNode->attachObject(getGeometry()->getMovableObject());
 
 	//particles
-	mParticleBoom = iceParticleMgr::getSingletonPtr()->createPartAttachToObject(enemyNode,"ice/boom",false);
+	//mParticleBoom = iceParticleMgr::getSingletonPtr()->createPartAttachToObject(enemyNode,"smoke",false);
 
 	//strategy 
 	srand(time(NULL));
@@ -43,7 +43,6 @@ bool iceSmart::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActiva
 
 void iceSmart::finalize(){
 	mIceStrategySmart.reset();
-	iceParticleMgr::getSingletonPtr()->removeParticle(mParticleBoom);
 	iceEnemy::finalize();
 }
 
@@ -77,10 +76,13 @@ void iceSmart::update(Ogre::Real p_timeSinceLastFrame){
 			shot();
 			break;
 		case DYING:
-			mBillboard->start(enemyNode->_getDerivedPosition());
+			enemyNode->setVisible(false);
 			iceGame::getGameLog()->logMessage("Enemy killed!");
 			giveExperieceToPlayer();
 			mAnimDyingTicks++;
+			break;
+		case DEAD:
+			enemyNode->setVisible(false);
 			break;
 		case INACTIVE:
 			if(checkActivationTime(p_timeSinceLastFrame))
@@ -106,8 +108,11 @@ std::string iceSmart::getFunctionStr(){
 
 void iceSmart::showReceivedDamage(unsigned int p_iDamage, bool p_bCritical){
 	iceEnemy::showReceivedDamage(p_iDamage, p_bCritical);
-	if(!mParticleBoom->isPlay() && !isAlive()){
-		enemyNode->setVisible(false);
-		mParticleBoom->start();
+	if(!isAlive()){
+		Ogre::SceneNode* node = iceGame::getSceneManager()->getRootSceneNode()->createChildSceneNode(enemyNode->getName() + "_exp");
+		node->setPosition(enemyNode->_getDerivedPosition());
+		Ogre::Vector3 scale(.09,.09,.09);
+		node->scale(scale);
+		iceParticleMgr::getSingletonPtr()->createParticle(node, "smoke",scale);	
 	}
 }
