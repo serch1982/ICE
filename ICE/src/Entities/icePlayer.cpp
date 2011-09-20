@@ -39,6 +39,9 @@
 
 #define LOOK_AT_FAR_FACTOR 1000
 
+#define SPRINT_COUNTDOWN_TIME 5
+#define BRAKE_COUNTDOWN_TIME 5
+
 // BEGIN SINGLETON
 template<> icePlayer* Ogre::Singleton<icePlayer>::ms_Singleton = 0;
 
@@ -88,7 +91,7 @@ void icePlayer::initPlayer(){
 	cursorSet->setMaterialName("cursor");
 	Ogre::Billboard* cursorBillboard = cursorSet->createBillboard(0,0,0);
 	cursorNode->attachObject(cursorSet);	
-	cursorNode->scale(.09,.09,.09);	
+	cursorNode->scale(.1,.1,.1);	
 
 	//Init Ship
 	shipPlaneNode = scrollNode->createChildSceneNode(Ogre::Vector3(0.0,-CAMERA_ADDED_Y,0.0));
@@ -156,6 +159,9 @@ void icePlayer::initPlayer(){
 	mInvulnerableTime = 0;
 	mBlinkTime = 0;
 	mBlinkVisible = true;
+
+	mSprintCountDown = 0;
+	mBrakeCountDown = 0;
 }
 
 Ogre::AxisAlignedBox icePlayer::getVitualCamBBox(void) {
@@ -411,6 +417,21 @@ void icePlayer::update(Ogre::Real p_timeSinceLastFrame)
 		icePostProcessManager::getSingleton().enableSoftBlur();
 	}
 
+	if(mSprintCountDown > 0)
+	{
+		mSprintCountDown -= p_timeSinceLastFrame;
+		if(mSprintCountDown <= 0)
+			iceGame::getUI()->getHUD()->showSprintAvailable();
+
+	}
+
+	if(mBrakeCountDown > 0)
+	{
+		mBrakeCountDown -= p_timeSinceLastFrame;
+		if(mBrakeCountDown <= 0)
+			iceGame::getUI()->getHUD()->showBrakeAvailable();
+	}
+
 	iceTrajectoryFollower::update(trajectoryUpdate);
 	if(mLeftBarrelTime > 0)
 	{
@@ -636,21 +657,25 @@ void icePlayer::barrelRight(void)
 
 void icePlayer::sprint(void)
 {
-	if(mSprintTime <= 0)
+	if(mSprintCountDown <= 0 && mSprintTime <= 0)
 	{
 		mSprintTime = SPRINT_TIME;
+		mSprintCountDown = SPRINT_COUNTDOWN_TIME;
 		mBrakeTime = 0; //deactivate brake
 		icePostProcessManager::getSingleton().enableHardBlur();
+		iceGame::getUI()->getHUD()->hideSprintAvailable();
 	}
 }
 
 void icePlayer::brake(void)
 {
-	if(mBrakeTime <= 0)
+	if(mBrakeCountDown <= 0 && mBrakeTime <= 0)
 	{
 		mBrakeTime = BRAKE_TIME;
+		mBrakeCountDown = BRAKE_COUNTDOWN_TIME;
 		mSprintTime = 0; //deactivate sprint
 		icePostProcessManager::getSingleton().disableBlur();
+		iceGame::getUI()->getHUD()->hideBrakeAvailable();
 	}
 }
 

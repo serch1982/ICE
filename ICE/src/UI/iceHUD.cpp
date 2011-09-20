@@ -2,6 +2,7 @@
 #include "iceGame.h"
 
 #define SHOW_NOTIFICATION_TIME 2
+#define SHOW_FRAME_TIME 1
 
 iceHUD::iceHUD()
 {
@@ -41,6 +42,7 @@ void iceHUD::init(iceStateManager* pStateManager)
 	mWeaponPicturePanels.push_back(static_cast<Ogre::PanelOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/weapon_3_picture_panel")));
 
 	mPlayerNameTextarea = static_cast<Ogre::TextAreaOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/player_name_text"));
+	mLevelWordTextarea = static_cast<Ogre::TextAreaOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/level_word_text"));
 	mLevelTextarea = static_cast<Ogre::TextAreaOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/player_level_text"));
 
 	mFacesPanels.push_back(static_cast<Ogre::PanelOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/face_1_panel")));
@@ -51,9 +53,14 @@ void iceHUD::init(iceStateManager* pStateManager)
 	mNotificationsPanel = static_cast<Ogre::PanelOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/notification_container_panel"));
 	mHealNotificationPanel = static_cast<Ogre::PanelOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/notification_heal_panel"));
 	mSprintNotificationPanel = static_cast<Ogre::PanelOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/notification_sprint_panel"));
+	mBrakeNotificationPanel = static_cast<Ogre::PanelOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/notification_brake_panel"));
 	mWeaponNotificationPanels.push_back(static_cast<Ogre::PanelOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/notification_weapon_1_panel")));
 	mWeaponNotificationPanels.push_back(static_cast<Ogre::PanelOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/notification_weapon_2_panel")));
 	mWeaponNotificationPanels.push_back(static_cast<Ogre::PanelOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/notification_weapon_3_panel")));
+
+	mDisplayHealPanel = static_cast<Ogre::PanelOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/heal_availability_container"));
+	mDisplaySprintPanel = static_cast<Ogre::PanelOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/sprint_availability_container"));
+	mDisplayBrakePanel = static_cast<Ogre::PanelOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/brake_availability_container"));
 
 	mAchievementPanel = static_cast<Ogre::PanelOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/achievements_panel"));
 	mAchievementTextarea = static_cast<Ogre::TextAreaOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/achievements_text"));
@@ -61,6 +68,15 @@ void iceHUD::init(iceStateManager* pStateManager)
 	mLifeBarPanel = static_cast<Ogre::PanelOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/life_bar_panel"));
 	mMaxLifeBarWidth = mLifeBarPanel->getWidth();
 	mLifeBarLeftMargin = mLifeBarPanel->getLeft();
+
+	mTopFramePanel = static_cast<Ogre::PanelOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/frame_top"));
+	mBottomFramePanel = static_cast<Ogre::PanelOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/frame_bottom"));
+
+	mFrameHeight = mTopFramePanel->getHeight();
+	mTopFramePanel->hide();
+	mBottomFramePanel->hide();
+	mShowingFrameTime = 0;
+	mHidingFrameTime = 0;
 
 	for(unsigned int i=0;i<mWeaponPicturePanels.size();i++)
 	{
@@ -74,6 +90,9 @@ void iceHUD::init(iceStateManager* pStateManager)
 	}
 	
 	hideAllNotifications();
+	//mDisplayHealPanel->hide();
+	//mDisplaySprintPanel->hide();
+	//mDisplayBrakePanel->hide();
 
 	mCurrentFace = 1;
 	_showFace(1);
@@ -128,6 +147,7 @@ void iceHUD::update(Ogre::Real pTimeSinceLastFrame)
 	//{
 		//setWeapon(1,1);
 		mPlayerNameTextarea->setCaption("SCOTT");
+		mLevelWordTextarea->setCaption("level");
 		setWeapon(mPlayer->getCurrentWeapon()+1,mPlayer->getWeaponLevel(mPlayer->getCurrentWeapon()));
 		setLevel(mPlayer->getLevel());
 		//setLevel(1);
@@ -142,6 +162,40 @@ void iceHUD::update(Ogre::Real pTimeSinceLastFrame)
 		if(mShowNotificationTime < 0)
 		{
 			hideAllNotifications();
+		}
+	}
+
+	if(mShowingFrameTime > 0)
+	{
+		mShowingFrameTime -= pTimeSinceLastFrame;
+		if(mShowingFrameTime <= 0)
+		{
+			mTopFramePanel->setTop(0);
+			mBottomFramePanel->setTop(-mFrameHeight);
+		}
+		else
+		{
+			Ogre::Real offset = (SHOW_FRAME_TIME - mShowingFrameTime) * mFrameHeight / SHOW_FRAME_TIME;
+			mTopFramePanel->setTop(-mFrameHeight + offset);
+			mBottomFramePanel->setTop(-offset);
+		}
+	}
+
+	if(mHidingFrameTime > 0)
+	{
+		mHidingFrameTime -= pTimeSinceLastFrame;
+		if(mHidingFrameTime <= 0)
+		{
+			mTopFramePanel->setTop(-mFrameHeight);
+			mBottomFramePanel->setTop(0);
+			mTopFramePanel->hide();
+			mBottomFramePanel->hide();
+		}
+		else
+		{
+			Ogre::Real offset = (SHOW_FRAME_TIME - mHidingFrameTime) * mFrameHeight / SHOW_FRAME_TIME;
+			mTopFramePanel->setTop(-offset);
+			mBottomFramePanel->setTop(-mFrameHeight + offset);
 		}
 	}
 }
@@ -231,6 +285,7 @@ void iceHUD::hideAllNotifications(void)
 {
 	mHealNotificationPanel->hide();
 	mSprintNotificationPanel->hide();
+	mBrakeNotificationPanel->hide();
 	for(unsigned int i=0;i<mWeaponNotificationPanels.size();i++)
 	{
 		mWeaponNotificationPanels[i]->hide();
@@ -247,6 +302,7 @@ void iceHUD::showHealAvailable(void)
 	mHealNotificationPanel->show();
 	mShowNotificationTime = SHOW_NOTIFICATION_TIME;
 	mShowingNotification = true;
+	mDisplayHealPanel->show();
 }
 
 void iceHUD::showSprintAvailable(void)
@@ -256,6 +312,17 @@ void iceHUD::showSprintAvailable(void)
 	mSprintNotificationPanel->show();
 	mShowNotificationTime = SHOW_NOTIFICATION_TIME;
 	mShowingNotification = true;
+	mDisplaySprintPanel->show();
+}
+
+void iceHUD::showBrakeAvailable(void)
+{
+	hideAllNotifications();
+	mNotificationsPanel->show();
+	mBrakeNotificationPanel->show();
+	mShowNotificationTime = SHOW_NOTIFICATION_TIME;
+	mShowingNotification = true;
+	mDisplayBrakePanel->show();
 }
 
 void iceHUD::showWeaponUpgrade(unsigned int pWeapon)
@@ -265,4 +332,37 @@ void iceHUD::showWeaponUpgrade(unsigned int pWeapon)
 	mWeaponNotificationPanels[pWeapon]->show();
 	mShowNotificationTime = SHOW_NOTIFICATION_TIME;
 	mShowingNotification = true;
+}
+
+void iceHUD::hideHealAvailable()
+{
+	mDisplayHealPanel->hide();
+}
+
+void iceHUD::hideSprintAvailable()
+{
+	mDisplaySprintPanel->hide();
+}
+
+void iceHUD::hideBrakeAvailable()
+{
+	mDisplayBrakePanel->hide();
+}
+
+void iceHUD::showFrame()
+{
+	mShowingFrameTime = SHOW_FRAME_TIME;
+	mTopFramePanel->show();
+	mBottomFramePanel->show();
+	mTopFramePanel->setTop(-mFrameHeight);
+	mBottomFramePanel->setTop(0);
+}
+
+void iceHUD::hideFrame()
+{
+	mHidingFrameTime = SHOW_FRAME_TIME;
+	mTopFramePanel->show();
+	mBottomFramePanel->show();
+	mTopFramePanel->setTop(0);
+	mBottomFramePanel->setTop(-mFrameHeight);
 }

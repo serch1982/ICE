@@ -33,6 +33,69 @@ HUD/hud_overlay
 				caption hola
 			}
 		}
+		
+		container Panel(HUD/heal_availability_container)
+		{
+			metrics_mode pixels
+			vert_align bottom
+			left 250
+			top -60
+			width 41
+			height 44
+			material HUD/availability_container_material
+
+			container Panel(HUD/heal_logo)
+			{
+				metrics_mode pixels
+				left 6
+				top 6
+				width 30
+				height 30
+				material HUD/notification_heal_material
+			}
+		}
+		
+		container Panel(HUD/sprint_availability_container)
+		{
+			metrics_mode pixels
+			vert_align bottom
+			left 320
+			top -60
+			width 41
+			height 44
+			material HUD/availability_container_material
+
+			container Panel(HUD/sprint_logo)
+			{
+				metrics_mode pixels
+				left 6
+				top 6
+				width 30
+				height 30
+				material HUD/notification_sprint_material
+			}
+		}
+		
+		container Panel(HUD/brake_availability_container)
+		{
+			metrics_mode pixels
+			vert_align bottom
+			left 390
+			top -60
+			width 41
+			height 44
+			material HUD/availability_container_material
+
+			container Panel(HUD/brake_logo)
+			{
+				metrics_mode pixels
+				left 6
+				top 6
+				width 30
+				height 30
+				material HUD/notification_brake_material
+			}
+		}
 
 		container Panel(HUD/stats_panel)
 		{
@@ -94,6 +157,16 @@ HUD/hud_overlay
 					width 60
 					height 60
 					material HUD/notification_sprint_material
+				}
+				
+				container Panel(HUD/notification_brake_panel)
+				{
+					metrics_mode pixels
+					left 33
+					top 15
+					width 60
+					height 60
+					material HUD/notification_brake_material
 				}
 				
 				container Panel(HUD/notification_weapon_1_panel)
@@ -170,7 +243,8 @@ HUD/hud_overlay
 			container TextArea(HUD/player_name_text)
 			{
 				metrics_mode pixels
-				left 83
+				left 92  
+				
 				top 20
 				width 90
 				height 20
@@ -180,11 +254,25 @@ HUD/hud_overlay
 				colour black
 				caption SCOTT
 			}
+			
+			container TextArea(HUD/level_word_text)
+			{
+				metrics_mode pixels
+				left 92
+				top 55
+				width 50
+				height 20
+
+				font_name ObelixPro
+				char_height 22
+				colour black
+				caption level
+			}
 
 			container TextArea(HUD/player_level_text)
 			{
 				metrics_mode pixels
-				left 102
+				left 142
 				top 45
 				width 50
 				height 20
@@ -206,7 +294,7 @@ HUD/hud_overlay
 			left -90
 			top -122
 			width 90
-			height 122
+			height 132
 			material HUD/weapons_container_material
 
 			container Panel(HUD/weapon_1_picture_panel)
@@ -214,7 +302,7 @@ HUD/hud_overlay
 				metrics_mode pixels
 				left -10
 				top -10
-				width 110
+				width 120
 				height 90
 				material HUD/weapon_1_material
 			}
@@ -258,7 +346,7 @@ HUD/hud_overlay
 				metrics_mode pixels
 				vert_align bottom
 				left 18
-				top -12
+				top -32
 				width 90
 				height 20
 
@@ -268,6 +356,25 @@ HUD/hud_overlay
 				caption LEVEL 1
 			}
 		}
+	}
+	
+	container Panel(HUD/frame_top)
+	{
+		left 0
+		top 0
+		width 1
+		height 0.1
+		material HUD/cutscene_frame_material
+	}
+	
+	container Panel(HUD/frame_bottom)
+	{
+		vert_align bottom
+		left 0
+		top -0.1
+		width 1
+		height 0.1
+		material HUD/cutscene_frame_material
 	}
 
 }

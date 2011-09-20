@@ -273,6 +273,14 @@ bool iceStatePlay::keyPressed(const OIS::KeyEvent &arg) {
     {
 		_player->levelUp();
     }
+	else if(arg.key == OIS::KC_U)   // heal
+    {
+		mHUD->showFrame();
+    }
+	else if(arg.key == OIS::KC_I)   // heal
+    {
+		mHUD->hideFrame();
+    }
 	
     return true;
 }

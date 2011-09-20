@@ -29,8 +29,15 @@ class iceHUD
 		void hideAllNotifications(void);
 		void showHealAvailable(void);
 		void showSprintAvailable(void);
+		void showBrakeAvailable();
 		void showWeaponUpgrade(unsigned int pWeapon);
 
+		void hideHealAvailable();
+		void hideSprintAvailable();
+		void hideBrakeAvailable();
+
+		void showFrame();
+		void hideFrame();
 
 	protected:
 		std::vector<std::string> mWeaponNames;
@@ -48,6 +55,7 @@ class iceHUD
 		std::vector<Ogre::PanelOverlayElement*> mWeaponPicturePanels;
 
 		Ogre::TextAreaOverlayElement* mPlayerNameTextarea;
+		Ogre::TextAreaOverlayElement* mLevelWordTextarea;
 		Ogre::TextAreaOverlayElement* mLevelTextarea;
 
 		std::vector<Ogre::PanelOverlayElement*> mFacesPanels;
@@ -61,7 +69,15 @@ class iceHUD
 		Ogre::PanelOverlayElement* mNotificationsPanel;
 		Ogre::PanelOverlayElement* mHealNotificationPanel;
 		Ogre::PanelOverlayElement* mSprintNotificationPanel;
+		Ogre::PanelOverlayElement* mBrakeNotificationPanel;
 		std::vector<Ogre::PanelOverlayElement*> mWeaponNotificationPanels;
+
+		Ogre::PanelOverlayElement* mDisplayHealPanel;
+		Ogre::PanelOverlayElement* mDisplaySprintPanel;
+		Ogre::PanelOverlayElement* mDisplayBrakePanel;
+
+		Ogre::PanelOverlayElement* mTopFramePanel;
+		Ogre::PanelOverlayElement* mBottomFramePanel;
 
 		unsigned int mCurrentFace;
 		bool mShowingFace2;
@@ -77,6 +93,10 @@ class iceHUD
 
 		Ogre::Real mShowNotificationTime;
 		bool mShowingNotification;
+
+		Ogre::Real mShowingFrameTime;
+		Ogre::Real mHidingFrameTime;
+		Ogre::Real mFrameHeight;
 };
 
 #endif

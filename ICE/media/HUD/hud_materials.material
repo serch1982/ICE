@@ -237,3 +237,51 @@ material HUD/notification_sprint_material
         }
     }	
 }
+
+material HUD/notification_brake_material
+{
+    technique
+    {
+        pass
+        {
+			scene_blend alpha_blend
+			
+            texture_unit 
+            {
+                texture hud_notification_brake.png
+            }
+        }
+    }	
+}
+
+material HUD/availability_container_material
+{
+    technique
+    {
+        pass
+        {
+			scene_blend alpha_blend
+			
+            texture_unit 
+            {
+                texture hud_availability_container.png
+            }
+        }
+    }	
+}
+
+material HUD/cutscene_frame_material
+{
+    technique
+    {
+        pass
+        {
+			scene_blend alpha_blend
+			
+            texture_unit 
+            {
+                texture hud_cutscene_frame.png
+            }
+        }
+    }	
+}
