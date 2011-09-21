@@ -1,0 +1,41 @@
+Loading/Scott
+{
+    zorder 200
+
+	container Panel(Loading/Scott_panel)
+	{
+		left 0
+		top 0
+		width 1
+		height 1
+		material Loading/Scott_material
+	}
+}
+
+Loading/Minis
+{
+    zorder 200
+
+	container Panel(Loading/Minis_panel)
+	{
+		left 0
+		top 0
+		width 1
+		height 1
+		material Loading/Minis_material
+	}
+}
+
+Loading/Magmaton
+{
+    zorder 200
+
+	container Panel(Loading/Magmaton_panel)
+	{
+		left 0
+		top 0
+		width 1
+		height 1
+		material Loading/Magmaton_material
+	}
+}

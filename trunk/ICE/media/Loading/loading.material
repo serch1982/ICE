@@ -1,0 +1,47 @@
+material Loading/Scott_material
+{
+    technique
+    {
+        pass
+        {
+			scene_blend alpha_blend
+			
+            texture_unit 
+            {
+                texture Scott.png
+            }
+        }
+    }	
+}
+
+material Loading/Minis_material
+{
+    technique
+    {
+        pass
+        {
+			scene_blend alpha_blend
+			
+            texture_unit 
+            {
+                texture Minimagmatones.png
+            }
+        }
+    }	
+}
+
+material Loading/Magmaton_material
+{
+    technique
+    {
+        pass
+        {
+			scene_blend alpha_blend
+			
+            texture_unit 
+            {
+                texture Magmaton.png
+            }
+        }
+    }	
+}

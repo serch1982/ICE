@@ -111,7 +111,7 @@ void iceStateManager::finalize(){
 
 void iceStateManager::loadResources() {
     _log->logMessage("iceStateManager::prepareResources()");
-	 
+
     Ogre::String groupName, typeName, archiveName;
     Ogre::ConfigFile configFile;
 
@@ -142,8 +142,11 @@ void iceStateManager::loadResources() {
         }
     }
 	iceLoadingBar loadingBar;
-	loadingBar.start(iceGame::getRenderWindow(), 5,1, 0.99);
-    Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
+	loadingBar.start(iceGame::getRenderWindow(), 3,1, 0.99);
+	Ogre::ResourceGroupManager::getSingleton().initialiseResourceGroup("General");
+	Ogre::ResourceGroupManager::getSingleton().initialiseResourceGroup("characters");
+	Ogre::ResourceGroupManager::getSingleton().initialiseResourceGroup("OgitorResources");
+    //Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 	loadingBar.finish();
 }
 
@@ -187,11 +190,29 @@ void iceStateManager::changeState(iceState* icestate) {
     _log->logMessage("iceStateManager::changeState() -> the state is changing");	
 
 	_currentState = icestate;
+	iceLoadingBar loadingBar;
 	if(_currentState->getStateId() == PLAY){
+			
+			Ogre::StringStream caption;
+			caption << "Please Wait, Level " << _levelToLoad << " is Loading...";
+			Ogre::String background_overlay;
+			if(_levelToLoad == 1)
+			{
+				background_overlay = "Loading/Minis";
+			}
+			else
+			{
+				background_overlay = "Loading/Magmaton";
+			}
+
+			loadingBar.start(iceGame::getRenderWindow(), 1,1, 0.8,background_overlay,caption.str());
 			iceStatePlay* sp = (iceStatePlay*)this->_currentState;
 			sp->setLevelToLoad(_levelToLoad);
 	}
 	_currentState->load();
+	if(_currentState->getStateId() == PLAY){
+		loadingBar.finish();
+	}
 }
 
 bool iceStateManager::keyPressed(const OIS::KeyEvent &arg) {
@@ -333,6 +354,22 @@ bool iceStateManager::frameRenderingQueued(const Ogre::FrameEvent& evt) {
 		if(currentStateId == PLAY){
 			iceStatePlay* sp = (iceStatePlay*)this->_currentState;
 			unsigned int lid = sp->getNextLevel();
+
+			iceLoadingBar loadingBar;
+			Ogre::StringStream caption;
+			caption << "Please Wait, Level " << lid << " is Loading...";
+			Ogre::String background_overlay;
+			if(lid == 1)
+			{
+				background_overlay = "Loading/Minis";
+			}
+			else
+			{
+				background_overlay = "Loading/Magmaton";
+			}
+
+			loadingBar.start(iceGame::getRenderWindow(), 1,1, 0.8,background_overlay,caption.str());
+
 			sp->clear();
 			iceGame::getSceneManager()->destroyAllCameras();
 			sp->setLevelToLoad(lid);
@@ -340,6 +377,8 @@ bool iceStateManager::frameRenderingQueued(const Ogre::FrameEvent& evt) {
 			sp->load();
 			_currentState = (iceState*) sp;
 			_ind= false;
+
+			loadingBar.finish();
 		}
 	}
 	return true;
