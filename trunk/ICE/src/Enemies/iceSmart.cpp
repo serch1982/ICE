@@ -87,6 +87,7 @@ void iceSmart::update(Ogre::Real p_timeSinceLastFrame){
 			break;
 		case DEAD:
 			enemyNode->setVisible(false);
+			iceSoundManager::getSingletonPtr()->PlayExplosion();
 			break;
 		case INACTIVE:
 			if(checkActivationTime(p_timeSinceLastFrame))

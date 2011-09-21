@@ -15,11 +15,10 @@ function miniLogic( pEnemy )
 		ra = pEnemy:rangeAttack()
 		if not pEnemy:isAlive() then
 			pEnemy:setState(enemy.INACTIVE)
-			elseif (ra  < raMax) and not pEnemy:isVisibleWideCam() then
-				pEnemy:setState(enemy.ATTACK)
-				elseif (ra  > raMax) and pEnemy:isVisibleWideCam()  then
-					pEnemy:setState(enemy.INACTIVE)
-			
+		elseif (ra  < raMax) and not pEnemy:isVisibleWideCam() then
+			pEnemy:setState(enemy.ATTACK)
+		elseif (ra  > raMax) and pEnemy:isVisibleWideCam()  then
+			pEnemy:setState(enemy.INACTIVE)
 		end
 --	ATTACK
 	elseif pEnemy:getState() == enemy.ATTACK then
@@ -28,8 +27,8 @@ function miniLogic( pEnemy )
 			pEnemy:setState(enemy.DYING)
 		--elseif (ra  > raMax) then 
 		--	pEnemy:setState(enemy.FOLLOWING_TRAJECTORY)
-			elseif not pEnemy:isVisiblePlayerCam() or pEnemy:isVisibleWideCam() then 
-				pEnemy:setState(enemy.DEAD)		
+		elseif not pEnemy:isVisiblePlayerCam() or pEnemy:isVisibleWideCam() then 
+			pEnemy:setState(enemy.INACTIVE)
 		end
 -- 	DYING
 	elseif pEnemy:getState() == enemy.DYING then

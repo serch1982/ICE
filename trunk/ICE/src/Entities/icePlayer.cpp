@@ -535,6 +535,8 @@ void icePlayer::createShotEntity(int p_iWeapon, Ogre::Radian p_fDeviation, unsig
 	iceBulletMgr::getSingletonPtr()->createBullet(true, "bt_player_",p_iWeapon, bPos, -shipNode->_getDerivedOrientation(), p_fDeviation,p_iDamage, p_bCritic);
 }
 
+void icePlayer::playReceivedDamageSound( bool bCritic ){}
+
 void icePlayer::showReceivedDamage(unsigned int p_iDamage, bool p_bCritical)
 {
 	icePlayerStats::getInstance()->addReceivedDamage(p_iDamage);

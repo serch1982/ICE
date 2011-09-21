@@ -127,7 +127,6 @@ if not exist "$(OutDir)screenshots" mkdir "$(OutDir)screenshots"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="include\Sound\iceSoundManager.cpp" />
     <ClCompile Include="src\Effects\iceAnimationMgr.cpp" />
     <ClCompile Include="src\Effects\iceBillboard.cpp" />
     <ClCompile Include="src\Enemies\iceBoss.cpp" />
@@ -158,6 +157,7 @@ if not exist "$(OutDir)screenshots" mkdir "$(OutDir)screenshots"</Command>
     <ClCompile Include="src\Sound\iceChannel.cpp" />
     <ClCompile Include="src\Sound\iceFileLocator.cpp" />
     <ClCompile Include="src\Sound\iceSound.cpp" />
+    <ClCompile Include="src\Sound\iceSoundManager.cpp" />
     <ClCompile Include="src\States\iceState.cpp" />
     <ClCompile Include="src\States\iceStateCredits.cpp" />
     <ClCompile Include="src\States\iceStateGameOver.cpp" />

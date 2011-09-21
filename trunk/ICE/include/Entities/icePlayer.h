@@ -108,6 +108,7 @@ class icePlayer : public iceTrajectoryFollower
 		virtual void showHeal(unsigned int p_iHeal);
 		virtual void showFail(void);
 		virtual void showLevelUp(unsigned int p_iLevel);
+		virtual void playReceivedDamageSound(bool bCritic);
 
 		Ogre::Real mCameraWidth;
 		Ogre::Real mCameraHeight;
