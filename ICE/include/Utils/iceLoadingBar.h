@@ -31,9 +31,11 @@ protected:
 	Ogre::Real mProgressBarMaxSize;
 	Ogre::Real mProgressBarScriptSize;
 	Ogre::Real mProgressBarInc;
+	Ogre::Overlay* mBackGround;
 	Ogre::OverlayElement* mLoadingBarElement;
 	Ogre::OverlayElement* mLoadingDescriptionElement;
 	Ogre::OverlayElement* mLoadingCommentElement;
+	Ogre::String mCaption;
 
 public:
 	iceLoadingBar() {}
@@ -50,23 +52,28 @@ public:
 	virtual void start(Ogre::RenderWindow* window, 
 		unsigned short numGroupsInit = 1, 
 		unsigned short numGroupsLoad = 1, 
-		Ogre::Real initProportion = 0.70f)
+		Ogre::Real initProportion = 0.70f,
+		Ogre::String background_overlay = "Loading/Scott",
+		Ogre::String caption = "Please Wait, The ICE GAME is Loading...")
 	{
 		mWindow = window;
 		mNumGroupsInit = numGroupsInit;
 		mNumGroupsLoad = numGroupsLoad;
 		mInitProportion = initProportion;
+		mCaption = caption;
 		// We need to pre-initialise the 'Bootstrap' group so we can use
 		// the basic contents in the loading screen
 		Ogre::ResourceGroupManager::getSingleton().initialiseResourceGroup("Bootstrap");
 
 		Ogre::OverlayManager& omgr = Ogre::OverlayManager::getSingleton();
+		mBackGround = (Ogre::Overlay*)omgr.getByName(background_overlay);
 		mLoadOverlay = (Ogre::Overlay*)omgr.getByName("Core/LoadOverlay");
 		if (!mLoadOverlay)
 		{
 			OGRE_EXCEPT(Ogre::Exception::ERR_ITEM_NOT_FOUND, 
 				"Cannot find loading overlay", "iceLoadingBar::start");
 		}
+		mBackGround->show();
 		mLoadOverlay->show();
 
 		// Save links to the bar and to the loading text, for updates as we go
@@ -88,6 +95,7 @@ public:
 	{
 		// hide loading screen
 		mLoadOverlay->hide();
+		mBackGround->hide();
 
 		// Unregister listener
 		Ogre::ResourceGroupManager::getSingleton().removeResourceGroupListener(this);
@@ -103,7 +111,7 @@ public:
 		// Lets assume script loading is 70%
 		mProgressBarInc = mProgressBarMaxSize * mInitProportion / (Ogre::Real)scriptCount;
 		mProgressBarInc /= mNumGroupsInit;
-		mLoadingDescriptionElement->setCaption("Please Wait, The ICE GAME is Loading...");
+		mLoadingDescriptionElement->setCaption(mCaption);
 		
 		mWindow->update();
 	}

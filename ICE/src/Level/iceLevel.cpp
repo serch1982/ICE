@@ -19,6 +19,7 @@ iceLevel::~iceLevel() {
 void iceLevel::load(std::vector<iceEnemy*>& vectorEnemies, std::vector<iceCutScene*>& vectorCutScenes, iceSoundManager* soundManager) {
     if (!_loaded) {
         _loaded = true;
+		Ogre::ResourceGroupManager::getSingleton().initialiseResourceGroup(_name);
         
 		// Loading a Level
 		Ogre::SceneManager* sceneManager = iceGame::getSceneManager();
@@ -81,6 +82,8 @@ void iceLevel::unload( iceSoundManager* soundManager ) {
 			soundManager->unloadLevelBoss();
 
 		soundManager->unloadSounds();
+
+		Ogre::ResourceGroupManager::getSingleton().clearResourceGroup(_name);
     }
 
 }

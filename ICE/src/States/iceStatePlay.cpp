@@ -6,6 +6,7 @@
 #include "Level\iceLevelManager.h"
 #include "iceGame.h"
 #include "Logic\iceLogicLua.h"
+#include "Utils\iceLoadingBar.h"
 
 #define DOUBLE_KEY_TIME 0.5
 
@@ -39,6 +40,8 @@ void iceStatePlay::load() {
 			_log->logMessage("iceStatePlay::load()");
 			_loaded = true;
 
+
+
 			//level manager
 			_levelManager = new iceLevelManager();	
 
@@ -55,6 +58,7 @@ void iceStatePlay::load() {
 			}else{
 				_player->initPlayer();
 			}
+			_player->getNode()->setVisible(false);
 
 			//hide cursor
 			iceSdkTray::getInstance()->hideCursor();
@@ -89,6 +93,7 @@ void iceStatePlay::load() {
 			icePostProcessManager::getSingleton().enableDepthOfField();
 
 			mCurrentTime = 0;
+			_player->getNode()->setVisible(true);
 	}
 }
 
