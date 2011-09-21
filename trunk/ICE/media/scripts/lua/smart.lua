@@ -26,7 +26,7 @@ function smartLogic( pEnemy )
 		ra = pEnemy:rangeAttack()
 		if not pEnemy:isAlive() then
 			pEnemy:setState(enemy.DYING)
-		elseif (ra  > raMax) then 
+		elseif (ra  > raMax) or (ra  < 10) then 
 			pEnemy:setState(enemy.FOLLOWING_TRAJECTORY)
 			elseif not pEnemy:isVisiblePlayerCam() or pEnemy:isVisibleWideCam() then 
 				pEnemy:setState(enemy.FOLLOWING_TRAJECTORY)		

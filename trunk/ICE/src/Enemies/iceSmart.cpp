@@ -5,7 +5,9 @@ iceSmart::iceSmart(){
 	iceEnemy::iceEnemy();
 }
 
-iceSmart::~iceSmart(){}
+iceSmart::~iceSmart(){
+	finalize();
+}
 
 bool iceSmart::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActivationTime, const bool p_isAttachedToPlayer){
 	if( !iceEnemy::initialize( id, p_Position, p_fActivationTime, p_isAttachedToPlayer ) )
@@ -35,7 +37,7 @@ bool iceSmart::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActiva
 	Ogre::Real r = 15 * (Ogre::Math::RangeRandom(25.0,35.0));
 	Ogre::Real vel = Ogre::Math::RangeRandom(1.0,2.5);
 	mIceStrategy = iceStrategyPtr(new iceStrategySin(r,vel,50, b));
-	mIceStrategySmart = iceStrategyPtr(new iceStrategyForward(4.5));
+	mIceStrategySmart = iceStrategyPtr(new iceStrategyBackForward(8));
 	_renew = (rand() % 2 + 1) + 1;
 	_count =0;
 	return true;
@@ -64,14 +66,16 @@ void iceSmart::update(Ogre::Real p_timeSinceLastFrame){
 			break;
 		case ATTACK: 
 			enemyNode->translate(mIceStrategy->move(enemyNode->_getDerivedPosition(), p_timeSinceLastFrame));
+			enemyNode->translate(mIceStrategySmart->move(enemyNode->_getDerivedPosition(), 1));
 			if(_count > _renew){
-				Ogre::Vector3 npos =  mIceStrategySmart->move(enemyNode->_getDerivedPosition(), p_timeSinceLastFrame);
-				enemyNode->translate(-npos);
+				Ogre::Real bef = _lastPosition.distance(icePlayer::getSingletonPtr()->getShipPosition());
+				Ogre::Real aft = enemyNode->getPosition().distance(icePlayer::getSingletonPtr()->getShipPosition());
+				if(bef < aft) mIceStrategy->reverse();
 				_count =0;
 			}else{
 				_count += p_timeSinceLastFrame;
 			}
-			mTrajectory->lookAt(); //TODO
+			mTrajectory->lookAt(); 
 			iceRPG::update(p_timeSinceLastFrame);
 			shot();
 			break;
@@ -99,6 +103,7 @@ void iceSmart::update(Ogre::Real p_timeSinceLastFrame){
 
 void iceSmart::changeDirection(void){
 	mIceStrategy->reverse();
+	enemyNode->translate(mIceStrategy->move(enemyNode->_getDerivedPosition(), 1));
 }
 
 std::string iceSmart::getFunctionStr(){

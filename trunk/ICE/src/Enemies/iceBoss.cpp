@@ -6,7 +6,9 @@ iceBoss::iceBoss(){
 	iceEnemy::iceEnemy();
 }
 
-iceBoss::~iceBoss(){}
+iceBoss::~iceBoss(){
+	finalize();
+}
 
 bool iceBoss::initialize(int id, Ogre::Vector3 p_Position,  Ogre::Real p_fActivationTime, const bool p_isAttachedToPlayer){
 	if( !iceEnemy::initialize( id, p_Position, p_fActivationTime, p_isAttachedToPlayer ) )

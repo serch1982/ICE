@@ -147,6 +147,9 @@ void iceStatePlay::update(Ogre::Real evt)
 	}
 	else
 	{
+		//update game Physics 
+		mPhysics->update();
+
 		//bullets
 		mIceBulletMgr->update(evt, visibleBoundingBoxes);
 
@@ -173,9 +176,6 @@ void iceStatePlay::update(Ogre::Real evt)
 		iceParticleMgr::getSingletonPtr()->update(evt);
 
 		//setHUDWeapon(_player->getCurrentWeaponName());
-
-		//update game Physics 
-		mPhysics->update();
 
 		//ShowDamage
 		iceDamageTextManager::getSingleton().update(evt);

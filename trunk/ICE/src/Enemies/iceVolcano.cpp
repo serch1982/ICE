@@ -11,7 +11,9 @@ iceVolcano::iceVolcano(){
 	iceEnemy::iceEnemy();
 }
 
-iceVolcano::~iceVolcano(){}
+iceVolcano::~iceVolcano(){
+	finalize();
+}
 
 bool iceVolcano::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActivationTime, Ogre::Vector3 p_Scale, Ogre::Quaternion rotation, const bool p_isAttachedToPlayer){
 	if( !iceEnemy::initialize( id, p_Position, p_fActivationTime, p_isAttachedToPlayer ) )
