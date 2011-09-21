@@ -29,7 +29,7 @@ function miniLogic( pEnemy )
 		--elseif (ra  > raMax) then 
 		--	pEnemy:setState(enemy.FOLLOWING_TRAJECTORY)
 			elseif not pEnemy:isVisiblePlayerCam() or pEnemy:isVisibleWideCam() then 
-				pEnemy:setState(enemy.FOLLOWING_TRAJECTORY)		
+				pEnemy:setState(enemy.DEAD)		
 		end
 -- 	DYING
 	elseif pEnemy:getState() == enemy.DYING then

@@ -115,4 +115,18 @@ public:
     */
 	void reverse(void);
 };
+
+
+
+
+class iceStrategyBackForward : public iceStrategy
+{
+public:
+	iceStrategyBackForward(Ogre::Real velocityZ);
+	~iceStrategyBackForward();
+	Ogre::Vector3 move(Ogre::Vector3 enemyPos, Ogre::Real timeSinceLastFrame);
+	void reverse(void);
+};
+
+
 #endif

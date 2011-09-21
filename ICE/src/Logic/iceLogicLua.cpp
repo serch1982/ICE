@@ -125,66 +125,6 @@ bool iceLogicLua::FuncExist(const char *name )
 
 
 void iceLogicLua::bindLuaObjects(){
-	//using namespace Ogre;
-	/*luabind::module(L)
-	[
-		luabind::class_<Vector3>( "Vector3" )
-		.def(tostring(luabind::self))
-		.def_readwrite( "x", &Vector3::x )
-		.def_readwrite( "y", &Vector3::y )
-		.def_readwrite( "z", &Vector3::z )
-		.def(luabind::constructor<>())
-        .def(luabind::constructor<Vector3&>())
-		.def(luabind::constructor<Real, Real, Real>())
-		.def("absDotProduct", &Vector3::absDotProduct)
-		.def("crossProduct", &Vector3::crossProduct )
-		.def("directionEquals", &Vector3::directionEquals )
-		.def("distance", &Vector3::distance )
-		.def("dotProduct", &Vector3::dotProduct )
-		.def("getRotationTo", &Vector3::getRotationTo )
-		.def("isZeroLength", &Vector3::isZeroLength )
-		.def("length", &Vector3::length )
-		.def("makeCeil", &Vector3::makeCeil )
-		.def("makeFloor", &Vector3::makeFloor )
-		.def("midPoint", &Vector3::midPoint )
-		.def("normalise", &Vector3::normalise )
-		.def("nornaliseCopy", &Vector3::normalisedCopy )
-		.def("perpendicular", &Vector3::perpendicular )
-		.def("positionCloses", &Vector3::positionCloses )
-		.def("positionEquals", &Vector3::positionEquals )
-		.def("randomDeviant", &Vector3::randomDeviant )
-		.def("reflect", &Vector3::reflect )
-		.def("squaredDistance", &Vector3::squaredDistance )
-		.def("squaredLength", &Vector3::squaredLength )
-
-		// Operators
-
-		.def( luabind::self + luabind::other<Vector3>() )
-		.def( luabind::self - luabind::other<Vector3>() )
-		.def( luabind::self * luabind::other<Vector3>() )
-		.def( luabind::self * Real() )
-	];*/
-
-	/*LUA_CONST_START( Vector3 )
-		LUA_CONST( Vector3, ZERO);
-		LUA_CONST( Vector3, UNIT_X );
-		LUA_CONST( Vector3, UNIT_X);
-		LUA_CONST( Vector3, UNIT_Y);
-		LUA_CONST( Vector3, UNIT_Z);
-		LUA_CONST( Vector3, NEGATIVE_UNIT_X);
-		LUA_CONST( Vector3, NEGATIVE_UNIT_Y);
-		LUA_CONST( Vector3, NEGATIVE_UNIT_Z);
-		LUA_CONST( Vector3, UNIT_SCALE);
-	LUA_CONST_END;*/
-
-
-	/*luabind::module(L)
-	[
-		luabind::class_<Real>( "Real" )
-		.def(tostring(luabind::self))
-		.def(luabind::constructor<>())
-	];*/
-
 	//enemy class definition
 	luabind::module(L)
 	[
@@ -202,6 +142,7 @@ void iceLogicLua::bindLuaObjects(){
 		    .def("setState", &iceEnemy::setState )
 			.def("isActive", &iceEnemy::isActive )
 			.def("isAlive", &iceEnemy::isAlive )
+			.def("changeDirection", &iceEnemy::changeDirection )
 			.def("isAnimDyingEnded", &iceEnemy::isAnimDyingEnded )
 			.def("setAnimDyingEnded", &iceEnemy::setAnimDyingEnded )
 			//.def("checkActivationTime", (bool( iceEnemy::*)(Ogre::Real)) &iceEnemy::checkActivationTime)

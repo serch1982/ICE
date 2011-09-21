@@ -2,6 +2,7 @@
 #define __ICE_KAMIKAZE_H__
 
 #include "Enemies\iceEnemy.h"
+#include "Utils\iceStrategy.h"
 
 class iceKamikaze: public iceEnemy
 {
@@ -20,7 +21,7 @@ public:
 	virtual void createShotEntity(int p_iWeapon, Ogre::Radian p_fDeviation, unsigned int p_iDamage, bool p_bCritic);
 
 	virtual void showReceivedDamage(unsigned int p_iDamage, bool p_bCritical);
-
+	virtual void changeDirection(void);
 private:
 	Ogre::Vector3 mTargetPosition;
 	int	mRenewTarget;

@@ -43,8 +43,8 @@ bool iceEnemy::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActiva
 	if(p_isAttachedToPlayer)
 		enemyNode = icePlayer::getSingletonPtr()->getNode()->createChildSceneNode(name);
 	else
-		enemyNode = //iceGame::getSceneManager()->getRootSceneNode()->createChildSceneNode(name);
-			icePlayer::getSingletonPtr()->getNode()->getParentSceneNode()->createChildSceneNode(name);
+		enemyNode = iceGame::getSceneManager()->getRootSceneNode()->createChildSceneNode(name);
+			//icePlayer::getSingletonPtr()->getNode()->getParentSceneNode()->createChildSceneNode(name);
 
 	iceTrajectoryFollower::initialize(enemyNode);
 	enemyNode->setPosition(p_Position);

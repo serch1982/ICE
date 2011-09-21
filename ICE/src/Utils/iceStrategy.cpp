@@ -164,4 +164,26 @@ void iceStrategyCircle::reverse(void){
 }
 /*---------------------------------------------------------------------------------------------------------------------------*/
 
+iceStrategyBackForward::iceStrategyBackForward(Ogre::Real velocityZ) {
+	_velocityZ = velocityZ;
+}
+iceStrategyBackForward::~iceStrategyBackForward() {
 
+}
+
+Ogre::Vector3 iceStrategyBackForward::move(Ogre::Vector3 enemyPos, Ogre::Real timeSinceLastFrame){
+	Ogre::Vector3 translation = Ogre::Vector3::ZERO;
+	if (getPlayerAxis() == iceStrategy::aX){
+		translation += Ogre::Vector3::NEGATIVE_UNIT_X * _velocityZ  * timeSinceLastFrame;
+	}
+	else{
+		translation += Ogre::Vector3::NEGATIVE_UNIT_Z * _velocityZ  * timeSinceLastFrame;
+	}
+
+	return translation; 
+}
+
+void iceStrategyBackForward::reverse(void){
+
+}
+/*---------------------------------------------------------------------------------------------------------------------------*/

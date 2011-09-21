@@ -1,13 +1,14 @@
 #include "Enemies\iceKamikaze.h"
 #include "iceGame.h"
-#include "Utils\iceStrategy.h"
 
 iceKamikaze::iceKamikaze(){
 	iceEnemy::iceEnemy();
 	mRenewTarget = 100;
 }
 
-iceKamikaze::~iceKamikaze(){}
+iceKamikaze::~iceKamikaze(){
+	finalize();
+}
 
 bool iceKamikaze::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActivationTime, const bool p_isAttachedToPlayer){
 	if( !iceEnemy::initialize( id, p_Position,  p_fActivationTime, p_isAttachedToPlayer ) )
@@ -55,27 +56,15 @@ void iceKamikaze::update(Ogre::Real p_timeSinceLastFrame){
 	switch(mState)
 	{
 		case STOPPED:
-			mRenewTarget = 10;
+			mRenewTarget = 2;
 			mTrajectory->lookAt();
 			break;
 		case ATTACK: 
-			//mTrajectory->lookAt();
 			enemyNode->translate(mVelocity * p_timeSinceLastFrame);
 			mRenewTarget--;
 			if( mRenewTarget == 0 ){
 				mTrajectory->lookAt();
-				mRenewTarget = 10;
-				enemyNode->translate(mIceStrategy->move(enemyNode->_getDerivedPosition(),1) * p_timeSinceLastFrame);
-				/*Ogre::Vector3 playerPos;
-				Ogre::Vector3 kamikazePos;
-				//Get Player position relative to his parent
-				playerPos = mPlayer->shipNode->getPosition();
-				//Convert playerPos to World Coordinates
-				mTargetPosition = mPlayer->shipNode->convertLocalToWorldPosition(playerPos);
-				//Get Kamikaze WORLD position
-				kamikazePos = enemyNode->convertLocalToWorldPosition( kamikazePos );
-				//mVelocity = (mTargetPosition-kamikazePos) / 0.7; //Provisional
-				mRenewTarget = 100;*/
+				mRenewTarget = 2;
 			}
 			break;
 		case DYING:
@@ -101,6 +90,11 @@ void iceKamikaze::update(Ogre::Real p_timeSinceLastFrame){
 std::string iceKamikaze::getFunctionStr(){
 	return "KamikazeLogic";
 }
+
+void iceKamikaze::changeDirection(void){
+	enemyNode->setPosition(_lastPosition);
+}
+
 
 void iceKamikaze::createShotEntity(int p_iWeapon, Ogre::Radian p_fDeviation, unsigned int p_iDamage, bool p_bCritic)
 {

@@ -6,7 +6,9 @@ iceMini::iceMini(){
 	iceEnemy::iceEnemy();
 }
 
-iceMini::~iceMini(){}
+iceMini::~iceMini(){
+	finalize();
+}
 
 bool iceMini::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActivationTime, const bool p_isAttachedToPlayer){
 	if( !iceEnemy::initialize( id, p_Position, p_fActivationTime, p_isAttachedToPlayer ) )
@@ -44,7 +46,7 @@ bool iceMini::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActivat
 	Ogre::Real r = 10 * (Ogre::Math::RangeRandom(25.0,45.0));
 	Ogre::Real vel = Ogre::Math::RangeRandom(1.0,2.5);
 	mIceStrategy = iceStrategyPtr(new iceStrategyCircle(vel,20,r, b ));
-	mIceStrategyMini = iceStrategyPtr(new iceStrategyForward(5));
+	mIceStrategyMini = iceStrategyPtr(new iceStrategyForward(5.5));
 	return true;
 }
 
@@ -73,9 +75,16 @@ void iceMini::update(Ogre::Real p_timeSinceLastFrame){
 			shot(); 
 			break;
 		case DYING:
+			mBillboard->start(enemyNode->_getDerivedPosition());
+			enemyNode->setVisible(false);
 			iceGame::getGameLog()->logMessage("Enemy killed!");
 			mAnimDyingTicks++;
 			mParticleFire->stop();
+			break;
+		case DEAD:
+			enemyNode->setVisible(false);
+			mParticleFire->stop();
+			giveExperieceToPlayer();
 			break;
 		case INACTIVE:
 			if(checkActivationTime(p_timeSinceLastFrame))
@@ -107,29 +116,11 @@ void iceMini::createShotEntity(int p_iWeapon, Ogre::Radian p_fDeviation, unsigne
 
 void iceMini::changeDirection(void){
 	mIceStrategy->reverse();
+	enemyNode->translate(mIceStrategy->move(enemyNode->_getDerivedPosition(), 1));
 }
 
 void iceMini::setState(ENEMYSTATE p_iState){
 	mState = p_iState;
-	bool b;
-	switch(mState){
-	case INACTIVE:
-		b = isAlive();
-		break;
-	case FOLLOWING_TRAJECTORY:
-		b = isAlive();
-		break;
-		case DYING:
-			mAnimDyingTicks = 0;
-			mBillboard->start(enemyNode->_getDerivedPosition());
-			break;
-		case DEAD:
-			enemyNode->setVisible(false);
-			giveExperieceToPlayer();
-			break;
-		default:
-			break;
-	}
 }
 
 void iceMini::showReceivedDamage(unsigned int p_iDamage, bool p_bCritical){
