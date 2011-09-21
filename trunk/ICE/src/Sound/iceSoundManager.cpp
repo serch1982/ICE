@@ -274,8 +274,6 @@ int iceSoundManager::CreateLoopedStream(Ogre::String &fileName)
 
 void iceSoundManager::loadResourcesMenu(){
 	CreateLoopedStream( Ogre::String( "menu.mp3" ));
-	CreateLoopedStream( Ogre::String( "test.mp3" ));
-	
 }
 
 void iceSoundManager::unloadResourcesMenu(){
