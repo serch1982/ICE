@@ -305,6 +305,8 @@ void iceSoundManager::loadSounds(){
 	CreateSound( Ogre::String( "Machinegun_1.wav" ), SOUND_TYPE_2D_SOUND, 1);
 	CreateSound( Ogre::String( "Shotgun_1.wav" ), SOUND_TYPE_2D_SOUND, 2);
 	CreateSound( Ogre::String( "Rocket_1.wav" ), SOUND_TYPE_2D_SOUND, 3);
+	CreateSound( Ogre::String( "BaseBallBatJingle.wav" ), SOUND_TYPE_2D_SOUND, 4 );
+	CreateSound( Ogre::String( "Explosion1.wav" ), SOUND_TYPE_2D_SOUND, 5 );
 }
 
 // Unload sounds for all levels
@@ -312,6 +314,8 @@ void iceSoundManager::unloadSounds(){
 	(*mSoundVector)[1]->Finalize();
 	(*mSoundVector)[2]->Finalize();
 	(*mSoundVector)[3]->Finalize();
+	(*mSoundVector)[4]->Finalize();
+	(*mSoundVector)[5]->Finalize();
 }
 
 
@@ -446,6 +450,9 @@ int iceSoundManager::CreateSound(Ogre::String &fileName, SOUND_TYPE soundType, i
 }
 
 //void iceSoundManager::PlaySound(int soundIndex, Ogre::SceneNode *soundNode, int *channelIndex)
+void iceSoundManager::PlayExplosion(){
+	PlaySound( 5, Ogre::Vector3::ZERO, 0 );
+}
 
 void iceSoundManager::PlaySound(int soundIndex, Ogre::Vector3 soundPosition, int *channelIndex)
    {

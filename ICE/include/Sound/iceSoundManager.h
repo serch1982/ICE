@@ -59,6 +59,7 @@ public:
 
    // Sound interaction
    void iceSoundManager::PlaySound(int soundIndex, Ogre::Vector3 soundPosition, int *channelIndex);
+   void PlayExplosion();
    //void                 PlaySound(int soundIndex, Ogre::SceneNode *soundNode, int *channelIndex);
    void                 StopSound(int *channelIndex);
 

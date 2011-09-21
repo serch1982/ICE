@@ -319,7 +319,16 @@ void iceRPG::addDamage(unsigned int p_iDamage, bool p_bCritic)
 				mCurrentLife = 0;
 
 			showReceivedDamage(damage,p_bCritic);
+			playReceivedDamageSound(p_bCritic);
 		}
+	}
+}
+
+void iceRPG::playReceivedDamageSound(bool bCritic)
+{
+	if( bCritic )
+	{
+		iceSoundManager::getSingletonPtr()->PlaySound( 4, Ogre::Vector3::ZERO, 0 );	
 	}
 }
 

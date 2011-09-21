@@ -85,6 +85,7 @@ void iceMini::update(Ogre::Real p_timeSinceLastFrame){
 			enemyNode->setVisible(false);
 			mParticleFire->stop();
 			giveExperieceToPlayer();
+			iceSoundManager::getSingletonPtr()->PlayExplosion();
 			break;
 		case INACTIVE:
 			if(checkActivationTime(p_timeSinceLastFrame))
