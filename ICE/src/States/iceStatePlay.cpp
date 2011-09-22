@@ -106,18 +106,18 @@ void iceStatePlay::clear() {
 		_level->unload( _soundManager );
 		delete _levelManager;
 
+		//Deleting enemies
+		for (unsigned int i=0;i<_mEnemies.size();i++)
+			delete _mEnemies[i];
+		if(_mMagmaton)
+			delete _mMagmaton;
+
 		//delete bullet manager;
 		mIceBulletMgr.reset();
 		//delete particle manager;
 		mIceParticleMgr.reset();
 		//delete Physics;
 		mPhysics.reset();
-
-		//Deleting enemies
-		for (unsigned int i=0;i<_mEnemies.size();i++)
-			delete _mEnemies[i];
-		if(_mMagmaton)
-			delete _mMagmaton;
 
 		//delete postprocess
 		icePostProcessManager::getSingleton().disableBlur();
