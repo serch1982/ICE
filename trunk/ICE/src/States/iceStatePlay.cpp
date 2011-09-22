@@ -345,7 +345,8 @@ int iceStatePlay::getLevelLoaded(){
 int iceStatePlay::getNextLevel(){
 	if(_levelManager){
 		if(_levelID  + 1 > _levelManager->getNumLevels()) {
-			return 1;
+			_levelID = 1;
+			return 999;
 		}else{
 			return _levelID + 1;
 		}
