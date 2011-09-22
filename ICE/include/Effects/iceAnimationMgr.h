@@ -4,6 +4,13 @@
 #include <Ogre.h>
 #include <boost/enable_shared_from_this.hpp>
 
+struct iceAnimation
+{
+	Ogre::AnimationState* animation;
+	Ogre::Real iddleWeight;
+	bool stopAtEnd;
+};
+
 class iceAnimationMgr 
 {
 public:
@@ -20,12 +27,15 @@ public:
 	/**
     *  add new Animation
     */
-	void addAnimation(Ogre::AnimationState*  animation, bool enable = false, bool loop = false);
+	void addAnimation(Ogre::AnimationState*  animation, Ogre::Real iddleWeight = 1.0 , bool stopOnEnd = false, bool loop = false);
 	
 	/**
     *  start an animation
     */
 	void startAnimation(Ogre::String name);
+
+	void startIddleAnimation();
+	void stopIddleAnimation();
 
 	/**
     *  stop all animations
@@ -47,10 +57,12 @@ public:
     *  get hte name of the current animation
     */
 	Ogre::String getNameCurrentAnimation();
+	void setIddleAnimation(Ogre::AnimationState* pIddleAnimation);
 private:
 	Ogre::String activeAnimation;
-	std::map<Ogre::String,Ogre::AnimationState*> mAnimations;
-	std::map<Ogre::String,Ogre::AnimationState*>::iterator iter;
+	Ogre::AnimationState* iddleAnimation;
+	std::map<Ogre::String,iceAnimation> mAnimations;
+	std::map<Ogre::String,iceAnimation>::iterator iter;
 };
 
 typedef boost::shared_ptr<iceAnimationMgr> iceAnimationMgrPtr;

@@ -117,11 +117,13 @@ void icePlayer::initPlayer(){
 
 	//init animations
 	iceAnimationPtr = iceAnimationMgrPtr(new iceAnimationMgr());
-	iceAnimationPtr->addAnimation(mesh2->getAnimationState("anger"));
-	iceAnimationPtr->addAnimation(mesh2->getAnimationState("celebration"));
-	iceAnimationPtr->addAnimation(mesh2->getAnimationState("impact2"));
-	iceAnimationPtr->addAnimation(mesh2->getAnimationState("turn_left"));
-	iceAnimationPtr->addAnimation(mesh2->getAnimationState("turn_right"));
+	iceAnimationPtr->setIddleAnimation(mesh2->getAnimationState("iddle2_Clip"));
+	iceAnimationPtr->addAnimation(mesh2->getAnimationState("enfado2_Clip"));
+	iceAnimationPtr->addAnimation(mesh2->getAnimationState("celebracion2_Clip"),0,true);
+	iceAnimationPtr->addAnimation(mesh2->getAnimationState("impacto4_Clip"),0.5,true);
+	iceAnimationPtr->addAnimation(mesh2->getAnimationState("giro_izquierda1_Clip"));
+	iceAnimationPtr->addAnimation(mesh2->getAnimationState("giro_derecha1_Clip"));
+	iceAnimationPtr->addAnimation(mesh2->getAnimationState("muerte2_Clip"),0);
 
 	mIsAnger = false;
 	mIsCelebrating = false;
@@ -313,15 +315,15 @@ void icePlayer::updateLookAt(Ogre::Real frameTime)
 	if(mMovingLeft){
 		_rolling = _rolling - rollVelocity;
 		if(_rolling < -MAX_ROLL) _rolling  = -MAX_ROLL;
-		if ((_rolling < -(MAX_ROLL / 2)) && (iceAnimationPtr->getNameCurrentAnimation() != "turn_left")) {
-			iceAnimationPtr->startAnimation("turn_left");
+		if ((_rolling < -(MAX_ROLL / 2)) && (iceAnimationPtr->getNameCurrentAnimation() != "giro_izquierda1_Clip")) {
+			iceAnimationPtr->startAnimation("giro_izquierda1_Clip");
 		}
 	}
 	if(mMovingRight){
 		_rolling = _rolling + rollVelocity;
 		if(_rolling > MAX_ROLL) _rolling  = MAX_ROLL;
-		if ((_rolling > (MAX_ROLL / 2)) && (iceAnimationPtr->getNameCurrentAnimation() != "turn_right")) {
-			iceAnimationPtr->startAnimation("turn_right");
+		if ((_rolling > (MAX_ROLL / 2)) && (iceAnimationPtr->getNameCurrentAnimation() != "giro_derecha1_Clip")) {
+			iceAnimationPtr->startAnimation("giro_derecha1_Clip");
 		}
 	}
 	if ((!mMovingRight) && (!mMovingLeft)){
@@ -790,7 +792,7 @@ void icePlayer::anger()
 	mIsAnger = true;
 	mIsCelebrating = false;
 	mIsImpact = false;
-	iceAnimationPtr->startAnimation("anger");
+	iceAnimationPtr->startAnimation("enfado2_Clip");
 }
 
 void icePlayer::celebrate()
@@ -798,7 +800,7 @@ void icePlayer::celebrate()
 	mIsAnger = false;
 	mIsCelebrating = true;
 	mIsImpact = false;
-	iceAnimationPtr->startAnimation("celebration");
+	iceAnimationPtr->startAnimation("celebracion2_Clip");
 }
 
 void icePlayer::impact()
@@ -806,5 +808,5 @@ void icePlayer::impact()
 	mIsAnger = false;
 	mIsCelebrating = false;
 	mIsImpact = true;
-	iceAnimationPtr->startAnimation("impact2");
+	iceAnimationPtr->startAnimation("impacto4_Clip");
 }
