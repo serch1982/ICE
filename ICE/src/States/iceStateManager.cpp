@@ -199,13 +199,14 @@ void iceStateManager::changeState(iceState* icestate) {
 			if(_levelToLoad == 1)
 			{
 				background_overlay = "Loading/Minis";
+				loadingBar.start(iceGame::getRenderWindow(), 1,1, 0.99,background_overlay,caption.str());
 			}
 			else
 			{
 				background_overlay = "Loading/Magmaton";
+				loadingBar.start(iceGame::getRenderWindow(), 1,1, 0.99,background_overlay,caption.str());
 			}
 
-			loadingBar.start(iceGame::getRenderWindow(), 1,1, 0.8,background_overlay,caption.str());
 			iceStatePlay* sp = (iceStatePlay*)this->_currentState;
 			sp->setLevelToLoad(_levelToLoad);
 	}
@@ -327,14 +328,16 @@ bool iceStateManager::frameRenderingQueued(const Ogre::FrameEvent& evt) {
 		if((currentStateId == PLAY) && (nextStateId == PAUSE)){
 			_idleState = _currentState;
 			changeState(getICEStateByID(nextStateId));
+			iceGame::getUI()->getHUD()->hide();
 		}else if((currentStateId == PAUSE) && (nextStateId == PLAY)){
 			_currentState->clear();
-			//delete _currentState;
+			_currentState->setNextStateId(PAUSE);
 			_currentState = _idleState;
 			_currentState->setNextStateId(PLAY);
 			_idleState = NULL;
 			//force to hide cursor
 			iceSdkTray::getInstance()->hideCursor();
+			iceGame::getUI()->getHUD()->show();
 		}else if((currentStateId == MAINMENU) && (nextStateId == PLAY)) {
 			_currentState->clear();
 			changeState(getICEStateByID(nextStateId));
@@ -354,7 +357,18 @@ bool iceStateManager::frameRenderingQueued(const Ogre::FrameEvent& evt) {
 		if(currentStateId == PLAY){
 			iceStatePlay* sp = (iceStatePlay*)this->_currentState;
 			unsigned int lid = sp->getNextLevel();
-
+			if(lid == 999) {
+				_ind= false;
+				_currentState->clear();
+				_currentState->setNextStateId(MAINMENU);
+				iceGame::getSceneManager()->destroyAllCameras();
+				iceGame::createCamera();
+				createGodCam();
+				changeState(getICEStateByID(MAINMENU));
+				_currentState->setNextStateId(MAINMENU);
+				iceSdkTray::getInstance()->showCursor();
+				return true;
+			}
 			iceLoadingBar loadingBar;
 			Ogre::StringStream caption;
 			caption << "Please Wait, Level " << lid << " is Loading...";
@@ -362,13 +376,13 @@ bool iceStateManager::frameRenderingQueued(const Ogre::FrameEvent& evt) {
 			if(lid == 1)
 			{
 				background_overlay = "Loading/Minis";
+				loadingBar.start(iceGame::getRenderWindow(), 1,1, 0.99,background_overlay,caption.str());
 			}
 			else
 			{
 				background_overlay = "Loading/Magmaton";
+				loadingBar.start(iceGame::getRenderWindow(), 1,1, 0.99,background_overlay,caption.str());
 			}
-
-			loadingBar.start(iceGame::getRenderWindow(), 1,1, 0.8,background_overlay,caption.str());
 
 			sp->clear();
 			iceGame::getSceneManager()->destroyAllCameras();

@@ -76,6 +76,8 @@ void iceLevel::unload( iceSoundManager* soundManager ) {
     if (_loaded) {
         _loaded = false;
 
+		soundManager->StopAllSounds();
+
 		if( _id == 1 )
 			soundManager->unloadLevel1();
 		else

@@ -31,6 +31,7 @@ void iceUI::init(iceStateManager* pStateManager)
 void iceUI::update(Ogre::Real evt)
 {
 	if(mStateManager->getCurrentStateID() == MAINMENU) mHikariMgr->update();
+	if(mStateManager->getCurrentStateID() == PAUSE) mHikariMgr->update();
 	if(mStateManager->getCurrentStateID() == PLAY) mHUD->update(evt);
 }
 

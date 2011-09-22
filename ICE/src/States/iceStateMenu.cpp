@@ -58,7 +58,7 @@ void iceStateMenu::clear() {
 
 void iceStateMenu::update(Ogre::Real evt) {
 	//prueba
-	_soundManager->update( Ogre::Vector3::ZERO, Ogre::Quaternion::ZERO, evt);
+	//_soundManager->update( Ogre::Vector3::ZERO, Ogre::Quaternion::ZERO, evt);
 	
 }
 
