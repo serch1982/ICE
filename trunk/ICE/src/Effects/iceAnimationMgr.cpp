@@ -2,19 +2,19 @@
 
 iceAnimationMgr::iceAnimationMgr(){
 	activeAnimation ="";
-	iddleAnimation = NULL;
 }
 
 iceAnimationMgr::~iceAnimationMgr(){
 	mAnimations.clear();
 }
 
-void iceAnimationMgr::addAnimation(Ogre::AnimationState*  animation, Ogre::Real iddleWeight, bool stopOnEnd, bool loop){
+void iceAnimationMgr::addAnimation(Ogre::AnimationState*  animation, Ogre::Real iddleWeight, bool stopOnEnd, bool loop, bool asdefault){
 	iceAnimation anim;
 	anim.animation = animation;
-	anim.iddleWeight = iddleWeight;
+	anim.animation->setWeight(iddleWeight);
 	anim.stopAtEnd = stopOnEnd;
 	anim.animation->setLoop(loop);
+	anim.asDefault = asdefault;
 	mAnimations[animation->getAnimationName()] = anim;
 }
 		
@@ -23,7 +23,7 @@ void iceAnimationMgr::startAnimation(Ogre::String name)
 	stopAllAnimations();
 	mAnimations[name].animation->setEnabled(true);
 	activeAnimation = name;
-	iddleAnimation->setWeight(mAnimations[name].iddleWeight);
+	//iddleAnimation->setWeight(mAnimations[name].iddleWeight);
 }
 
 void iceAnimationMgr::stopAllAnimations(){
@@ -33,7 +33,7 @@ void iceAnimationMgr::stopAllAnimations(){
 		((*iter).second).animation->setTimePosition(0);
 	}
 	activeAnimation ="";
-	iddleAnimation->setWeight(1);
+	//iddleAnimation->setWeight(1);
 }
 
 void iceAnimationMgr::update(Ogre::Real time){
@@ -42,8 +42,6 @@ void iceAnimationMgr::update(Ogre::Real time){
 		if(mAnimations[activeAnimation].stopAtEnd && mAnimations[activeAnimation].animation->hasEnded())
 			stopAllAnimations();
 	}
-	if(iddleAnimation)
-		iddleAnimation->addTime(time);
 }
 
 bool iceAnimationMgr::hasAnimationEnded(Ogre::String animationName)
@@ -65,23 +63,18 @@ bool iceAnimationMgr::hasAnimationEnded(Ogre::String animationName)
 
 Ogre::String iceAnimationMgr::getNameCurrentAnimation()
 {
-	return activeAnimation == "" ? iddleAnimation->getAnimationName() : activeAnimation;
-}
-
-void iceAnimationMgr::setIddleAnimation(Ogre::AnimationState* pIddleAnimation)
-{
-	iddleAnimation = pIddleAnimation;
-	iddleAnimation->setLoop(true);
-	iddleAnimation->setEnabled(true);
+	return activeAnimation;
 }
 
 void iceAnimationMgr::startIddleAnimation()
 {
-	iddleAnimation->setEnabled(true);
-}
-
-void iceAnimationMgr::stopIddleAnimation()
-{
-	iddleAnimation->setEnabled(false);
-	iddleAnimation->setTimePosition(0);
+	stopAllAnimations();
+	for( iter = mAnimations.begin() ; iter!=mAnimations.end(); ++iter)
+	{
+		if(((*iter).second).asDefault == true){
+			((*iter).second).animation->setEnabled(true);
+			activeAnimation = (*iter).first;
+			return;
+		}
+	}
 }
