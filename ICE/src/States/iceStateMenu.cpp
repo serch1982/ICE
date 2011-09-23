@@ -40,7 +40,7 @@ void iceStateMenu::load() {
 		mMenu->showMainMenu();
 
 		_soundManager->loadResourcesMenu();
-		_soundManager->PlaySound(0, Ogre::Vector3::ZERO, 0);
+		_soundManager->PlaySound(0, Ogre::Vector3::ZERO, 0, 0.5);
     }
 
 }

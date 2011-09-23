@@ -58,7 +58,7 @@ public:
    int                  CreateSound(Ogre::String &fileName, SOUND_TYPE soundType, int sound_index = INVALID_SOUND_INDEX);
 
    // Sound interaction
-   void iceSoundManager::PlaySound(int soundIndex, Ogre::Vector3 soundPosition, int *channelIndex);
+   void PlaySound(int soundIndex, Ogre::Vector3 soundPosition, int *channelIndex, float fVolume);
    void PlayExplosion();
    //void                 PlaySound(int soundIndex, Ogre::SceneNode *soundNode, int *channelIndex);
    void                 StopSound(int *channelIndex);
