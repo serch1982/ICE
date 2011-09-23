@@ -307,6 +307,10 @@ void iceSoundManager::loadSounds(){
 	CreateSound( Ogre::String( "Rocket_1.wav" ), SOUND_TYPE_2D_SOUND, 3);
 	CreateSound( Ogre::String( "BaseBallBatJingle.wav" ), SOUND_TYPE_2D_SOUND, 4 );
 	CreateSound( Ogre::String( "Explosion1.wav" ), SOUND_TYPE_2D_SOUND, 5 );
+	CreateSound( Ogre::String( "Yahoo.wav" ), SOUND_TYPE_2D_SOUND, 6 );
+	CreateSound( Ogre::String( "Yippee.wav" ), SOUND_TYPE_2D_SOUND, 7 );
+	CreateSound( Ogre::String( "CabinAmbiance.mp3" ), SOUND_TYPE_2D_SOUND_LOOPED, 8 );
+	CreateSound( Ogre::String( "ColdWind.wav" ), SOUND_TYPE_2D_SOUND_LOOPED, 9 );
 }
 
 // Unload sounds for all levels
@@ -316,6 +320,10 @@ void iceSoundManager::unloadSounds(){
 	(*mSoundVector)[3]->Finalize();
 	(*mSoundVector)[4]->Finalize();
 	(*mSoundVector)[5]->Finalize();
+	(*mSoundVector)[6]->Finalize();
+	(*mSoundVector)[7]->Finalize();
+	(*mSoundVector)[8]->Finalize();
+	(*mSoundVector)[9]->Finalize();
 }
 
 
@@ -451,10 +459,10 @@ int iceSoundManager::CreateSound(Ogre::String &fileName, SOUND_TYPE soundType, i
 
 //void iceSoundManager::PlaySound(int soundIndex, Ogre::SceneNode *soundNode, int *channelIndex)
 void iceSoundManager::PlayExplosion(){
-	PlaySound( 5, Ogre::Vector3::ZERO, 0 );
+	PlaySound( 5, Ogre::Vector3::ZERO, 0, 0.5 );
 }
 
-void iceSoundManager::PlaySound(int soundIndex, Ogre::Vector3 soundPosition, int *channelIndex)
+void iceSoundManager::PlaySound(int soundIndex, Ogre::Vector3 soundPosition, int *channelIndex, float fVolume)
    {
    int            channelIndexTemp;
    FMOD_RESULT    result;
@@ -509,7 +517,10 @@ void iceSoundManager::PlaySound(int soundIndex, Ogre::Vector3 soundPosition, int
 		channel->set3DAttributes(&initialPosition, NULL);
    //   }
 
-   result = channel->setVolume(1.0);
+	if( fVolume >= 0.0 )
+		result = channel->setVolume(fVolume);
+	else
+		result = channel->setVolume(1.0);
    // This is where the sound really starts.
    result = channel->setPaused(false);
 

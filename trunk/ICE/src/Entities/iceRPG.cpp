@@ -328,7 +328,7 @@ void iceRPG::playReceivedDamageSound(bool bCritic)
 {
 	if( bCritic )
 	{
-		iceSoundManager::getSingletonPtr()->PlaySound( 4, Ogre::Vector3::ZERO, 0 );	
+		iceSoundManager::getSingletonPtr()->PlaySound( 4, Ogre::Vector3::ZERO, 0, 0.5 );	
 	}
 }
 

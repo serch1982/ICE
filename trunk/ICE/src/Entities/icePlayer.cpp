@@ -542,11 +542,11 @@ void icePlayer::update(Ogre::Real p_timeSinceLastFrame)
 void icePlayer::playShotSound(){
 	iceSoundManager* soundMgr = iceSoundManager::getSingletonPtr();
 	if( mCurrentWeapon == MACHINEGUN ){
-		soundMgr->PlaySound( 1, Ogre::Vector3::ZERO, 0 );
+		soundMgr->PlaySound( 1, Ogre::Vector3::ZERO, 0, 0.5 );
 	}else if( mCurrentWeapon == SHOTGUN ){
-		soundMgr->PlaySound( 2, Ogre::Vector3::ZERO, 0 );
+		soundMgr->PlaySound( 2, Ogre::Vector3::ZERO, 0, 0.5 );
 	}else if( mCurrentWeapon == MISILE_LAUNCHER ){
-		soundMgr->PlaySound( 3, Ogre::Vector3::ZERO, 0 );
+		soundMgr->PlaySound( 3, Ogre::Vector3::ZERO, 0, 0.5 );
 	}
 }
 
@@ -820,6 +820,7 @@ void icePlayer::celebrate()
 	mIsCelebrating = true;
 	mIsImpact = false;
 	iceAnimationPtr->startAnimation("celebracion2_Clip");
+	iceSoundManager::getSingletonPtr()->PlaySound( 6 + (rand() % 2), Ogre::Vector3::ZERO, 0, 0.5 );
 }
 
 void icePlayer::impact()
