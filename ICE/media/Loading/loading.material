@@ -40,7 +40,7 @@ material Loading/Magmaton_material
 			
             texture_unit 
             {
-                texture Magmaton.png
+                texture Magmatonloading.png
             }
         }
     }	
