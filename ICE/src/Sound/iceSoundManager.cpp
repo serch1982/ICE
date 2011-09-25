@@ -311,6 +311,8 @@ void iceSoundManager::loadSounds(){
 	CreateSound( Ogre::String( "Yippee.wav" ), SOUND_TYPE_2D_SOUND, 7 );
 	CreateSound( Ogre::String( "CabinAmbiance.mp3" ), SOUND_TYPE_2D_SOUND_LOOPED, 8 );
 	CreateSound( Ogre::String( "ColdWind.wav" ), SOUND_TYPE_2D_SOUND_LOOPED, 9 );
+	CreateSound( Ogre::String( "CambioArma.wav" ), SOUND_TYPE_2D_SOUND, 10 );
+	CreateSound( Ogre::String( "AparicionAvisos.wav" ), SOUND_TYPE_2D_SOUND, 11 );
 }
 
 // Unload sounds for all levels
@@ -324,6 +326,8 @@ void iceSoundManager::unloadSounds(){
 	(*mSoundVector)[7]->Finalize();
 	(*mSoundVector)[8]->Finalize();
 	(*mSoundVector)[9]->Finalize();
+	(*mSoundVector)[10]->Finalize();
+	(*mSoundVector)[11]->Finalize();
 }
 
 
