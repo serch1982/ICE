@@ -210,6 +210,8 @@ void icePlayer::changeWeapon(const int z)
 		while(mWeaponLevel[nextWeapon] == 0)
 			nextWeapon = (nextWeapon+increment)%3;
 
+		if( mCurrentWeapon != nextWeapon )
+			iceSoundManager::getSingletonPtr()->PlaySound( 10, Ogre::Vector3::ZERO, 0, 0.5 );
 		mCurrentWeapon = nextWeapon;
 		iceGame::getUI()->getHUD()->setWeapon(mCurrentWeapon+1,mWeaponLevel[mCurrentWeapon]);
 
@@ -423,16 +425,19 @@ void icePlayer::update(Ogre::Real p_timeSinceLastFrame)
 	if(mSprintCountDown > 0)
 	{
 		mSprintCountDown -= p_timeSinceLastFrame;
-		if(mSprintCountDown <= 0)
+		if(mSprintCountDown <= 0){
 			iceGame::getUI()->getHUD()->showSprintAvailable();
-
+			iceSoundManager::getSingletonPtr()->PlaySound( 11, Ogre::Vector3::ZERO, 0, 0.5 );
+		}
 	}
 
 	if(mBrakeCountDown > 0)
 	{
 		mBrakeCountDown -= p_timeSinceLastFrame;
-		if(mBrakeCountDown <= 0)
+		if(mBrakeCountDown <= 0){
 			iceGame::getUI()->getHUD()->showBrakeAvailable();
+			iceSoundManager::getSingletonPtr()->PlaySound( 11, Ogre::Vector3::ZERO, 0, 0.5 );
+		}
 	}
 
 	iceTrajectoryFollower::update(trajectoryUpdate);

@@ -179,9 +179,9 @@ void iceLogicLua::getEnemyLogicState(iceEnemy *enemy, Ogre::Real p_timeSinceLast
 			//call Lua Function
 			luabind::call_function<void>(L, funcName.c_str(), enemy );
 			// log
-			std::stringstream ss;
-			ss << enemy->getState();
-			_log->logMessage( ss.str() );
+			//std::stringstream ss;
+			//ss << enemy->getState();
+			//_log->logMessage( ss.str() );
 		}else{
 			std::stringstream ss;
 			ss << "IA: function " << funcName << " does NOT exist";

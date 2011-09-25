@@ -207,8 +207,10 @@ void iceRPG::update(Ogre::Real p_fFrameTime)
 	if(mHealCountDown>0)
 	{
 		mHealCountDown -= p_fFrameTime;
-		if(mHealCountDown<=0)
+		if(mHealCountDown<=0){
 			iceGame::getUI()->getHUD()->showHealAvailable();
+			iceSoundManager::getSingletonPtr()->PlaySound( 11, Ogre::Vector3::ZERO, 0, 0.5 );
+		}
 	}
 }
 
