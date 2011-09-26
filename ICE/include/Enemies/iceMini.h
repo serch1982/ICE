@@ -21,6 +21,8 @@ public:
 	virtual void createShotEntity(int p_iWeapon, Ogre::Radian p_fDeviation, unsigned int p_iDamage, bool p_bCritic);
 	virtual void changeDirection(void);
 
+	virtual bool isAnimDyingEnded();
+
 private:
 	iceParticlePtr mParticleFire;
 	iceStrategyPtr mIceStrategyMini;

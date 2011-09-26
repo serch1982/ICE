@@ -29,7 +29,6 @@ bool iceKamikaze::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fAct
 	arr[1] = 0.6;
 	arr[2] = 1.0;
 	arr[3] = 2.0;
-	srand(time(NULL));
 	int ran = (rand() % 4 + 1) - 1;
 	Ogre::Vector3 scale(Ogre::Vector3::UNIT_SCALE * arr[ran] );
 	enemyNode->setScale(scale);

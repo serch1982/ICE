@@ -134,9 +134,10 @@ void iceLogicLua::bindLuaObjects(){
 				luabind::value("STOPPED",0),
 				luabind::value("FOLLOWING_TRAJECTORY",1),
 				luabind::value("ATTACK",2),
-				luabind::value("DYING",3),
-				luabind::value("DEAD",4),
-				luabind::value("INACTIVE",5)
+				luabind::value("START_DYING",3),
+				luabind::value("DYING",4),
+				luabind::value("DEAD",5),
+				luabind::value("INACTIVE",6)
 			]
 		    .def("getState", &iceEnemy::getState )
 		    .def("setState", &iceEnemy::setState )

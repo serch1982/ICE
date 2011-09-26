@@ -117,14 +117,13 @@ void icePlayer::initPlayer(){
 
 	//init animations
 	iceAnimationPtr = iceAnimationMgrPtr(new iceAnimationMgr());
-	iceAnimationPtr->addAnimation(mesh2->getAnimationState("iddle2_Clip"),1.0,false,true,true);
+	iceAnimationPtr->setIddleAnimation(mesh2->getAnimationState("iddle2_Clip"));
 	iceAnimationPtr->addAnimation(mesh2->getAnimationState("enfado2_Clip"));
 	iceAnimationPtr->addAnimation(mesh2->getAnimationState("celebracion2_Clip"),0,true);
 	iceAnimationPtr->addAnimation(mesh2->getAnimationState("impacto4_Clip"),0.5,true);
 	iceAnimationPtr->addAnimation(mesh2->getAnimationState("giro_izquierda1_Clip"));
 	iceAnimationPtr->addAnimation(mesh2->getAnimationState("giro_derecha1_Clip"));
 	iceAnimationPtr->addAnimation(mesh2->getAnimationState("muerte2_Clip"),0);
-	iceAnimationPtr->startIddleAnimation();
 
 	mIsAnger = false;
 	mIsCelebrating = false;

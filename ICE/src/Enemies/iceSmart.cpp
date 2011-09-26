@@ -32,7 +32,6 @@ bool iceSmart::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActiva
 	//mParticleBoom = iceParticleMgr::getSingletonPtr()->createPartAttachToObject(enemyNode,"smoke",false);
 
 	//strategy 
-	srand(time(NULL));
 	bool b = (rand() % 2 + 1) == 1 ? true: false;
 	Ogre::Real r = 15 * (Ogre::Math::RangeRandom(25.0,35.0));
 	Ogre::Real vel = Ogre::Math::RangeRandom(1.0,2.5);
