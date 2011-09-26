@@ -31,7 +31,16 @@ bool iceMini::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActivat
 		Ogre::Bone* bn = bi.getNext();
 		Ogre::String st = bn->getName();
 	}*/
-	iceAnimationPtr->addAnimation(mesh->getAnimationState("iddle"), true, true); 
+
+	
+	iceAnimationPtr->setIddleAnimation(mesh->getAnimationState("iddle_Clip1"));
+	iceAnimationPtr->addAnimation(mesh->getAnimationState("attack_Clip"),1,false,true);
+	iceAnimationPtr->addAnimation(mesh->getAnimationState("flying01_Clip"),0,false,true);
+	iceAnimationPtr->addAnimation(mesh->getAnimationState("flying02_Clip"),0,false,true);
+	iceAnimationPtr->addAnimation(mesh->getAnimationState("flying03_Clip"),0,false,true);
+	iceAnimationPtr->addAnimation(mesh->getAnimationState("flying04_Clip"),0,false,true);
+	iceAnimationPtr->addAnimation(mesh->getAnimationState("hit01_Clip"),0,true); //dead animation too
+	iceAnimationPtr->addAnimation(mesh->getAnimationState("hit02_Clip"),0,true);
 
 	//init physics
 	icePhysicEntity::initializePhysics("phy_mini"+ entityName.str(), Ogre::Vector3(3.2,7,2));
@@ -41,7 +50,6 @@ bool iceMini::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActivat
 	mParticleFire = iceParticleMgr::getSingletonPtr()->createPartAttachToBone(mesh,"right_tibia","ice/fireDown",false);
 
 	//strategy 
-	srand(time(NULL));
 	bool b = (rand() % 2 + 1) == 1 ? true: false;
 	Ogre::Real r = 10 * (Ogre::Math::RangeRandom(25.0,45.0));
 	Ogre::Real vel = Ogre::Math::RangeRandom(1.0,2.5);
@@ -58,7 +66,9 @@ void iceMini::finalize(){
 
 void iceMini::update(Ogre::Real p_timeSinceLastFrame){
 	iceEnemy::update( p_timeSinceLastFrame );
-	Ogre::Vector3 enemyPos = enemyNode->convertLocalToWorldPosition( enemyNode->getPosition() );
+	//Ogre::StringStream pos;
+	//pos << "MINI " << mNode->getName() << ". POS = " << mNode->getPosition();
+	//mLog->logMessage(pos.str());
 	switch(mState)
 	{
 		case STOPPED:
@@ -68,20 +78,22 @@ void iceMini::update(Ogre::Real p_timeSinceLastFrame){
 			enemyNode->translate(mIceStrategy->move(enemyNode->_getDerivedPosition(), p_timeSinceLastFrame));
 			mTrajectory->lookAt();
 			break;
-		case ATTACK: 
+		case ATTACK:
+			iceAnimationPtr->startAnimation("attack_Clip");
 			mTrajectory->lookAt(); 
 			enemyNode->translate(mIceStrategy->move(enemyNode->_getDerivedPosition(), p_timeSinceLastFrame));
 			enemyNode->translate(mIceStrategyMini->move(enemyNode->_getDerivedPosition(), p_timeSinceLastFrame));
 			shot(); 
 			break;
-		case DYING:
-			mBillboard->start(enemyNode->_getDerivedPosition());
-			enemyNode->setVisible(false);
-			iceGame::getGameLog()->logMessage("Enemy killed!");
-			mAnimDyingTicks++;
+		case START_DYING:
+			iceAnimationPtr->startAnimation("hit02_Clip");
+			mBillboard->start(enemyNode->_getDerivedPosition());			
 			mParticleFire->stop();
 			break;
+		case DYING:
+			break;
 		case DEAD:
+			iceGame::getGameLog()->logMessage("Enemy killed!");
 			enemyNode->setVisible(false);
 			mParticleFire->stop();
 			giveExperieceToPlayer();
@@ -100,8 +112,12 @@ void iceMini::update(Ogre::Real p_timeSinceLastFrame){
 			}
 			break;
 	}
-	mBillboard->update(p_timeSinceLastFrame);
-	iceAnimationPtr->update(p_timeSinceLastFrame);
+	//fuera del case por no repetirlo en todos los estados menos en INACTIVE
+	if(mState != INACTIVE)
+	{
+		mBillboard->update(p_timeSinceLastFrame);
+		iceAnimationPtr->update(p_timeSinceLastFrame);
+	}
 }
 
 std::string iceMini::getFunctionStr(){
@@ -117,7 +133,26 @@ void iceMini::createShotEntity(int p_iWeapon, Ogre::Radian p_fDeviation, unsigne
 
 void iceMini::changeDirection(void){
 	mIceStrategy->reverse();
-	enemyNode->translate(mIceStrategy->move(enemyNode->_getDerivedPosition(), 1));
+	Ogre::Vector3 translation = mIceStrategy->move(enemyNode->_getDerivedPosition(), 1);
+
+	if(translation.x > 0) //izquierda
+	{
+		iceAnimationPtr->startAnimation("flying03_Clip");
+	}
+	else if (translation.x < 0) //derecha
+	{
+		iceAnimationPtr->startAnimation("flying04_Clip");
+	}
+	else if (translation.z > 0) //delante
+	{
+		iceAnimationPtr->startAnimation("flying01_Clip");
+	}
+	else if (translation.z < 0) //detras
+	{
+		iceAnimationPtr->startAnimation("flying02_Clip");
+	}
+
+	enemyNode->translate(translation);
 }
 
 void iceMini::setState(ENEMYSTATE p_iState){
@@ -126,10 +161,25 @@ void iceMini::setState(ENEMYSTATE p_iState){
 
 void iceMini::showReceivedDamage(unsigned int p_iDamage, bool p_bCritical){
 	iceEnemy::showReceivedDamage(p_iDamage, p_bCritical);
+
+	if(p_bCritical)
+	{
+		iceAnimationPtr->startAnimation("hit01_Clip");
+	}
+	else
+	{
+		iceAnimationPtr->startAnimation("hit02_Clip");
+	}
+
 	if(!isAlive()){
 		enemyNode->setVisible(false);
 		Ogre::SceneNode* node = iceGame::getSceneManager()->getRootSceneNode()->createChildSceneNode(enemyNode->getName() + "_exp");
 		node->setPosition(enemyNode->_getDerivedPosition());
 		iceParticleMgr::getSingletonPtr()->createParticle(node, "ice/crashboom");	
 	}
+}
+
+bool iceMini::isAnimDyingEnded()
+{
+	return iceAnimationPtr->hasAnimationEnded("hit01_Clip");
 }

@@ -1,5 +1,6 @@
 #include "Scene\DotSceneLoader.h"
 #include <Ogre.h>
+#include "iceGame.h"
  
 #pragma warning(disable:4390)
 #pragma warning(disable:4305)
@@ -9,6 +10,7 @@ DotSceneLoader::DotSceneLoader() : mSceneMgr(0), mTerrainGroup(0)
 {
     mTerrainGlobalOptions = OGRE_NEW Ogre::TerrainGlobalOptions();
 	auxId =0;
+	srand((unsigned)time(0));
 }
  
  
@@ -155,7 +157,7 @@ void DotSceneLoader::processNodes(rapidxml::xml_node<>* XMLNode)
 		}
 		else if (Ogre::StringUtil::startsWith(name,"enemies"))
 		{
-			processEnemies(pElement);
+			processEnemies(pElement,false);
 		}
 		else if (Ogre::StringUtil::startsWith(name,"trajectory"))
 		{
@@ -712,7 +714,7 @@ void DotSceneLoader::processTrajectoryStep(rapidxml::xml_node<>* XMLNode, Ogre::
 	mTrajectoriesSteps[trajectoryNumber].push_back(iceStep(position,Ogre::Radian(0),time));
 }
 
-void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode,Ogre::SceneNode *pParent)
+void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode, bool delayed, Ogre::SceneNode *pParent)
 {
 	//Processing user data
 	Ogre::Vector3 position = parseVector3(XMLNode->first_node("position"));
@@ -732,7 +734,13 @@ void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode,Ogre::SceneNod
 		Ogre::String name = getAttrib(XMLProperty,"name");
 		if (name.compare("time") == 0)
 		{
-			time = getAttribReal(XMLProperty,"data") - 10;
+			time = getAttribReal(XMLProperty,"data");
+			if(delayed)
+			{
+				time -= 10;
+				if(time <= 0)
+					time = 1;
+			}
 		}
 		else if (name.compare("MiniMagmaton") == 0)
 		{
@@ -756,10 +764,7 @@ void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode,Ogre::SceneNod
 	Ogre::SceneNode* snbbNode = mSceneMgr->getRootSceneNode()->createChildSceneNode(uniqueId);
 	for (int i=0;i<miniMagmatons;i++)
 	{
-		Ogre::Vector3 dev = Ogre::Vector3(maxDev.x * (Ogre::Math::UnitRandom() - Ogre::Math::UnitRandom()),
-										  maxDev.y * (Ogre::Math::UnitRandom() - Ogre::Math::UnitRandom()),
-										  maxDev.z * (Ogre::Math::UnitRandom() - Ogre::Math::UnitRandom())
-										 );
+		Ogre::Vector3 dev = randomVector() * maxDev;
 		Ogre::Real timeDev = (Ogre::Math::UnitRandom() - 0.5) * 2;
 		Ogre::Vector3 enemyPosition = position + dev;
 
@@ -772,10 +777,7 @@ void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode,Ogre::SceneNod
 	}
 	for (int i=0;i<kamikaces;i++)
 	{
-		Ogre::Vector3 dev =  Ogre::Vector3(maxDev.x * (Ogre::Math::RangeRandom(0.1,4.0)),
-										  maxDev.y * (Ogre::Math::RangeRandom(0.1,4.0)),
-										  maxDev.z * (Ogre::Math::RangeRandom(0.1,4.0))
-										 );
+		Ogre::Vector3 dev =  randomVector() * maxDev;
 		Ogre::Real timeDev = (Ogre::Math::UnitRandom() - 0.5) * 2;
 		Ogre::Vector3 enemyPosition = position + dev;
 
@@ -788,10 +790,7 @@ void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode,Ogre::SceneNod
 	}
 	for (int i=0;i<intelligents;i++)
 	{
-		Ogre::Vector3 dev = Ogre::Vector3(maxDev.x * (Ogre::Math::UnitRandom() - Ogre::Math::UnitRandom()),
-										  maxDev.y * (Ogre::Math::UnitRandom() - Ogre::Math::UnitRandom()),
-										  maxDev.z * (Ogre::Math::UnitRandom() - Ogre::Math::UnitRandom())
-										 );
+		Ogre::Vector3 dev = randomVector() * maxDev;
 		Ogre::Real timeDev = (Ogre::Math::UnitRandom() - 0.5) * 2;
 		Ogre::Vector3 enemyPosition = position + dev;
 
@@ -1322,4 +1321,12 @@ std::vector<iceObject*> DotSceneLoader::getObjects(void)
 std::vector<iceObject*> DotSceneLoader::getStaticPhisicObjects(void)
 {
 	return mStaticPhisicObjects;
+}
+
+Ogre::Vector3 DotSceneLoader::randomVector(void)
+{
+	return Ogre::Vector3(((float)rand()/(float)RAND_MAX)-0.5,
+						 ((float)rand()/(float)RAND_MAX)-0.5,
+						 ((float)rand()/(float)RAND_MAX)-0.5
+						 );
 }

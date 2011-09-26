@@ -92,7 +92,7 @@
 		void processTrajectoryStep(rapidxml::xml_node<>* XMLNode, Ogre::SceneNode *pParent = 0);
 		void processMagmaton(rapidxml::xml_node<>* XMLNode, Ogre::SceneNode *pParent = 0);
 		void processVolcano(rapidxml::xml_node<>* XMLNode, Ogre::SceneNode *pParent = 0);
-		void processEnemies(rapidxml::xml_node<>* XMLNode,  Ogre::SceneNode *pParent = 0);
+		void processEnemies(rapidxml::xml_node<>* XMLNode, bool delayed = true, Ogre::SceneNode *pParent = 0);
         void processLookTarget(rapidxml::xml_node<>* XMLNode, Ogre::SceneNode *pParent);
         void processTrackTarget(rapidxml::xml_node<>* XMLNode, Ogre::SceneNode *pParent);
         void processEntity(rapidxml::xml_node<>* XMLNode, Ogre::SceneNode *pParent);
@@ -116,6 +116,8 @@
         Ogre::Vector3 parseVector3(rapidxml::xml_node<>* XMLNode);
         Ogre::Quaternion parseQuaternion(rapidxml::xml_node<>* XMLNode);
         Ogre::ColourValue parseColour(rapidxml::xml_node<>* XMLNode);
+
+		Ogre::Vector3 randomVector(void);
  
  
         Ogre::SceneManager *mSceneMgr;

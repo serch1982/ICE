@@ -53,8 +53,8 @@ bool iceVolcano::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActi
 	enemyNode->attachObject(getGeometry()->getMovableObject());
 
 	//Animations
-	iceAnimationPtr->addAnimation(mesh->getAnimationState("iddle"), true, true); 
-	iceAnimationPtr->addAnimation(mesh->getAnimationState("attack"), false, false); 
+	iceAnimationPtr->setIddleAnimation(mesh->getAnimationState("iddle")); 
+	iceAnimationPtr->addAnimation(mesh->getAnimationState("attack"),0, true); 
 
 	mLavaCreated = false;
 	mAttackDamage = 0;
@@ -111,7 +111,7 @@ void iceVolcano::update(Ogre::Real p_timeSinceLastFrame){
 					}
 					else
 					{// attack ended
-						iceAnimationPtr->startAnimation("iddle");
+						iceAnimationPtr->stopAllAnimations();
 
 						mLavaNode->setPosition(mLavaInitialPosition);
 						mLavaCreated = false;

@@ -9,7 +9,6 @@ struct iceAnimation
 	Ogre::AnimationState* animation;
 	Ogre::Real iddleWeight;
 	bool stopAtEnd;
-	bool asDefault;
 };
 
 class iceAnimationMgr 
@@ -28,13 +27,15 @@ public:
 	/**
     *  add new Animation
     */
-	void addAnimation(Ogre::AnimationState*  animation, Ogre::Real iddleWeight = 1.0 , 
-					 bool stopOnEnd = false, bool loop = false, bool asdefault = false);
+	void addAnimation(Ogre::AnimationState*  animation, Ogre::Real iddleWeight = 1.0 , bool stopOnEnd = false, bool loop = false);
 	
 	/**
     *  start an animation
     */
 	void startAnimation(Ogre::String name);
+
+	void startIddleAnimation();
+	void stopIddleAnimation();
 
 	/**
     *  stop all animations
@@ -53,17 +54,13 @@ public:
 	bool hasAnimationEnded(Ogre::String animationName = "");
 
 	/**
-    *  get the name of the current animation
+    *  get hte name of the current animation
     */
 	Ogre::String getNameCurrentAnimation();
-
-
-	/**
-    *  active the default animation 
-    */
-	void startIddleAnimation();
+	void setIddleAnimation(Ogre::AnimationState* pIddleAnimation);
 private:
 	Ogre::String activeAnimation;
+	Ogre::AnimationState* iddleAnimation;
 	std::map<Ogre::String,iceAnimation> mAnimations;
 	std::map<Ogre::String,iceAnimation>::iterator iter;
 };

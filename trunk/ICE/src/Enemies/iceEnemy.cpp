@@ -47,7 +47,6 @@ bool iceEnemy::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActiva
 			//icePlayer::getSingletonPtr()->getNode()->getParentSceneNode()->createChildSceneNode(name);
 
 	iceTrajectoryFollower::initialize(enemyNode);
-	enemyNode->setPosition(p_Position);
 
 	//Dummy Trajectory
 	setTrajectory(new iceTrajectory());
@@ -55,6 +54,8 @@ bool iceEnemy::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActiva
 	
 	mState = INACTIVE;
 	setLevel(1);
+
+	enemyNode->setPosition(p_Position);	
 
 	mWeaponBaseCadence[MACHINEGUN] = 1;
 	return true;
@@ -89,7 +90,7 @@ std::string iceEnemy::getFunctionStr(){
 
 void iceEnemy::activate(void)
 {
-	mCurrentLife = getMaxLife();
+	Ogre::StringStream pos;
 	enemyNode->setVisible(true);
 	mState = STOPPED;
 	//mState = FOLLOWING_TRAJECTORY;

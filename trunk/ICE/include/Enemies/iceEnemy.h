@@ -23,9 +23,10 @@ class iceEnemy :public iceTrajectoryFollower, public iceRPG, public icePhysicEnt
 			STOPPED = 0, //En realidad esta siguiendo la trayectoria del player
 			FOLLOWING_TRAJECTORY = 1,
 			ATTACK = 2,
-			DYING = 3,
-			DEAD = 4,
-			INACTIVE = 5
+			START_DYING = 3,
+			DYING = 4,
+			DEAD = 5,
+			INACTIVE = 6
 		};
 		//set billboard
 		void setBillboard(iceBillboard* billboard);
@@ -59,7 +60,7 @@ class iceEnemy :public iceTrajectoryFollower, public iceRPG, public icePhysicEnt
 		virtual std::string getFunctionStr();
 
 		// Animated Dead
-		bool isAnimDyingEnded();
+		virtual bool isAnimDyingEnded();
 		void setAnimDyingEnded( Ogre::Real ticks );
 
 		////iceRPG
