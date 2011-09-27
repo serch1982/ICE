@@ -53,12 +53,12 @@ iceParticlePtr iceParticleMgr::createPartAttachToObject(Ogre::SceneNode* node, O
 	return pSystem;
 }
 
-iceParticlePtr iceParticleMgr::createPartAttachToObject(Ogre::SceneNode* node, Ogre::Vector3 position, Ogre::String script, bool start)
+iceParticlePtr iceParticleMgr::createPartAttachToObject(Ogre::SceneNode* node, Ogre::Vector3 position, Ogre::String script, bool start, Ogre::Vector3 scale)
 {
 	iceParticle::iceParticleParameters params = this->defaultParameters(script);
 	Ogre::String name = this->createUniqueId() + "_" + script;
 	ParticleUniverse::ParticleSystem* ps = mParticleSystemManager->createParticleSystem(name, params.script, mSceneManager);
-
+	ps->setScale(scale);
 	iceParticlePtr pSystem = iceParticlePtr(new iceParticle(node->createChildSceneNode(position), ps, params, name));
 	if( start )
 		pSystem->start();
@@ -66,12 +66,13 @@ iceParticlePtr iceParticleMgr::createPartAttachToObject(Ogre::SceneNode* node, O
 	return pSystem;
 }
 
-iceParticlePtr iceParticleMgr::createPartAttachToBone(Ogre::Entity* entityNode, Ogre::String boneName, Ogre::String script, bool start)
+iceParticlePtr iceParticleMgr::createPartAttachToBone(Ogre::Entity* entityNode, Ogre::String boneName, Ogre::String script, bool start, Ogre::Vector3 scale, Ogre::Vector3 position)
 {
+	iceParticle::iceParticleParameters params = this->defaultParameters(script,false,false, position);
 	Ogre::String name =script + this->createUniqueId();
 	ParticleUniverse::ParticleSystem* ps = mParticleSystemManager->createParticleSystem(name, script, mSceneManager);
-
-	iceParticlePtr pSystem = iceParticlePtr(new iceParticle(entityNode,boneName,ps, this->defaultParameters(script),name));
+	ps->setScale(scale);
+	iceParticlePtr pSystem = iceParticlePtr(new iceParticle(entityNode,boneName,ps, params,name));
 	if( start )
 		pSystem->start();
 
@@ -92,13 +93,13 @@ bool iceParticleMgr::removeParticle(iceParticlePtr miceParticlePtr)
 	return true;
 }
 
-iceParticle::iceParticleParameters iceParticleMgr::defaultParameters(Ogre::String script, bool isFree, bool isLoop )
+iceParticle::iceParticleParameters iceParticleMgr::defaultParameters(Ogre::String script, bool isFree, bool isLoop, Ogre::Vector3 position )
 {
 	iceParticle::iceParticleParameters params;
 	params.script = script;
 	params.isLoop = isLoop;
 	params.isFree = isFree;
-
+	params.position = position;
 	return params;
 }
 

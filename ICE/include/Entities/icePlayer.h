@@ -90,6 +90,7 @@ class icePlayer : public iceTrajectoryFollower
 		void anger();
 		void celebrate();
 		void impact();
+		virtual void heal(void);
 	protected:
 
 		bool mMovingUp;
@@ -140,6 +141,7 @@ class icePlayer : public iceTrajectoryFollower
 		//particles
 		iceParticlePtr mParticleTurboLeft;
 		iceParticlePtr mParticleTurboRight;
+		iceParticlePtr mParticleHeal;
 
 		bool mInvulnerable;
 		Ogre::Real mInvulnerableTime;

@@ -63,6 +63,9 @@ icePlayer::icePlayer():_isShooting(false)
 
 icePlayer::~icePlayer()
 {	
+	mParticleTurboLeft.reset();
+	mParticleTurboRight.reset();
+	mParticleHeal.reset();
 	//iceParticleMgr::getSingletonPtr()->removeParticle(mParticleTurboLeft);
 	//iceParticleMgr::getSingletonPtr()->removeParticle(mParticleTurboRight);
 	virtualCam.reset();
@@ -110,6 +113,7 @@ void icePlayer::initPlayer(){
 	rollNode->attachObject(mesh2);
 	
 	//particles
+	mParticleHeal = iceParticleMgr::getSingletonPtr()->createPartAttachToObject(shipNode, Ogre::Vector3(0,0.5,2),"iceAtomicity",false,Ogre::Vector3(.01,.01,.01));
 	mParticleTurboLeft = iceParticleMgr::getSingletonPtr()->createPartAttachToBone(mesh2,"turbo_right","ice/icePlayerTurbo",true); 
 	//iceParticleMgr::getSingletonPtr()->createPartAttachToObject(rollNode, Ogre::Vector3(1.1,-0.1,-.2),"ice/icePlayerTurbo",true);
 	mParticleTurboRight =  iceParticleMgr::getSingletonPtr()->createPartAttachToBone(mesh2,"turbo_left","ice/icePlayerTurbo",true); 
@@ -833,4 +837,14 @@ void icePlayer::impact()
 	mIsCelebrating = false;
 	mIsImpact = true;
 	iceAnimationPtr->startAnimation("impacto4_Clip");
+}
+
+void icePlayer::heal(void)
+{
+	
+	if(mHealCountDown <= 0)
+	{
+		mParticleHeal->start();
+	}
+	iceRPG::heal();
 }

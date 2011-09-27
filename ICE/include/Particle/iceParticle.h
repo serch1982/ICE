@@ -13,9 +13,10 @@ public:
     */
 	struct iceParticleParameters
 	{
-		Ogre::String	script;
+		Ogre::String script;
 		bool isLoop;
 		bool isFree;
+		Ogre::Vector3 position;
 	};
 
 public:

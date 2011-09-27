@@ -401,3 +401,4 @@ void iceStatePlay::checkActivableCutScene(void)
 		}
 	}
 }
+

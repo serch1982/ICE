@@ -1,0 +1,119 @@
+system iceAtomicity
+{
+    keep_local                                  true
+    category                                    ice
+    technique 
+    {
+        visual_particle_quota                   40
+        material                                iceStreak_02
+        default_particle_width                  10
+        default_particle_height                 10
+        default_particle_depth                  10
+        renderer                                Sphere
+        {
+        }
+        emitter                                 Point StreakEmitter
+        {
+            emission_rate                       dyn_oscillate
+            {
+                oscillate_frequency             0.4
+                oscillate_phase                 0
+                oscillate_base                  20
+                oscillate_amplitude             20
+                oscillate_type                  sine
+            }
+            time_to_live                        1.5
+            direction                           0 0 0
+        }
+        affector                                Colour 
+        {
+            time_colour                         0    1 1 1 1
+            time_colour                         0.569565  0.301961 0.509804 0.992157 1
+            time_colour                         1    0 0 0 1
+        }
+        affector                                GeometryRotator 
+        {
+            rotation_speed                      dyn_curved_linear
+            {
+                control_point                   0 3
+                control_point                   1 0.2
+            }
+        }
+        affector                                Scale 
+        {
+            xyz_scale                           dyn_curved_linear
+            {
+                control_point                   0 400
+                control_point                   0.8 400
+                control_point                   1 800
+            }
+            x_scale                             0.1
+            y_scale                             0.1
+            z_scale                             0.1
+        }
+        observer                                OnCount 
+        {
+            handler                             DoEnableComponent 
+            {
+                enable_component                emitter_component StreakEmitter false
+            }
+            handler                             DoEnableComponent 
+            {
+                enable_component                emitter_component FlareEmitter false
+            }
+            handler                             DoEnableComponent 
+            {
+                enable_component                emitter_component FlareCoreEmitter false
+            }
+            count_threshold                     greater_than 39
+        }
+        observer                                OnClear 
+        {
+            handler                             DoStopSystem 
+            {
+            }
+        }
+    }
+    technique 
+    {
+        visual_particle_quota                   50
+        material                                iceFlare_04
+        default_particle_width                  10
+        default_particle_height                 10
+        default_particle_depth                  10
+        renderer                                Billboard
+        {
+        }
+        emitter                                 Point FlareEmitter
+        {
+            emission_rate                       20
+            angle                               360
+            time_to_live                        1
+            velocity                            200
+            all_particle_dimensions             dyn_random
+            {
+                min                             20
+                max                             150
+            }
+            enabled                             false
+        }
+        emitter                                 Point FlareCoreEmitter
+        {
+            emission_rate                       20
+            angle                               360
+            time_to_live                        1.5
+            velocity                            30
+            all_particle_dimensions             dyn_random
+            {
+                min                             40
+                max                             150
+            }
+        }
+        affector                                Colour 
+        {
+            time_colour                         0    0 0 1 1
+            time_colour                         0.536957  1 1 1 1
+            time_colour                         1    0 0 0 1
+        }
+    }
+}
