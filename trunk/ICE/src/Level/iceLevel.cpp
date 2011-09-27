@@ -29,7 +29,7 @@ void iceLevel::load(std::vector<iceEnemy*>& vectorEnemies, std::vector<iceCutSce
 
 		Ogre::SceneNode* staticPhisicObjectsNode = sceneManager->getSceneNode(_name + "_" + "StaticPhisicObjects");
 		Ogre::SceneNode* helpersNode = sceneManager->getSceneNode(_name + "_" + "Helpers");
-		//staticPhisicObjectsNode->setVisible(false);
+		staticPhisicObjectsNode->setVisible(false);
 		helpersNode->setVisible(false);
 
 		icePlayer::getSingletonPtr()->setTrajectory(new iceLocomotiveTrajectory());
