@@ -36,7 +36,7 @@ bool iceSmart::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActiva
 	Ogre::Real r = 15 * (Ogre::Math::RangeRandom(25.0,35.0));
 	Ogre::Real vel = Ogre::Math::RangeRandom(1.0,2.5);
 	mIceStrategy = iceStrategyPtr(new iceStrategySin(r,vel,50, b));
-	mIceStrategySmart = iceStrategyPtr(new iceStrategyBackForward(8));
+	mIceStrategySmart = iceStrategyPtr(new iceStrategyBackForward(5));
 	_renew = (rand() % 2 + 1) + 1;
 	_count =0;
 	return true;

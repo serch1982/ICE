@@ -57,12 +57,12 @@ public:
     *  to create a particle attached to a scene node in a specific position of the sceneNode  
 	*  @return iceParticlePtr : instance iceParticle
     */
-	iceParticlePtr createPartAttachToObject(Ogre::SceneNode* node, Ogre::Vector3 position, Ogre::String script, bool start);
+	iceParticlePtr createPartAttachToObject(Ogre::SceneNode* node, Ogre::Vector3 position, Ogre::String script, bool start, Ogre::Vector3 scale = Ogre::Vector3(1,1,1));
 	/**
     *  to create a particle attached to a bone from his body
 	*  @return iceParticlePtr : instance iceParticle
     */
-	iceParticlePtr createPartAttachToBone(Ogre::Entity* entityNode, Ogre::String boneName, Ogre::String script, bool start);
+	iceParticlePtr createPartAttachToBone(Ogre::Entity* entityNode, Ogre::String boneName, Ogre::String script, bool start, Ogre::Vector3 scale = Ogre::Vector3(1,1,1), Ogre::Vector3 position = Ogre::Vector3(0,0,0));
 	/**
     *  to remove a particle to the world, deleting the instance
 	*  @return bool
@@ -74,7 +74,7 @@ private:
     *  to create a default parameter for a instance iceparticle 
 	*  @return iceParticle::iceParticleParameters
     */
-	iceParticle::iceParticleParameters defaultParameters(Ogre::String script, bool isFree = false, bool isLoop = true);
+	iceParticle::iceParticleParameters defaultParameters(Ogre::String script, bool isFree = false, bool isLoop = true, Ogre::Vector3 position = Ogre::Vector3(0,0,0));
 	/**
 	*  to create and unique name
 	*/

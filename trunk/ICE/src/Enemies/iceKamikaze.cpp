@@ -47,6 +47,7 @@ bool iceKamikaze::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fAct
 
 void iceKamikaze::finalize(){
 	iceParticleMgr::getSingletonPtr()->removeParticle(mParticleFire);
+	mParticleFire.reset();
 	iceEnemy::finalize();
 }
 
@@ -59,10 +60,10 @@ void iceKamikaze::update(Ogre::Real p_timeSinceLastFrame){
 			mTrajectory->lookAt();
 			break;
 		case ATTACK: 
+			mTrajectory->lookAt();
 			enemyNode->translate(mVelocity * p_timeSinceLastFrame);
 			mRenewTarget--;
 			if( mRenewTarget == 0 ){
-				mTrajectory->lookAt();
 				mRenewTarget = 2;
 			}
 			break;

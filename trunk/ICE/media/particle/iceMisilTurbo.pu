@@ -78,7 +78,7 @@ system ice/iceMisilTurbo
         {
             angle                               0
             time_to_live                        4
-            velocity                            30
+            velocity                            0
             auto_direction                      true
         }
         affector                                Scale 
@@ -87,6 +87,7 @@ system ice/iceMisilTurbo
         }
         affector                                Jet Affector2
         {
+            enabled                             false
         }
     }
 }

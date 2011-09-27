@@ -50,7 +50,7 @@ public:
 
 	bool isAlive(void);
 	virtual void update(Ogre::Real p_fFrameTime);
-	void heal(void);
+	virtual void heal(void);
 	void shot(void);
 	void addDamage(unsigned int p_iDamage, bool p_bCritic);
 

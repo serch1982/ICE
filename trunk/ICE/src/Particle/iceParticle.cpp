@@ -13,7 +13,7 @@ iceParticle::iceParticle(Ogre::Entity* entityNode,Ogre::String boneName, Particl
 	mParticleSystem = particleSystem;
 	mParameters = params;
 	mId = id;
-	entityNode->attachObjectToBone( boneName, mParticleSystem );
+	entityNode->attachObjectToBone( boneName, mParticleSystem, Ogre::Quaternion::IDENTITY, mParameters.position );
 }
 
 iceParticle::~iceParticle()

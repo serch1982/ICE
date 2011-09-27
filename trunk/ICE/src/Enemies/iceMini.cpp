@@ -61,6 +61,7 @@ bool iceMini::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActivat
 void iceMini::finalize(){
 	mIceStrategyMini.reset();
 	iceParticleMgr::getSingletonPtr()->removeParticle(mParticleFire);
+	mParticleFire.reset();
 	iceEnemy::finalize();
 }
 

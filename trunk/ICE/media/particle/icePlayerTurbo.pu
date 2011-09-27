@@ -1,34 +1,38 @@
 system ice/icePlayerTurbo
 {
+    keep_local                                  true
     category                                    ice
     technique 
     {
-        keep_local                              true
-        emitted_emitter_quota                   1
+        emitted_emitter_quota                   500
+        emitted_technique_quota                 500
+        emitted_affector_quota                  500
+        emitted_system_quota                    500
         material                                iceflame
-        default_particle_width                  1.5
-        default_particle_height                 1.5
-        default_particle_depth                  1.5
+        default_particle_width                  2
+        default_particle_height                 2
+        default_particle_depth                  2
         spatial_hashing_cell_dimension          1
+        spatial_hashing_cell_overlap            1
+        spatial_hashtable_size                  1
+        spatial_hashing_update_interval         1
         renderer                                Billboard
         {
+            render_queue_group                  100
+            common_direction                    0 -1 0
+            common_up_vector                    0 -1 0
         }
         emitter                                 Point 
         {
-            emission_rate                       40
+            emission_rate                       100
             angle                               1
+            time_to_live                        1
             velocity                            1
-            keep_local                          true
             direction                           0 0 -1
-            orientation                         1 0 0 -1
-        }
-        affector                                Gravity 
-        {
-            position                            0 0 -1
         }
         affector                                Scale 
         {
-            xyz_scale                           -2
+            xyz_scale                           -10
         }
         affector                                Colour 
         {
