@@ -111,12 +111,25 @@ void icePlayer::initPlayer(){
 	Ogre::Entity* mesh2 = sceneManager->createEntity("shipMesh", "airplane.mesh");
 	mesh2->setCastShadows(true);
 	rollNode->attachObject(mesh2);
-	
+
+	leftTurbo = rollNode->createChildSceneNode(Ogre::Vector3(1.2,0.7,-0.6));
+	rightTurbo = rollNode->createChildSceneNode(Ogre::Vector3(-1.2,0.7,-0.6));
+
+	leftTurbo->attachObject(sceneManager->createEntity("jet1", "plane_jet.mesh"));
+	rightTurbo->attachObject(sceneManager->createEntity("jet2", "plane_jet.mesh"));
+
+	leftTurbo->pitch(Ogre::Degree(-90));
+	rightTurbo->pitch(Ogre::Degree(-90));
+
+	leftTurbo->scale(0.4,0.8,0.4);
+	rightTurbo->scale(0.4,0.8,0.4);
+
+
 	//particles
 	mParticleHeal = iceParticleMgr::getSingletonPtr()->createPartAttachToObject(shipNode, Ogre::Vector3(0,0.5,2),"iceAtomicity",false,Ogre::Vector3(.01,.01,.01));
-	mParticleTurboLeft = iceParticleMgr::getSingletonPtr()->createPartAttachToBone(mesh2,"turbo_right","ice/icePlayerTurbo",true); 
+	//mParticleTurboLeft = iceParticleMgr::getSingletonPtr()->createPartAttachToBone(mesh2,"turbo_right","ice/icePlayerTurbo",true); 
 	//iceParticleMgr::getSingletonPtr()->createPartAttachToObject(rollNode, Ogre::Vector3(1.1,-0.1,-.2),"ice/icePlayerTurbo",true);
-	mParticleTurboRight =  iceParticleMgr::getSingletonPtr()->createPartAttachToBone(mesh2,"turbo_left","ice/icePlayerTurbo",true); 
+	//mParticleTurboRight =  iceParticleMgr::getSingletonPtr()->createPartAttachToBone(mesh2,"turbo_left","ice/icePlayerTurbo",true); 
 	//iceParticleMgr::getSingletonPtr()->createPartAttachToObject(rollNode, Ogre::Vector3(-1.1,-0.1,-.2),"ice/icePlayerTurbo",true);
 
 	//init animations
@@ -413,11 +426,21 @@ void icePlayer::update(Ogre::Real p_timeSinceLastFrame)
 	if(mSprintTime > 0)
 	{
 		mSprintTime -= p_timeSinceLastFrame;
+		if(mSprintTime <= 0)
+		{
+			leftTurbo->scale(1,0.5,1);
+			rightTurbo->scale(1,0.5,1);
+		}
 		trajectoryUpdate *= SPRINT_MULTIMPLICATOR;
 	}	
 	else if(mBrakeTime > 0)
 	{
 		mBrakeTime -= p_timeSinceLastFrame;
+		if(mBrakeTime <= 0)
+		{
+			leftTurbo->scale(1,2,1);
+			rightTurbo->scale(1,2,1);
+		}
 		trajectoryUpdate /= BRAKE_DIVISOR;
 	}
 	else
@@ -692,9 +715,16 @@ void icePlayer::sprint(void)
 	{
 		mSprintTime = SPRINT_TIME;
 		mSprintCountDown = SPRINT_COUNTDOWN_TIME;
-		mBrakeTime = 0; //deactivate brake
+		if(mBrakeTime > 0)
+		{
+			mBrakeTime = 0; //deactivate brake
+			leftTurbo->scale(1,2,1);
+			rightTurbo->scale(1,2,1);
+		}
 		icePostProcessManager::getSingleton().enableHardBlur();
 		iceGame::getUI()->getHUD()->hideSprintAvailable();
+		leftTurbo->scale(1,2,1);
+		rightTurbo->scale(1,2,1);
 	}
 }
 
@@ -704,9 +734,16 @@ void icePlayer::brake(void)
 	{
 		mBrakeTime = BRAKE_TIME;
 		mBrakeCountDown = BRAKE_COUNTDOWN_TIME;
-		mSprintTime = 0; //deactivate sprint
+		if(mSprintTime > 0)
+		{
+			mSprintTime = 0; //deactivate sprint
+			leftTurbo->scale(1,0.5,1);
+			rightTurbo->scale(1,0.5,1);
+		}
 		icePostProcessManager::getSingleton().disableBlur();
 		iceGame::getUI()->getHUD()->hideBrakeAvailable();
+		leftTurbo->scale(1,0.5,1);
+		rightTurbo->scale(1,0.5,1);
 	}
 }
 
