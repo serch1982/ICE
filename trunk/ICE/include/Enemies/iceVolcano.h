@@ -32,6 +32,8 @@ private:
 	Ogre::Real mLavaTime;
 	Ogre::Real mTimeToNextAtack;
 	Ogre::Vector3 mLavaInitialPosition;
+
+	Ogre::Vector3 mScale;
 };
 
 #endif

@@ -22,16 +22,18 @@ bool iceKamikaze::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fAct
 
 	// loading the mesh and attaching it to he node
 	Ogre::Entity* mesh;
-	mesh = sceneManager->createEntity(entityName.str(), "kamikaze.mesh");
+	mesh = sceneManager->createEntity(entityName.str(), "kamikace.mesh");
 	enemyNode->attachObject(mesh);
 	Ogre::Real arr[5];
 	arr[0] = 0.3;
 	arr[1] = 0.6;
 	arr[2] = 1.0;
 	arr[3] = 2.0;
-	int ran = (rand() % 4 + 1) - 1;
+	int ran = rand() % 4;
 	Ogre::Vector3 scale(Ogre::Vector3::UNIT_SCALE * arr[ran] );
 	enemyNode->setScale(scale);
+
+	iceAnimationPtr->setIddleAnimation(mesh->getAnimationState("fly"));
 
 	//init physics
 	icePhysicEntity::initializePhysics("phy_kami"+ entityName.str(), scale * 5); 

@@ -20,9 +20,13 @@ bool iceSmart::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActiva
 	entityName << "Entity_" << mNameGenerator.generate();
 
 	// loading the mesh and attaching it to he node
-	Ogre::Entity* mesh;
-	mesh = sceneManager->createEntity(entityName.str(), "intelligent.mesh");
+	Ogre::Entity* mesh = sceneManager->createEntity(entityName.str(), "intelligent.mesh");
 	enemyNode->attachObject(mesh);
+	Ogre::Entity* miniMesh = sceneManager->createEntity(entityName.str() + "_mini", "minimagmaton.mesh");
+	Ogre::SceneNode* miniNode = enemyNode->createChildSceneNode(Ogre::Vector3(0,1,0));
+	miniNode->attachObject(miniMesh);
+
+	iceAnimationPtr->setIddleAnimation(miniMesh->getAnimationState("attack_Clip"));
 
 	//init physics
 	icePhysicEntity::initializePhysics("phy_smart"+ entityName.str(), Ogre::Vector3(10,5.5,4));
