@@ -27,7 +27,7 @@ material intelligent
 
 			texture_unit
 			{
-				texture intelligent.jpg
+				texture intelligent.png
 			}
 		}
 		// Black outline

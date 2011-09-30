@@ -27,7 +27,7 @@ material kamikace
 			
 			texture_unit
 			{
-				texture kamikazeTexture.png
+				texture kamikaze.png
 			}
 		}
 		// Black outline

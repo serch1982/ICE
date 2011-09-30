@@ -4,7 +4,7 @@
 #define LAVA_UP_TIME 4
 #define LAVA_HOLD_TIME 0.5
 #define LAVA_DOWN_TIME 2
-#define LAVA_TOTAL_DISTACE 126
+#define LAVA_TOTAL_DISTACE 70
 #define TIME_BETWEEN_ATTACKS 1
 
 iceVolcano::iceVolcano(){
@@ -41,15 +41,17 @@ bool iceVolcano::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActi
 
 	//mLavaNode->showBoundingBox(true);
 
-	enemyNode->scale(p_Scale);
+	mScale = p_Scale;
+
+	enemyNode->scale(mScale);
 	enemyNode->rotate(rotation);
-	mLavaNode->scale(p_Scale);
+	mLavaNode->scale(mScale);
 	mLavaNode->rotate(rotation);
-	mLavaNode->translate(Ogre::Vector3(0,-LAVA_TOTAL_DISTACE,0), Ogre::Node::TS_LOCAL);
-	mLavaInitialPosition = mLavaNode->_getDerivedPosition();
+	mLavaNode->translate(Ogre::Vector3(0,-LAVA_TOTAL_DISTACE,0) * mScale,Ogre::Node::TS_LOCAL);
+	mLavaInitialPosition = mLavaNode->getPosition();
 
 	//init physics
-	icePhysicEntity::initializePhysics("phy_volc"+ entityName.str(), Ogre::Vector3(20,32,20) * p_Scale );
+	icePhysicEntity::initializePhysics("phy_volc"+ entityName.str(), Ogre::Vector3(20,32,20) * mScale );
 	enemyNode->attachObject(getGeometry()->getMovableObject());
 
 	//Animations
@@ -99,14 +101,13 @@ void iceVolcano::update(Ogre::Real p_timeSinceLastFrame){
 						if(mLavaTime<=LAVA_UP_TIME)
 						{// lava ascendiendo
 							Ogre::Vector3 t(0,(LAVA_TOTAL_DISTACE/LAVA_UP_TIME)*p_timeSinceLastFrame,0);
-							mLavaNode->translate(t, Ogre::Node::TS_LOCAL);
+							mLavaNode->translate(t * mScale,Ogre::Node::TS_LOCAL);
 						}
 						else if (mLavaTime > (LAVA_UP_TIME+LAVA_HOLD_TIME))
 						{// lava descendiendo
 							Ogre::Vector3 t(0,-(LAVA_TOTAL_DISTACE/LAVA_UP_TIME)*p_timeSinceLastFrame,0);
-							mLavaNode->translate(t, Ogre::Node::TS_LOCAL);
+							mLavaNode->translate(t * mScale,Ogre::Node::TS_LOCAL);
 						}
-						//mAnimations["attack"]->addTime(p_timeSinceLastFrame);
 						mLavaTime += p_timeSinceLastFrame;
 					}
 					else
