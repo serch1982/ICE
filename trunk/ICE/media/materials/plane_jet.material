@@ -1,0 +1,21 @@
+material plane_jet
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+
+			texture_unit
+			{
+				texture blue_fire_texture_tile.png
+				scroll_anim 0 -1
+				tex_address_mode wrap
+			}
+		}
+
+	}
+
+}
+
+
