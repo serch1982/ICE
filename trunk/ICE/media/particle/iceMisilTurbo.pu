@@ -79,6 +79,11 @@ system ice/iceMisilTurbo
             angle                               0
             time_to_live                        4
             velocity                            0
+            all_particle_dimensions             dyn_random
+            {
+                min                             1
+                max                             10
+            }
             auto_direction                      true
         }
         affector                                Scale 
@@ -88,6 +93,12 @@ system ice/iceMisilTurbo
         affector                                Jet Affector2
         {
             enabled                             false
+        }
+        affector                                Colour Affector24
+        {
+            time_colour                         0    0.752941 0.752941 0.752941 1
+            time_colour                         0.25  1 1 1 1
+            time_colour                         1    1 1 1 1
         }
     }
 }

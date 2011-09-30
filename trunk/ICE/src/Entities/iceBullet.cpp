@@ -72,3 +72,12 @@ void iceBullet::crashEnemy(void){
 	iceParticleMgr::getSingletonPtr()->createParticle(node, "explotion_blue",scale);
 	mActive = false; 
 }
+
+void iceBullet::crashPlayer(void){ 
+	Ogre::SceneNode* node = iceGame::getSceneManager()->getRootSceneNode()->createChildSceneNode(mBulletNode->getName() + "_exp");
+	node->setPosition(mBulletNode->_getDerivedPosition());
+	Ogre::Vector3 scale(.05,.05,.05);
+	node->scale(scale);
+	iceParticleMgr::getSingletonPtr()->createParticle(node, "metal_hit",scale);
+	mActive = false; 
+}

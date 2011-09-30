@@ -885,3 +885,4 @@ void icePlayer::heal(void)
 	}
 	iceRPG::heal();
 }
+
