@@ -42,7 +42,7 @@ void icePhysics::processBullets(void)
 		if(!(*iter)->isFromPlayer()){
 			if(pbox.intersects(bbox)){
 				mPlayer->addDamage((*iter)->getDamage(),(*iter)->getCritic());
-				(*iter)->desactivate();
+				(*iter)->crashPlayer();
 				bulletImpacted = true;
 			}
 		}

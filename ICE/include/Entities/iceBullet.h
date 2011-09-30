@@ -85,6 +85,11 @@ public:
 		void crashEnemy(void);
 
 		/**
+		*  to desactivate the bullet and create effect when crash the player
+		*/
+		void crashPlayer(void);
+		
+		/**
 		*  get the property is active
 		*/
 		bool isActive(void){ return mActive; }
