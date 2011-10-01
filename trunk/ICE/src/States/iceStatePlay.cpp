@@ -82,6 +82,8 @@ void iceStatePlay::load() {
 			mHUD = iceGame::getUI()->getHUD();
 			mHUD->show();
 
+			mPropAnimations = _level->getPropAnimations();
+
 			_damageTextManager = new iceDamageTextManager();
 
 			//post process
@@ -132,6 +134,8 @@ void iceStatePlay::clear() {
 
 		//hide HUD
 		mHUD->hide();
+		mPropAnimations.clear();
+
     }
 }
 
@@ -153,6 +157,12 @@ void iceStatePlay::update(Ogre::Real evt)
 			}
 			else
 			{
+				//props
+				for(unsigned int i=0;i<mPropAnimations.size();i++)
+				{
+					mPropAnimations[i]->addTime(evt);
+				}
+
 				//bullets
 				mIceBulletMgr->update(evt, visibleBoundingBoxes);
 
@@ -218,6 +228,12 @@ void iceStatePlay::update(Ogre::Real evt)
 			}
 			else
 			{
+				//props
+				for(unsigned int i=0;i<mPropAnimations.size();i++)
+				{
+					mPropAnimations[i]->addTime(evt);
+				}
+
 				//bullets
 				mIceBulletMgr->update(evt, visibleBoundingBoxes);
 

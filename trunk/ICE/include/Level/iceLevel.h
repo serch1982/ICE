@@ -74,6 +74,8 @@ class iceLevel {
 		Ogre::TerrainGroup* getTerrain(void);
 
 		iceTrajectory* getTrajectory(unsigned int i);
+
+		std::vector<Ogre::AnimationState*> getPropAnimations();
     private:
         //level
 		int _id;
