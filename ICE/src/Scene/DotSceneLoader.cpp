@@ -975,6 +975,17 @@ void DotSceneLoader::processEntity(rapidxml::xml_node<>* XMLNode, Ogre::SceneNod
 		else
 		{
 			mObjects.push_back(new iceObject(pParent, pEntity));
+			if(pParent->getParentSceneNode()->getName().compare(m_sPrependNode + "AnimatedProps") == 0)
+			{
+				Ogre::AnimationState* iddleAnimation = pEntity->getAnimationState("iddle");
+				if(iddleAnimation)
+				{
+					iddleAnimation->setEnabled(true);
+					iddleAnimation->setLoop(true);
+					iddleAnimation->setTimePosition(iddleAnimation->getLength() * Ogre::Math::UnitRandom());
+					mPropAnimations.push_back(iddleAnimation);
+				}
+			}
 		}
 
         if(!materialFile.empty())
@@ -1329,4 +1340,9 @@ Ogre::Vector3 DotSceneLoader::randomVector(void)
 						 ((float)rand()/(float)RAND_MAX)-0.5,
 						 ((float)rand()/(float)RAND_MAX)-0.5
 						 );
+}
+
+std::vector<Ogre::AnimationState*> DotSceneLoader::getPropAnimations()
+{
+	return mPropAnimations;
 }

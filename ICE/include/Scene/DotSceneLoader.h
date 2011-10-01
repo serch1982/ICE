@@ -69,6 +69,8 @@
 		iceBoss* getMagmaton(void);
 		std::vector<iceObject*> getObjects(void);
 		std::vector<iceObject*> getStaticPhisicObjects(void);
+
+		std::vector<Ogre::AnimationState*> getPropAnimations();
  
     protected:
         void processScene(rapidxml::xml_node<>* XMLRoot);
@@ -139,6 +141,8 @@
 		iceBoss* mMagmaton;
 		std::vector<iceObject*> mObjects;
 		std::vector<iceObject*> mStaticPhisicObjects;
+
+		std::vector<Ogre::AnimationState*> mPropAnimations;
     };
  
 #endif // DOT_SCENELOADER_H

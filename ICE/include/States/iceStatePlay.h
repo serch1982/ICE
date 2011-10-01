@@ -173,6 +173,8 @@ class iceStatePlay: public iceState{
 
 		// level manager
 		iceLevelManager* _levelManager;
+
+		std::vector<Ogre::AnimationState*> mPropAnimations;
 };
 
 

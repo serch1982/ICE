@@ -107,6 +107,11 @@ std::vector<iceObject*> iceLevel::getStaticPhisicSceneObjects()  {
     return iceLevelManager::getSingletonPtr()->getDotSceneLoader()->getStaticPhisicObjects();
 }
 
+std::vector<Ogre::AnimationState*> iceLevel::getPropAnimations()
+{
+	return iceLevelManager::getSingletonPtr()->getDotSceneLoader()->getPropAnimations();
+}
+
 const int iceLevel::getId() const {
     return _id;
 }
