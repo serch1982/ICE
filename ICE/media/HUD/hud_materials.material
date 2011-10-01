@@ -285,3 +285,19 @@ material HUD/cutscene_frame_material
         }
     }	
 }
+
+material HUD/gameover_material
+{
+    technique
+    {
+        pass
+        {
+			scene_blend alpha_blend
+			
+            texture_unit 
+            {
+				anim_texture gameover1.png gameover2.png 1
+            }
+        }
+    }	
+}

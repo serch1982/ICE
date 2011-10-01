@@ -39,6 +39,11 @@ class iceHUD
 		void showFrame();
 		void hideFrame();
 
+		void showGameover();
+		void hideGameover();
+
+		void setCheating(bool pCheating);
+
 	protected:
 		std::vector<std::string> mWeaponNames;
 		std::vector<Ogre::Real> mWeaponCharSizes;
@@ -79,6 +84,10 @@ class iceHUD
 		Ogre::PanelOverlayElement* mTopFramePanel;
 		Ogre::PanelOverlayElement* mBottomFramePanel;
 
+		Ogre::PanelOverlayElement* mGameoverPanel;
+
+		Ogre::TextAreaOverlayElement* mCheatingTextarea;
+
 		unsigned int mCurrentFace;
 		bool mShowingFace2;
 		Ogre::Real mFace2Time;
@@ -97,6 +106,8 @@ class iceHUD
 		Ogre::Real mShowingFrameTime;
 		Ogre::Real mHidingFrameTime;
 		Ogre::Real mFrameHeight;
+
+		bool mCheating;
 };
 
 #endif

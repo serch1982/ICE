@@ -140,7 +140,7 @@ void icePlayer::initPlayer(){
 	iceAnimationPtr->addAnimation(mesh2->getAnimationState("impacto4_Clip"),0.5,true);
 	iceAnimationPtr->addAnimation(mesh2->getAnimationState("giro_izquierda1_Clip"));
 	iceAnimationPtr->addAnimation(mesh2->getAnimationState("giro_derecha1_Clip"));
-	iceAnimationPtr->addAnimation(mesh2->getAnimationState("muerte2_Clip"),0);
+	iceAnimationPtr->setDyingAnimation(mesh2->getAnimationState("muerte2_Clip"));
 
 	mIsAnger = false;
 	mIsCelebrating = false;
@@ -181,6 +181,10 @@ void icePlayer::initPlayer(){
 
 	mSprintCountDown = 0;
 	mBrakeCountDown = 0;
+
+	if(mCurrentLife <= 0)
+		mCurrentLife = getMaxLife();
+	mDying = false;
 }
 
 Ogre::AxisAlignedBox icePlayer::getVitualCamBBox(void) {
@@ -885,4 +889,15 @@ void icePlayer::heal(void)
 	}
 	iceRPG::heal();
 }
+void icePlayer::die()
+{
+	leftTurbo->setVisible(false);
+	rightTurbo->setVisible(false);
+	mDying = true;
+	iceAnimationPtr->startDyingAnimation();
+}
 
+bool icePlayer::isDying()
+{
+	return !iceAnimationPtr->hasAnimationEnded();
+}

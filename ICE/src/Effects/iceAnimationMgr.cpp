@@ -3,6 +3,7 @@
 iceAnimationMgr::iceAnimationMgr(){
 	activeAnimation ="";
 	iddleAnimation = NULL;
+	dyingAnimation = NULL;
 }
 
 iceAnimationMgr::~iceAnimationMgr(){
@@ -44,10 +45,17 @@ void iceAnimationMgr::update(Ogre::Real time){
 	}
 	if(iddleAnimation)
 		iddleAnimation->addTime(time);
+	if(dyingAnimation)
+		dyingAnimation->addTime(time);
 }
 
 bool iceAnimationMgr::hasAnimationEnded(Ogre::String animationName)
 {
+	if(dyingAnimation->getEnabled())
+	{
+		return dyingAnimation->hasEnded();
+	}
+
 	if(animationName == "")
 	{
 		if(activeAnimation == "")
@@ -84,4 +92,19 @@ void iceAnimationMgr::stopIddleAnimation()
 {
 	iddleAnimation->setEnabled(false);
 	iddleAnimation->setTimePosition(0);
+}
+
+void iceAnimationMgr::setDyingAnimation(Ogre::AnimationState* pDyingAnimation)
+{
+	dyingAnimation = pDyingAnimation;
+	dyingAnimation->setEnabled(false);
+	dyingAnimation->setLoop(false);
+}
+
+void iceAnimationMgr::startDyingAnimation()
+{
+	stopAllAnimations();
+	dyingAnimation->setTimePosition(0);
+	dyingAnimation->setEnabled(true);
+	iddleAnimation->setWeight(0);
 }

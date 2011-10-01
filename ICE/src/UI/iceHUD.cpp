@@ -72,6 +72,10 @@ void iceHUD::init(iceStateManager* pStateManager)
 	mTopFramePanel = static_cast<Ogre::PanelOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/frame_top"));
 	mBottomFramePanel = static_cast<Ogre::PanelOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/frame_bottom"));
 
+	mGameoverPanel = static_cast<Ogre::PanelOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/gameover_panel"));
+
+	mCheatingTextarea = static_cast<Ogre::TextAreaOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/cheating_text"));
+
 	mFrameHeight = mTopFramePanel->getHeight();
 	mTopFramePanel->hide();
 	mBottomFramePanel->hide();
@@ -99,6 +103,9 @@ void iceHUD::init(iceStateManager* pStateManager)
 	mShowingAchievement = false;
 	mAchievementPanel->hide();
 	mShowinwg = false;
+
+	mGameoverPanel->hide();
+	mCheating = false;
 }
 
 void iceHUD::show()
@@ -197,6 +204,15 @@ void iceHUD::update(Ogre::Real pTimeSinceLastFrame)
 			mTopFramePanel->setTop(-offset);
 			mBottomFramePanel->setTop(-mFrameHeight + offset);
 		}
+	}
+	
+	if(mCheating)
+	{
+		mCheatingTextarea->setCaption("Cheating mode ON");
+	}
+	else
+	{
+		mCheatingTextarea->setCaption("");
 	}
 }
 
@@ -365,4 +381,19 @@ void iceHUD::hideFrame()
 	mBottomFramePanel->show();
 	mTopFramePanel->setTop(0);
 	mBottomFramePanel->setTop(-mFrameHeight);
+}
+
+void iceHUD::showGameover()
+{
+	mGameoverPanel->show();
+}
+
+void iceHUD::hideGameover()
+{
+	mGameoverPanel->hide();
+}
+
+void iceHUD::setCheating(bool pCheating)
+{
+	mCheating = pCheating;
 }

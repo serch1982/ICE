@@ -58,9 +58,12 @@ public:
     */
 	Ogre::String getNameCurrentAnimation();
 	void setIddleAnimation(Ogre::AnimationState* pIddleAnimation);
+	void setDyingAnimation(Ogre::AnimationState* pDyingAnimation);
+	void startDyingAnimation();
 private:
 	Ogre::String activeAnimation;
 	Ogre::AnimationState* iddleAnimation;
+	Ogre::AnimationState* dyingAnimation;
 	std::map<Ogre::String,iceAnimation> mAnimations;
 	std::map<Ogre::String,iceAnimation>::iterator iter;
 };

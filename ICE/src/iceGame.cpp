@@ -17,6 +17,7 @@ Ogre::Viewport* iceGame::_viewport = 0;
 Ogre::Log* iceGame::_log = 0;
 Ogre::Camera* iceGame::_camera = 0;
 iceUI* iceGame::mUI = 0;
+iceStateManager* iceGame::_stateManager = 0;
 
 iceGame::iceGame() {
     // init Ogre
@@ -205,4 +206,8 @@ void iceGame::setCamera(Ogre::Camera* p_Camera)
 iceUI* iceGame::getUI()
 {
 	return mUI;
+}
+iceStateManager* iceGame::getStateManager()
+{
+	return _stateManager;
 }

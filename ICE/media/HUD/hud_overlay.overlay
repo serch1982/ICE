@@ -8,6 +8,20 @@ HUD/hud_overlay
 		top 0.03
 		width 0.94
 		height 0.94
+		
+		container TextArea(HUD/cheating_text)
+		{
+			metrics_mode pixels
+			left 0
+			top 0
+			width 90
+			height 20
+
+			font_name ObelixPro
+			char_height 20
+			colour black
+			caption Cheating
+		}
 
 		container Panel(HUD/achievements_panel)
 		{
@@ -376,5 +390,14 @@ HUD/hud_overlay
 		height 0.1
 		material HUD/cutscene_frame_material
 	}
-
+	
+	container Panel(HUD/gameover_panel)
+	{
+		left 0
+		top 0
+		width 1
+		height 1
+		material HUD/gameover_material
+	}
 }
+
