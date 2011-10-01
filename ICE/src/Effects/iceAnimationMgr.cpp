@@ -51,7 +51,7 @@ void iceAnimationMgr::update(Ogre::Real time){
 
 bool iceAnimationMgr::hasAnimationEnded(Ogre::String animationName)
 {
-	if(dyingAnimation->getEnabled())
+	if(dyingAnimation && dyingAnimation->getEnabled())
 	{
 		return dyingAnimation->hasEnded();
 	}
