@@ -136,6 +136,9 @@ class iceStateManager : public Ogre::FrameListener,
          */
 		ICEStateId getCurrentStateID();
 
+		void goToNextLevel();
+		void goToMainMenu();
+
 		//iceMenu
 		void menuExitClick();
 		void menuPlayClick();

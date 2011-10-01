@@ -40,8 +40,6 @@ void iceStatePlay::load() {
 			_log->logMessage("iceStatePlay::load()");
 			_loaded = true;
 
-
-
 			//level manager
 			_levelManager = new iceLevelManager();	
 
@@ -94,6 +92,7 @@ void iceStatePlay::load() {
 
 			mCurrentTime = 0;
 			_player->getNode()->setVisible(true);
+			mState = NORMAL;
 	}
 }
 
@@ -139,80 +138,154 @@ void iceStatePlay::clear() {
 
 void iceStatePlay::update(Ogre::Real evt)
 {
-	checkActivableCutScene();
-
-	if(mCurrentCutScene)
+	switch(mState)
 	{
-		mCurrentCutScene->update(evt);
-		if(mCurrentCutScene->hasEnded())
-		{
-			mCurrentCutScene->rollback();
-			mCurrentCutScene = NULL;
-		}
-	}
-	else
-	{
-		//update game Physics 
-		mPhysics->update();
-
-		//bullets
-		mIceBulletMgr->update(evt, visibleBoundingBoxes);
-
-		//player
-		_player->update(evt);
-		_player->setDebug(visibleBoundingBoxes);
-		//enemies
-		for (_revit_mEnemies = _mEnemies.rbegin(); _revit_mEnemies != _mEnemies.rend(); ++_revit_mEnemies) {
-			iceEnemy* enemy = *_revit_mEnemies;
-			iceLogicLua::getInstance()->getEnemyLogicState(enemy,evt);
-			enemy->setDebug(visibleBoundingBoxes);
-			enemy->update(evt);
-		}
-
-		if(_mMagmaton)
-		{
-			iceLogicLua::getInstance()->getEnemyLogicState(_mMagmaton,evt);
-			_mMagmaton->setDebug(visibleBoundingBoxes);
-			_mMagmaton->update(evt);
-		}
-		//HUD
-		
-		//update particles
-		iceParticleMgr::getSingletonPtr()->update(evt);
-
-		//setHUDWeapon(_player->getCurrentWeaponName());
-
-		//ShowDamage
-		iceDamageTextManager::getSingleton().update(evt);
-
-		//chivatos of the camera
-		iceSdkTray::getInstance()->updateScreenInfo( 0, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedPosition().x));
-		iceSdkTray::getInstance()->updateScreenInfo( 1, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedPosition().y));
-		iceSdkTray::getInstance()->updateScreenInfo( 2, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedPosition().z));
-		iceSdkTray::getInstance()->updateScreenInfo( 3, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedOrientation().w));
-		iceSdkTray::getInstance()->updateScreenInfo( 4, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedOrientation().x));
-		iceSdkTray::getInstance()->updateScreenInfo( 5, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedOrientation().y));
-		iceSdkTray::getInstance()->updateScreenInfo( 6, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedOrientation().z));
-
-		mCurrentTime += evt*_player->getTimeMultiplier();
-
-		if( _levelID == 2 )
-		{
-			if(mFightingAgainstBoss)
+		case NORMAL:
+			checkActivableCutScene();
+			if(mCurrentCutScene)
 			{
-				//Rutinas contra magmaton
+				mCurrentCutScene->update(evt);
+				if(mCurrentCutScene->hasEnded())
+				{
+					mCurrentCutScene->rollback();
+					mCurrentCutScene = NULL;
+				}
 			}
 			else
 			{
-				if(mCurrentTime >= 80)
-				{ // Fin de trayectoria, comienza la lucha con el boss
-					_player->getTrajectory()->goToLastStep();
-					_player->getTrajectory()->setNodeToLookAt(_mMagmaton->getNode());
-					_player->getTrajectory()->lookAt();
-					mFightingAgainstBoss = true;
+				//bullets
+				mIceBulletMgr->update(evt, visibleBoundingBoxes);
+
+				//player
+				_player->update(evt);
+				_player->setDebug(visibleBoundingBoxes);
+
+				//update particles
+				iceParticleMgr::getSingletonPtr()->update(evt);
+
+				//update game Physics 
+				mPhysics->update();
+
+				//enemies
+				for (_revit_mEnemies = _mEnemies.rbegin(); _revit_mEnemies != _mEnemies.rend(); ++_revit_mEnemies) {
+					iceEnemy* enemy = *_revit_mEnemies;
+					iceLogicLua::getInstance()->getEnemyLogicState(enemy,evt);
+					enemy->setDebug(visibleBoundingBoxes);
+					enemy->update(evt);
+				}
+
+				if(_mMagmaton)
+				{
+					iceLogicLua::getInstance()->getEnemyLogicState(_mMagmaton,evt);
+					_mMagmaton->setDebug(visibleBoundingBoxes);
+					_mMagmaton->update(evt);
+				}
+				//HUD
+
+				//setHUDWeapon(_player->getCurrentWeaponName());
+
+				//ShowDamage
+				iceDamageTextManager::getSingleton().update(evt);
+
+				//chivatos of the camera
+				iceSdkTray::getInstance()->updateScreenInfo( 0, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedPosition().x));
+				iceSdkTray::getInstance()->updateScreenInfo( 1, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedPosition().y));
+				iceSdkTray::getInstance()->updateScreenInfo( 2, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedPosition().z));
+				iceSdkTray::getInstance()->updateScreenInfo( 3, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedOrientation().w));
+				iceSdkTray::getInstance()->updateScreenInfo( 4, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedOrientation().x));
+				iceSdkTray::getInstance()->updateScreenInfo( 5, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedOrientation().y));
+				iceSdkTray::getInstance()->updateScreenInfo( 6, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedOrientation().z));
+
+				mCurrentTime += evt*_player->getTimeMultiplier();
+
+				if(!_player->isAlive())
+				{
+					_player->die();
+					mState = PLAYER_DYING;
 				}
 			}
-		}
+			break;
+		case CHEATING:
+			checkActivableCutScene();
+			if(mCurrentCutScene)
+			{
+				mCurrentCutScene->update(evt);
+				if(mCurrentCutScene->hasEnded())
+				{
+					mCurrentCutScene->rollback();
+					mCurrentCutScene = NULL;
+				}
+			}
+			else
+			{
+				//bullets
+				mIceBulletMgr->update(evt, visibleBoundingBoxes);
+
+				//player
+				_player->update(evt);
+				_player->setDebug(visibleBoundingBoxes);
+
+				//update particles
+				iceParticleMgr::getSingletonPtr()->update(evt);
+
+				//update game Physics 
+				mPhysics->update();
+
+				//enemies
+				for (_revit_mEnemies = _mEnemies.rbegin(); _revit_mEnemies != _mEnemies.rend(); ++_revit_mEnemies) {
+					iceEnemy* enemy = *_revit_mEnemies;
+					iceLogicLua::getInstance()->getEnemyLogicState(enemy,evt);
+					enemy->setDebug(visibleBoundingBoxes);
+					enemy->update(evt);
+				}
+
+				if(_mMagmaton)
+				{
+					iceLogicLua::getInstance()->getEnemyLogicState(_mMagmaton,evt);
+					_mMagmaton->setDebug(visibleBoundingBoxes);
+					_mMagmaton->update(evt);
+				}
+				//HUD
+
+				//setHUDWeapon(_player->getCurrentWeaponName());
+
+				//ShowDamage
+				iceDamageTextManager::getSingleton().update(evt);
+
+				//chivatos of the camera
+				iceSdkTray::getInstance()->updateScreenInfo( 0, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedPosition().x));
+				iceSdkTray::getInstance()->updateScreenInfo( 1, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedPosition().y));
+				iceSdkTray::getInstance()->updateScreenInfo( 2, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedPosition().z));
+				iceSdkTray::getInstance()->updateScreenInfo( 3, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedOrientation().w));
+				iceSdkTray::getInstance()->updateScreenInfo( 4, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedOrientation().x));
+				iceSdkTray::getInstance()->updateScreenInfo( 5, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedOrientation().y));
+				iceSdkTray::getInstance()->updateScreenInfo( 6, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedOrientation().z));
+
+				mCurrentTime += evt*_player->getTimeMultiplier();
+			}
+			break;
+		case PLAYER_DYING:
+			//bullets
+			mIceBulletMgr->update(evt, visibleBoundingBoxes);
+
+			//player
+			_player->update(evt);
+			_player->setDebug(visibleBoundingBoxes);
+
+			//update particles
+			iceParticleMgr::getSingletonPtr()->update(evt);
+
+			mCurrentTime += evt*_player->getTimeMultiplier();
+
+			if(!_player->isDying()) //not dying => is dead
+			{
+				mState = SHOWIN_GAMEOVER;
+				mHUD->showGameover();
+			}
+
+			break;
+		case SHOWIN_GAMEOVER:
+			break;
 	}
 }
 
@@ -285,6 +358,27 @@ bool iceStatePlay::keyPressed(const OIS::KeyEvent &arg) {
 	else if(arg.key == OIS::KC_I)   // heal
     {
 		mHUD->hideFrame();
+    }
+	else if(arg.key == OIS::KC_C)
+    {
+		if(mState == CHEATING)
+		{
+			mState = NORMAL;
+			mHUD->setCheating(false);
+		}
+		else
+		{
+			mState = CHEATING;
+			mHUD->setCheating(true);
+		}
+    }
+	else if(arg.key == OIS::KC_SPACE)
+    {
+		if(mState == SHOWIN_GAMEOVER)
+		{
+			mHUD->hideGameover();
+			iceGame::getStateManager()->goToMainMenu();
+		}
     }
 	
     return true;

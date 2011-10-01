@@ -36,6 +36,14 @@ class iceStatePlay: public iceState{
          * Destructor
          */
         ~iceStatePlay();
+
+		enum PLAYSTATE
+		{
+			NORMAL = 0,
+			CHEATING = 1,
+			PLAYER_DYING = 2,
+			SHOWIN_GAMEOVER = 3
+		};
         
         /**
          *  load elements
@@ -106,6 +114,8 @@ class iceStatePlay: public iceState{
          */
 		void switchBoundingBoxesVisibility(void);
     private:
+		PLAYSTATE mState;
+
 		//HUD
 		iceHUD* mHUD;
 

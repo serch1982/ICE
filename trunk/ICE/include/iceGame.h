@@ -59,6 +59,8 @@ class iceGame {
 
 		static iceUI* getUI();
 
+		static iceStateManager* getStateManager();
+
     private:
 		//
         Ogre::Root* _root;
@@ -90,7 +92,7 @@ class iceGame {
         // OIS
         OIS::InputManager* _inputManager;
         // states manager
-        iceStateManager* _stateManager;
+        static iceStateManager* _stateManager;
 		//sound manager
 		iceSoundManager* _soundManager;
 };

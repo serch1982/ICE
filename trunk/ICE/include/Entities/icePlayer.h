@@ -29,6 +29,7 @@ class icePlayer : public iceTrajectoryFollower
 	public:
 		icePlayer();
 		~icePlayer();
+
         static icePlayer& getSingleton(void);
 	    static icePlayer* getSingletonPtr(void);
 
@@ -91,8 +92,10 @@ class icePlayer : public iceTrajectoryFollower
 		void celebrate();
 		void impact();
 		virtual void heal(void);
-	protected:
 
+		void die();
+		bool isDying();
+	protected:
 		bool mMovingUp;
 		bool mMovingDown;
 		bool mMovingLeft;
@@ -158,6 +161,7 @@ class icePlayer : public iceTrajectoryFollower
 
 		Ogre::Real mSprintCountDown;
 		Ogre::Real mBrakeCountDown;
+		bool mDying;
 };
 
 typedef boost::shared_ptr<icePlayer> icePlayerPtr;

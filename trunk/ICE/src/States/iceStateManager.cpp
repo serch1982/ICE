@@ -271,7 +271,7 @@ bool iceStateManager::keyPressed(const OIS::KeyEvent &arg) {
     }
 	else if (arg.key == OIS::KC_N)
     {
-		_ind= true;
+		goToNextLevel();
     }
 	_sdkCameraMan->injectKeyDown(arg);
     return this->_currentState->keyPressed(arg);
@@ -357,16 +357,9 @@ bool iceStateManager::frameRenderingQueued(const Ogre::FrameEvent& evt) {
 		if(currentStateId == PLAY){
 			iceStatePlay* sp = (iceStatePlay*)this->_currentState;
 			unsigned int lid = sp->getNextLevel();
-			if(lid == 999) {
-				_ind= false;
-				_currentState->clear();
-				_currentState->setNextStateId(MAINMENU);
-				iceGame::getSceneManager()->destroyAllCameras();
-				iceGame::createCamera();
-				createGodCam();
-				changeState(getICEStateByID(MAINMENU));
-				_currentState->setNextStateId(MAINMENU);
-				iceSdkTray::getInstance()->showCursor();
+			if(lid == 999) 
+			{
+				goToMainMenu();
 				return true;
 			}
 			iceLoadingBar loadingBar;
@@ -436,4 +429,22 @@ void iceStateManager::menuPlayClick()
 void iceStateManager::menuContinueClick()
 {
 	_currentState->setNextStateId(PLAY);
+}
+
+void iceStateManager::goToNextLevel()
+{
+	_ind = true;
+}
+
+void iceStateManager::goToMainMenu()
+{
+	_ind= false;
+	_currentState->clear();
+	_currentState->setNextStateId(MAINMENU);
+	iceGame::getSceneManager()->destroyAllCameras();
+	iceGame::createCamera();
+	createGodCam();
+	changeState(getICEStateByID(MAINMENU));
+	_currentState->setNextStateId(MAINMENU);
+	iceSdkTray::getInstance()->showCursor();
 }
