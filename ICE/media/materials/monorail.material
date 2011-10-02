@@ -1,0 +1,61 @@
+material monorail2
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture monorail2.png
+			}
+		}
+		// Black outline
+		pass
+		{
+			cull_hardware anticlockwise
+			
+			vertex_program_ref Outline
+			{
+				param_named offset float 0.3
+			}			
+			fragment_program_ref Black
+			{
+			}		
+		}
+
+	}
+
+}
+
+
+
+material monorail3
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture monorail3.png
+			}
+		}
+		// Black outline
+		pass
+		{
+			cull_hardware anticlockwise
+			
+			vertex_program_ref Outline
+			{
+				param_named offset float 0.3
+			}			
+			fragment_program_ref Black
+			{
+			}		
+		}
+
+	}
+
+}
+
+

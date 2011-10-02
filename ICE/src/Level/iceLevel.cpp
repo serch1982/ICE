@@ -127,4 +127,11 @@ void iceLevel::setDebugSceneObjects(bool isDebug)
 	{
 		mIceObjects[i]->setDebugMode(isDebug);
 	}
+
+	std::vector<iceObject*> physicObjects = getStaticPhisicSceneObjects();
+
+	for(unsigned int i=0;i<physicObjects.size();i++)
+	{
+		physicObjects[i]->setDebugMode(isDebug);
+	}
 }
