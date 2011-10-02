@@ -1,0 +1,50 @@
+
+material pine
+{
+	technique
+	{
+		pass
+		{
+			vertex_program_ref ToonVP
+			{
+				param_named shininess float4 3 1.0 1.0 1.0
+			}
+
+			fragment_program_ref ToonFP
+			{
+				param_named ambient float4 0.0 0.0 0.0 1.0
+				param_named diffuse float4 0.244 0.244 0.244 1
+				param_named specular float4 0.0 0.0 0.0 1
+				param_named emissive float4 0.0 0.0 0.0 1
+			}
+
+			texture_unit ToonShades
+			{
+				texture toon.png 2d
+				tex_address_mode clamp
+				filtering none
+			}
+			texture_unit
+			{
+				texture pine.png
+			}
+		}
+		// Black outline
+		pass
+		{
+			cull_hardware anticlockwise
+			
+			vertex_program_ref Outline
+			{
+				param_named offset float 0.3
+			}			
+			fragment_program_ref Black
+			{
+			}		
+		}
+
+	}
+
+}
+
+
