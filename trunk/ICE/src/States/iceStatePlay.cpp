@@ -18,11 +18,14 @@ iceStatePlay::iceStatePlay(
     _log->logMessage("iceStatePlay::iceStatePlay()");
 	_nextICEStateId = PLAY;
 	visibleBoundingBoxes = false;
-
-	mRightClick = false;
 	
 	mCurrentTime = 0;
 	mCurrentCutScene = NULL;
+
+	mUpCounter = 0;
+	mDownCounter = 0;
+	mLeftCounter = 0;
+	mRightCounter = 0;
 }
 
 iceStatePlay::~iceStatePlay() {
@@ -197,6 +200,15 @@ void iceStatePlay::update(Ogre::Real evt)
 				//ShowDamage
 				iceDamageTextManager::getSingleton().update(evt);
 
+				if(mUpCounter > 0)
+					mUpCounter -= evt;
+				if(mDownCounter > 0)
+					mDownCounter -= evt;
+				if(mLeftCounter > 0)
+					mLeftCounter -= evt;
+				if(mRightCounter > 0)
+					mRightCounter -= evt;
+
 				//chivatos of the camera
 				iceSdkTray::getInstance()->updateScreenInfo( 0, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedPosition().x));
 				iceSdkTray::getInstance()->updateScreenInfo( 1, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedPosition().y));
@@ -204,7 +216,7 @@ void iceStatePlay::update(Ogre::Real evt)
 				iceSdkTray::getInstance()->updateScreenInfo( 3, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedOrientation().w));
 				iceSdkTray::getInstance()->updateScreenInfo( 4, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedOrientation().x));
 				iceSdkTray::getInstance()->updateScreenInfo( 5, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedOrientation().y));
-				iceSdkTray::getInstance()->updateScreenInfo( 6, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedOrientation().z));
+				iceSdkTray::getInstance()->updateScreenInfo( 6, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedOrientation().y));
 
 				mCurrentTime += evt*_player->getTimeMultiplier();
 
@@ -268,6 +280,15 @@ void iceStatePlay::update(Ogre::Real evt)
 				//ShowDamage
 				iceDamageTextManager::getSingleton().update(evt);
 
+				if(mUpCounter > 0)
+					mUpCounter -= evt;
+				if(mDownCounter > 0)
+					mDownCounter -= evt;
+				if(mLeftCounter > 0)
+					mLeftCounter -= evt;
+				if(mRightCounter > 0)
+					mRightCounter -= evt;
+
 				//chivatos of the camera
 				iceSdkTray::getInstance()->updateScreenInfo( 0, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedPosition().x));
 				iceSdkTray::getInstance()->updateScreenInfo( 1, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedPosition().y));
@@ -317,51 +338,39 @@ bool iceStatePlay::keyPressed(const OIS::KeyEvent &arg) {
     }
 	else if(arg.key == OIS::KC_W)   // up
     {
-		if(mRightClick ==  true)
+		if(mUpCounter > 0)
 		{
 			_player->sprint();
 		}
-		else
-		{
-			_player->setMovingUp(true);
-		}
+		mUpCounter = DOUBLE_KEY_TIME;
+		_player->setMovingUp(true);
     }
 	else if(arg.key == OIS::KC_S)   // down
     {
-		if(mRightClick ==  true)
+		if(mDownCounter > 0)
 		{
 			_player->brake();
 		}
-		else
-		{
-			_player->setMovingDown(true);
-		}
+		mDownCounter = DOUBLE_KEY_TIME;
+		_player->setMovingDown(true);
     }	
 	else if(arg.key == OIS::KC_A)   // left
     {
-		if(mRightClick ==  true)
+		if(mLeftCounter > 0)
 		{
 			_player->barrelLeft();
 		}
-		else
-		{
-			_player->setMovingLeft(true);
-		}
+		mLeftCounter = DOUBLE_KEY_TIME;
+		_player->setMovingLeft(true);
     }	
 	else if(arg.key == OIS::KC_D)   // right
     {
-		if(mRightClick ==  true)
+		if(mRightCounter > 0)
 		{
 			_player->barrelRight();
 		}
-		else
-		{
-			_player->setMovingRight(true);
-		}
-    }
-	else if(arg.key == OIS::KC_H)   // heal
-    {
-		_player->heal();
+		mRightCounter = DOUBLE_KEY_TIME;
+		_player->setMovingRight(true);
     }
 	else if(arg.key == OIS::KC_Z)   // heal
     {
@@ -434,13 +443,12 @@ bool iceStatePlay::mousePressed(const OIS::MouseEvent &arg, OIS::MouseButtonID i
 		_player->setIsShooting(true);
 
 	if(id== 1) 
-		mRightClick = true;
+		_player->heal();
     return true;
 }
 
 bool iceStatePlay::mouseReleased(const OIS::MouseEvent &arg, OIS::MouseButtonID id) {
 	if(id==0) _player->setIsShooting(false);
-	if(id== 1)  mRightClick = false;
     return true;
 }
 

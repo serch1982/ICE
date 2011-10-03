@@ -628,6 +628,7 @@ void icePlayer::showHeal(unsigned int p_iHeal)
 {
 	iceDamageTextManager::getSingletonPtr()->showPlayerHeal(icePhysicEntity::getGeometry()->getMovableObject(),p_iHeal);
 	iceGame::getUI()->getHUD()->setLife(getCurrentLife(),getMaxLife());
+	mParticleHeal->start();
 }
 
 void icePlayer::showFail(void)
@@ -880,15 +881,6 @@ void icePlayer::impact()
 	iceAnimationPtr->startAnimation("impacto4_Clip");
 }
 
-void icePlayer::heal(void)
-{
-	
-	if(mHealCountDown <= 0)
-	{
-		mParticleHeal->start();
-	}
-	iceRPG::heal();
-}
 void icePlayer::die()
 {
 	leftTurbo->setVisible(false);

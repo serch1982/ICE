@@ -91,7 +91,6 @@ class icePlayer : public iceTrajectoryFollower
 		void anger();
 		void celebrate();
 		void impact();
-		virtual void heal(void);
 
 		void die();
 		bool isDying();
