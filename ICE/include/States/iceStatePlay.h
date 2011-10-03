@@ -153,9 +153,6 @@ class iceStatePlay: public iceState{
 
 		bool visibleBoundingBoxes;
 
-		//Contadores para dobles pulsaciones de teclas
-		bool mRightClick;
-
 		Ogre::Real mCurrentTime;
 		iceCutScene* mCurrentCutScene;
 
@@ -175,6 +172,12 @@ class iceStatePlay: public iceState{
 		iceLevelManager* _levelManager;
 
 		std::vector<Ogre::AnimationState*> mPropAnimations;
+
+		//Contadores para dobles pulsaciones de teclas
+		Ogre::Real mUpCounter;
+		Ogre::Real mDownCounter;
+		Ogre::Real mLeftCounter;
+		Ogre::Real mRightCounter;
 };
 
 

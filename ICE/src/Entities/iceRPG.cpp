@@ -26,6 +26,7 @@ iceRPG::iceRPG(void)
 	mCurrentWeapon = MACHINEGUN;
 
 	mTimeSinceLastShot = 0;
+	mHealCountDown = 0;
 }
 
 
@@ -228,7 +229,6 @@ void iceRPG::heal(void)
 
 void iceRPG::shot(void)
 {
-	//goto borram;
 	Ogre::Real rd =(mWeaponLevel[mCurrentWeapon] * mWeaponBaseCadence[mCurrentWeapon]);
 	if (rd == 0) rd =1;
 	Ogre::Real fTimeBetweenShots = 1 / rd;
@@ -279,9 +279,6 @@ void iceRPG::shot(void)
 		
 		playShotSound();
 	}
-
-//borram:
-//	createShotEntity(mCurrentWeapon,Ogre::Quaternion(0,0,0,0),0,false);
 }
 
 void iceRPG::addDamage(unsigned int p_iDamage, bool p_bCritic)
@@ -295,7 +292,7 @@ void iceRPG::addDamage(unsigned int p_iDamage, bool p_bCritic)
 	{
 		if(mShieldEnergy > 0)
 		{
-			if(mShieldEnergy >= damage)
+			if((int)mShieldEnergy >= damage)
 			{
 				mShieldEnergy -= damage;
 				showShieldDamage(damage,p_bCritic);
