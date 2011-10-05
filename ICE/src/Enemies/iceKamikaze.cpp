@@ -116,6 +116,7 @@ void iceKamikaze::setState(ENEMYSTATE p_iState){
 		case DEAD:
 			enemyNode->setVisible(false);
 			giveExperieceToPlayer();
+			iceSoundManager::getSingletonPtr()->PlayExplosion();
 		default:
 			break;
 	}

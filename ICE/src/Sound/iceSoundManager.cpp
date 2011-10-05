@@ -313,6 +313,20 @@ void iceSoundManager::loadSounds(){
 	CreateSound( Ogre::String( "ColdWind.wav" ), SOUND_TYPE_2D_SOUND_LOOPED, 9 );
 	CreateSound( Ogre::String( "CambioArma.wav" ), SOUND_TYPE_2D_SOUND, 10 );
 	CreateSound( Ogre::String( "AparicionAvisos.wav" ), SOUND_TYPE_2D_SOUND, 11 );
+	CreateSound( Ogre::String( "Explosion2.wav" ), SOUND_TYPE_2D_SOUND, 12 );
+	CreateSound( Ogre::String( "Explosion3.wav" ), SOUND_TYPE_2D_SOUND, 13 );
+	CreateSound( Ogre::String( "LevelUp.mp3" ), SOUND_TYPE_2D_SOUND, 14 );
+	CreateSound( Ogre::String( "Ouch.wav" ), SOUND_TYPE_2D_SOUND, 15 );
+	CreateSound( Ogre::String( "Ow1.wav" ), SOUND_TYPE_2D_SOUND, 16 );
+	CreateSound( Ogre::String( "Ow2.wav" ), SOUND_TYPE_2D_SOUND, 17 );
+	CreateSound( Ogre::String( "Ow3.wav" ), SOUND_TYPE_2D_SOUND, 18 );
+	CreateSound( Ogre::String( "Stupid.wav" ), SOUND_TYPE_2D_SOUND, 19 );
+	CreateSound( Ogre::String( "Cmon.wav" ), SOUND_TYPE_2D_SOUND, 20 );
+	CreateSound( Ogre::String( "Bungee.wav" ), SOUND_TYPE_2D_SOUND, 21 );
+	CreateSound( Ogre::String( "Noooo.wav" ), SOUND_TYPE_2D_SOUND, 22 );
+	CreateSound( Ogre::String( "Aceleron.wav" ), SOUND_TYPE_2D_SOUND, 23 );
+	CreateSound( Ogre::String( "Heal.mp3" ), SOUND_TYPE_2D_SOUND, 24 );
+	CreateSound( Ogre::String( "Brake.mp3" ), SOUND_TYPE_2D_SOUND, 25 );
 }
 
 // Unload sounds for all levels
@@ -328,6 +342,20 @@ void iceSoundManager::unloadSounds(){
 	(*mSoundVector)[9]->Finalize();
 	(*mSoundVector)[10]->Finalize();
 	(*mSoundVector)[11]->Finalize();
+	(*mSoundVector)[12]->Finalize();
+	(*mSoundVector)[13]->Finalize();
+	(*mSoundVector)[14]->Finalize();
+	(*mSoundVector)[15]->Finalize();
+	(*mSoundVector)[16]->Finalize();
+	(*mSoundVector)[17]->Finalize();
+	(*mSoundVector)[18]->Finalize();
+	(*mSoundVector)[19]->Finalize();
+	(*mSoundVector)[20]->Finalize();
+	(*mSoundVector)[21]->Finalize();
+	(*mSoundVector)[22]->Finalize();
+	(*mSoundVector)[23]->Finalize();
+	(*mSoundVector)[24]->Finalize();
+	(*mSoundVector)[25]->Finalize();
 }
 
 
@@ -463,7 +491,13 @@ int iceSoundManager::CreateSound(Ogre::String &fileName, SOUND_TYPE soundType, i
 
 //void iceSoundManager::PlaySound(int soundIndex, Ogre::SceneNode *soundNode, int *channelIndex)
 void iceSoundManager::PlayExplosion(){
-	PlaySound( 5, Ogre::Vector3::ZERO, 0, 0.5 );
+	int num = rand() % 3;
+	if( num == 0 )
+		PlaySound( 5, Ogre::Vector3::ZERO, 0, 0.5 );
+	else if( num == 1 )
+		PlaySound( 12, Ogre::Vector3::ZERO, 0, 0.5 );
+	else if( num == 2 )
+		PlaySound( 13, Ogre::Vector3::ZERO, 0, 0.5 );
 }
 
 void iceSoundManager::PlaySound(int soundIndex, Ogre::Vector3 soundPosition, int *channelIndex, float fVolume)

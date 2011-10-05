@@ -637,6 +637,7 @@ void icePlayer::showHeal(unsigned int p_iHeal)
 	iceDamageTextManager::getSingletonPtr()->showPlayerHeal(icePhysicEntity::getGeometry()->getMovableObject(),p_iHeal);
 	iceGame::getUI()->getHUD()->setLife(getCurrentLife(),getMaxLife());
 	mParticleHeal->start();
+	iceSoundManager::getSingletonPtr()->PlaySound( 24, Ogre::Vector3::ZERO, 0, 0.5 );
 }
 
 void icePlayer::showFail(void)
@@ -651,6 +652,7 @@ void icePlayer::showLevelUp(unsigned int p_iLevel)
 	iceGame::getUI()->getHUD()->setLevel(mLevel);
 	iceGame::getUI()->getHUD()->setLife(getCurrentLife(),getMaxLife());
 	icePlayerStats::getInstance()->setPlayerLevel(mLevel);
+	iceSoundManager::getSingletonPtr()->PlaySound( 14, Ogre::Vector3::ZERO, 0, 0.7 );
 }
 
 void icePlayer::setWeaponLevel(unsigned int p_iWeapon,unsigned int p_iLevel)
@@ -738,6 +740,7 @@ void icePlayer::sprint(void)
 		iceGame::getUI()->getHUD()->hideSprintAvailable();
 		leftTurbo->scale(1,1,2);
 		rightTurbo->scale(1,1,2);
+		iceSoundManager::getSingletonPtr()->PlaySound( 23, Ogre::Vector3::ZERO, 0, 0.8 );
 	}
 }
 
@@ -757,6 +760,7 @@ void icePlayer::brake(void)
 		iceGame::getUI()->getHUD()->hideBrakeAvailable();
 		leftTurbo->scale(1,1,0.5);
 		rightTurbo->scale(1,1,0.5);
+		iceSoundManager::getSingletonPtr()->PlaySound( 25, Ogre::Vector3::ZERO, 0, 1.0 );
 	}
 }
 
@@ -870,6 +874,7 @@ void icePlayer::anger()
 	mIsCelebrating = false;
 	mIsImpact = false;
 	iceAnimationPtr->startAnimation("enfado2_Clip");
+	iceSoundManager::getSingletonPtr()->PlaySound( 19 + (rand() % 3), Ogre::Vector3::ZERO, 0, 0.5 );
 }
 
 void icePlayer::celebrate()
@@ -887,12 +892,14 @@ void icePlayer::impact()
 	mIsCelebrating = false;
 	mIsImpact = true;
 	iceAnimationPtr->startAnimation("impacto4_Clip");
+	iceSoundManager::getSingletonPtr()->PlaySound( 15 + (rand() % 4), Ogre::Vector3::ZERO, 0, 0.5 );
 }
 
 void icePlayer::die()
 {
 	mDying = true;
 	iceAnimationPtr->startDyingAnimation();
+	iceSoundManager::getSingletonPtr()->PlaySound( 22, Ogre::Vector3::ZERO, 0, 0.8 );
 }
 
 bool icePlayer::isDying()
