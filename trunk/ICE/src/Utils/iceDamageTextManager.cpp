@@ -5,6 +5,7 @@
 
 #define MAX_OVERLAYS 30
 #define TIME_BETWEEN_PLAYER_TEXTS 0.25
+#define MAX_QUEUE_CAPACITY 7
 
 template<> iceDamageTextManager* Ogre::Singleton<iceDamageTextManager>::ms_Singleton = 0;
 
@@ -108,30 +109,36 @@ void iceDamageTextManager::showEnemyMiss(Ogre::MovableObject *mov)
 
 void iceDamageTextManager::showPlayerDamage(Ogre::MovableObject *mov, unsigned int pDamage, bool pIsCritic)
 {
-	TextOverlayOptions options;
+	if(mPlayerOverlayOptions.size() < MAX_QUEUE_CAPACITY)
+	{
+		TextOverlayOptions options;
 
-	std::stringstream damageText;
-	damageText << pDamage << (pIsCritic?"!":"");
+		std::stringstream damageText;
+		damageText << pDamage << (pIsCritic?"!":"");
 
-	options.caption = damageText.str();
-	options.mov = mov;
-	options.attributes = mPlayerDamageAttributes;
+		options.caption = damageText.str();
+		options.mov = mov;
+		options.attributes = mPlayerDamageAttributes;
 
-	mPlayerOverlayOptions.push(options);
+		mPlayerOverlayOptions.push(options);
+	}
 }
 
 void iceDamageTextManager::showPlayerShieldDamage(Ogre::MovableObject *mov, unsigned int pDamage, bool pIsCritic)
 {
-	TextOverlayOptions options;
+	if(mPlayerOverlayOptions.size() < MAX_QUEUE_CAPACITY)
+	{
+		TextOverlayOptions options;
 
-	std::stringstream damageText;
-	damageText << pDamage << (pIsCritic?"!":"");
+		std::stringstream damageText;
+		damageText << pDamage << (pIsCritic?"!":"");
 
-	options.caption = damageText.str();
-	options.mov = mov;
-	options.attributes = mPlayerShieldDamageAttributes;
+		options.caption = damageText.str();
+		options.mov = mov;
+		options.attributes = mPlayerShieldDamageAttributes;
 
-	mPlayerOverlayOptions.push(options);
+		mPlayerOverlayOptions.push(options);
+	}
 }
 
 void iceDamageTextManager::showPlayerHeal(Ogre::MovableObject *mov, unsigned int pHeal)
@@ -150,13 +157,16 @@ void iceDamageTextManager::showPlayerHeal(Ogre::MovableObject *mov, unsigned int
 
 void iceDamageTextManager::showPlayerMiss(Ogre::MovableObject *mov)
 {
-	TextOverlayOptions options;
+	if(mPlayerOverlayOptions.size() < MAX_QUEUE_CAPACITY)
+	{
+		TextOverlayOptions options;
 
-	options.caption = "Miss!";
-	options.mov = mov;
-	options.attributes = mPlayerMissAttributes;
+		options.caption = "Miss!";
+		options.mov = mov;
+		options.attributes = mPlayerMissAttributes;
 
-	mPlayerOverlayOptions.push(options);
+		mPlayerOverlayOptions.push(options);
+	}
 }
 
 void iceDamageTextManager::showPlayerLevelUp(Ogre::MovableObject *mov)
