@@ -1,6 +1,8 @@
 #include "Enemies\iceSmart.h"
 #include "iceGame.h"
 
+#define SCALE 2
+
 iceSmart::iceSmart(){
 	iceEnemy::iceEnemy();
 }
@@ -22,14 +24,15 @@ bool iceSmart::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActiva
 	// loading the mesh and attaching it to he node
 	Ogre::Entity* mesh = sceneManager->createEntity(entityName.str(), "intelligent.mesh");
 	enemyNode->attachObject(mesh);
+	enemyNode->scale(SCALE,SCALE,SCALE);
 	Ogre::Entity* miniMesh = sceneManager->createEntity(entityName.str() + "_mini", "minimagmaton.mesh");
-	Ogre::SceneNode* miniNode = enemyNode->createChildSceneNode(Ogre::Vector3(0,1,0));
+	Ogre::SceneNode* miniNode = enemyNode->createChildSceneNode(Ogre::Vector3(0,SCALE,0));
 	miniNode->attachObject(miniMesh);
 
 	iceAnimationPtr->setIddleAnimation(miniMesh->getAnimationState("attack_Clip"));
 
 	//init physics
-	icePhysicEntity::initializePhysics("phy_smart"+ entityName.str(), Ogre::Vector3(10,5.5,4));
+	icePhysicEntity::initializePhysics("phy_smart"+ entityName.str(), Ogre::Vector3(10,5.5,4) * SCALE);
 	enemyNode->attachObject(getGeometry()->getMovableObject());
 
 	//particles

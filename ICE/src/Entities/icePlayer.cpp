@@ -14,12 +14,12 @@
 #define CAMERA_PLANE_Z 20
 #define CAMERA_ADDED_Y 4
 #define CHANNEL_HALF_WIDTH 250
-#define CHANNEL_HALF_HEIGHT 200
+#define CHANNEL_HALF_HEIGHT 100
 #define SCROLL_MAX_VELOCITY 100
 #define FRAME_MULTIPLICATOR 0.3
 
 #define BARREL_ROLL_TIME 1
-#define BARREL_ROLL_DISTANCE_MULTIPLIER 1.5
+#define BARREL_ROLL_DISTANCE_MULTIPLIER 0.9 /* hay que tener en cuenta que la velocidad de maniobra maxima se tarda mucho en conseguir, por lo que es normal que el multiplicador sea menos de 1 */
 #define BRAKE_TIME 3
 #define BRAKE_DIVISOR 4
 #define SPRINT_TIME 5 /*3*/

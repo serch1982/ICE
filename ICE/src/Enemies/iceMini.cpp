@@ -1,6 +1,8 @@
 #include "Enemies\iceMini.h"
 #include "iceGame.h"
 
+#define SCALE 2
+
 
 iceMini::iceMini(){
 	iceEnemy::iceEnemy();
@@ -43,8 +45,9 @@ bool iceMini::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActivat
 	iceAnimationPtr->addAnimation(mesh->getAnimationState("hit02_Clip"),0,true);
 
 	//init physics
-	icePhysicEntity::initializePhysics("phy_mini"+ entityName.str(), Ogre::Vector3(3.2,7,2));
+	icePhysicEntity::initializePhysics("phy_mini"+ entityName.str(), Ogre::Vector3(3.2,7,2) * SCALE);
 	enemyNode->attachObject(getGeometry()->getMovableObject());
+	enemyNode->scale(SCALE,SCALE,SCALE);
 
 	//particles
 	mParticleFire = iceParticleMgr::getSingletonPtr()->createPartAttachToBone(mesh,"right_tibia","ice/fireDown",false);
