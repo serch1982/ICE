@@ -4,6 +4,7 @@
 #include "Particle\iceParticleMgr.h"
 #include "Entities\iceBulletMgr.h"
 #include "PostProcess\icePostProcessManager.h"
+#include <OgreTagpoint.h>
 
 #define VIRTUAL_CAMERA_SIZE_X 1000
 #define VIRTUAL_CAMERA_SIZE_Y 1000
@@ -21,8 +22,8 @@
 #define BARREL_ROLL_DISTANCE_MULTIPLIER 1.5
 #define BRAKE_TIME 3
 #define BRAKE_DIVISOR 4
-#define SPRINT_TIME 3
-#define SPRINT_MULTIMPLICATOR 2
+#define SPRINT_TIME 5 /*3*/
+#define SPRINT_MULTIMPLICATOR 16 /*2*/
 
 #define INVULNERABLE_TIME 2
 #define BLINK_TIME 0.2
@@ -112,18 +113,20 @@ void icePlayer::initPlayer(){
 	mesh2->setCastShadows(true);
 	rollNode->attachObject(mesh2);
 
-	leftTurbo = rollNode->createChildSceneNode(Ogre::Vector3(1.2,0.7,-0.6));
-	rightTurbo = rollNode->createChildSceneNode(Ogre::Vector3(-1.2,0.7,-0.6));
+	//leftTurbo = rollNode->createChildSceneNode(Ogre::Vector3(1.2,0.8,-0.7));
+	//rightTurbo = rollNode->createChildSceneNode(Ogre::Vector3(-1.2,0.8,-0.7));
 
-	leftTurbo->attachObject(sceneManager->createEntity("jet1", "plane_jet.mesh"));
-	rightTurbo->attachObject(sceneManager->createEntity("jet2", "plane_jet.mesh"));
+	//leftTurbo->attachObject(sceneManager->createEntity("jet1", "plane_jet.mesh"));
+	//rightTurbo->attachObject(sceneManager->createEntity("jet2", "plane_jet.mesh"));
 
-	leftTurbo->pitch(Ogre::Degree(-90));
-	rightTurbo->pitch(Ogre::Degree(-90));
+	rightTurbo = mesh2->attachObjectToBone("turbo_right",sceneManager->createEntity("jet1", "plane_jet.mesh"),Ogre::Vector3::UNIT_Z.getRotationTo(Ogre::Vector3::NEGATIVE_UNIT_Z),Ogre::Vector3(0.2,0,0.2));
+	leftTurbo = mesh2->attachObjectToBone("turbo_left",sceneManager->createEntity("jet2", "plane_jet.mesh"),Ogre::Quaternion::IDENTITY,Ogre::Vector3(0.2,0,-0.2));
 
-	leftTurbo->scale(0.4,0.8,0.4);
-	rightTurbo->scale(0.4,0.8,0.4);
+	//leftTurbo->pitch(Ogre::Degree(90));
+	//rightTurbo->pitch(Ogre::Degree(90));
 
+	//leftTurbo->scale(0.4,0.4,0.4);
+	//rightTurbo->scale(0.4,0.4,0.4);
 
 	//particles
 	mParticleHeal = iceParticleMgr::getSingletonPtr()->createPartAttachToObject(shipNode, Ogre::Vector3(0,0.5,2),"iceAtomicity",false,Ogre::Vector3(.01,.01,.01));
@@ -276,7 +279,12 @@ void icePlayer::processMouseMoved(const int x, const int y, const int z)
 
 void icePlayer::updateShipPosition(Ogre::Real frameTime)
 {
-	_lastPosition = shipNode->getPosition();
+	Ogre::Vector3 newPosition = mNode->getPosition();
+
+	Ogre::Real currentSpeed = newPosition.distance(_lastPosition) / frameTime;
+	iceSdkTray::getInstance()->updateScreenInfo( 19, Ogre::StringConverter::toString(currentSpeed));
+
+	_lastPosition = newPosition;
 
 	Ogre::Vector3 camPos = cameraPlaneNode->getPosition();
 	Ogre::Vector3 shipPos = shipNode->getPosition();
@@ -432,8 +440,8 @@ void icePlayer::update(Ogre::Real p_timeSinceLastFrame)
 		mSprintTime -= p_timeSinceLastFrame;
 		if(mSprintTime <= 0)
 		{
-			leftTurbo->scale(1,0.5,1);
-			rightTurbo->scale(1,0.5,1);
+			leftTurbo->scale(1,1,0.5);
+			rightTurbo->scale(1,1,0.5);
 		}
 		trajectoryUpdate *= SPRINT_MULTIMPLICATOR;
 	}	
@@ -442,8 +450,8 @@ void icePlayer::update(Ogre::Real p_timeSinceLastFrame)
 		mBrakeTime -= p_timeSinceLastFrame;
 		if(mBrakeTime <= 0)
 		{
-			leftTurbo->scale(1,2,1);
-			rightTurbo->scale(1,2,1);
+			leftTurbo->scale(1,1,2);
+			rightTurbo->scale(1,1,2);
 		}
 		trajectoryUpdate /= BRAKE_DIVISOR;
 	}
@@ -723,13 +731,13 @@ void icePlayer::sprint(void)
 		if(mBrakeTime > 0)
 		{
 			mBrakeTime = 0; //deactivate brake
-			leftTurbo->scale(1,2,1);
-			rightTurbo->scale(1,2,1);
+			leftTurbo->scale(1,1,2);
+			rightTurbo->scale(1,1,2);
 		}
 		icePostProcessManager::getSingleton().enableHardBlur();
 		iceGame::getUI()->getHUD()->hideSprintAvailable();
-		leftTurbo->scale(1,2,1);
-		rightTurbo->scale(1,2,1);
+		leftTurbo->scale(1,1,2);
+		rightTurbo->scale(1,1,2);
 	}
 }
 
@@ -742,13 +750,13 @@ void icePlayer::brake(void)
 		if(mSprintTime > 0)
 		{
 			mSprintTime = 0; //deactivate sprint
-			leftTurbo->scale(1,0.5,1);
-			rightTurbo->scale(1,0.5,1);
+			leftTurbo->scale(1,1,0.5);
+			rightTurbo->scale(1,1,0.5);
 		}
 		icePostProcessManager::getSingleton().disableBlur();
 		iceGame::getUI()->getHUD()->hideBrakeAvailable();
-		leftTurbo->scale(1,0.5,1);
-		rightTurbo->scale(1,0.5,1);
+		leftTurbo->scale(1,1,0.5);
+		rightTurbo->scale(1,1,0.5);
 	}
 }
 
@@ -883,8 +891,6 @@ void icePlayer::impact()
 
 void icePlayer::die()
 {
-	leftTurbo->setVisible(false);
-	rightTurbo->setVisible(false);
 	mDying = true;
 	iceAnimationPtr->startDyingAnimation();
 }

@@ -45,19 +45,21 @@ void iceSdkTray::setupScreenInfo(Ogre::RenderWindow* mWindow, OIS::Mouse* mMouse
 	items.push_back("mouse");					// 16
 	items.push_back("ship");					// 17
 	items.push_back("coli");					// 18
+	items.push_back("speed");					// 19
+	items.push_back("currTime");				// 20
 	/*
 		here you can add your custom chivato like items.push_back("mycustomchivato"); 
 	*/
 
     mDetailsPanel = mTrayMgr->createParamsPanel(OgreBites::TL_NONE, "DetailsPanel", 300, items);
 
-#ifdef _DEBUG 
+/*#ifdef _DEBUG*/ 
     mDetailsPanel->show();
     mTrayMgr->showFrameStats(OgreBites::TL_BOTTOMLEFT);
-#else
-    mDetailsPanel->hide();
-    mTrayMgr->hideAll();
-#endif
+//#else
+//    mDetailsPanel->hide();
+//    mTrayMgr->hideAll();
+//#endif
 
     iItems = items.size();
 }

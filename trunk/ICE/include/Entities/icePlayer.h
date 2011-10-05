@@ -120,7 +120,7 @@ class icePlayer : public iceTrajectoryFollower
 		Ogre::Real mMaxScrollY; //Absolute value
 
 		Ogre::SceneNode *cursorPlaneNode, *shipPlaneNode, *cameraPlaneNode, *cursorNode, *shipNode, *cameraNode, *scrollNode, *rollNode; 
-		Ogre::SceneNode *leftTurbo, *rightTurbo;
+		Ogre::TagPoint *leftTurbo, *rightTurbo;
 		//virtual node for the wide camera boundingbox
 		Ogre::SceneNode* snVirtualCam;
 		iceGeometryPtr virtualCam;

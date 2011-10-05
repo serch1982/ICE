@@ -92,7 +92,7 @@ void iceTrajectory::loadSteps(std::vector<iceStep> p_vSteps, const bool p_bIsLoo
 
 void iceTrajectory::addTime(Ogre::Real p_fTime)
 {
-	
+	iceSdkTray::getInstance()->updateScreenInfo( 20, Ogre::StringConverter::toString(mCurrentTime));
 	if(mLoop && mCurrentTime == mDuration)
 		mCurrentTime = 0;
 

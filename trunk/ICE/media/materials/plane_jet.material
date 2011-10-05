@@ -5,12 +5,14 @@ material plane_jet
 		pass
 		{
 			scene_blend alpha_blend
+			lighting off
+			//cull_hardware anticlockwise
+			//ambient 0 0 0 1
+			//specular 1 1 1 1 50
 
 			texture_unit
 			{
-				texture blue_fire_texture_tile.png
-				scroll_anim 0 -1
-				tex_address_mode wrap
+				anim_texture blue_fire_texture_tile1.png blue_fire_texture_tile2.png blue_fire_texture_tile3.png blue_fire_texture_tile4.png 0.5
 			}
 		}
 
