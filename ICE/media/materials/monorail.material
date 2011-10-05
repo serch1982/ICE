@@ -4,6 +4,7 @@ material monorail2
 	{
 		pass
 		{
+			lighting off
 			texture_unit
 			{
 				texture monorail2.png
@@ -35,6 +36,7 @@ material monorail3
 	{
 		pass
 		{
+			lighting off
 			texture_unit
 			{
 				texture monorail3.png
