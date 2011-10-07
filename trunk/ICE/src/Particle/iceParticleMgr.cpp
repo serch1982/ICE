@@ -136,7 +136,7 @@ void iceParticleMgr::update(Ogre::Real timeSinceLastFrame)
 			it = mParticlesList.erase(it);
 		}
 		else{
-			//(*it)->
+			//(*it)->update();
 			++it;
 		}
 		

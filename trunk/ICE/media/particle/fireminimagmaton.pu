@@ -17,9 +17,13 @@ system ice/fireminimagmaton
         }
         emitter                                 Point 
         {
-            emission_rate                       200
+            emission_rate                       dyn_random
+            {
+                min                             50
+                max                             100
+            }
             angle                               10
-            time_to_live                        1
+            time_to_live                        0.8
             velocity                            dyn_random
             {
                 min                             10
@@ -38,7 +42,7 @@ system ice/fireminimagmaton
         }
         affector                                Scale 
         {
-            xyz_scale                           -1
+            xyz_scale                           -10
         }
         affector                                Colour 
         {

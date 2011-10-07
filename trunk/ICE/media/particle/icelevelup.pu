@@ -1,0 +1,32 @@
+system icelevelup
+{
+    keep_local                                  true
+    category                                    ice
+    technique Technique42
+    {
+        material                                hit_glow
+        default_particle_width                  2
+        default_particle_height                 2
+        default_particle_depth                  2
+        renderer                                Billboard
+        {
+        }
+        emitter                                 MeshSurface Emitter49
+        {
+            emission_rate                       25
+            angle                               dyn_random
+            {
+                min                             60
+                max                             90
+            }
+            time_to_live                        1.5
+            velocity                            40
+            duration                            1.5
+            colour                              0.929412 1 0.0352941 1
+            auto_direction                      true
+            force_emission                      true
+            mesh_name                           airplane.mesh
+            mesh_surface_distribution           vertex
+        }
+    }
+}

@@ -50,7 +50,15 @@ bool iceMini::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActivat
 	enemyNode->scale(SCALE,SCALE,SCALE);
 
 	//particles
-	mParticleFire = iceParticleMgr::getSingletonPtr()->createPartAttachToBone(mesh,"right_tibia","ice/fireDown",false);
+	/*Ogre::Skeleton* ske = mesh->getSkeleton();
+	Ogre::Skeleton::BoneIterator bi = ske->getBoneIterator();
+	Ogre::String todos ="";
+	while (bi.hasMoreElements()) {
+		Ogre::Bone* bn = bi.getNext();
+		todos += bn->getName() + ";";
+		Ogre::String st = bn->getName();
+	}*/
+	mParticleFire = iceParticleMgr::getSingletonPtr()->createPartAttachToBone(mesh,"column","ice/fireDown",false);
 
 	//strategy 
 	bool b = (rand() % 2 + 1) == 1 ? true: false;
