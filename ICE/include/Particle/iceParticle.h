@@ -59,6 +59,10 @@ public:
     *  get the name id of the instance
     */
 	Ogre::String getId(){ return mId; }
+	/**
+    *  update particle
+    */
+	void update();
 
 private:
 	//private vars

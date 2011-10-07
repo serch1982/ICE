@@ -43,7 +43,7 @@ bool iceKamikaze::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fAct
 	mParticleFire = iceParticleMgr::getSingletonPtr()->createPartAttachToObject(enemyNode,"ice/iceKamimaze",false);
 
 	//strategy 
-	mIceStrategy = iceStrategyPtr(new iceStrategyForward(4));
+	mIceStrategy = iceStrategyPtr(new iceStrategyForward(1));
 	return true;
 }
 
@@ -63,7 +63,7 @@ void iceKamikaze::update(Ogre::Real p_timeSinceLastFrame){
 			break;
 		case ATTACK: 
 			mTrajectory->lookAt();
-			enemyNode->translate(mVelocity * p_timeSinceLastFrame);
+			enemyNode->translate(mIceStrategy->move(enemyNode->_getDerivedPosition(), p_timeSinceLastFrame));
 			mRenewTarget--;
 			if( mRenewTarget == 0 ){
 				mRenewTarget = 2;

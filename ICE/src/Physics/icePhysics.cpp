@@ -5,7 +5,7 @@
 #define DEFAULT_DAMAGE_WALL 1
 #define DEFAULT_DAMAGE_OBJECTS 2
 #define DEFAULT_RETURN_SHIP 4
-#define DEFAULT_RETURN_SHIP_MAX -16
+#define DEFAULT_RETURN_SHIP_MAX -12
 
 Ogre::RaySceneQuery*  mRaySceneQuery;
 icePhysics::icePhysics(void)
@@ -66,9 +66,27 @@ void icePhysics::processBullets(void)
 			Ogre::Ray bulletRayNY((*iter)->getPosition(), Ogre::Vector3::NEGATIVE_UNIT_Y);
 			Ogre::TerrainGroup::RayResult mResult =mTerrainGroup->rayIntersects(bulletRayNY,0.1); 
 			if (!mResult.hit){
-				(*iter)->desactivate();
+				(*iter)->crashEnemy();
+				bulletImpacted = true;
 			}
 		}
+
+		if(!bulletImpacted)
+		{
+			Ogre::Ray bulletRayNY((*iter)->getPosition(), Ogre::Vector3::NEGATIVE_UNIT_Y);
+			mRaySceneQuery->setRay(bulletRayNY);
+			Ogre::RaySceneQueryResult &result = mRaySceneQuery->execute();
+			Ogre::RaySceneQueryResult::iterator itr;
+			for( unsigned j = 0; j < mObjects.size(); j++){
+				iceObject* obj = ((iceObject*)(mObjects)[j]);
+				for (itr = result.begin(); itr != result.end(); itr++) {
+					if (itr->movable->getName().compare(obj->getName()) == 0 && itr->distance<1) {
+						(*iter)->crashEnemy();
+					}
+				}
+			}
+		}
+
 		++iter;
 	}
 }
@@ -117,7 +135,7 @@ void icePhysics::processTerrainCollision(void){
 			Ogre::Ray enemyRayNY(enemy->getWorldPosition(), Ogre::Vector3::NEGATIVE_UNIT_Y);
 			mResult =mTerrainGroup->rayIntersects(enemyRayNY,dis); 
 			if (!mResult.hit){
-				enemy->changeDirection();
+				enemy->desactivate();
 			}
 		}
 	}

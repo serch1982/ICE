@@ -653,6 +653,11 @@ void icePlayer::showLevelUp(unsigned int p_iLevel)
 	iceGame::getUI()->getHUD()->setLife(getCurrentLife(),getMaxLife());
 	icePlayerStats::getInstance()->setPlayerLevel(mLevel);
 	iceSoundManager::getSingletonPtr()->PlaySound( 14, Ogre::Vector3::ZERO, 0, 0.7 );
+	Ogre::SceneNode* node = iceGame::getSceneManager()->getRootSceneNode()->createChildSceneNode(shipNode->getName() + "_levelup" + p_iLevel);
+	node->setPosition(shipNode->_getDerivedPosition() + Ogre::Vector3(0,1,0));
+	Ogre::Vector3 scale(.5,.5,.5);
+	node->scale(scale);
+	iceParticleMgr::getSingletonPtr()->createParticle(node, "icelevelup",scale);
 }
 
 void icePlayer::setWeaponLevel(unsigned int p_iWeapon,unsigned int p_iLevel)

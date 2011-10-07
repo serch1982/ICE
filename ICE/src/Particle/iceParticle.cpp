@@ -49,3 +49,12 @@ bool iceParticle::isPlay(void)
 	else
 		return true;
 }
+
+void iceParticle::update(void)
+{
+	if (mParameters.isFree){
+		if(mSceneNode){
+			mParticleSystem->position =  mSceneNode->_getDerivedPosition();
+		}
+	}
+}
