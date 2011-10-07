@@ -63,7 +63,7 @@ iceStateManager::iceStateManager(OIS::InputManager* inputManager,
 	_statesVector.push_back( new iceStateOutro( _soundManager) );
 	_statesVector.push_back( new iceStateStats( _soundManager) );
 
-	changeState( _statesVector[INTRO] );
+	changeState( _statesVector[MAINMENU] );
 	_ind= false;
 }
 
@@ -341,13 +341,6 @@ bool iceStateManager::frameRenderingQueued(const Ogre::FrameEvent& evt) {
 		}else if((currentStateId == MAINMENU) && (nextStateId == PLAY)) {
 			_currentState->clear();
 			changeState(getICEStateByID(nextStateId));
-		}else if((currentStateId == INTRO) && (nextStateId == MAINMENU)) {
-			_currentState->clear();
-			iceGame::getSceneManager()->destroyAllCameras();
-			iceGame::createCamera();
-			createGodCam();
-			changeState(getICEStateByID(MAINMENU));
-			iceSdkTray::getInstance()->showCursor();
 		}
 		
 	}
