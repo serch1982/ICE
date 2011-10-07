@@ -166,8 +166,8 @@ void iceGame::createCamera() {
     _camera = _sceneManager->createCamera("camera");
     _camera->setNearClipDistance(1);
     _camera->setFarClipDistance(5000);
-    _camera->setPosition(Ogre::Vector3(0,0,0));
-    _camera->lookAt(Ogre::Vector3(0,0,-300));
+    _camera->setPosition(Ogre::Vector3(0,0,10));
+    _camera->lookAt(Ogre::Vector3(0,0,-30));
 
 	_window->removeViewport(0);
 	_viewport = _window->addViewport(_camera);
