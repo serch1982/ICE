@@ -1,0 +1,18 @@
+material intro_material
+ {
+   technique
+   {
+     pass
+     {
+       texture_unit
+       {
+         texture_source ogg_video
+         {
+           filename konqi.ogg
+           precache 16
+           play_mode play
+         }
+       }
+     }
+   }
+ }
