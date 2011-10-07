@@ -5,7 +5,6 @@
 #include <OIS/OIS.h>
 #include "iceState.h"
 #include <Sound\iceSoundManager.h>
-#include <OgreVideo\OgreVideoManager.h>
 
 class iceStateIntro: public iceState{
 
@@ -45,10 +44,6 @@ public:
 
 	/** THE UPDATE FUNCTION **/
 	void update(Ogre::Real evt);
-
-	void load();
-private:
-	Ogre::OgreVideoManager* mgr;
 };
 
 #endif
