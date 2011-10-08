@@ -20,7 +20,8 @@ class iceCutSceneEntity : public iceTrajectoryFollower
 			KAMIKACE = 3,
 			VOLCANO = 4,
 			MAGMATON = 5,
-			PIGSHEEP = 6
+			PIGSHEEP = 6,
+			DUMMY = 7
 		};
 
 		bool initialize(TYPE pEntityType, Ogre::Vector3 p_Position, Ogre::Real p_ActivationTime, iceTrajectory* pTrajectory = NULL);

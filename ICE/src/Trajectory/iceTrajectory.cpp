@@ -49,15 +49,28 @@ void iceTrajectory::loadSteps(std::vector<iceStep> p_vSteps, const bool p_bIsLoo
 	mDuration = mSteps[mSteps.size()-1].getTime();
 	mTrack.recalcTangents();
 	mLoop = p_bIsLoop;
+	if(mSteps.size() == 1)
+		mLoop = true;
 	if(mNode)
+	{
 		mNode->setPosition(mSteps[0].getPosition());
+		mNode->setOrientation(mSteps[0].getRotation());
+		mNode->setScale(mSteps[0].getScale());
+	}
 	//DEBUG {
 	int numSpheres = 3000;
 
 	if(!Ogre::ResourceGroupManager::getSingleton().resourceGroupExists("debugger"))
 		Ogre::ResourceGroupManager::getSingleton().createResourceGroup("debugger");
 	Ogre::ManualObject* myManualObject =  iceGame::getSceneManager()->createManualObject();
-	Ogre::SceneNode* sDebugNode = iceGame::getSceneManager()->getRootSceneNode()->createChildSceneNode();
+
+	Ogre::SceneNode* sDebugParentNode;
+	if(iceGame::getSceneManager()->hasSceneNode("debugParentNode"))
+		sDebugParentNode = iceGame::getSceneManager()->getSceneNode("debugParentNode");
+	else
+		sDebugParentNode = iceGame::getSceneManager()->getRootSceneNode()->createChildSceneNode("debugParentNode");
+
+	Ogre::SceneNode* sDebugNode = sDebugParentNode->createChildSceneNode();
 	Ogre::StringStream materialName;
 	materialName << "Material_"  << mNameGenerator.generate();
 	Ogre::MaterialPtr myManualObjectMaterial = Ogre::MaterialManager::getSingleton().create(materialName.str(),"debugger");
@@ -118,8 +131,11 @@ void iceTrajectory::init(Ogre::SceneManager* p_spSceneManager, Ogre::SceneNode* 
 	mSceneManager = p_spSceneManager;
 	mNode = p_psNode;
 	mCurrentTime = 0;
-	if(mSteps.size()>0)
+	if(mSteps.size()>0) {
 		mNode->setPosition(mSteps[0].getPosition());
+		mNode->setOrientation(mSteps[0].getRotation());
+		mNode->setScale(mSteps[0].getScale());
+	}
 
 	//DEBUG {
 	//if(!mSceneManager->hasSceneNode("DebugTrajectorySteps"))
@@ -179,19 +195,26 @@ unsigned int iceTrajectory::getCurrentStepIndexByTime(Ogre::Real p_fTime)
 
 Ogre::Real iceTrajectory::getInterpolationByTime(Ogre::Real p_fTime)
 {
-	unsigned int iCurrentStepIndex = getCurrentStepIndexByTime(p_fTime);
+	if(mSteps.size()>1)
+	{
+		unsigned int iCurrentStepIndex = getCurrentStepIndexByTime(p_fTime);
 
-	Ogre::Real fTimeToNextStep = mSteps[iCurrentStepIndex+1].getTime() - mSteps[iCurrentStepIndex].getTime();
-	Ogre::Real fTimeElapsedFromCurrentStep = p_fTime - mSteps[iCurrentStepIndex].getTime();
-	Ogre::Real fCurrentStepInterpolation = fTimeElapsedFromCurrentStep/fTimeToNextStep;
+		Ogre::Real fTimeToNextStep = mSteps[iCurrentStepIndex+1].getTime() - mSteps[iCurrentStepIndex].getTime();
+		Ogre::Real fTimeElapsedFromCurrentStep = p_fTime - mSteps[iCurrentStepIndex].getTime();
+		Ogre::Real fCurrentStepInterpolation = fTimeElapsedFromCurrentStep/fTimeToNextStep;
 
-	Ogre::Real interpolation = 0;
-	if(mLoop)
-		interpolation = (iCurrentStepIndex + fCurrentStepInterpolation)/(mSteps.size()-1);
+		Ogre::Real interpolation = 0;
+		if(mLoop)
+			interpolation = (iCurrentStepIndex + fCurrentStepInterpolation)/(mSteps.size()-1);
+		else
+			interpolation = (iCurrentStepIndex + fCurrentStepInterpolation)/mSteps.size();
+
+		return interpolation;
+	}
 	else
-		interpolation = (iCurrentStepIndex + fCurrentStepInterpolation)/mSteps.size();
-
-	return interpolation;
+	{
+		return 0;
+	}
 }
 
 void iceTrajectory::lookAt(void)

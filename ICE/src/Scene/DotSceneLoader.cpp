@@ -163,10 +163,10 @@ void DotSceneLoader::processNodes(rapidxml::xml_node<>* XMLNode)
 		{
 			processTrajectoryStep(pElement);
 		}
-		else if (Ogre::StringUtil::startsWith(name,"magmaton"))
-		{
-			processMagmaton(pElement);
-		}
+		//else if (Ogre::StringUtil::startsWith(name,"magmaton"))
+		//{
+		//	processMagmaton(pElement);
+		//}
 		else if (Ogre::StringUtil::startsWith(name,"volcano"))
 		{
 			processVolcano(pElement);
@@ -660,7 +660,7 @@ void DotSceneLoader::processStep(rapidxml::xml_node<>* XMLNode, Ogre::SceneNode 
 	if (name.compare("time") == 0)
 	{
 		Ogre::Real time = getAttribReal(XMLProperty,"data");
-		mPlayerSteps.push_back(iceStep(position,Ogre::Radian(0),time));
+		mPlayerSteps.push_back(iceStep(position,Ogre::Quaternion::IDENTITY,Ogre::Vector3::UNIT_SCALE,time));
 	}
 }
 
@@ -684,6 +684,8 @@ void DotSceneLoader::processTrajectoryStep(rapidxml::xml_node<>* XMLNode, Ogre::
 {
 	//Processing user data
 	Ogre::Vector3 position = parseVector3(XMLNode->first_node("position"));
+	Ogre::Quaternion rotation = parseQuaternion(XMLNode->first_node("rotation"));
+	Ogre::Vector3 scale = parseVector3(XMLNode->first_node("scale"));
 	Ogre::Real time;
 	unsigned int trajectoryNumber;
 
@@ -711,7 +713,7 @@ void DotSceneLoader::processTrajectoryStep(rapidxml::xml_node<>* XMLNode, Ogre::
 		mTrajectoriesSteps[trajectoryNumber] = std::vector<iceStep>();
 	}
 
-	mTrajectoriesSteps[trajectoryNumber].push_back(iceStep(position,Ogre::Radian(0),time));
+	mTrajectoriesSteps[trajectoryNumber].push_back(iceStep(position,rotation,scale,time));
 }
 
 void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode, bool delayed, Ogre::SceneNode *pParent)

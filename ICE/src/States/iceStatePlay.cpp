@@ -26,6 +26,8 @@ iceStatePlay::iceStatePlay(
 	mDownCounter = 0;
 	mLeftCounter = 0;
 	mRightCounter = 0;
+
+	_mMagmaton = NULL;
 }
 
 iceStatePlay::~iceStatePlay() {
@@ -38,6 +40,7 @@ iceStatePlay::~iceStatePlay() {
 void iceStatePlay::load() {
 
 	mFightingAgainstBoss = false;
+	_mMagmaton = NULL;
 
 	if(!_loaded){
 			_log->logMessage("iceStatePlay::load()");
@@ -99,6 +102,9 @@ void iceStatePlay::load() {
 			mCurrentTime = 0;
 			_player->getNode()->setVisible(true);
 			mState = NORMAL;
+
+			if(iceGame::getSceneManager()->hasSceneNode("debugParentNode"))
+				iceGame::getSceneManager()->getSceneNode("debugParentNode")->setVisible(false);
 	}
 }
 
@@ -107,6 +113,10 @@ void iceStatePlay::clear() {
         _log->logMessage("iceStatePlay::limpiar()");
         _loaded = false;
 
+		//for(unsigned int i=0;i<_mCutScenes.size();i++)
+		//	delete _mCutScenes[i];
+		_mCutScenes.clear();
+
 		//delete level;
 		_level->unload( _soundManager );
 		delete _levelManager;
@@ -114,8 +124,11 @@ void iceStatePlay::clear() {
 		//Deleting enemies
 		for (unsigned int i=0;i<_mEnemies.size();i++)
 			delete _mEnemies[i];
-		if(_mMagmaton)
-			delete _mMagmaton;
+		//if(_mMagmaton)
+		//{
+		//	delete _mMagmaton;
+		//	_mMagmaton = NULL;
+		//}
 
 		//delete bullet manager;
 		mIceBulletMgr.reset();
@@ -146,6 +159,12 @@ void iceStatePlay::clear() {
 
 void iceStatePlay::update(Ogre::Real evt)
 {
+	//props
+	for(unsigned int i=0;i<mPropAnimations.size();i++)
+	{
+		mPropAnimations[i]->addTime(evt);
+	}
+
 	switch(mState)
 	{
 		case NORMAL:
@@ -161,12 +180,6 @@ void iceStatePlay::update(Ogre::Real evt)
 			}
 			else
 			{
-				//props
-				for(unsigned int i=0;i<mPropAnimations.size();i++)
-				{
-					mPropAnimations[i]->addTime(evt);
-				}
-
 				//bullets
 				mIceBulletMgr->update(evt, visibleBoundingBoxes);
 
@@ -185,12 +198,12 @@ void iceStatePlay::update(Ogre::Real evt)
 					enemy->update(evt);
 				}
 
-				if(_mMagmaton)
-				{
-					iceLogicLua::getInstance()->getEnemyLogicState(_mMagmaton,evt);
-					_mMagmaton->setDebug(visibleBoundingBoxes);
-					_mMagmaton->update(evt);
-				}
+				//if(_mMagmaton)
+				//{
+				//	iceLogicLua::getInstance()->getEnemyLogicState(_mMagmaton,evt);
+				//	_mMagmaton->setDebug(visibleBoundingBoxes);
+				//	_mMagmaton->update(evt);
+				//}
 				//HUD
 
 				//setHUDWeapon(_player->getCurrentWeaponName());
@@ -241,12 +254,6 @@ void iceStatePlay::update(Ogre::Real evt)
 			}
 			else
 			{
-				//props
-				for(unsigned int i=0;i<mPropAnimations.size();i++)
-				{
-					mPropAnimations[i]->addTime(evt);
-				}
-
 				//bullets
 				mIceBulletMgr->update(evt, visibleBoundingBoxes);
 
@@ -265,12 +272,12 @@ void iceStatePlay::update(Ogre::Real evt)
 					enemy->update(evt);
 				}
 
-				if(_mMagmaton)
-				{
-					iceLogicLua::getInstance()->getEnemyLogicState(_mMagmaton,evt);
-					_mMagmaton->setDebug(visibleBoundingBoxes);
-					_mMagmaton->update(evt);
-				}
+				//if(_mMagmaton)
+				//{
+				//	iceLogicLua::getInstance()->getEnemyLogicState(_mMagmaton,evt);
+				//	_mMagmaton->setDebug(visibleBoundingBoxes);
+				//	_mMagmaton->update(evt);
+				//}
 				//HUD
 
 				//setHUDWeapon(_player->getCurrentWeaponName());
@@ -492,16 +499,11 @@ void iceStatePlay::setHUDWeapon(char* name){
 
 void iceStatePlay::switchBoundingBoxesVisibility(void)
 {
-	if(visibleBoundingBoxes)
-	{
-		_level->setDebugSceneObjects(false);
-		visibleBoundingBoxes = false;
-	}
-	else
-	{
-		_level->setDebugSceneObjects(true);
-		visibleBoundingBoxes = true;
-	}
+	visibleBoundingBoxes = !visibleBoundingBoxes;
+
+	_level->setDebugSceneObjects(visibleBoundingBoxes);
+	if(iceGame::getSceneManager()->hasSceneNode("debugParentNode"))
+		iceGame::getSceneManager()->getSceneNode("debugParentNode")->setVisible(visibleBoundingBoxes);
 }
 
 void iceStatePlay::checkActivableCutScene(void)

@@ -82,7 +82,7 @@ Ogre::Real iceCutScene::getActivationTime(void)
 void iceCutScene::initializeEntities()
 {
 	//TODO scripted
-	addEntity(iceCutSceneEntity::SHIP,1);
+	//addEntity(iceCutSceneEntity::SHIP,1);
 	//entities.push_back(new iceCutSceneEntity());
 	//entities[1]->initialize("airplane.mesh",Ogre::Vector3(0,0,0),0,NULL,trajectories[2]);
 }
@@ -100,7 +100,7 @@ void iceCutScene::initializeCameraEntity(int pTrajectoryIndex)
 	{
 		mCameraEntity->setTrajectory((*mTrajectories)[(unsigned int)pTrajectoryIndex]);
 	}
-	setEntityLookAt(-1,0);
+	//setEntityLookAt(-1,0);
 }
 //Index == -1 => entity = camera
 void iceCutScene::setEntityLookAt(int pEntityIndexLooking, int pEntityIndexLooked)
@@ -132,13 +132,19 @@ bool iceCutScene::hasEnded(void)
 
 void iceCutScene::stop(void)
 {
-	mIsPlaying = false;
 	//remove overlay bands
 	removeBands();
 	//restore camera
 	iceGame::getCamera()->detachFromParent();
 	mLastCameraNode->attachObject(iceGame::getCamera());
 	mActivationTime = -1;
+
+	//hide actors
+	for(unsigned int i=0;i<mEntities.size();i++)
+	{
+		mEntities[i]->deactivate();
+	}
+	mIsPlaying = false;
 }
 
 void iceCutScene::putBands(void)

@@ -54,6 +54,9 @@ class iceHUD
 		iceStateManager* mStateManager;
 		Ogre::Overlay* mHUDOverlay;
 
+		Ogre::PanelOverlayElement* mStatsPanel;
+		Ogre::PanelOverlayElement* mWeaponsPanel;
+
 		Ogre::TextAreaOverlayElement* mAchievementsTextArea;
 		Ogre::TextAreaOverlayElement* mWeaponNameTextarea;
 		Ogre::TextAreaOverlayElement* mWeaponLevelTextarea;

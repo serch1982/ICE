@@ -4,18 +4,20 @@ class iceStep
 {
 public:
 	iceStep(void);
-	iceStep(Ogre::Vector3 p_vPosition,Ogre::Radian p_rRollAngle,Ogre::Real p_rTime);
+	iceStep(Ogre::Vector3 p_vPosition,Ogre::Quaternion pRotation,Ogre::Vector3 pScale,Ogre::Real p_rTime);
 	~iceStep(void);
 
 	Ogre::Vector3 getPosition(void);
-	Ogre::Radian getRollAngle(void);
+	Ogre::Quaternion getRotation(void);
+	Ogre::Vector3 getScale(void);
 	Ogre::Real getTime(void);
 
 	bool operator<(iceStep rs);
 
 protected:
 	Ogre::Vector3 mPosition;
-	Ogre::Radian mRollAngle;
+	Ogre::Quaternion mRotation;
+	Ogre::Vector3 mScale;
 	Ogre::Real mTime;
 };
 

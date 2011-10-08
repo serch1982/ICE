@@ -33,6 +33,9 @@ void iceHUD::init(iceStateManager* pStateManager)
 
 	mHUDOverlay = Ogre::OverlayManager::getSingleton().getByName("HUD/hud_overlay");
 
+	mStatsPanel = static_cast<Ogre::PanelOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/stats_panel"));
+	mWeaponsPanel = static_cast<Ogre::PanelOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/weapons_panel"));
+
 	mAchievementsTextArea = static_cast<Ogre::TextAreaOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/achievements_text"));
 	mWeaponNameTextarea = static_cast<Ogre::TextAreaOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/weapon_name_text"));
 	mWeaponLevelTextarea = static_cast<Ogre::TextAreaOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/weapon_level_text"));
@@ -372,6 +375,8 @@ void iceHUD::showFrame()
 	mBottomFramePanel->show();
 	mTopFramePanel->setTop(-mFrameHeight);
 	mBottomFramePanel->setTop(0);
+	mStatsPanel->hide();
+	mWeaponsPanel->hide();
 }
 
 void iceHUD::hideFrame()
@@ -381,6 +386,8 @@ void iceHUD::hideFrame()
 	mBottomFramePanel->show();
 	mTopFramePanel->setTop(0);
 	mBottomFramePanel->setTop(-mFrameHeight);
+	mStatsPanel->show();
+	mWeaponsPanel->show();
 }
 
 void iceHUD::showGameover()
