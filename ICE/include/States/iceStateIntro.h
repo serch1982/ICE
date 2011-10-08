@@ -5,6 +5,7 @@
 #include <OIS/OIS.h>
 #include "iceState.h"
 #include <Sound\iceSoundManager.h>
+#include <Hikari.h>
 
 class iceStateIntro: public iceState{
 
@@ -42,8 +43,23 @@ public:
      */
 	ICEStateId getStateId();
 
+	/* Load */
+	void load();
+
+	/* clear */
+	void clear();
+
+	/* Hikari */
+	Hikari::FlashValue finIntro(Hikari::FlashControl* caller, const Hikari::Arguments& args);
+
 	/** THE UPDATE FUNCTION **/
 	void update(Ogre::Real evt);
+
+private:
+	void terminaIntro();
+
+	Hikari::HikariManager* mHikariMgr;
+	Hikari::FlashControl* mFlash;
 };
 
 #endif
