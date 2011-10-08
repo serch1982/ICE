@@ -29,9 +29,9 @@ class iceMenu
 		bool mousePressed(const OIS::MouseEvent &arg, OIS::MouseButtonID id);
 		bool mouseReleased(const OIS::MouseEvent &arg, OIS::MouseButtonID id);
 
+		Hikari::HikariManager* mHikariMgr;
 	protected:
 		iceStateManager* mStateManager;
-		Hikari::HikariManager* mHikariMgr;
 		Hikari::FlashControl* mFlash;
 };
 

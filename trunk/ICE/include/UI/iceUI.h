@@ -18,6 +18,7 @@ class iceUI
 
 		iceMenu* getMenu();
 		iceHUD* getHUD();
+		Hikari::HikariManager* getHikari();
 
 	protected:
 		iceStateManager* mStateManager;
