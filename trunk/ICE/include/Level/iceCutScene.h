@@ -27,6 +27,8 @@ class iceCutScene
 		Ogre::String getInitFunctionStr();
 		Ogre::String getUpdateFunctionStr();
 		int getStep();
+		void setStep(int pStep);
+
 		void nextStep();
 
 		//pTrajectoryIndex == -1 => no trajectory
@@ -38,6 +40,16 @@ class iceCutScene
 
 		//pEntityIndex == -1 => entity = camera
 		bool isEntityTrajectoryEnded(int pEntityIndex = -1);
+
+		void startEntityAnimation(int pEntityIndex, Ogre::String name);
+		void stopEntityAnimations(int pEntityIndex);
+		bool hasEntityAnimationEnded(int pEntityIndex, Ogre::String name);
+
+		Ogre::Real getCurrentTime();
+
+		void playSound(int i);
+		void stopSound(int i);
+		void stopAllSounds();
 
 	protected:
 		//static Ogre::NameGenerator mNameGenerator;
@@ -56,6 +68,8 @@ class iceCutScene
 		void initializeEntities();
 		void putBands(void);
 		void removeBands(void);
+
+		Ogre::Real mCurrentTime;
 };
 
 #endif

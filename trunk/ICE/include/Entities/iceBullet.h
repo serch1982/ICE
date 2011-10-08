@@ -10,7 +10,7 @@ public:
 		/**
 		*  contructor
 		*/
-		iceBullet(int bulletType);
+		iceBullet();
 		/**
 		*  descontructor
 		*/
@@ -19,7 +19,13 @@ public:
 		/**
 		*  to create set the parameter from the new bullet instance
 		*/
-		void createBullet(bool fromPlayer,Ogre::Entity* bulletEntity,  Ogre::SceneNode* bulletNode,  Ogre::Vector3 boxSize, Ogre::Vector3 position, Ogre::Quaternion orientation,Ogre::Radian desviation, Ogre::String boneName, Ogre::String particleName);
+		void createBullet(int bulletType, bool fromPlayer);
+		
+		void activate(Ogre::Vector3 position, Ogre::Quaternion orientation,Ogre::Radian desviation, unsigned int pDamage, bool pCritic);
+
+
+
+
 		/**
 		*  to remove the instance and entity
 		*/
@@ -41,11 +47,6 @@ public:
 		*  get the current time of the bullet
 		*/
 		float getTimer(){ return mTime; }
-
-		/**
-		*  set the life time (default 5)
-		*/
-		Ogre::Real getTimeDuration(void){ return mDuration; }
 
 		/**
 		*  set property damage
@@ -77,7 +78,13 @@ public:
 		/**
 		*  to desactivate the bullet
 		*/
-		void desactivate(void){ mActive = false; }
+		void desactivate(void){
+			mActive = false;
+			mBulletNode->setVisible(false);
+			if(mParticlePtr)
+				mParticlePtr->stop();
+
+		}
 
 		/**
 		*  to desactivate the bullet and create effect when crash an enemy
@@ -102,7 +109,7 @@ public:
 		/**
 		*  move the bullet 
 		*/
-		void move(Ogre::Real timeSinceLastFrame);
+		void update(Ogre::Real timeSinceLastFrame,bool isDebugEnabled);
 
 		/**
 		*  get property is from the player
@@ -113,11 +120,11 @@ protected:
 	bool mFromPlayer;
 	bool mActive;				
 	bool mIsDebugEnabled;
-	unsigned int mDamage, mBulletType;		
+	unsigned int mDamage;
+	int mBulletType;		
 	bool mCritic;		
 	unsigned int mSpeed;	
-	float mTime;					
-	Ogre::Real mDuration;
+	float mTime;
 	Ogre::SceneNode* mBulletNode;		
 	Ogre::Vector3 mPosition;
 	Ogre::Quaternion mOrientation;

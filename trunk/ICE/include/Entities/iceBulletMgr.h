@@ -42,7 +42,7 @@ public:
 		*  to create bullet and throw it into the scene 
 		*  @return the new class created iceBulletPtr
 		*/
-		iceBulletPtr createBullet(bool fromPlayer, Ogre::String name,int bulletType, Ogre::Vector3 initPos, Ogre::Quaternion orientation, Ogre::Radian desviation, int damage, bool critic);
+		void createBullet(bool fromPlayer, Ogre::String name,int bulletType, Ogre::Vector3 initPos, Ogre::Quaternion orientation, Ogre::Radian desviation, int damage, bool critic);
 		/**
 		*  to create bullet into the scene 
 		*/
@@ -50,17 +50,22 @@ public:
 		/**
 		*  @return std::vector<iceBulletPtr> with all the bullets into the scene 
 		*/
-		iceBulletList getAllBullets(){return  mIceBulletList;}
+		std::vector<iceBullet*> getPlayerBullets(){return  mPlayerBullets;}
+		std::vector<iceBullet*> getEnemiesBullets(){return  mEnemiesBullets;}
 private:
 		/**
 		*  to create and unique name
 		*/
 		Ogre::String createUniqueId();
 
+		iceBullet* getPlayerActiveBullet(int bulletType);
+		iceBullet* getEnemiesActiveBullet();
+
 private:
 		//vars
-		iceBulletList			mIceBulletList;
-		int						mId;
+		std::vector<iceBullet*>				 mPlayerBullets;
+		std::vector<iceBullet*>				 mEnemiesBullets;
+		int									 mId;
 
 };
 

@@ -55,6 +55,10 @@ void iceStatePause::update(Ogre::Real evt) {
 
 
 bool iceStatePause::keyPressed(const OIS::KeyEvent &arg) {
+	if (arg.key == OIS::KC_ESCAPE)
+    {
+		this->_nextICEStateId = PLAY;
+    }
     return mMenu->keyPressed(arg);
 }
 

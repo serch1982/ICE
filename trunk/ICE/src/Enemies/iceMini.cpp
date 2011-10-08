@@ -185,7 +185,7 @@ void iceMini::showReceivedDamage(unsigned int p_iDamage, bool p_bCritical){
 
 	if(!isAlive()){
 		enemyNode->setVisible(false);
-		Ogre::SceneNode* node = iceGame::getSceneManager()->getRootSceneNode()->createChildSceneNode(enemyNode->getName() + "_exp");
+		Ogre::SceneNode* node = iceGame::getSceneManager()->getRootSceneNode()->createChildSceneNode();
 		node->setPosition(enemyNode->_getDerivedPosition());
 		iceParticleMgr::getSingletonPtr()->createParticle(node, "ice/crashboom");	
 	}

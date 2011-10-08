@@ -1,6 +1,6 @@
 HUD/hud_overlay
 {
-    zorder 200
+    zorder 20
 
 	container Panel(HUD/frame)
 	{
@@ -147,8 +147,8 @@ HUD/hud_overlay
 			container Panel(HUD/notification_container_panel)
 			{
 				metrics_mode pixels
-				left 55
-				top -70
+				left 35
+				top -60
 				width 125
 				height 103
 				material HUD/notification_container_material
@@ -156,60 +156,60 @@ HUD/hud_overlay
 				container Panel(HUD/notification_heal_panel)
 				{
 					metrics_mode pixels
-					left 33
-					top 15
-					width 60
-					height 60
+					left 38
+					top 27
+					width 45
+					height 45
 					material HUD/notification_heal_material
 				}
 				
 				container Panel(HUD/notification_sprint_panel)
 				{
 					metrics_mode pixels
-					left 33
-					top 15
-					width 60
-					height 60
+					left 38
+					top 27
+					width 45
+					height 45
 					material HUD/notification_sprint_material
 				}
 				
 				container Panel(HUD/notification_brake_panel)
 				{
 					metrics_mode pixels
-					left 33
-					top 15
-					width 60
-					height 60
+					left 38
+					top 27
+					width 45
+					height 45
 					material HUD/notification_brake_material
 				}
 				
 				container Panel(HUD/notification_weapon_1_panel)
 				{
 					metrics_mode pixels
-					left 33
-					top 15
-					width 60
-					height 60
+					left 38
+					top 27
+					width 45
+					height 45
 					material HUD/weapon_1_material
 				}
 				
 				container Panel(HUD/notification_weapon_2_panel)
 				{
 					metrics_mode pixels
-					left 33
-					top 15
-					width 60
-					height 60
+					left 38
+					top 27
+					width 45
+					height 45
 					material HUD/weapon_2_material
 				}
 				
 				container Panel(HUD/notification_weapon_3_panel)
 				{
 					metrics_mode pixels
-					left 33
-					top 15
-					width 60
-					height 60
+					left 38
+					top 27
+					width 45
+					height 45
 					material HUD/weapon_3_material
 				}
 			}

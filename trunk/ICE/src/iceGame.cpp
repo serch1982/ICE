@@ -153,7 +153,7 @@ bool iceGame::initialiseOIS() {
 
 void iceGame::configureSceneManager() {
     _log->logMessage("iceGame::configureSceneManager()");
-	_sceneManager = Ogre::Root::getSingleton().createSceneManager(Ogre::ST_EXTERIOR_REAL_FAR, "sceneManager");
+	_sceneManager = Ogre::Root::getSingleton().createSceneManager(Ogre::ST_EXTERIOR_CLOSE, "sceneManager");
 
     //shodow technique
     _sceneManager->setShadowTechnique(Ogre::SHADOWTYPE_NONE);
@@ -165,7 +165,7 @@ void iceGame::createCamera() {
     //config principal camera
     _camera = _sceneManager->createCamera("camera");
     _camera->setNearClipDistance(1);
-    _camera->setFarClipDistance(5000);
+    _camera->setFarClipDistance(4000);
     _camera->setPosition(Ogre::Vector3(0,0,0));
     _camera->lookAt(Ogre::Vector3(0,0,-300));
 

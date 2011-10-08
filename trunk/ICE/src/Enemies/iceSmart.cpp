@@ -121,7 +121,7 @@ std::string iceSmart::getFunctionStr(){
 void iceSmart::showReceivedDamage(unsigned int p_iDamage, bool p_bCritical){
 	iceEnemy::showReceivedDamage(p_iDamage, p_bCritical);
 	if(!isAlive()){
-		Ogre::SceneNode* node = iceGame::getSceneManager()->getRootSceneNode()->createChildSceneNode(enemyNode->getName() + "_exp");
+		Ogre::SceneNode* node = iceGame::getSceneManager()->getRootSceneNode()->createChildSceneNode();
 		node->setPosition(enemyNode->_getDerivedPosition());
 		Ogre::Vector3 scale(.09,.09,.09);
 		node->scale(scale);

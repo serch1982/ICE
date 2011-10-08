@@ -217,7 +217,7 @@ void iceStateManager::changeState(iceState* icestate) {
 }
 
 bool iceStateManager::keyPressed(const OIS::KeyEvent &arg) {
-	if (arg.key == OIS::KC_ESCAPE)
+	if (arg.key == OIS::KC_P)
     {
         exitGame();
     }else if (arg.key == OIS::KC_F3)   //show chivatos and stats

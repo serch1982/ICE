@@ -9,6 +9,7 @@ iceCutScene::iceCutScene()
 	mActivationTime = -1;
 	mIsPlaying = false;
 	mStep = 0;
+	mCurrentTime = 0;
 }
 
 iceCutScene::~iceCutScene()
@@ -26,7 +27,7 @@ bool iceCutScene::initialize(Ogre::String pInitFunctionStr,Ogre::String pUpdateF
 	mTrajectories = pTrajectories;
 
 	iceLogicLua::getInstance()->initCutScene(this);
-
+	mCurrentTime = 0;
 
 
 	//initializeEntities();
@@ -48,6 +49,7 @@ void iceCutScene::update(Ogre::Real p_TimeSinceLastFrame)
 {
 	if(!mIsPlaying)
 		return;
+	mCurrentTime += p_TimeSinceLastFrame;
 	mCameraEntity->update(p_TimeSinceLastFrame);
 	for(unsigned int i=0;i<mEntities.size();i++)
 	{
@@ -141,15 +143,22 @@ void iceCutScene::stop(void)
 
 void iceCutScene::putBands(void)
 {
+	iceGame::getUI()->getHUD()->showFrame();
 }
 
 void iceCutScene::removeBands(void)
 {
+	iceGame::getUI()->getHUD()->hideFrame();
 }
 
 int iceCutScene::getStep()
 {
 	return mStep;
+}
+
+void iceCutScene::setStep(int pStep)
+{
+	mStep = pStep;
 }
 
 void iceCutScene::nextStep()
@@ -192,4 +201,39 @@ bool iceCutScene::isEntityTrajectoryEnded(int pEntityIndex)
 	{
 		return mEntities[(unsigned int)pEntityIndex]->getTrajectory()->hasEnded();
 	}
+}
+
+void iceCutScene::startEntityAnimation(int pEntityIndex, Ogre::String name)
+{
+	mEntities[(unsigned int)pEntityIndex]->startAnimation(name);
+}
+
+void iceCutScene::stopEntityAnimations(int pEntityIndex)
+{
+	mEntities[(unsigned int)pEntityIndex]->stopAnimations();
+}
+
+bool iceCutScene::hasEntityAnimationEnded(int pEntityIndex, Ogre::String name)
+{
+	return mEntities[(unsigned int)pEntityIndex]->hasAnimationEnded(name);
+}
+
+Ogre::Real iceCutScene::getCurrentTime()
+{
+	return mCurrentTime;
+}
+
+void iceCutScene::playSound(int i)
+{
+	iceSoundManager::getSingletonPtr()->PlaySound(i,Ogre::Vector3::ZERO,0,1);
+}
+
+void iceCutScene::stopSound(int i)
+{
+	iceSoundManager::getSingletonPtr()->StopSound(&i);
+}
+
+void iceCutScene::stopAllSounds()
+{
+	iceSoundManager::getSingletonPtr()->StopAllSounds();
 }

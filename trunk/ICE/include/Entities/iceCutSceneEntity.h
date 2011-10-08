@@ -2,6 +2,8 @@
 #define ICE_CUT_SCENE_ENTITY_H_
 
 #include "Trajectory/iceTrajectoryFollower.h"
+#include "Effects\iceAnimationMgr.h"
+#include "Particle\iceParticleMgr.h"
 
 
 class iceCutSceneEntity : public iceTrajectoryFollower
@@ -13,7 +15,12 @@ class iceCutSceneEntity : public iceTrajectoryFollower
 		enum TYPE
 		{
 			SHIP = 0,
-			MINI = 1
+			MINI = 1,
+			SMART = 2,
+			KAMIKACE = 3,
+			VOLCANO = 4,
+			MAGMATON = 5,
+			PIGSHEEP = 6
 		};
 
 		bool initialize(TYPE pEntityType, Ogre::Vector3 p_Position, Ogre::Real p_ActivationTime, iceTrajectory* pTrajectory = NULL);
@@ -30,14 +37,23 @@ class iceCutSceneEntity : public iceTrajectoryFollower
 
 		bool checkActivationTime(Ogre::Real p_timeSinceLastFrame);
 
+		void startAnimation(Ogre::String name);
+		void stopAnimations();
+		bool hasAnimationEnded(Ogre::String name);
+
 	protected:
 		static Ogre::NameGenerator mNameGenerator;
+
+		TYPE mEntityType;
 
 		bool mIsActive;
 
 		Ogre::SceneNode* mCutSceneEntityNode;
 		Ogre::Real mCurrentTime;
 		Ogre::Real mActivationTime;
+
+		iceAnimationMgrPtr iceAnimationPtr;
+		iceParticlePtr partice1;
 };
 
 #endif
