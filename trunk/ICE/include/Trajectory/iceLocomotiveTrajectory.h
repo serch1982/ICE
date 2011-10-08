@@ -23,6 +23,6 @@ class iceLocomotiveTrajectory : public iceTrajectory
 		void init(Ogre::SceneManager* p_spSceneManager, Ogre::SceneNode* p_psNode);
 	protected:
 		void addTime(Ogre::Real p_fTime);
-		Ogre::Radian getInterpolatedRollByTime(Ogre::Real p_fTime);
+		//Ogre::Radian getInterpolatedRollByTime(Ogre::Real p_fTime);
 };
 

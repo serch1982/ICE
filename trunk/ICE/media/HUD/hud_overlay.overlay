@@ -377,7 +377,7 @@ HUD/hud_overlay
 		left 0
 		top 0
 		width 1
-		height 0.1
+		height 0.13
 		material HUD/cutscene_frame_material
 	}
 	
@@ -385,9 +385,9 @@ HUD/hud_overlay
 	{
 		vert_align bottom
 		left 0
-		top -0.1
+		top -0.13
 		width 1
-		height 0.1
+		height 0.13
 		material HUD/cutscene_frame_material
 	}
 	

@@ -51,6 +51,7 @@ bool iceCutSceneEntity::initialize(TYPE pEntityType, Ogre::Vector3 p_Position, O
 	{
 		case SHIP:
 			mesh = sceneManager->createEntity(name + "_airplane", "airplane.mesh");
+			mNode->attachObject(mesh);
 
 			mesh->attachObjectToBone("turbo_right",sceneManager->createEntity(name + "_jet1", "plane_jet.mesh"),Ogre::Vector3::UNIT_Z.getRotationTo(Ogre::Vector3::NEGATIVE_UNIT_Z),Ogre::Vector3(0.2,0,0.2));
 			mesh->attachObjectToBone("turbo_left",sceneManager->createEntity(name + "_jet2", "plane_jet.mesh"),Ogre::Quaternion::IDENTITY,Ogre::Vector3(0.2,0,-0.2));
@@ -65,6 +66,7 @@ bool iceCutSceneEntity::initialize(TYPE pEntityType, Ogre::Vector3 p_Position, O
 			break;
 		case MINI:
 			mesh = sceneManager->createEntity("minimagmaton.mesh");
+			mNode->attachObject(mesh);
 
 			iceAnimationPtr->setIddleAnimation(mesh->getAnimationState("iddle_Clip1"));
 			iceAnimationPtr->addAnimation(mesh->getAnimationState("attack_Clip"),1,false,true);
@@ -85,9 +87,11 @@ bool iceCutSceneEntity::initialize(TYPE pEntityType, Ogre::Vector3 p_Position, O
 
 			iceAnimationPtr->setIddleAnimation(mesh->getAnimationState("attack_Clip"));
 			mesh = sceneManager->createEntity("intelligent.mesh");
+			mNode->attachObject(mesh);
 			break;
 		case KAMIKACE:
 			mesh = sceneManager->createEntity("kamikace.mesh");
+			mNode->attachObject(mesh);
 			arr[0] = 0.3;
 			arr[1] = 0.6;
 			arr[2] = 1.0;
@@ -103,19 +107,23 @@ bool iceCutSceneEntity::initialize(TYPE pEntityType, Ogre::Vector3 p_Position, O
 			break;
 		case VOLCANO:
 			mesh = sceneManager->createEntity("volcano.mesh");
+			mNode->attachObject(mesh);
 			iceAnimationPtr->setIddleAnimation(mesh->getAnimationState("iddle")); 
 			iceAnimationPtr->addAnimation(mesh->getAnimationState("attack"),0, true); 
 			break;
 		case MAGMATON:
 			mesh = sceneManager->createEntity("magmaton.mesh");
+			mNode->attachObject(mesh);
 			break;
 		case PIGSHEEP:
 			mesh = sceneManager->createEntity("pigsheep.mesh");
+			mNode->attachObject(mesh);
 			iceAnimationPtr->setIddleAnimation(mesh->getAnimationState("iddle"));
+			break;
+		case DUMMY:
 			break;
 	}
 
-	mNode->attachObject(mesh);
 	mNode->setPosition(p_Position);
 
 	if(pTrajectory)

@@ -137,7 +137,8 @@ void iceLogicLua::bindLuaObjects(){
 				luabind::value("START_DYING",3),
 				luabind::value("DYING",4),
 				luabind::value("DEAD",5),
-				luabind::value("INACTIVE",6)
+				luabind::value("INACTIVE",6),
+				luabind::value("DUMMY",7)
 			]
 		    .def("getState", &iceEnemy::getState )
 		    .def("setState", &iceEnemy::setState )
@@ -177,6 +178,7 @@ void iceLogicLua::bindLuaObjects(){
 			.def("stopSound", &iceCutScene::stopSound )
 			.def("stopAllSounds", &iceCutScene::stopAllSounds )
 			.def("getCurrentTime", &iceCutScene::getCurrentTime )
+			.def("setEntityLookAt", &iceCutScene::setEntityLookAt )
 	];
 }
 

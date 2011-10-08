@@ -137,11 +137,15 @@ void icePhysics::processTerrainCollision(void){
 	for(unsigned j = 0; j < mEnemies->size(); j++){
 		iceEnemy* enemy = (*mEnemies)[j];
 
-		if(enemy->isActive() && enemy->isAlive()){
-			Ogre::Ray enemyRayNY(enemy->getWorldPosition(), Ogre::Vector3::NEGATIVE_UNIT_Y);
-			mResult =mTerrainGroup->rayIntersects(enemyRayNY,dis); 
-			if (!mResult.hit){
-				enemy->desactivate();
+		iceVolcano* volcano = dynamic_cast<iceVolcano*> (enemy);
+		if(!volcano) 
+		{
+			if(enemy->isActive() && enemy->isAlive()){
+				Ogre::Ray enemyRayNY(enemy->getWorldPosition(), Ogre::Vector3::NEGATIVE_UNIT_Y);
+				mResult =mTerrainGroup->rayIntersects(enemyRayNY,dis); 
+				if (!mResult.hit){
+					enemy->desactivate();
+				}
 			}
 		}
 	}
