@@ -31,63 +31,69 @@ void icePhysics::initialize(Ogre::TerrainGroup* terrainGroup,  std::vector<iceEn
 
 void icePhysics::processBullets(void)
 {
-	iceBulletList bl = iceBulletMgr::getSingletonPtr()->getAllBullets();
-	iceBulletIter iter = bl.begin();
+	std::vector<iceBullet*> playerBullets = iceBulletMgr::getSingletonPtr()->getPlayerBullets();
+	std::vector<iceBullet*> enemiesBullets = iceBulletMgr::getSingletonPtr()->getEnemiesBullets();
 
 	Ogre::AxisAlignedBox pbox = mPlayer->getGeometry()->getWorldBoundingBox(mPlayer->getPosition());
-	//bullets against bodies 
-	while(iter != bl.end()){
-		bool bulletImpacted = false;
-		Ogre::AxisAlignedBox bbox = (*iter)->getGeometry()->getWorldBoundingBox((*iter)->getPosition());
-		if(!(*iter)->isFromPlayer()){
+
+	for(unsigned int i=0;i<enemiesBullets.size();i++)
+	{
+		if(enemiesBullets[i]->isActive())
+		{
+			Ogre::AxisAlignedBox bbox = enemiesBullets[i]->getGeometry()->getWorldBoundingBox(enemiesBullets[i]->getPosition());
 			if(pbox.intersects(bbox)){
-				mPlayer->addDamage((*iter)->getDamage(),(*iter)->getCritic());
-				(*iter)->crashPlayer();
-				bulletImpacted = true;
+				mPlayer->addDamage(enemiesBullets[i]->getDamage(),enemiesBullets[i]->getCritic());
+				enemiesBullets[i]->crashPlayer();
 			}
 		}
-		else{
+	}
+
+	for(unsigned int i=0;i<playerBullets.size();i++)
+	{
+		if(playerBullets[i]->isActive())
+		{
+			bool bulletImpacted = false;
+			Ogre::AxisAlignedBox bbox = playerBullets[i]->getGeometry()->getWorldBoundingBox(playerBullets[i]->getPosition());
+
 			for(unsigned j = 0; j < mEnemies->size(); j++){
 				iceEnemy* enemy = (*mEnemies)[j];
 				if((enemy->isActive()) && (enemy->isAlive())){
 					Ogre::AxisAlignedBox ebox = enemy->getGeometry()->getWorldBoundingBox(enemy->getWorldPosition());
 					if(ebox.intersects(bbox)){
-						enemy->addDamage((*iter)->getDamage(),(*iter)->getCritic());
-						(*iter)->crashEnemy();
+						enemy->addDamage(playerBullets[i]->getDamage(),playerBullets[i]->getCritic());
+						playerBullets[i]->crashEnemy();
 						bulletImpacted = true;
 						break;
 					}
 				}
 			}
-		}
-		if(!bulletImpacted)
-		{
-			//detect collision between the player and the terrain
-			Ogre::Ray bulletRayNY((*iter)->getPosition(), Ogre::Vector3::NEGATIVE_UNIT_Y);
-			Ogre::TerrainGroup::RayResult mResult =mTerrainGroup->rayIntersects(bulletRayNY,0.1); 
-			if (!mResult.hit){
-				(*iter)->crashEnemy();
-				bulletImpacted = true;
-			}
-		}
-
-		if(!bulletImpacted)
-		{
-			Ogre::Ray bulletRayNY((*iter)->getPosition(), Ogre::Vector3::NEGATIVE_UNIT_Y);
-			mRaySceneQuery->setRay(bulletRayNY);
-			Ogre::RaySceneQueryResult &result = mRaySceneQuery->execute();
-			Ogre::RaySceneQueryResult::iterator itr;
-			for( unsigned j = 0; j < mObjects.size(); j++){
-				iceObject* obj = ((iceObject*)(mObjects)[j]);
-				for (itr = result.begin(); itr != result.end(); itr++) {
-					if (itr->movable->getName().compare(obj->getName()) == 0 && itr->distance<1) {
-						(*iter)->crashEnemy();
-					}
+			if(!bulletImpacted)
+			{
+				//detect collision between the player and the terrain
+				Ogre::Ray bulletRayNY(playerBullets[i]->getPosition(), Ogre::Vector3::NEGATIVE_UNIT_Y);
+				Ogre::TerrainGroup::RayResult mResult =mTerrainGroup->rayIntersects(bulletRayNY,0.1); 
+				if (!mResult.hit){
+					playerBullets[i]->crashEnemy();
+					bulletImpacted = true;
 				}
 			}
-		}
 
-		++iter;
+			if(!bulletImpacted)
+			{
+				//Ogre::Ray bulletRayNY((*iter)->getPosition(), Ogre::Vector3::NEGATIVE_UNIT_Y);
+				//mRaySceneQuery->setRay(bulletRayNY);
+				//Ogre::RaySceneQueryResult &result = mRaySceneQuery->execute();
+				//Ogre::RaySceneQueryResult::iterator itr;
+				//for( unsigned j = 0; j < mObjects.size(); j++){
+				//	iceObject* obj = ((iceObject*)(mObjects)[j]);
+				//	for (itr = result.begin(); itr != result.end(); itr++) {
+				//		if (itr->movable->getName().compare(obj->getName()) == 0 && itr->distance<1) {
+				//			(*iter)->crashEnemy();
+				//		}
+				//	}
+				//}
+			}
+		}
 	}
 }
 

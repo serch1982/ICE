@@ -52,6 +52,7 @@ void iceStatePlay::load() {
 
 			//bullet manager
 			mIceBulletMgr = iceBulletMgrPtr(new iceBulletMgr());
+			mIceBulletMgr->initialize();
 
 			////new player instance
 			if(!icePlayer::getSingletonPtr()) {
@@ -63,6 +64,9 @@ void iceStatePlay::load() {
 
 			//hide cursor
 			iceSdkTray::getInstance()->hideCursor();
+
+			//load lua logic
+			iceLogicLua::getInstance()->runAllFiles();
 
 			// load level
 			_level = iceLevelManager::getSingleton().getIceLevel(_levelID);
@@ -77,9 +81,6 @@ void iceStatePlay::load() {
 			//load physics
 			mPhysics = icePhysicsPtr(new icePhysics());
 			mPhysics->initialize(_level->getTerrain(), &_mEnemies, _level->getStaticPhisicSceneObjects());
-
-			//load lua logic
-			iceLogicLua::getInstance()->runAllFiles();
 
 			//show HUD
 			mHUD = iceGame::getUI()->getHUD();
@@ -173,9 +174,6 @@ void iceStatePlay::update(Ogre::Real evt)
 				_player->update(evt);
 				_player->setDebug(visibleBoundingBoxes);
 
-				//update particles
-				iceParticleMgr::getSingletonPtr()->update(evt);
-
 				//update game Physics 
 				mPhysics->update();
 
@@ -226,6 +224,9 @@ void iceStatePlay::update(Ogre::Real evt)
 					mState = PLAYER_DYING;
 				}
 			}
+
+			//update particles
+			iceParticleMgr::getSingletonPtr()->update(evt);
 			break;
 		case CHEATING:
 			checkActivableCutScene();
@@ -252,9 +253,6 @@ void iceStatePlay::update(Ogre::Real evt)
 				//player
 				_player->update(evt);
 				_player->setDebug(visibleBoundingBoxes);
-
-				//update particles
-				iceParticleMgr::getSingletonPtr()->update(evt);
 
 				//update game Physics 
 				mPhysics->update();
@@ -300,6 +298,9 @@ void iceStatePlay::update(Ogre::Real evt)
 
 				mCurrentTime += evt*_player->getTimeMultiplier();
 			}
+
+			//update particles
+			iceParticleMgr::getSingletonPtr()->update(evt);
 			break;
 		case PLAYER_DYING:
 			//bullets
@@ -328,9 +329,12 @@ void iceStatePlay::update(Ogre::Real evt)
 
 
 bool iceStatePlay::keyPressed(const OIS::KeyEvent &arg) {
-	if (arg.key == OIS::KC_P)
+	if (arg.key == OIS::KC_ESCAPE)
     {
-        this->_nextICEStateId = PAUSE;
+		if(mCurrentCutScene)
+			mCurrentCutScene->stop();
+		else
+			this->_nextICEStateId = PAUSE;
     }	
 	else if(arg.key == OIS::KC_F7)   // show bounding boxes
     {

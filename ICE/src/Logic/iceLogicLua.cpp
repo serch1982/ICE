@@ -155,15 +155,28 @@ void iceLogicLua::bindLuaObjects(){
 			.enum_("CUTSCENEENTITYTYPE")
 			[
 				luabind::value("SHIP",0),
-				luabind::value("MINI",1)
+				luabind::value("MINI",1),
+				luabind::value("SMART",2),
+				luabind::value("KAMIKACE",3),
+				luabind::value("VOLCANO",4),
+				luabind::value("MAGMATON",5),
+				luabind::value("PIGSHEEP",6)
 			]
 			.def("setActivationTime", &iceCutScene::setActivationTime )
 		    .def("addEntity", &iceCutScene::addEntity )
 		    .def("initializeCameraEntity", &iceCutScene::initializeCameraEntity )
 			.def("getStep", &iceCutScene::getStep )
+			.def("setStep", &iceCutScene::setStep )
 			.def("isEntityTrajectoryEnded", &iceCutScene::isEntityTrajectoryEnded )
 			.def("nextStep", &iceCutScene::nextStep )
 			.def("stop", &iceCutScene::stop )
+			.def("startEntityAnimation", &iceCutScene::startEntityAnimation )
+			.def("stopEntityAnimations", &iceCutScene::stopEntityAnimations )
+			.def("hasEntityAnimationEnded", &iceCutScene::hasEntityAnimationEnded )
+			.def("playSound", &iceCutScene::playSound )
+			.def("stopSound", &iceCutScene::stopSound )
+			.def("stopAllSounds", &iceCutScene::stopAllSounds )
+			.def("getCurrentTime", &iceCutScene::getCurrentTime )
 	];
 }
 
