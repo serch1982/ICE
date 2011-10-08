@@ -85,7 +85,6 @@ bool iceCutSceneEntity::initialize(TYPE pEntityType, Ogre::Vector3 p_Position, O
 
 			iceAnimationPtr->setIddleAnimation(mesh->getAnimationState("attack_Clip"));
 			mesh = sceneManager->createEntity("intelligent.mesh");
-			mNode->attachObject(mesh);
 			break;
 		case KAMIKACE:
 			mesh = sceneManager->createEntity("kamikace.mesh");
