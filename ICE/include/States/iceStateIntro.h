@@ -60,6 +60,8 @@ private:
 
 	Hikari::HikariManager* mHikariMgr;
 	Hikari::FlashControl* mFlash;
+
+	Ogre::Real mCurrentTime;
 };
 
 #endif
