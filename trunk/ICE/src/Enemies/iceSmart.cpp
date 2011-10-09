@@ -5,6 +5,8 @@
 
 iceSmart::iceSmart(){
 	iceEnemy::iceEnemy();
+	mBaseAttack = 200;
+	mBaseArmor = 40;
 }
 
 iceSmart::~iceSmart(){

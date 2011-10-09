@@ -68,6 +68,11 @@ void iceLevel::load(std::vector<iceEnemy*>& vectorEnemies, std::vector<iceCutSce
 			//load sounds
 			soundManager->loadLevelBoss();
 			soundManager->PlaySound(0, Ogre::Vector3::ZERO, 0, 0.5);
+
+			for(unsigned int i=0;i<vectorEnemies.size();i++)
+			{
+				vectorEnemies[i]->setLevel(vectorEnemies[i]->getLevel()+40);
+			}
 		}
 
 		soundManager->PlaySound(8, Ogre::Vector3::ZERO, 0, 0.3);

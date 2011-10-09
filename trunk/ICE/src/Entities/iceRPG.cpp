@@ -19,8 +19,8 @@ iceRPG::iceRPG(void)
 	mWeaponLevel[SHOTGUN] = 0;
 	mWeaponLevel[MISILE_LAUNCHER] = 0;
 	mWeaponBaseCadence[MACHINEGUN] = 10;
-	mWeaponBaseCadence[SHOTGUN] = 1;
-	mWeaponBaseCadence[MISILE_LAUNCHER] = 0.5;
+	mWeaponBaseCadence[SHOTGUN] = 0.8;
+	mWeaponBaseCadence[MISILE_LAUNCHER] = 0.4;
 	mShieldLevel = 0;
 	mShieldEnergy =	0;
 	mCurrentWeapon = MACHINEGUN;
@@ -118,6 +118,7 @@ void iceRPG::setLevel(unsigned int p_iLevel)
 		p_iLevel = 99;
 	mLevel = p_iLevel;
 	mExperience = 0;
+	mCurrentLife = getMaxLife();
 }
 
 void iceRPG::setExperience(unsigned int p_iExperience)
@@ -142,7 +143,10 @@ void iceRPG::levelUp(void)
 	if (mLevel > 99)
 		mLevel = 99;
 	else
-		mCurrentLife = getMaxLife();
+	{
+		if(mCurrentLife < getMaxLife()/2)
+			mCurrentLife = getMaxLife()/2;
+	}
 	mExperience = 0;
 
 	//Las armas empiezan a estar disponibles a partir de cierto nivel
@@ -187,10 +191,10 @@ void iceRPG::addExperience(unsigned int p_iExperience)
 
 void iceRPG::addLife(unsigned int p_iLife)
 {
-	showHeal(p_iLife);
 	mCurrentLife += p_iLife;
 	if (mCurrentLife > getMaxLife())
 		mCurrentLife = getMaxLife();
+	showHeal(p_iLife);
 }
 
 bool iceRPG::isAlive(void)

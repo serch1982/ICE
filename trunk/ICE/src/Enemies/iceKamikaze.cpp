@@ -4,6 +4,7 @@
 iceKamikaze::iceKamikaze(){
 	iceEnemy::iceEnemy();
 	mRenewTarget = 100;
+	mBaseArmor = 50;
 }
 
 iceKamikaze::~iceKamikaze(){

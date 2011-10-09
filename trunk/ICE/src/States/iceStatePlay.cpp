@@ -89,6 +89,7 @@ void iceStatePlay::load() {
 			//show HUD
 			mHUD = iceGame::getUI()->getHUD();
 			mHUD->show();
+			iceGame::getUI()->getHUD()->setLife(1,1);
 
 			mPropAnimations = _level->getPropAnimations();
 
@@ -207,9 +208,11 @@ void iceStatePlay::update(Ogre::Real evt)
 				_player->update(evt);
 				_player->setDebug(visibleBoundingBoxes);
 
-				//update game Physics 
 				if(!firstUpdate)
+				{
+					//update game Physics 
 					mPhysics->update();
+				}
 
 				//enemies
 				for (_revit_mEnemies = _mEnemies.rbegin(); _revit_mEnemies != _mEnemies.rend(); ++_revit_mEnemies) {
@@ -251,6 +254,9 @@ void iceStatePlay::update(Ogre::Real evt)
 				iceSdkTray::getInstance()->updateScreenInfo( 6, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedOrientation().y));
 
 				mCurrentTime += evt*_player->getTimeMultiplier();
+
+				if(_levelID == 1 && mCurrentTime > 360)
+					iceGame::getStateManager()->goToNextLevel();
 
 				if(!_player->isAlive())
 				{
@@ -295,9 +301,11 @@ void iceStatePlay::update(Ogre::Real evt)
 				_player->update(evt);
 				_player->setDebug(visibleBoundingBoxes);
 
-				//update game Physics
 				if(!firstUpdate)
+				{
+					//update game Physics 
 					mPhysics->update();
+				}
 
 				//enemies
 				for (_revit_mEnemies = _mEnemies.rbegin(); _revit_mEnemies != _mEnemies.rend(); ++_revit_mEnemies) {
@@ -339,6 +347,8 @@ void iceStatePlay::update(Ogre::Real evt)
 				iceSdkTray::getInstance()->updateScreenInfo( 6, Ogre::StringConverter::toString(iceGame::getCamera()->getDerivedOrientation().z));
 
 				mCurrentTime += evt*_player->getTimeMultiplier();
+				if(_levelID == 1 && mCurrentTime > 360)
+					iceGame::getStateManager()->goToNextLevel();
 			}
 
 			//update particles

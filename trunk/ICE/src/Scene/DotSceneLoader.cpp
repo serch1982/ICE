@@ -773,7 +773,7 @@ void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode, bool delayed,
 		iceEnemy* enemy = new iceMini();
 		mEnemyId = mEnemyId + 1000; 
 		enemy->initialize(mEnemyId,enemyPosition,time + timeDev, false);
-		enemy->setLevel(time/20);//TODO
+		enemy->setLevel(time/15);//TODO
 		enemy->setBillboard(new iceBillboard(snbbNode,50,iceBillboard::DEAD1));
 		mEnemies.push_back(enemy);	
 	}
@@ -786,7 +786,7 @@ void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode, bool delayed,
 		iceEnemy* enemy = new iceKamikaze();
 		mEnemyId = mEnemyId + 1000;
 		enemy->initialize(mEnemyId,enemyPosition,time + timeDev,false);
-		enemy->setLevel(time/20);//TODO
+		enemy->setLevel(time/15);//TODO
 		enemy->setBillboard(new iceBillboard(snbbNode,50,iceBillboard::DEAD2));
 		mEnemies.push_back(enemy);
 	}
@@ -799,7 +799,7 @@ void DotSceneLoader::processEnemies(rapidxml::xml_node<>* XMLNode, bool delayed,
 		iceEnemy* enemy = new iceSmart();
 		mEnemyId = mEnemyId + 1000;
 		enemy->initialize(mEnemyId,enemyPosition,time + timeDev,false);
-		enemy->setLevel(time/20);//TODO
+		enemy->setLevel(time/13);//TODO
 		enemy->setBillboard(new iceBillboard(snbbNode,50,iceBillboard::DEAD1));
 		mEnemies.push_back(enemy);
 	}
@@ -850,7 +850,7 @@ void DotSceneLoader::processVolcano(rapidxml::xml_node<>* XMLNode, Ogre::SceneNo
 	iceVolcano* enemy = new iceVolcano();
 	mEnemyId = mEnemyId + 1; 
 	enemy->initialize(mEnemyId,position,time,scale,rotation);
-	enemy->setLevel(time/20);//TODO
+	enemy->setLevel(time/10);//TODO
 	//enemy->setBillboard(new iceBillboard(snbbNode,50,iceBillboard::DEAD1));
 	mEnemies.push_back(enemy);
 }
