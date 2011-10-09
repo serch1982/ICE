@@ -32,7 +32,7 @@ bool iceSmart::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActiva
 	iceAnimationPtr->setIddleAnimation(miniMesh->getAnimationState("attack_Clip"));
 
 	//init physics
-	icePhysicEntity::initializePhysics("phy_smart"+ entityName.str(), Ogre::Vector3(10,5.5,4) * SCALE);
+	icePhysicEntity::initializePhysics("phy_smart"+ entityName.str(), Ogre::Vector3(7,5.2,4) * SCALE);
 	enemyNode->attachObject(getGeometry()->getMovableObject());
 
 	//particles

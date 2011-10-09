@@ -91,11 +91,11 @@ void iceBullet::finalizeEntity()
 
 void iceBullet::setDebugEnabled(bool isDebugEnabled)
 {
-	if(mIsDebugEnabled != isDebugEnabled)
-	{
+	//if(mIsDebugEnabled != isDebugEnabled)
+	//{
 		mIsDebugEnabled = isDebugEnabled;
 		getGeometry()->getMovableObject()->setVisible(mIsDebugEnabled);
-	}
+	//}
 }
 
 void iceBullet::update(Ogre::Real timeSinceLastFrame,bool isDebugEnabled)

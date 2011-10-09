@@ -53,13 +53,13 @@ void iceSdkTray::setupScreenInfo(Ogre::RenderWindow* mWindow, OIS::Mouse* mMouse
 
     mDetailsPanel = mTrayMgr->createParamsPanel(OgreBites::TL_NONE, "DetailsPanel", 300, items);
 
-/*#ifdef _DEBUG*/ 
+#ifdef _DEBUG
     mDetailsPanel->show();
     mTrayMgr->showFrameStats(OgreBites::TL_BOTTOMLEFT);
-//#else
-//    mDetailsPanel->hide();
-//    mTrayMgr->hideAll();
-//#endif
+#else
+    mDetailsPanel->hide();
+    mTrayMgr->hideAll();
+#endif
 
     iItems = items.size();
 }
