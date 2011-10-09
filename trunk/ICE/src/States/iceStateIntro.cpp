@@ -60,6 +60,7 @@ bool iceStateIntro::mouseReleased(const OIS::MouseEvent &arg, OIS::MouseButtonID
 void iceStateIntro::load(){
 
 	try{
+		mCurrentTime = 0.0;
 		_sceneManager->setAmbientLight(Ogre::ColourValue(0.25, 0.25, 0.25));
 
 		iceSoundManager* sSound = iceSoundManager::getSingletonPtr();
@@ -92,7 +93,11 @@ ICEStateId iceStateIntro::getStateId(){
 }
 
 void iceStateIntro::update(Ogre::Real evt){
-	mHikariMgr->update();
+	mCurrentTime += evt;
+	if( mCurrentTime > 30 )
+		terminaIntro();
+	else
+		mHikariMgr->update();
 }
 
 Hikari::FlashValue iceStateIntro::finIntro(Hikari::FlashControl* caller, const Hikari::Arguments& args)
