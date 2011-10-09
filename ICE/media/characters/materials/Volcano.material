@@ -52,12 +52,13 @@ material lava_volcano
 	{
 		pass
 		{
-			ambient 0.3 0.3 0.3 1
-			specular 1 1 1 1 50
+			lighting off
 
 			texture_unit
 			{
 				texture lava_volcano.png
+				tex_address_mode wrap
+				scroll_anim 0 0.2
 			}
 		}
 

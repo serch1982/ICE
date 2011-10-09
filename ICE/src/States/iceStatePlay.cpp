@@ -204,7 +204,8 @@ void iceStatePlay::update(Ogre::Real evt)
 				_player->setDebug(visibleBoundingBoxes);
 
 				//update game Physics 
-				mPhysics->update();
+				if(!firstUpdate)
+					mPhysics->update();
 
 				//enemies
 				for (_revit_mEnemies = _mEnemies.rbegin(); _revit_mEnemies != _mEnemies.rend(); ++_revit_mEnemies) {
@@ -265,6 +266,15 @@ void iceStatePlay::update(Ogre::Real evt)
 				if(mCurrentCutScene->hasEnded())
 				{
 					mCurrentCutScene->rollback();
+
+					if( _levelID == 2 )
+					{
+						if(mCurrentCutScene->getInitFunctionStr().compare("endLevel2CutSceneInit") == 0)
+						{
+							iceGame::getStateManager()->goToNextLevel();
+						}
+					}
+
 					mCurrentCutScene = NULL;
 				}
 			}
@@ -277,8 +287,9 @@ void iceStatePlay::update(Ogre::Real evt)
 				_player->update(evt);
 				_player->setDebug(visibleBoundingBoxes);
 
-				//update game Physics 
-				mPhysics->update();
+				//update game Physics
+				if(!firstUpdate)
+					mPhysics->update();
 
 				//enemies
 				for (_revit_mEnemies = _mEnemies.rbegin(); _revit_mEnemies != _mEnemies.rend(); ++_revit_mEnemies) {
@@ -348,6 +359,7 @@ void iceStatePlay::update(Ogre::Real evt)
 		case SHOWIN_GAMEOVER:
 			break;
 	}
+	firstUpdate = false;
 }
 
 
