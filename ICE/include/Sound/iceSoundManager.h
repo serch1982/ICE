@@ -49,6 +49,9 @@ public:
    // Unload Sounds
    void					unloadSounds();
 
+   void					loadMagmacion();
+   void					unloadMagmacion();
+
    // Create sounds functions
    int                  CreateSound(Ogre::String &fileName);         // single-shot 3D sound.  returns soundIndex
    int                  CreateStream(Ogre::String &fileName);        // single-shot 2D stream.  returns soundIndex

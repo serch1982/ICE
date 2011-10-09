@@ -329,6 +329,14 @@ void iceSoundManager::loadSounds(){
 	CreateSound( Ogre::String( "Brake.mp3" ), SOUND_TYPE_2D_SOUND, 25 );
 }
 
+void iceSoundManager::loadMagmacion(){
+	CreateSound( Ogre::String( "Magmacion.mp3" ), SOUND_TYPE_2D_SOUND, 26 );
+}
+
+void iceSoundManager::unloadMagmacion(){
+	(*mSoundVector)[26]->Finalize();
+}
+
 // Unload sounds for all levels
 void iceSoundManager::unloadSounds(){
 	(*mSoundVector)[1]->Finalize();
