@@ -12,7 +12,7 @@ material plane_jet
 
 			texture_unit
 			{
-				anim_texture blue_fire_texture_tile1.png blue_fire_texture_tile2.png blue_fire_texture_tile3.png blue_fire_texture_tile4.png 0.5
+				anim_texture blue_fire_texture_tile1.png blue_fire_texture_tile2.png blue_fire_texture_tile3.png blue_fire_texture_tile4.png blue_fire_texture_tile5.png blue_fire_texture_tile6.png 0.5
 			}
 		}
 

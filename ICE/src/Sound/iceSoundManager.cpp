@@ -515,11 +515,11 @@ int iceSoundManager::CreateSound(Ogre::String &fileName, SOUND_TYPE soundType, i
 void iceSoundManager::PlayExplosion(){
 	int num = rand() % 3;
 	if( num == 0 )
-		PlaySound( 5, Ogre::Vector3::ZERO, 0, 0.5 );
+		PlaySound( 5, Ogre::Vector3::ZERO, 0, 0.2 );
 	else if( num == 1 )
-		PlaySound( 12, Ogre::Vector3::ZERO, 0, 0.5 );
+		PlaySound( 12, Ogre::Vector3::ZERO, 0, 0.2 );
 	else if( num == 2 )
-		PlaySound( 13, Ogre::Vector3::ZERO, 0, 0.5 );
+		PlaySound( 13, Ogre::Vector3::ZERO, 0, 0.2 );
 }
 
 void iceSoundManager::PlaySound(int soundIndex, Ogre::Vector3 soundPosition, int *channelIndex, float fVolume)
