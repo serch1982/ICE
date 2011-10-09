@@ -35,6 +35,8 @@ class iceDamageTextManager: public Ogre::Singleton<iceDamageTextManager> {
 		void showShotgunLevelUp(Ogre::MovableObject *mov);
 		void showMissileLevelUp(Ogre::MovableObject *mov);
 
+		void hideAll();
+
 
     private:
 		MovableTextOverlay* _getNextDisabledOverlayText();

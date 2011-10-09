@@ -911,3 +911,13 @@ bool icePlayer::isDying()
 {
 	return !iceAnimationPtr->hasAnimationEnded();
 }
+
+void icePlayer::show()
+{
+	mNode->setVisible(true);
+}
+
+void icePlayer::hide()
+{
+	mNode->setVisible(false);
+}

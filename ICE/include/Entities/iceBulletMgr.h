@@ -52,6 +52,8 @@ public:
 		*/
 		std::vector<iceBullet*> getPlayerBullets(){return  mPlayerBullets;}
 		std::vector<iceBullet*> getEnemiesBullets(){return  mEnemiesBullets;}
+
+		void destroyAll();
 private:
 		/**
 		*  to create and unique name

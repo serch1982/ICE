@@ -8,6 +8,7 @@
 #include "States\iceStatePause.h"
 #include "States\iceStateManager.h"
 #include "iceGame.h"
+#include "Utils/iceDamageTextManager.h"
 
 
 iceStatePause::iceStatePause(
@@ -51,6 +52,7 @@ void iceStatePause::clear() {
 
 
 void iceStatePause::update(Ogre::Real evt) {
+	iceDamageTextManager::getSingletonPtr()->hideAll();
 }
 
 

@@ -94,6 +94,10 @@ class icePlayer : public iceTrajectoryFollower
 
 		void die();
 		bool isDying();
+
+		void show();
+		void hide();
+
 	protected:
 		bool mMovingUp;
 		bool mMovingDown;
