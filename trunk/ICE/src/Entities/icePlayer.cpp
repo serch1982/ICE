@@ -102,7 +102,7 @@ void icePlayer::initPlayer(){
 	shipNode = shipPlaneNode->createChildSceneNode();
 	_lastPosition = Ogre::Vector3(0,0,0);
 	//physics
-	icePhysicEntity::initializePhysics("phy_player", Ogre::Vector3(5.3,2.8,4.7));
+	icePhysicEntity::initializePhysics("phy_player", Ogre::Vector3(5.3,1.8,4.7));
 	shipNode->attachObject(getGeometry()->getMovableObject());
 		
 	rollNode = shipNode->createChildSceneNode();
