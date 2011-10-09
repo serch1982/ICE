@@ -27,42 +27,42 @@
     </RESOURCEDIRECTORIES>
   <CAMERASPEED value="100"></CAMERASPEED>
   <CAMERAPOSITIONS count="0">
-    <OPTION id="0" position="349.232 457.158 -3684.46" orientation="0.270162 -0.0772165 -0.923086 -0.262608"></OPTION>
+    <OPTION id="0" position="1313.81 61.6655 -1905.07" orientation="0.50302 -0.133453 0.825757 0.217454"></OPTION>
   </CAMERAPOSITIONS>
     <LAYERS>
       <LAYER id="0" name="Layer 0" visible="true"></LAYER>
       <LAYER id="1" name="Trajectory" visible="true"></LAYER>
-      <LAYER id="2" name="StaticPhisicObjects" visible="false"></LAYER>
+      <LAYER id="2" name="StaticPhisicObjects" visible="true"></LAYER>
       <LAYER id="3" name="Helpers" visible="false"></LAYER>
-      <LAYER id="4" name="Layer 1" visible="true"></LAYER>
-      <LAYER id="5" name="Layer 2" visible="true"></LAYER>
-      <LAYER id="6" name="Layer 3" visible="true"></LAYER>
-      <LAYER id="7" name="Layer 4" visible="true"></LAYER>
-      <LAYER id="8" name="Layer 5" visible="true"></LAYER>
-      <LAYER id="9" name="Layer 6" visible="true"></LAYER>
-      <LAYER id="10" name="Layer 7" visible="true"></LAYER>
-      <LAYER id="11" name="Layer 8" visible="true"></LAYER>
-      <LAYER id="12" name="Layer 9" visible="true"></LAYER>
-      <LAYER id="13" name="Layer 10" visible="true"></LAYER>
-      <LAYER id="14" name="Layer 11" visible="true"></LAYER>
-      <LAYER id="15" name="Layer 12" visible="true"></LAYER>
-      <LAYER id="16" name="Layer 13" visible="true"></LAYER>
-      <LAYER id="17" name="Layer 14" visible="true"></LAYER>
-      <LAYER id="18" name="Layer 15" visible="true"></LAYER>
-      <LAYER id="19" name="Layer 16" visible="true"></LAYER>
-      <LAYER id="20" name="Layer 17" visible="true"></LAYER>
-      <LAYER id="21" name="Layer 18" visible="true"></LAYER>
-      <LAYER id="22" name="Layer 19" visible="true"></LAYER>
-      <LAYER id="23" name="Layer 20" visible="true"></LAYER>
-      <LAYER id="24" name="Layer 21" visible="true"></LAYER>
-      <LAYER id="25" name="Layer 22" visible="true"></LAYER>
-      <LAYER id="26" name="Layer 23" visible="true"></LAYER>
-      <LAYER id="27" name="Layer 24" visible="true"></LAYER>
-      <LAYER id="28" name="Layer 25" visible="true"></LAYER>
-      <LAYER id="29" name="Layer 26" visible="true"></LAYER>
-      <LAYER id="30" name="Layer 27" visible="true"></LAYER>
+      <LAYER id="4" name="enemies" visible="true"></LAYER>
+      <LAYER id="5" name="Layer 1" visible="true"></LAYER>
+      <LAYER id="6" name="Layer 2" visible="true"></LAYER>
+      <LAYER id="7" name="Layer 3" visible="true"></LAYER>
+      <LAYER id="8" name="Layer 4" visible="true"></LAYER>
+      <LAYER id="9" name="Layer 5" visible="true"></LAYER>
+      <LAYER id="10" name="Layer 6" visible="true"></LAYER>
+      <LAYER id="11" name="Layer 7" visible="true"></LAYER>
+      <LAYER id="12" name="Layer 8" visible="true"></LAYER>
+      <LAYER id="13" name="Layer 9" visible="true"></LAYER>
+      <LAYER id="14" name="Layer 10" visible="true"></LAYER>
+      <LAYER id="15" name="Layer 11" visible="true"></LAYER>
+      <LAYER id="16" name="Layer 12" visible="true"></LAYER>
+      <LAYER id="17" name="Layer 13" visible="true"></LAYER>
+      <LAYER id="18" name="Layer 14" visible="true"></LAYER>
+      <LAYER id="19" name="Layer 15" visible="true"></LAYER>
+      <LAYER id="20" name="Layer 16" visible="true"></LAYER>
+      <LAYER id="21" name="Layer 17" visible="true"></LAYER>
+      <LAYER id="22" name="Layer 18" visible="true"></LAYER>
+      <LAYER id="23" name="Layer 19" visible="true"></LAYER>
+      <LAYER id="24" name="Layer 20" visible="true"></LAYER>
+      <LAYER id="25" name="Layer 21" visible="true"></LAYER>
+      <LAYER id="26" name="Layer 22" visible="true"></LAYER>
+      <LAYER id="27" name="Layer 23" visible="true"></LAYER>
+      <LAYER id="28" name="Layer 24" visible="true"></LAYER>
+      <LAYER id="29" name="Layer 25" visible="true"></LAYER>
+      <LAYER id="30" name="Layer 26" visible="true"></LAYER>
     </LAYERS>
-  <LAYERCOUNT value="4"></LAYERCOUNT>
+  <LAYERCOUNT value="5"></LAYERCOUNT>
   <SELECTIONRECTCOLOUR value="0.494118 0 1 1"></SELECTIONRECTCOLOUR>
   <SELECTIONCOLOUR value="1 1 1 1"></SELECTIONCOLOUR>
   <HIGHLIGHTCOLOUR value="0.909804 0.184314 0.184314 1"></HIGHLIGHTCOLOUR>
@@ -78,7 +78,7 @@
     <PROPERTY id="ambient" type="11" value="0.5 0.5 0.5 1"></PROPERTY>
     <PROPERTY id="configfile" type="7" value=""></PROPERTY>
     <PROPERTY id="fog::colour" type="11" value="0.878431 0.0941176 0.0941176 1"></PROPERTY>
-    <PROPERTY id="fog::density" type="6" value="0"></PROPERTY>
+    <PROPERTY id="fog::density" type="6" value="100"></PROPERTY>
     <PROPERTY id="fog::end" type="6" value="1500"></PROPERTY>
     <PROPERTY id="fog::mode" type="2" value="3"></PROPERTY>
     <PROPERTY id="fog::start" type="6" value="500"></PROPERTY>
@@ -108,9 +108,9 @@
   <OBJECT object_id="2000000002" name="Viewport1" typename="Viewport Object">
     <PROPERTY id="camera::clipdistance" type="8" value="1 10000"></PROPERTY>
     <PROPERTY id="camera::fov" type="6" value="45"></PROPERTY>
-    <PROPERTY id="camera::orientation" type="13" value="0.270233 -0.0772368 -0.923328 -0.262677"></PROPERTY>
+    <PROPERTY id="camera::orientation" type="13" value="0.503244 -0.133512 0.826124 0.21755"></PROPERTY>
     <PROPERTY id="camera::polymode" type="2" value="3"></PROPERTY>
-    <PROPERTY id="camera::position" type="9" value="349.232 457.158 -3684.46"></PROPERTY>
+    <PROPERTY id="camera::position" type="9" value="1313.81 61.6655 -1905.07"></PROPERTY>
     <PROPERTY id="camera::viewmode" type="2" value="0"></PROPERTY>
     <PROPERTY id="colour" type="11" value="0 0 0 1"></PROPERTY>
     <PROPERTY id="compositorcount" type="2" value="0"></PROPERTY>
@@ -243,63 +243,28 @@
     <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
     <CUSTOMPROPERTIES>
       <PROPERTY id="time" type="2" value="30" autooptiontype="0"></PROPERTY>
-      <PROPERTY id="MiniMagmaton" type="2" value="5" autooptiontype="0"></PROPERTY>
-      <PROPERTY id="Kamikace" type="2" value="5" autooptiontype="0"></PROPERTY>
-      <PROPERTY id="Intelligent" type="2" value="5" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="MiniMagmaton" type="2" value="0" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Kamikace" type="2" value="0" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Intelligent" type="2" value="0" autooptiontype="0"></PROPERTY>
     </CUSTOMPROPERTIES>
   </OBJECT>
 
-  <OBJECT object_id="875637056" name="staticPhisicCube#2" typename="Entity Object" parentnode="StaticPhisicObjects">
+  <OBJECT object_id="855098112" name="volcano#4" typename="Entity Object" parentnode="SceneManager">
     <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
     <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
-    <PROPERTY id="layer" type="2" value="2"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="4"></PROPERTY>
     <PROPERTY id="locked" type="12" value="false"></PROPERTY>
-    <PROPERTY id="meshfile" type="7" value="cube"></PROPERTY>
-    <PROPERTY id="orientation" type="13" value="0.957571 0 -0.288196 0"></PROPERTY>
-    <PROPERTY id="position" type="9" value="-438.019 -100.897 2708.99"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="volcano"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.838438 -0.0575463 0.168933 -0.514948"></PROPERTY>
+    <PROPERTY id="position" type="9" value="-404.731 -54.7494 3053.97"></PROPERTY>
     <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
-    <PROPERTY id="scale" type="9" value="0.581923 2.00943 0.581923"></PROPERTY>
-    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="2.31806 3.56404 2.31806"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="volcano"></PROPERTY>
     <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
     <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
     <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
     <CUSTOMPROPERTIES>
-    </CUSTOMPROPERTIES>
-  </OBJECT>
-
-  <OBJECT object_id="94393752" name="staticPhisicCube#1" typename="Entity Object" parentnode="StaticPhisicObjects">
-    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
-    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
-    <PROPERTY id="layer" type="2" value="2"></PROPERTY>
-    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
-    <PROPERTY id="meshfile" type="7" value="cube"></PROPERTY>
-    <PROPERTY id="orientation" type="13" value="0.957571 0 -0.288196 0"></PROPERTY>
-    <PROPERTY id="position" type="9" value="-420.341 -95.7461 2983.27"></PROPERTY>
-    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
-    <PROPERTY id="scale" type="9" value="0.581923 2.00943 0.581923"></PROPERTY>
-    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
-    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
-    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
-    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
-    <CUSTOMPROPERTIES>
-    </CUSTOMPROPERTIES>
-  </OBJECT>
-
-  <OBJECT object_id="976531264" name="staticPhisicCube#0" typename="Entity Object" parentnode="StaticPhisicObjects">
-    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
-    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
-    <PROPERTY id="layer" type="2" value="2"></PROPERTY>
-    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
-    <PROPERTY id="meshfile" type="7" value="cube"></PROPERTY>
-    <PROPERTY id="orientation" type="13" value="0.98245 0 -0.186524 0"></PROPERTY>
-    <PROPERTY id="position" type="9" value="-271.373 -95.7461 3093.13"></PROPERTY>
-    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
-    <PROPERTY id="scale" type="9" value="1 1 1"></PROPERTY>
-    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
-    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
-    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
-    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
-    <CUSTOMPROPERTIES>
+      <PROPERTY id="time" type="2" value="15" autooptiontype="0"></PROPERTY>
     </CUSTOMPROPERTIES>
   </OBJECT>
 
@@ -417,82 +382,44 @@
     </CUSTOMPROPERTIES>
   </OBJECT>
 
-  <OBJECT object_id="108279672" name="volcano#0" typename="Entity Object" parentnode="SceneManager">
+  <OBJECT object_id="688161856" name="volcano#0" typename="Entity Object" parentnode="SceneManager">
     <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
     <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
-    <PROPERTY id="layer" type="2" value="0"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="4"></PROPERTY>
     <PROPERTY id="locked" type="12" value="false"></PROPERTY>
     <PROPERTY id="meshfile" type="7" value="volcano"></PROPERTY>
-    <PROPERTY id="orientation" type="13" value="0.969231 0 0.246153 0"></PROPERTY>
-    <PROPERTY id="position" type="9" value="259.889 -135.782 5109.07"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.838438 -0.0575463 0.168933 -0.514948"></PROPERTY>
+    <PROPERTY id="position" type="9" value="-426.154 -74.1518 2953.9"></PROPERTY>
     <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
-    <PROPERTY id="scale" type="9" value="1 1 1"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="2.31806 3.56404 2.31806"></PROPERTY>
     <PROPERTY id="subentity0::material" type="7" value="volcano"></PROPERTY>
     <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
     <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
     <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
     <CUSTOMPROPERTIES>
-      <PROPERTY id="time" type="2" value="5" autooptiontype="0"></PROPERTY>
-    </CUSTOMPROPERTIES>
-  </OBJECT>
-
-  <OBJECT object_id="56215092" name="volcano#3" typename="Entity Object" parentnode="SceneManager">
-    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
-    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
-    <PROPERTY id="layer" type="2" value="0"></PROPERTY>
-    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
-    <PROPERTY id="meshfile" type="7" value="volcano"></PROPERTY>
-    <PROPERTY id="orientation" type="13" value="0.942641 0 -0.333807 0"></PROPERTY>
-    <PROPERTY id="position" type="9" value="-578.75 -119.609 1488.73"></PROPERTY>
-    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
-    <PROPERTY id="scale" type="9" value="4.13764 6.36165 4.13764"></PROPERTY>
-    <PROPERTY id="subentity0::material" type="7" value="volcano"></PROPERTY>
-    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
-    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
-    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
-    <CUSTOMPROPERTIES>
-      <PROPERTY id="time" type="2" value="5" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="time" type="2" value="17" autooptiontype="0"></PROPERTY>
     </CUSTOMPROPERTIES>
   </OBJECT>
 
   <OBJECT object_id="385235136" name="enemies#01" typename="Entity Object" parentnode="SceneManager">
     <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
     <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
-    <PROPERTY id="layer" type="2" value="0"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="4"></PROPERTY>
     <PROPERTY id="locked" type="12" value="false"></PROPERTY>
     <PROPERTY id="meshfile" type="7" value="cube"></PROPERTY>
-    <PROPERTY id="orientation" type="13" value="1 0 0 0"></PROPERTY>
-    <PROPERTY id="position" type="9" value="71.2169 -30 4439.7"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.985556 0 0.16935 0"></PROPERTY>
+    <PROPERTY id="position" type="9" value="-12.4039 -125.31 4262.72"></PROPERTY>
     <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
-    <PROPERTY id="scale" type="9" value="0.242014 0.242014 0.242014"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="0.40423 0.40423 0.40423"></PROPERTY>
     <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
     <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
     <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
     <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
     <CUSTOMPROPERTIES>
-      <PROPERTY id="time" type="2" value="15" autooptiontype="0"></PROPERTY>
-      <PROPERTY id="MiniMagmaton" type="2" value="10" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="time" type="2" value="10" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="MiniMagmaton" type="2" value="0" autooptiontype="0"></PROPERTY>
       <PROPERTY id="Kamikace" type="2" value="10" autooptiontype="0"></PROPERTY>
-      <PROPERTY id="Intelligent" type="2" value="10" autooptiontype="0"></PROPERTY>
-    </CUSTOMPROPERTIES>
-  </OBJECT>
-
-  <OBJECT object_id="471724608" name="volcano#1" typename="Entity Object" parentnode="SceneManager">
-    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
-    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
-    <PROPERTY id="layer" type="2" value="0"></PROPERTY>
-    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
-    <PROPERTY id="meshfile" type="7" value="volcano"></PROPERTY>
-    <PROPERTY id="orientation" type="13" value="0.969231 0 0.246153 0"></PROPERTY>
-    <PROPERTY id="position" type="9" value="134.573 -206.867 4706.85"></PROPERTY>
-    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
-    <PROPERTY id="scale" type="9" value="1 1 1"></PROPERTY>
-    <PROPERTY id="subentity0::material" type="7" value="volcano"></PROPERTY>
-    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
-    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
-    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
-    <CUSTOMPROPERTIES>
-      <PROPERTY id="time" type="2" value="5" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Intelligent" type="2" value="0" autooptiontype="0"></PROPERTY>
     </CUSTOMPROPERTIES>
   </OBJECT>
 
@@ -519,11 +446,11 @@
   <OBJECT object_id="956114432" name="volcano#2" typename="Entity Object" parentnode="SceneManager">
     <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
     <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
-    <PROPERTY id="layer" type="2" value="0"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="4"></PROPERTY>
     <PROPERTY id="locked" type="12" value="false"></PROPERTY>
     <PROPERTY id="meshfile" type="7" value="volcano"></PROPERTY>
-    <PROPERTY id="orientation" type="13" value="0.969231 0 0.246153 0"></PROPERTY>
-    <PROPERTY id="position" type="9" value="-688.165 -119.609 2037.73"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.878422 -0.104029 0.22309 -0.409615"></PROPERTY>
+    <PROPERTY id="position" type="9" value="-750.173 -35.9632 2065.2"></PROPERTY>
     <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
     <PROPERTY id="scale" type="9" value="4.13764 6.36165 4.13764"></PROPERTY>
     <PROPERTY id="subentity0::material" type="7" value="volcano"></PROPERTY>
@@ -593,9 +520,9 @@
     <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
     <CUSTOMPROPERTIES>
       <PROPERTY id="time" type="2" value="40" autooptiontype="0"></PROPERTY>
-      <PROPERTY id="MiniMagmaton" type="2" value="5" autooptiontype="0"></PROPERTY>
-      <PROPERTY id="Kamikace" type="2" value="5" autooptiontype="0"></PROPERTY>
-      <PROPERTY id="Intelligent" type="2" value="5" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="MiniMagmaton" type="2" value="0" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Kamikace" type="2" value="0" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Intelligent" type="2" value="0" autooptiontype="0"></PROPERTY>
     </CUSTOMPROPERTIES>
   </OBJECT>
 
@@ -643,6 +570,28 @@
     </CUSTOMPROPERTIES>
   </OBJECT>
 
+  <OBJECT object_id="93539232" name="enemies#3" typename="Entity Object" parentnode="SceneManager">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="0"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="enemies"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.970296 0 0.241922 0"></PROPERTY>
+    <PROPERTY id="position" type="9" value="789.201 -117.012 7026.42"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="0.467867 0.467867 0.467867"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+      <PROPERTY id="time" type="2" value="7" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="MiniMagmaton" type="2" value="0" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Kamikace" type="2" value="10" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Intelligent" type="2" value="0" autooptiontype="0"></PROPERTY>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
   <OBJECT object_id="436719872" name="step#110" typename="Entity Object" parentnode="SceneManager">
     <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
     <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
@@ -662,6 +611,116 @@
       <PROPERTY id="MiniMagmaton" type="2" value="0" autooptiontype="0"></PROPERTY>
       <PROPERTY id="Kamikace" type="2" value="0" autooptiontype="0"></PROPERTY>
       <PROPERTY id="Intelligent" type="2" value="0" autooptiontype="0"></PROPERTY>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
+  <OBJECT object_id="982055104" name="enemies#24" typename="Entity Object" parentnode="SceneManager">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="0"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="enemies"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.970296 0 0.241922 0"></PROPERTY>
+    <PROPERTY id="position" type="9" value="829.727 -63.6454 -2763.28"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="0.242202 0.964863 0.242202"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+      <PROPERTY id="time" type="2" value="80" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="MiniMagmaton" type="2" value="15" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Kamikace" type="2" value="15" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Intelligent" type="2" value="15" autooptiontype="0"></PROPERTY>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
+  <OBJECT object_id="267921984" name="enemies#23" typename="Entity Object" parentnode="SceneManager">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="0"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="enemies"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.970296 0 0.241922 0"></PROPERTY>
+    <PROPERTY id="position" type="9" value="1039.52 -63.6454 -2278.29"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="0.242202 0.964863 0.242202"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+      <PROPERTY id="time" type="2" value="75" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="MiniMagmaton" type="2" value="15" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Kamikace" type="2" value="15" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Intelligent" type="2" value="15" autooptiontype="0"></PROPERTY>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
+  <OBJECT object_id="601062080" name="enemies#22" typename="Entity Object" parentnode="SceneManager">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="0"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="enemies"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.970296 0 0.241922 0"></PROPERTY>
+    <PROPERTY id="position" type="9" value="1206.14 -63.6454 -1849.65"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="0.242202 0.964863 0.242202"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+      <PROPERTY id="time" type="2" value="70" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="MiniMagmaton" type="2" value="15" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Kamikace" type="2" value="15" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Intelligent" type="2" value="15" autooptiontype="0"></PROPERTY>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
+  <OBJECT object_id="959807104" name="enemies#21" typename="Entity Object" parentnode="SceneManager">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="0"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="enemies"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.970296 0 0.241922 0"></PROPERTY>
+    <PROPERTY id="position" type="9" value="1349.95 -63.6454 -1485.81"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="0.242202 0.964863 0.242202"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+      <PROPERTY id="time" type="2" value="65" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="MiniMagmaton" type="2" value="10" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Kamikace" type="2" value="10" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Intelligent" type="2" value="10" autooptiontype="0"></PROPERTY>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
+  <OBJECT object_id="231086144" name="enemies#20" typename="Entity Object" parentnode="SceneManager">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="0"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="enemies"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.970296 0 0.241922 0"></PROPERTY>
+    <PROPERTY id="position" type="9" value="1057.65 -63.6454 -1080.36"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="0.242202 0.964863 0.242202"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+      <PROPERTY id="time" type="2" value="60" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="MiniMagmaton" type="2" value="10" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Kamikace" type="2" value="10" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Intelligent" type="2" value="10" autooptiontype="0"></PROPERTY>
     </CUSTOMPROPERTIES>
   </OBJECT>
 
@@ -729,6 +788,25 @@
     </CUSTOMPROPERTIES>
   </OBJECT>
 
+  <OBJECT object_id="345988320" name="volcano#6" typename="Entity Object" parentnode="SceneManager">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="4"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="volcano"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.850462 0.121574 0.130651 0.494837"></PROPERTY>
+    <PROPERTY id="position" type="9" value="-338.173 -63.3983 2987.85"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="2.31806 3.56404 2.31806"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="volcano"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+      <PROPERTY id="time" type="2" value="16" autooptiontype="0"></PROPERTY>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
   <OBJECT object_id="665120448" name="trajectory1#8" typename="Entity Object" parentnode="SceneManager">
     <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
     <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
@@ -786,6 +864,576 @@
     <CUSTOMPROPERTIES>
       <PROPERTY id="time" type="2" value="30" autooptiontype="0"></PROPERTY>
       <PROPERTY id="trajectoryNumber" type="2" value="1" autooptiontype="0"></PROPERTY>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
+  <OBJECT object_id="438886688" name="volcano#5" typename="Entity Object" parentnode="SceneManager">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="4"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="volcano"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.838438 -0.0575463 0.168933 -0.514948"></PROPERTY>
+    <PROPERTY id="position" type="9" value="-477.72 -39.1762 2806.86"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="2.31806 3.56404 2.31806"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="volcano"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+      <PROPERTY id="time" type="2" value="18" autooptiontype="0"></PROPERTY>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
+  <OBJECT object_id="272896512" name="volcano#1" typename="Entity Object" parentnode="SceneManager">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="4"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="volcano"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.838438 -0.0575463 0.168933 -0.514948"></PROPERTY>
+    <PROPERTY id="position" type="9" value="-854.167 -301.573 3210.93"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="0.200934 0.308937 0.200934"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="volcano"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+      <PROPERTY id="time" type="2" value="19" autooptiontype="0"></PROPERTY>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
+  <OBJECT object_id="624774912" name="volcano#3" typename="Entity Object" parentnode="SceneManager">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="4"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="volcano"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.838438 -0.0575463 0.168933 -0.514948"></PROPERTY>
+    <PROPERTY id="position" type="9" value="-4742.26 -2427.38 4443.13"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="2.31806 3.56404 2.31806"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="volcano"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+      <PROPERTY id="time" type="2" value="19" autooptiontype="0"></PROPERTY>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
+  <OBJECT object_id="660237440" name="enemies#0" typename="Entity Object" parentnode="SceneManager">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="0"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="enemies"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.970296 0 0.241922 0"></PROPERTY>
+    <PROPERTY id="position" type="9" value="72.1419 -110.168 4515.66"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="0.467867 0.467867 0.467867"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+      <PROPERTY id="time" type="2" value="9" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="MiniMagmaton" type="2" value="9" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Kamikace" type="2" value="0" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Intelligent" type="2" value="0" autooptiontype="0"></PROPERTY>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
+  <OBJECT object_id="301400800" name="enemies#1" typename="Entity Object" parentnode="SceneManager">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="0"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="enemies"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.970296 0 0.241922 0"></PROPERTY>
+    <PROPERTY id="position" type="9" value="1241.69 -118.465 6715.26"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="0.467867 0.467867 0.467867"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+      <PROPERTY id="time" type="2" value="1" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="MiniMagmaton" type="2" value="10" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Kamikace" type="2" value="10" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Intelligent" type="2" value="10" autooptiontype="0"></PROPERTY>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
+  <OBJECT object_id="784234176" name="enemies#2" typename="Entity Object" parentnode="SceneManager">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="0"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="enemies"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.970296 0 0.241922 0"></PROPERTY>
+    <PROPERTY id="position" type="9" value="196.861 -117.012 4824.2"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="0.467867 0.467867 0.467867"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+      <PROPERTY id="time" type="2" value="7" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="MiniMagmaton" type="2" value="0" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Kamikace" type="2" value="10" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Intelligent" type="2" value="0" autooptiontype="0"></PROPERTY>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
+  <OBJECT object_id="533005760" name="enemies#4" typename="Entity Object" parentnode="SceneManager">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="0"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="enemies"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.970296 0 0.241922 0"></PROPERTY>
+    <PROPERTY id="position" type="9" value="327.354 -117.012 4812.33"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="0.131956 0.131956 0.131956"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+      <PROPERTY id="time" type="2" value="6" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="MiniMagmaton" type="2" value="0" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Kamikace" type="2" value="1" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Intelligent" type="2" value="0" autooptiontype="0"></PROPERTY>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
+  <OBJECT object_id="351908928" name="enemies#5" typename="Entity Object" parentnode="SceneManager">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="0"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="enemies"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.970296 0 0.241922 0"></PROPERTY>
+    <PROPERTY id="position" type="9" value="-68.224 -60.8378 4077.75"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="0.242202 0.242202 0.242202"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+      <PROPERTY id="time" type="2" value="11" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="MiniMagmaton" type="2" value="0" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Kamikace" type="2" value="0" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Intelligent" type="2" value="5" autooptiontype="0"></PROPERTY>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
+  <OBJECT object_id="682027648" name="enemies#6" typename="Entity Object" parentnode="SceneManager">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="0"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="enemies"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.970296 0 0.241922 0"></PROPERTY>
+    <PROPERTY id="position" type="9" value="93.0989 -60.8378 4036.98"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="0.264423 0.264423 0.264423"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+      <PROPERTY id="time" type="2" value="10" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="MiniMagmaton" type="2" value="0" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Kamikace" type="2" value="0" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Intelligent" type="2" value="1" autooptiontype="0"></PROPERTY>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
+  <OBJECT object_id="435560160" name="enemies#7" typename="Entity Object" parentnode="SceneManager">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="0"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="enemies"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.970296 0 0.241922 0"></PROPERTY>
+    <PROPERTY id="position" type="9" value="-176.202 -14.2295 3643.14"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="0.242202 0.964863 0.242202"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+      <PROPERTY id="time" type="2" value="13" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="MiniMagmaton" type="2" value="5" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Kamikace" type="2" value="5" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Intelligent" type="2" value="5" autooptiontype="0"></PROPERTY>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
+  <OBJECT object_id="476729632" name="enemies#8" typename="Entity Object" parentnode="SceneManager">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="0"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="enemies"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.970296 0 0.241922 0"></PROPERTY>
+    <PROPERTY id="position" type="9" value="-73.8399 -148.086 3605.63"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="0.0588176 0.234312 0.0588176"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+      <PROPERTY id="time" type="2" value="13" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="MiniMagmaton" type="2" value="5" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Kamikace" type="2" value="5" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Intelligent" type="2" value="5" autooptiontype="0"></PROPERTY>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
+  <OBJECT object_id="550492864" name="enemies#9" typename="Entity Object" parentnode="SceneManager">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="0"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="enemies"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.970296 0 0.241922 0"></PROPERTY>
+    <PROPERTY id="position" type="9" value="-286.188 -14.2295 3237.14"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="0.242202 0.964863 0.242202"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+      <PROPERTY id="time" type="2" value="15" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="MiniMagmaton" type="2" value="5" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Kamikace" type="2" value="5" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Intelligent" type="2" value="5" autooptiontype="0"></PROPERTY>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
+  <OBJECT object_id="439863264" name="enemies#19" typename="Entity Object" parentnode="SceneManager">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="0"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="enemies"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.970296 0 0.241922 0"></PROPERTY>
+    <PROPERTY id="position" type="9" value="727.826 -50.4923 -500.015"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="0.242202 0.964863 0.242202"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+      <PROPERTY id="time" type="2" value="55" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="MiniMagmaton" type="2" value="10" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Kamikace" type="2" value="10" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Intelligent" type="2" value="10" autooptiontype="0"></PROPERTY>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
+  <OBJECT object_id="974578112" name="enemies#18" typename="Entity Object" parentnode="SceneManager">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="0"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="enemies"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.970296 0 0.241922 0"></PROPERTY>
+    <PROPERTY id="position" type="9" value="349.494 -50.4923 24.7025"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="0.242202 0.964863 0.242202"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+      <PROPERTY id="time" type="2" value="50" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="MiniMagmaton" type="2" value="10" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Kamikace" type="2" value="10" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Intelligent" type="2" value="10" autooptiontype="0"></PROPERTY>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
+  <OBJECT object_id="724936640" name="enemies#17" typename="Entity Object" parentnode="SceneManager">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="0"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="enemies"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.970296 0 0.241922 0"></PROPERTY>
+    <PROPERTY id="position" type="9" value="78.9117 -50.4923 438.301"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="0.242202 0.964863 0.242202"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+      <PROPERTY id="time" type="2" value="45" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="MiniMagmaton" type="2" value="0" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Kamikace" type="2" value="15" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Intelligent" type="2" value="0" autooptiontype="0"></PROPERTY>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
+  <OBJECT object_id="784966592" name="enemies#16" typename="Entity Object" parentnode="SceneManager">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="0"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="enemies"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.970296 0 0.241922 0"></PROPERTY>
+    <PROPERTY id="position" type="9" value="-156.16 -50.4923 783.629"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="0.242202 0.964863 0.242202"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+      <PROPERTY id="time" type="2" value="45" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="MiniMagmaton" type="2" value="5" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Kamikace" type="2" value="0" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Intelligent" type="2" value="5" autooptiontype="0"></PROPERTY>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
+  <OBJECT object_id="313882848" name="enemies#15" typename="Entity Object" parentnode="SceneManager">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="0"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="enemies"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.970296 0 0.241922 0"></PROPERTY>
+    <PROPERTY id="position" type="9" value="-352.636 -50.4923 1119.97"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="0.242202 0.964863 0.242202"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+      <PROPERTY id="time" type="2" value="39" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="MiniMagmaton" type="2" value="5" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Kamikace" type="2" value="0" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Intelligent" type="2" value="5" autooptiontype="0"></PROPERTY>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
+  <OBJECT object_id="152653584" name="enemies#14" typename="Entity Object" parentnode="SceneManager">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="0"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="enemies"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.970296 0 0.241922 0"></PROPERTY>
+    <PROPERTY id="position" type="9" value="-625.756 -50.4923 1527.8"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="0.242202 0.964863 0.242202"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+      <PROPERTY id="time" type="2" value="34" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="MiniMagmaton" type="2" value="5" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Kamikace" type="2" value="0" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Intelligent" type="2" value="5" autooptiontype="0"></PROPERTY>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
+  <OBJECT object_id="80385752" name="enemies#13" typename="Entity Object" parentnode="SceneManager">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="0"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="enemies"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.970296 0 0.241922 0"></PROPERTY>
+    <PROPERTY id="position" type="9" value="-777.896 -50.4923 1825.45"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="0.242202 0.964863 0.242202"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+      <PROPERTY id="time" type="2" value="30" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="MiniMagmaton" type="2" value="5" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Kamikace" type="2" value="0" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Intelligent" type="2" value="5" autooptiontype="0"></PROPERTY>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
+  <OBJECT object_id="491897344" name="enemies#12" typename="Entity Object" parentnode="SceneManager">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="0"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="enemies"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.970296 0 0.241922 0"></PROPERTY>
+    <PROPERTY id="position" type="9" value="-646.981 -50.4923 2139.81"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="0.242202 0.964863 0.242202"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+      <PROPERTY id="time" type="2" value="30" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="MiniMagmaton" type="2" value="5" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Kamikace" type="2" value="0" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Intelligent" type="2" value="5" autooptiontype="0"></PROPERTY>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
+  <OBJECT object_id="108279672" name="enemies#11" typename="Entity Object" parentnode="SceneManager">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="0"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="enemies"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.970296 0 0.241922 0"></PROPERTY>
+    <PROPERTY id="position" type="9" value="-472.87 -50.4923 2642.3"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="0.242202 0.964863 0.242202"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+      <PROPERTY id="time" type="2" value="28" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="MiniMagmaton" type="2" value="5" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Kamikace" type="2" value="0" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Intelligent" type="2" value="5" autooptiontype="0"></PROPERTY>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
+  <OBJECT object_id="523606048" name="enemies#10" typename="Entity Object" parentnode="SceneManager">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="0"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="enemies"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.970296 0 0.241922 0"></PROPERTY>
+    <PROPERTY id="position" type="9" value="-126.594 -14.2295 3230.16"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="0.062985 0.250914 0.062985"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="BaseWhite"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+      <PROPERTY id="time" type="2" value="15" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="MiniMagmaton" type="2" value="5" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Kamikace" type="2" value="5" autooptiontype="0"></PROPERTY>
+      <PROPERTY id="Intelligent" type="2" value="5" autooptiontype="0"></PROPERTY>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
+  <OBJECT object_id="333719904" name="volcano#7" typename="Entity Object" parentnode="SceneManager">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="4"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="volcano"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.937865 0.0220873 -0.344634 -0.0338974"></PROPERTY>
+    <PROPERTY id="position" type="9" value="-399.709 -110.18 2691.72"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="2.31806 3.56404 2.31806"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="volcano"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+      <PROPERTY id="time" type="2" value="26" autooptiontype="0"></PROPERTY>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
+  <OBJECT object_id="221625424" name="volcano#8" typename="Entity Object" parentnode="SceneManager">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="4"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="volcano"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.917951 0.0471697 0.0230162 0.393207"></PROPERTY>
+    <PROPERTY id="position" type="9" value="-463.722 -60.0931 2568.85"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="2.31806 3.56404 2.31806"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="volcano"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+      <PROPERTY id="time" type="2" value="19" autooptiontype="0"></PROPERTY>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
+  <OBJECT object_id="423749504" name="volcano#10" typename="Entity Object" parentnode="SceneManager">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="4"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="volcano"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.879345 -0.00383958 0.0617691 -0.472145"></PROPERTY>
+    <PROPERTY id="position" type="9" value="-642.036 -46.5491 2317.5"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="2.31806 3.56404 2.31806"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="volcano"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+      <PROPERTY id="time" type="2" value="21" autooptiontype="0"></PROPERTY>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
+  <OBJECT object_id="620380288" name="volcano#11" typename="Entity Object" parentnode="SceneManager">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="4"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="volcano"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.92208 0.0483754 -0.00704689 0.383899"></PROPERTY>
+    <PROPERTY id="position" type="9" value="-522.428 -25.6167 2379.28"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="1.91465 2.9438 1.91465"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="volcano"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+      <PROPERTY id="time" type="2" value="20" autooptiontype="0"></PROPERTY>
+    </CUSTOMPROPERTIES>
+  </OBJECT>
+
+  <OBJECT object_id="241645552" name="volcano#9" typename="Entity Object" parentnode="SceneManager">
+    <PROPERTY id="autotracktarget" type="7" value="None"></PROPERTY>
+    <PROPERTY id="castshadows" type="12" value="false"></PROPERTY>
+    <PROPERTY id="layer" type="2" value="4"></PROPERTY>
+    <PROPERTY id="locked" type="12" value="false"></PROPERTY>
+    <PROPERTY id="meshfile" type="7" value="volcano"></PROPERTY>
+    <PROPERTY id="orientation" type="13" value="0.92208 0.0483754 -0.00704689 0.383899"></PROPERTY>
+    <PROPERTY id="position" type="9" value="-339.75 -206.21 2357.68"></PROPERTY>
+    <PROPERTY id="renderingdistance" type="6" value="10000"></PROPERTY>
+    <PROPERTY id="scale" type="9" value="0.0349386 0.0537184 0.0349386"></PROPERTY>
+    <PROPERTY id="subentity0::material" type="7" value="volcano"></PROPERTY>
+    <PROPERTY id="subentity0::visible" type="12" value="true"></PROPERTY>
+    <PROPERTY id="subentitycount" type="2" value="1"></PROPERTY>
+    <PROPERTY id="updatescript" type="7" value=""></PROPERTY>
+    <CUSTOMPROPERTIES>
+      <PROPERTY id="time" type="2" value="29" autooptiontype="0"></PROPERTY>
     </CUSTOMPROPERTIES>
   </OBJECT>
 

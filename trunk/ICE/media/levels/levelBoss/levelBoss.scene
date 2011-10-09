@@ -23,7 +23,7 @@
         <scenemanager name="SceneManager" id="168980992" type="OctreeSceneManager" />
         <colourAmbient r="0.5" g="0.5" b="0.5" a="1" />
         <skyBox active="true" distance="1000" material="level2SkyBox" />
-        <fog mode="exp2" start="500" end="1500" density="0">
+        <fog mode="exp2" start="500" end="1500" density="100">
             <colour r="0.878431" g="0.0941176" b="0.0941176" a="1" />
         </fog>
         <viewport name="Viewport1" id="2000000002" index="1">
@@ -31,8 +31,8 @@
         </viewport>
         <camera name="intViewCamera1" viewMode="0" polyMode="3" fov="45">
             <clipping near="1" far="10000" />
-            <position x="349.232" y="457.158" z="-3684.46" />
-            <rotation qw="0.270233" qx="-0.0772368" qy="-0.923328" qz="-0.262677" />
+            <position x="1313.81" y="61.6655" z="-1905.07" />
+            <rotation qw="0.503244" qx="-0.133512" qy="0.826124" qz="0.21755" />
         </camera>
     </environment>
     <terrain worldSize="4000" mapSize="129" pagenameprefix="Page" colourmapEnabled="false" colourMapTextureSize="128" tuningCompositeMapDistance="2000" tuningMaxPixelError="3" tuningMinBatchSize="33" tuningMaxBatchSize="65" tuningSkirtSize="10" tuningUseRayBoxDistancealculation="false">
@@ -49,15 +49,14 @@
         <colourSpecular r="0" g="0" b="0" a="1" />
     </light>
     <nodes>
-        <node name="trajectory2#00" id="451612896">
-            <position x="542.429" y="34.9456" z="-3457.71" />
-            <rotation qw="0.25038" qx="0" qy="-0.968148" qz="0" />
-            <scale x="1.48944" y="1.48944" z="1.48944" />
-            <entity name="trajectory2#00" meshFile="airplane.mesh" castShadows="false">
-                <subentity index="0" materialName="airplane" />
+        <node name="volcano#5" id="438886688">
+            <position x="-477.72" y="-39.1762" z="2806.86" />
+            <rotation qw="0.838438" qx="-0.0575463" qy="0.168933" qz="-0.514948" />
+            <scale x="2.31806" y="3.56404" z="2.31806" />
+            <entity name="volcano#5" meshFile="volcano.mesh" castShadows="false">
+                <subentity index="0" materialName="volcano" />
                 <userData>
-                    <property type="2" name="time" data="0" />
-                    <property type="2" name="trajectoryNumber" data="2" />
+                    <property type="2" name="time" data="18" />
                 </userData>
             </entity>
         </node>
@@ -89,30 +88,6 @@
             <position x="0" y="0" z="0" />
             <rotation qw="1" qx="0" qy="0" qz="0" />
             <scale x="1" y="1" z="1" />
-            <node name="staticPhisicCube#0" id="976531264">
-                <position x="-271.373" y="-95.7461" z="3093.13" />
-                <rotation qw="0.98245" qx="0" qy="-0.186524" qz="0" />
-                <scale x="1" y="1" z="1" />
-                <entity name="staticPhisicCube#0" meshFile="cube.mesh" castShadows="false">
-                    <subentity index="0" materialName="BaseWhite" />
-                </entity>
-            </node>
-            <node name="staticPhisicCube#1" id="94393752">
-                <position x="-420.341" y="-95.7461" z="2983.27" />
-                <rotation qw="0.957571" qx="0" qy="-0.288196" qz="0" />
-                <scale x="0.581923" y="2.00943" z="0.581923" />
-                <entity name="staticPhisicCube#1" meshFile="cube.mesh" castShadows="false">
-                    <subentity index="0" materialName="BaseWhite" />
-                </entity>
-            </node>
-            <node name="staticPhisicCube#2" id="875637056">
-                <position x="-438.019" y="-100.897" z="2708.99" />
-                <rotation qw="0.957571" qx="0" qy="-0.288196" qz="0" />
-                <scale x="0.581923" y="2.00943" z="0.581923" />
-                <entity name="staticPhisicCube#2" meshFile="cube.mesh" castShadows="false">
-                    <subentity index="0" materialName="BaseWhite" />
-                </entity>
-            </node>
         </node>
         <node name="trajectory1#00" id="379131424">
             <position x="560.154" y="47.7676" z="-3424.85" />
@@ -123,6 +98,17 @@
                 <userData>
                     <property type="2" name="time" data="0" />
                     <property type="2" name="trajectoryNumber" data="1" />
+                </userData>
+            </entity>
+        </node>
+        <node name="volcano#4" id="855098112">
+            <position x="-404.731" y="-54.7494" z="3053.97" />
+            <rotation qw="0.838438" qx="-0.0575463" qy="0.168933" qz="-0.514948" />
+            <scale x="2.31806" y="3.56404" z="2.31806" />
+            <entity name="volcano#4" meshFile="volcano.mesh" castShadows="false">
+                <subentity index="0" materialName="volcano" />
+                <userData>
+                    <property type="2" name="time" data="15" />
                 </userData>
             </entity>
         </node>
@@ -167,6 +153,28 @@
                 </entity>
             </node>
         </node>
+        <node name="volcano#11" id="620380288">
+            <position x="-522.428" y="-25.6167" z="2379.28" />
+            <rotation qw="0.92208" qx="0.0483754" qy="-0.00704689" qz="0.383899" />
+            <scale x="1.91465" y="2.9438" z="1.91465" />
+            <entity name="volcano#11" meshFile="volcano.mesh" castShadows="false">
+                <subentity index="0" materialName="volcano" />
+                <userData>
+                    <property type="2" name="time" data="20" />
+                </userData>
+            </entity>
+        </node>
+        <node name="volcano#10" id="423749504">
+            <position x="-642.036" y="-46.5491" z="2317.5" />
+            <rotation qw="0.879345" qx="-0.00383958" qy="0.0617691" qz="-0.472145" />
+            <scale x="2.31806" y="3.56404" z="2.31806" />
+            <entity name="volcano#10" meshFile="volcano.mesh" castShadows="false">
+                <subentity index="0" materialName="volcano" />
+                <userData>
+                    <property type="2" name="time" data="21" />
+                </userData>
+            </entity>
+        </node>
         <node name="step#040" id="201971504">
             <position x="-574.475" y="-30" z="1460.81" />
             <rotation qw="1" qx="0" qy="0" qz="0" />
@@ -175,9 +183,9 @@
                 <subentity index="0" materialName="BaseWhite" />
                 <userData>
                     <property type="2" name="time" data="40" />
-                    <property type="2" name="MiniMagmaton" data="5" />
-                    <property type="2" name="Kamikace" data="5" />
-                    <property type="2" name="Intelligent" data="5" />
+                    <property type="2" name="MiniMagmaton" data="0" />
+                    <property type="2" name="Kamikace" data="0" />
+                    <property type="2" name="Intelligent" data="0" />
                 </userData>
             </entity>
         </node>
@@ -201,9 +209,9 @@
                 <subentity index="0" materialName="BaseWhite" />
                 <userData>
                     <property type="2" name="time" data="30" />
-                    <property type="2" name="MiniMagmaton" data="5" />
-                    <property type="2" name="Kamikace" data="5" />
-                    <property type="2" name="Intelligent" data="5" />
+                    <property type="2" name="MiniMagmaton" data="0" />
+                    <property type="2" name="Kamikace" data="0" />
+                    <property type="2" name="Intelligent" data="0" />
                 </userData>
             </entity>
         </node>
@@ -219,14 +227,26 @@
                 </userData>
             </entity>
         </node>
-        <node name="volcano#0" id="108279672">
-            <position x="259.889" y="-135.782" z="5109.07" />
-            <rotation qw="0.969231" qx="0" qy="0.246153" qz="0" />
-            <scale x="1" y="1" z="1" />
+        <node name="trajectory2#00" id="451612896">
+            <position x="542.429" y="34.9456" z="-3457.71" />
+            <rotation qw="0.25038" qx="0" qy="-0.968148" qz="0" />
+            <scale x="1.48944" y="1.48944" z="1.48944" />
+            <entity name="trajectory2#00" meshFile="airplane.mesh" castShadows="false">
+                <subentity index="0" materialName="airplane" />
+                <userData>
+                    <property type="2" name="time" data="0" />
+                    <property type="2" name="trajectoryNumber" data="2" />
+                </userData>
+            </entity>
+        </node>
+        <node name="volcano#0" id="688161856">
+            <position x="-426.154" y="-74.1518" z="2953.9" />
+            <rotation qw="0.838438" qx="-0.0575463" qy="0.168933" qz="-0.514948" />
+            <scale x="2.31806" y="3.56404" z="2.31806" />
             <entity name="volcano#0" meshFile="volcano.mesh" castShadows="false">
                 <subentity index="0" materialName="volcano" />
                 <userData>
-                    <property type="2" name="time" data="5" />
+                    <property type="2" name="time" data="17" />
                 </userData>
             </entity>
         </node>
@@ -242,45 +262,23 @@
                 </userData>
             </entity>
         </node>
-        <node name="volcano#3" id="56215092">
-            <position x="-578.75" y="-119.609" z="1488.73" />
-            <rotation qw="0.942641" qx="0" qy="-0.333807" qz="0" />
-            <scale x="4.13764" y="6.36165" z="4.13764" />
-            <entity name="volcano#3" meshFile="volcano.mesh" castShadows="false">
-                <subentity index="0" materialName="volcano" />
-                <userData>
-                    <property type="2" name="time" data="5" />
-                </userData>
-            </entity>
-        </node>
         <node name="enemies#01" id="385235136">
-            <position x="71.2169" y="-30" z="4439.7" />
-            <rotation qw="1" qx="0" qy="0" qz="0" />
-            <scale x="0.242014" y="0.242014" z="0.242014" />
+            <position x="-12.4039" y="-125.31" z="4262.72" />
+            <rotation qw="0.985556" qx="0" qy="0.16935" qz="0" />
+            <scale x="0.40423" y="0.40423" z="0.40423" />
             <entity name="enemies#01" meshFile="cube.mesh" castShadows="false">
                 <subentity index="0" materialName="BaseWhite" />
                 <userData>
-                    <property type="2" name="time" data="15" />
-                    <property type="2" name="MiniMagmaton" data="10" />
+                    <property type="2" name="time" data="10" />
+                    <property type="2" name="MiniMagmaton" data="0" />
                     <property type="2" name="Kamikace" data="10" />
-                    <property type="2" name="Intelligent" data="10" />
-                </userData>
-            </entity>
-        </node>
-        <node name="volcano#1" id="471724608">
-            <position x="134.573" y="-206.867" z="4706.85" />
-            <rotation qw="0.969231" qx="0" qy="0.246153" qz="0" />
-            <scale x="1" y="1" z="1" />
-            <entity name="volcano#1" meshFile="volcano.mesh" castShadows="false">
-                <subentity index="0" materialName="volcano" />
-                <userData>
-                    <property type="2" name="time" data="5" />
+                    <property type="2" name="Intelligent" data="0" />
                 </userData>
             </entity>
         </node>
         <node name="volcano#2" id="956114432">
-            <position x="-688.165" y="-119.609" z="2037.73" />
-            <rotation qw="0.969231" qx="0" qy="0.246153" qz="0" />
+            <position x="-750.173" y="-35.9632" z="2065.2" />
+            <rotation qw="0.878422" qx="-0.104029" qy="0.22309" qz="-0.409615" />
             <scale x="4.13764" y="6.36165" z="4.13764" />
             <entity name="volcano#2" meshFile="volcano.mesh" castShadows="false">
                 <subentity index="0" materialName="volcano" />
@@ -338,6 +336,20 @@
                 </userData>
             </entity>
         </node>
+        <node name="enemies#3" id="93539232">
+            <position x="789.201" y="-117.012" z="7026.42" />
+            <rotation qw="0.970296" qx="0" qy="0.241922" qz="0" />
+            <scale x="0.467867" y="0.467867" z="0.467867" />
+            <entity name="enemies#3" meshFile="enemies.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="7" />
+                    <property type="2" name="MiniMagmaton" data="0" />
+                    <property type="2" name="Kamikace" data="10" />
+                    <property type="2" name="Intelligent" data="0" />
+                </userData>
+            </entity>
+        </node>
         <node name="step#090" id="856654592">
             <position x="463.893" y="-30" z="-3569.34" />
             <rotation qw="1" qx="0" qy="0" qz="0" />
@@ -380,6 +392,76 @@
                 </userData>
             </entity>
         </node>
+        <node name="enemies#20" id="231086144">
+            <position x="1057.65" y="-63.6454" z="-1080.36" />
+            <rotation qw="0.970296" qx="0" qy="0.241922" qz="0" />
+            <scale x="0.242202" y="0.964863" z="0.242202" />
+            <entity name="enemies#20" meshFile="enemies.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="60" />
+                    <property type="2" name="MiniMagmaton" data="10" />
+                    <property type="2" name="Kamikace" data="10" />
+                    <property type="2" name="Intelligent" data="10" />
+                </userData>
+            </entity>
+        </node>
+        <node name="enemies#21" id="959807104">
+            <position x="1349.95" y="-63.6454" z="-1485.81" />
+            <rotation qw="0.970296" qx="0" qy="0.241922" qz="0" />
+            <scale x="0.242202" y="0.964863" z="0.242202" />
+            <entity name="enemies#21" meshFile="enemies.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="65" />
+                    <property type="2" name="MiniMagmaton" data="10" />
+                    <property type="2" name="Kamikace" data="10" />
+                    <property type="2" name="Intelligent" data="10" />
+                </userData>
+            </entity>
+        </node>
+        <node name="enemies#22" id="601062080">
+            <position x="1206.14" y="-63.6454" z="-1849.65" />
+            <rotation qw="0.970296" qx="0" qy="0.241922" qz="0" />
+            <scale x="0.242202" y="0.964863" z="0.242202" />
+            <entity name="enemies#22" meshFile="enemies.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="70" />
+                    <property type="2" name="MiniMagmaton" data="15" />
+                    <property type="2" name="Kamikace" data="15" />
+                    <property type="2" name="Intelligent" data="15" />
+                </userData>
+            </entity>
+        </node>
+        <node name="enemies#23" id="267921984">
+            <position x="1039.52" y="-63.6454" z="-2278.29" />
+            <rotation qw="0.970296" qx="0" qy="0.241922" qz="0" />
+            <scale x="0.242202" y="0.964863" z="0.242202" />
+            <entity name="enemies#23" meshFile="enemies.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="75" />
+                    <property type="2" name="MiniMagmaton" data="15" />
+                    <property type="2" name="Kamikace" data="15" />
+                    <property type="2" name="Intelligent" data="15" />
+                </userData>
+            </entity>
+        </node>
+        <node name="enemies#24" id="982055104">
+            <position x="829.727" y="-63.6454" z="-2763.28" />
+            <rotation qw="0.970296" qx="0" qy="0.241922" qz="0" />
+            <scale x="0.242202" y="0.964863" z="0.242202" />
+            <entity name="enemies#24" meshFile="enemies.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="80" />
+                    <property type="2" name="MiniMagmaton" data="15" />
+                    <property type="2" name="Kamikace" data="15" />
+                    <property type="2" name="Intelligent" data="15" />
+                </userData>
+            </entity>
+        </node>
         <node name="step#070" id="551988288">
             <position x="1122.48" y="-30" z="-1138.73" />
             <rotation qw="1" qx="0" qy="0" qz="0" />
@@ -394,6 +476,17 @@
                 </userData>
             </entity>
         </node>
+        <node name="volcano#6" id="345988320">
+            <position x="-338.173" y="-63.3983" z="2987.85" />
+            <rotation qw="0.850462" qx="0.121574" qy="0.130651" qz="0.494837" />
+            <scale x="2.31806" y="3.56404" z="2.31806" />
+            <entity name="volcano#6" meshFile="volcano.mesh" castShadows="false">
+                <subentity index="0" materialName="volcano" />
+                <userData>
+                    <property type="2" name="time" data="16" />
+                </userData>
+            </entity>
+        </node>
         <node name="trajectory1#2" id="157994336">
             <position x="-97.8528" y="47.7676" z="-3469.94" />
             <rotation qw="1" qx="0" qy="0" qz="0" />
@@ -403,6 +496,327 @@
                 <userData>
                     <property type="2" name="time" data="2" />
                     <property type="2" name="trajectoryNumber" data="1" />
+                </userData>
+            </entity>
+        </node>
+        <node name="volcano#1" id="272896512">
+            <position x="-854.167" y="-301.573" z="3210.93" />
+            <rotation qw="0.838438" qx="-0.0575463" qy="0.168933" qz="-0.514948" />
+            <scale x="0.200934" y="0.308937" z="0.200934" />
+            <entity name="volcano#1" meshFile="volcano.mesh" castShadows="false">
+                <subentity index="0" materialName="volcano" />
+                <userData>
+                    <property type="2" name="time" data="19" />
+                </userData>
+            </entity>
+        </node>
+        <node name="volcano#3" id="624774912">
+            <position x="-4742.26" y="-2427.38" z="4443.13" />
+            <rotation qw="0.838438" qx="-0.0575463" qy="0.168933" qz="-0.514948" />
+            <scale x="2.31806" y="3.56404" z="2.31806" />
+            <entity name="volcano#3" meshFile="volcano.mesh" castShadows="false">
+                <subentity index="0" materialName="volcano" />
+                <userData>
+                    <property type="2" name="time" data="19" />
+                </userData>
+            </entity>
+        </node>
+        <node name="enemies#0" id="660237440">
+            <position x="72.1419" y="-110.168" z="4515.66" />
+            <rotation qw="0.970296" qx="0" qy="0.241922" qz="0" />
+            <scale x="0.467867" y="0.467867" z="0.467867" />
+            <entity name="enemies#0" meshFile="enemies.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="9" />
+                    <property type="2" name="MiniMagmaton" data="9" />
+                    <property type="2" name="Kamikace" data="0" />
+                    <property type="2" name="Intelligent" data="0" />
+                </userData>
+            </entity>
+        </node>
+        <node name="enemies#1" id="301400800">
+            <position x="1241.69" y="-118.465" z="6715.26" />
+            <rotation qw="0.970296" qx="0" qy="0.241922" qz="0" />
+            <scale x="0.467867" y="0.467867" z="0.467867" />
+            <entity name="enemies#1" meshFile="enemies.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="1" />
+                    <property type="2" name="MiniMagmaton" data="10" />
+                    <property type="2" name="Kamikace" data="10" />
+                    <property type="2" name="Intelligent" data="10" />
+                </userData>
+            </entity>
+        </node>
+        <node name="enemies#2" id="784234176">
+            <position x="196.861" y="-117.012" z="4824.2" />
+            <rotation qw="0.970296" qx="0" qy="0.241922" qz="0" />
+            <scale x="0.467867" y="0.467867" z="0.467867" />
+            <entity name="enemies#2" meshFile="enemies.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="7" />
+                    <property type="2" name="MiniMagmaton" data="0" />
+                    <property type="2" name="Kamikace" data="10" />
+                    <property type="2" name="Intelligent" data="0" />
+                </userData>
+            </entity>
+        </node>
+        <node name="enemies#4" id="533005760">
+            <position x="327.354" y="-117.012" z="4812.33" />
+            <rotation qw="0.970296" qx="0" qy="0.241922" qz="0" />
+            <scale x="0.131956" y="0.131956" z="0.131956" />
+            <entity name="enemies#4" meshFile="enemies.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="6" />
+                    <property type="2" name="MiniMagmaton" data="0" />
+                    <property type="2" name="Kamikace" data="1" />
+                    <property type="2" name="Intelligent" data="0" />
+                </userData>
+            </entity>
+        </node>
+        <node name="enemies#5" id="351908928">
+            <position x="-68.224" y="-60.8378" z="4077.75" />
+            <rotation qw="0.970296" qx="0" qy="0.241922" qz="0" />
+            <scale x="0.242202" y="0.242202" z="0.242202" />
+            <entity name="enemies#5" meshFile="enemies.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="11" />
+                    <property type="2" name="MiniMagmaton" data="0" />
+                    <property type="2" name="Kamikace" data="0" />
+                    <property type="2" name="Intelligent" data="5" />
+                </userData>
+            </entity>
+        </node>
+        <node name="enemies#6" id="682027648">
+            <position x="93.0989" y="-60.8378" z="4036.98" />
+            <rotation qw="0.970296" qx="0" qy="0.241922" qz="0" />
+            <scale x="0.264423" y="0.264423" z="0.264423" />
+            <entity name="enemies#6" meshFile="enemies.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="10" />
+                    <property type="2" name="MiniMagmaton" data="0" />
+                    <property type="2" name="Kamikace" data="0" />
+                    <property type="2" name="Intelligent" data="1" />
+                </userData>
+            </entity>
+        </node>
+        <node name="enemies#7" id="435560160">
+            <position x="-176.202" y="-14.2295" z="3643.14" />
+            <rotation qw="0.970296" qx="0" qy="0.241922" qz="0" />
+            <scale x="0.242202" y="0.964863" z="0.242202" />
+            <entity name="enemies#7" meshFile="enemies.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="13" />
+                    <property type="2" name="MiniMagmaton" data="5" />
+                    <property type="2" name="Kamikace" data="5" />
+                    <property type="2" name="Intelligent" data="5" />
+                </userData>
+            </entity>
+        </node>
+        <node name="enemies#8" id="476729632">
+            <position x="-73.8399" y="-148.086" z="3605.63" />
+            <rotation qw="0.970296" qx="0" qy="0.241922" qz="0" />
+            <scale x="0.0588176" y="0.234312" z="0.0588176" />
+            <entity name="enemies#8" meshFile="enemies.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="13" />
+                    <property type="2" name="MiniMagmaton" data="5" />
+                    <property type="2" name="Kamikace" data="5" />
+                    <property type="2" name="Intelligent" data="5" />
+                </userData>
+            </entity>
+        </node>
+        <node name="enemies#9" id="550492864">
+            <position x="-286.188" y="-14.2295" z="3237.14" />
+            <rotation qw="0.970296" qx="0" qy="0.241922" qz="0" />
+            <scale x="0.242202" y="0.964863" z="0.242202" />
+            <entity name="enemies#9" meshFile="enemies.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="15" />
+                    <property type="2" name="MiniMagmaton" data="5" />
+                    <property type="2" name="Kamikace" data="5" />
+                    <property type="2" name="Intelligent" data="5" />
+                </userData>
+            </entity>
+        </node>
+        <node name="enemies#10" id="523606048">
+            <position x="-126.594" y="-14.2295" z="3230.16" />
+            <rotation qw="0.970296" qx="0" qy="0.241922" qz="0" />
+            <scale x="0.062985" y="0.250914" z="0.062985" />
+            <entity name="enemies#10" meshFile="enemies.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="15" />
+                    <property type="2" name="MiniMagmaton" data="5" />
+                    <property type="2" name="Kamikace" data="5" />
+                    <property type="2" name="Intelligent" data="5" />
+                </userData>
+            </entity>
+        </node>
+        <node name="enemies#11" id="108279672">
+            <position x="-472.87" y="-50.4923" z="2642.3" />
+            <rotation qw="0.970296" qx="0" qy="0.241922" qz="0" />
+            <scale x="0.242202" y="0.964863" z="0.242202" />
+            <entity name="enemies#11" meshFile="enemies.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="28" />
+                    <property type="2" name="MiniMagmaton" data="5" />
+                    <property type="2" name="Kamikace" data="0" />
+                    <property type="2" name="Intelligent" data="5" />
+                </userData>
+            </entity>
+        </node>
+        <node name="enemies#12" id="491897344">
+            <position x="-646.981" y="-50.4923" z="2139.81" />
+            <rotation qw="0.970296" qx="0" qy="0.241922" qz="0" />
+            <scale x="0.242202" y="0.964863" z="0.242202" />
+            <entity name="enemies#12" meshFile="enemies.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="30" />
+                    <property type="2" name="MiniMagmaton" data="5" />
+                    <property type="2" name="Kamikace" data="0" />
+                    <property type="2" name="Intelligent" data="5" />
+                </userData>
+            </entity>
+        </node>
+        <node name="enemies#13" id="80385752">
+            <position x="-777.896" y="-50.4923" z="1825.45" />
+            <rotation qw="0.970296" qx="0" qy="0.241922" qz="0" />
+            <scale x="0.242202" y="0.964863" z="0.242202" />
+            <entity name="enemies#13" meshFile="enemies.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="30" />
+                    <property type="2" name="MiniMagmaton" data="5" />
+                    <property type="2" name="Kamikace" data="0" />
+                    <property type="2" name="Intelligent" data="5" />
+                </userData>
+            </entity>
+        </node>
+        <node name="enemies#14" id="152653584">
+            <position x="-625.756" y="-50.4923" z="1527.8" />
+            <rotation qw="0.970296" qx="0" qy="0.241922" qz="0" />
+            <scale x="0.242202" y="0.964863" z="0.242202" />
+            <entity name="enemies#14" meshFile="enemies.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="34" />
+                    <property type="2" name="MiniMagmaton" data="5" />
+                    <property type="2" name="Kamikace" data="0" />
+                    <property type="2" name="Intelligent" data="5" />
+                </userData>
+            </entity>
+        </node>
+        <node name="enemies#15" id="313882848">
+            <position x="-352.636" y="-50.4923" z="1119.97" />
+            <rotation qw="0.970296" qx="0" qy="0.241922" qz="0" />
+            <scale x="0.242202" y="0.964863" z="0.242202" />
+            <entity name="enemies#15" meshFile="enemies.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="39" />
+                    <property type="2" name="MiniMagmaton" data="5" />
+                    <property type="2" name="Kamikace" data="0" />
+                    <property type="2" name="Intelligent" data="5" />
+                </userData>
+            </entity>
+        </node>
+        <node name="enemies#16" id="784966592">
+            <position x="-156.16" y="-50.4923" z="783.629" />
+            <rotation qw="0.970296" qx="0" qy="0.241922" qz="0" />
+            <scale x="0.242202" y="0.964863" z="0.242202" />
+            <entity name="enemies#16" meshFile="enemies.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="45" />
+                    <property type="2" name="MiniMagmaton" data="5" />
+                    <property type="2" name="Kamikace" data="0" />
+                    <property type="2" name="Intelligent" data="5" />
+                </userData>
+            </entity>
+        </node>
+        <node name="enemies#17" id="724936640">
+            <position x="78.9117" y="-50.4923" z="438.301" />
+            <rotation qw="0.970296" qx="0" qy="0.241922" qz="0" />
+            <scale x="0.242202" y="0.964863" z="0.242202" />
+            <entity name="enemies#17" meshFile="enemies.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="45" />
+                    <property type="2" name="MiniMagmaton" data="0" />
+                    <property type="2" name="Kamikace" data="15" />
+                    <property type="2" name="Intelligent" data="0" />
+                </userData>
+            </entity>
+        </node>
+        <node name="enemies#18" id="974578112">
+            <position x="349.494" y="-50.4923" z="24.7025" />
+            <rotation qw="0.970296" qx="0" qy="0.241922" qz="0" />
+            <scale x="0.242202" y="0.964863" z="0.242202" />
+            <entity name="enemies#18" meshFile="enemies.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="50" />
+                    <property type="2" name="MiniMagmaton" data="10" />
+                    <property type="2" name="Kamikace" data="10" />
+                    <property type="2" name="Intelligent" data="10" />
+                </userData>
+            </entity>
+        </node>
+        <node name="enemies#19" id="439863264">
+            <position x="727.826" y="-50.4923" z="-500.015" />
+            <rotation qw="0.970296" qx="0" qy="0.241922" qz="0" />
+            <scale x="0.242202" y="0.964863" z="0.242202" />
+            <entity name="enemies#19" meshFile="enemies.mesh" castShadows="false">
+                <subentity index="0" materialName="BaseWhite" />
+                <userData>
+                    <property type="2" name="time" data="55" />
+                    <property type="2" name="MiniMagmaton" data="10" />
+                    <property type="2" name="Kamikace" data="10" />
+                    <property type="2" name="Intelligent" data="10" />
+                </userData>
+            </entity>
+        </node>
+        <node name="volcano#7" id="333719904">
+            <position x="-399.709" y="-110.18" z="2691.72" />
+            <rotation qw="0.937865" qx="0.0220873" qy="-0.344634" qz="-0.0338974" />
+            <scale x="2.31806" y="3.56404" z="2.31806" />
+            <entity name="volcano#7" meshFile="volcano.mesh" castShadows="false">
+                <subentity index="0" materialName="volcano" />
+                <userData>
+                    <property type="2" name="time" data="26" />
+                </userData>
+            </entity>
+        </node>
+        <node name="volcano#8" id="221625424">
+            <position x="-463.722" y="-60.0931" z="2568.85" />
+            <rotation qw="0.917951" qx="0.0471697" qy="0.0230162" qz="0.393207" />
+            <scale x="2.31806" y="3.56404" z="2.31806" />
+            <entity name="volcano#8" meshFile="volcano.mesh" castShadows="false">
+                <subentity index="0" materialName="volcano" />
+                <userData>
+                    <property type="2" name="time" data="19" />
+                </userData>
+            </entity>
+        </node>
+        <node name="volcano#9" id="241645552">
+            <position x="-339.75" y="-206.21" z="2357.68" />
+            <rotation qw="0.92208" qx="0.0483754" qy="-0.00704689" qz="0.383899" />
+            <scale x="0.0349386" y="0.0537184" z="0.0349386" />
+            <entity name="volcano#9" meshFile="volcano.mesh" castShadows="false">
+                <subentity index="0" materialName="volcano" />
+                <userData>
+                    <property type="2" name="time" data="29" />
                 </userData>
             </entity>
         </node>

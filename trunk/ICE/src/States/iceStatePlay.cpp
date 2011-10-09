@@ -178,10 +178,14 @@ void iceStatePlay::update(Ogre::Real evt)
 			checkActivableCutScene();
 			if(mCurrentCutScene)
 			{
+				_player->hide();
+				iceDamageTextManager::getSingletonPtr()->hideAll();
+				iceBulletMgr::getSingletonPtr()->destroyAll();
 				mCurrentCutScene->update(evt);
 				if(mCurrentCutScene->hasEnded())
 				{
 					mCurrentCutScene->rollback();
+					_player->show();
 
 					if( _levelID == 2 )
 					{
@@ -263,9 +267,13 @@ void iceStatePlay::update(Ogre::Real evt)
 			if(mCurrentCutScene)
 			{
 				mCurrentCutScene->update(evt);
+				_player->hide();
+				iceDamageTextManager::getSingletonPtr()->hideAll();
+				iceBulletMgr::getSingletonPtr()->destroyAll();
 				if(mCurrentCutScene->hasEnded())
 				{
 					mCurrentCutScene->rollback();
+					_player->show();
 
 					if( _levelID == 2 )
 					{
@@ -367,7 +375,10 @@ bool iceStatePlay::keyPressed(const OIS::KeyEvent &arg) {
 	if (arg.key == OIS::KC_ESCAPE)
     {
 		if(mCurrentCutScene)
+		{
 			mCurrentCutScene->stop();
+			_player->show();
+		}
 		else
 			this->_nextICEStateId = PAUSE;
     }	

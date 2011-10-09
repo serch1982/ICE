@@ -446,6 +446,7 @@ void iceStateManager::goToNextLevel()
 void iceStateManager::goToMainMenu()
 {
 	_ind= false;
+	iceDamageTextManager::getSingletonPtr()->hideAll();
 	_currentState->clear();
 	_currentState->setNextStateId(MAINMENU);
 	iceGame::getSceneManager()->destroyAllCameras();

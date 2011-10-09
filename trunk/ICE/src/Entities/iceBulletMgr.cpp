@@ -213,3 +213,17 @@ iceBullet* iceBulletMgr::getEnemiesActiveBullet()
 
 	return NULL;
 }
+
+
+void iceBulletMgr::destroyAll()
+{
+	for(unsigned int i=0;i<mPlayerBullets.size();i++)
+	{
+		mPlayerBullets[i]->desactivate();
+	}
+
+	for(unsigned int i=0;i<mEnemiesBullets.size();i++)
+	{
+		mEnemiesBullets[i]->desactivate();
+	}
+}

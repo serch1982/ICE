@@ -212,3 +212,12 @@ void iceDamageTextManager::_showMPlayerNotification(Ogre::MovableObject *mov, Og
 
 	mPlayerOverlayOptions.push(options);
 }
+
+void iceDamageTextManager::hideAll()
+{
+	for(unsigned int i=0;i<mTextOverlays.size();i++)
+	{
+		mTextOverlays[i]->disable();
+	}
+	update(0);
+}
