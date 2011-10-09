@@ -62,11 +62,16 @@ void iceStateIntro::load(){
 	try{
 		_sceneManager->setAmbientLight(Ogre::ColourValue(0.25, 0.25, 0.25));
 
+		iceSoundManager* sSound = iceSoundManager::getSingletonPtr();
+		sSound->loadIntro();
+
 		mHikariMgr = iceGame::getUI()->getMenu()->mHikariMgr;
 		mFlash = mHikariMgr->createFlashOverlay("intro", iceGame::getCamera()->getViewport(),  iceGame::getCamera()->getViewport()->getActualWidth(),  iceGame::getCamera()->getViewport()->getActualHeight(), Hikari::Position(Hikari::Center));
 		mFlash->load("intro.swf");
 		mFlash->setTransparent(false, true);
 		mFlash->bind("finIntro", Hikari::FlashDelegate(this, &iceStateIntro::finIntro));
+
+		sSound->PlaySound(0, Ogre::Vector3::ZERO, 0, 0.5 );
 		mFlash->show();
 		//mFlash->hide();
 	}catch(char* ex) {
@@ -97,8 +102,13 @@ Hikari::FlashValue iceStateIntro::finIntro(Hikari::FlashControl* caller, const H
 }
 
 void iceStateIntro::terminaIntro(){
+	iceSoundManager* sSound = iceSoundManager::getSingletonPtr();
+	sSound->StopAllSounds();
+	sSound->unloadIntro();
+
 	mFlash->stop();
 	mFlash->hide();
+
 	//mHikariMgr->destroyFlashControl( mFlash );
 	_nextICEStateId = MAINMENU;
 }
