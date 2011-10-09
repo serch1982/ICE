@@ -42,6 +42,9 @@ class iceCutSceneEntity : public iceTrajectoryFollower
 		void stopAnimations();
 		bool hasAnimationEnded(Ogre::String name);
 
+		void start();
+		void stop();
+
 	protected:
 		static Ogre::NameGenerator mNameGenerator;
 
@@ -55,6 +58,8 @@ class iceCutSceneEntity : public iceTrajectoryFollower
 
 		iceAnimationMgrPtr iceAnimationPtr;
 		iceParticlePtr partice1;
+
+		bool started;
 };
 
 #endif

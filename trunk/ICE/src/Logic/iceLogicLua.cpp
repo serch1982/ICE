@@ -55,6 +55,7 @@ int iceLogicLua::runAllFiles()
 	luaFiles.push_back("./media/scripts/lua/kamikaze.lua");
 	luaFiles.push_back("./media/scripts/lua/volcano.lua");
 	luaFiles.push_back("./media/scripts/lua/StartLevel1.lua");
+	luaFiles.push_back("./media/scripts/lua/EndLevel2.lua");
 
 	for(unsigned int i=0;i<luaFiles.size();i++)
 	{
@@ -137,8 +138,7 @@ void iceLogicLua::bindLuaObjects(){
 				luabind::value("START_DYING",3),
 				luabind::value("DYING",4),
 				luabind::value("DEAD",5),
-				luabind::value("INACTIVE",6),
-				luabind::value("DUMMY",7)
+				luabind::value("INACTIVE",6)
 			]
 		    .def("getState", &iceEnemy::getState )
 		    .def("setState", &iceEnemy::setState )
@@ -161,7 +161,8 @@ void iceLogicLua::bindLuaObjects(){
 				luabind::value("KAMIKACE",3),
 				luabind::value("VOLCANO",4),
 				luabind::value("MAGMATON",5),
-				luabind::value("PIGSHEEP",6)
+				luabind::value("PIGSHEEP",6),
+				luabind::value("DUMMY",7)
 			]
 			.def("setActivationTime", &iceCutScene::setActivationTime )
 		    .def("addEntity", &iceCutScene::addEntity )
@@ -179,6 +180,12 @@ void iceLogicLua::bindLuaObjects(){
 			.def("stopAllSounds", &iceCutScene::stopAllSounds )
 			.def("getCurrentTime", &iceCutScene::getCurrentTime )
 			.def("setEntityLookAt", &iceCutScene::setEntityLookAt )
+			.def("startEntity", &iceCutScene::startEntity )
+			.def("stopEntity", &iceCutScene::stopEntity )
+			.def("showBlur", &iceCutScene::showBlur )
+			.def("hideBlur", &iceCutScene::hideBlur )
+			.def("showToBeContinued", &iceCutScene::showToBeContinued )
+			.def("hideToBeContinued", &iceCutScene::hideToBeContinued )
 	];
 }
 

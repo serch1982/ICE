@@ -60,7 +60,10 @@ void iceLevel::load(std::vector<iceEnemy*>& vectorEnemies, std::vector<iceCutSce
 			// light
 			iceGame::getSceneManager()->setAmbientLight(Ogre::ColourValue(0.25, 0.25, 0.25));
 
-			vectorEnemies.push_back(iceLevelManager::getSingletonPtr()->getDotSceneLoader()->getMagmaton());
+			//vectorEnemies.push_back(iceLevelManager::getSingletonPtr()->getDotSceneLoader()->getMagmaton());
+			vectorCutScenes.push_back(new iceCutScene());
+			vectorCutScenes[0]->initialize("endLevel2CutSceneInit","endLevel2CutSceneUpdate",&(iceLevelManager::getSingletonPtr()->getDotSceneLoader()->getTrajectories()));
+
 			
 			//load sounds
 			soundManager->loadLevelBoss();

@@ -178,6 +178,8 @@ class iceStatePlay: public iceState{
 		Ogre::Real mDownCounter;
 		Ogre::Real mLeftCounter;
 		Ogre::Real mRightCounter;
+
+		bool firstUpdate;
 };
 
 

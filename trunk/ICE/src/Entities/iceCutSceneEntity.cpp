@@ -7,6 +7,7 @@ iceCutSceneEntity::iceCutSceneEntity()
 {
 	mActivationTime = -1;
 	mCurrentTime = 0;
+	started = false;
 }
 
 iceCutSceneEntity::~iceCutSceneEntity()
@@ -113,6 +114,7 @@ bool iceCutSceneEntity::initialize(TYPE pEntityType, Ogre::Vector3 p_Position, O
 			break;
 		case MAGMATON:
 			mesh = sceneManager->createEntity("magmaton.mesh");
+			iceAnimationPtr->addAnimation(mesh->getAnimationState("CutSceneFinal_Clip"));
 			mNode->attachObject(mesh);
 			break;
 		case PIGSHEEP:
@@ -135,6 +137,8 @@ bool iceCutSceneEntity::initialize(TYPE pEntityType, Ogre::Vector3 p_Position, O
 		//Dummy Trajectory
 		setTrajectory(new iceTrajectory());
 	}
+
+	started = true;
 
 	deactivate();
 
@@ -168,7 +172,8 @@ void iceCutSceneEntity::update(Ogre::Real p_TimeSinceLastFrame)
 {
 	if(mIsActive)
 	{
-		iceTrajectoryFollower::update(p_TimeSinceLastFrame);
+		if(started)
+			iceTrajectoryFollower::update(p_TimeSinceLastFrame);
 		iceAnimationPtr->update(p_TimeSinceLastFrame);
 		//mTrajectory->lookAt();
 		if(mTrajectory->hasEnded())
@@ -240,4 +245,14 @@ void iceCutSceneEntity::stopAnimations()
 bool iceCutSceneEntity::hasAnimationEnded(Ogre::String name)
 {
 	return iceAnimationPtr->hasAnimationEnded(name);
+}
+
+void iceCutSceneEntity::start()
+{
+	started = true;
+}
+
+void iceCutSceneEntity::stop()
+{
+	started = false;
 }
