@@ -137,6 +137,7 @@ void iceVolcano::update(Ogre::Real p_timeSinceLastFrame){
 			iceGame::getGameLog()->logMessage("Enemy killed!");
 			giveExperieceToPlayer();
 			mAnimDyingTicks++;
+			iceSoundManager::getSingletonPtr()->PlayExplosion();
 			break;
 		case INACTIVE:
 			if(checkActivationTime(p_timeSinceLastFrame))

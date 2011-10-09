@@ -1,0 +1,24 @@
+material bubble
+{
+	technique
+	{
+		pass
+		{
+			
+			lighting off
+			scene_blend alpha_blend
+			depth_write off
+			diffuse vertexcolour
+
+			point_sprites on
+			point_size 2
+			point_size_attenuation on
+		
+			
+			texture_unit
+			{
+				anim_texture bubble_1.png bubble_2.png bubble_3.png bubble_4.png bubble_5.png bubble_6.png bubble_7.png bubble_8.png bubble_9.png bubble_10.png bubble_11.png bubble_12.png bubble_13.png bubble_14.png bubble_15.png bubble_16.png bubble_17.png bubble_18.png bubble_19.png bubble_20.png bubble_21.png bubble_22.png bubble_23.png bubble_24.png 2.5
+			}
+		}
+	}
+}
