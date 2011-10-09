@@ -10,6 +10,8 @@
 
 iceVolcano::iceVolcano(){
 	iceEnemy::iceEnemy();
+	mBaseLife = 500;
+	mBaseArmor = 100;	
 }
 
 iceVolcano::~iceVolcano(){

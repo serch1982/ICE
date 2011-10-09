@@ -22,8 +22,8 @@
 #define BARREL_ROLL_DISTANCE_MULTIPLIER 0.9 /* hay que tener en cuenta que la velocidad de maniobra maxima se tarda mucho en conseguir, por lo que es normal que el multiplicador sea menos de 1 */
 #define BRAKE_TIME 3
 #define BRAKE_DIVISOR 4
-#define SPRINT_TIME 5 /*3*/
-#define SPRINT_MULTIMPLICATOR 16 /*2*/
+#define SPRINT_TIME 3
+#define SPRINT_MULTIMPLICATOR 2
 
 #define INVULNERABLE_TIME 2
 #define BLINK_TIME 0.2
@@ -585,7 +585,7 @@ void icePlayer::update(Ogre::Real p_timeSinceLastFrame)
 void icePlayer::playShotSound(){
 	iceSoundManager* soundMgr = iceSoundManager::getSingletonPtr();
 	if( mCurrentWeapon == MACHINEGUN ){
-		soundMgr->PlaySound( 1, Ogre::Vector3::ZERO, 0, 0.5 );
+		soundMgr->PlaySound( 1, Ogre::Vector3::ZERO, 0, 0.3 );
 	}else if( mCurrentWeapon == SHOTGUN ){
 		soundMgr->PlaySound( 2, Ogre::Vector3::ZERO, 0, 0.5 );
 	}else if( mCurrentWeapon == MISILE_LAUNCHER ){

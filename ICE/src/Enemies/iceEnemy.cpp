@@ -201,7 +201,7 @@ void iceEnemy::giveExperieceToPlayer(void)
 {
 	if(!mExperienceGived)
 	{
-		icePlayer::getSingletonPtr()->addExperience(mLevel * 10000);
+		icePlayer::getSingletonPtr()->addExperience(mLevel * 600);
 		mExperienceGived = true;
 	}
 }
