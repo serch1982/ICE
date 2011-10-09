@@ -25,6 +25,7 @@ public:
 
 private:
 	Ogre::SceneNode* mLavaNode;
+	Ogre::Entity* mesh;
 	Ogre::Entity* mLavaMesh;
 	bool mLavaCreated;
 	unsigned int mAttackDamage;

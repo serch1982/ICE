@@ -1,5 +1,6 @@
 #include "Enemies\iceVolcano.h"
 #include "iceGame.h"
+#include "Utils/iceDamageTextManager.h"
 
 #define LAVA_UP_TIME 4
 #define LAVA_HOLD_TIME 0.5
@@ -28,7 +29,7 @@ bool iceVolcano::initialize(int id, Ogre::Vector3 p_Position, Ogre::Real p_fActi
 	entityName << "Entity_" << mNameGenerator.generate();
 
 	// loading the mesh and attaching it to he node
-	Ogre::Entity* mesh = sceneManager->createEntity(entityName.str(), "volcano.mesh");
+	mesh = sceneManager->createEntity(entityName.str(), "volcano.mesh");
 	mLavaMesh = sceneManager->createEntity("lava_volcano.mesh");
 	enemyNode->attachObject(mesh);
 	
@@ -172,7 +173,7 @@ bool iceVolcano::detectLavaCollision(Ogre::AxisAlignedBox pbox)
 }
 
 void iceVolcano::showReceivedDamage(unsigned int p_iDamage, bool p_bCritical){
-	iceEnemy::showReceivedDamage(p_iDamage, p_bCritical);
+	iceDamageTextManager::getSingletonPtr()->showEnemyDamage(mesh,p_iDamage,p_bCritical);
 	if(!isAlive()){
 		Ogre::SceneNode* node = iceGame::getSceneManager()->getRootSceneNode()->createChildSceneNode();
 		node->setPosition(enemyNode->_getDerivedPosition());

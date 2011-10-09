@@ -28,6 +28,7 @@ iceStatePlay::iceStatePlay(
 	mRightCounter = 0;
 
 	_mMagmaton = NULL;
+	firstUpdate = false;
 }
 
 iceStatePlay::~iceStatePlay() {
@@ -105,6 +106,8 @@ void iceStatePlay::load() {
 
 			if(iceGame::getSceneManager()->hasSceneNode("debugParentNode"))
 				iceGame::getSceneManager()->getSceneNode("debugParentNode")->setVisible(false);
+
+			firstUpdate = true;
 	}
 }
 
@@ -159,6 +162,10 @@ void iceStatePlay::clear() {
 
 void iceStatePlay::update(Ogre::Real evt)
 {
+	if(evt > 1) {
+		evt = 1/30;
+	}
+
 	//props
 	for(unsigned int i=0;i<mPropAnimations.size();i++)
 	{
@@ -175,6 +182,15 @@ void iceStatePlay::update(Ogre::Real evt)
 				if(mCurrentCutScene->hasEnded())
 				{
 					mCurrentCutScene->rollback();
+
+					if( _levelID == 2 )
+					{
+						if(mCurrentCutScene->getInitFunctionStr().compare("endLevel2CutSceneInit") == 0)
+						{
+							iceGame::getStateManager()->goToNextLevel();
+						}
+					}
+
 					mCurrentCutScene = NULL;
 				}
 			}

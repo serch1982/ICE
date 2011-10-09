@@ -389,6 +389,22 @@ HUD/hud_overlay
 		width 1
 		height 0.13
 		material HUD/cutscene_frame_material
+		
+		container TextArea(HUD/to_be_continued_text)
+		{
+			metrics_mode pixels
+			horz_align right
+			vert_align bottom
+			left -300
+			top -62
+			width 200
+			height 40
+
+			font_name ObelixPro
+			char_height 35
+			colour 1 1 0
+			caption To Be Continued...
+		}
 	}
 	
 	container Panel(HUD/gameover_panel)

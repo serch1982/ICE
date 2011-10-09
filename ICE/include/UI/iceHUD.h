@@ -44,6 +44,9 @@ class iceHUD
 
 		void setCheating(bool pCheating);
 
+		void showToBeContinued();
+		void hideToBeContinued();
+
 	protected:
 		std::vector<std::string> mWeaponNames;
 		std::vector<Ogre::Real> mWeaponCharSizes;
@@ -91,6 +94,8 @@ class iceHUD
 
 		Ogre::TextAreaOverlayElement* mCheatingTextarea;
 
+		Ogre::TextAreaOverlayElement* mToBeContinuedTextarea;
+
 		unsigned int mCurrentFace;
 		bool mShowingFace2;
 		Ogre::Real mFace2Time;
@@ -111,6 +116,7 @@ class iceHUD
 		Ogre::Real mFrameHeight;
 
 		bool mCheating;
+		bool showingToBeContinued;
 };
 
 #endif

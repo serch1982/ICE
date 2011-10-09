@@ -47,9 +47,18 @@ class iceCutScene
 
 		Ogre::Real getCurrentTime();
 
-		void playSound(int i);
+		void playSound(int i, float volume=1);
 		void stopSound(int i);
 		void stopAllSounds();
+
+		void startEntity(int pEntityIndex);
+		void stopEntity(int pEntityIndex);
+
+		void showBlur();
+		void hideBlur();
+
+		void showToBeContinued();
+		void hideToBeContinued();
 
 	protected:
 		//static Ogre::NameGenerator mNameGenerator;
@@ -70,6 +79,7 @@ class iceCutScene
 		void removeBands(void);
 
 		Ogre::Real mCurrentTime;
+		bool cameraStarted;
 };
 
 #endif

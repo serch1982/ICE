@@ -1,6 +1,7 @@
 #include "Level/iceCutScene.h"
 #include "Logic/iceLogicLua.h"
 #include "iceGame.h"
+#include "PostProcess\icePostProcessManager.h"
 
 //Ogre::NameGenerator iceCutSceneEntity::mNameGenerator("CutSceneEntity_");
 
@@ -28,6 +29,7 @@ bool iceCutScene::initialize(Ogre::String pInitFunctionStr,Ogre::String pUpdateF
 
 	iceLogicLua::getInstance()->initCutScene(this);
 	mCurrentTime = 0;
+	cameraStarted = true;
 
 
 	//initializeEntities();
@@ -50,7 +52,8 @@ void iceCutScene::update(Ogre::Real p_TimeSinceLastFrame)
 	if(!mIsPlaying)
 		return;
 	mCurrentTime += p_TimeSinceLastFrame;
-	mCameraEntity->update(p_TimeSinceLastFrame);
+	if(cameraStarted)
+		mCameraEntity->update(p_TimeSinceLastFrame);
 	for(unsigned int i=0;i<mEntities.size();i++)
 	{
 		mEntities[i]->update(p_TimeSinceLastFrame);
@@ -132,6 +135,7 @@ bool iceCutScene::hasEnded(void)
 
 void iceCutScene::stop(void)
 {
+	hideToBeContinued();
 	//remove overlay bands
 	removeBands();
 	//restore camera
@@ -229,9 +233,9 @@ Ogre::Real iceCutScene::getCurrentTime()
 	return mCurrentTime;
 }
 
-void iceCutScene::playSound(int i)
+void iceCutScene::playSound(int i, float volume)
 {
-	iceSoundManager::getSingletonPtr()->PlaySound(i,Ogre::Vector3::ZERO,0,1);
+	iceSoundManager::getSingletonPtr()->PlaySound(i,Ogre::Vector3::ZERO,0,volume);
 }
 
 void iceCutScene::stopSound(int i)
@@ -242,4 +246,48 @@ void iceCutScene::stopSound(int i)
 void iceCutScene::stopAllSounds()
 {
 	iceSoundManager::getSingletonPtr()->StopAllSounds();
+}
+
+void iceCutScene::startEntity(int pEntityIndex)
+{
+	if(pEntityIndex == -1)
+	{
+		cameraStarted = true;
+	}
+	else
+	{
+		mEntities[(unsigned int)pEntityIndex]->start();
+	}
+}
+
+void iceCutScene::stopEntity(int pEntityIndex)
+{
+	if(pEntityIndex == -1)
+	{
+		cameraStarted = false;
+	}
+	else
+	{
+		mEntities[(unsigned int)pEntityIndex]->stop();
+	}
+}
+
+void iceCutScene::showBlur()
+{
+	icePostProcessManager::getSingleton().enableHardBlur();
+}
+
+void iceCutScene::hideBlur()
+{
+	icePostProcessManager::getSingleton().disableBlur();
+}
+
+void iceCutScene::showToBeContinued()
+{
+	iceGame::getUI()->getHUD()->showToBeContinued();
+}
+
+void iceCutScene::hideToBeContinued()
+{
+	iceGame::getUI()->getHUD()->hideToBeContinued();
 }

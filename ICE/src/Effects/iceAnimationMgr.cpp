@@ -24,7 +24,8 @@ void iceAnimationMgr::startAnimation(Ogre::String name)
 	stopAllAnimations();
 	mAnimations[name].animation->setEnabled(true);
 	activeAnimation = name;
-	iddleAnimation->setWeight(mAnimations[name].iddleWeight);
+	if(iddleAnimation)
+		iddleAnimation->setWeight(mAnimations[name].iddleWeight);
 }
 
 void iceAnimationMgr::stopAllAnimations(){
@@ -34,7 +35,8 @@ void iceAnimationMgr::stopAllAnimations(){
 		((*iter).second).animation->setTimePosition(0);
 	}
 	activeAnimation ="";
-	iddleAnimation->setWeight(1);
+	if(iddleAnimation)
+		iddleAnimation->setWeight(1);
 }
 
 void iceAnimationMgr::update(Ogre::Real time){
@@ -106,5 +108,6 @@ void iceAnimationMgr::startDyingAnimation()
 	stopAllAnimations();
 	dyingAnimation->setTimePosition(0);
 	dyingAnimation->setEnabled(true);
-	iddleAnimation->setWeight(0);
+	if(iddleAnimation)
+		iddleAnimation->setWeight(0);
 }

@@ -79,6 +79,8 @@ void iceHUD::init(iceStateManager* pStateManager)
 
 	mCheatingTextarea = static_cast<Ogre::TextAreaOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/cheating_text"));
 
+	mToBeContinuedTextarea = static_cast<Ogre::TextAreaOverlayElement*>(Ogre::OverlayManager::getSingleton().getOverlayElement("HUD/to_be_continued_text"));
+
 	mFrameHeight = mTopFramePanel->getHeight();
 	mTopFramePanel->hide();
 	mBottomFramePanel->hide();
@@ -109,6 +111,9 @@ void iceHUD::init(iceStateManager* pStateManager)
 
 	mGameoverPanel->hide();
 	mCheating = false;
+
+	mToBeContinuedTextarea->hide();
+	showingToBeContinued = false;
 }
 
 void iceHUD::show()
@@ -216,6 +221,11 @@ void iceHUD::update(Ogre::Real pTimeSinceLastFrame)
 	else
 	{
 		mCheatingTextarea->setCaption("");
+	}
+
+	if(showingToBeContinued)
+	{
+		mToBeContinuedTextarea->setCaption("To Be Continued...");
 	}
 }
 
@@ -403,4 +413,16 @@ void iceHUD::hideGameover()
 void iceHUD::setCheating(bool pCheating)
 {
 	mCheating = pCheating;
+}
+
+void iceHUD::showToBeContinued()
+{
+	mToBeContinuedTextarea->show();
+	showingToBeContinued = true;
+}
+
+void iceHUD::hideToBeContinued()
+{
+	mToBeContinuedTextarea->hide();
+	showingToBeContinued = false;
 }

@@ -293,11 +293,13 @@ void iceSoundManager::unloadLevel1(){
 // Load level Boss sounds
 void iceSoundManager::loadLevelBoss(){
 	CreateSound( Ogre::String( "levelBoss.mp3" ), SOUND_TYPE_2D_SOUND_LOOPED, 0);
+	loadMagmacion();
 }
 
 // Unload level Boss sounds
 void iceSoundManager::unloadLevelBoss(){
 	(*mSoundVector)[0]->Finalize();
+	unloadMagmacion();
 }
 
 // Load sounds for all levels
@@ -331,10 +333,14 @@ void iceSoundManager::loadSounds(){
 
 void iceSoundManager::loadMagmacion(){
 	CreateSound( Ogre::String( "Magmacion.mp3" ), SOUND_TYPE_2D_SOUND, 26 );
+	CreateSound( Ogre::String( "rugido.mp3" ), SOUND_TYPE_2D_SOUND, 27 );
+	CreateSound( Ogre::String( "rugidito.mp3" ), SOUND_TYPE_2D_SOUND, 28 );
 }
 
 void iceSoundManager::unloadMagmacion(){
 	(*mSoundVector)[26]->Finalize();
+	(*mSoundVector)[27]->Finalize();
+	(*mSoundVector)[28]->Finalize();
 }
 
 // Unload sounds for all levels
