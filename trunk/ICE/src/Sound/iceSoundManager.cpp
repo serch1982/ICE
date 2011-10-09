@@ -343,6 +343,14 @@ void iceSoundManager::unloadMagmacion(){
 	(*mSoundVector)[28]->Finalize();
 }
 
+void iceSoundManager::loadIntro(){
+	CreateSound( Ogre::String( "intro.mp3" ), SOUND_TYPE_2D_SOUND_LOOPED, 0);
+}
+
+void iceSoundManager::unloadIntro(){
+	(*mSoundVector)[0]->Finalize();
+}
+
 // Unload sounds for all levels
 void iceSoundManager::unloadSounds(){
 	(*mSoundVector)[1]->Finalize();
