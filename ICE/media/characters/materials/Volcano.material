@@ -37,7 +37,7 @@ material volcano
 			
 			vertex_program_ref Outline
 			{
-				param_named offset float 0.05
+				param_named offset float 0.01
 			}			
 			fragment_program_ref Black
 			{

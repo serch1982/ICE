@@ -55,18 +55,18 @@ material Lava_lake_mat
 		{
 			vertex_program_ref Cg/Ocean2VS
 			{
-				param_named BumpScale float 1
+				param_named BumpScale float 2
 				param_named textureScale float2 1 1
-				param_named bumpSpeed float2 0.1 0.1
+				param_named bumpSpeed float2 0.01 0.01
 				param_named_auto time time_0_x 10.0
-				param_named waveFreq float 1
+				param_named waveFreq float 0.03
 				param_named waveAmp float 1
 			}
 
 			fragment_program_ref Cg/Ocean2FS
 			{
-				param_named deepColor float4 1 0 0 1.0
-				param_named shallowColor float4 1 1 0 1.0
+				param_named deepColor float4 1 1 0 1.0
+				param_named shallowColor float4 1 0.3 0 1.0
 				param_named reflectionColor float4 1 1 1 1.0
 				param_named reflectionAmount float 0.0
 				param_named reflectionBlur float 0.0
