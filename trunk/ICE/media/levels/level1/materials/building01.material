@@ -39,7 +39,7 @@ material Building11
 			
 			vertex_program_ref Outline
 			{
-				param_named offset float 0.3
+				param_named offset float 0.03
 			}			
 			fragment_program_ref Black
 			{
