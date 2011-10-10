@@ -94,7 +94,7 @@ ICEStateId iceStateIntro::getStateId(){
 
 void iceStateIntro::update(Ogre::Real evt){
 	mCurrentTime += evt;
-	if( mCurrentTime > 30 )
+	if( mCurrentTime > 57.4 )
 		terminaIntro();
 	else
 		mHikariMgr->update();
