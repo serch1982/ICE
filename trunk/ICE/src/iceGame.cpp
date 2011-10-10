@@ -116,9 +116,9 @@ bool iceGame::initialiseOgre() {
     _root = new Ogre::Root(_pluginsCfg, _ogreCfg, _ogreLog); 
 
     // ogre config dialog
-    if (!_root->showConfigDialog()) {
+    //if (!_root->showConfigDialog()) {
 	// load config from _ogreCfg
-	//if (!_root->restoreConfig() && !_root->showConfigDialog()) {
+	if (!_root->restoreConfig() && !_root->showConfigDialog()) {
         _log->logMessage("iceGame::initialiseOgre() -> the config dialog was cancelled");
         return false;
     }

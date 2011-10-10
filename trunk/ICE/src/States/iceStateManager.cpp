@@ -217,61 +217,61 @@ void iceStateManager::changeState(iceState* icestate) {
 }
 
 bool iceStateManager::keyPressed(const OIS::KeyEvent &arg) {
-	if (arg.key == OIS::KC_P)
-    {
-        exitGame();
-    }else if (arg.key == OIS::KC_F3)   //show chivatos and stats
-    {
-		iceSdkTray::getInstance()->showInfo();
-		iceSdkTray::getInstance()->showFrameStats();
-    }else if (arg.key == OIS::KC_F4)   //show chivatos and stats
-    {
-        iceSdkTray::getInstance()->hideInfo();
-		iceSdkTray::getInstance()->hideFrameStats();
-    }
-    else if (arg.key == OIS::KC_F5)   // cycle polygon rendering mode
-    {
-        Ogre::String newVal;
-        Ogre::PolygonMode pm;
+	//if (arg.key == OIS::KC_P)
+ //   {
+ //       exitGame();
+ //   }else if (arg.key == OIS::KC_F3)   //show chivatos and stats
+ //   {
+	//	iceSdkTray::getInstance()->showInfo();
+	//	iceSdkTray::getInstance()->showFrameStats();
+ //   }else if (arg.key == OIS::KC_F4)   //show chivatos and stats
+ //   {
+ //       iceSdkTray::getInstance()->hideInfo();
+	//	iceSdkTray::getInstance()->hideFrameStats();
+ //   }
+ //   else if (arg.key == OIS::KC_F5)   // cycle polygon rendering mode
+ //   {
+ //       Ogre::String newVal;
+ //       Ogre::PolygonMode pm;
 
-        switch (iceGame::getCamera()->getPolygonMode())
-        {
-        case Ogre::PM_SOLID:
-            newVal = "Wireframe";
-            pm = Ogre::PM_WIREFRAME;
-            break;
-        case Ogre::PM_WIREFRAME:
-            newVal = "Points";
-            pm = Ogre::PM_POINTS;
-            break;
-        default:
-            newVal = "Solid";
-            pm = Ogre::PM_SOLID;
-        }
+ //       switch (iceGame::getCamera()->getPolygonMode())
+ //       {
+ //       case Ogre::PM_SOLID:
+ //           newVal = "Wireframe";
+ //           pm = Ogre::PM_WIREFRAME;
+ //           break;
+ //       case Ogre::PM_WIREFRAME:
+ //           newVal = "Points";
+ //           pm = Ogre::PM_POINTS;
+ //           break;
+ //       default:
+ //           newVal = "Solid";
+ //           pm = Ogre::PM_SOLID;
+ //       }
 
-        iceGame::getCamera()->setPolygonMode(pm);		
-		iceSdkTray::getInstance()->updateScreenInfo(7, newVal);
-    }
-    else if(arg.key == OIS::KC_F6)   // refresh all textures
-    {
-        Ogre::TextureManager::getSingleton().reloadAll();
-    }
-    else if (arg.key == OIS::KC_SYSRQ || arg.key == OIS::KC_F12)   // take a screenshot
+ //       iceGame::getCamera()->setPolygonMode(pm);		
+	//	iceSdkTray::getInstance()->updateScreenInfo(7, newVal);
+ //   }
+ //   else if(arg.key == OIS::KC_F6)   // refresh all textures
+ //   {
+ //       Ogre::TextureManager::getSingleton().reloadAll();
+ //   }
+    if (arg.key == OIS::KC_SYSRQ || arg.key == OIS::KC_F12)   // take a screenshot
     {
         iceGame::getRenderWindow()->writeContentsToTimestampedFile("screenshots/ICE-screenshot", ".png");
-    }else if (arg.key == OIS::KC_F1)
-    {
-		icePostProcessManager::getSingleton().disableBlur();
-		_godCamera->setPosition(icePlayer::getSingletonPtr()->getPosition());
-		iceGame::setCamera(_godCamera);
-    }else if (arg.key == OIS::KC_F2)
-    {
-		iceGame::setCamera(_oldCamera);
-		icePostProcessManager::getSingleton().enableSoftBlur();
-    }
-	else if (arg.key == OIS::KC_N)
-    {
-		goToNextLevel();
+ //   }else if (arg.key == OIS::KC_F1)
+ //   {
+	//	icePostProcessManager::getSingleton().disableBlur();
+	//	_godCamera->setPosition(icePlayer::getSingletonPtr()->getPosition());
+	//	iceGame::setCamera(_godCamera);
+ //   }else if (arg.key == OIS::KC_F2)
+ //   {
+	//	iceGame::setCamera(_oldCamera);
+	//	icePostProcessManager::getSingleton().enableSoftBlur();
+ //   }
+	//else if (arg.key == OIS::KC_N)
+ //   {
+	//	goToNextLevel();
     }
 	_sdkCameraMan->injectKeyDown(arg);
     return this->_currentState->keyPressed(arg);
