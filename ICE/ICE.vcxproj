@@ -78,7 +78,7 @@
     </Link>
     <PostBuildEvent>
       <Message>Copying exe to samples bin directory ...</Message>
-      <Command>xcopy "$(OGRE_HOME)\Bin\$(ConfigurationName)\*.dll" "$(OutDir)" /s/e/d/i/y
+      <Command>xcopy "$(SolutionDir)externals\OgreSDK_vc10_v1-7-2\Bin\$(ConfigurationName)\*.dll" "$(OutDir)" /s/e/d/i/y
 xcopy "$(SolutionDir)media" "$(OutDir)media\" /s/e/d/i/y
 xcopy "$(SolutionDir)configuration" "$(OutDir)configuration\" /s/e/d/i/y
 xcopy "$(SolutionDir)lib\$(Configuration)\*.dll" "$(OutDir)" /s/e/d/i/y
@@ -120,7 +120,7 @@ if not exist "$(OutDir)screenshots" mkdir "$(OutDir)screenshots"</Command>
     </Link>
     <PostBuildEvent>
       <Message>Copying exe to samples bin directory ...</Message>
-      <Command>xcopy "$(OGRE_HOME)\Bin\$(ConfigurationName)\*.dll" "$(OutDir)" /s/e/d/i/y
+      <Command>xcopy "$(SolutionDir)externals\OgreSDK_vc10_v1-7-2\Bin\$(ConfigurationName)\*.dll" "$(OutDir)" /s/e/d/i/y
 xcopy "$(SolutionDir)media" "$(OutDir)media\" /s/e/d/i/y
 xcopy "$(SolutionDir)configuration" "$(OutDir)configuration\" /s/e/d/i/y
 xcopy "$(SolutionDir)lib\$(Configuration)\*.dll" "$(OutDir)" /s/e/d/i/y
