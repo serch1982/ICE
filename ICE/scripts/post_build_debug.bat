@@ -3,8 +3,8 @@ set ConfigurationName=debug
 set OutDir=..\bin\debug\
 set SolutionDir=..\
 
-echo xcopy "%OGRE_HOME%\Bin\%ConfigurationName%\*.dll" "%OutDir%" /s/e/d/i/y
-xcopy "%OGRE_HOME%\Bin\%ConfigurationName%\*.dll" "%OutDir%" /s/e/d/i/y
+echo xcopy "..\externals\OgreSDK_vc10_v1-7-2\Bin\%ConfigurationName%\*.dll" "%OutDir%" /s/e/d/i/y
+xcopy "..\externals\OgreSDK_vc10_v1-7-2\Bin\%ConfigurationName%\*.dll" "%OutDir%" /s/e/d/i/y
 
 echo xcopy "%SolutionDir%media" "%OutDir%media\" /s/e/d/i/y
 xcopy "%SolutionDir%media" "%OutDir%media\" /s/e/d/i/y

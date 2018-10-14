@@ -432,31 +432,31 @@ bool iceStatePlay::keyPressed(const OIS::KeyEvent &arg) {
 		mRightCounter = DOUBLE_KEY_TIME;
 		_player->setMovingRight(true);
     }
-	//else if(arg.key == OIS::KC_Z)   // heal
- //   {
-	//	_player->levelUp();
- //   }
-	//else if(arg.key == OIS::KC_U)   // heal
- //   {
-	//	mHUD->showFrame();
- //   }
-	//else if(arg.key == OIS::KC_I)   // heal
- //   {
-	//	mHUD->hideFrame();
- //   }
-	//else if(arg.key == OIS::KC_C)
- //   {
-	//	if(mState == CHEATING)
-	//	{
-	//		mState = NORMAL;
-	//		mHUD->setCheating(false);
-	//	}
-	//	else
-	//	{
-	//		mState = CHEATING;
-	//		mHUD->setCheating(true);
-	//	}
- //   }
+	else if(arg.key == OIS::KC_Z)   // heal
+    {
+		_player->levelUp();
+    }
+	else if(arg.key == OIS::KC_U)   // heal
+    {
+		mHUD->showFrame();
+    }
+	else if(arg.key == OIS::KC_I)   // heal
+    {
+		mHUD->hideFrame();
+    }
+	else if(arg.key == OIS::KC_C)
+    {
+		if(mState == CHEATING)
+		{
+			mState = NORMAL;
+			mHUD->setCheating(false);
+		}
+		else
+		{
+			mState = CHEATING;
+			mHUD->setCheating(true);
+		}
+    }
 	else if(arg.key == OIS::KC_SPACE)
     {
 		if(mState == SHOWIN_GAMEOVER)

@@ -62,7 +62,7 @@
       <FloatingPointModel>Fast</FloatingPointModel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>externals\ParticleUniverse;externals\FMOD;externals;externals\rapidxml;externals\HIKARI;include;$(OGRE_HOME)\include;$(OGRE_HOME)\include\OIS;$(OGRE_HOME)\include\OGRE;$(OGRE_HOME)\Samples\Common\include;$(OGRE_HOME)\boost_1_42;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>externals\ParticleUniverse;externals\FMOD;externals;externals\rapidxml;externals\HIKARI;include;externals\OgreSDK_vc10_v1-7-2\include;externals\OgreSDK_vc10_v1-7-2\include\OIS;externals\OgreSDK_vc10_v1-7-2\include\OGRE;externals\OgreSDK_vc10_v1-7-2\Samples\Common\include;externals\OgreSDK_vc10_v1-7-2\boost_1_42;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnablePREfast>false</EnablePREfast>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
@@ -73,7 +73,7 @@
       <ProgramDatabaseFile>$(OutDir)/newICE.pdb</ProgramDatabaseFile>
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalLibraryDirectories>lib\debug;$(OGRE_HOME)\lib\debug;$(OGRE_HOME)\boost_1_42\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>lib\debug;externals\OgreSDK_vc10_v1-7-2\lib\debug;externals\OgreSDK_vc10_v1-7-2\boost_1_42\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>OgreMain_d.lib;OIS_d.lib;Hikari.lib;OgreTerrain_d.lib;lua5.1.lib;luabind_d.lib;fmodexL_vc.lib;ParticleUniverse_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
@@ -106,7 +106,7 @@ if not exist "$(OutDir)screenshots" mkdir "$(OutDir)screenshots"</Command>
       <StringPooling>true</StringPooling>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <FloatingPointModel>Fast</FloatingPointModel>
-      <AdditionalIncludeDirectories>externals\ParticleUniverse;externals\FMOD;externals;externals\rapidxml;externals\HIKARI;include;$(OGRE_HOME)\include;$(OGRE_HOME)\include\OIS;$(OGRE_HOME)\include\OGRE;$(OGRE_HOME)\Samples\Common\include;$(OGRE_HOME)\boost_1_42;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>externals\ParticleUniverse;externals\FMOD;externals;externals\rapidxml;externals\HIKARI;include;externals\OgreSDK_vc10_v1-7-2\include;externals\OgreSDK_vc10_v1-7-2\include\OIS;externals\OgreSDK_vc10_v1-7-2\include\OGRE;externals\OgreSDK_vc10_v1-7-2\Samples\Common\include;externals\OgreSDK_vc10_v1-7-2\boost_1_42;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/MP %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
@@ -115,7 +115,7 @@ if not exist "$(OutDir)screenshots" mkdir "$(OutDir)screenshots"</Command>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
-      <AdditionalLibraryDirectories>lib\Release;$(OGRE_HOME)\lib\release;$(OGRE_HOME)\boost_1_42\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>lib\Release;externals\OgreSDK_vc10_v1-7-2\lib\release;externals\OgreSDK_vc10_v1-7-2\boost_1_42\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>OgreMain.lib;OIS.lib;Hikari.lib;OgreTerrain.lib;lua5.1.lib;luabind.lib;fmodex_vc.lib;ParticleUniverse.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
